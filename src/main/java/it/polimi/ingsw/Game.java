@@ -58,19 +58,26 @@ public class Game {
     private int numberOfTowersPerPlayer;
 
     /**
+     * Number of strdents that each Player can has in his entrance
+     */
+    private int numberStudentsEntrance;
+
+
+
+    /**
      * Constructor: creates a game relying on the number of players given
-     * @param numberOfPlayers
+     *
      * @return the game
      */
-    public Game(int numberOfPlayers){
+    public Game(){
 
         players=null;
 
-        bag.put(Colour.GREEN, 26);
-        bag.put(Colour.RED, 26);
-        bag.put(Colour.YELLOW, 26);
-        bag.put(Colour.PINK, 26);
-        bag.put(Colour.BLUE, 26);
+        bag.put(Colour.GREEN, 24);
+        bag.put(Colour.RED, 24);
+        bag.put(Colour.YELLOW, 24);
+        bag.put(Colour.PINK, 24);
+        bag.put(Colour.BLUE, 24);
 
         islands=new ArrayList<GroupIsland>();
         for(int i=0;i<12;i++){
@@ -85,14 +92,11 @@ public class Game {
 
         characterCards=null;
 
-        if(numberOfPlayers==2){
-            studentNumberMovement=3;
-            numberOfTowersPerPlayer=8;
-        }
-        if(numberOfPlayers==3){
-            studentNumberMovement=4;
-            numberOfTowersPerPlayer=6;
-        }
+        studentNumberMovement=0;
+
+        numberOfTowersPerPlayer=0;
+
+        numberStudentsEntrance=0;
 
         characterCards=null;
 
@@ -100,10 +104,9 @@ public class Game {
     }
 
 
-
-
     /**
      * Adds a Player to the match
+     *
      * @param player
      */
     public void addPlayer(Player player){
@@ -183,12 +186,52 @@ public class Game {
     }
 
     /**
+     * Sets the number of students that a Player has in the entrance of his school board
+     *
+     * @param numberStudentsEntrance
+     */
+    public void setNumberStudentsEntrance(int numberStudentsEntrance) {
+        this.numberStudentsEntrance = numberStudentsEntrance;
+    }
+
+    /**
+     * Sets the number of students that a Player can move in a round
+     *
+     * @param studentNumberMovement
+     */
+    public void setStudentNumberMovement(int studentNumberMovement) {
+        this.studentNumberMovement = studentNumberMovement;
+    }
+
+    /**
+     * Sets the number of students that a Player can move in a round
+     *
+     * @param numberOfTowersPerPlayer
+     */
+    public void setNumberOfTowersPerPlayer(int numberOfTowersPerPlayer) {
+        this.numberOfTowersPerPlayer = numberOfTowersPerPlayer;
+    }
+
+    /**
+     * States if two groups of islands are unifiable or not
+     *
+     * @param groupIsland1
+     * @param groupIsland2
+     * @return true if the two groups of islands are unifiable
+     */
+    public boolean areIslandsUnifiable(GroupIsland groupIsland1,GroupIsland groupIsland2){
+        if(islands.indexOf(groupIsland1)==islands.indexOf(groupIsland2)+1||islands.indexOf(groupIsland2)==islands.indexOf(groupIsland1)+1||(islands.indexOf(groupIsland1)==0&&islands.indexOf(groupIsland2)==islands.size()-1)||(islands.indexOf(groupIsland2)==0&&islands.indexOf(groupIsland1)==islands.size()-1))
+            return true;
+        else return false;
+    }
+
+
+    /**
      *  getter
      */
     public List<Player> getPlayers() {
         return players;
     }
-
 
     public HashMap<Colour, Integer> getBag() {
         return bag;
@@ -216,5 +259,13 @@ public class Game {
 
     public int getStudentNumberMovement() {
         return studentNumberMovement;
+    }
+
+    public int getNumberOfTowersPerPlayer() {
+        return numberOfTowersPerPlayer;
+    }
+
+     int getNumberStudentsEntrance() {
+        return numberStudentsEntrance;
     }
 }
