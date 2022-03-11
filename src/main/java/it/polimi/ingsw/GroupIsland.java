@@ -13,7 +13,7 @@ public class GroupIsland {
     /**
      * A list containing all the islands that form a GroupIsland
      */
-    private List<SingleIsland> islandsContained;
+    private final List<SingleIsland> islandsContained;
 
     /**
      * A boolean that states if motherNature is present on the island (true) or not (false)
@@ -37,7 +37,7 @@ public class GroupIsland {
 
         influencePlayer = null;
 
-        islandsContained = new ArrayList<SingleIsland>();
+        islandsContained = new ArrayList<>();
         islandsContained.add(new SingleIsland());
 
         motherNature = false;
@@ -88,30 +88,49 @@ public class GroupIsland {
 
     public void changeInfluence(Player newInfluencePlayer){
 
+        if (calculateInfluence(newInfluencePlayer) > calculateInfluence(influencePlayer)){
+            influencePlayer = newInfluencePlayer;
+        }
     }
 
     /**
      * Removes motherNature from the GroupIsland considered
      */
     public void removeMotherNature(){
-
+        motherNature = false;
     }
 
     /**
      * Places motherNature on the GroupIsland considered
      */
     public void placeMotherNature(){
-
+        motherNature = true;
     }
 
     /**
      * Calculates the influcence of the given player on the island
      *
      * @param player
-     * @return the influence of the given player on the island
+     * @return an int which states the influence of the given player on the island
      */
     public int calculateInfluence (Player player){
 
+        for(Colour colour : Colour.values()){
+            if(player.hasProfessor(colour)){
+
+            }
+        }
+        return influence;
+    }
+
+    /**
+     * Calculates the influence of the given player ignoring the colour given in the calculation
+     *
+     * @param player
+     * @param colour
+     * @return an int which states the influence of the given player on the island ignoring the given colour
+     */
+    public int calculateInfluenceWithoutColour(Player player, Colour colour){
         return influence;
     }
 

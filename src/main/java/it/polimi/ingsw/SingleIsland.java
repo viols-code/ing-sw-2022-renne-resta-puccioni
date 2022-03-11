@@ -14,13 +14,20 @@ public class SingleIsland {
     /**
      * A HashMap containing al the students that are on the SingleIsland
      */
-    private HashMap<Colour, Integer> students;
+    private final HashMap<Colour, Integer> students;
 
     /**
      * Constructor: creates an empty SingleIsland
      */
     public SingleIsland(){
-        students = null;
+
+        students = new HashMap<>();
+
+        students.put(Colour.GREEN, 0);
+        students.put(Colour.RED, 0);
+        students.put(Colour.YELLOW, 0);
+        students.put(Colour.PINK, 0);
+        students.put(Colour.BLUE, 0);
     }
 
     /**
@@ -39,6 +46,8 @@ public class SingleIsland {
      * @param colour
      */
     public void addStudent(Colour colour){
+
+        students.replace(colour, students.get(colour), students.get(colour) + 1);
 
     }
 
