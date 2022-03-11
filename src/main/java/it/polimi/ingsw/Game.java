@@ -15,17 +15,17 @@ public class Game {
     /**
      * A List containing the players in the match
      */
-    private List<Player> players;
+    private final List<Player> players;
 
     /**
      * A Map containing the number of students for each colour in the bag
      */
-    private HashMap<Colour,Integer> bag;
+    private final HashMap<Colour,Integer> bag;
 
     /**
      * A List containing the Groups of island in the match
      */
-    private List<GroupIsland> islands;
+    private final List<GroupIsland> islands;
 
     /**
      * Number of the current round
@@ -40,12 +40,12 @@ public class Game {
     /**
      * A List containing the cloudTiles
      */
-    private List<CloudTile> cloudTiles;
+    private final List<CloudTile> cloudTiles;
 
     /**
      * A List containing the character cards drawn for the match
      */
-    private List<CharacterCard> characterCards;
+    private final List<CharacterCard> characterCards;
 
     /**
      * Number of student that each Player has to move in a round
@@ -58,56 +58,50 @@ public class Game {
     private int numberOfTowersPerPlayer;
 
     /**
-     * Number of strdents that each Player can has in his entrance
+     * Number of students that each Player can have in his entrance
      */
     private int numberStudentsEntrance;
 
 
-
     /**
      * Constructor: creates a game relying on the number of players given
-     *
-     * @return the game
      */
     public Game(){
 
-        players=null;
+        players = new ArrayList<>();
 
+        bag = new HashMap<>();
         bag.put(Colour.GREEN, 24);
         bag.put(Colour.RED, 24);
         bag.put(Colour.YELLOW, 24);
         bag.put(Colour.PINK, 24);
         bag.put(Colour.BLUE, 24);
 
-        islands=new ArrayList<GroupIsland>();
-        for(int i=0;i<12;i++){
+        islands = new ArrayList<>();
+        for(int i = 0; i < 12; i++){
             islands.add(new GroupIsland());
         }
 
-        round=0;
+        round = 0;
 
-        currentPlayer=null;
+        currentPlayer = null;
 
-        cloudTiles=null;
+        cloudTiles = new ArrayList<>();
 
-        characterCards=null;
+        characterCards = new ArrayList<>();
 
-        studentNumberMovement=0;
+        studentNumberMovement = 0;
 
-        numberOfTowersPerPlayer=0;
+        numberOfTowersPerPlayer = 0;
 
-        numberStudentsEntrance=0;
-
-        characterCards=null;
-
-
+        numberStudentsEntrance = 0;
     }
 
 
     /**
      * Adds a Player to the match
      *
-     * @param player
+     * @param player the player to be added to the game
      */
     public void addPlayer(Player player){
         this.players.add(player);
@@ -116,61 +110,74 @@ public class Game {
     /**
      * Remove a player from the match
      *
-     * @param player
+     * @param player the player to be removed from the game
+     * @throws IllegalArgumentException if the player is not in the game
      */
-    public void removePlayer(Player player){
+    public void removePlayer(Player player) throws IllegalArgumentException{
+        if(! players.contains(player)){
+            throw new IllegalArgumentException("This player is not in the game");
+        }
+
         this.players.remove(player);
+    }
+
+    public Player nextPlayer(){
+        return players.get((players.indexOf(currentPlayer) + 1) % players.size());
     }
 
     /**
      * Add a student to the bag
      *
-     * @param colour
+     * @param colour the colour of the student to be added
      */
     public void addStudentBag(Colour colour){
-        int currentValue=bag.get(colour);
-        bag.put(colour,currentValue+1);
+        int currentValue = bag.get(colour);
+        bag.replace(colour, bag.get(colour),bag.get(colour) + 1);
     }
 
     /**
      * Remove a student from the bag
      *
-     * @param colour
+     * @param colour the colour of the student to be removed
+     * @throws IllegalArgumentException if there are no student of the given colour
      */
-    public void removeStudentBag(Colour colour){
-        int currentValue=bag.get(colour);
-        bag.put(colour,currentValue-1);
+    public void removeStudentBag(Colour colour) throws IllegalArgumentException{
+        if(bag.get(colour) == 0){
+            throw new IllegalArgumentException("There are no student of colour " +
+                    colour.name().toLowerCase() + "in the bag");
+        }
+        bag.replace(colour, bag.get(colour),bag.get(colour) - 1);
     }
 
     /**
      * Remove a group of islands from the list
      *
-     * @param groupIsland
+     * @param groupIsland the groupIsland to be removed
      */
     public void removeGroupIsland(GroupIsland groupIsland){
-        islands.remove(groupIsland);
+       islands.remove(groupIsland);
     }
 
     /**
      * Increments the round number
      */
     public void incrementRound(){
-        round+=1;
+        round += 1;
     }
 
     /**
      * Changes the current Player
      *
-     * @param player
+     * @param player the current player
      */
     public void changeCurrentPlayer(Player player){
-        currentPlayer=player;
+        currentPlayer = player;
     }
 
     /**
      * Add a Cloud Tile, this is done at the beginning of a round
      *
-     * @param cloudTile
+     * @param cloudTile the cloud to be added to the game
      */
     public void addCLoudTile(CloudTile cloudTile){
         cloudTiles.add(cloudTile);
@@ -179,7 +186,7 @@ public class Game {
     /**
      * Remove a Cloud Tile because a player chose it
      *
-     * @param cloudTile
+     * @param cloudTile the cloud tile chosen by one player
      */
     public void removeCLoudTile(CloudTile cloudTile){
         cloudTiles.remove(cloudTile);
@@ -188,7 +195,7 @@ public class Game {
     /**
      * Sets the number of students that a Player has in the entrance of his school board
      *
-     * @param numberStudentsEntrance
+     * @param numberStudentsEntrance number of students that a Player has in the entrance of his school board
      */
     public void setNumberStudentsEntrance(int numberStudentsEntrance) {
         this.numberStudentsEntrance = numberStudentsEntrance;
@@ -197,7 +204,7 @@ public class Game {
     /**
      * Sets the number of students that a Player can move in a round
      *
-     * @param studentNumberMovement
+     * @param studentNumberMovement number of students that a Player can move in a round
      */
     public void setStudentNumberMovement(int studentNumberMovement) {
         this.studentNumberMovement = studentNumberMovement;
@@ -206,29 +213,31 @@ public class Game {
     /**
      * Sets the number of students that a Player can move in a round
      *
-     * @param numberOfTowersPerPlayer
+     * @param numberOfTowersPerPlayer number of students that a Player can move in a round
      */
     public void setNumberOfTowersPerPlayer(int numberOfTowersPerPlayer) {
         this.numberOfTowersPerPlayer = numberOfTowersPerPlayer;
     }
 
     /**
-     * States if two groups of islands are unifiable or not
+     * Unifies the two groupIslands if possible
      *
-     * @param groupIsland1
-     * @param groupIsland2
-     * @return true if the two groups of islands are unifiable
+     * @param groupIsland1 the first groupIsland to be unified
+     * @param groupIsland2 the second groupIsland to be unified
+     * @throws IllegalArgumentException if the two islands are not
      */
-    public boolean areIslandsUnifiable(GroupIsland groupIsland1,GroupIsland groupIsland2){
-        if(islands.indexOf(groupIsland1)==islands.indexOf(groupIsland2)+1||islands.indexOf(groupIsland2)==islands.indexOf(groupIsland1)+1||(islands.indexOf(groupIsland1)==0&&islands.indexOf(groupIsland2)==islands.size()-1)||(islands.indexOf(groupIsland2)==0&&islands.indexOf(groupIsland1)==islands.size()-1))
-            return true;
-        else return false;
+    public void unify(GroupIsland groupIsland1,GroupIsland groupIsland2) throws IllegalArgumentException{
+        if(islands.indexOf(groupIsland1) == ((islands.indexOf(groupIsland2) + 1) % islands.size()) ||
+                islands.indexOf(groupIsland2) == ((islands.indexOf(groupIsland1) + 1) % islands.size())){
+            groupIsland1.unifyIsland(groupIsland2);
+            islands.remove(groupIsland2);
+        } else{
+            throw new IllegalArgumentException("The two islands are not unifiable");
+        }
     }
 
 
-    /**
-     *  getter
-     */
+
     public List<Player> getPlayers() {
         return players;
     }

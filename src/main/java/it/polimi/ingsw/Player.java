@@ -53,11 +53,17 @@ public class Player {
     private int coins;
 
     /**
+     * the game in which the player is playing
+     */
+    private final Game game;
+
+    /**
      * Constructor: creates a new Player with the given nick and the given number of towers
      *
-     * @param nickname a string with the nick
+     * @param nickname a string with the nickname
+     * @param game the game in which the player is playing
      */
-    public Player(String nickname) {
+    public Player(String nickname, Game game) {
         this.nickname = nickname;
         diningRoom = new HashMap<>();
         diningRoom.put(Colour.GREEN, 0);
@@ -84,6 +90,7 @@ public class Player {
         assistantCardSet = new HashSet<>();
         currentAssistantCard = null;
         coins = 1;
+        this.game = game;
     }
 
     /*
@@ -161,10 +168,7 @@ public class Player {
      * @throws IllegalArgumentException when in the entrance there are too many students
      */
     public void addStudentToEntrance(Colour colour) throws IllegalArgumentException{
-        /*
-        il valore 7 va cambiato con il valore indicato nella classe Game
-         */
-        if(entrance.size() == getNumberStudentsEntrance()){
+        if(entrance.size() == game.getNumberStudentsEntrance()){
             throw new IllegalArgumentException("Too many students in the entrance");
         }
 
@@ -254,10 +258,7 @@ public class Player {
      * @throws IllegalArgumentException when the number of towers exceed the maximum amount
      */
     public void addTower(int num) throws IllegalArgumentException{
-        /*
-        bisogna sostituire 10 con il numero che sarà presente nella classe game
-         */
-        if(towers + num > 10){
+        if(towers + num > game.getNumberOfTowersPerPlayer()){
             throw new IllegalArgumentException("The number of towers of each player should be less");
         }
 
