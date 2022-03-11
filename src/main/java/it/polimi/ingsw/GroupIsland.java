@@ -11,16 +11,6 @@ import java.util.*;
 public class GroupIsland {
 
     /**
-     * The island on the right of the considered GroupIsland
-     */
-    private GroupIsland rightIsland;
-
-    /**
-     * The island on the left of the considered GroupIsland
-     */
-    private GroupIsland leftIsland;
-
-    /**
      * A list containing all the islands that form a GroupIsland
      */
     private List<SingleIsland> islandsContained;
@@ -34,6 +24,11 @@ public class GroupIsland {
      * Identifies the player who has the influence on the considered GroupIsland
      */
     private Player influencePlayer;
+
+    /**
+     * An int which says how much the influence is
+     */
+    private int influence;
 
     /**
      * Constructor: creates a new empty GroupIsland
@@ -56,24 +51,6 @@ public class GroupIsland {
      */
     public List<SingleIsland> getIslands(){
         return islandsContained;
-    }
-
-    /**
-     * Get the GroupIsland that is on the right of the GroupIsland considered
-     *
-     * @return the GroupIsland on the right
-     */
-    public GroupIsland getRightIsland(){
-        return rightIsland;
-    }
-
-    /**
-     * Get the GroupIsland that is on the left of the GroupIsland considered
-     *
-     * @return the GroupIsland on the left
-     */
-    public GroupIsland getLeftIsland(){
-        return leftIsland;
     }
 
     /**
@@ -125,6 +102,17 @@ public class GroupIsland {
      */
     public void placeMotherNature(){
 
+    }
+
+    /**
+     * Calculates the influcence of the given player on the island
+     *
+     * @param player
+     * @return the influence of the given player on the island
+     */
+    public int calculateInfluence (Player player){
+
+        return influence;
     }
 
 

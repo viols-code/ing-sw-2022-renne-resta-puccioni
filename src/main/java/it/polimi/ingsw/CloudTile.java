@@ -22,7 +22,7 @@ public class CloudTile {
      * @param colour
      * @return the number of students of the given colour on the CloudTile
      */
-    public int getTileStudents(Colour colour){
+    public int getTileStudents(Colour colour) {
         return tileStudents.get(colour);
     }
 
