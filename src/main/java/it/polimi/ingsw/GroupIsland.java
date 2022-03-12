@@ -4,7 +4,6 @@ import java.util.*;
 /**
  * GroupIsland
  *
- * @author laurapuccioni
  * @version 1.0
  */
 

@@ -5,7 +5,6 @@ import java.util.HashMap;
 /**
  * CloudTile
  *
- * @author laurapuccioni
  * @version 1.0
  */
 
@@ -30,9 +29,9 @@ public class CloudTile {
     }
 
     /**
-     * Get the students that are on the CloudTile
+     * Get the students of the given colour that are on the CloudTile
      *
-     * @param colour
+     * @param colour colour of the number of student we want to get
      * @return the number of students of the given colour on the CloudTile
      */
     public int getTileStudents(Colour colour) {

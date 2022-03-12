@@ -7,7 +7,6 @@ import java.util.Set;
 /**
  * Player
  *
- * @author violarenne
  * @version 1.0
  */
 public class Player {

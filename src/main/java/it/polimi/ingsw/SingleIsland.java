@@ -5,7 +5,6 @@ import java.util.HashMap;
 /**
  * SingleIsland
  *
- * @author laurapuccioni
  * @version 1.0
  */
 

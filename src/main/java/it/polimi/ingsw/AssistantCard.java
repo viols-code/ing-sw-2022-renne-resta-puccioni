@@ -3,7 +3,6 @@ package it.polimi.ingsw;
 /**
  * AssistantCard
  *
- * @author violarenne
  * @version 1.0
  */
 public class AssistantCard {
