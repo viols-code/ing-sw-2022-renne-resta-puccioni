@@ -1,6 +1,6 @@
 package it.polimi.ingsw;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 
@@ -17,4 +17,5 @@ public class AppTest
     {
         assertTrue( true );
     }
+
 }
