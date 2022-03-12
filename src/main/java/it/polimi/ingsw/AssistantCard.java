@@ -1,11 +1,13 @@
 package it.polimi.ingsw;
 
+import java.util.Objects;
+
 /**
  * AssistantCard
  *
  * @version 1.0
  */
-public class AssistantCard {
+public final class AssistantCard {
     private final int value;
     private final int motherNatureMovement;
 
@@ -38,5 +40,16 @@ public class AssistantCard {
         return motherNatureMovement;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AssistantCard that = (AssistantCard) o;
+        return getValue() == that.getValue() && getMotherNatureMovement() == that.getMotherNatureMovement();
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(getValue(), getMotherNatureMovement());
+    }
 }

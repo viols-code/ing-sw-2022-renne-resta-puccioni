@@ -2,6 +2,7 @@ package it.polimi.ingsw;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -359,4 +360,16 @@ public class Player {
         coins -= num;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Player player = (Player) o;
+        return getTowers() == player.getTowers() && getCoins() == player.getCoins() && getNickname().equals(player.getNickname()) && diningRoom.equals(player.diningRoom) && entrance.equals(player.entrance) && professorTable.equals(player.professorTable) && assistantCardSet.equals(player.assistantCardSet) && Objects.equals(getCurrentAssistantCard(), player.getCurrentAssistantCard()) && game.equals(player.game);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getNickname(), diningRoom, entrance, professorTable, getTowers(), assistantCardSet, getCurrentAssistantCard(), getCoins(), game);
+    }
 }
