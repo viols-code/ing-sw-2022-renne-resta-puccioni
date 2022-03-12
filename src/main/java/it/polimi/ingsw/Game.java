@@ -398,4 +398,15 @@ public class Game {
     public void setNumberStudentsEntrance(int numberStudentsEntrance) {
         this.numberStudentsEntrance = numberStudentsEntrance;
     }
+
+    /**
+     * Get the players in the match
+     *
+     * @return the list of players
+     */
+    public List<Player> getPlayers(){
+        return players;
+    }
 }
+
+
