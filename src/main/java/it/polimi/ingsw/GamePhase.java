@@ -6,6 +6,7 @@ package it.polimi.ingsw;
  * @version 1.0
  */
 public enum GamePhase {
+    SETTING,
     SET_CLOUD_TILE,
     PLAY_ASSISTANT_CARD,
     MOVE_STUDENT,
