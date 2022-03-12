@@ -37,6 +37,11 @@ public class Game {
     private final List<GroupIsland> islands;
 
     /**
+     * Position corresponding to the index in the List named islands
+     */
+    private int motherNaturePosition;
+
+    /**
      * Number of the current round
      */
     private int round;
@@ -83,8 +88,12 @@ public class Game {
         islands = new ArrayList<>();
         for(int i = 0; i < 12; i++){
             islands.add(new GroupIsland());
+            if(i == 0){
+                islands.get(0).placeMotherNature();
+            }
         }
 
+        motherNaturePosition = 0;
         round = 0;
         currentPlayer = null;
         cloudTiles = new ArrayList<>();
@@ -224,7 +233,7 @@ public class Game {
     }
 
     /*
-    BAG DRAW
+    TO DO: BAG DRAW
      */
 
 
