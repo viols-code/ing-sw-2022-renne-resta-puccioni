@@ -210,7 +210,6 @@ public class Game {
         return bag.get(colour);
     }
 
-
     /**
      * Add a student to the bag
      *
@@ -402,6 +401,10 @@ public class Game {
         this.numberStudentsEntrance = numberStudentsEntrance;
     }
 
+    /*
+    GAME PHASE
+     */
+
     /**
      * Get the current game phase
      *
@@ -414,7 +417,7 @@ public class Game {
     /**
      * Set the current game phase
      *
-     * @param gamePhase the game phase to be setted
+     * @param gamePhase the game phase to be set
      */
     public void setGamePhase(GamePhase gamePhase){
         this.gamePhase = gamePhase;
