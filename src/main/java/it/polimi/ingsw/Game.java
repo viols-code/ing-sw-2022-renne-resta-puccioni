@@ -7,7 +7,6 @@ import java.util.List;
 /**
     * Game
     *
-    * @author sararesta
     * @version 1.0
 
     */
@@ -16,6 +15,16 @@ public class Game {
      * A List containing the players in the match
      */
     private final List<Player> players;
+
+    /**
+     * Identifies the player who's playing his turn
+     */
+    private Player currentPlayer;
+
+    /**
+     * the first player of the current round
+     */
+    private Player firstPlayerTurn;
 
     /**
      * A Map containing the number of students for each colour in the bag
@@ -31,11 +40,6 @@ public class Game {
      * Number of the current round
      */
     private int round;
-
-    /**
-     * Identifies the player who's playing his turn
-     */
-    private Player currentPlayer;
 
     /**
      * A List containing the cloudTiles
@@ -67,7 +71,6 @@ public class Game {
      * Constructor: creates a game relying on the number of players given
      */
     public Game(){
-
         players = new ArrayList<>();
 
         bag = new HashMap<>();
@@ -83,20 +86,26 @@ public class Game {
         }
 
         round = 0;
-
         currentPlayer = null;
-
         cloudTiles = new ArrayList<>();
-
         characterCards = new ArrayList<>();
-
         studentNumberMovement = 0;
-
         numberOfTowersPerPlayer = 0;
-
         numberStudentsEntrance = 0;
     }
 
+    /*
+    PLAYERS
+     */
+
+    /**
+     * Get the number of players
+     *
+     * @return the number of players
+     */
+    public int getNumberOfPlayer(){
+        return players.size();
+    }
 
     /**
      * Adds a Player to the match
@@ -121,9 +130,74 @@ public class Game {
         this.players.remove(player);
     }
 
-    public Player nextPlayer(){
+    /**
+     * Get the next player clockwise
+     *
+     * @return the next player clockwise
+     */
+    public Player nextPlayerClockwise(){
         return players.get((players.indexOf(currentPlayer) + 1) % players.size());
     }
+
+
+    public Player nextPlayerTurn(){
+       /*
+       TO DO
+        */
+        return currentPlayer;
+    }
+
+    /**
+     * Get the current player
+     *
+     * @return the current player
+     */
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    /**
+     * Set the current Player
+     *
+     * @param player the player to be set as the current player
+     */
+    public void setCurrentPlayer(Player player){
+        this.currentPlayer = player;
+    }
+
+    /**
+     * Get the player who played first in the current round
+     *
+     * @return the player who played first in the current round
+     */
+    public Player getFirstPlayerTurn(){
+        return this.firstPlayerTurn;
+    }
+
+    /**
+     * Set the player who played first in the current round
+     *
+     * @param player the player who played first in the current round
+     */
+    public void setFirstPlayerTurn(Player player){
+        this.firstPlayerTurn = player;
+    }
+
+
+    /*
+    BAG
+     */
+
+    /**
+     * Get the number of student of the given colour
+     *
+     * @param colour the colour of the number of student to return
+     * @return the number of student of the given colour
+     */
+    public int getBag(Colour colour) {
+        return bag.get(colour);
+    }
+
 
     /**
      * Add a student to the bag
@@ -149,6 +223,24 @@ public class Game {
         bag.replace(colour, bag.get(colour),bag.get(colour) - 1);
     }
 
+    /*
+    BAG DRAW
+     */
+
+
+    /*
+    ISLANDS
+     */
+
+    /**
+     * Get the List of GroupIsland
+     *
+     * @return a List containing the GroupIsland
+     */
+    public List<GroupIsland> getIslands() {
+        return islands;
+    }
+
     /**
      * Remove a group of islands from the list
      *
@@ -159,19 +251,53 @@ public class Game {
     }
 
     /**
+     * Unifies the two groupIslands if possible
+     *
+     * @param groupIsland1 the first groupIsland to be unified
+     * @param groupIsland2 the second groupIsland to be unified
+     * @throws IllegalArgumentException if the two islands are not
+     */
+    public void unify(GroupIsland groupIsland1,GroupIsland groupIsland2) throws IllegalArgumentException{
+        if(islands.indexOf(groupIsland1) == ((islands.indexOf(groupIsland2) + 1) % islands.size()) ||
+                islands.indexOf(groupIsland2) == ((islands.indexOf(groupIsland1) + 1) % islands.size())){
+            groupIsland1.unifyIsland(groupIsland2);
+            islands.remove(groupIsland2);
+        } else{
+            throw new IllegalArgumentException("The two islands are not unifiable");
+        }
+    }
+
+    /*
+    ROUND
+     */
+
+    /**
+     * Get the round number
+     *
+     * @return the round number
+     */
+    public int getRound() {
+        return round;
+    }
+
+    /**
      * Increments the round number
      */
     public void incrementRound(){
         round += 1;
     }
 
-    /**
-     * Changes the current Player
-     *
-     * @param player the current player
+    /*
+    CLOUD TILE
      */
-    public void changeCurrentPlayer(Player player){
-        currentPlayer = player;
+
+    /**
+     * Get the List of Cloud Tile
+     *
+     * @return a List containing the Cloud Tile remaining in the turn
+     */
+    public List<CloudTile> getCloudTiles() {
+        return cloudTiles;
     }
 
     /**
@@ -192,22 +318,48 @@ public class Game {
         cloudTiles.remove(cloudTile);
     }
 
-    /**
-     * Sets the number of students that a Player has in the entrance of his school board
-     *
-     * @param numberStudentsEntrance number of students that a Player has in the entrance of his school board
+    /*
+    CHARACTER CARDS
      */
-    public void setNumberStudentsEntrance(int numberStudentsEntrance) {
-        this.numberStudentsEntrance = numberStudentsEntrance;
+
+    /**
+     * Get the List of the Character Card
+     *
+     * @return a List containing the Character Card of the game
+     */
+    public List<CharacterCard> getCharacterCards() {
+        return characterCards;
+    }
+
+    /*
+    INT TO CONTROL THE GAME
+     */
+
+    /**
+     * Get the number of student movement the player has to do in their turn
+     *
+     * @return the number of student movement the player has to do in their turn
+     */
+    public int getStudentNumberMovement() {
+        return studentNumberMovement;
     }
 
     /**
-     * Sets the number of students that a Player can move in a round
+     * Sets the number of students that a Player has to move in a round
      *
-     * @param studentNumberMovement number of students that a Player can move in a round
+     * @param studentNumberMovement number of students that a Player has to move in a round
      */
     public void setStudentNumberMovement(int studentNumberMovement) {
         this.studentNumberMovement = studentNumberMovement;
+    }
+
+    /**
+     * Get the initial and maximum number of tower per player
+     *
+     * @return the initial and maximum number of tower per player
+     */
+    public int getNumberOfTowersPerPlayer() {
+        return numberOfTowersPerPlayer;
     }
 
     /**
@@ -219,62 +371,22 @@ public class Game {
         this.numberOfTowersPerPlayer = numberOfTowersPerPlayer;
     }
 
+
     /**
-     * Unifies the two groupIslands if possible
+     * Get the number of students in the entrance
      *
-     * @param groupIsland1 the first groupIsland to be unified
-     * @param groupIsland2 the second groupIsland to be unified
-     * @throws IllegalArgumentException if the two islands are not
+     * @return the number of students in the entrance
      */
-    public void unify(GroupIsland groupIsland1,GroupIsland groupIsland2) throws IllegalArgumentException{
-        if(islands.indexOf(groupIsland1) == ((islands.indexOf(groupIsland2) + 1) % islands.size()) ||
-                islands.indexOf(groupIsland2) == ((islands.indexOf(groupIsland1) + 1) % islands.size())){
-            groupIsland1.unifyIsland(groupIsland2);
-            islands.remove(groupIsland2);
-        } else{
-            throw new IllegalArgumentException("The two islands are not unifiable");
-        }
-    }
-
-
-
-    public List<Player> getPlayers() {
-        return players;
-    }
-
-    public HashMap<Colour, Integer> getBag() {
-        return bag;
-    }
-
-    public List<GroupIsland> getIslands() {
-        return islands;
-    }
-
-    public int getRound() {
-        return round;
-    }
-
-    public Player getCurrentPlayer() {
-        return currentPlayer;
-    }
-
-    public List<CloudTile> getCloudTiles() {
-        return cloudTiles;
-    }
-
-    public List<CharacterCard> getCharacterCards() {
-        return characterCards;
-    }
-
-    public int getStudentNumberMovement() {
-        return studentNumberMovement;
-    }
-
-    public int getNumberOfTowersPerPlayer() {
-        return numberOfTowersPerPlayer;
-    }
-
-     int getNumberStudentsEntrance() {
+    int getNumberStudentsEntrance() {
         return numberStudentsEntrance;
+    }
+
+    /**
+     * Sets the number of students that a Player has in the entrance of his school board
+     *
+     * @param numberStudentsEntrance number of students that a Player has in the entrance of his school board
+     */
+    public void setNumberStudentsEntrance(int numberStudentsEntrance) {
+        this.numberStudentsEntrance = numberStudentsEntrance;
     }
 }
