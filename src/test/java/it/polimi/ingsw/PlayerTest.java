@@ -11,37 +11,19 @@ class PlayerTest {
 
     @BeforeEach
     void setUp() {
-        Game game = new Game();
-        Player player1 = new Player("p1",game);
+        game = new Game();
+        player1 = new Player("p1",game);
         game.addPlayer(player1);
-    }
-    /*@Test
-    void addPlayer() {
-        assertEquals(0, game.getPlayers().size());
-        game.addPlayer(player);
-        assertTrue(game.getPlayers().contains(player));
-        assertEquals(1, game.getPlayers().size());
-    }*/
-
-    @Test
-    void getNickname() {
-
-    }
-
-    @Test
-    void getDiningRoom() {
     }
 
     @Test
     void addStudentToDiningRoom() {
+        player1.addStudentToDiningRoom(Colour.PINK);
+        assertEquals(1, player1.getDiningRoom(Colour.PINK));
     }
 
     @Test
     void removeStudentFromDiningRoom() {
-    }
-
-    @Test
-    void getEntrance() {
     }
 
     @Test
@@ -69,10 +51,6 @@ class PlayerTest {
     }
 
     @Test
-    void getTowers() {
-    }
-
-    @Test
     void addTower() {
     }
 
@@ -86,10 +64,6 @@ class PlayerTest {
 
     @Test
     void playAssistantCard() {
-    }
-
-    @Test
-    void getCurrentAssistantCard() {
     }
 
     @Test
