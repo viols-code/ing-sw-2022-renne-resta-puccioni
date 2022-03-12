@@ -71,6 +71,8 @@ public class Game {
      */
     private int numberStudentsEntrance;
 
+    private GamePhase gamePhase;
+
 
     /**
      * Constructor: creates a game relying on the number of players given
@@ -101,6 +103,7 @@ public class Game {
         studentNumberMovement = 0;
         numberOfTowersPerPlayer = 0;
         numberStudentsEntrance = 0;
+        gamePhase = GamePhase.SETTING;
     }
 
     /*
@@ -400,12 +403,21 @@ public class Game {
     }
 
     /**
-     * Get the players in the match
+     * Get the current game phase
      *
-     * @return the list of players
+     * @return the current game phase
      */
-    public List<Player> getPlayers(){
-        return players;
+    public GamePhase getGamePhase() {
+        return gamePhase;
+    }
+
+    /**
+     * Set the current game phase
+     *
+     * @param gamePhase the game phase to be setted
+     */
+    public void setGamePhase(GamePhase gamePhase){
+        this.gamePhase = gamePhase;
     }
 }
 
