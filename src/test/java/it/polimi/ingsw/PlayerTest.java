@@ -1,5 +1,6 @@
 package it.polimi.ingsw;
 
+import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,32 +19,31 @@ class PlayerTest {
 
     @Test
     void addStudentToDiningRoom() {
-        int nPink,nYellow,nBlue,nGreen,nRed;
-        nPink=4;
-        nBlue=3;
-        nGreen=2;
-        nYellow=1;
-        nRed=0;
-        for(int i=0;i<nPink;i++)
-            player1.addStudentToDiningRoom(Colour.PINK);
-        for(int i=0;i<nBlue;i++)
-            player1.addStudentToDiningRoom(Colour.BLUE);
-        for(int i=0;i<nGreen;i++)
-            player1.addStudentToDiningRoom(Colour.GREEN);
-        for(int i=0;i<nYellow;i++)
-            player1.addStudentToDiningRoom(Colour.YELLOW);
-        for(int i=0;i<nRed;i++)
-            player1.addStudentToDiningRoom(Colour.RED);
+        for(Colour colour: Colour.values())
+            assertEquals(0,player1.getDiningRoom(colour));
 
-        assertEquals(nPink, player1.getDiningRoom(Colour.PINK));
-        assertEquals(nBlue, player1.getDiningRoom(Colour.BLUE));
-        assertEquals(nGreen, player1.getDiningRoom(Colour.GREEN));
-        assertEquals(nYellow, player1.getDiningRoom(Colour.YELLOW));
-        assertEquals(nRed, player1.getDiningRoom(Colour.RED));
+        for(int i=1;i<=10;i++){
+            for(Colour colour: Colour.values()){
+                player1.addStudentToDiningRoom(colour);
+                assertEquals(i,player1.getDiningRoom(colour));
+            }
+        }
+
     }
 
     @Test
     void removeStudentFromDiningRoom() {
+        for(int i=1;i<=10;i++){
+            for(Colour colour: Colour.values()){
+                player1.addStudentToDiningRoom(colour);
+            }
+        }
+        for(int i=1;i<=10;i++){
+            for(Colour colour: Colour.values()){
+                player1.removeStudentFromDiningRoom(colour);
+                assertEquals(10-i,player1.getDiningRoom(colour));
+            }
+        }
     }
 
     @Test
