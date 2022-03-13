@@ -41,6 +41,8 @@ public class GroupIsland {
 
         motherNature = false;
 
+        influence = 0;
+
     }
 
     /**
@@ -76,6 +78,8 @@ public class GroupIsland {
      * @param island
      */
     public void unifyIsland(GroupIsland island){
+
+            this.islandsContained.addAll(island.islandsContained);
 
     }
 
@@ -114,11 +118,14 @@ public class GroupIsland {
      */
     public int calculateInfluence (Player player){
 
-        for(Colour colour : Colour.values()){
-            if(player.hasProfessor(colour)){
-
+        for(SingleIsland island : islandsContained){
+            for(Colour colour : Colour.values()) {
+                if (player.hasProfessor(colour)) {
+                    influence += island.getStudents(colour);
+                }
             }
         }
+
         return influence;
     }
 
@@ -130,6 +137,15 @@ public class GroupIsland {
      * @return an int which states the influence of the given player on the island ignoring the given colour
      */
     public int calculateInfluenceWithoutColour(Player player, Colour colour){
+
+        for(SingleIsland island : islandsContained){
+            for(Colour colour1 : Colour.values()) {
+                if (player.hasProfessor(colour) && colour1 != colour) {
+                    influence += island.getStudents(colour);
+                }
+            }
+        }
+
         return influence;
     }
 
