@@ -3,6 +3,7 @@ package it.polimi.ingsw;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 /**
     * Game
@@ -11,6 +12,7 @@ import java.util.List;
 
     */
 public class Game {
+
     /**
      * A List containing the players in the match
      */
@@ -422,6 +424,20 @@ public class Game {
     public void setGamePhase(GamePhase gamePhase){
         this.gamePhase = gamePhase;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Game)) return false;
+        Game game = (Game) o;
+        return motherNaturePosition == game.motherNaturePosition && round == game.round && studentNumberMovement == game.studentNumberMovement && numberOfTowersPerPlayer == game.numberOfTowersPerPlayer && numberStudentsEntrance == game.numberStudentsEntrance && Objects.equals(players, game.players) && Objects.equals(currentPlayer, game.currentPlayer) && Objects.equals(firstPlayerTurn, game.firstPlayerTurn) && Objects.equals(bag, game.bag) && islands.equals(game.islands) && cloudTiles.equals(game.cloudTiles) && characterCards.equals(game.characterCards) && gamePhase == game.gamePhase;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(players, currentPlayer, firstPlayerTurn, bag, islands, motherNaturePosition, round, cloudTiles, characterCards, studentNumberMovement, numberOfTowersPerPlayer, numberStudentsEntrance, gamePhase);
+    }
+
 }
 
 
