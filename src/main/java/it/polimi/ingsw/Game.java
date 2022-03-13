@@ -3,6 +3,7 @@ package it.polimi.ingsw;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 /**
     * Game
@@ -98,6 +99,7 @@ public class Game {
         motherNaturePosition = 0;
         round = 0;
         currentPlayer = null;
+        firstPlayerTurn = null;
         cloudTiles = new ArrayList<>();
         characterCards = new ArrayList<>();
         studentNumberMovement = 0;
@@ -421,6 +423,23 @@ public class Game {
      */
     public void setGamePhase(GamePhase gamePhase){
         this.gamePhase = gamePhase;
+    }
+
+    /*
+    EQUALS
+    */
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Game)) return false;
+        Game game = (Game) o;
+        return motherNaturePosition == game.motherNaturePosition && round == game.round && studentNumberMovement == game.studentNumberMovement && numberOfTowersPerPlayer == game.numberOfTowersPerPlayer && numberStudentsEntrance == game.numberStudentsEntrance && players.equals(game.players) && Objects.equals(currentPlayer, game.currentPlayer) && Objects.equals(firstPlayerTurn, game.firstPlayerTurn) && bag.equals(game.bag) && islands.equals(game.islands) && cloudTiles.equals(game.cloudTiles) && characterCards.equals(game.characterCards) && gamePhase == game.gamePhase;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(players, currentPlayer, firstPlayerTurn, bag, islands, motherNaturePosition, round, cloudTiles, characterCards, studentNumberMovement, numberOfTowersPerPlayer, numberStudentsEntrance, gamePhase);
     }
 }
 
