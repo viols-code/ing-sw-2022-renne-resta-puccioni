@@ -52,18 +52,6 @@ class GroupIslandTest {
         assertEquals(size + groupIslandTest1.getIslands().size(), groupIslandTest.getIslands().size());
     }
 
-    @Test
-    void changeInfluence() {
-        Game game = new Game();
-        Player player1 = new Player("Viola", game);
-        Player player2= new Player("Laura", game);
-
-        assertNull(groupIslandTest.getInfluence());
-        groupIslandTest.changeInfluence(player1);
-        assertEquals(player1, groupIslandTest.getInfluence());
-        groupIslandTest.changeInfluence(player2);
-        assertEquals(player2, groupIslandTest.getInfluence());
-    }
 
     @Test
     void removeMotherNature() {
@@ -79,6 +67,20 @@ class GroupIslandTest {
         assertFalse(groupIslandTest.getMotherNature());
         groupIslandTest.placeMotherNature();
         assertTrue(groupIslandTest.getMotherNature());
+    }
+
+
+    @Test
+    void changeInfluence() {
+        Game game = new Game();
+        Player player1 = new Player("Viola", game);
+        Player player2= new Player("Laura", game);
+
+        assertNull(groupIslandTest.getInfluence());
+        groupIslandTest.changeInfluence(player1);
+        assertEquals(player1, groupIslandTest.getInfluence());
+        groupIslandTest.changeInfluence(player2);
+        assertEquals(player2, groupIslandTest.getInfluence());
     }
 
     @Test
