@@ -36,6 +36,10 @@ public class GroupIsland {
         motherNature = false;
     }
 
+    /*
+    ISLANDS
+     */
+
     /**
      * Get the list of SingleIslands that are contained in the GroupIsland
      *
@@ -43,24 +47,6 @@ public class GroupIsland {
      */
     public List<SingleIsland> getIslands(){
         return islandsContained;
-    }
-
-    /**
-     * Get the player who has the influence on the GroupIsland considered
-     *
-     * @return the Player who has the influence
-     */
-    public Player getInfluence(){
-        return influencePlayer;
-    }
-
-    /**
-     * States if motherNature is present on the island considered or not
-     *
-     * @return a boolean which states the presence of motherNature
-     */
-    public boolean getMotherNature(){
-        return motherNature;
     }
 
     /**
@@ -73,14 +59,17 @@ public class GroupIsland {
 
     }
 
-    /**
-     * Changes the influence from the player who has it to the given player
-     *
-     * @param newInfluencePlayer the player who has now the influence on the GroupIsland
+    /*
+    MOTHER NATURE
      */
 
-    public void changeInfluence(Player newInfluencePlayer){
-        influencePlayer = newInfluencePlayer;
+    /**
+     * States if motherNature is present on the island considered or not
+     *
+     * @return a boolean which states the presence of motherNature
+     */
+    public boolean getMotherNature(){
+        return motherNature;
     }
 
     /**
@@ -95,6 +84,28 @@ public class GroupIsland {
      */
     public void placeMotherNature(){
         motherNature = true;
+    }
+
+    /*
+    INFLUENCE
+     */
+
+    /**
+     * Get the player who has the influence on the GroupIsland considered
+     *
+     * @return the Player who has the influence
+     */
+    public Player getInfluence(){
+        return influencePlayer;
+    }
+
+    /**
+     * Changes the influence from the player who has it to the given player
+     *
+     * @param newInfluencePlayer the player who has now the influence on the GroupIsland
+     */
+    public void changeInfluence(Player newInfluencePlayer){
+        influencePlayer = newInfluencePlayer;
     }
 
     /**
@@ -158,7 +169,6 @@ public class GroupIsland {
 
         return influence;
     }
-
 
 
 }
