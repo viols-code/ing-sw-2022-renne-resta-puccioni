@@ -239,6 +239,16 @@ public class Game {
     /*
     TO DO: BAG DRAW
      */
+    public Colour bagDrawStudent(){
+        int n = (int) (Math.random() * bag.size()) + 1;
+        if(n>=1 && n<=getBag(Colour.YELLOW)) return Colour.YELLOW;
+        else if(n>getBag(Colour.YELLOW) && n<= getBag(Colour.YELLOW) + getBag(Colour.BLUE)) return Colour.BLUE;
+        else if(n>getBag(Colour.YELLOW) + getBag(Colour.BLUE) && n<= getBag(Colour.YELLOW) + getBag(Colour.BLUE) + getBag(Colour.PINK)) return Colour.PINK;
+        else if(n>getBag(Colour.YELLOW) + getBag(Colour.BLUE) + getBag(Colour.PINK) && n<= getBag(Colour.YELLOW) + getBag(Colour.BLUE) + getBag(Colour.PINK) + getBag(Colour.RED)) return Colour.RED;
+        else return Colour.GREEN;
+
+    }
+
 
 
     /*
