@@ -80,6 +80,8 @@ class PlayerTest {
 
     @Test
     void testAddStudentToEntrance() {
+        CloudTile cloudTile=new CloudTile();
+
 
     }
 
@@ -183,6 +185,7 @@ class PlayerTest {
 
     @Test
     void addAssistantCardList() {
+
     }
 
     @Test
@@ -193,15 +196,18 @@ class PlayerTest {
     void setCurrentAssistantCard() {
     }
 
-    @Test
-    void getCoins() {
-    }
 
     @Test
     void addCoins() {
+        for(int i=1;i<=10;i++) {
+            player1.addCoins(i);
+            assertEquals(i, player1.getCoins());
+            player1.removeCoins(i);
+        }
     }
 
     @Test
     void removeCoins() {
+
     }
 }
