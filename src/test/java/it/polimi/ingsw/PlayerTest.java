@@ -4,6 +4,10 @@ import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class PlayerTest {
@@ -80,9 +84,6 @@ class PlayerTest {
 
     @Test
     void testAddStudentToEntrance() {
-        CloudTile cloudTile=new CloudTile();
-
-
     }
 
     @Test
@@ -185,11 +186,11 @@ class PlayerTest {
 
     @Test
     void addAssistantCardList() {
-
     }
 
     @Test
     void playAssistantCard() {
+
     }
 
     @Test
@@ -201,13 +202,19 @@ class PlayerTest {
     void addCoins() {
         for(int i=1;i<=10;i++) {
             player1.addCoins(i);
-            assertEquals(i, player1.getCoins());
+            assertEquals(i+1, player1.getCoins());
             player1.removeCoins(i);
         }
     }
 
     @Test
     void removeCoins() {
+        player1.addCoins(10);
+        for(int i=1;i<=10;i++) {
+            player1.removeCoins(i);
+            assertEquals(10-i+1, player1.getCoins());
+            player1.addCoins(i);
+        }
 
     }
 }

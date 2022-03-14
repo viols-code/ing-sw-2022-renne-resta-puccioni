@@ -278,6 +278,11 @@ public class Player {
         towers -= num;
     }
 
+    /*
+    ASSISTANT CARD SET
+     */
+    public Set<AssistantCard> getAssistantCardSet(){ return assistantCardSet; }
+
 
     /*
     ASSISTANT CARD LIST
