@@ -89,10 +89,8 @@ public class Game {
         islands = new ArrayList<>();
         for(int i = 0; i < 12; i++){
             islands.add(new GroupIsland());
-            if(i == 0){
-                islands.get(0).placeMotherNature();
-            }
         }
+        islands.get(0).placeMotherNature();
 
         motherNaturePosition = 0;
         round = 0;
@@ -253,9 +251,7 @@ public class Game {
         else if(n>getBag(Colour.YELLOW) + getBag(Colour.BLUE) && n<= getBag(Colour.YELLOW) + getBag(Colour.BLUE) + getBag(Colour.PINK)) return Colour.PINK;
         else if(n>getBag(Colour.YELLOW) + getBag(Colour.BLUE) + getBag(Colour.PINK) && n<= getBag(Colour.YELLOW) + getBag(Colour.BLUE) + getBag(Colour.PINK) + getBag(Colour.RED)) return Colour.RED;
         else return Colour.GREEN;
-
     }
-
 
 
     /*
