@@ -100,11 +100,29 @@ class GroupIslandTest {
         assertEquals(2, groupIslandTest.calculateInfluence(player1));
         assertEquals(0, groupIslandTest.calculateInfluence(player2));
 
+        groupIslandTest.changeInfluence(player1);
+
+        assertEquals(3, groupIslandTest.calculateInfluence(player1));
+        assertEquals(0, groupIslandTest.calculateInfluence(player2));
+
+        groupIslandTest.changeInfluence(player2);
+
+        assertEquals(2, groupIslandTest.calculateInfluence(player1));
+        assertEquals(1, groupIslandTest.calculateInfluence(player2));
+
         groupIslandTest.getIslands().get(0).addStudent(Colour.RED);
         groupIslandTest.getIslands().get(0).addStudent(Colour.YELLOW);
 
-        assertEquals(3, groupIslandTest.calculateInfluence(player1));
+        groupIslandTest.changeInfluence(player1);
+
+        assertEquals(4, groupIslandTest.calculateInfluence(player1));
         assertEquals(1, groupIslandTest.calculateInfluence(player2));
+
+        groupIslandTest.changeInfluence(player2);
+
+        assertEquals(3, groupIslandTest.calculateInfluence(player1));
+        assertEquals(2, groupIslandTest.calculateInfluence(player2));
+
 
         groupIslandTest1.getIslands().get(0).addStudent(Colour.GREEN);
         groupIslandTest1.getIslands().get(0).addStudent(Colour.PINK);
@@ -112,10 +130,60 @@ class GroupIslandTest {
         assertEquals(1, groupIslandTest1.calculateInfluence(player1));
         assertEquals(1, groupIslandTest1.calculateInfluence(player2));
 
+        groupIslandTest1.changeInfluence(player1);
+
+        assertEquals(2, groupIslandTest1.calculateInfluence(player1));
+        assertEquals(1, groupIslandTest1.calculateInfluence(player2));
+
+        groupIslandTest1.changeInfluence(player2);
+
+        assertEquals(1, groupIslandTest1.calculateInfluence(player1));
+        assertEquals(2, groupIslandTest1.calculateInfluence(player2));
+
+        groupIslandTest.changeInfluence(player1);
+        groupIslandTest1.changeInfluence(player1);
+
         groupIslandTest.unifyIsland(groupIslandTest1);
 
-        assertEquals(4, groupIslandTest.calculateInfluence(player1));
+        assertEquals(6, groupIslandTest.calculateInfluence(player1));
         assertEquals(2, groupIslandTest.calculateInfluence(player2));
+    }
+
+    @Test
+    void calculateInfluenceWithoutTowers() {
+        Game game = new Game();
+        Player player1 = new Player("Viola", game);
+        Player player2 = new Player("Laura", game);
+        GroupIsland groupIslandTest1 = new GroupIsland();
+
+        player1.addProfessor(Colour.BLUE);
+        player1.addProfessor(Colour.PINK);
+        player1.addProfessor(Colour.RED);
+        player2.addProfessor(Colour.YELLOW);
+        player2.addProfessor(Colour.GREEN);
+
+        groupIslandTest.getIslands().get(0).addStudent(Colour.BLUE);
+        groupIslandTest.getIslands().get(0).addStudent(Colour.PINK);
+
+        assertEquals(2, groupIslandTest.calculateInfluenceWithoutTowers(player1));
+        assertEquals(0, groupIslandTest.calculateInfluenceWithoutTowers(player2));
+
+        groupIslandTest.getIslands().get(0).addStudent(Colour.RED);
+        groupIslandTest.getIslands().get(0).addStudent(Colour.YELLOW);
+
+        assertEquals(3, groupIslandTest.calculateInfluenceWithoutTowers(player1));
+        assertEquals(1, groupIslandTest.calculateInfluenceWithoutTowers(player2));
+
+        groupIslandTest1.getIslands().get(0).addStudent(Colour.GREEN);
+        groupIslandTest1.getIslands().get(0).addStudent(Colour.PINK);
+
+        assertEquals(1, groupIslandTest1.calculateInfluenceWithoutTowers(player1));
+        assertEquals(1, groupIslandTest1.calculateInfluenceWithoutTowers(player2));
+
+        groupIslandTest.unifyIsland(groupIslandTest1);
+
+        assertEquals(4, groupIslandTest.calculateInfluenceWithoutTowers(player1));
+        assertEquals(2, groupIslandTest.calculateInfluenceWithoutTowers(player2));
     }
 
     @Test
