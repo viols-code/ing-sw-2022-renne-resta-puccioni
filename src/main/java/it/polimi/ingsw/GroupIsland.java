@@ -91,9 +91,7 @@ public class GroupIsland {
 
     public void changeInfluence(Player newInfluencePlayer){
 
-        if (calculateInfluence(newInfluencePlayer) > calculateInfluence(influencePlayer)){
-            influencePlayer = newInfluencePlayer;
-        }
+        influencePlayer = newInfluencePlayer;
     }
 
     /**
@@ -117,6 +115,30 @@ public class GroupIsland {
      * @return an int which states the influence of the given player on the island
      */
     public int calculateInfluence (Player player){
+
+        for(SingleIsland island : islandsContained){
+            for(Colour colour : Colour.values()) {
+                if (player.hasProfessor(colour)) {
+                    influence += island.getStudents(colour);
+                }
+            }
+        }
+
+        //if the player already has the influence, it means that he has a tower in every signleIsland og the GroupIsland
+        if(player.equals(influencePlayer)) {
+            influence += islandsContained.size();
+        }
+
+        return influence;
+    }
+
+    /**
+     * Calculates the influcence of the given player on the island ignoring the towers
+     *
+     * @param player
+     * @return an int which states the influence of the given player on the island ignoring the towers
+     */
+    public int calculateInfluenceWithoutTowers (Player player){
 
         for(SingleIsland island : islandsContained){
             for(Colour colour : Colour.values()) {
