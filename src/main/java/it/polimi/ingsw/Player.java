@@ -281,7 +281,9 @@ public class Player {
     /*
     ASSISTANT CARD SET
      */
-    public Set<AssistantCard> getAssistantCardSet(){ return assistantCardSet; }
+    public Set<AssistantCard> getAssistantCardSet(){
+        return assistantCardSet;
+    }
 
 
     /*
