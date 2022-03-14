@@ -1,9 +1,6 @@
 package it.polimi.ingsw;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
     * Game
@@ -239,7 +236,17 @@ public class Game {
     /*
     TO DO: BAG DRAW
      */
+
+    /**
+     * Draw a student from the bag
+     *
+     * @return the student drawn
+     * @throws IllegalArgumentException if there are no student of the given colour
+     */
     public Colour bagDrawStudent(){
+        if(bag.size() == 0){
+            throw new IllegalArgumentException("There are no student in the bag ");
+        }
         int n = (int) (Math.random() * bag.size()) + 1;
         if(n>=1 && n<=getBag(Colour.YELLOW)) return Colour.YELLOW;
         else if(n>getBag(Colour.YELLOW) && n<= getBag(Colour.YELLOW) + getBag(Colour.BLUE)) return Colour.BLUE;
