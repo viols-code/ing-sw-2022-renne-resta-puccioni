@@ -237,6 +237,22 @@ public class Game {
     TO DO: BAG DRAW
      */
 
+    public HashMap<Colour, Integer> bagDrawCloudTile(){
+        HashMap<Colour, Integer> cloudTile = new HashMap<>();
+        cloudTile.put(Colour.GREEN, 0);
+        cloudTile.put(Colour.RED, 0);
+        cloudTile.put(Colour.YELLOW, 0);
+        cloudTile.put(Colour.PINK, 0);
+        cloudTile.put(Colour.BLUE, 0);
+
+        for(int i = 0; i < studentNumberMovement; i++){
+            Colour colour = bagDrawStudent();
+            cloudTile.replace(colour, cloudTile.get(colour), cloudTile.get(colour) + 1);
+        }
+
+        return cloudTile;
+    }
+
     /**
      * Draw a student from the bag
      *
@@ -248,14 +264,28 @@ public class Game {
             throw new IllegalArgumentException("There are no student in the bag");
         }
         int n = (int) (Math.random() * bag.size()) + 1;
-        if (n >= 1 && n <= getBag(Colour.YELLOW)) return Colour.YELLOW;
-        else if (n > getBag(Colour.YELLOW) && n <= getBag(Colour.YELLOW) + getBag(Colour.BLUE)) return Colour.BLUE;
-        else if (n > getBag(Colour.YELLOW) + getBag(Colour.BLUE) && n <= getBag(Colour.YELLOW) + getBag(Colour.BLUE) + getBag(Colour.PINK))
+
+        if (n >= 1 && n <= getBag(Colour.YELLOW)){
+            bag.remove(Colour.YELLOW);
+            return Colour.YELLOW;
+        }
+        else if (n > getBag(Colour.YELLOW) && n <= getBag(Colour.YELLOW) + getBag(Colour.BLUE)){
+            bag.remove(Colour.BLUE);
+            return Colour.BLUE;
+        }
+        else if (n > getBag(Colour.YELLOW) + getBag(Colour.BLUE) && n <= getBag(Colour.YELLOW) + getBag(Colour.BLUE) + getBag(Colour.PINK)){
+            bag.remove(Colour.PINK);
             return Colour.PINK;
+        }
         else if (n > getBag(Colour.YELLOW) + getBag(Colour.BLUE) + getBag(Colour.PINK)
-                && n <= getBag(Colour.YELLOW) + getBag(Colour.BLUE) + getBag(Colour.PINK) + getBag(Colour.RED))
+                && n <= getBag(Colour.YELLOW) + getBag(Colour.BLUE) + getBag(Colour.PINK) + getBag(Colour.RED)){
+            bag.remove(Colour.RED);
             return Colour.RED;
-        else return Colour.GREEN;
+        }
+        else{
+            bag.remove(Colour.GREEN);
+            return Colour.GREEN;
+        }
     }
 
 
