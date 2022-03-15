@@ -44,10 +44,6 @@ class GameTest {
 
     @Test
     void nextPlayerTurn() {
-
-        /*
-        TO DO
-         */
     }
 
     @Test
@@ -187,8 +183,36 @@ class GameTest {
 
     @Test
     void bagDrawStudent() {
-        /*
-        DA FARE
-         */
+        int numPinkRemained = gameTest.getBag(Colour.PINK);
+        int numBlueRemained = gameTest.getBag(Colour.BLUE);
+        int numGreenRemained = gameTest.getBag(Colour.GREEN);
+        int numYellowRemained = gameTest.getBag(Colour.YELLOW);
+        int numRedRemained = gameTest.getBag(Colour.RED);
+
+        gameTest.bagDrawStudent();
+        if (gameTest.bagDrawStudent().equals(Colour.PINK)) {
+            assertEquals(numPinkRemained - 1, gameTest.getBag(Colour.PINK));
+            numPinkRemained--;
+        } else if (gameTest.bagDrawStudent().equals(Colour.GREEN)) {
+            assertEquals(numGreenRemained - 1, gameTest.getBag(Colour.GREEN));
+            numGreenRemained--;
+        } else if (gameTest.bagDrawStudent().equals(Colour.BLUE)) {
+            assertEquals(numBlueRemained - 1, gameTest.getBag(Colour.BLUE));
+            numBlueRemained--;
+        } else if (gameTest.bagDrawStudent().equals(Colour.RED)) {
+            assertEquals(numRedRemained - 1, gameTest.getBag(Colour.RED));
+            numRedRemained--;
+        } else if (gameTest.bagDrawStudent().equals(Colour.YELLOW)) {
+            assertEquals(numYellowRemained - 1, gameTest.getBag(Colour.YELLOW));
+            numYellowRemained--;
+        }
     }
+
+
+        @Test
+        void bagDrawCloudTile(){
+
+
+
+        }
 }
