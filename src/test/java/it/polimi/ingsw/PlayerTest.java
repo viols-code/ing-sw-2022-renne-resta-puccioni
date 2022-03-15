@@ -81,11 +81,11 @@ class PlayerTest {
 
     @Test
     void testAddStudentToEntrance() {
-        HashMap<Colour,Integer> cloudTileStudents=game.bagDrawCloudTile();
-        CloudTile cloudTile=new CloudTile(cloudTileStudents);
+        HashMap<Colour, Integer> cloudTileStudents = game.bagDrawCloudTile();
+        CloudTile cloudTile = new CloudTile(cloudTileStudents);
         player1.addStudentToEntrance(cloudTile);
-        for(Colour colour: Colour.values()){
-            assertEquals(cloudTileStudents.get(colour),player1.getEntrance(colour));
+        for (Colour colour : Colour.values()) {
+            assertEquals(cloudTileStudents.get(colour), player1.getEntrance(colour));
         }
     }
 
