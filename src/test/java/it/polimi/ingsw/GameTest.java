@@ -189,22 +189,26 @@ class GameTest {
         int numYellowRemained = gameTest.getBag(Colour.YELLOW);
         int numRedRemained = gameTest.getBag(Colour.RED);
 
-        gameTest.bagDrawStudent();
-        if (gameTest.bagDrawStudent().equals(Colour.PINK)) {
-            assertEquals(numPinkRemained - 1, gameTest.getBag(Colour.PINK));
+        Colour colour = gameTest.bagDrawStudent();
+        if (colour.equals(Colour.PINK)){
             numPinkRemained--;
-        } else if (gameTest.bagDrawStudent().equals(Colour.GREEN)) {
-            assertEquals(numGreenRemained - 1, gameTest.getBag(Colour.GREEN));
+            assertEquals(numPinkRemained, gameTest.getBag(Colour.PINK));
+            assertEquals(numGreenRemained, gameTest.getBag(Colour.GREEN));
+            assertEquals(numBlueRemained, gameTest.getBag(Colour.BLUE));
+            assertEquals(numRedRemained, gameTest.getBag(Colour.RED));
+            assertEquals(numYellowRemained, gameTest.getBag(Colour.YELLOW));
+        } else if (colour.equals(Colour.GREEN)) {
             numGreenRemained--;
-        } else if (gameTest.bagDrawStudent().equals(Colour.BLUE)) {
-            assertEquals(numBlueRemained - 1, gameTest.getBag(Colour.BLUE));
+            assertEquals(numGreenRemained, gameTest.getBag(Colour.GREEN));
+        } else if (colour.equals(Colour.BLUE)) {
             numBlueRemained--;
-        } else if (gameTest.bagDrawStudent().equals(Colour.RED)) {
-            assertEquals(numRedRemained - 1, gameTest.getBag(Colour.RED));
+            assertEquals(numBlueRemained, gameTest.getBag(Colour.BLUE));
+        } else if (colour.equals(Colour.RED)) {
             numRedRemained--;
-        } else if (gameTest.bagDrawStudent().equals(Colour.YELLOW)) {
-            assertEquals(numYellowRemained - 1, gameTest.getBag(Colour.YELLOW));
+            assertEquals(numRedRemained, gameTest.getBag(Colour.RED));
+        } else if (colour.equals(Colour.YELLOW)) {
             numYellowRemained--;
+            assertEquals(numYellowRemained, gameTest.getBag(Colour.YELLOW));
         }
     }
 
