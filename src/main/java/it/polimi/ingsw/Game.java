@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 
 /**
  * Game
@@ -288,30 +289,42 @@ public class Game {
      * @throws IllegalArgumentException if there are no student in the bag
      */
     public Colour bagDrawStudent() {
-        if (bag.size() == 0) {
-            throw new IllegalArgumentException("There are no student in the bag");
+
+        int bag_size = 0;
+
+        for(Colour colour : Colour.values()) {
+            bag_size += bag.get(colour);
         }
-        int n = (int) (Math.random() * bag.size()) + 1;
+
+        if(bag_size == 0){
+            throw new IllegalArgumentException("There are no students in the bag");
+        }
+
+
+        Random rand = new Random();
+        int upperbound = bag_size - 1;
+        int n;
+        n = rand.nextInt(upperbound) + 1;
 
         if (n >= 1 && n <= getBag(Colour.YELLOW)){
-            bag.remove(Colour.YELLOW);
+            bag.replace(Colour.YELLOW, bag.get(Colour.YELLOW), bag.get(Colour.YELLOW) - 1);
             return Colour.YELLOW;
         }
         else if (n > getBag(Colour.YELLOW) && n <= getBag(Colour.YELLOW) + getBag(Colour.BLUE)){
-            bag.remove(Colour.BLUE);
+            bag.replace(Colour.BLUE, bag.get(Colour.BLUE), bag.get(Colour.BLUE) - 1);
             return Colour.BLUE;
         }
         else if (n > getBag(Colour.YELLOW) + getBag(Colour.BLUE) && n <= getBag(Colour.YELLOW) + getBag(Colour.BLUE) + getBag(Colour.PINK)){
-            bag.remove(Colour.PINK);
+            bag.replace(Colour.PINK, bag.get(Colour.PINK), bag.get(Colour.PINK) - 1);
             return Colour.PINK;
         }
         else if (n > getBag(Colour.YELLOW) + getBag(Colour.BLUE) + getBag(Colour.PINK)
                 && n <= getBag(Colour.YELLOW) + getBag(Colour.BLUE) + getBag(Colour.PINK) + getBag(Colour.RED)){
-            bag.remove(Colour.RED);
+            bag.replace(Colour.RED, bag.get(Colour.RED), bag.get(Colour.RED) - 1);
             return Colour.RED;
         }
         else{
-            bag.remove(Colour.GREEN);
+            bag.replace(Colour.GREEN, bag.get(Colour.GREEN), bag.get(Colour.GREEN) - 1);
             return Colour.GREEN;
         }
     }
@@ -349,8 +362,12 @@ public class Game {
     public void unify(GroupIsland groupIsland1, GroupIsland groupIsland2) throws IllegalArgumentException {
         if (islands.indexOf(groupIsland1) == ((islands.indexOf(groupIsland2) + 1) % islands.size()) ||
                 islands.indexOf(groupIsland2) == ((islands.indexOf(groupIsland1) + 1) % islands.size())) {
-            groupIsland1.unifyIsland(groupIsland2);
-            islands.remove(groupIsland2);
+            if(groupIsland1.getInfluence().equals(groupIsland2.getInfluence())) {
+                groupIsland1.unifyIsland(groupIsland2);
+                islands.remove(groupIsland2);
+            } else {
+                throw new IllegalArgumentException("The influencePlayer on the two islands is not the same");
+            }
         } else {
             throw new IllegalArgumentException("The two islands are not unifiable");
         }
