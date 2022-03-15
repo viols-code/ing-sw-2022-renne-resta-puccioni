@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
+import java.util.HashSet;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -188,16 +189,36 @@ class PlayerTest {
     }
 
     @Test
-    void addAssistantCardList() {
+    void addAssistantCardList(){
+        HashSet<AssistantCard> assistantCards=new HashSet<>();
+        for(int i=1,j=1;i<=10&&j<=5;i+=2,j++){
+            AssistantCard card=new AssistantCard(i,j);
+            assistantCards.add(card);
+            player1.addAssistantCardList(card);
+            assertEquals(assistantCards,player1.getAssistantCardSet());
+        }
     }
 
     @Test
     void playAssistantCard() {
+        for(int i=1,j=1;i<=10&&j<=5;i+=2,j++){
+            AssistantCard card=new AssistantCard(i,j);
+            player1.addAssistantCardList(card);
+            player1.playAssistantCard(card);
+            assertEquals(card,player1.getCurrentAssistantCard());
+            assertFalse(player1.getAssistantCardSet().contains(card));
+        }
 
     }
 
     @Test
     void setCurrentAssistantCard() {
+        for(int i=1,j=1;i<=10&&j<=5;i+=2,j++){
+            AssistantCard card=new AssistantCard(i,j);
+            player1.addAssistantCardList(card);
+            player1.setCurrentAssistantCard(card);
+            assertEquals(card,player1.getCurrentAssistantCard());
+        }
     }
 
 
