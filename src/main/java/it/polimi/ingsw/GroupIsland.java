@@ -1,5 +1,7 @@
 package it.polimi.ingsw;
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * GroupIsland
@@ -27,7 +29,7 @@ public class GroupIsland {
     /**
      * Constructor: creates a new empty GroupIsland
      */
-    public GroupIsland(){
+    public GroupIsland() {
         influencePlayer = null;
 
         islandsContained = new ArrayList<>();
@@ -45,7 +47,7 @@ public class GroupIsland {
      *
      * @return the list of SingleIsland of which the GroupIsland is formed
      */
-    public List<SingleIsland> getIslands(){
+    public List<SingleIsland> getIslands() {
         return islandsContained;
     }
 
@@ -54,7 +56,7 @@ public class GroupIsland {
      *
      * @param island the groupIsland to be unified
      */
-    public void unifyIsland(GroupIsland island){
+    public void unifyIsland(GroupIsland island) {
         this.islandsContained.addAll(island.islandsContained);
 
     }
@@ -68,21 +70,21 @@ public class GroupIsland {
      *
      * @return a boolean which states the presence of motherNature
      */
-    public boolean getMotherNature(){
+    public boolean getMotherNature() {
         return motherNature;
     }
 
     /**
      * Removes motherNature from the GroupIsland considered
      */
-    public void removeMotherNature(){
+    public void removeMotherNature() {
         motherNature = false;
     }
 
     /**
      * Places motherNature on the GroupIsland considered
      */
-    public void placeMotherNature(){
+    public void placeMotherNature() {
         motherNature = true;
     }
 
@@ -95,7 +97,7 @@ public class GroupIsland {
      *
      * @return the Player who has the influence
      */
-    public Player getInfluence(){
+    public Player getInfluence() {
         return influencePlayer;
     }
 
@@ -104,7 +106,7 @@ public class GroupIsland {
      *
      * @param newInfluencePlayer the player who has now the influence on the GroupIsland
      */
-    public void changeInfluence(Player newInfluencePlayer){
+    public void changeInfluence(Player newInfluencePlayer) {
         influencePlayer = newInfluencePlayer;
     }
 
@@ -114,17 +116,17 @@ public class GroupIsland {
      * @param player the player of whom we want to calculate the influence
      * @return an int which states the influence of the given player on the island
      */
-    public int calculateInfluence (Player player){
+    public int calculateInfluence(Player player) {
         int influence = 0;
-        for(SingleIsland island : islandsContained){
-            for(Colour colour : Colour.values()) {
+        for (SingleIsland island : islandsContained) {
+            for (Colour colour : Colour.values()) {
                 if (player.hasProfessor(colour)) {
                     influence += island.getStudents(colour);
                 }
             }
         }
         //if the player already has the influence, it means that he has a tower in every singleIsland on the GroupIsland
-        if(player.equals(influencePlayer)) {
+        if (player.equals(influencePlayer)) {
             influence += islandsContained.size();
         }
 
@@ -137,10 +139,10 @@ public class GroupIsland {
      * @param player the player of whom we want to calculate the influence
      * @return an int which states the influence of the given player on the island ignoring the towers
      */
-    public int calculateInfluenceWithoutTowers (Player player){
+    public int calculateInfluenceWithoutTowers(Player player) {
         int influence = 0;
-        for(SingleIsland island : islandsContained){
-            for(Colour colour : Colour.values()) {
+        for (SingleIsland island : islandsContained) {
+            for (Colour colour : Colour.values()) {
                 if (player.hasProfessor(colour)) {
                     influence += island.getStudents(colour);
                 }
@@ -157,10 +159,10 @@ public class GroupIsland {
      * @param colour the colour to be ignored
      * @return an int which states the influence of the given player on the island ignoring the given colour
      */
-    public int calculateInfluenceWithoutColour(Player player, Colour colour){
+    public int calculateInfluenceWithoutColour(Player player, Colour colour) {
         int influence = 0;
-        for(SingleIsland island : islandsContained){
-            for(Colour colour1 : Colour.values()) {
+        for (SingleIsland island : islandsContained) {
+            for (Colour colour1 : Colour.values()) {
                 if (player.hasProfessor(colour1) && colour1 != colour) {
                     influence += island.getStudents(colour1);
                 }

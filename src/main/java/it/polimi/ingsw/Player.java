@@ -61,7 +61,7 @@ public class Player {
      * Constructor: creates a new Player with the given nick and the given number of towers
      *
      * @param nickname a string with the nickname
-     * @param game the game in which the player is playing
+     * @param game     the game in which the player is playing
      */
     public Player(String nickname, Game game) {
         this.nickname = nickname;
@@ -117,7 +117,9 @@ public class Player {
      * @param colour the colour of the returned value
      * @return the number of students of the given colour in the diningRoom
      */
-    public int getDiningRoom(Colour colour) { return diningRoom.get(colour); }
+    public int getDiningRoom(Colour colour) {
+        return diningRoom.get(colour);
+    }
 
     /**
      * Add a student of the given colour to the diningRoom
@@ -125,13 +127,13 @@ public class Player {
      * @param colour the colour of the student to add to the diningRoom
      * @throws IllegalArgumentException when the diningRoom is already full
      */
-    public void addStudentToDiningRoom(Colour colour) throws IllegalArgumentException{
-        if(diningRoom.get(colour) + 1 > 10){
+    public void addStudentToDiningRoom(Colour colour) throws IllegalArgumentException {
+        if (diningRoom.get(colour) + 1 > 10) {
             throw new IllegalArgumentException("Too many students of colour " + colour.name().toLowerCase() +
                     " in the dining room");
         }
 
-        diningRoom.replace(colour, diningRoom.get(colour),diningRoom.get(colour) + 1);
+        diningRoom.replace(colour, diningRoom.get(colour), diningRoom.get(colour) + 1);
     }
 
     /**
@@ -140,13 +142,13 @@ public class Player {
      * @param colour the colour of the student to remove from the diningRoom
      * @throws IllegalArgumentException when in the diningRoom there is no student of the given colour
      */
-    public void removeStudentFromDiningRoom(Colour colour) throws IllegalArgumentException{
-        if(diningRoom.get(colour) - 1 < 0){
+    public void removeStudentFromDiningRoom(Colour colour) throws IllegalArgumentException {
+        if (diningRoom.get(colour) - 1 < 0) {
             throw new IllegalArgumentException("There are not enough student of colour " +
                     colour.name().toLowerCase() + "in the dining room");
         }
 
-        diningRoom.replace(colour, diningRoom.get(colour),diningRoom.get(colour) - 1);
+        diningRoom.replace(colour, diningRoom.get(colour), diningRoom.get(colour) - 1);
     }
 
     /*
@@ -159,7 +161,9 @@ public class Player {
      * @param colour the colour of the returned value
      * @return the number of students in the entrance of the given colour
      */
-    public int getEntrance(Colour colour) { return entrance.get(colour); }
+    public int getEntrance(Colour colour) {
+        return entrance.get(colour);
+    }
 
     /**
      * Add a student of the given colour to the entrance
@@ -167,12 +171,12 @@ public class Player {
      * @param colour the colour of the student to add to the entrance
      * @throws IllegalArgumentException when in the entrance there are too many students
      */
-    public void addStudentToEntrance(Colour colour) throws IllegalArgumentException{
-        if(entrance.size() == game.getNumberStudentsEntrance()){
+    public void addStudentToEntrance(Colour colour) throws IllegalArgumentException {
+        if (entrance.size() == game.getNumberStudentsEntrance()) {
             throw new IllegalArgumentException("Too many students in the entrance");
         }
 
-        entrance.replace(colour, entrance.get(colour),entrance.get(colour) + 1);
+        entrance.replace(colour, entrance.get(colour), entrance.get(colour) + 1);
     }
 
     /**
@@ -180,10 +184,10 @@ public class Player {
      *
      * @param tile the CloudTile chosen by the player
      */
-    public void addStudentToEntrance(CloudTile tile){
+    public void addStudentToEntrance(CloudTile tile) {
 
-        for (Colour colour: Colour.values()) {
-            entrance.replace(colour, entrance.get(colour),entrance.get(colour) + tile.getTileStudents(colour));
+        for (Colour colour : Colour.values()) {
+            entrance.replace(colour, entrance.get(colour), entrance.get(colour) + tile.getTileStudents(colour));
         }
     }
 
@@ -193,13 +197,13 @@ public class Player {
      * @param colour the colour of the student to remove from the entrance
      * @throws IllegalArgumentException when in the entrance there is no student of the given colour
      */
-    public void removeStudentFromEntrance(Colour colour){
-        if(entrance.get(colour) - 1 < 0){
+    public void removeStudentFromEntrance(Colour colour) {
+        if (entrance.get(colour) - 1 < 0) {
             throw new IllegalArgumentException("There are no student of colour " + colour.name().toLowerCase() +
-                    " in the entrance" );
+                    " in the entrance");
         }
 
-        entrance.replace(colour, entrance.get(colour),entrance.get(colour) - 1);
+        entrance.replace(colour, entrance.get(colour), entrance.get(colour) - 1);
     }
 
     /*
@@ -211,8 +215,8 @@ public class Player {
      *
      * @param colour the colour of the professor to add
      */
-    public void addProfessor(Colour colour){
-        if(!hasProfessor(colour)){
+    public void addProfessor(Colour colour) {
+        if (!hasProfessor(colour)) {
             professorTable.replace(colour, false, true);
         }
     }
@@ -222,8 +226,8 @@ public class Player {
      *
      * @param colour the colour of the professor to remove
      */
-    public void removeProfessor(Colour colour){
-        if(hasProfessor(colour)){
+    public void removeProfessor(Colour colour) {
+        if (hasProfessor(colour)) {
             professorTable.replace(colour, true, false);
         }
     }
@@ -234,7 +238,7 @@ public class Player {
      * @param colour Colour of the professor to check
      * @return true if the player has the professor of the given colour, false otherwise
      */
-    public boolean hasProfessor(Colour colour){
+    public boolean hasProfessor(Colour colour) {
         return professorTable.get(colour);
     }
 
@@ -257,8 +261,8 @@ public class Player {
      * @param num the number of towers to give to the player
      * @throws IllegalArgumentException when the number of towers exceed the maximum amount
      */
-    public void addTower(int num) throws IllegalArgumentException{
-        if(towers + num > game.getNumberOfTowersPerPlayer()){
+    public void addTower(int num) throws IllegalArgumentException {
+        if (towers + num > game.getNumberOfTowersPerPlayer()) {
             throw new IllegalArgumentException("The number of towers of each player should be less");
         }
 
@@ -270,8 +274,8 @@ public class Player {
      *
      * @throws IllegalArgumentException when there are not enough towers
      */
-    public void removeTower(int num) throws IllegalArgumentException{
-        if(towers - num < 0){
+    public void removeTower(int num) throws IllegalArgumentException {
+        if (towers - num < 0) {
             throw new IllegalArgumentException("There are not enough towers");
         }
 
@@ -281,7 +285,7 @@ public class Player {
     /*
     ASSISTANT CARD SET
      */
-    public Set<AssistantCard> getAssistantCardSet(){
+    public Set<AssistantCard> getAssistantCardSet() {
         return assistantCardSet;
     }
 
@@ -290,7 +294,7 @@ public class Player {
     ASSISTANT CARD LIST
      */
 
-    public void addAssistantCardList(AssistantCard card){
+    public void addAssistantCardList(AssistantCard card) {
         assistantCardSet.add(card);
     }
 
@@ -301,8 +305,8 @@ public class Player {
      * @param card the assistant card used by the player in that round
      * @throws IllegalArgumentException when the assistant card given is already been played
      */
-    public void playAssistantCard(AssistantCard card) throws IllegalArgumentException{
-        if(!assistantCardSet.contains(card)){
+    public void playAssistantCard(AssistantCard card) throws IllegalArgumentException {
+        if (!assistantCardSet.contains(card)) {
             throw new IllegalArgumentException("The card has already been played");
         }
         setCurrentAssistantCard(card);
@@ -349,7 +353,7 @@ public class Player {
      *
      * @param num the number of coins to add to the player
      */
-    public void addCoins(int num){
+    public void addCoins(int num) {
         coins += num;
     }
 
@@ -359,8 +363,8 @@ public class Player {
      * @param num the number of coins to remove to the player
      * @throws IllegalArgumentException when there are not enough coins to do the operation
      */
-    public void removeCoins(int num) throws IllegalArgumentException{
-        if(coins - num <  0){
+    public void removeCoins(int num) throws IllegalArgumentException {
+        if (coins - num < 0) {
             throw new IllegalArgumentException("There are not enough coins");
         }
 

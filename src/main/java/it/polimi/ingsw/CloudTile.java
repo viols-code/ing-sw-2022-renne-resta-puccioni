@@ -18,7 +18,7 @@ public class CloudTile {
     /**
      * Constructor: creates a new CloudTile
      */
-    public CloudTile(){
+    public CloudTile() {
         tileStudents = new HashMap<>();
 
         tileStudents.put(Colour.GREEN, 0);

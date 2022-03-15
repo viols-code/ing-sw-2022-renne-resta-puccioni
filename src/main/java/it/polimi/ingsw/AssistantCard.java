@@ -7,14 +7,14 @@ import java.util.Objects;
  *
  * @version 1.0
  */
-public final class AssistantCard {
+public class AssistantCard {
     private final int value;
     private final int motherNatureMovement;
 
     /**
      * Constructor: creates a new AssistantCard with the given value and motherNatureMovement.
      *
-     * @param value value used for turn order
+     * @param value                value used for turn order
      * @param motherNatureMovement movements Mother Nature may perform
      */
     public AssistantCard(int value, int motherNatureMovement) {

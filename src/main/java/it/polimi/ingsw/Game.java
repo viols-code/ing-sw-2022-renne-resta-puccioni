@@ -164,11 +164,7 @@ public class Game {
      * @return the current player
      */
     public boolean isCurrentPlayer(Player player) {
-        if (player.equals(currentPlayer)) {
-            return true;
-        }
-
-        return false;
+        return player.equals(currentPlayer);
     }
 
     /**

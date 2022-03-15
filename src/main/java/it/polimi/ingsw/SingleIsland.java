@@ -18,7 +18,7 @@ public class SingleIsland {
     /**
      * Constructor: creates an empty SingleIsland
      */
-    public SingleIsland(){
+    public SingleIsland() {
 
         students = new HashMap<>();
 
@@ -35,7 +35,7 @@ public class SingleIsland {
      * @param colour
      * @return the number of students of the given colour
      */
-    public int getStudents(Colour colour){
+    public int getStudents(Colour colour) {
         return students.get(colour);
     }
 
@@ -44,7 +44,7 @@ public class SingleIsland {
      *
      * @param colour
      */
-    public void addStudent(Colour colour){
+    public void addStudent(Colour colour) {
 
         students.replace(colour, students.get(colour), students.get(colour) + 1);
 
