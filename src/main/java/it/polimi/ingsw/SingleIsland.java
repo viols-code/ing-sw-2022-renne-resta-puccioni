@@ -32,7 +32,7 @@ public class SingleIsland {
     /**
      * Get the number of students of the given colour contained in the SingleIsland
      *
-     * @param colour
+     * @param colour the colour of students
      * @return the number of students of the given colour
      */
     public int getStudents(Colour colour) {
@@ -42,7 +42,7 @@ public class SingleIsland {
     /**
      * Adds a student of the specified colour to the SingleIsland
      *
-     * @param colour
+     * @param colour the colour of the student to be added
      */
     public void addStudent(Colour colour) {
 

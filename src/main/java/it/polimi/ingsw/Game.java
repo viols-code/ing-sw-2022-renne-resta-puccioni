@@ -299,6 +299,30 @@ public class Game {
     }
 
     /*
+    MOTHER NATURE
+     */
+
+    /**
+     * Move mother nature
+     *
+     * @param movement the movement of mother nature
+     */
+    public void moveMotherNaturePosition(int movement){
+        islands.get(motherNaturePosition).removeMotherNature();
+        motherNaturePosition = (motherNaturePosition + movement) % islands.size();
+        islands.get(motherNaturePosition).placeMotherNature();
+    }
+
+    /**
+     * Get the position of mother nature
+     *
+     * @return mother nature position
+     */
+    public int getMotherNaturePosition(){
+        return motherNaturePosition;
+    }
+
+    /*
     ROUND
      */
 
