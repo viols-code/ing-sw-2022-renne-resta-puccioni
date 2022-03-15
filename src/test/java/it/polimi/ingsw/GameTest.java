@@ -189,6 +189,13 @@ class GameTest {
         int numYellowRemained = gameTest.getBag(Colour.YELLOW);
         int numRedRemained = gameTest.getBag(Colour.RED);
 
+        assertEquals(numPinkRemained, gameTest.getBag(Colour.PINK));
+        assertEquals(numGreenRemained, gameTest.getBag(Colour.GREEN));
+        assertEquals(numBlueRemained, gameTest.getBag(Colour.BLUE));
+        assertEquals(numRedRemained, gameTest.getBag(Colour.RED));
+        assertEquals(numYellowRemained, gameTest.getBag(Colour.YELLOW));
+
+
         Colour colour = gameTest.bagDrawStudent();
         if (colour.equals(Colour.PINK)){
             numPinkRemained--;
@@ -206,7 +213,7 @@ class GameTest {
         } else if (colour.equals(Colour.RED)) {
             numRedRemained--;
             assertEquals(numRedRemained, gameTest.getBag(Colour.RED));
-        } else if (colour.equals(Colour.YELLOW)) {
+        } else {
             numYellowRemained--;
             assertEquals(numYellowRemained, gameTest.getBag(Colour.YELLOW));
         }
