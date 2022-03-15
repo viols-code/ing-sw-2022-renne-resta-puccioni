@@ -58,6 +58,11 @@ public class Game {
     private final List<CharacterCard> characterCards;
 
     /**
+     * A List containing the assistant cards
+     */
+    private final List<AssistantCard> assistantCard;
+
+    /**
      * Number of student that each Player has to move in a round
      */
     private int studentNumberMovement;
@@ -99,6 +104,29 @@ public class Game {
         currentPlayer = null;
         cloudTiles = new ArrayList<>();
         characterCards = new ArrayList<>();
+        assistantCard = new ArrayList<>();
+
+        AssistantCard card1 = new AssistantCard(1, 1);
+        assistantCard.add(card1);
+        AssistantCard card2 = new AssistantCard(2, 1);
+        assistantCard.add(card2);
+        AssistantCard card3 = new AssistantCard(3, 2);
+        assistantCard.add(card3);
+        AssistantCard card4 = new AssistantCard(4, 2);
+        assistantCard.add(card4);
+        AssistantCard card5 = new AssistantCard(5, 3);
+        assistantCard.add(card5);
+        AssistantCard card6 = new AssistantCard(6, 3);
+        assistantCard.add(card6);
+        AssistantCard card7 = new AssistantCard(7, 4);
+        assistantCard.add(card7);
+        AssistantCard card8 = new AssistantCard(8, 5);
+        assistantCard.add(card8);
+        AssistantCard card9 = new AssistantCard(9, 5);
+        assistantCard.add(card9);
+        AssistantCard card10 = new AssistantCard(10, 5);
+        assistantCard.add(card10);
+
         studentNumberMovement = 0;
         numberOfTowersPerPlayer = 0;
         numberStudentsEntrance = 0;
@@ -414,6 +442,24 @@ public class Game {
      */
     public List<CharacterCard> getCharacterCards() {
         return characterCards;
+    }
+
+    /*
+    ASSISTANT CARD
+     */
+
+    /**
+     * Get the assistant card in the assistantCard List
+     *
+     * @param card the position of the assistant card to be returned
+     * @return the assistant card position in the List
+     * @throws IllegalArgumentException if the position given doesn't exist in the List
+     */
+    public AssistantCard getAssistantCard(int card) throws IllegalArgumentException{
+        if(card < 0 || card > 9){
+            throw new IllegalArgumentException("The argument must be between 0 and 9");
+        }
+        return assistantCard.get(card);
     }
 
     /*

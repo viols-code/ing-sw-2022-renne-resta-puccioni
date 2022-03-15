@@ -88,6 +88,10 @@ public class Player {
 
         towers = 0;
         assistantCardSet = new HashSet<>();
+        for(int i = 0; i < 10; i++){
+            assistantCardSet.add(game.getAssistantCard(i));
+        }
+
         currentAssistantCard = null;
         coins = 1;
         this.game = game;
