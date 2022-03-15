@@ -1,13 +1,15 @@
 package it.polimi.ingsw;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Objects;
 
 /**
-    * Game
-    *
-    * @version 1.0
-
-    */
+ * Game
+ *
+ * @version 1.0
+ */
 public class Game {
 
     /**
@@ -28,7 +30,7 @@ public class Game {
     /**
      * A Map containing the number of students for each colour in the bag
      */
-    private final HashMap<Colour,Integer> bag;
+    private final HashMap<Colour, Integer> bag;
 
     /**
      * A List containing the Groups of island in the match
@@ -76,7 +78,7 @@ public class Game {
     /**
      * Constructor: creates a game relying on the number of players given
      */
-    public Game(){
+    public Game() {
         players = new ArrayList<>();
 
         bag = new HashMap<>();
@@ -87,7 +89,7 @@ public class Game {
         bag.put(Colour.BLUE, 24);
 
         islands = new ArrayList<>();
-        for(int i = 0; i < 12; i++){
+        for (int i = 0; i < 12; i++) {
             islands.add(new GroupIsland());
         }
         islands.get(0).placeMotherNature();
@@ -112,7 +114,7 @@ public class Game {
      *
      * @return the number of players
      */
-    public int getNumberOfPlayer(){
+    public int getNumberOfPlayer() {
         return players.size();
     }
 
@@ -121,7 +123,7 @@ public class Game {
      *
      * @param player the player to be added to the game
      */
-    public void addPlayer(Player player){
+    public void addPlayer(Player player) {
         this.players.add(player);
     }
 
@@ -131,8 +133,8 @@ public class Game {
      * @param player the player to be removed from the game
      * @throws IllegalArgumentException if the player is not in the game
      */
-    public void removePlayer(Player player) throws IllegalArgumentException{
-        if(! players.contains(player)){
+    public void removePlayer(Player player) throws IllegalArgumentException {
+        if (!players.contains(player)) {
             throw new IllegalArgumentException("This player is not in the game");
         }
 
@@ -144,12 +146,12 @@ public class Game {
      *
      * @return the next player clockwise
      */
-    public Player nextPlayerClockwise(){
+    public Player nextPlayerClockwise() {
         return players.get((players.indexOf(currentPlayer) + 1) % players.size());
     }
 
 
-    public Player nextPlayerTurn(){
+    public Player nextPlayerTurn() {
        /*
        TO DO
         */
@@ -162,7 +164,7 @@ public class Game {
      * @return the current player
      */
     public boolean isCurrentPlayer(Player player) {
-        if(player.equals(currentPlayer)){
+        if (player.equals(currentPlayer)) {
             return true;
         }
 
@@ -174,7 +176,7 @@ public class Game {
      *
      * @param player the player to be set as the current player
      */
-    public void setCurrentPlayer(Player player){
+    public void setCurrentPlayer(Player player) {
         this.currentPlayer = player;
     }
 
@@ -183,7 +185,7 @@ public class Game {
      *
      * @return the player who played first in the current round
      */
-    public Player getFirstPlayerTurn(){
+    public Player getFirstPlayerTurn() {
         return this.firstPlayerTurn;
     }
 
@@ -192,7 +194,7 @@ public class Game {
      *
      * @param player the player who played first in the current round
      */
-    public void setFirstPlayerTurn(Player player){
+    public void setFirstPlayerTurn(Player player) {
         this.firstPlayerTurn = player;
     }
 
@@ -216,9 +218,9 @@ public class Game {
      *
      * @param colour the colour of the student to be added
      */
-    public void addStudentBag(Colour colour){
+    public void addStudentBag(Colour colour) {
         int currentValue = bag.get(colour);
-        bag.replace(colour, bag.get(colour),bag.get(colour) + 1);
+        bag.replace(colour, bag.get(colour), bag.get(colour) + 1);
     }
 
     /**
@@ -227,12 +229,12 @@ public class Game {
      * @param colour the colour of the student to be removed
      * @throws IllegalArgumentException if there are no student of the given colour
      */
-    public void removeStudentBag(Colour colour) throws IllegalArgumentException{
-        if(bag.get(colour) == 0){
+    public void removeStudentBag(Colour colour) throws IllegalArgumentException {
+        if (bag.get(colour) == 0) {
             throw new IllegalArgumentException("There are no student of colour " +
                     colour.name().toLowerCase() + "in the bag");
         }
-        bag.replace(colour, bag.get(colour),bag.get(colour) - 1);
+        bag.replace(colour, bag.get(colour), bag.get(colour) - 1);
     }
 
     /*
@@ -245,15 +247,18 @@ public class Game {
      * @return the student drawn
      * @throws IllegalArgumentException if there are no student in the bag
      */
-    public Colour bagDrawStudent(){
-        if(bag.size() == 0){
-            throw new IllegalArgumentException("There are no student in the bag ");
+    public Colour bagDrawStudent() {
+        if (bag.size() == 0) {
+            throw new IllegalArgumentException("There are no student in the bag");
         }
         int n = (int) (Math.random() * bag.size()) + 1;
-        if(n>=1 && n<=getBag(Colour.YELLOW)) return Colour.YELLOW;
-        else if(n>getBag(Colour.YELLOW) && n<= getBag(Colour.YELLOW) + getBag(Colour.BLUE)) return Colour.BLUE;
-        else if(n>getBag(Colour.YELLOW) + getBag(Colour.BLUE) && n<= getBag(Colour.YELLOW) + getBag(Colour.BLUE) + getBag(Colour.PINK)) return Colour.PINK;
-        else if(n>getBag(Colour.YELLOW) + getBag(Colour.BLUE) + getBag(Colour.PINK) && n<= getBag(Colour.YELLOW) + getBag(Colour.BLUE) + getBag(Colour.PINK) + getBag(Colour.RED)) return Colour.RED;
+        if (n >= 1 && n <= getBag(Colour.YELLOW)) return Colour.YELLOW;
+        else if (n > getBag(Colour.YELLOW) && n <= getBag(Colour.YELLOW) + getBag(Colour.BLUE)) return Colour.BLUE;
+        else if (n > getBag(Colour.YELLOW) + getBag(Colour.BLUE) && n <= getBag(Colour.YELLOW) + getBag(Colour.BLUE) + getBag(Colour.PINK))
+            return Colour.PINK;
+        else if (n > getBag(Colour.YELLOW) + getBag(Colour.BLUE) + getBag(Colour.PINK)
+                && n <= getBag(Colour.YELLOW) + getBag(Colour.BLUE) + getBag(Colour.PINK) + getBag(Colour.RED))
+            return Colour.RED;
         else return Colour.GREEN;
     }
 
@@ -276,8 +281,8 @@ public class Game {
      *
      * @param groupIsland the groupIsland to be removed
      */
-    public void removeGroupIsland(GroupIsland groupIsland){
-       islands.remove(groupIsland);
+    public void removeGroupIsland(GroupIsland groupIsland) {
+        islands.remove(groupIsland);
     }
 
     /**
@@ -287,12 +292,12 @@ public class Game {
      * @param groupIsland2 the second groupIsland to be unified
      * @throws IllegalArgumentException if the two islands are not
      */
-    public void unify(GroupIsland groupIsland1,GroupIsland groupIsland2) throws IllegalArgumentException{
-        if(islands.indexOf(groupIsland1) == ((islands.indexOf(groupIsland2) + 1) % islands.size()) ||
-                islands.indexOf(groupIsland2) == ((islands.indexOf(groupIsland1) + 1) % islands.size())){
+    public void unify(GroupIsland groupIsland1, GroupIsland groupIsland2) throws IllegalArgumentException {
+        if (islands.indexOf(groupIsland1) == ((islands.indexOf(groupIsland2) + 1) % islands.size()) ||
+                islands.indexOf(groupIsland2) == ((islands.indexOf(groupIsland1) + 1) % islands.size())) {
             groupIsland1.unifyIsland(groupIsland2);
             islands.remove(groupIsland2);
-        } else{
+        } else {
             throw new IllegalArgumentException("The two islands are not unifiable");
         }
     }
@@ -313,7 +318,7 @@ public class Game {
     /**
      * Increments the round number
      */
-    public void incrementRound(){
+    public void incrementRound() {
         round += 1;
     }
 
@@ -335,7 +340,7 @@ public class Game {
      *
      * @param cloudTile the cloud to be added to the game
      */
-    public void addCLoudTile(CloudTile cloudTile){
+    public void addCLoudTile(CloudTile cloudTile) {
         cloudTiles.add(cloudTile);
     }
 
@@ -344,7 +349,7 @@ public class Game {
      *
      * @param cloudTile the cloud tile chosen by one player
      */
-    public void removeCLoudTile(CloudTile cloudTile){
+    public void removeCLoudTile(CloudTile cloudTile) {
         cloudTiles.remove(cloudTile);
     }
 
@@ -438,7 +443,7 @@ public class Game {
      *
      * @param gamePhase the game phase to be set
      */
-    public void setGamePhase(GamePhase gamePhase){
+    public void setGamePhase(GamePhase gamePhase) {
         this.gamePhase = gamePhase;
     }
 
