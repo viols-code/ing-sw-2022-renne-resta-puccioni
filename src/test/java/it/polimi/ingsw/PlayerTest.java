@@ -187,18 +187,25 @@ class PlayerTest {
         }
     }
 
-    @Test
-    void addAssistantCardList() {
-
-    }
 
     @Test
     void playAssistantCard() {
+        for(int i=1,j=1;i<=10&&j<=5;i+=2,j++){
+            AssistantCard card=new AssistantCard(i,j);
+            player1.playAssistantCard(card);
+            assertEquals(card,player1.getCurrentAssistantCard());
+            assertFalse(player1.getAssistantCardSet().contains(card));
+        }
 
     }
 
     @Test
     void setCurrentAssistantCard() {
+        for(int i=1,j=1;i<=10&&j<=5;i+=2,j++){
+            AssistantCard card=new AssistantCard(i,j);
+            player1.setCurrentAssistantCard(card);
+            assertEquals(card,player1.getCurrentAssistantCard());
+        }
     }
 
 
