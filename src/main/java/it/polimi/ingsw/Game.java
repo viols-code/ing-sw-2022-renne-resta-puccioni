@@ -360,13 +360,18 @@ public class Game {
      * @throws IllegalArgumentException if the two islands are not
      */
     public void unify(GroupIsland groupIsland1, GroupIsland groupIsland2) throws IllegalArgumentException {
+
         if (islands.indexOf(groupIsland1) == ((islands.indexOf(groupIsland2) + 1) % islands.size()) ||
                 islands.indexOf(groupIsland2) == ((islands.indexOf(groupIsland1) + 1) % islands.size())) {
-            if(groupIsland1.getInfluence().equals(groupIsland2.getInfluence())) {
-                groupIsland1.unifyIsland(groupIsland2);
-                islands.remove(groupIsland2);
+            if(groupIsland1.getInfluence() != null && groupIsland2.getInfluence() != null) {
+                if(groupIsland1.getInfluence().equals(groupIsland2.getInfluence())) {
+                    groupIsland1.unifyIsland(groupIsland2);
+                    islands.remove(groupIsland2);
+                }else{
+                    throw new IllegalArgumentException("The influencePlayer on the two islands is not the same");
+                }
             } else {
-                throw new IllegalArgumentException("The influencePlayer on the two islands is not the same");
+                throw new IllegalArgumentException("Null influencePlayer");
             }
         } else {
             throw new IllegalArgumentException("The two islands are not unifiable");

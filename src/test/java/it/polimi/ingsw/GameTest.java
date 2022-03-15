@@ -90,6 +90,12 @@ class GameTest {
     @Test
     void unify() {
         GroupIsland island2 = gameTest.getIslands().get(1);
+        GroupIsland island1 = gameTest.getIslands().get(0);
+
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {island1.unifyIsland(island2);} );
+
+        island2.changeInfluence(player1);
+        island1.changeInfluence(player1);
 
         gameTest.unify(gameTest.getIslands().get(0), gameTest.getIslands().get(1));
         assertEquals(11, gameTest.getIslands().size());
