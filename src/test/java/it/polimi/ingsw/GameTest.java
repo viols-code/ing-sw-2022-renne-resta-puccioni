@@ -13,7 +13,7 @@ class GameTest {
     Player player3;
 
     @BeforeEach
-    void setUp(){
+    void setUp() {
         gameTest = new Game();
         player1 = new Player("player1", gameTest);
         gameTest.addPlayer(player1);
@@ -64,6 +64,7 @@ class GameTest {
 
     @Test
     void addStudentBag() {
+        assertEquals(24, gameTest.getBag(Colour.PINK));
         gameTest.removeStudentBag(Colour.PINK);
         assertEquals(23, gameTest.getBag(Colour.PINK));
         gameTest.removeStudentBag(Colour.PINK);
@@ -74,20 +75,20 @@ class GameTest {
 
     @Test
     void removeStudentBag() {
+        assertEquals(24, gameTest.getBag(Colour.GREEN));
         gameTest.removeStudentBag(Colour.GREEN);
         assertEquals(23, gameTest.getBag(Colour.GREEN));
         gameTest.removeStudentBag(Colour.GREEN);
         assertEquals(22, gameTest.getBag(Colour.GREEN));
-        gameTest.addStudentBag(Colour.PINK);
     }
 
     @Test
     void removeGroupIsland() {
-       GroupIsland islandRemoved = gameTest.getIslands().get(2);
-       gameTest.removeGroupIsland(gameTest.getIslands().get(2));
-       for(int i = 0; i<gameTest.getIslands().size(); i++) {
-           assertNotEquals(gameTest.getIslands().get(i), islandRemoved);
-       }
+        GroupIsland islandRemoved = gameTest.getIslands().get(2);
+        gameTest.removeGroupIsland(gameTest.getIslands().get(2));
+        for (int i = 0; i < gameTest.getIslands().size(); i++) {
+            assertNotEquals(gameTest.getIslands().get(i), islandRemoved);
+        }
     }
 
     @Test
@@ -97,7 +98,7 @@ class GameTest {
         gameTest.unify(gameTest.getIslands().get(0), gameTest.getIslands().get(1));
         assertEquals(11, gameTest.getIslands().size());
 
-        for(int i = 0; i < gameTest.getIslands().size(); i++){
+        for (int i = 0; i < gameTest.getIslands().size(); i++) {
             assertNotEquals(island2, gameTest.getIslands().get(i));
         }
 
@@ -105,7 +106,7 @@ class GameTest {
         gameTest.unify(gameTest.getIslands().get(0), gameTest.getIslands().get(10));
         assertEquals(10, gameTest.getIslands().size());
 
-        for(int i = 0; i < gameTest.getIslands().size(); i++){
+        for (int i = 0; i < gameTest.getIslands().size(); i++) {
             assertNotEquals(island11, gameTest.getIslands().get(i));
         }
 
@@ -113,7 +114,7 @@ class GameTest {
         gameTest.unify(gameTest.getIslands().get(3), gameTest.getIslands().get(4));
         assertEquals(9, gameTest.getIslands().size());
 
-        for(int i = 0; i < gameTest.getIslands().size(); i++){
+        for (int i = 0; i < gameTest.getIslands().size(); i++) {
             assertNotEquals(island5, gameTest.getIslands().get(i));
         }
 
@@ -127,8 +128,8 @@ class GameTest {
 
     @Test
     void addCLoudTile() {
-        CloudTile cloud1 = new CloudTile();
-        CloudTile cloud2 = new CloudTile();
+        CloudTile cloud1 = new CloudTile(gameTest.bagDrawCloudTile());
+        CloudTile cloud2 = new CloudTile(gameTest.bagDrawCloudTile());
         gameTest.addCLoudTile(cloud1);
         assertEquals(cloud1, gameTest.getCloudTiles().get(0));
         gameTest.addCLoudTile(cloud2);
@@ -137,10 +138,10 @@ class GameTest {
 
     @Test
     void removeCLoudTile() {
-        CloudTile cloud1 = new CloudTile();
+        CloudTile cloud1 = new CloudTile(gameTest.bagDrawCloudTile());
         gameTest.addCLoudTile(cloud1);
         gameTest.removeCLoudTile(cloud1);
-        for(int i = 0; i<gameTest.getCloudTiles().size(); i++) {
+        for (int i = 0; i < gameTest.getCloudTiles().size(); i++) {
             assertNotEquals(gameTest.getCloudTiles().get(i), cloud1);
         }
     }
@@ -179,13 +180,13 @@ class GameTest {
     }
 
     @Test
-    void isCurrentPlayer(){
+    void isCurrentPlayer() {
         gameTest.setCurrentPlayer(player1);
         assertTrue(gameTest.isCurrentPlayer(player1));
     }
 
     @Test
-    void bagDrawStudent(){
+    void bagDrawStudent() {
         /*
         DA FARE
          */

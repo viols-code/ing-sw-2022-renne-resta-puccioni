@@ -19,14 +19,14 @@ class GroupIslandTest {
         int size = groupIslandTest.getIslands().size();
 
         for (SingleIsland island : groupIslandTest1.getIslands()) {
-            for(Colour colour: Colour.values()){
+            for (Colour colour : Colour.values()) {
                 island.addStudent(colour);
                 assertEquals(1, island.getStudents(colour));
             }
         }
 
         for (SingleIsland island : groupIslandTest.getIslands()) {
-            for(Colour colour: Colour.values()){
+            for (Colour colour : Colour.values()) {
                 island.addStudent(colour);
                 assertEquals(1, island.getStudents(colour));
             }
@@ -35,14 +35,14 @@ class GroupIslandTest {
         groupIslandTest.unifyIsland(groupIslandTest1);
 
         for (SingleIsland island : groupIslandTest.getIslands()) {
-            for(Colour colour: Colour.values()){
+            for (Colour colour : Colour.values()) {
                 assertEquals(1, island.getStudents(colour));
             }
         }
 
-        for (Colour colour: Colour.values()){
+        for (Colour colour : Colour.values()) {
             int count = 0;
-            for(SingleIsland island: groupIslandTest.getIslands()){
+            for (SingleIsland island : groupIslandTest.getIslands()) {
                 count += island.getStudents(colour);
             }
             assertEquals(2, count);
@@ -74,7 +74,7 @@ class GroupIslandTest {
     void changeInfluence() {
         Game game = new Game();
         Player player1 = new Player("Viola", game);
-        Player player2= new Player("Laura", game);
+        Player player2 = new Player("Laura", game);
 
         assertNull(groupIslandTest.getInfluence());
         groupIslandTest.changeInfluence(player1);
