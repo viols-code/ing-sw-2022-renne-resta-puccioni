@@ -1,6 +1,7 @@
 package it.polimi.ingsw;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -155,5 +156,19 @@ public class Player {
      */
     public SchoolBoard getSchoolBoard(){
         return schoolBoard;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Player player = (Player) o;
+        return getCoins() == player.getCoins() && Objects.equals(getNickname(), player.getNickname()) && Objects.equals(getAssistantCardSet(), player.getAssistantCardSet()) && Objects.equals(getCurrentAssistantCard(), player.getCurrentAssistantCard()) && Objects.equals(getSchoolBoard(), player.getSchoolBoard());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getNickname(), getAssistantCardSet(), getCurrentAssistantCard(), getCoins(), getSchoolBoard());
     }
 }
