@@ -47,9 +47,19 @@ public class GroupIsland {
      *
      * @return the list of SingleIsland of which the GroupIsland is formed
      */
-    public List<SingleIsland> getIslands() {
-        return islandsContained;
+    public SingleIsland getIslands(int island) throws IllegalArgumentException{
+        if(island < 0 || island > getNumberOfSingleIsland()){
+            throw new IllegalArgumentException("The index is out of range");
+        }
+        return islandsContained.get(island);
     }
+
+    /**
+     * Get the number of SingleIslands in the GroupIsland
+     *
+     * @return the number of SingleIslands in the GroupIsland
+     */
+    public int getNumberOfSingleIsland(){ return islandsContained.size(); }
 
     /**
      * Unifies the considered GroupIsland with the given GroupIsland
@@ -127,7 +137,7 @@ public class GroupIsland {
         }
         //if the player already has the influence, it means that he has a tower in every singleIsland on the GroupIsland
         if (player.equals(influencePlayer)) {
-            influence += islandsContained.size();
+            influence += getNumberOfSingleIsland();
         }
 
         return influence;
@@ -167,6 +177,10 @@ public class GroupIsland {
                     influence += island.getStudents(colour1);
                 }
             }
+        }
+
+        if (player.equals(influencePlayer)) {
+            influence += getNumberOfSingleIsland();
         }
 
         return influence;
