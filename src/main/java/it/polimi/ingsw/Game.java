@@ -163,7 +163,7 @@ public class Game {
      *
      * @return the current player
      */
-    public boolean isCurrentPlayer(Player player) {
+    public boolean isCurrentPlayer(Player player){
         return player.equals(currentPlayer);
     }
 

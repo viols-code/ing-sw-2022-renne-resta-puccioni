@@ -265,7 +265,6 @@ public class Player {
         if (towers + num > game.getNumberOfTowersPerPlayer()) {
             throw new IllegalArgumentException("The number of towers of each player should be less");
         }
-
         towers += num;
     }
 
@@ -278,7 +277,6 @@ public class Player {
         if (towers - num < 0) {
             throw new IllegalArgumentException("There are not enough towers");
         }
-
         towers -= num;
     }
 
