@@ -243,7 +243,7 @@ public class Game {
      * Draw a student from the bag
      *
      * @return the student drawn
-     * @throws IllegalArgumentException if there are no student of the given colour
+     * @throws IllegalArgumentException if there are no student in the bag
      */
     public Colour bagDrawStudent(){
         if(bag.size() == 0){
