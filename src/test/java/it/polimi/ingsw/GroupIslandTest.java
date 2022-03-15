@@ -72,9 +72,8 @@ class GroupIslandTest {
 
     @Test
     void changeInfluence() {
-        Game game = new Game();
-        Player player1 = new Player("Viola", game);
-        Player player2 = new Player("Laura", game);
+        Player player1 = new Player("Viola");
+        Player player2 = new Player("Laura");
 
         assertNull(groupIslandTest.getInfluence());
         groupIslandTest.changeInfluence(player1);
@@ -85,16 +84,15 @@ class GroupIslandTest {
 
     @Test
     void calculateInfluence() {
-        Game game = new Game();
-        Player player1 = new Player("Viola", game);
-        Player player2 = new Player("Laura", game);
+        Player player1 = new Player("Viola");
+        Player player2 = new Player("Laura");
         GroupIsland groupIslandTest1 = new GroupIsland();
 
-        player1.addProfessor(Colour.BLUE);
-        player1.addProfessor(Colour.PINK);
-        player1.addProfessor(Colour.RED);
-        player2.addProfessor(Colour.YELLOW);
-        player2.addProfessor(Colour.GREEN);
+        player1.getSchoolBoard().addProfessor(Colour.BLUE);
+        player1.getSchoolBoard().addProfessor(Colour.PINK);
+        player1.getSchoolBoard().addProfessor(Colour.RED);
+        player2.getSchoolBoard().addProfessor(Colour.YELLOW);
+        player2.getSchoolBoard().addProfessor(Colour.GREEN);
 
         groupIslandTest.getIslands(0).addStudent(Colour.BLUE);
         groupIslandTest.getIslands(0).addStudent(Colour.PINK);
@@ -157,16 +155,15 @@ class GroupIslandTest {
 
     @Test
     void calculateInfluenceWithoutTowers() {
-        Game game = new Game();
-        Player player1 = new Player("Viola", game);
-        Player player2 = new Player("Laura", game);
+        Player player1 = new Player("Viola");
+        Player player2 = new Player("Laura");
         GroupIsland groupIslandTest1 = new GroupIsland();
 
-        player1.addProfessor(Colour.BLUE);
-        player1.addProfessor(Colour.PINK);
-        player1.addProfessor(Colour.RED);
-        player2.addProfessor(Colour.YELLOW);
-        player2.addProfessor(Colour.GREEN);
+        player1.getSchoolBoard().addProfessor(Colour.BLUE);
+        player1.getSchoolBoard().addProfessor(Colour.PINK);
+        player1.getSchoolBoard().addProfessor(Colour.RED);
+        player2.getSchoolBoard().addProfessor(Colour.YELLOW);
+        player2.getSchoolBoard().addProfessor(Colour.GREEN);
 
         groupIslandTest.getIslands(0).addStudent(Colour.BLUE);
         groupIslandTest.getIslands(0).addStudent(Colour.PINK);
@@ -222,16 +219,15 @@ class GroupIslandTest {
 
     @Test
     void calculateInfluenceWithoutColour() {
-        Game game = new Game();
-        Player player1 = new Player("Viola", game);
-        Player player2 = new Player("Laura", game);
+        Player player1 = new Player("Viola");
+        Player player2 = new Player("Laura");
         GroupIsland groupIslandTest1 = new GroupIsland();
 
-        player1.addProfessor(Colour.BLUE);
-        player1.addProfessor(Colour.PINK);
-        player1.addProfessor(Colour.RED);
-        player2.addProfessor(Colour.YELLOW);
-        player2.addProfessor(Colour.GREEN);
+        player1.getSchoolBoard().addProfessor(Colour.BLUE);
+        player1.getSchoolBoard().addProfessor(Colour.PINK);
+        player1.getSchoolBoard().addProfessor(Colour.RED);
+        player2.getSchoolBoard().addProfessor(Colour.YELLOW);
+        player2.getSchoolBoard().addProfessor(Colour.GREEN);
 
         groupIslandTest.getIslands(0).addStudent(Colour.BLUE);
         groupIslandTest.getIslands(0).addStudent(Colour.PINK);
