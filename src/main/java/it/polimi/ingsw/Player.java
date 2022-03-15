@@ -291,11 +291,9 @@ public class Player {
     /*
     ASSISTANT CARD LIST
      */
-
-    public void addAssistantCardList(AssistantCard card) {
+    public void addAssistantCardList(AssistantCard card){
         assistantCardSet.add(card);
     }
-
 
     /**
      * Remove the given card from the assistantCardList and set the card as the currentAssistantCard
