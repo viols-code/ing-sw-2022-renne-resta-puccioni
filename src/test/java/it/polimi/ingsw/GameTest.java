@@ -15,7 +15,7 @@ class GameTest {
     @BeforeEach
     void setUp() {
         gameTest = new Game();
-        player1 = new Player("player1", gameTest);
+        player1 = new Player("player1");
         gameTest.addPlayer(player1);
 
     }
@@ -33,8 +33,8 @@ class GameTest {
 
     @Test
     void nextPlayerClockwise() {
-        player2 = new Player("player2", gameTest);
-        player3 = new Player("player3", gameTest);
+        player2 = new Player("player2");
+        player3 = new Player("player3");
         gameTest.addPlayer(player2);
         gameTest.addPlayer(player3);
         gameTest.setCurrentPlayer(player3);
@@ -199,15 +199,31 @@ class GameTest {
             assertEquals(numYellowRemained, gameTest.getBag(Colour.YELLOW));
         } else if (colour.equals(Colour.GREEN)) {
             numGreenRemained--;
+            assertEquals(numPinkRemained, gameTest.getBag(Colour.PINK));
             assertEquals(numGreenRemained, gameTest.getBag(Colour.GREEN));
+            assertEquals(numBlueRemained, gameTest.getBag(Colour.BLUE));
+            assertEquals(numRedRemained, gameTest.getBag(Colour.RED));
+            assertEquals(numYellowRemained, gameTest.getBag(Colour.YELLOW));
         } else if (colour.equals(Colour.BLUE)) {
             numBlueRemained--;
+            assertEquals(numPinkRemained, gameTest.getBag(Colour.PINK));
+            assertEquals(numGreenRemained, gameTest.getBag(Colour.GREEN));
             assertEquals(numBlueRemained, gameTest.getBag(Colour.BLUE));
+            assertEquals(numRedRemained, gameTest.getBag(Colour.RED));
+            assertEquals(numYellowRemained, gameTest.getBag(Colour.YELLOW));
         } else if (colour.equals(Colour.RED)) {
             numRedRemained--;
+            assertEquals(numPinkRemained, gameTest.getBag(Colour.PINK));
+            assertEquals(numGreenRemained, gameTest.getBag(Colour.GREEN));
+            assertEquals(numBlueRemained, gameTest.getBag(Colour.BLUE));
             assertEquals(numRedRemained, gameTest.getBag(Colour.RED));
-        } else if (colour.equals(Colour.YELLOW)) {
+            assertEquals(numYellowRemained, gameTest.getBag(Colour.YELLOW));
+        } else{
             numYellowRemained--;
+            assertEquals(numPinkRemained, gameTest.getBag(Colour.PINK));
+            assertEquals(numGreenRemained, gameTest.getBag(Colour.GREEN));
+            assertEquals(numBlueRemained, gameTest.getBag(Colour.BLUE));
+            assertEquals(numRedRemained, gameTest.getBag(Colour.RED));
             assertEquals(numYellowRemained, gameTest.getBag(Colour.YELLOW));
         }
     }

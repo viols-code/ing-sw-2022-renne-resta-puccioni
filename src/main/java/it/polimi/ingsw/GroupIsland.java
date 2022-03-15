@@ -130,7 +130,7 @@ public class GroupIsland {
         int influence = 0;
         for (SingleIsland island : islandsContained) {
             for (Colour colour : Colour.values()) {
-                if (player.hasProfessor(colour)) {
+                if (player.getSchoolBoard().hasProfessor(colour)) {
                     influence += island.getStudents(colour);
                 }
             }
@@ -153,7 +153,7 @@ public class GroupIsland {
         int influence = 0;
         for (SingleIsland island : islandsContained) {
             for (Colour colour : Colour.values()) {
-                if (player.hasProfessor(colour)) {
+                if (player.getSchoolBoard().hasProfessor(colour)) {
                     influence += island.getStudents(colour);
                 }
             }
@@ -173,7 +173,7 @@ public class GroupIsland {
         int influence = 0;
         for (SingleIsland island : islandsContained) {
             for (Colour colour1 : Colour.values()) {
-                if (player.hasProfessor(colour1) && colour1 != colour) {
+                if (player.getSchoolBoard().hasProfessor(colour1) && colour1 != colour) {
                     influence += island.getStudents(colour1);
                 }
             }

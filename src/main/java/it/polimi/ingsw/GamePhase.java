@@ -13,3 +13,4 @@ public enum GamePhase {
     MOVE_MOTHER_NATURE,
     CHOOSE_CLOUD_TILE,
 }
+
