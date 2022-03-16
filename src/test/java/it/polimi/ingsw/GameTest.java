@@ -92,7 +92,13 @@ class GameTest {
         GroupIsland island2 = gameTest.getIslands().get(1);
         GroupIsland island1 = gameTest.getIslands().get(0);
 
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {island1.unifyIsland(island2);} );
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {gameTest.unify(island1, island2);} );
+
+        String expectedMessage = "Null influencePlayer";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+
 
         island2.changeInfluence(player1);
         island1.changeInfluence(player1);
@@ -105,6 +111,8 @@ class GameTest {
         }
 
         GroupIsland island11 = gameTest.getIslands().get(10);
+
+        island11.changeInfluence(player1);
         gameTest.unify(gameTest.getIslands().get(0), gameTest.getIslands().get(10));
         assertEquals(10, gameTest.getIslands().size());
 
@@ -113,12 +121,41 @@ class GameTest {
         }
 
         GroupIsland island5 = gameTest.getIslands().get(4);
+        GroupIsland island4 = gameTest.getIslands().get(3);
+
+        island5.changeInfluence(player1);
+        island4.changeInfluence(player1);
+
         gameTest.unify(gameTest.getIslands().get(3), gameTest.getIslands().get(4));
         assertEquals(9, gameTest.getIslands().size());
 
         for (int i = 0; i < gameTest.getIslands().size(); i++) {
             assertNotEquals(island5, gameTest.getIslands().get(i));
         }
+
+        GroupIsland island6 = gameTest.getIslands().get(5);
+        GroupIsland island7 = gameTest.getIslands().get(6);
+
+        player2 = new Player("player2");
+        gameTest.addPlayer(player2);
+
+        island6.changeInfluence(player2);
+        island7.changeInfluence(player1);
+
+        Exception exception2 = assertThrows(IllegalArgumentException.class, () -> {gameTest.unify(island6, island7);} );
+
+        String expectedMessage2 = "The influencePlayer on the two islands is not the same";
+        String actualMessage2 = exception2.getMessage();
+
+        assertTrue(actualMessage2.contains(expectedMessage2));
+
+        GroupIsland island8 = gameTest.getIslands().get(7);
+        Exception exception3 = assertThrows(IllegalArgumentException.class, () -> {gameTest.unify(island1, island8);} );
+
+        String expectedMessage3 = "The two islands are not unifiable";
+        String actualMessage3 = exception3.getMessage();
+
+        assertTrue(actualMessage3.contains(expectedMessage3));
 
     }
 
@@ -237,6 +274,26 @@ class GameTest {
 
         @Test
         void bagDrawCloudTile(){
+
+            gameTest.setStudentNumberMovement(4);
+            int movementsAllowed = gameTest.getStudentNumberMovement();
+
+            int numPinkOnCloud1 = gameTest.getCloudTiles().get(0).getTileStudents(Colour.PINK);
+            int numGreenOnCloud1 = gameTest.getCloudTiles().get(0).getTileStudents(Colour.GREEN);
+            int numBlueOnCloud1 = gameTest.getCloudTiles().get(0).getTileStudents(Colour.BLUE);
+            int numYellowOnCloud1 = gameTest.getCloudTiles().get(0).getTileStudents(Colour.YELLOW);
+            int numRedOnCloud1 = gameTest.getCloudTiles().get(0).getTileStudents(Colour.RED);
+
+            assertEquals(0, gameTest.getCloudTiles().get(0).getTileStudents(Colour.PINK));
+            assertEquals(0, gameTest.getCloudTiles().get(0).getTileStudents(Colour.GREEN));
+            assertEquals(0, gameTest.getCloudTiles().get(0).getTileStudents(Colour.BLUE));
+            assertEquals(0, gameTest.getCloudTiles().get(0).getTileStudents(Colour.YELLOW));
+            assertEquals(0, gameTest.getCloudTiles().get(0).getTileStudents(Colour.RED));
+
+            /*
+            DA FARE
+             */
+
 
 
 
