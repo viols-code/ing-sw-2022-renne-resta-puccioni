@@ -1,5 +1,10 @@
 package it.polimi.ingsw;
 
+import it.polimi.ingsw.model.Colour;
+import it.polimi.ingsw.model.GroupIsland;
+import it.polimi.ingsw.model.Wizard;
+import it.polimi.ingsw.model.player.BasicPlayer;
+import it.polimi.ingsw.model.player.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -72,8 +77,8 @@ class GroupIslandTest {
 
     @Test
     void changeInfluence() {
-        Player player1 = new Player("Viola");
-        Player player2 = new Player("Laura");
+        Player player1 = new BasicPlayer("Viola", Wizard.TYPE_1);
+        Player player2 = new BasicPlayer("Laura", Wizard.TYPE_3);
 
         assertNull(groupIslandTest.getInfluence());
         groupIslandTest.changeInfluence(player1);
@@ -84,8 +89,8 @@ class GroupIslandTest {
 
     @Test
     void calculateInfluence() {
-        Player player1 = new Player("Viola");
-        Player player2 = new Player("Laura");
+        Player player1 = new BasicPlayer("Viola", Wizard.TYPE_1);
+        Player player2 = new BasicPlayer("Laura", Wizard.TYPE_3);
         GroupIsland groupIslandTest1 = new GroupIsland();
 
         player1.getSchoolBoard().addProfessor(Colour.BLUE);
@@ -155,8 +160,8 @@ class GroupIslandTest {
 
     @Test
     void calculateInfluenceWithoutTowers() {
-        Player player1 = new Player("Viola");
-        Player player2 = new Player("Laura");
+        Player player1 = new BasicPlayer("Viola", Wizard.TYPE_1);
+        Player player2 = new BasicPlayer("Laura", Wizard.TYPE_3);
         GroupIsland groupIslandTest1 = new GroupIsland();
 
         player1.getSchoolBoard().addProfessor(Colour.BLUE);
@@ -219,8 +224,8 @@ class GroupIslandTest {
 
     @Test
     void calculateInfluenceWithoutColour() {
-        Player player1 = new Player("Viola");
-        Player player2 = new Player("Laura");
+        Player player1 = new BasicPlayer("Viola", Wizard.TYPE_1);
+        Player player2 = new BasicPlayer("Laura", Wizard.TYPE_3);
         GroupIsland groupIslandTest1 = new GroupIsland();
 
         player1.getSchoolBoard().addProfessor(Colour.BLUE);

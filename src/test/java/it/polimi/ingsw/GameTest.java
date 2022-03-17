@@ -1,5 +1,10 @@
 package it.polimi.ingsw;
 
+import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.model.game.BasicGame;
+import it.polimi.ingsw.model.game.Game;
+import it.polimi.ingsw.model.player.BasicPlayer;
+import it.polimi.ingsw.model.player.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,8 +19,8 @@ class GameTest {
 
     @BeforeEach
     void setUp() {
-        gameTest = new Game();
-        player1 = new Player("player1");
+        gameTest = new BasicGame();
+        player1 = new BasicPlayer("player1", Wizard.TYPE_1);
         gameTest.addPlayer(player1);
 
     }
@@ -33,8 +38,8 @@ class GameTest {
 
     @Test
     void nextPlayerClockwise() {
-        player2 = new Player("player2");
-        player3 = new Player("player3");
+        player2 = new BasicPlayer("player2", Wizard.TYPE_2);
+        player3 = new BasicPlayer("player3", Wizard.TYPE_3);
         gameTest.addPlayer(player2);
         gameTest.addPlayer(player3);
         gameTest.setCurrentPlayer(player3);
@@ -59,67 +64,12 @@ class GameTest {
     }
 
     @Test
-    void addStudentBag() {
-        assertEquals(24, gameTest.getBag(Colour.PINK));
-        gameTest.removeStudentBag(Colour.PINK);
-        assertEquals(23, gameTest.getBag(Colour.PINK));
-        gameTest.removeStudentBag(Colour.PINK);
-        assertEquals(22, gameTest.getBag(Colour.PINK));
-        gameTest.addStudentBag(Colour.PINK);
-        assertEquals(23, gameTest.getBag(Colour.PINK));
-    }
-
-    @Test
-    void removeStudentBag() {
-        assertEquals(24, gameTest.getBag(Colour.GREEN));
-        gameTest.removeStudentBag(Colour.GREEN);
-        assertEquals(23, gameTest.getBag(Colour.GREEN));
-        gameTest.removeStudentBag(Colour.GREEN);
-        assertEquals(22, gameTest.getBag(Colour.GREEN));
-    }
-
-    @Test
     void removeGroupIsland() {
-        GroupIsland islandRemoved = gameTest.getIslands().get(2);
-        gameTest.removeGroupIsland(gameTest.getIslands().get(2));
-        for (int i = 0; i < gameTest.getIslands().size(); i++) {
-            assertNotEquals(gameTest.getIslands().get(i), islandRemoved);
+        GroupIsland islandRemoved = gameTest.getTable().getIslands().get(2);
+        gameTest.getTable().removeGroupIsland(gameTest.getTable().getIslands().get(2));
+        for (int i = 0; i < gameTest.getTable().getIslands().size(); i++) {
+            assertNotEquals(gameTest.getTable().getIslands().get(i), islandRemoved);
         }
-    }
-
-    @Test
-    void unify() {
-        GroupIsland island2 = gameTest.getIslands().get(1);
-        GroupIsland island1 = gameTest.getIslands().get(0);
-
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {island1.unifyIsland(island2);} );
-
-        island2.changeInfluence(player1);
-        island1.changeInfluence(player1);
-
-        gameTest.unify(gameTest.getIslands().get(0), gameTest.getIslands().get(1));
-        assertEquals(11, gameTest.getIslands().size());
-
-        for (int i = 0; i < gameTest.getIslands().size(); i++) {
-            assertNotEquals(island2, gameTest.getIslands().get(i));
-        }
-
-        GroupIsland island11 = gameTest.getIslands().get(10);
-        gameTest.unify(gameTest.getIslands().get(0), gameTest.getIslands().get(10));
-        assertEquals(10, gameTest.getIslands().size());
-
-        for (int i = 0; i < gameTest.getIslands().size(); i++) {
-            assertNotEquals(island11, gameTest.getIslands().get(i));
-        }
-
-        GroupIsland island5 = gameTest.getIslands().get(4);
-        gameTest.unify(gameTest.getIslands().get(3), gameTest.getIslands().get(4));
-        assertEquals(9, gameTest.getIslands().size());
-
-        for (int i = 0; i < gameTest.getIslands().size(); i++) {
-            assertNotEquals(island5, gameTest.getIslands().get(i));
-        }
-
     }
 
     @Test
@@ -128,25 +78,6 @@ class GameTest {
         assertEquals(1, gameTest.getRound());
     }
 
-    @Test
-    void addCLoudTile() {
-        CloudTile cloud1 = new CloudTile(gameTest.bagDrawCloudTile());
-        CloudTile cloud2 = new CloudTile(gameTest.bagDrawCloudTile());
-        gameTest.addCLoudTile(cloud1);
-        assertEquals(cloud1, gameTest.getCloudTiles().get(0));
-        gameTest.addCLoudTile(cloud2);
-        assertEquals(cloud2, gameTest.getCloudTiles().get(1));
-    }
-
-    @Test
-    void removeCLoudTile() {
-        CloudTile cloud1 = new CloudTile(gameTest.bagDrawCloudTile());
-        gameTest.addCLoudTile(cloud1);
-        gameTest.removeCLoudTile(cloud1);
-        for (int i = 0; i < gameTest.getCloudTiles().size(); i++) {
-            assertNotEquals(gameTest.getCloudTiles().get(i), cloud1);
-        }
-    }
 
     @Test
     void setStudentNumberMovement() {
@@ -177,8 +108,8 @@ class GameTest {
     void setGamePhase() {
         gameTest.setGamePhase(GamePhase.SETTING);
         assertEquals(GamePhase.SETTING, gameTest.getGamePhase());
-        gameTest.setGamePhase(GamePhase.CHOOSE_CLOUD_TILE);
-        assertEquals(GamePhase.CHOOSE_CLOUD_TILE, gameTest.getGamePhase());
+        gameTest.setGamePhase(GamePhase.SET_CLOUD_TILE);
+        assertEquals(GamePhase.SET_CLOUD_TILE, gameTest.getGamePhase());
     }
 
     @Test
@@ -187,58 +118,4 @@ class GameTest {
         assertTrue(gameTest.isCurrentPlayer(player1));
     }
 
-    @Test
-    void bagDrawStudent() {
-        int numPinkRemained = gameTest.getBag(Colour.PINK);
-        int numBlueRemained = gameTest.getBag(Colour.BLUE);
-        int numGreenRemained = gameTest.getBag(Colour.GREEN);
-        int numYellowRemained = gameTest.getBag(Colour.YELLOW);
-        int numRedRemained = gameTest.getBag(Colour.RED);
-
-        Colour colour = gameTest.bagDrawStudent();
-        if (colour.equals(Colour.PINK)){
-            numPinkRemained--;
-            assertEquals(numPinkRemained, gameTest.getBag(Colour.PINK));
-            assertEquals(numGreenRemained, gameTest.getBag(Colour.GREEN));
-            assertEquals(numBlueRemained, gameTest.getBag(Colour.BLUE));
-            assertEquals(numRedRemained, gameTest.getBag(Colour.RED));
-            assertEquals(numYellowRemained, gameTest.getBag(Colour.YELLOW));
-        } else if (colour.equals(Colour.GREEN)) {
-            numGreenRemained--;
-            assertEquals(numPinkRemained, gameTest.getBag(Colour.PINK));
-            assertEquals(numGreenRemained, gameTest.getBag(Colour.GREEN));
-            assertEquals(numBlueRemained, gameTest.getBag(Colour.BLUE));
-            assertEquals(numRedRemained, gameTest.getBag(Colour.RED));
-            assertEquals(numYellowRemained, gameTest.getBag(Colour.YELLOW));
-        } else if (colour.equals(Colour.BLUE)) {
-            numBlueRemained--;
-            assertEquals(numPinkRemained, gameTest.getBag(Colour.PINK));
-            assertEquals(numGreenRemained, gameTest.getBag(Colour.GREEN));
-            assertEquals(numBlueRemained, gameTest.getBag(Colour.BLUE));
-            assertEquals(numRedRemained, gameTest.getBag(Colour.RED));
-            assertEquals(numYellowRemained, gameTest.getBag(Colour.YELLOW));
-        } else if (colour.equals(Colour.RED)) {
-            numRedRemained--;
-            assertEquals(numPinkRemained, gameTest.getBag(Colour.PINK));
-            assertEquals(numGreenRemained, gameTest.getBag(Colour.GREEN));
-            assertEquals(numBlueRemained, gameTest.getBag(Colour.BLUE));
-            assertEquals(numRedRemained, gameTest.getBag(Colour.RED));
-            assertEquals(numYellowRemained, gameTest.getBag(Colour.YELLOW));
-        } else{
-            numYellowRemained--;
-            assertEquals(numPinkRemained, gameTest.getBag(Colour.PINK));
-            assertEquals(numGreenRemained, gameTest.getBag(Colour.GREEN));
-            assertEquals(numBlueRemained, gameTest.getBag(Colour.BLUE));
-            assertEquals(numRedRemained, gameTest.getBag(Colour.RED));
-            assertEquals(numYellowRemained, gameTest.getBag(Colour.YELLOW));
-        }
-    }
-
-
-        @Test
-        void bagDrawCloudTile(){
-
-
-
-        }
 }
