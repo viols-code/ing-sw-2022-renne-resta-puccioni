@@ -1,4 +1,7 @@
-package it.polimi.ingsw;
+package it.polimi.ingsw.model.player;
+
+import it.polimi.ingsw.model.AssistantCard;
+import it.polimi.ingsw.model.Wizard;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -9,12 +12,17 @@ import java.util.Set;
  *
  * @version 1.0
  */
-public class Player {
+public abstract class Player {
 
     /**
      * the nickname of the player
      */
     private final String nickname;
+
+    /**
+     *  the wizard chosen by the player
+     */
+    private final Wizard wizard;
 
     /**
      * a Set containing the AssistantCard of the player
@@ -27,25 +35,21 @@ public class Player {
     private AssistantCard currentAssistantCard;
 
     /**
-     * number of coins
-     */
-    private int coins;
-
-    /**
      * the school board associated to the player
      */
     private final SchoolBoard schoolBoard;
 
     /**
-     * Constructor: creates a new Player with the given nick and the given number of towers
+     * Constructor: creates a new Player with the given nick and the given wizard
      *
      * @param nickname a string with the nickname
+     * @param wizard the wizard chosen by the player
      */
-    public Player(String nickname) {
+    public Player(String nickname, Wizard wizard) {
         this.nickname = nickname;
+        this.wizard = wizard;
         assistantCardSet = new HashSet<>();
         currentAssistantCard = null;
-        coins = 1;
         schoolBoard = new SchoolBoard();
     }
 
@@ -63,31 +67,48 @@ public class Player {
     }
 
     /*
-    ASSISTANT CARD SET
+    WIZARD
      */
-    public Set<AssistantCard> getAssistantCardSet() {
-        return assistantCardSet;
+
+    /**
+     * Get the wizard chosen by the player
+     *
+     * @return the wizard chosen by the player
+     */
+    public Wizard getWizard(){
+        return wizard;
     }
 
 
     /*
-    ASSISTANT CARD LIST
+    ASSISTANT CARD SET
      */
-    public void addAssistantCardList(AssistantCard card){
+
+    /**
+     * Return true if the assistant card given in present, false otherwise
+     *
+     * @param card the assistant card
+     * @return true if the v card given in present, false otherwise
+     */
+    public boolean isAssistantCardPresent(AssistantCard card) {
+        return assistantCardSet.contains(card);
+    }
+
+    /**
+     * Add the given assistant card
+     *
+     * @param card the assistant card to be added
+     */
+    public void addAssistantCard(AssistantCard card) {
         assistantCardSet.add(card);
     }
 
     /**
-     * Remove the given card from the assistantCardList and set the card as the currentAssistantCard
+     * Remove the given assistant card
      *
-     * @param card the assistant card used by the player in that round
-     * @throws IllegalArgumentException when the assistant card given is already been played
+     * @param card the assistant card to be removed
      */
-    public void playAssistantCard(AssistantCard card) throws IllegalArgumentException {
-        if (!assistantCardSet.contains(card)) {
-            throw new IllegalArgumentException("The card has already been played");
-        }
-        setCurrentAssistantCard(card);
+    public void removeAssistantCard(AssistantCard card) {
         assistantCardSet.remove(card);
     }
 
@@ -121,40 +142,42 @@ public class Player {
      * Get the number of coins
      *
      * @return the number of coins
+     * @throws IllegalAccessError if the mode is basic
      */
-    public int getCoins() {
-        return coins;
+    public int getCoins() throws IllegalAccessError{
+        throw new IllegalAccessError("This is for the Expert Mode");
     }
 
     /**
      * Add the given number of coins
      *
      * @param num the number of coins to add to the player
+     * @throws IllegalAccessError if the mode is basic
      */
-    public void addCoins(int num) {
-        coins += num;
+    public void addCoins(int num) throws IllegalAccessError{
+        throw new IllegalAccessError("This is for the Expert Mode");
     }
 
     /**
      * Remove the given number of coins
      *
      * @param num the number of coins to remove to the player
-     * @throws IllegalArgumentException when there are not enough coins to do the operation
+     * @throws IllegalAccessError if the mode is basic
      */
-    public void removeCoins(int num) throws IllegalArgumentException {
-        if (coins - num < 0) {
-            throw new IllegalArgumentException("There are not enough coins");
-        }
-
-        coins -= num;
+    public void removeCoins(int num) throws IllegalAccessError{
+        throw new IllegalAccessError("This is for the Expert Mode");
     }
+
+    /*
+     * SCHOOL BOARD
+     */
 
     /**
      * Get the school board of the player
      *
      * @return the school board of the player
      */
-    public SchoolBoard getSchoolBoard(){
+    public SchoolBoard getSchoolBoard() {
         return schoolBoard;
     }
 
@@ -164,11 +187,11 @@ public class Player {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Player player = (Player) o;
-        return getCoins() == player.getCoins() && Objects.equals(getNickname(), player.getNickname()) && Objects.equals(getAssistantCardSet(), player.getAssistantCardSet()) && Objects.equals(getCurrentAssistantCard(), player.getCurrentAssistantCard()) && Objects.equals(getSchoolBoard(), player.getSchoolBoard());
+        return getCoins() == player.getCoins() && Objects.equals(getNickname(), player.getNickname()) && Objects.equals(getCurrentAssistantCard(), player.getCurrentAssistantCard()) && Objects.equals(getSchoolBoard(), player.getSchoolBoard());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getNickname(), getAssistantCardSet(), getCurrentAssistantCard(), getCoins(), getSchoolBoard());
+        return Objects.hash(getNickname(), getCurrentAssistantCard(), getCoins(), getSchoolBoard());
     }
 }
