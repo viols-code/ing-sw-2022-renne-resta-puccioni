@@ -2,7 +2,6 @@ package it.polimi.ingsw.model.game;
 
 import it.polimi.ingsw.model.CharacterCard;
 import it.polimi.ingsw.model.island.AdvancedGroupIsland;
-import it.polimi.ingsw.model.island.BasicGroupIsland;
 
 import java.util.ArrayList;
 import java.util.List;
