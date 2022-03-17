@@ -11,7 +11,6 @@ import java.util.List;
  *
  * @version 1.0
  */
-
 public abstract class GroupIsland {
 
     /**
@@ -69,6 +68,15 @@ public abstract class GroupIsland {
         }
 
         return count;
+    }
+
+    /**
+     * Add a SingleIsland to the GroupIsland
+     *
+     * @param singleIsland the SingleIsland to be added
+     */
+    public void addSingleIsland(SingleIsland singleIsland){
+        islandsContained.add(singleIsland);
     }
 
     /**
