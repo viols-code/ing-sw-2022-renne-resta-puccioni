@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.model.island.BasicGroupIsland;
 import it.polimi.ingsw.model.island.GroupIsland;
 
 import java.util.ArrayList;
@@ -32,15 +31,8 @@ public class Table {
      */
     public Table(){
         bag = new Bag();
-
         islands = new ArrayList<>();
-        for (int i = 0; i < 12; i++) {
-            islands.add(new BasicGroupIsland());
-        }
-        islands.get(0).placeMotherNature();
-
         motherNaturePosition = 0;
-
         cloudTiles = new ArrayList<>();
     }
 
@@ -60,12 +52,31 @@ public class Table {
      */
 
     /**
-     * Get the List of GroupIsland
+     * Return the GroupIsland at the given index
      *
-     * @return a List containing the GroupIsland
+     * @param index the position of the GroupIsland to be returned
+     * @return the GroupIsland at the given index
      */
-    public List<GroupIsland> getIslands() {
-        return islands;
+    public GroupIsland getGroupIslandByIndex(int index){
+        return islands.get(index);
+    }
+
+    /**
+     * Get the number of GroupIsland
+     *
+     * @return the number of GroupIsland
+     */
+    public int getNumberOfGroupIsland(){
+        return islands.size();
+    }
+
+    /**
+     * Add a group of islands from the list
+     to
+     * @param groupIsland the groupIsland to be added
+     */
+    public void addGroupIsland(GroupIsland groupIsland) {
+        islands.add(groupIsland);
     }
 
     /**
@@ -82,17 +93,6 @@ public class Table {
      */
 
     /**
-     * Move mother nature
-     *
-     * @param movement the movement of mother nature
-     */
-    public void moveMotherNaturePosition(int movement){
-        islands.get(motherNaturePosition).removeMotherNature();
-        motherNaturePosition = (motherNaturePosition + movement) % islands.size();
-        islands.get(motherNaturePosition).placeMotherNature();
-    }
-
-    /**
      * Get the position of mother nature
      *
      * @return mother nature position
@@ -101,17 +101,35 @@ public class Table {
         return motherNaturePosition;
     }
 
+    /**
+     * Set the position of mother nature
+     *
+     * @param motherNaturePosition the position to be set
+     */
+    public void setMotherNaturePosition(int motherNaturePosition){
+         this.motherNaturePosition = motherNaturePosition;
+    }
+
      /*
     CLOUD TILE
      */
 
     /**
-     * Get the List of Cloud Tile
+     * Get the cloud tile at the given index
      *
-     * @return a List containing the Cloud Tile remaining in the turn
+     * @return the Cloud Tile at the given index
      */
-    public List<CloudTile> getCloudTiles() {
-        return cloudTiles;
+    public CloudTile getCloudTilesByIndex(int index) {
+        return cloudTiles.get(index);
+    }
+
+    /**
+     * Get the number of cloud tiles
+     *
+     * @return the number of cloud tiles
+     */
+    public int getNumberOfCloudTile(){
+        return cloudTiles.size();
     }
 
     /**
