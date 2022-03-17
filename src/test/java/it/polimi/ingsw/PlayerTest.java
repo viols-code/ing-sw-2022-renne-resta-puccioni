@@ -52,21 +52,11 @@ class PlayerTest {
 
     @Test
     void addCoins() {
-        for (int i = 1; i <= 10; i++) {
-            player1.addCoins(i);
-            assertEquals(i + 1, player1.getCoins());
-            player1.removeCoins(i);
-        }
+        assertThrows(IllegalAccessError.class, () -> { player1.addCoins(10); } );
     }
 
     @Test
     void removeCoins() {
-        player1.addCoins(10);
-        for (int i = 1; i <= 10; i++) {
-            player1.removeCoins(i);
-            assertEquals(10 - i + 1, player1.getCoins());
-            player1.addCoins(i);
-        }
-
+        assertThrows(IllegalAccessError.class, () -> { player1.removeCoins(10); } );
     }
 }
