@@ -1,6 +1,8 @@
 package it.polimi.ingsw.model.game;
 
 import it.polimi.ingsw.model.CharacterCard;
+import it.polimi.ingsw.model.island.AdvancedGroupIsland;
+import it.polimi.ingsw.model.island.BasicGroupIsland;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +20,9 @@ public class ExpertGame extends Game {
 
     public ExpertGame(){
         super();
+        for(int i = 0; i < 12; i++){
+            getTable().addGroupIsland(new AdvancedGroupIsland());
+        }
         characterCards = new ArrayList<>();
         activeCharacterCard = null;
     }
