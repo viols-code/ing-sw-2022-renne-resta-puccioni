@@ -1,5 +1,8 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.island.BasicGroupIsland;
+import it.polimi.ingsw.model.island.GroupIsland;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +35,7 @@ public class Table {
 
         islands = new ArrayList<>();
         for (int i = 0; i < 12; i++) {
-            islands.add(new GroupIsland());
+            islands.add(new BasicGroupIsland());
         }
         islands.get(0).placeMotherNature();
 
@@ -72,32 +75,6 @@ public class Table {
      */
     public void removeGroupIsland(GroupIsland groupIsland) {
         islands.remove(groupIsland);
-    }
-
-    /**
-     * Unifies the two groupIslands if possible
-     *
-     * @param groupIsland1 the first groupIsland to be unified
-     * @param groupIsland2 the second groupIsland to be unified
-     * @throws IllegalArgumentException if the two islands are not
-     */
-    public void unify(GroupIsland groupIsland1, GroupIsland groupIsland2) throws IllegalArgumentException {
-
-        if (islands.indexOf(groupIsland1) == ((islands.indexOf(groupIsland2) + 1) % islands.size()) ||
-                islands.indexOf(groupIsland2) == ((islands.indexOf(groupIsland1) + 1) % islands.size())) {
-            if(groupIsland1.getInfluence() != null && groupIsland2.getInfluence() != null) {
-                if(groupIsland1.getInfluence().equals(groupIsland2.getInfluence())) {
-                    groupIsland1.unifyIsland(groupIsland2);
-                    islands.remove(groupIsland2);
-                }else{
-                    throw new IllegalArgumentException("The influencePlayer on the two islands is not the same");
-                }
-            } else {
-                throw new IllegalArgumentException("Null influencePlayer");
-            }
-        } else {
-            throw new IllegalArgumentException("The two islands are not unifiable");
-        }
     }
 
        /*
