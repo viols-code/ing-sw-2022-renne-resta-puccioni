@@ -3,6 +3,7 @@ package it.polimi.ingsw;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.game.BasicGame;
 import it.polimi.ingsw.model.game.Game;
+import it.polimi.ingsw.model.island.GroupIsland;
 import it.polimi.ingsw.model.player.BasicPlayer;
 import it.polimi.ingsw.model.player.Player;
 import org.junit.jupiter.api.BeforeEach;
