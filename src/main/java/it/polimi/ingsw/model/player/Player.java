@@ -17,27 +17,27 @@ public abstract class Player {
     /**
      * the nickname of the player
      */
-    private final String nickname;
+    protected final String nickname;
 
     /**
      * the wizard chosen by the player
      */
-    private final Wizard wizard;
+    protected final Wizard wizard;
 
     /**
      * a Set containing the AssistantCard of the player
      */
-    private final Set<AssistantCard> assistantCardSet;
+    protected final Set<AssistantCard> assistantCardSet;
 
     /**
      * card played by the player in the current round
      */
-    private AssistantCard currentAssistantCard;
+    protected AssistantCard currentAssistantCard;
 
     /**
      * the school board associated to the player
      */
-    private final SchoolBoard schoolBoard;
+    protected final SchoolBoard schoolBoard;
 
     /**
      * Constructor: creates a new Player with the given nick and the given wizard

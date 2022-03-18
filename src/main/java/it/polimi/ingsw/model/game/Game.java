@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.game;
 
+import it.polimi.ingsw.controller.BasicState;
 import it.polimi.ingsw.controller.CharacterCard;
 import it.polimi.ingsw.model.AssistantCard;
 import it.polimi.ingsw.model.Table;
@@ -19,57 +20,62 @@ public abstract class Game {
     /**
      * A List containing the players in the match
      */
-    private final List<Player> players;
+    protected final List<Player> players;
 
     /**
      * Identifies the player who's playing his turn
      */
-    private Player currentPlayer;
+    protected Player currentPlayer;
 
     /**
      * the first player of the current round
      */
-    private Player firstPlayerTurn;
+    protected Player firstPlayerTurn;
 
     /**
      * the table of the game
      */
-    private final Table table;
+    protected final Table table;
 
     /**
      * Number of the current round
      */
-    private int round;
+    protected int round;
+
+    /**
+     * the active character card
+     */
+    protected CharacterCard activeCharacterCard;
 
     /**
      * A List containing the assistant cards
      */
-    private final List<AssistantCard> assistantCard;
+    protected final List<AssistantCard> assistantCard;
 
     /**
      * Number of student that each Player has to move in a round
      */
-    private int studentNumberMovement;
+    protected int studentNumberMovement;
 
     /**
      * Number of towers that each Player has to build
      */
-    private int numberOfTowersPerPlayer;
+    protected int numberOfTowersPerPlayer;
 
     /**
      * Number of students that each Player can have in his entrance
      */
-    private int numberStudentsEntrance;
+    protected int numberStudentsEntrance;
 
     /**
      * The current phase of the game
      */
-    private GamePhase gamePhase;
+    protected GamePhase gamePhase;
 
     /**
      * The current phase of the currentPlayer
      */
-    private TurnPhase turnPhase;
+    protected TurnPhase turnPhase;
 
 
     /**
@@ -81,6 +87,7 @@ public abstract class Game {
         firstPlayerTurn = null;
         table = new Table();
         round = 0;
+        activeCharacterCard = new BasicState();
         currentPlayer = null;
         assistantCard = new ArrayList<>();
 
@@ -254,13 +261,22 @@ public abstract class Game {
     }
 
     /**
+     * Add the character card given to the List
+     *
+     * @param card the Character Card to be added
+     * @throws IllegalAccessError if the mode is basic
+     */
+    public void addCharacterCard(CharacterCard card) throws IllegalAccessError{
+        throw new IllegalAccessError("This is for the Expert Mode");
+    }
+
+    /**
      * Get the active Character Card
      *
      * @return the active Character Card
-     * @throws IllegalAccessError if the mode is basic
      */
-    public CharacterCard getActiveCharacterCard() throws IllegalAccessError {
-        throw new IllegalAccessError("This is for the Expert Mode");
+    public CharacterCard getActiveCharacterCard() {
+        return activeCharacterCard;
     }
 
     /**
@@ -392,6 +408,10 @@ public abstract class Game {
      */
     public void setTurnPhase(TurnPhase turnPhase) {
         this.turnPhase = turnPhase;
+    }
+
+    public void setHasProtectIsland() throws IllegalAccessError{
+        throw new IllegalAccessError("This is for the Expert Mode");
     }
 
     @Override

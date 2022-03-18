@@ -16,17 +16,17 @@ public abstract class GroupIsland {
     /**
      * A list containing all the islands that form a GroupIsland
      */
-    private final List<SingleIsland> islandsContained;
+    protected final List<SingleIsland> islandsContained;
 
     /**
      * A boolean that states if motherNature is present on the island (true) or not (false)
      */
-    private boolean motherNature;
+    protected boolean motherNature;
 
     /**
      * Identifies the player who has the influence on the considered GroupIsland
      */
-    private Player influencePlayer;
+    protected Player influencePlayer;
 
     /**
      * Constructor: creates a new empty GroupIsland

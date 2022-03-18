@@ -13,19 +13,15 @@ public class ExpertGame extends Game {
      */
     private final List<CharacterCard> characterCards;
 
-    /**
-     * the active character card
-     */
-    private CharacterCard activeCharacterCard;
+    private final CharacterCard basicState;
+
+    private boolean hasProtectIsland;
 
     public ExpertGame() {
         super();
-        for (int i = 0; i < 12; i++) {
-            getTable().addGroupIsland(new AdvancedGroupIsland());
-            // sbagliato
-        }
         characterCards = new ArrayList<>();
-        activeCharacterCard = new BasicState();
+        basicState = super.getActiveCharacterCard();
+        this.hasProtectIsland = false;
     }
 
     /**
@@ -38,12 +34,12 @@ public class ExpertGame extends Game {
     }
 
     /**
-     * Get the active Character Card
+     * Add the character card given to the List
      *
-     * @return the active Character Card
+     * @param card the Character Card to be added
      */
-    public CharacterCard getActiveCharacterCard() {
-        return activeCharacterCard;
+    public void addCharacterCard(CharacterCard card) {
+        characterCards.add(card);
     }
 
     /**
@@ -52,7 +48,11 @@ public class ExpertGame extends Game {
      * @param card the active Character Card
      */
     public void setActiveCharacterCard(CharacterCard card) {
-        this.activeCharacterCard = card;
+        super.activeCharacterCard = card;
+    }
+
+    public void setHasProtectIsland(){
+        hasProtectIsland = true;
     }
 
 }

@@ -3,7 +3,13 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.model.game.BasicGame;
 import it.polimi.ingsw.model.game.ExpertGame;
 import it.polimi.ingsw.model.game.Game;
+import it.polimi.ingsw.model.island.AdvancedGroupIsland;
+import it.polimi.ingsw.model.island.BasicGroupIsland;
 import it.polimi.ingsw.model.island.GroupIsland;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class GameController {
     private final Game game;
@@ -14,6 +20,55 @@ public class GameController {
 
         if (isGameExpert) {
             game = new ExpertGame();
+
+            List<Integer> random = new ArrayList<>();
+            for(int i = 0; i < 12; i++){
+                random.add(i);
+            }
+            Collections.shuffle(random);
+
+            boolean hasProtectIsland = false;
+            for(int i = 0; i < 3; i++){
+                switch (random.get(i)){
+                    case 0:
+                        game.addCharacterCard(new StudentToIsland());
+                    case 1:
+                        game.addCharacterCard(new TakeProfessor());
+                    case 2:
+                        game.addCharacterCard(new IslandInfluence());
+                    case 3:
+                        game.addCharacterCard(new MotherNatureMovement());
+                    case 4:
+                        game.addCharacterCard(new ProtectIsland());
+                        hasProtectIsland = true;
+                    case 5:
+                        game.addCharacterCard(new NoTower());
+                    case 6:
+                        game.addCharacterCard(new StudentToEntrance());
+                    case 7:
+                        game.addCharacterCard(new TwoPoints());
+                    case 8:
+                        game.addCharacterCard(new NoColour());
+                    case 9:
+                        game.addCharacterCard(new ExchangeEntranceDiningRoom());
+                    case 10:
+                        game.addCharacterCard(new StudentToDiningRoom());
+                    case 11:
+                        game.addCharacterCard(new ThreeStudent());
+                }
+            }
+
+            if(hasProtectIsland){
+                for (int i = 0; i < 12; i++) {
+                    game.getTable().addGroupIsland(new AdvancedGroupIsland());
+                }
+            } else{
+                for (int i = 0; i < 12; i++) {
+                    game.getTable().addGroupIsland(new BasicGroupIsland());
+                }
+            }
+
+
         } else {
             game = new BasicGame();
         }
