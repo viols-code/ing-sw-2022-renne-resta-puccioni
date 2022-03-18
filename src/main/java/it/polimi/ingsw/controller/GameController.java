@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.card.*;
 import it.polimi.ingsw.model.game.BasicGame;
 import it.polimi.ingsw.model.game.ExpertGame;
 import it.polimi.ingsw.model.game.Game;
+import it.polimi.ingsw.model.game.GamePhase;
 import it.polimi.ingsw.model.island.AdvancedGroupIsland;
 import it.polimi.ingsw.model.island.BasicGroupIsland;
 import it.polimi.ingsw.model.island.GroupIsland;
@@ -22,6 +23,11 @@ public class GameController {
      * Indicates if the game is in the expert mode
      */
     private final boolean isGameExpert;
+
+    /**
+     * The numberOfPlayer
+     */
+    private int numberOfPlayer;
 
     /**
      * Constructor: creates a GameController
@@ -84,6 +90,26 @@ public class GameController {
 
         } else {
             game = new BasicGame();
+        }
+    }
+
+    public void playCharacterCard(int player, int characterCard){
+        if(isGameExpert){
+            if(game.isCurrentPlayer(game.getPlayerByIndex(player))){
+                if(!game.getHasPlayedCharacterCard()){
+                    game.setActiveCharacterCard(game.getCharacterCardsByIndex(characterCard));
+                    game.setHasPlayedCharacterCard(false);
+                }
+            }
+        }
+    }
+
+    public void playAssistantCard(int player, int assistantCard){
+        if(game.isCurrentPlayer(game.getPlayerByIndex(player))){
+            if(game.getGamePhase() == GamePhase.PLAY_ASSISTANT_CARD){
+                game.getPlayerByIndex(player).setCurrentAssistantCard(game.getAssistantCard(assistantCard));
+                game.getPlayerByIndex(player).removeAssistantCard(game.getAssistantCard(assistantCard));
+            }
         }
     }
 

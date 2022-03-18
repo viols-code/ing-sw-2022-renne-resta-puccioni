@@ -427,6 +427,14 @@ public abstract class Game {
         throw new IllegalAccessError("This is for the Expert Mode");
     }
 
+    public boolean getHasPlayedCharacterCard() throws IllegalAccessError{
+        throw new IllegalAccessError("This is for the Expert Mode");
+    }
+
+    public void setHasPlayedCharacterCard(boolean hasPlayedCharacterCard) throws IllegalAccessError{
+        throw new IllegalAccessError("This is for the Expert Mode");
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

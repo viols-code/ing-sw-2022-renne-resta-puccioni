@@ -60,4 +60,12 @@ public class ExpertGame extends Game {
         hasProtectIsland = true;
     }
 
+    public boolean getHasPlayedCharacterCard(){
+        return hasPlayedCharacterCard;
+    }
+
+    public void setHasPlayedCharacterCard(boolean hasPlayedCharacterCard){
+        this.hasProtectIsland = hasPlayedCharacterCard;
+    }
+
 }
