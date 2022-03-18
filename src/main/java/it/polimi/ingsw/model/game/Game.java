@@ -1,10 +1,10 @@
 package it.polimi.ingsw.model.game;
 
+import it.polimi.ingsw.model.AssistantCard;
 import it.polimi.ingsw.model.card.BasicState;
 import it.polimi.ingsw.model.card.CharacterCard;
-import it.polimi.ingsw.model.AssistantCard;
-import it.polimi.ingsw.model.table.Table;
 import it.polimi.ingsw.model.player.Player;
+import it.polimi.ingsw.model.table.Table;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -275,7 +275,7 @@ public abstract class Game {
      * @param card the Character Card to be added
      * @throws IllegalAccessError if the mode is basic
      */
-    public void addCharacterCard(CharacterCard card) throws IllegalAccessError{
+    public void addCharacterCard(CharacterCard card) throws IllegalAccessError {
         throw new IllegalAccessError("This is for the Expert Mode");
     }
 
@@ -419,11 +419,11 @@ public abstract class Game {
         this.turnPhase = turnPhase;
     }
 
-    public void setHasProtectIsland() throws IllegalAccessError{
+    public void setHasProtectIsland() throws IllegalAccessError {
         throw new IllegalAccessError("This is for the Expert Mode");
     }
 
-    public CharacterCard getBasicState() throws IllegalAccessError{
+    public CharacterCard getBasicState() throws IllegalAccessError {
         throw new IllegalAccessError("This is for the Expert Mode");
     }
 
