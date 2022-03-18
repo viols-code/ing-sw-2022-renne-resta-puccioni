@@ -4,9 +4,16 @@ import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.island.GroupIsland;
 import it.polimi.ingsw.model.player.Player;
 
-public class NoColour extends State{
+public class NoColour extends CharacterCard{
+    private Colour colour;
+
     public NoColour(GameController gameController){
         super(gameController);
+    }
+
+
+    public void setColour(Colour colour) {
+        this.colour = colour;
     }
 
 
@@ -15,10 +22,7 @@ public class NoColour extends State{
 
         if(!groupIsland.isNoEntryTile()){
             for(Colour colour: Colour.values()){
-                if(player.getSchoolBoard().hasProfessor(colour)){
-                    /*
-                    AGGIUNGERE && colour != gameController.getCard().getColour()
-                     */
+                if(player.getSchoolBoard().hasProfessor(colour) && colour != this.colour){
                     influence += groupIsland.getNumberStudent(colour);
                 }
             }

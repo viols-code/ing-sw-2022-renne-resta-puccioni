@@ -4,10 +4,10 @@ import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.island.GroupIsland;
 import it.polimi.ingsw.model.player.Player;
 
-public abstract class State {
+public abstract class CharacterCard {
     private final GameController gameController;
 
-    public State(GameController gameController){
+    public CharacterCard(GameController gameController){
         this.gameController = gameController;
     }
 
