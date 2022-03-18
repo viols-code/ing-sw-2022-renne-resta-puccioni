@@ -13,12 +13,15 @@ public class ExpertGame extends Game {
 
     private final CharacterCard basicState;
 
+    private boolean hasPlayedCharacterCard;
+
     private boolean hasProtectIsland;
 
     public ExpertGame() {
         super();
         characterCards = new ArrayList<>();
         basicState = super.getActiveCharacterCard();
+        hasPlayedCharacterCard = false;
         this.hasProtectIsland = false;
     }
 
@@ -47,6 +50,10 @@ public class ExpertGame extends Game {
      */
     public void setActiveCharacterCard(CharacterCard card) {
         super.activeCharacterCard = card;
+    }
+
+    public CharacterCard getBasicState(){
+        return basicState;
     }
 
     public void setHasProtectIsland(){
