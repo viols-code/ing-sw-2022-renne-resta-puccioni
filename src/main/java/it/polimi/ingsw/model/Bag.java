@@ -43,7 +43,7 @@ public class Bag {
      *
      * @param colour the colour of the student to be removed
      */
-    public void removeStudentBag(Colour colour) {
+    private void removeStudentBag(Colour colour) {
         bag.replace(colour, bag.get(colour), bag.get(colour) - 1);
     }
 
@@ -65,20 +65,20 @@ public class Bag {
         n = rand.nextInt(upperbound) + 1;
 
         if (n <= getBagStudent(Colour.YELLOW)) {
-            bag.replace(Colour.YELLOW, bag.get(Colour.YELLOW), bag.get(Colour.YELLOW) - 1);
+            this.removeStudentBag(Colour.YELLOW);
             return Colour.YELLOW;
         } else if (n > getBagStudent(Colour.YELLOW) && n <= getBagStudent(Colour.YELLOW) + getBagStudent(Colour.BLUE)) {
-            bag.replace(Colour.BLUE, bag.get(Colour.BLUE), bag.get(Colour.BLUE) - 1);
+            this.removeStudentBag(Colour.BLUE);
             return Colour.BLUE;
         } else if (n > getBagStudent(Colour.YELLOW) + getBagStudent(Colour.BLUE) && n <= getBagStudent(Colour.YELLOW) + getBagStudent(Colour.BLUE) + getBagStudent(Colour.PINK)) {
-            bag.replace(Colour.PINK, bag.get(Colour.PINK), bag.get(Colour.PINK) - 1);
+            this.removeStudentBag(Colour.PINK);
             return Colour.PINK;
         } else if (n > getBagStudent(Colour.YELLOW) + getBagStudent(Colour.BLUE) + getBagStudent(Colour.PINK)
                 && n <= getBagStudent(Colour.YELLOW) + getBagStudent(Colour.BLUE) + getBagStudent(Colour.PINK) + getBagStudent(Colour.RED)) {
-            bag.replace(Colour.RED, bag.get(Colour.RED), bag.get(Colour.RED) - 1);
+            this.removeStudentBag(Colour.RED);
             return Colour.RED;
         } else {
-            bag.replace(Colour.GREEN, bag.get(Colour.GREEN), bag.get(Colour.GREEN) - 1);
+            this.removeStudentBag(Colour.GREEN);
             return Colour.GREEN;
         }
     }

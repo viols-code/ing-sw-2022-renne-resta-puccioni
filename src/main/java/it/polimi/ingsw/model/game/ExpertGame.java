@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.game;
 
+import it.polimi.ingsw.controller.BasicState;
 import it.polimi.ingsw.controller.CharacterCard;
 import it.polimi.ingsw.model.island.AdvancedGroupIsland;
 
@@ -21,9 +22,10 @@ public class ExpertGame extends Game {
         super();
         for (int i = 0; i < 12; i++) {
             getTable().addGroupIsland(new AdvancedGroupIsland());
+            // sbagliato
         }
         characterCards = new ArrayList<>();
-        activeCharacterCard = null;
+        activeCharacterCard = new BasicState();
     }
 
     /**

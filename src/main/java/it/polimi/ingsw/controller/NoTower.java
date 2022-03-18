@@ -5,8 +5,8 @@ import it.polimi.ingsw.model.island.GroupIsland;
 import it.polimi.ingsw.model.player.Player;
 
 public class NoTower extends CharacterCard {
-    public NoTower(GameController gameController) {
-        super(gameController);
+    public NoTower() {
+        super();
     }
 
 

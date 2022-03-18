@@ -22,21 +22,12 @@ class BagTest {
     @Test
     void addStudentBag() {
         assertEquals(24, gameTest.getTable().getBag().getBagStudent(Colour.PINK));
-        gameTest.getTable().getBag().removeStudentBag(Colour.PINK);
+        gameTest.getTable().getBag().bagDrawStudent();
         assertEquals(23, gameTest.getTable().getBag().getBagStudent(Colour.PINK));
-        gameTest.getTable().getBag().removeStudentBag(Colour.PINK);
+        gameTest.getTable().getBag().bagDrawStudent();
         assertEquals(22, gameTest.getTable().getBag().getBagStudent(Colour.PINK));
-        gameTest.getTable().getBag().addStudentBag(Colour.PINK);
+        gameTest.getTable().getBag().bagDrawStudent();
         assertEquals(23, gameTest.getTable().getBag().getBagStudent(Colour.PINK));
-    }
-
-    @Test
-    void removeStudentBag() {
-        assertEquals(24, gameTest.getTable().getBag().getBagStudent(Colour.GREEN));
-        gameTest.getTable().getBag().removeStudentBag(Colour.GREEN);
-        assertEquals(23, gameTest.getTable().getBag().getBagStudent(Colour.GREEN));
-        gameTest.getTable().getBag().removeStudentBag(Colour.GREEN);
-        assertEquals(22, gameTest.getTable().getBag().getBagStudent(Colour.GREEN));
     }
 
     @Test

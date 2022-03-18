@@ -7,8 +7,8 @@ import it.polimi.ingsw.model.player.Player;
 public class NoColour extends CharacterCard {
     private Colour colour;
 
-    public NoColour(GameController gameController) {
-        super(gameController);
+    public NoColour() {
+        super();
     }
 
 
