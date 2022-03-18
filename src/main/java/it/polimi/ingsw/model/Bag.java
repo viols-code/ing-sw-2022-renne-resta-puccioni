@@ -10,7 +10,7 @@ public class Bag {
     private final HashMap<Colour, Integer> bag;
 
 
-    public Bag(){
+    public Bag() {
         bag = new HashMap<>();
         bag.put(Colour.GREEN, 24);
         bag.put(Colour.RED, 24);
@@ -55,7 +55,7 @@ public class Bag {
     public Colour bagDrawStudent() {
         int bag_size = 0;
 
-        for(Colour colour : Colour.values()) {
+        for (Colour colour : Colour.values()) {
             bag_size += bag.get(colour);
         }
 
@@ -64,24 +64,20 @@ public class Bag {
         int n;
         n = rand.nextInt(upperbound) + 1;
 
-        if (n <= getBagStudent(Colour.YELLOW)){
+        if (n <= getBagStudent(Colour.YELLOW)) {
             bag.replace(Colour.YELLOW, bag.get(Colour.YELLOW), bag.get(Colour.YELLOW) - 1);
             return Colour.YELLOW;
-        }
-        else if (n > getBagStudent(Colour.YELLOW) && n <= getBagStudent(Colour.YELLOW) + getBagStudent(Colour.BLUE)){
+        } else if (n > getBagStudent(Colour.YELLOW) && n <= getBagStudent(Colour.YELLOW) + getBagStudent(Colour.BLUE)) {
             bag.replace(Colour.BLUE, bag.get(Colour.BLUE), bag.get(Colour.BLUE) - 1);
             return Colour.BLUE;
-        }
-        else if (n > getBagStudent(Colour.YELLOW) + getBagStudent(Colour.BLUE) && n <= getBagStudent(Colour.YELLOW) + getBagStudent(Colour.BLUE) + getBagStudent(Colour.PINK)){
+        } else if (n > getBagStudent(Colour.YELLOW) + getBagStudent(Colour.BLUE) && n <= getBagStudent(Colour.YELLOW) + getBagStudent(Colour.BLUE) + getBagStudent(Colour.PINK)) {
             bag.replace(Colour.PINK, bag.get(Colour.PINK), bag.get(Colour.PINK) - 1);
             return Colour.PINK;
-        }
-        else if (n > getBagStudent(Colour.YELLOW) + getBagStudent(Colour.BLUE) + getBagStudent(Colour.PINK)
-                && n <= getBagStudent(Colour.YELLOW) + getBagStudent(Colour.BLUE) + getBagStudent(Colour.PINK) + getBagStudent(Colour.RED)){
+        } else if (n > getBagStudent(Colour.YELLOW) + getBagStudent(Colour.BLUE) + getBagStudent(Colour.PINK)
+                && n <= getBagStudent(Colour.YELLOW) + getBagStudent(Colour.BLUE) + getBagStudent(Colour.PINK) + getBagStudent(Colour.RED)) {
             bag.replace(Colour.RED, bag.get(Colour.RED), bag.get(Colour.RED) - 1);
             return Colour.RED;
-        }
-        else{
+        } else {
             bag.replace(Colour.GREEN, bag.get(Colour.GREEN), bag.get(Colour.GREEN) - 1);
             return Colour.GREEN;
         }

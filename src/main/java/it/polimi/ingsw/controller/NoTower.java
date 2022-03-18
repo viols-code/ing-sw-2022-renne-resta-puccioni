@@ -4,18 +4,18 @@ import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.island.GroupIsland;
 import it.polimi.ingsw.model.player.Player;
 
-public class NoTower extends CharacterCard{
-    public NoTower(GameController gameController){
+public class NoTower extends CharacterCard {
+    public NoTower(GameController gameController) {
         super(gameController);
     }
 
 
-    public int calculateInfluence(Player player, GroupIsland groupIsland){
+    public int calculateInfluence(Player player, GroupIsland groupIsland) {
         int influence = 0;
 
-        if(!groupIsland.isNoEntryTile()){
-            for(Colour colour: Colour.values()){
-                if(player.getSchoolBoard().hasProfessor(colour)){
+        if (!groupIsland.isNoEntryTile()) {
+            for (Colour colour : Colour.values()) {
+                if (player.getSchoolBoard().hasProfessor(colour)) {
                     influence += groupIsland.getNumberStudent(colour);
                 }
             }

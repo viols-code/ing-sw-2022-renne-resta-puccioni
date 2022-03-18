@@ -47,8 +47,8 @@ public abstract class GroupIsland {
      *
      * @return the list of SingleIsland of which the GroupIsland is formed
      */
-    public SingleIsland getIslands(int island) throws IllegalArgumentException{
-        if(island < 0 || island > getNumberOfSingleIsland()){
+    public SingleIsland getIslands(int island) throws IllegalArgumentException {
+        if (island < 0 || island > getNumberOfSingleIsland()) {
             throw new IllegalArgumentException("The index is out of range");
         }
         return islandsContained.get(island);
@@ -60,10 +60,10 @@ public abstract class GroupIsland {
      * @param colour the given colour
      * @return the number of student of the given colour
      */
-    public int getNumberStudent(Colour colour){
+    public int getNumberStudent(Colour colour) {
         int count = 0;
 
-        for(SingleIsland island : islandsContained){
+        for (SingleIsland island : islandsContained) {
             count += island.getStudents(colour);
         }
 
@@ -75,7 +75,7 @@ public abstract class GroupIsland {
      *
      * @param singleIsland the SingleIsland to be added
      */
-    public void addSingleIsland(SingleIsland singleIsland){
+    public void addSingleIsland(SingleIsland singleIsland) {
         islandsContained.add(singleIsland);
     }
 
@@ -84,7 +84,9 @@ public abstract class GroupIsland {
      *
      * @return the number of SingleIslands in the GroupIsland
      */
-    public int getNumberOfSingleIsland(){ return islandsContained.size(); }
+    public int getNumberOfSingleIsland() {
+        return islandsContained.size();
+    }
 
     /*
     MOTHER NATURE
@@ -140,7 +142,7 @@ public abstract class GroupIsland {
      *
      * @return true if there are no entry tiles on the island, false otherwise
      */
-    public boolean isNoEntryTile(){
+    public boolean isNoEntryTile() {
         return false;
     }
 
@@ -150,7 +152,7 @@ public abstract class GroupIsland {
      * @return the number of no entry tiles
      * @throws IllegalAccessError if the mode is basic
      */
-    public int getNumberOfNoEntryTile() throws IllegalAccessError{
+    public int getNumberOfNoEntryTile() throws IllegalAccessError {
         throw new IllegalAccessError("This is for the Expert Mode");
     }
 
@@ -159,7 +161,7 @@ public abstract class GroupIsland {
      *
      * @throws IllegalAccessError if the mode is basic
      */
-    public void addNoEntryTile() throws IllegalAccessError{
+    public void addNoEntryTile() throws IllegalAccessError {
         throw new IllegalAccessError("This is for the Expert Mode");
     }
 
@@ -168,7 +170,7 @@ public abstract class GroupIsland {
      *
      * @throws IllegalAccessError if the mode is basic
      */
-    public void removeNoEntryTile() throws IllegalAccessError{
+    public void removeNoEntryTile() throws IllegalAccessError {
         throw new IllegalAccessError("This is for the Expert Mode");
     }
 

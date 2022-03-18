@@ -7,21 +7,21 @@ import it.polimi.ingsw.model.player.Player;
 public abstract class CharacterCard {
     private final GameController gameController;
 
-    public CharacterCard(GameController gameController){
+    public CharacterCard(GameController gameController) {
         this.gameController = gameController;
     }
 
-    public int calculateInfluence(Player player, GroupIsland groupIsland){
+    public int calculateInfluence(Player player, GroupIsland groupIsland) {
         int influence = 0;
 
-        if(!groupIsland.isNoEntryTile()){
-            for(Colour colour: Colour.values()){
-                if(player.getSchoolBoard().hasProfessor(colour)){
+        if (!groupIsland.isNoEntryTile()) {
+            for (Colour colour : Colour.values()) {
+                if (player.getSchoolBoard().hasProfessor(colour)) {
                     influence += groupIsland.getNumberStudent(colour);
                 }
             }
 
-            if(player.equals(groupIsland.getInfluence())){
+            if (player.equals(groupIsland.getInfluence())) {
                 influence += groupIsland.getNumberOfSingleIsland();
             }
         }

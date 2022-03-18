@@ -17,9 +17,9 @@ public class ExpertGame extends Game {
      */
     private CharacterCard activeCharacterCard;
 
-    public ExpertGame(){
+    public ExpertGame() {
         super();
-        for(int i = 0; i < 12; i++){
+        for (int i = 0; i < 12; i++) {
             getTable().addGroupIsland(new AdvancedGroupIsland());
         }
         characterCards = new ArrayList<>();
@@ -40,7 +40,7 @@ public class ExpertGame extends Game {
      *
      * @return the active Character Card
      */
-    public CharacterCard getActiveCharacterCard(){
+    public CharacterCard getActiveCharacterCard() {
         return activeCharacterCard;
     }
 
@@ -49,7 +49,7 @@ public class ExpertGame extends Game {
      *
      * @param card the active Character Card
      */
-    public void setActiveCharacterCard(CharacterCard card){
+    public void setActiveCharacterCard(CharacterCard card) {
         this.activeCharacterCard = card;
     }
 

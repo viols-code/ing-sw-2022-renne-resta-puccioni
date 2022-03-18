@@ -1,7 +1,8 @@
 package it.polimi.ingsw.model.game;
 
 import it.polimi.ingsw.controller.CharacterCard;
-import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.model.AssistantCard;
+import it.polimi.ingsw.model.Table;
 import it.polimi.ingsw.model.player.Player;
 
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import java.util.Objects;
  *
  * @version 1.0
  */
-public abstract class Game{
+public abstract class Game {
 
     /**
      * A List containing the players in the match
@@ -121,7 +122,7 @@ public abstract class Game{
      * @param index the index of the player to return
      * @return the player at the given index
      */
-    public Player getPlayerByIndex(int index){
+    public Player getPlayerByIndex(int index) {
         return players.get(index);
     }
 
@@ -179,7 +180,7 @@ public abstract class Game{
      *
      * @return the current player
      */
-    public boolean isCurrentPlayer(Player player){
+    public boolean isCurrentPlayer(Player player) {
         return player.equals(currentPlayer);
     }
 
@@ -214,7 +215,7 @@ public abstract class Game{
     TABLE
      */
 
-    public Table getTable(){
+    public Table getTable() {
         return table;
     }
 
@@ -248,7 +249,7 @@ public abstract class Game{
      * @return the Character Card at the given index
      * @throws IllegalAccessError if the mode is basic
      */
-    public CharacterCard getCharacterCardsByIndex(int index) throws IllegalAccessError{
+    public CharacterCard getCharacterCardsByIndex(int index) throws IllegalAccessError {
         throw new IllegalAccessError("This is for the Expert Mode");
     }
 
@@ -258,7 +259,7 @@ public abstract class Game{
      * @return the active Character Card
      * @throws IllegalAccessError if the mode is basic
      */
-    public CharacterCard getActiveCharacterCard() throws IllegalAccessError{
+    public CharacterCard getActiveCharacterCard() throws IllegalAccessError {
         throw new IllegalAccessError("This is for the Expert Mode");
     }
 
@@ -268,7 +269,7 @@ public abstract class Game{
      * @param card the active Character Card
      * @throws IllegalAccessError if the mode is basic
      */
-    public void setActiveCharacterCard(CharacterCard card) throws IllegalAccessError{
+    public void setActiveCharacterCard(CharacterCard card) throws IllegalAccessError {
         throw new IllegalAccessError("This is for the Expert Mode");
     }
 
@@ -283,8 +284,8 @@ public abstract class Game{
      * @return the assistant card position in the List
      * @throws IllegalArgumentException if the position given doesn't exist in the List
      */
-    public AssistantCard getAssistantCard(int card) throws IllegalArgumentException{
-        if(card < 0 || card > 9){
+    public AssistantCard getAssistantCard(int card) throws IllegalArgumentException {
+        if (card < 0 || card > 9) {
             throw new IllegalArgumentException("The argument must be between 0 and 9");
         }
         return assistantCard.get(card);

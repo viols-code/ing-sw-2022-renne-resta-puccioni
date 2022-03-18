@@ -4,7 +4,7 @@ import it.polimi.ingsw.model.Wizard;
 
 import java.util.Objects;
 
-public class ExpertPlayer extends Player{
+public class ExpertPlayer extends Player {
     /**
      * number of coins
      */
@@ -14,9 +14,9 @@ public class ExpertPlayer extends Player{
      * Constructor: creates a new ExpertPlayer with the given nick and the given wizard
      *
      * @param nickname a string with the nickname
-     * @param wizard the wizard chosen by the player
+     * @param wizard   the wizard chosen by the player
      */
-    public ExpertPlayer(String nickname, Wizard wizard){
+    public ExpertPlayer(String nickname, Wizard wizard) {
         super(nickname, wizard);
         coins = 1;
     }
@@ -31,7 +31,7 @@ public class ExpertPlayer extends Player{
      *
      * @return the number of coins
      */
-    public int getCoins() throws IllegalAccessError{
+    public int getCoins() throws IllegalAccessError {
         return coins;
     }
 
@@ -40,7 +40,7 @@ public class ExpertPlayer extends Player{
      *
      * @param num the number of coins to add to the player
      */
-    public void addCoins(int num) throws IllegalAccessError{
+    public void addCoins(int num) throws IllegalAccessError {
         coins += num;
     }
 
@@ -49,7 +49,7 @@ public class ExpertPlayer extends Player{
      *
      * @param num the number of coins to remove to the player
      */
-    public void removeCoins(int num) throws IllegalAccessError{
+    public void removeCoins(int num) throws IllegalAccessError {
         coins -= num;
     }
 

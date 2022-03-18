@@ -1,10 +1,10 @@
 package it.polimi.ingsw.model.island;
 
-public class BasicGroupIsland extends GroupIsland{
+public class BasicGroupIsland extends GroupIsland {
     /**
      * Constructor: creates a new empty BasicGroupIsland
      */
-    public BasicGroupIsland(){
+    public BasicGroupIsland() {
         super();
     }
 }

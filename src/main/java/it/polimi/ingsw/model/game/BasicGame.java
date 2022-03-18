@@ -7,9 +7,9 @@ public class BasicGame extends Game {
     /**
      * Constructor: creates a game
      */
-    public BasicGame(){
+    public BasicGame() {
         super();
-        for(int i = 0; i < 12; i++){
+        for (int i = 0; i < 12; i++) {
             getTable().addGroupIsland(new BasicGroupIsland());
         }
     }

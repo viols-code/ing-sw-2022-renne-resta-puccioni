@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model.island;
 
-public class AdvancedGroupIsland extends GroupIsland{
+public class AdvancedGroupIsland extends GroupIsland {
     /**
      * true if there is a no entry tile, false otherwise
      */
@@ -11,7 +11,7 @@ public class AdvancedGroupIsland extends GroupIsland{
      */
     private int numberOfNoEntryTile;
 
-    public AdvancedGroupIsland(){
+    public AdvancedGroupIsland() {
         super();
         noEntryTile = false;
         numberOfNoEntryTile = 0;
@@ -22,7 +22,7 @@ public class AdvancedGroupIsland extends GroupIsland{
      *
      * @return true if there are no entry tiles on the island, false otherwise
      */
-    public boolean isNoEntryTile(){
+    public boolean isNoEntryTile() {
         return noEntryTile;
     }
 
@@ -31,24 +31,24 @@ public class AdvancedGroupIsland extends GroupIsland{
      *
      * @return the number of no entry tiles
      */
-    public int getNumberOfNoEntryTile(){
-       return numberOfNoEntryTile;
+    public int getNumberOfNoEntryTile() {
+        return numberOfNoEntryTile;
     }
 
     /**
      * Add one no entry tile
      */
-    public void addNoEntryTile(){
-       numberOfNoEntryTile += 1;
+    public void addNoEntryTile() {
+        numberOfNoEntryTile += 1;
     }
 
     /**
      * Remove one no entry tile
      */
-    public void removeNoEntryTile() throws IllegalAccessError{
+    public void removeNoEntryTile() throws IllegalAccessError {
         numberOfNoEntryTile -= 1;
 
-        if(numberOfNoEntryTile == 0){
+        if (numberOfNoEntryTile == 0) {
             this.noEntryTile = false;
         }
     }

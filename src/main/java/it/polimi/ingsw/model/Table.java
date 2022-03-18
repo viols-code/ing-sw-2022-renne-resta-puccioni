@@ -29,7 +29,7 @@ public class Table {
     /**
      * Constructor: creates a new game
      */
-    public Table(){
+    public Table() {
         bag = new Bag();
         islands = new ArrayList<>();
         motherNaturePosition = 0;
@@ -45,7 +45,9 @@ public class Table {
      *
      * @return the bag of the game
      */
-    public Bag getBag(){ return bag; }
+    public Bag getBag() {
+        return bag;
+    }
 
      /*
     ISLANDS
@@ -57,7 +59,7 @@ public class Table {
      * @param index the position of the GroupIsland to be returned
      * @return the GroupIsland at the given index
      */
-    public GroupIsland getGroupIslandByIndex(int index){
+    public GroupIsland getGroupIslandByIndex(int index) {
         return islands.get(index);
     }
 
@@ -66,13 +68,14 @@ public class Table {
      *
      * @return the number of GroupIsland
      */
-    public int getNumberOfGroupIsland(){
+    public int getNumberOfGroupIsland() {
         return islands.size();
     }
 
     /**
      * Add a group of islands from the list
-     to
+     * to
+     *
      * @param groupIsland the groupIsland to be added
      */
     public void addGroupIsland(GroupIsland groupIsland) {
@@ -97,7 +100,7 @@ public class Table {
      *
      * @return mother nature position
      */
-    public int getMotherNaturePosition(){
+    public int getMotherNaturePosition() {
         return motherNaturePosition;
     }
 
@@ -106,8 +109,8 @@ public class Table {
      *
      * @param motherNaturePosition the position to be set
      */
-    public void setMotherNaturePosition(int motherNaturePosition){
-         this.motherNaturePosition = motherNaturePosition;
+    public void setMotherNaturePosition(int motherNaturePosition) {
+        this.motherNaturePosition = motherNaturePosition;
     }
 
      /*
@@ -128,7 +131,7 @@ public class Table {
      *
      * @return the number of cloud tiles
      */
-    public int getNumberOfCloudTile(){
+    public int getNumberOfCloudTile() {
         return cloudTiles.size();
     }
 

@@ -20,7 +20,7 @@ public abstract class Player {
     private final String nickname;
 
     /**
-     *  the wizard chosen by the player
+     * the wizard chosen by the player
      */
     private final Wizard wizard;
 
@@ -43,7 +43,7 @@ public abstract class Player {
      * Constructor: creates a new Player with the given nick and the given wizard
      *
      * @param nickname a string with the nickname
-     * @param wizard the wizard chosen by the player
+     * @param wizard   the wizard chosen by the player
      */
     public Player(String nickname, Wizard wizard) {
         this.nickname = nickname;
@@ -75,7 +75,7 @@ public abstract class Player {
      *
      * @return the wizard chosen by the player
      */
-    public Wizard getWizard(){
+    public Wizard getWizard() {
         return wizard;
     }
 
@@ -144,7 +144,7 @@ public abstract class Player {
      * @return the number of coins
      * @throws IllegalAccessError if the mode is basic
      */
-    public int getCoins() throws IllegalAccessError{
+    public int getCoins() throws IllegalAccessError {
         throw new IllegalAccessError("This is for the Expert Mode");
     }
 
@@ -154,7 +154,7 @@ public abstract class Player {
      * @param num the number of coins to add to the player
      * @throws IllegalAccessError if the mode is basic
      */
-    public void addCoins(int num) throws IllegalAccessError{
+    public void addCoins(int num) throws IllegalAccessError {
         throw new IllegalAccessError("This is for the Expert Mode");
     }
 
@@ -164,7 +164,7 @@ public abstract class Player {
      * @param num the number of coins to remove to the player
      * @throws IllegalAccessError if the mode is basic
      */
-    public void removeCoins(int num) throws IllegalAccessError{
+    public void removeCoins(int num) throws IllegalAccessError {
         throw new IllegalAccessError("This is for the Expert Mode");
     }
 
