@@ -52,11 +52,11 @@ public class ExpertGame extends Game {
         super.activeCharacterCard = card;
     }
 
-    public CharacterCard getBasicState(){
+    public CharacterCard getBasicState() {
         return basicState;
     }
 
-    public void setHasProtectIsland(){
+    public void setHasProtectIsland() {
         hasProtectIsland = true;
     }
 
