@@ -43,19 +43,19 @@ public class GameController {
                         game.addCharacterCard(new ProtectIsland());
                         hasProtectIsland = true;
                     case 5:
-                        game.addCharacterCard(new NoTower());
+                        game.addCharacterCard(new NoTower(game));
                     case 6:
                         game.addCharacterCard(new StudentToEntrance());
                     case 7:
                         game.addCharacterCard(new TwoPoints());
                     case 8:
-                        game.addCharacterCard(new NoColour());
+                        game.addCharacterCard(new NoColour(game));
                     case 9:
-                        game.addCharacterCard(new ExchangeEntranceDiningRoom());
+                        game.addCharacterCard(new ExchangeEntranceDiningRoom(game));
                     case 10:
-                        game.addCharacterCard(new StudentToDiningRoom());
+                        game.addCharacterCard(new StudentToDiningRoom(game));
                     case 11:
-                        game.addCharacterCard(new ThreeStudent());
+                        game.addCharacterCard(new ThreeStudent(game));
                 }
             }
 
