@@ -92,7 +92,7 @@ public abstract class CharacterCard {
      * @param colourEntrance the colour of the student in the entrance
      * @throws IllegalAccessError if the CharacterCard doesn't have this method
      */
-    public void setColourDiningRoom(Colour colourDiningRoom, Colour colourEntrance) throws IllegalAccessError {
+    public void setColourDiningRoomEntrance(Colour colourDiningRoom, Colour colourEntrance) throws IllegalAccessError {
         throw new IllegalAccessError("The card doesn't have this method");
     }
 
