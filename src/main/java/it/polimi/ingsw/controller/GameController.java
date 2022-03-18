@@ -13,9 +13,21 @@ import java.util.Collections;
 import java.util.List;
 
 public class GameController {
+    /**
+     * The Game
+     */
     private final Game game;
+
+    /**
+     * Indicates if the game is in the expert mode
+     */
     private final boolean isGameExpert;
 
+    /**
+     * Constructor: creates a GameController
+     *
+     * @param isGameExpert indicates if the game is in the expert mode
+     */
     public GameController(boolean isGameExpert) {
         this.isGameExpert = isGameExpert;
 
@@ -23,14 +35,14 @@ public class GameController {
             game = new ExpertGame();
 
             List<Integer> random = new ArrayList<>();
-            for(int i = 0; i < 12; i++){
+            for (int i = 0; i < 12; i++) {
                 random.add(i);
             }
             Collections.shuffle(random);
 
             boolean hasProtectIsland = false;
-            for(int i = 0; i < 3; i++){
-                switch (random.get(i)){
+            for (int i = 0; i < 3; i++) {
+                switch (random.get(i)) {
                     case 0:
                         game.addCharacterCard(new StudentToIsland(game));
                     case 1:
@@ -59,11 +71,11 @@ public class GameController {
                 }
             }
 
-            if(hasProtectIsland){
+            if (hasProtectIsland) {
                 for (int i = 0; i < 12; i++) {
                     game.getTable().addGroupIsland(new AdvancedGroupIsland());
                 }
-            } else{
+            } else {
                 for (int i = 0; i < 12; i++) {
                     game.getTable().addGroupIsland(new BasicGroupIsland());
                 }
@@ -75,10 +87,12 @@ public class GameController {
         }
     }
 
-    public Game getGame() {
-        return game;
-    }
-
+    /**
+     * Unifies two GroupIsland
+     *
+     * @param groupIsland1 the first GroupIsland to be unified
+     * @param groupIsland2 the second GroupIsland to be unified
+     */
     private void unifyGroupIsland(GroupIsland groupIsland1, GroupIsland groupIsland2) {
 
         for (int i = 0; i < groupIsland2.getNumberOfSingleIsland(); i++) {
