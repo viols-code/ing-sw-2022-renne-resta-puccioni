@@ -32,22 +32,22 @@ public class GameController {
             for(int i = 0; i < 3; i++){
                 switch (random.get(i)){
                     case 0:
-                        game.addCharacterCard(new StudentToIsland());
+                        game.addCharacterCard(new StudentToIsland(game));
                     case 1:
-                        game.addCharacterCard(new TakeProfessor());
+                        game.addCharacterCard(new TakeProfessor(game));
                     case 2:
-                        game.addCharacterCard(new IslandInfluence());
+                        game.addCharacterCard(new IslandInfluence(game));
                     case 3:
-                        game.addCharacterCard(new MotherNatureMovement());
+                        game.addCharacterCard(new MotherNatureMovement(game));
                     case 4:
-                        game.addCharacterCard(new ProtectIsland());
+                        game.addCharacterCard(new ProtectIsland(game));
                         hasProtectIsland = true;
                     case 5:
                         game.addCharacterCard(new NoTower(game));
                     case 6:
-                        game.addCharacterCard(new StudentToEntrance());
+                        game.addCharacterCard(new StudentToEntrance(game));
                     case 7:
-                        game.addCharacterCard(new TwoPoints());
+                        game.addCharacterCard(new TwoPoints(game));
                     case 8:
                         game.addCharacterCard(new NoColour(game));
                     case 9:
