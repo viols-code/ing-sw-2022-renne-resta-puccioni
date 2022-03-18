@@ -87,7 +87,7 @@ public abstract class Game {
         firstPlayerTurn = null;
         table = new Table();
         round = 0;
-        activeCharacterCard = new BasicState();
+        activeCharacterCard = new BasicState(this);
         currentPlayer = null;
         assistantCard = new ArrayList<>();
 
@@ -179,6 +179,15 @@ public abstract class Game {
        /*
        TO DO
         */
+        return currentPlayer;
+    }
+
+    /**
+     * Get the current player
+     *
+     * @return the current player
+     */
+    public Player getCurrentPlayer() {
         return currentPlayer;
     }
 
@@ -411,6 +420,10 @@ public abstract class Game {
     }
 
     public void setHasProtectIsland() throws IllegalAccessError{
+        throw new IllegalAccessError("This is for the Expert Mode");
+    }
+
+    public CharacterCard getBasicState() throws IllegalAccessError{
         throw new IllegalAccessError("This is for the Expert Mode");
     }
 
