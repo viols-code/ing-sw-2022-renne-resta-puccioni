@@ -9,7 +9,7 @@ Final project for the course Software Engineering 2021/2022 at Polimi.
 | Functionality | State |
 |:-----------------------|:------------------------------------:|
 | Basic rules | [![YELLOW](https://via.placeholder.com//15/ffdd00/ffdd00)](#) |
-| Complete rules | [![RED](https://via.placeholder.com//15/f03c15/f03c15)](#)|
+| Complete rules | [![YELLOW](https://via.placeholder.com//15/ffdd00/ffdd00)](#)|
 | CLI | [![RED](https://via.placeholder.com//15/f03c15/f03c15)](#) |
 | GUI | [![RED](https://via.placeholder.com//15/f03c15/f03c15)](#) |
 | Socket | [![RED](https://via.placeholder.com//15/f03c15/f03c15)](#) |
