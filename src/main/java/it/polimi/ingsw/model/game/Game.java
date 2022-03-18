@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.game;
 
+import it.polimi.ingsw.controller.CharacterCard;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.player.Player;
 
