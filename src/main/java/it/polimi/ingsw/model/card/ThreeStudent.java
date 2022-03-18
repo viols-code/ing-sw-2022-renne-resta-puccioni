@@ -1,7 +1,34 @@
 package it.polimi.ingsw.model.card;
 
+import it.polimi.ingsw.model.Colour;
+import it.polimi.ingsw.model.game.Game;
+
 public class ThreeStudent extends CharacterCard{
-    public ThreeStudent(){
-        super();
+    private Colour colour;
+
+    public ThreeStudent(Game game){
+        super(game);
+    }
+
+    @Override
+    public void effect() {
+        for(int i = 0; i < game.getNumberOfPlayer(); i++){
+            if(game.getPlayerByIndex(i).getSchoolBoard().getDiningRoom(colour) < 3){
+                for(Colour colour1:Colour.values()){
+                    game.getPlayerByIndex(i).getSchoolBoard().removeAllStudentFromDiningRoom();
+                }
+            } else{
+                for(int j = 0; j < 3; j++){
+                    game.getPlayerByIndex(i).getSchoolBoard().removeStudentFromDiningRoom(colour);
+                }
+            }
+        }
+
+        game.setActiveCharacterCard(game.getBasicState());
+    }
+
+    @Override
+    public void setColour(Colour colour){
+        this.colour = colour;
     }
 }
