@@ -41,7 +41,7 @@ public abstract class GroupIsland {
         islandsContained = new ArrayList<>();
         islandsContained.add(new SingleIsland());
         motherNature = false;
-        noEntryTile=false;
+        noEntryTile = false;
     }
 
     /*
