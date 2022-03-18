@@ -1,8 +1,10 @@
 package it.polimi.ingsw.model.card;
 
+import it.polimi.ingsw.model.game.Game;
+
 public class BasicState extends CharacterCard {
-    public BasicState() {
-        super();
+    public BasicState(Game game) {
+        super(game);
     }
 
 }
