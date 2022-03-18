@@ -1,4 +1,4 @@
-package it.polimi.ingsw;
+package it.polimi.ingsw.model.game;
 
 /**
  * Enumeration of the phases in the game
@@ -9,8 +9,7 @@ public enum GamePhase {
     SETTING,
     SET_CLOUD_TILE,
     PLAY_ASSISTANT_CARD,
-    MOVE_STUDENT,
-    MOVE_MOTHER_NATURE,
-    CHOOSE_CLOUD_TILE,
+    PLAYING,
+    END_GAME,
 }
 

@@ -1,4 +1,6 @@
-package it.polimi.ingsw;
+package it.polimi.ingsw.model.player;
+
+import it.polimi.ingsw.model.Colour;
 
 import java.util.HashMap;
 
@@ -23,7 +25,7 @@ public class SchoolBoard {
      */
     private int towers;
 
-    public SchoolBoard(){
+    public SchoolBoard() {
         diningRoom = new HashMap<>();
         diningRoom.put(Colour.GREEN, 0);
         diningRoom.put(Colour.RED, 0);
@@ -76,7 +78,7 @@ public class SchoolBoard {
      *
      * @param colour the colour of the student to remove from the diningRoom
      */
-    public void removeStudentFromDiningRoom(Colour colour){
+    public void removeStudentFromDiningRoom(Colour colour) {
         diningRoom.replace(colour, diningRoom.get(colour), diningRoom.get(colour) - 1);
     }
 
@@ -101,17 +103,6 @@ public class SchoolBoard {
      */
     public void addStudentToEntrance(Colour colour) {
         entrance.replace(colour, entrance.get(colour), entrance.get(colour) + 1);
-    }
-
-    /**
-     * Add all the student in the CloudTile to the player's entrance
-     *
-     * @param tile the CloudTile chosen by the player
-     */
-    public void addStudentToEntrance(CloudTile tile) {
-        for (Colour colour : Colour.values()) {
-            entrance.replace(colour, entrance.get(colour), entrance.get(colour) + tile.getTileStudents(colour));
-        }
     }
 
     /**
@@ -177,7 +168,7 @@ public class SchoolBoard {
      *
      * @param num the number of towers to give to the player
      */
-    public void addTower(int num) throws IllegalArgumentException {
+    public void addTower(int num) {
         towers += num;
     }
 

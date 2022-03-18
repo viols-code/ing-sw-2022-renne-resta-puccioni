@@ -1,9 +1,11 @@
 package it.polimi.ingsw;
 
+import it.polimi.ingsw.model.game.BasicGame;
+import it.polimi.ingsw.model.Colour;
+import it.polimi.ingsw.model.game.Game;
+import it.polimi.ingsw.model.player.SchoolBoard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -14,7 +16,7 @@ class SchoolBoardTest {
     @BeforeEach
     void setUp() {
        schoolBoard = new SchoolBoard();
-       game = new Game();
+       game = new BasicGame();
     }
 
     @Test
@@ -56,17 +58,6 @@ class SchoolBoardTest {
                 schoolBoard.addStudentToEntrance(colour);
                 assertEquals(i, schoolBoard.getEntrance(colour));
             }
-        }
-    }
-
-
-    @Test
-    void testAddStudentToEntrance() {
-        HashMap<Colour, Integer> cloudTileStudents = game.bagDrawCloudTile();
-        CloudTile cloudTile = new CloudTile(cloudTileStudents);
-        schoolBoard.addStudentToEntrance(cloudTile);
-        for (Colour colour : Colour.values()) {
-            assertEquals(cloudTileStudents.get(colour), schoolBoard.getEntrance(colour));
         }
     }
 
