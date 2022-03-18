@@ -5,34 +5,52 @@ import it.polimi.ingsw.model.game.Game;
 
 import java.util.HashMap;
 
-public class StudentToDiningRoom extends CharacterCard{
-    private final HashMap<Colour,Integer> students;
+public class StudentToDiningRoom extends CharacterCard {
+    private final HashMap<Colour, Integer> students;
     private Colour colour;
 
-    public StudentToDiningRoom(Game game){
+    /**
+     * Constructor
+     *
+     * @param game the Game
+     */
+    public StudentToDiningRoom(Game game) {
         super(game);
         initialCost = 2;
         actualCost = initialCost;
         students = new HashMap<>();
 
-        for(Colour colour1:Colour.values()){
+        for (Colour colour1 : Colour.values()) {
             students.put(colour1, 0);
         }
 
-        for(int i = 0; i < 4; i++){
+        for (int i = 0; i < 4; i++) {
             Colour colour1 = game.getTable().getBag().bagDrawStudent();
             students.replace(colour1, students.get(colour1), students.get(colour1) + 1);
         }
     }
 
-    public void effect(){
+    /**
+     * Activates the effect of the CharacterCard
+     */
+    @Override
+    public void effect() {
         game.getCurrentPlayer().getSchoolBoard().addStudentToDiningRoom(colour);
         students.replace(colour, students.get(colour), students.get(colour) - 1);
+        Colour colour1 = game.getTable().getBag().bagDrawStudent();
+        students.replace(colour1, students.get(colour1), students.get(colour1) + 1);
         game.setActiveCharacterCard(game.getBasicState());
     }
 
-    public void setColour(Colour colour){
+    /**
+     * Set the colour of the chosen student
+     *
+     * @param colour the colour to be set
+     */
+    @Override
+    public void setColour(Colour colour) {
         this.colour = colour;
+        this.effect();
     }
 
 }

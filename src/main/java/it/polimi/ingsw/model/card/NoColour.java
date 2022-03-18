@@ -8,17 +8,35 @@ import it.polimi.ingsw.model.player.Player;
 public class NoColour extends CharacterCard {
     private Colour colour;
 
+    /**
+     * Constructor
+     *
+     * @param game the Game
+     */
     public NoColour(Game game) {
         super(game);
         initialCost = 3;
         actualCost = initialCost;
     }
 
+    /**
+     * Set the colour not to be considered
+     *
+     * @param colour the colour to be set
+     */
+    @Override
     public void setColour(Colour colour) {
         this.colour = colour;
     }
 
-
+    /**
+     * Calculates the influence of the given Player in the given GroupIsland without considering a colour
+     *
+     * @param player the Player
+     * @param groupIsland the GroupIsland
+     * @return the influence of the given Player in the given GroupIsland without considering a colour
+     */
+    @Override
     public int calculateInfluence(Player player, GroupIsland groupIsland) {
         int influence = 0;
 
