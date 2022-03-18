@@ -1,11 +1,11 @@
 package it.polimi.ingsw;
 
-import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.game.BasicGame;
 import it.polimi.ingsw.model.game.Game;
 import it.polimi.ingsw.model.game.GamePhase;
 import it.polimi.ingsw.model.player.BasicPlayer;
 import it.polimi.ingsw.model.player.Player;
+import it.polimi.ingsw.model.player.Wizard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

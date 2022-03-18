@@ -1,9 +1,9 @@
 package it.polimi.ingsw.model.game;
 
-import it.polimi.ingsw.controller.BasicState;
-import it.polimi.ingsw.controller.CharacterCard;
+import it.polimi.ingsw.model.card.BasicState;
+import it.polimi.ingsw.model.card.CharacterCard;
 import it.polimi.ingsw.model.AssistantCard;
-import it.polimi.ingsw.model.Table;
+import it.polimi.ingsw.model.table.Table;
 import it.polimi.ingsw.model.player.Player;
 
 import java.util.ArrayList;

@@ -1,7 +1,6 @@
 package it.polimi.ingsw.model.player;
 
 import it.polimi.ingsw.model.AssistantCard;
-import it.polimi.ingsw.model.Wizard;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -135,6 +134,20 @@ public abstract class Player {
     }
 
     /*
+     * SCHOOL BOARD
+     */
+
+    /**
+     * Get the school board of the player
+     *
+     * @return the school board of the player
+     */
+    public SchoolBoard getSchoolBoard() {
+        return schoolBoard;
+    }
+
+
+    /*
     COINS
      */
 
@@ -168,30 +181,16 @@ public abstract class Player {
         throw new IllegalAccessError("This is for the Expert Mode");
     }
 
-    /*
-     * SCHOOL BOARD
-     */
-
-    /**
-     * Get the school board of the player
-     *
-     * @return the school board of the player
-     */
-    public SchoolBoard getSchoolBoard() {
-        return schoolBoard;
-    }
-
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Player)) return false;
         Player player = (Player) o;
-        return getCoins() == player.getCoins() && Objects.equals(getNickname(), player.getNickname()) && Objects.equals(getCurrentAssistantCard(), player.getCurrentAssistantCard()) && Objects.equals(getSchoolBoard(), player.getSchoolBoard());
+        return getNickname().equals(player.getNickname()) && getWizard() == player.getWizard() && assistantCardSet.equals(player.assistantCardSet) && Objects.equals(getCurrentAssistantCard(), player.getCurrentAssistantCard()) && getSchoolBoard().equals(player.getSchoolBoard());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getNickname(), getCurrentAssistantCard(), getCoins(), getSchoolBoard());
+        return Objects.hash(getNickname(), getWizard(), assistantCardSet, getCurrentAssistantCard(), getSchoolBoard());
     }
 }

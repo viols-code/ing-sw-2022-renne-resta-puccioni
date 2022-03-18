@@ -3,7 +3,7 @@ package it.polimi.ingsw;
 import it.polimi.ingsw.model.AssistantCard;
 import it.polimi.ingsw.model.game.BasicGame;
 import it.polimi.ingsw.model.game.Game;
-import it.polimi.ingsw.model.Wizard;
+import it.polimi.ingsw.model.player.Wizard;
 import it.polimi.ingsw.model.player.BasicPlayer;
 import it.polimi.ingsw.model.player.Player;
 import org.junit.jupiter.api.BeforeEach;

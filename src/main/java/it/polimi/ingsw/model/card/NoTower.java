@@ -1,4 +1,4 @@
-package it.polimi.ingsw.controller;
+package it.polimi.ingsw.model.card;
 
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.island.GroupIsland;

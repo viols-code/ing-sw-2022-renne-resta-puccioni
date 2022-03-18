@@ -1,10 +1,6 @@
 package it.polimi.ingsw.model.island;
 
 public class AdvancedGroupIsland extends GroupIsland {
-    /**
-     * true if there is a no entry tile, false otherwise
-     */
-    private boolean noEntryTile;
 
     /**
      * number of no entry tiles
@@ -13,17 +9,7 @@ public class AdvancedGroupIsland extends GroupIsland {
 
     public AdvancedGroupIsland() {
         super();
-        noEntryTile = false;
         numberOfNoEntryTile = 0;
-    }
-
-    /**
-     * Get the no entry tile
-     *
-     * @return true if there are no entry tiles on the island, false otherwise
-     */
-    public boolean isNoEntryTile() {
-        return noEntryTile;
     }
 
     /**

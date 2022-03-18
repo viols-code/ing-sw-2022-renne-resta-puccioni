@@ -1,6 +1,6 @@
 package it.polimi.ingsw;
 
-import it.polimi.ingsw.model.Bag;
+import it.polimi.ingsw.model.table.Bag;
 import it.polimi.ingsw.model.game.BasicGame;
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.Game;

@@ -1,7 +1,5 @@
 package it.polimi.ingsw.model.player;
 
-import it.polimi.ingsw.model.Wizard;
-
 import java.util.Objects;
 
 public class ExpertPlayer extends Player {

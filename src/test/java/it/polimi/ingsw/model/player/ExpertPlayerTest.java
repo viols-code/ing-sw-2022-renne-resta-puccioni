@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model.player;
 
-import it.polimi.ingsw.model.Wizard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

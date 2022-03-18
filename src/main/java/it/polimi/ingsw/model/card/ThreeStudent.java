@@ -1,4 +1,4 @@
-package it.polimi.ingsw.controller;
+package it.polimi.ingsw.model.card;
 
 public class ThreeStudent extends CharacterCard{
     public ThreeStudent(){

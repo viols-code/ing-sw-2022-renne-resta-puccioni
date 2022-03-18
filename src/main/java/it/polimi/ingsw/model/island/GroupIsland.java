@@ -29,6 +29,11 @@ public abstract class GroupIsland {
     protected Player influencePlayer;
 
     /**
+     * A boolean that states if there are noEntryTile on this GroupIsland
+     */
+    protected boolean noEntryTile;
+
+    /**
      * Constructor: creates a new empty GroupIsland
      */
     public GroupIsland() {
@@ -36,6 +41,7 @@ public abstract class GroupIsland {
         islandsContained = new ArrayList<>();
         islandsContained.add(new SingleIsland());
         motherNature = false;
+        noEntryTile=false;
     }
 
     /*
@@ -71,6 +77,15 @@ public abstract class GroupIsland {
     }
 
     /**
+     * Get the number of SingleIslands in the GroupIsland
+     *
+     * @return the number of SingleIslands in the GroupIsland
+     */
+    public int getNumberOfSingleIsland() {
+        return islandsContained.size();
+    }
+
+    /**
      * Add a SingleIsland to the GroupIsland
      *
      * @param singleIsland the SingleIsland to be added
@@ -79,14 +94,7 @@ public abstract class GroupIsland {
         islandsContained.add(singleIsland);
     }
 
-    /**
-     * Get the number of SingleIslands in the GroupIsland
-     *
-     * @return the number of SingleIslands in the GroupIsland
-     */
-    public int getNumberOfSingleIsland() {
-        return islandsContained.size();
-    }
+
 
     /*
     MOTHER NATURE
@@ -143,7 +151,7 @@ public abstract class GroupIsland {
      * @return true if there are no entry tiles on the island, false otherwise
      */
     public boolean isNoEntryTile() {
-        return false;
+        return noEntryTile;
     }
 
     /**

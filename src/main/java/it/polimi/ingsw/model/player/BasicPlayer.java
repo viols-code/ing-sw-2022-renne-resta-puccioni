@@ -1,7 +1,5 @@
 package it.polimi.ingsw.model.player;
 
-import it.polimi.ingsw.model.Wizard;
-
 public class BasicPlayer extends Player {
 
     /**
