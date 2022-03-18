@@ -10,21 +10,44 @@ public abstract class CharacterCard {
     protected int initialCost;
     protected int actualCost;
 
+    /**
+     * Constructor: create a new CharacterCard
+     *
+     * @param game the Game
+     */
     public CharacterCard(Game game) {
         this.game = game;
     }
 
-    public int getCost(){
+    /**
+     * Get the actualCost of the CharacterCard
+     *
+     * @return the actualCost of the CharacterCard
+     */
+    public int getCost() {
         return actualCost;
     }
 
-    public void incrementCost(){
+    /**
+     * Increments the actualCost by one
+     */
+    public void incrementCost() {
         actualCost += 1;
     }
 
-    public void effect(){
+    /**
+     * Activates the effect of the CharacterCard
+     */
+    public void effect() {
     }
 
+    /**
+     * Calculates influence of the given Player in the given GroupIsland
+     *
+     * @param player the Player
+     * @param groupIsland the GroupIsland
+     * @return influence of the given Player in the given GroupIsland
+     */
     public int calculateInfluence(Player player, GroupIsland groupIsland) {
         int influence = 0;
 
@@ -43,15 +66,43 @@ public abstract class CharacterCard {
         return influence;
     }
 
-    public void checkProfessor(Colour colour){
+
+    public void checkProfessor(Colour colour) {
 
     }
 
-    public void checkMotherNatureMovement(){
+    public void checkMotherNatureMovement() {
 
     }
 
+    /**
+     * Set the colour
+     *
+     * @param colour the colour to be set
+     * @throws IllegalAccessError if the CharacterCard doesn't have this method
+     */
     public void setColour(Colour colour) throws IllegalAccessError {
+        throw new IllegalAccessError("The card doesn't have this method");
+    }
+
+    /**
+     * Set the colour
+     *
+     * @param colourDiningRoom the colour of the student in the diningRoom
+     * @param colourEntrance the colour of the student in the entrance
+     * @throws IllegalAccessError if the CharacterCard doesn't have this method
+     */
+    public void setColourDiningRoom(Colour colourDiningRoom, Colour colourEntrance) throws IllegalAccessError {
+        throw new IllegalAccessError("The card doesn't have this method");
+    }
+
+    /**
+     * Set the colour
+     *
+     * @param colour the colour to be set
+     * @throws IllegalAccessError if the CharacterCard doesn't have this method
+     */
+    public void setColourEntrance(Colour colour) throws IllegalAccessError {
         throw new IllegalAccessError("The card doesn't have this method");
     }
 
