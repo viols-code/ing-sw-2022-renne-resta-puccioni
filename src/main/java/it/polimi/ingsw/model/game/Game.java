@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.game;
 import it.polimi.ingsw.model.AssistantCard;
 import it.polimi.ingsw.model.card.BasicState;
 import it.polimi.ingsw.model.card.CharacterCard;
+import it.polimi.ingsw.model.card.ProtectIsland;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.table.Table;
 
@@ -432,6 +433,10 @@ public abstract class Game {
     }
 
     public void setHasPlayedCharacterCard(boolean hasPlayedCharacterCard) throws IllegalAccessError{
+        throw new IllegalAccessError("This is for the Expert Mode");
+    }
+
+    public boolean hasTheCard() throws IllegalAccessError{
         throw new IllegalAccessError("This is for the Expert Mode");
     }
 
