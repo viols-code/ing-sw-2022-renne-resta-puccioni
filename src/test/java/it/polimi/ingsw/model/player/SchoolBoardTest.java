@@ -1,9 +1,6 @@
 package it.polimi.ingsw.model.player;
 
-import it.polimi.ingsw.model.game.BasicGame;
 import it.polimi.ingsw.model.Colour;
-import it.polimi.ingsw.model.game.Game;
-import it.polimi.ingsw.model.player.SchoolBoard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,12 +8,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SchoolBoardTest {
     private SchoolBoard schoolBoard;
-    private Game game;
 
     @BeforeEach
     void setUp() {
        schoolBoard = new SchoolBoard();
-       game = new BasicGame();
     }
 
     @Test
@@ -47,6 +42,25 @@ class SchoolBoardTest {
             }
         }
     }
+
+    @Test
+    public void removeAllStudentFromDiningRoom() {
+        for(Colour colour:Colour.values()){
+            assertEquals(0, schoolBoard.getDiningRoom(colour));
+            schoolBoard.addStudentToDiningRoom(colour);
+        }
+
+        for(Colour colour:Colour.values()){
+            assertEquals(1, schoolBoard.getDiningRoom(colour));
+        }
+
+        schoolBoard.removeAllStudentFromDiningRoom();
+
+        for(Colour colour:Colour.values()){
+            assertEquals(0, schoolBoard.getDiningRoom(colour));
+        }
+    }
+
 
     @Test
     void addStudentToEntrance() {
