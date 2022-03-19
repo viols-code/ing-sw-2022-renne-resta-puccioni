@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.game;
 
 import it.polimi.ingsw.model.card.CharacterCard;
+import it.polimi.ingsw.model.card.ProtectIsland;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,6 +67,14 @@ public class ExpertGame extends Game {
 
     public void setHasPlayedCharacterCard(boolean hasPlayedCharacterCard){
         this.hasProtectIsland = hasPlayedCharacterCard;
+    }
+
+    public boolean hasTheCard(){
+        for(int i = 0; i < 3; i++) {
+            if(this.getCharacterCardsByIndex(i) instanceof ProtectIsland)
+                return true;
+        }
+        return false;
     }
 
 }
