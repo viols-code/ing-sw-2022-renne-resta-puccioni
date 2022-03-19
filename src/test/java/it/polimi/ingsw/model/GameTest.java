@@ -21,14 +21,15 @@ class GameTest {
     @BeforeEach
     void setUp() {
         gameTest = new BasicGame();
-        player1 = new BasicPlayer("player1", Wizard.TYPE_1);
+        player1 = new BasicPlayer("Viola", Wizard.TYPE_1);
         gameTest.addPlayer(player1);
-
     }
 
     @Test
     void addPlayer() {
         assertEquals(1, gameTest.getNumberOfPlayer());
+        assertEquals("Viola", gameTest.getPlayerByIndex(0).getNickname());
+        assertEquals(Wizard.TYPE_1, gameTest.getPlayerByIndex(0).getWizard());
     }
 
     @Test
@@ -39,8 +40,8 @@ class GameTest {
 
     @Test
     void nextPlayerClockwise() {
-        player2 = new BasicPlayer("player2", Wizard.TYPE_2);
-        player3 = new BasicPlayer("player3", Wizard.TYPE_3);
+        player2 = new BasicPlayer("Sara", Wizard.TYPE_2);
+        player3 = new BasicPlayer("Laura", Wizard.TYPE_3);
         gameTest.addPlayer(player2);
         gameTest.addPlayer(player3);
         gameTest.setCurrentPlayer(player3);

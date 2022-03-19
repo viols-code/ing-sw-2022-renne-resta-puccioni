@@ -49,6 +49,11 @@ public abstract class Game {
     protected CharacterCard activeCharacterCard;
 
     /**
+     * the basic state
+     */
+    protected CharacterCard basicState;
+
+    /**
      * A List containing the assistant cards
      */
     protected final List<AssistantCard> assistantCard;
@@ -299,6 +304,15 @@ public abstract class Game {
         throw new IllegalAccessError("This is for the Expert Mode");
     }
 
+    /**
+     * Return basicState
+     *
+     * @return basicState
+     */
+    public CharacterCard getBasicState(){
+        return basicState;
+    }
+
     /*
     ASSISTANT CARD
      */
@@ -420,23 +434,46 @@ public abstract class Game {
         this.turnPhase = turnPhase;
     }
 
+    /*
+    HAS PROTECTED ISLAND
+     */
+
+    /**
+     * Set hasProtectIsland
+     *
+     * @throws IllegalAccessError if the game mode is basic
+     */
     public void setHasProtectIsland() throws IllegalAccessError {
         throw new IllegalAccessError("This is for the Expert Mode");
     }
 
-    public CharacterCard getBasicState() throws IllegalAccessError {
-        throw new IllegalAccessError("This is for the Expert Mode");
-    }
-
+    /**
+     * Get hasPlayedCharacterCard
+     *
+     * @return true if the player has already played a characterCard in this turn, false otherwise
+     * @throws IllegalAccessError if the game is basic
+     */
     public boolean getHasPlayedCharacterCard() throws IllegalAccessError{
         throw new IllegalAccessError("This is for the Expert Mode");
     }
 
+    /**
+     * Set hasPlayedCharacterCard
+     *
+     * @param hasPlayedCharacterCard true if the player has already played a characterCard in this turn, false otherwise
+     * @throws IllegalAccessError if the game is basic
+     */
     public void setHasPlayedCharacterCard(boolean hasPlayedCharacterCard) throws IllegalAccessError{
         throw new IllegalAccessError("This is for the Expert Mode");
     }
 
-    public boolean hasTheCard() throws IllegalAccessError{
+    /**
+     * Return true if the game has the ProtectIsland card
+     *
+     * @return true if the game has the ProtectIsland card, false otherwise
+     * @throws IllegalAccessError if the game is basic
+     */
+    public boolean hasProtectIslandCard() throws IllegalAccessError{
         throw new IllegalAccessError("This is for the Expert Mode");
     }
 
@@ -454,5 +491,3 @@ public abstract class Game {
     }
 
 }
-
-

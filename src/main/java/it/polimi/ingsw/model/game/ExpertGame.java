@@ -12,18 +12,17 @@ public class ExpertGame extends Game {
      */
     private final List<CharacterCard> characterCards;
 
-    private final CharacterCard basicState;
-
+    /**
+     * True if the player has already played a characterCard in their turn
+     */
     private boolean hasPlayedCharacterCard;
-
-    private boolean hasProtectIsland;
 
     public ExpertGame() {
         super();
         characterCards = new ArrayList<>();
         basicState = super.getActiveCharacterCard();
         hasPlayedCharacterCard = false;
-        this.hasProtectIsland = false;
+        getTable().setMotherNaturePosition(0);
     }
 
     /**
@@ -31,6 +30,7 @@ public class ExpertGame extends Game {
      *
      * @return the Character Card at the given index
      */
+    @Override
     public CharacterCard getCharacterCardsByIndex(int index) {
         return characterCards.get(index);
     }
@@ -40,6 +40,7 @@ public class ExpertGame extends Game {
      *
      * @param card the Character Card to be added
      */
+    @Override
     public void addCharacterCard(CharacterCard card) {
         characterCards.add(card);
     }
@@ -49,27 +50,37 @@ public class ExpertGame extends Game {
      *
      * @param card the active Character Card
      */
+    @Override
     public void setActiveCharacterCard(CharacterCard card) {
         super.activeCharacterCard = card;
     }
 
-    public CharacterCard getBasicState() {
-        return basicState;
-    }
-
-    public void setHasProtectIsland() {
-        hasProtectIsland = true;
-    }
-
+    /**
+     * Get hasPlayedCharacterCard
+     *
+     * @return True if the player has already played a characterCard in their turn, false otherwise
+     */
+    @Override
     public boolean getHasPlayedCharacterCard(){
         return hasPlayedCharacterCard;
     }
 
+    /**
+     * Set hasPlayedCharacterCard
+     *
+     * @param hasPlayedCharacterCard true if the player has already played a characterCard in this turn, false otherwise
+     */
+    @Override
     public void setHasPlayedCharacterCard(boolean hasPlayedCharacterCard){
-        this.hasProtectIsland = hasPlayedCharacterCard;
+        this.hasPlayedCharacterCard = hasPlayedCharacterCard;
     }
 
-    public boolean hasTheCard(){
+    /**
+     * Return true if the game has the ProtectIsland card
+     *
+     * @return true if the game has the ProtectIsland card, false otherwise
+     */
+    public boolean hasProtectIslandCard(){
         for(int i = 0; i < 3; i++) {
             if(this.getCharacterCardsByIndex(i) instanceof ProtectIsland)
                 return true;
