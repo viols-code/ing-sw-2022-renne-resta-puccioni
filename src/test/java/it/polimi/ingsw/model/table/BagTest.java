@@ -1,4 +1,4 @@
-package it.polimi.ingsw;
+package it.polimi.ingsw.model.table;
 
 import it.polimi.ingsw.model.table.Bag;
 import it.polimi.ingsw.model.game.BasicGame;
@@ -7,29 +7,24 @@ import it.polimi.ingsw.model.game.Game;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class BagTest {
     Game gameTest;
-    Bag bagTest;
 
     @BeforeEach
     void setUp(){
         gameTest = new BasicGame();
-        bagTest = new Bag();
     }
 
     @Test
     void addStudentBag() {
-       /* assertEquals(24, gameTest.getTable().getBag().getBagStudent(Colour.PINK));
-        gameTest.getTable().getBag().bagDrawStudent();
-        assertEquals(23, gameTest.getTable().getBag().getBagStudent(Colour.PINK));
-        gameTest.getTable().getBag().bagDrawStudent();
-        assertEquals(22, gameTest.getTable().getBag().getBagStudent(Colour.PINK));
-        gameTest.getTable().getBag().bagDrawStudent();
-        assertEquals(23, gameTest.getTable().getBag().getBagStudent(Colour.PINK));
+        for (Colour colour : Colour.values()) {
+            assertEquals(24, gameTest.getTable().getBag().getBagStudent(colour));
+        }
 
-        */
+        gameTest.getTable().getBag().addStudentBag(Colour.BLUE);
+        assertEquals(25, gameTest.getTable().getBag().getBagStudent(Colour.BLUE));
     }
 
     @Test

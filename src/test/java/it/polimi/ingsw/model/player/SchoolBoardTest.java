@@ -1,4 +1,4 @@
-package it.polimi.ingsw;
+package it.polimi.ingsw.model.player;
 
 import it.polimi.ingsw.model.game.BasicGame;
 import it.polimi.ingsw.model.Colour;

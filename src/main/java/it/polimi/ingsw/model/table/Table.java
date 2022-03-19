@@ -110,7 +110,9 @@ public class Table {
      * @param motherNaturePosition the position to be set
      */
     public void setMotherNaturePosition(int motherNaturePosition) {
+        getGroupIslandByIndex(this.motherNaturePosition).removeMotherNature();
         this.motherNaturePosition = motherNaturePosition;
+        getGroupIslandByIndex(this.motherNaturePosition).placeMotherNature();
     }
 
      /*

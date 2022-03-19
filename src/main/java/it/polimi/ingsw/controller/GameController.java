@@ -8,6 +8,9 @@ import it.polimi.ingsw.model.game.GamePhase;
 import it.polimi.ingsw.model.island.AdvancedGroupIsland;
 import it.polimi.ingsw.model.island.BasicGroupIsland;
 import it.polimi.ingsw.model.island.GroupIsland;
+import it.polimi.ingsw.model.player.BasicPlayer;
+import it.polimi.ingsw.model.player.ExpertPlayer;
+import it.polimi.ingsw.model.player.Wizard;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -110,6 +113,14 @@ public class GameController {
                 game.getPlayerByIndex(player).setCurrentAssistantCard(game.getAssistantCard(assistantCard));
                 game.getPlayerByIndex(player).removeAssistantCard(game.getAssistantCard(assistantCard));
             }
+        }
+    }
+
+    public void addPlayer(String nickname, Wizard wizard){
+        if(isGameExpert){
+            game.addPlayer(new ExpertPlayer(nickname, wizard));
+        } else{
+            game.addPlayer(new BasicPlayer(nickname, wizard));
         }
     }
 

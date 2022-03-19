@@ -12,5 +12,6 @@ public class BasicGame extends Game {
         for (int i = 0; i < 12; i++) {
             getTable().addGroupIsland(new BasicGroupIsland());
         }
+        getTable().setMotherNaturePosition(0);
     }
 }
