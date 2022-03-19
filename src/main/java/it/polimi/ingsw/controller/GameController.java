@@ -54,7 +54,7 @@ public class GameController {
 
             Collections.shuffle(cardTypes);
 
-            for(int i = 0; i < 3; i++) {
+            for (int i = 0; i < 3; i++) {
                 try {
                     CharacterCard cardInstance = cardTypes.get(i).getConstructor(Game.class).newInstance(game);
                     game.addCharacterCard(cardInstance);
@@ -81,14 +81,14 @@ public class GameController {
         }
     }
 
-    public Game getGame(){
+    public Game getGame() {
         return game;
     }
 
-    public void playCharacterCard(int player, int characterCard){
-        if(isGameExpert){
-            if(game.isCurrentPlayer(game.getPlayerByIndex(player))){
-                if(!game.getHasPlayedCharacterCard()){
+    public void playCharacterCard(int player, int characterCard) {
+        if (isGameExpert) {
+            if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
+                if (!game.getHasPlayedCharacterCard()) {
                     game.setActiveCharacterCard(game.getCharacterCardsByIndex(characterCard));
                     game.setHasPlayedCharacterCard(false);
                 }
@@ -96,19 +96,19 @@ public class GameController {
         }
     }
 
-    public void playAssistantCard(int player, int assistantCard){
-        if(game.isCurrentPlayer(game.getPlayerByIndex(player))){
-            if(game.getGamePhase() == GamePhase.PLAY_ASSISTANT_CARD){
+    public void playAssistantCard(int player, int assistantCard) {
+        if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
+            if (game.getGamePhase() == GamePhase.PLAY_ASSISTANT_CARD) {
                 game.getPlayerByIndex(player).setCurrentAssistantCard(game.getAssistantCard(assistantCard));
                 game.getPlayerByIndex(player).removeAssistantCard(game.getAssistantCard(assistantCard));
             }
         }
     }
 
-    public void addPlayer(String nickname, Wizard wizard){
-        if(isGameExpert){
+    public void addPlayer(String nickname, Wizard wizard) {
+        if (isGameExpert) {
             game.addPlayer(new ExpertPlayer(nickname, wizard));
-        } else{
+        } else {
             game.addPlayer(new BasicPlayer(nickname, wizard));
         }
     }

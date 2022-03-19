@@ -41,7 +41,7 @@ public class ExchangeEntranceDiningRoom extends CharacterCard {
      * Set the colour of the student in the diningRoom and the colour of the student in the entrance to be switched
      *
      * @param colourDiningRoom the colour of the student in the diningRoom
-     * @param colourEntrance the colour of the student in the entrance
+     * @param colourEntrance   the colour of the student in the entrance
      */
     @Override
     public void setColourDiningRoomEntrance(Colour colourDiningRoom, Colour colourEntrance) {

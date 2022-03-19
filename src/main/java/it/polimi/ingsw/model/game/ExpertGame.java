@@ -61,7 +61,7 @@ public class ExpertGame extends Game {
      * @return True if the player has already played a characterCard in their turn, false otherwise
      */
     @Override
-    public boolean getHasPlayedCharacterCard(){
+    public boolean getHasPlayedCharacterCard() {
         return hasPlayedCharacterCard;
     }
 
@@ -71,7 +71,7 @@ public class ExpertGame extends Game {
      * @param hasPlayedCharacterCard true if the player has already played a characterCard in this turn, false otherwise
      */
     @Override
-    public void setHasPlayedCharacterCard(boolean hasPlayedCharacterCard){
+    public void setHasPlayedCharacterCard(boolean hasPlayedCharacterCard) {
         this.hasPlayedCharacterCard = hasPlayedCharacterCard;
     }
 
@@ -80,9 +80,9 @@ public class ExpertGame extends Game {
      *
      * @return true if the game has the ProtectIsland card, false otherwise
      */
-    public boolean hasProtectIslandCard(){
-        for(int i = 0; i < 3; i++) {
-            if(this.getCharacterCardsByIndex(i) instanceof ProtectIsland)
+    public boolean hasProtectIslandCard() {
+        for (int i = 0; i < 3; i++) {
+            if (this.getCharacterCardsByIndex(i) instanceof ProtectIsland)
                 return true;
         }
         return false;

@@ -32,7 +32,7 @@ public class NoColour extends CharacterCard {
     /**
      * Calculates the influence of the given Player in the given GroupIsland without considering a colour
      *
-     * @param player the Player
+     * @param player      the Player
      * @param groupIsland the GroupIsland
      * @return the influence of the given Player in the given GroupIsland without considering a colour
      */

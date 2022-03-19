@@ -44,7 +44,7 @@ public abstract class CharacterCard {
     /**
      * Calculates influence of the given Player in the given GroupIsland
      *
-     * @param player the Player
+     * @param player      the Player
      * @param groupIsland the GroupIsland
      * @return influence of the given Player in the given GroupIsland
      */
@@ -89,7 +89,7 @@ public abstract class CharacterCard {
      * Set the colour
      *
      * @param colourDiningRoom the colour of the student in the diningRoom
-     * @param colourEntrance the colour of the student in the entrance
+     * @param colourEntrance   the colour of the student in the entrance
      * @throws IllegalAccessError if the CharacterCard doesn't have this method
      */
     public void setColourDiningRoomEntrance(Colour colourDiningRoom, Colour colourEntrance) throws IllegalAccessError {

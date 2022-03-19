@@ -3,7 +3,6 @@ package it.polimi.ingsw.model.game;
 import it.polimi.ingsw.model.AssistantCard;
 import it.polimi.ingsw.model.card.BasicState;
 import it.polimi.ingsw.model.card.CharacterCard;
-import it.polimi.ingsw.model.card.ProtectIsland;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.table.Table;
 
@@ -309,7 +308,7 @@ public abstract class Game {
      *
      * @return basicState
      */
-    public CharacterCard getBasicState(){
+    public CharacterCard getBasicState() {
         return basicState;
     }
 
@@ -453,7 +452,7 @@ public abstract class Game {
      * @return true if the player has already played a characterCard in this turn, false otherwise
      * @throws IllegalAccessError if the game is basic
      */
-    public boolean getHasPlayedCharacterCard() throws IllegalAccessError{
+    public boolean getHasPlayedCharacterCard() throws IllegalAccessError {
         throw new IllegalAccessError("This is for the Expert Mode");
     }
 
@@ -463,7 +462,7 @@ public abstract class Game {
      * @param hasPlayedCharacterCard true if the player has already played a characterCard in this turn, false otherwise
      * @throws IllegalAccessError if the game is basic
      */
-    public void setHasPlayedCharacterCard(boolean hasPlayedCharacterCard) throws IllegalAccessError{
+    public void setHasPlayedCharacterCard(boolean hasPlayedCharacterCard) throws IllegalAccessError {
         throw new IllegalAccessError("This is for the Expert Mode");
     }
 
@@ -473,7 +472,7 @@ public abstract class Game {
      * @return true if the game has the ProtectIsland card, false otherwise
      * @throws IllegalAccessError if the game is basic
      */
-    public boolean hasProtectIslandCard() throws IllegalAccessError{
+    public boolean hasProtectIslandCard() throws IllegalAccessError {
         throw new IllegalAccessError("This is for the Expert Mode");
     }
 
