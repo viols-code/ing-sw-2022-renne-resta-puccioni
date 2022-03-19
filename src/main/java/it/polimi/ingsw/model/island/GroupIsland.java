@@ -53,10 +53,7 @@ public abstract class GroupIsland {
      *
      * @return the list of SingleIsland of which the GroupIsland is formed
      */
-    public SingleIsland getIslands(int island) throws IllegalArgumentException {
-        if (island < 0 || island > getNumberOfSingleIsland()) {
-            throw new IllegalArgumentException("The index is out of range");
-        }
+    public SingleIsland getIslands(int island){
         return islandsContained.get(island);
     }
 
