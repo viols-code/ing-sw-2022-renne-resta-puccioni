@@ -17,6 +17,8 @@ public class ProtectIsland extends CharacterCard {
      */
     public ProtectIsland(Game game) {
         super(game);
+        initialCost = 2;
+        actualCost = initialCost;
         numberOfNoEntryTiles=4;
     }
 
@@ -30,6 +32,7 @@ public class ProtectIsland extends CharacterCard {
         if(getNumberOfNoEntryTiles()==0) throw new IllegalAccessError("There are no more no entry tiles");
         game.getTable().getGroupIslandByIndex(groupIslandToProtect).addNoEntryTile();
         setNumberOfNoEntryTiles(numberOfNoEntryTiles-1);
+        game.setActiveCharacterCard(game.getBasicState());
     }
 
     /**

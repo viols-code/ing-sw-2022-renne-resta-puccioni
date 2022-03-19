@@ -38,7 +38,7 @@ public class NoTower extends CharacterCard {
                 }
             }
         }
-
+        game.setActiveCharacterCard(game.getBasicState());
         return influence;
     }
 
