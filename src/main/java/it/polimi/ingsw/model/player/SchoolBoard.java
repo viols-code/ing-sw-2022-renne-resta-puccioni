@@ -82,6 +82,9 @@ public class SchoolBoard {
         diningRoom.replace(colour, diningRoom.get(colour), diningRoom.get(colour) - 1);
     }
 
+    /**
+     * Remove all student from diningRoom
+     */
     public void removeAllStudentFromDiningRoom() {
         for (Colour colour : Colour.values()) {
             diningRoom.replace(colour, diningRoom.get(colour), 0);
