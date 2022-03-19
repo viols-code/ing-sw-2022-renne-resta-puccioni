@@ -21,7 +21,7 @@ public class ProtectIsland extends CharacterCard {
     }
 
     /**
-     * Activates the effect of the CharacterCard
+     * Places the no entry tile on a group island
      *
      * @throws IllegalAccessError if there are no more "no entry tiles" available
      */
@@ -33,7 +33,7 @@ public class ProtectIsland extends CharacterCard {
     }
 
     /**
-     * Get the number of no entry tiles available
+     * Gets the number of no entry tiles available
      *
      * @return the number of no entry tiles available
      */
@@ -42,7 +42,7 @@ public class ProtectIsland extends CharacterCard {
     }
 
     /**
-     * Update the number of no entry tiles available
+     * Updates the number of no entry tiles available
      */
     private void setNumberOfNoEntryTiles(int numberOfNoEntryTiles){
         this.numberOfNoEntryTiles=numberOfNoEntryTiles;
