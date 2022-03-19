@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.island;
 
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.island.SingleIsland;
