@@ -14,7 +14,7 @@ class AdvancedGroupIslandTest {
     void setUp(){
         do{
             gameController = new GameController(true, 3);
-        } while(! gameController.getGame().hasTheCard());
+        } while(! gameController.getGame().hasProtectIslandCard());
     }
 
     @Test

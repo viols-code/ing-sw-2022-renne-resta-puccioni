@@ -32,7 +32,7 @@ public class GameController {
     /**
      * The numberOfPlayer
      */
-    private int numberOfPlayer;
+    private final int numberOfPlayer;
 
     /**
      * Constructor: creates a GameController
@@ -63,7 +63,7 @@ public class GameController {
                 }
             }
 
-            boolean hasProtectIsland = game.hasTheCard();
+            boolean hasProtectIsland = game.hasProtectIslandCard();
 
             if (hasProtectIsland) {
                 for (int i = 0; i < 12; i++) {
