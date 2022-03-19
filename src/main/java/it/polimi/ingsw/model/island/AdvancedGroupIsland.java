@@ -17,6 +17,7 @@ public class AdvancedGroupIsland extends GroupIsland {
      *
      * @return the number of no entry tiles
      */
+    @Override
     public int getNumberOfNoEntryTile() {
         return numberOfNoEntryTile;
     }
@@ -24,6 +25,7 @@ public class AdvancedGroupIsland extends GroupIsland {
     /**
      * Add one no entry tile
      */
+    @Override
     public void addNoEntryTile() {
         numberOfNoEntryTile += 1;
     }
@@ -31,6 +33,7 @@ public class AdvancedGroupIsland extends GroupIsland {
     /**
      * Remove one no entry tile
      */
+    @Override
     public void removeNoEntryTile() throws IllegalAccessError {
         numberOfNoEntryTile -= 1;
 
