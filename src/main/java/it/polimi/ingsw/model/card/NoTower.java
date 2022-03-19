@@ -6,6 +6,12 @@ import it.polimi.ingsw.model.island.GroupIsland;
 import it.polimi.ingsw.model.player.Player;
 
 public class NoTower extends CharacterCard {
+
+    /**
+     * Constructor
+     *
+     * @param game the Game
+     */
     public NoTower(Game game) {
         super(game);
         super.initialCost = 3;
@@ -13,6 +19,15 @@ public class NoTower extends CharacterCard {
     }
 
 
+    /**
+     * Calculate the influence that a player has on a group island
+     *
+     * @param player the position of the player in the list players in game
+     * @param groupIsland the position of the group island the list islands in game
+     *
+     * @return the influence that the player has on the group island
+     */
+    @Override
     public int calculateInfluence(Player player, GroupIsland groupIsland) {
         int influence = 0;
 
@@ -23,8 +38,15 @@ public class NoTower extends CharacterCard {
                 }
             }
         }
-
+        game.setActiveCharacterCard(game.getBasicState());
         return influence;
+    }
+
+    /**
+     * Activates the effect of the CharacterCard
+     */
+    @Override
+    public void effect(){
     }
 
 }
