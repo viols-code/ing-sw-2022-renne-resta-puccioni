@@ -1,5 +1,6 @@
 package it.polimi.ingsw.controller;
 
+import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.card.*;
 import it.polimi.ingsw.model.game.BasicGame;
 import it.polimi.ingsw.model.game.ExpertGame;
@@ -11,12 +12,10 @@ import it.polimi.ingsw.model.island.GroupIsland;
 import it.polimi.ingsw.model.player.BasicPlayer;
 import it.polimi.ingsw.model.player.ExpertPlayer;
 import it.polimi.ingsw.model.player.Wizard;
+import it.polimi.ingsw.model.table.CloudTile;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class GameController {
     /**
@@ -73,13 +72,26 @@ public class GameController {
                 for (int i = 0; i < 12; i++) {
                     game.getTable().addGroupIsland(new BasicGroupIsland());
                 }
-
-                game.getTable().setMotherNaturePosition(0);
             }
 
 
         } else {
             game = new BasicGame();
+        }
+
+        game.getTable().setMotherNaturePosition(0);
+        if(numberOfPlayer == 3){
+            game.setNumberOfTowersPerPlayer(6);
+            game.setNumberStudentsEntrance(9);
+            game.setStudentNumberMovement(4);
+        } else {
+            game.setNumberOfTowersPerPlayer(8);
+            game.setNumberStudentsEntrance(7);
+            game.setStudentNumberMovement(3);
+        }
+
+        for(int i = 0; i < numberOfPlayer; i++){
+            createCloudTile();
         }
     }
 
@@ -126,6 +138,20 @@ public class GameController {
         for (int i = 0; i < groupIsland2.getNumberOfSingleIsland(); i++) {
             groupIsland1.addSingleIsland(groupIsland2.getIslands(i));
         }
+    }
+
+    private void createCloudTile(){
+        HashMap<Colour, Integer> students = new HashMap<>();
+        for(Colour colour : Colour.values()){
+            students.put(colour, 0);
+        }
+
+        for(int i = 0; i < game.getStudentNumberMovement(); i++){
+            Colour colour1 = game.getTable().getBag().bagDrawStudent();
+            students.replace(colour1, students.get(colour1), students.get(colour1) + 1);
+        }
+
+        game.getTable().addCLoudTile(new CloudTile(students));
     }
 
 }
