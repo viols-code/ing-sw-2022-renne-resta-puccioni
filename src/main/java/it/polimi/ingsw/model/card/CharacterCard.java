@@ -96,6 +96,16 @@ public abstract class CharacterCard {
 
     }
 
+
+    /**
+     * Set the island to choose
+     *
+     * @param groupIsland
+     */
+    public void setIsland(GroupIsland groupIsland){
+
+    }
+
     /**
      * Set the colour
      *
