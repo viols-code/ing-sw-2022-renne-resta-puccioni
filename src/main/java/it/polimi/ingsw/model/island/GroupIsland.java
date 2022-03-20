@@ -49,9 +49,9 @@ public abstract class GroupIsland {
      */
 
     /**
-     * Get the list of SingleIslands that are contained in the GroupIsland
+     * Get the SingleIsland that is contained in the GroupIsland corresponding to the the number given
      *
-     * @return the list of SingleIsland of which the GroupIsland is formed
+     * @return the SingleIsland corresponding to the the number given
      */
     public SingleIsland getIslands(int island) {
         return islandsContained.get(island);

@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.card;
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.Game;
 import it.polimi.ingsw.model.island.GroupIsland;
+import it.polimi.ingsw.model.island.SingleIsland;
 import it.polimi.ingsw.model.player.Player;
 
 public abstract class CharacterCard {
@@ -83,6 +84,16 @@ public abstract class CharacterCard {
      */
     public void setColour(Colour colour) throws IllegalAccessError {
         throw new IllegalAccessError("The card doesn't have this method");
+    }
+
+    /**
+     * Set the island and the colour
+     *
+     * @param colour
+     * @param island
+     */
+    public void setColourAndIsland(Colour colour, SingleIsland island){
+
     }
 
     /**
