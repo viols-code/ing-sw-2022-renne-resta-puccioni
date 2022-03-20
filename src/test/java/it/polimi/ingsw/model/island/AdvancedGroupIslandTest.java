@@ -18,6 +18,12 @@ class AdvancedGroupIslandTest {
     }
 
     @Test
+    void numberOfGroupIsland(){
+        int i = 0;
+        assertEquals(12, gameController.getGame().getTable().getNumberOfGroupIsland());
+    }
+
+    @Test
     void getNumberOfNoEntryTile() {
         assertEquals(0, gameController.getGame().getTable().getGroupIslandByIndex(0).getNumberOfNoEntryTile());
     }
