@@ -28,6 +28,11 @@ public abstract class Game {
     protected Player currentPlayer;
 
     /**
+     * Identifies the next player
+     */
+    protected Player nextPlayer;
+
+    /**
      * the first player of the current round
      */
     protected Player firstPlayerTurn;
@@ -89,11 +94,11 @@ public abstract class Game {
     public Game() {
         players = new ArrayList<>();
         currentPlayer = null;
+        nextPlayer = null;
         firstPlayerTurn = null;
         table = new Table();
         round = 0;
         activeCharacterCard = new BasicState(this);
-        currentPlayer = null;
         assistantCard = new ArrayList<>();
 
         AssistantCard card1 = new AssistantCard(1, 1);
@@ -188,16 +193,15 @@ public abstract class Game {
     public Player nextPlayerTurn() {
 
         int min = 11;
-        int indexNext = 0;
 
         for(int i = 0; i < getNumberOfPlayer() && getPlayerByIndex(i) != getCurrentPlayer(); i++){
             if(getPlayerByIndex(i).getCurrentAssistantCard().getValue() < min){
                 min = getPlayerByIndex(i).getCurrentAssistantCard().getValue();
-                indexNext = i;
+                nextPlayer = getPlayerByIndex(i);
             }
         }
 
-        return getPlayerByIndex(indexNext);
+        return nextPlayer;
     }
 
     /**
