@@ -91,6 +91,15 @@ public class Table {
         islands.remove(groupIsland);
     }
 
+    /**
+     * Gets the next island where mother nature has to move
+     *
+     * @return the next island where mother nature will pass
+     */
+    public int getNextGroupIslandClockWise(){
+        return (getMotherNaturePosition() + 1) % islands.size();
+    }
+
        /*
     MOTHER NATURE
      */
