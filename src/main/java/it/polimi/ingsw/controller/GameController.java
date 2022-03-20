@@ -73,6 +73,8 @@ public class GameController {
                 for (int i = 0; i < 12; i++) {
                     game.getTable().addGroupIsland(new BasicGroupIsland());
                 }
+
+                game.getTable().setMotherNaturePosition(0);
             }
 
 

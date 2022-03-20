@@ -22,7 +22,6 @@ public class ExpertGame extends Game {
         characterCards = new ArrayList<>();
         basicState = super.getActiveCharacterCard();
         hasPlayedCharacterCard = false;
-        getTable().setMotherNaturePosition(0);
     }
 
     /**
