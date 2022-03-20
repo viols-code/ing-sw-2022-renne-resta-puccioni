@@ -110,7 +110,7 @@ public abstract class Game {
         assistantCard.add(card6);
         AssistantCard card7 = new AssistantCard(7, 4);
         assistantCard.add(card7);
-        AssistantCard card8 = new AssistantCard(8, 5);
+        AssistantCard card8 = new AssistantCard(8, 4);
         assistantCard.add(card8);
         AssistantCard card9 = new AssistantCard(9, 5);
         assistantCard.add(card9);
