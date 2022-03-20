@@ -6,7 +6,6 @@ import it.polimi.ingsw.model.island.GroupIsland;
 import it.polimi.ingsw.model.player.Player;
 
 public class TwoPoints extends CharacterCard {
-
     /**
      * Constructor
      *
@@ -36,12 +35,5 @@ public class TwoPoints extends CharacterCard {
         }
         game.setActiveCharacterCard(game.getBasicState());
         return influence;
-    }
-
-    /**
-     * Activates the effect of the CharacterCard
-     */
-    @Override
-    public void effect() {
     }
 }

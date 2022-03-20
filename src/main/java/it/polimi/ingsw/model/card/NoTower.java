@@ -41,11 +41,4 @@ public class NoTower extends CharacterCard {
         return influence;
     }
 
-    /**
-     * Activates the effect of the CharacterCard
-     */
-    @Override
-    public void effect() {
-    }
-
 }
