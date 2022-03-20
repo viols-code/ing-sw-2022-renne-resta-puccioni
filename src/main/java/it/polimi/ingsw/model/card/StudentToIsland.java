@@ -2,7 +2,7 @@ package it.polimi.ingsw.model.card;
 
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.Game;
-import it.polimi.ingsw.model.island.SingleIsland;
+import it.polimi.ingsw.model.table.island.SingleIsland;
 
 import java.util.HashMap;
 
@@ -26,7 +26,7 @@ public class StudentToIsland extends CharacterCard {
     /**
      * Costructor
      *
-     * @param game
+     * @param game the game
      */
     public StudentToIsland(Game game) {
         super(game);
@@ -50,8 +50,8 @@ public class StudentToIsland extends CharacterCard {
     /**
      * Set the colour of the chosen student and the island chosen
      *
-     * @param colour
-     * @param singleIsland
+     * @param colour the colour of the student chosen
+     * @param singleIsland the island chosen
      */
     @Override
     public void setColourAndIsland(Colour colour, SingleIsland singleIsland){

@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.island;
+package it.polimi.ingsw.model.table.island;
 
 public class AdvancedGroupIsland extends GroupIsland {
 

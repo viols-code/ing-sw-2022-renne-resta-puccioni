@@ -3,8 +3,8 @@ package it.polimi.ingsw.model.table;
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.BasicGame;
 import it.polimi.ingsw.model.game.Game;
-import it.polimi.ingsw.model.island.BasicGroupIsland;
-import it.polimi.ingsw.model.island.GroupIsland;
+import it.polimi.ingsw.model.table.island.BasicGroupIsland;
+import it.polimi.ingsw.model.table.island.GroupIsland;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

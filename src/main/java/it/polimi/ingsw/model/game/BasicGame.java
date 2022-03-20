@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model.game;
 
-import it.polimi.ingsw.model.island.BasicGroupIsland;
+import it.polimi.ingsw.model.table.island.BasicGroupIsland;
 
 public class BasicGame extends Game {
     /**

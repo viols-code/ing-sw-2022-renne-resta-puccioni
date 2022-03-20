@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model.table;
 
-import it.polimi.ingsw.model.island.GroupIsland;
+import it.polimi.ingsw.model.table.island.GroupIsland;
 
 import java.util.ArrayList;
 import java.util.List;

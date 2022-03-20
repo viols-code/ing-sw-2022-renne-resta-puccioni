@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.island;
+package it.polimi.ingsw.model.table.island;
 
 import it.polimi.ingsw.controller.GameController;
 import org.junit.jupiter.api.BeforeEach;
