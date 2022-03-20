@@ -19,7 +19,7 @@ public class ProtectIsland extends CharacterCard {
         super(game);
         initialCost = 2;
         actualCost = initialCost;
-        numberOfNoEntryTiles=4;
+        numberOfNoEntryTiles = 4;
     }
 
     /**
@@ -28,10 +28,10 @@ public class ProtectIsland extends CharacterCard {
      * @throws IllegalAccessError if there are no more "no entry tiles" available
      */
     @Override
-    public void effect(){
-        if(getNumberOfNoEntryTiles()==0) throw new IllegalAccessError("There are no more no entry tiles");
+    public void effect() {
+        if (getNumberOfNoEntryTiles() == 0) throw new IllegalAccessError("There are no more no entry tiles");
         game.getTable().getGroupIslandByIndex(groupIslandToProtect).addNoEntryTile();
-        setNumberOfNoEntryTiles(numberOfNoEntryTiles-1);
+        setNumberOfNoEntryTiles(numberOfNoEntryTiles - 1);
         game.setActiveCharacterCard(game.getBasicState());
     }
 
@@ -40,15 +40,15 @@ public class ProtectIsland extends CharacterCard {
      *
      * @return the number of no entry tiles available
      */
-    private int getNumberOfNoEntryTiles(){
+    private int getNumberOfNoEntryTiles() {
         return numberOfNoEntryTiles;
     }
 
     /**
      * Updates the number of no entry tiles available
      */
-    private void setNumberOfNoEntryTiles(int numberOfNoEntryTiles){
-        this.numberOfNoEntryTiles=numberOfNoEntryTiles;
+    private void setNumberOfNoEntryTiles(int numberOfNoEntryTiles) {
+        this.numberOfNoEntryTiles = numberOfNoEntryTiles;
     }
 
 }

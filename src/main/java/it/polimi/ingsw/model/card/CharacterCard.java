@@ -99,7 +99,7 @@ public abstract class CharacterCard {
     /**
      * Set the colour
      *
-     * @param colourCard the colour of the student on the card
+     * @param colourCard     the colour of the student on the card
      * @param colourEntrance the colour of the student in the entrance
      * @throws IllegalAccessError if the CharacterCard doesn't have this method
      */

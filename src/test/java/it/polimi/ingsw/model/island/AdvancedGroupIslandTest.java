@@ -4,17 +4,17 @@ import it.polimi.ingsw.controller.GameController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class AdvancedGroupIslandTest {
     private GameController gameController;
 
-    
+
     @BeforeEach
-    void setUp(){
-        do{
+    void setUp() {
+        do {
             gameController = new GameController(true, 3);
-        } while(! gameController.getGame().hasProtectIslandCard());
+        } while (!gameController.getGame().hasProtectIslandCard());
     }
 
     @Test
@@ -24,7 +24,7 @@ class AdvancedGroupIslandTest {
 
     @Test
     void addNoEntryTile() {
-        for(int i = 0; i < gameController.getGame().getTable().getNumberOfGroupIsland(); i++){
+        for (int i = 0; i < gameController.getGame().getTable().getNumberOfGroupIsland(); i++) {
             assertEquals(0, gameController.getGame().getTable().getGroupIslandByIndex(i).getNumberOfNoEntryTile());
         }
         gameController.getGame().getTable().getGroupIslandByIndex(0).addNoEntryTile();
@@ -33,7 +33,7 @@ class AdvancedGroupIslandTest {
 
     @Test
     void removeNoEntryTile() {
-        for(int i = 0; i < gameController.getGame().getTable().getNumberOfGroupIsland(); i++){
+        for (int i = 0; i < gameController.getGame().getTable().getNumberOfGroupIsland(); i++) {
             assertEquals(0, gameController.getGame().getTable().getGroupIslandByIndex(i).getNumberOfNoEntryTile());
         }
         gameController.getGame().getTable().getGroupIslandByIndex(0).addNoEntryTile();

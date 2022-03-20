@@ -19,9 +19,8 @@ public class TwoPoints extends CharacterCard {
     /**
      * Calculate the influence that a player has on a group island
      *
-     * @param player the position of the player in the list players in game
+     * @param player      the position of the player in the list players in game
      * @param groupIsland the position of the group island the list islands in game
-     *
      * @return the influence that the player has on the group island
      */
     @Override
@@ -43,6 +42,6 @@ public class TwoPoints extends CharacterCard {
      * Activates the effect of the CharacterCard
      */
     @Override
-    public void effect(){
+    public void effect() {
     }
 }

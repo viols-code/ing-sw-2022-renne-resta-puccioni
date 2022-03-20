@@ -3,15 +3,15 @@ package it.polimi.ingsw.model.player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ExpertPlayerTest {
     private Player player1;
 
-   @BeforeEach
-   void setUp(){
-       player1 = new ExpertPlayer("Viola", Wizard.TYPE_1);
-   }
+    @BeforeEach
+    void setUp() {
+        player1 = new ExpertPlayer("Viola", Wizard.TYPE_1);
+    }
 
     @Test
     void addCoins() {

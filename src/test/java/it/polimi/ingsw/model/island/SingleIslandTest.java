@@ -1,7 +1,6 @@
 package it.polimi.ingsw.model.island;
 
 import it.polimi.ingsw.model.Colour;
-import it.polimi.ingsw.model.island.SingleIsland;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

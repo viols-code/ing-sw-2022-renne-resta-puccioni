@@ -25,7 +25,7 @@ class GroupIslandTest {
         int number1 = game.getTable().getGroupIslandByIndex(0).getNumberStudent(Colour.BLUE);
         int number2 = game.getTable().getGroupIslandByIndex(1).getNumberStudent(Colour.BLUE);
 
-        for(int i = 0; i < game.getTable().getNumberOfGroupIsland(); i++){
+        for (int i = 0; i < game.getTable().getNumberOfGroupIsland(); i++) {
             assertEquals(1, game.getTable().getGroupIslandByIndex(i).getNumberOfSingleIsland());
         }
 
@@ -34,7 +34,7 @@ class GroupIslandTest {
 
         assertEquals(2, game.getTable().getGroupIslandByIndex(0).getNumberOfSingleIsland());
         assertEquals(11, game.getTable().getNumberOfGroupIsland());
-        assertEquals(number1 + number2,game.getTable().getGroupIslandByIndex(0).getNumberStudent(Colour.BLUE));
+        assertEquals(number1 + number2, game.getTable().getGroupIslandByIndex(0).getNumberStudent(Colour.BLUE));
     }
 
     @Test
@@ -65,7 +65,7 @@ class GroupIslandTest {
 
     @Test
     void isNoEntryTile() {
-        for(int i = 0; i < game.getTable().getNumberOfGroupIsland(); i++){
+        for (int i = 0; i < game.getTable().getNumberOfGroupIsland(); i++) {
             assertFalse(game.getTable().getGroupIslandByIndex(i).isNoEntryTile());
         }
     }

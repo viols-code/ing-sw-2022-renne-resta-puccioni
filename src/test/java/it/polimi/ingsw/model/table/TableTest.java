@@ -8,8 +8,6 @@ import it.polimi.ingsw.model.island.GroupIsland;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javax.swing.*;
-
 import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -25,22 +23,22 @@ class TableTest {
     @Test
     void addGroupIsland() {
         GroupIsland groupIsland = new BasicGroupIsland();
-        assertEquals(12,gameTest.getTable().getNumberOfGroupIsland());
+        assertEquals(12, gameTest.getTable().getNumberOfGroupIsland());
         gameTest.getTable().removeGroupIsland(gameTest.getTable().getGroupIslandByIndex(0));
-        assertEquals(11,gameTest.getTable().getNumberOfGroupIsland());
+        assertEquals(11, gameTest.getTable().getNumberOfGroupIsland());
         gameTest.getTable().addGroupIsland(groupIsland);
-        assertEquals(12,gameTest.getTable().getNumberOfGroupIsland());
+        assertEquals(12, gameTest.getTable().getNumberOfGroupIsland());
         assertEquals(groupIsland, gameTest.getTable().getGroupIslandByIndex(11));
     }
 
     @Test
     void removeGroupIsland() {
         GroupIsland groupIsland;
-        assertEquals(12,gameTest.getTable().getNumberOfGroupIsland());
+        assertEquals(12, gameTest.getTable().getNumberOfGroupIsland());
         groupIsland = gameTest.getTable().getGroupIslandByIndex(0);
         gameTest.getTable().removeGroupIsland(gameTest.getTable().getGroupIslandByIndex(0));
-        assertEquals(11,gameTest.getTable().getNumberOfGroupIsland());
-        for(int i = 0; i < gameTest.getTable().getNumberOfGroupIsland(); i++){
+        assertEquals(11, gameTest.getTable().getNumberOfGroupIsland());
+        for (int i = 0; i < gameTest.getTable().getNumberOfGroupIsland(); i++) {
             assertNotEquals(groupIsland, gameTest.getTable().getGroupIslandByIndex(i));
         }
     }
@@ -60,16 +58,16 @@ class TableTest {
         assertEquals(0, gameTest.getTable().getNumberOfCloudTile());
 
         HashMap<Colour, Integer> students = new HashMap<>();
-        for(Colour colour:Colour.values()){
+        for (Colour colour : Colour.values()) {
             students.put(colour, 0);
         }
 
         int pink = 0;
-        for(int i = 0; i < gameTest.getStudentNumberMovement(); i++){
+        for (int i = 0; i < gameTest.getStudentNumberMovement(); i++) {
             Colour colour;
             colour = gameTest.getTable().getBag().bagDrawStudent();
-            if(colour == Colour.PINK){
-                pink ++;
+            if (colour == Colour.PINK) {
+                pink++;
             }
             students.replace(colour, students.get(colour), students.get(colour) + 1);
         }
@@ -85,11 +83,11 @@ class TableTest {
         assertEquals(0, gameTest.getTable().getNumberOfCloudTile());
 
         HashMap<Colour, Integer> students = new HashMap<>();
-        for(Colour colour:Colour.values()){
+        for (Colour colour : Colour.values()) {
             students.put(colour, 0);
         }
 
-        for(int i = 0; i < gameTest.getStudentNumberMovement(); i++){
+        for (int i = 0; i < gameTest.getStudentNumberMovement(); i++) {
             Colour colour;
             colour = gameTest.getTable().getBag().bagDrawStudent();
             students.replace(colour, students.get(colour), students.get(colour) + 1);

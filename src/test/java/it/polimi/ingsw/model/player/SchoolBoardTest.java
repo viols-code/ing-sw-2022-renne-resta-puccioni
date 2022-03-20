@@ -11,7 +11,7 @@ class SchoolBoardTest {
 
     @BeforeEach
     void setUp() {
-       schoolBoard = new SchoolBoard();
+        schoolBoard = new SchoolBoard();
     }
 
     @Test
@@ -45,18 +45,18 @@ class SchoolBoardTest {
 
     @Test
     public void removeAllStudentFromDiningRoom() {
-        for(Colour colour:Colour.values()){
+        for (Colour colour : Colour.values()) {
             assertEquals(0, schoolBoard.getDiningRoom(colour));
             schoolBoard.addStudentToDiningRoom(colour);
         }
 
-        for(Colour colour:Colour.values()){
+        for (Colour colour : Colour.values()) {
             assertEquals(1, schoolBoard.getDiningRoom(colour));
         }
 
         schoolBoard.removeAllStudentFromDiningRoom();
 
-        for(Colour colour:Colour.values()){
+        for (Colour colour : Colour.values()) {
             assertEquals(0, schoolBoard.getDiningRoom(colour));
         }
     }

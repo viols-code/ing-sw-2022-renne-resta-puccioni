@@ -9,7 +9,8 @@ import it.polimi.ingsw.model.player.Wizard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class GameTest {
     Game gameTest;
@@ -66,11 +67,11 @@ class GameTest {
 
     @Test
     void removeGroupIsland() {
-       // GroupIsland islandRemoved = gameTest.getTable().getGroupIslandByIndex(2);
+        // GroupIsland islandRemoved = gameTest.getTable().getGroupIslandByIndex(2);
         //gameTest.getTable().removeGroupIsland(gameTest.getTable().getGroupIslandByIndex(2));
-       // for (int i = 0; i < gameTest.getTable().getNumberOfGroupIsland(); i++) {
+        // for (int i = 0; i < gameTest.getTable().getNumberOfGroupIsland(); i++) {
         //    assertNotEquals(gameTest.getTable().getGroupIslandByIndex(i), islandRemoved);
-      //  }
+        //  }
     }
 
     @Test

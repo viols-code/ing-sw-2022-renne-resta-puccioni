@@ -19,7 +19,7 @@ class PlayerTest {
     }
 
     @Test
-    void addAssistantCard(){
+    void addAssistantCard() {
         AssistantCard card = game.getAssistantCard(1);
         playerTest.addAssistantCard(card);
         assertTrue(playerTest.isAssistantCardPresent(card));
@@ -27,7 +27,7 @@ class PlayerTest {
 
     @Test
     void removeAssistantCard() {
-        AssistantCard card= game.getAssistantCard(1);
+        AssistantCard card = game.getAssistantCard(1);
         playerTest.addAssistantCard(card);
         playerTest.removeAssistantCard(card);
         assertFalse(playerTest.isAssistantCardPresent(card));
@@ -35,20 +35,24 @@ class PlayerTest {
 
     @Test
     void setCurrentAssistantCard() {
-        AssistantCard card= game.getAssistantCard(1);
+        AssistantCard card = game.getAssistantCard(1);
         playerTest.addAssistantCard(card);
         playerTest.setCurrentAssistantCard(card);
-        assertEquals(card,playerTest.getCurrentAssistantCard());
+        assertEquals(card, playerTest.getCurrentAssistantCard());
     }
 
     @Test
-    void getCoin(){ assertThrows(IllegalAccessError.class, () -> playerTest.getCoins()); }
+    void getCoin() {
+        assertThrows(IllegalAccessError.class, () -> playerTest.getCoins());
+    }
 
     @Test
     void addCoins() {
-        assertThrows(IllegalAccessError.class, () ->  playerTest.addCoins(10)); }
+        assertThrows(IllegalAccessError.class, () -> playerTest.addCoins(10));
+    }
 
     @Test
     void removeCoins() {
-        assertThrows(IllegalAccessError.class, () -> playerTest.removeCoins(10)); }
+        assertThrows(IllegalAccessError.class, () -> playerTest.removeCoins(10));
+    }
 }

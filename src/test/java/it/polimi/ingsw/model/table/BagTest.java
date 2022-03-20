@@ -1,8 +1,7 @@
 package it.polimi.ingsw.model.table;
 
-import it.polimi.ingsw.model.table.Bag;
-import it.polimi.ingsw.model.game.BasicGame;
 import it.polimi.ingsw.model.Colour;
+import it.polimi.ingsw.model.game.BasicGame;
 import it.polimi.ingsw.model.game.Game;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,7 +12,7 @@ class BagTest {
     Game gameTest;
 
     @BeforeEach
-    void setUp(){
+    void setUp() {
         gameTest = new BasicGame();
     }
 
@@ -41,7 +40,7 @@ class BagTest {
         assertEquals(24, numYellowRemained);
         assertEquals(24, numRedRemained);
 
-        for(int i = 0; i < 24; i++){
+        for (int i = 0; i < 24; i++) {
             Colour colour = gameTest.getTable().getBag().bagDrawStudent();
             if (colour.equals(Colour.PINK)) {
                 numPinkRemained--;
@@ -80,5 +79,5 @@ class BagTest {
                 assertEquals(numYellowRemained, gameTest.getTable().getBag().getBagStudent(Colour.YELLOW));
             }
         }
-        }
+    }
 }

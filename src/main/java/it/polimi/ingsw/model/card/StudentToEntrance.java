@@ -20,7 +20,7 @@ public class StudentToEntrance extends CharacterCard {
         super(game);
         initialCost = 1;
         actualCost = initialCost;
-        times=0;
+        times = 0;
         students = new HashMap<>();
         for (Colour colour1 : Colour.values()) {
             students.put(colour1, 0);
@@ -35,11 +35,11 @@ public class StudentToEntrance extends CharacterCard {
     /**
      * Activates the effect of the card
      */
-    public void effect(){
+    public void effect() {
         game.getCurrentPlayer().getSchoolBoard().removeStudentFromEntrance(colourEntrance);
         game.getCurrentPlayer().getSchoolBoard().addStudentToEntrance(colourCard);
-        students.replace(colourCard, students.get(colourCard),students.get(colourCard)-1);
-        students.replace(colourEntrance, students.get(colourEntrance),students.get(colourEntrance)+1);
+        students.replace(colourCard, students.get(colourCard), students.get(colourCard) - 1);
+        students.replace(colourEntrance, students.get(colourEntrance), students.get(colourEntrance) + 1);
         if (times == 3) {
             resetTimes();
             game.setActiveCharacterCard(game.getBasicState());
@@ -51,13 +51,13 @@ public class StudentToEntrance extends CharacterCard {
     /**
      * Set the colour
      *
-     * @param colourCard the colour of the student in the diningRoom
+     * @param colourCard     the colour of the student in the diningRoom
      * @param colourEntrance the colour of the student in the entrance
      */
     @Override
-    public void setColourCardEntrance(Colour colourCard,Colour colourEntrance){
-        this.colourCard=colourCard;
-        this.colourEntrance=colourEntrance;
+    public void setColourCardEntrance(Colour colourCard, Colour colourEntrance) {
+        this.colourCard = colourCard;
+        this.colourEntrance = colourEntrance;
         this.effect();
     }
 
