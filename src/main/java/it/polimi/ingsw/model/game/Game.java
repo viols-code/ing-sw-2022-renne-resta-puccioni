@@ -180,11 +180,24 @@ public abstract class Game {
     }
 
 
+    /**
+     * Says which player is the next one according to the number on the assistantCard played
+     *
+     * @return the nextPlayer according to the assistantCard number
+     */
     public Player nextPlayerTurn() {
-       /*
-       TO DO
-        */
-        return currentPlayer;
+
+        int min = 11;
+        int indexNext = 0;
+
+        for(int i = 0; i < getNumberOfPlayer() && getPlayerByIndex(i) != getCurrentPlayer(); i++){
+            if(getPlayerByIndex(i).getCurrentAssistantCard().getValue() < min){
+                min = getPlayerByIndex(i).getCurrentAssistantCard().getValue();
+                indexNext = i;
+            }
+        }
+
+        return getPlayerByIndex(indexNext);
     }
 
     /**
