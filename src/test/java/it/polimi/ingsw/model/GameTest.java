@@ -51,6 +51,24 @@ class GameTest {
 
     @Test
     void nextPlayerTurn() {
+
+        AssistantCard card1 = new AssistantCard(3, 4);
+        AssistantCard card2 = new AssistantCard(4, 4);
+        AssistantCard card3 = new AssistantCard(6, 4);
+
+        player1.setCurrentAssistantCard(card1);
+        gameTest.setCurrentPlayer(player1);
+
+        player2 = new BasicPlayer("Sara", Wizard.TYPE_2);
+        player3 = new BasicPlayer("Laura", Wizard.TYPE_3);
+        gameTest.addPlayer(player2);
+        gameTest.addPlayer(player3);
+
+        player2.setCurrentAssistantCard(card3);
+        player3.setCurrentAssistantCard(card2);
+
+        assertEquals(player3, gameTest.nextPlayerTurn());
+
     }
 
     @Test
