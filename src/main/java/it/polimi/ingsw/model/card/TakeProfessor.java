@@ -25,5 +25,7 @@ public class TakeProfessor extends CharacterCard {
                     game.getCurrentPlayer().getSchoolBoard().hasProfessor(colour);
                 }
         }
+
+        game.setActiveCharacterCard(game.getBasicState());
     }
 }
