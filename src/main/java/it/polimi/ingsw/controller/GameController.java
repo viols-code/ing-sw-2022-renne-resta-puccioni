@@ -2,10 +2,7 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.card.*;
-import it.polimi.ingsw.model.game.BasicGame;
-import it.polimi.ingsw.model.game.ExpertGame;
-import it.polimi.ingsw.model.game.Game;
-import it.polimi.ingsw.model.game.GamePhase;
+import it.polimi.ingsw.model.game.*;
 import it.polimi.ingsw.model.table.island.AdvancedGroupIsland;
 import it.polimi.ingsw.model.table.island.BasicGroupIsland;
 import it.polimi.ingsw.model.table.island.GroupIsland;
@@ -111,13 +108,68 @@ public class GameController {
     }
 
     public void playAssistantCard(int player, int assistantCard) {
-        if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
-            if (game.getGamePhase() == GamePhase.PLAY_ASSISTANT_CARD) {
-                game.getPlayerByIndex(player).setCurrentAssistantCard(game.getAssistantCard(assistantCard));
-                game.getPlayerByIndex(player).removeAssistantCard(game.getAssistantCard(assistantCard));
+        /*
+        AGGIUNGERE IL CONTROLLO CHE NESSUNO ABBIA GIà GIOCATO QUEL VALORE DI CARTA
+         */
+        if(game.getGamePhase() == GamePhase.PLAY_ASSISTANT_CARD){
+            if (game.isCurrentPlayer(game.getPlayerByIndex(player))){
+                if(game.getPlayerByIndex(player).isAssistantCardPresent(game.getAssistantCard(assistantCard))){
+                    game.getPlayerByIndex(player).setCurrentAssistantCard(game.getAssistantCard(assistantCard));
+                    game.getPlayerByIndex(player).removeAssistantCard(game.getAssistantCard(assistantCard));
+                    game.getPlayerByIndex(player).setHasAlreadyPlayed(true);
+
+                    if(!endPhase()){
+                        game.setCurrentPlayer(game.nextPlayerClockwise());
+                    } else {
+                        endPlayAssistantCard();
+                    }
+                }
             }
         }
     }
+
+    public void moveStudentToIsland(int player, Colour colour, int groupIsland, int singleIsland){
+    /*
+    CONTROLLO CHE NON NE ABBIA MESSI PI§ DI 4
+     */
+        if(game.getGamePhase() == GamePhase.PLAYING){
+            if(game.getTurnPhase() == TurnPhase.MOVE_STUDENT){
+                if(game.isCurrentPlayer(game.getPlayerByIndex(player))){
+                    if(game.getPlayerByIndex(player).getSchoolBoard().getEntrance(colour) > 0){
+                        game.getTable().getGroupIslandByIndex(groupIsland).getIslands(singleIsland).addStudent(colour);
+                        game.getPlayerByIndex(player).getSchoolBoard().removeStudentFromEntrance(colour);
+                    }
+                }
+            }
+        }
+    }
+
+
+    private boolean endPhase(){
+        boolean endPhase = true;
+
+        for(int i = 0; i < numberOfPlayer; i++){
+            if(!game.getPlayerByIndex(i).getHasAlreadyPlayed()){
+                endPhase = false;
+            }
+        }
+
+        return endPhase;
+    }
+
+    private void endPlayAssistantCard(){
+        game.setGamePhase(GamePhase.PLAYING);
+        nobodyPlayed();
+        game.setCurrentPlayer(game.nextPlayerTurn());
+        game.setTurnPhase(TurnPhase.MOVE_STUDENT);
+    }
+
+    private void nobodyPlayed(){
+        for(int i = 0; i < numberOfPlayer; i++){
+            game.getPlayerByIndex(i).setHasAlreadyPlayed(false);
+        }
+    }
+
 
     public void addPlayer(String nickname, Wizard wizard) {
         if (isGameExpert) {
