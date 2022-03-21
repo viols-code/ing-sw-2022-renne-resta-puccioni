@@ -39,6 +39,11 @@ public abstract class Player {
     protected final SchoolBoard schoolBoard;
 
     /**
+     * true if the player has already played in the round, false otherwise
+     */
+    protected boolean hasAlreadyPlayed;
+
+    /**
      * Constructor: creates a new Player with the given nick and the given wizard
      *
      * @param nickname a string with the nickname
@@ -50,6 +55,7 @@ public abstract class Player {
         assistantCardSet = new HashSet<>();
         currentAssistantCard = null;
         schoolBoard = new SchoolBoard();
+        hasAlreadyPlayed = false;
     }
 
     /*
@@ -146,6 +152,27 @@ public abstract class Player {
         return schoolBoard;
     }
 
+    /*
+    HAS ALREADY PLAYED
+     */
+
+    /**
+     * Set hasAlreadyPlayed
+     *
+     * @param hasAlreadyPlayed true if the player has already played in the round, false otherwise
+     */
+    public void setHasAlreadyPlayed(boolean hasAlreadyPlayed){
+        this.hasAlreadyPlayed = hasAlreadyPlayed;
+    }
+
+    /**
+     * Return hasAlreadyPlayed
+     *
+     * @return true if the player has already played in the round, false otherwise
+     */
+    public boolean getHasAlreadyPlayed(){
+        return hasAlreadyPlayed;
+    }
 
     /*
     COINS

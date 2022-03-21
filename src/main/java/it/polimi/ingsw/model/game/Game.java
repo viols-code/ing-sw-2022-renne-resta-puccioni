@@ -171,7 +171,6 @@ public abstract class Game {
         if (!players.contains(player)) {
             throw new IllegalArgumentException("This player is not in the game");
         }
-
         this.players.remove(player);
     }
 
@@ -191,13 +190,14 @@ public abstract class Game {
      * @return the nextPlayer according to the assistantCard number
      */
     public Player nextPlayerTurn() {
-
         int min = 11;
 
         for(int i = 0; i < getNumberOfPlayer(); i++){
-            if(getPlayerByIndex(i).getCurrentAssistantCard().getValue() < min && getPlayerByIndex(i) != getCurrentPlayer()){
-                min = getPlayerByIndex(i).getCurrentAssistantCard().getValue();
-                nextPlayer = getPlayerByIndex(i);
+            if(!getPlayerByIndex(i).getHasAlreadyPlayed()){
+                if(getPlayerByIndex(i).getCurrentAssistantCard().getValue() < min && getPlayerByIndex(i) != getCurrentPlayer()){
+                    min = getPlayerByIndex(i).getCurrentAssistantCard().getValue();
+                    nextPlayer = getPlayerByIndex(i);
+                }
             }
         }
 
