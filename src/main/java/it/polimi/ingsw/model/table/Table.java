@@ -164,4 +164,12 @@ public class Table {
         cloudTiles.remove(cloudTile);
     }
 
+    public GroupIsland getIslandAfter(int groupIsland){
+        return getGroupIslandByIndex((groupIsland+1) % islands.size());
+    }
+
+    public GroupIsland getIslandBefore(int groupIsland){
+        return getGroupIslandByIndex((groupIsland-1) % islands.size());
+    }
+
 }
