@@ -302,7 +302,6 @@ public class GameController {
      * @param nickname
      * @param wizard
      */
-    //Se il numero di giocatori è pari all'attributo in gameController si fa partire il gioco
     public void addPlayer(String nickname, Wizard wizard) {
         if (isGameExpert) {
             if(checkUniqueNickname(nickname)) {
@@ -362,19 +361,6 @@ public class GameController {
         return true;
     }
 
-
-    /**
-     * Unifies two GroupIsland
-     *
-     * @param groupIsland1 the first GroupIsland to be unified
-     * @param groupIsland2 the second GroupIsland to be unified
-     */
-    private void unifyGroupIsland(GroupIsland groupIsland1, GroupIsland groupIsland2) {
-
-        for (int i = 0; i < groupIsland2.getNumberOfSingleIsland(); i++) {
-            groupIsland1.addSingleIsland(groupIsland2.getIslandByIndex(i));
-        }
-    }
 
     private void createCloudTile(){
         HashMap<Colour, Integer> students = new HashMap<>();

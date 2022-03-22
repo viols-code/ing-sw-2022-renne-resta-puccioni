@@ -136,4 +136,29 @@ public abstract class CharacterCard {
         throw new IllegalAccessError("The card doesn't have this method");
     }
 
+    /**
+     * Unifies two GroupIsland
+     *
+     * @param groupIsland1 the first GroupIsland to be unified
+     * @param groupIsland2 the second GroupIsland to be unified
+     */
+    private void unifyGroupIsland(GroupIsland groupIsland1, GroupIsland groupIsland2) {
+
+        for (int i = 0; i < groupIsland2.getNumberOfSingleIsland(); i++) {
+            groupIsland1.addSingleIsland(groupIsland2.getIslandByIndex(i));
+        }
+    }
+
+    public void checkUnifyIsland(int groupIsland){
+
+        if(game.getTable().getIslandAfter(groupIsland).getInfluence().equals(game.getTable().getGroupIslandByIndex(groupIsland).getInfluence())){
+            unifyGroupIsland(game.getTable().getGroupIslandByIndex(groupIsland), game.getTable().getIslandAfter(groupIsland));
+        }
+
+        if(game.getTable().getIslandBefore(groupIsland).getInfluence().equals(game.getTable().getGroupIslandByIndex(groupIsland).getInfluence())){
+            unifyGroupIsland(game.getTable().getGroupIslandByIndex(groupIsland), game.getTable().getIslandBefore(groupIsland));
+        }
+
+    }
+
 }
