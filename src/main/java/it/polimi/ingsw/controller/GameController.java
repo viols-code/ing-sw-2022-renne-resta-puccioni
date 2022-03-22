@@ -146,6 +146,23 @@ public class GameController {
         }
     }
 
+    public void moveStudentToDiningRoom(int player, Colour colour){
+        if(game.getGamePhase() == GamePhase.PLAYING && game.getTurnPhase() == TurnPhase.MOVE_STUDENT){
+            if(game.isCurrentPlayer(game.getPlayerByIndex(player))){
+                if(game.getPlayerByIndex(player).getSchoolBoard().getEntrance(colour) > 0){
+                    if(checkStudentsMovement(player)) {
+                        game.getPlayerByIndex(player).getSchoolBoard().removeStudentFromEntrance(colour);
+                        game.getPlayerByIndex(player).getSchoolBoard().addStudentToDiningRoom(colour);
+                    }
+                }
+            }
+        }
+
+        if(checkEndMovementPhase(player)){
+            game.setTurnPhase(TurnPhase.MOVE_MOTHER_NATURE);
+        }
+    }
+
     private boolean checkStudentsMovement(int player){
         if(game.getPlayerByIndex(player).getSchoolBoard().getNumberStudentsEntrance() >= game.getNumberStudentsEntrance() - 4){
             return true;
