@@ -79,6 +79,14 @@ public abstract class CharacterCard {
         return game.getCurrentPlayer();
     }
 
+    /**
+     * change the influence on a group island
+     * @param num
+     */
+    public void changeInfluenceGroupIsland(int num){
+
+    }
+
 
     public void checkProfessor(Colour colour) {
         for(int i = 0; i<game.getNumberOfPlayer(); i++){
