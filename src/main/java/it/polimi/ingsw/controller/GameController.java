@@ -377,12 +377,52 @@ public class GameController {
                     game.setTurnPhase(TurnPhase.WAITING);
                     game.incrementRound();
                     if(game.getRound() >= 11){
+                        calculateWinner();
                         endGame();
                     }
-                }
 
+                }
             }
         }
+    }
+
+    private void calculateWinner(){
+
+        int max = 0;
+        List<Player> possibleWinner = new ArrayList<>();
+
+        for(int i = 0; i < numberOfPlayer; i++){
+            if(game.getPlayerByIndex(i).getSchoolBoard().getTowers() > max){
+                max = game.getPlayerByIndex(i).getSchoolBoard().getTowers();
+            }
+        }
+
+        for(int i = 0; i < numberOfPlayer; i++){
+            if(game.getPlayerByIndex(i).getSchoolBoard().getTowers() == max){
+                possibleWinner.add(game.getPlayerByIndex(i));
+            }
+        }
+
+        max = 0;
+
+        if(possibleWinner.size() == 1){
+            setWinner(possibleWinner.get(0));
+            return;
+        } else {
+            for(int i = 0; i < possibleWinner.size(); i++){
+                if(possibleWinner.get(i).getSchoolBoard().getNumberOfProfessors() > max){
+                    max = possibleWinner.get(i).getSchoolBoard().getNumberOfProfessors();
+                }
+            }
+        }
+
+        for(int i = 0; i < possibleWinner.size(); i++){
+            if(possibleWinner.get(i).getSchoolBoard().getNumberOfProfessors() == max){
+                setWinner((possibleWinner.get(i)));
+                return;
+            }
+        }
+
     }
 
 }
