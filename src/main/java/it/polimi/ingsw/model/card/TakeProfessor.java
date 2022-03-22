@@ -26,6 +26,6 @@ public class TakeProfessor extends CharacterCard {
                 }
         }
 
-        game.setActiveCharacterCard(game.getBasicState());
+        //game.setActiveCharacterCard(game.getBasicState());
     }
 }

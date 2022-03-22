@@ -3,6 +3,7 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.card.*;
 import it.polimi.ingsw.model.game.*;
+import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.table.island.AdvancedGroupIsland;
 import it.polimi.ingsw.model.table.island.BasicGroupIsland;
 import it.polimi.ingsw.model.table.island.GroupIsland;
@@ -11,6 +12,7 @@ import it.polimi.ingsw.model.player.ExpertPlayer;
 import it.polimi.ingsw.model.player.Wizard;
 import it.polimi.ingsw.model.table.CloudTile;
 
+import javax.swing.*;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
@@ -30,6 +32,8 @@ public class GameController {
      */
     private final int numberOfPlayer;
 
+    private Player winner;
+
     /**
      * Constructor: creates a GameController
      *
@@ -38,6 +42,7 @@ public class GameController {
     public GameController(boolean isGameExpert, int numberOfPlayer) {
         this.isGameExpert = isGameExpert;
         this.numberOfPlayer = numberOfPlayer;
+        winner = null;
 
         if (isGameExpert) {
             game = new ExpertGame();
@@ -118,7 +123,7 @@ public class GameController {
                     game.getPlayerByIndex(player).removeAssistantCard(game.getAssistantCard(assistantCard));
                     game.getPlayerByIndex(player).setHasAlreadyPlayed(true);
 
-                    if(!endPhase()){
+                    if(!endPhasePlay()){
                         game.setCurrentPlayer(game.nextPlayerClockwise());
                     } else {
                         endPlayAssistantCard();
@@ -179,7 +184,59 @@ public class GameController {
         return false;
     }
 
-    private boolean endPhase(){
+    private void setWinner(Player player){
+        this.winner = player;
+    }
+
+    public void moveMotherNature(int player, int movement){
+
+        if(game.getGamePhase() == GamePhase.PLAYING && game.getTurnPhase() == TurnPhase.MOVE_MOTHER_NATURE){
+            if(game.isCurrentPlayer(game.getPlayerByIndex(player))){
+                if(game.getActiveCharacterCard().checkMotherNatureMovement(player, movement)){
+                   int num = (game.getTable().getMotherNaturePosition() + movement) % game.getTable().getNumberOfGroupIsland();
+                   game.getTable().setMotherNaturePosition(num);
+                   Player influencePlayer = calculateInfluence(game.getTable().getGroupIslandByIndex(num));
+                   if(game.getTable().getGroupIslandByIndex(num).getInfluence()==null){
+                       game.getTable().getGroupIslandByIndex(num).changeInfluence(influencePlayer);
+                       if(influencePlayer.getSchoolBoard().getTowers() - game.getTable().getGroupIslandByIndex(num).getNumberOfSingleIsland() <= 0){
+                           setWinner(influencePlayer);
+                           endGame();
+                       } else{
+                           influencePlayer.getSchoolBoard().removeTower(game.getTable().getGroupIslandByIndex(num).getNumberOfSingleIsland());
+                       }
+                   } else if(!(game.getTable().getGroupIslandByIndex(num).getInfluence().equals(influencePlayer))){
+                       game.getTable().getGroupIslandByIndex(num).getInfluence().getSchoolBoard().addTower(game.getTable().getGroupIslandByIndex(num).getNumberOfSingleIsland());
+                       game.getTable().getGroupIslandByIndex(num).changeInfluence(influencePlayer);
+                       if(influencePlayer.getSchoolBoard().getTowers() - game.getTable().getGroupIslandByIndex(num).getNumberOfSingleIsland() <= 0){
+                           setWinner(influencePlayer);
+                           endGame();
+                       } else{
+                           influencePlayer.getSchoolBoard().removeTower(game.getTable().getGroupIslandByIndex(num).getNumberOfSingleIsland());
+                       }
+                    }
+
+                   game.setTurnPhase(TurnPhase.CHOOSE_CLOUD_TILE);
+                }
+            }
+        }
+    }
+
+    private void endGame(){
+
+    }
+
+    private Player calculateInfluence(GroupIsland groupIsland){
+
+        HashMap<Player, Integer> scores = new HashMap<>();
+
+        for(int i = 0; i < numberOfPlayer; i++){
+            scores.put(game.getPlayerByIndex(i), game.getActiveCharacterCard().calculateInfluence(game.getPlayerByIndex(i), groupIsland));
+        }
+
+        //Player player = scores.entrySet().stream(); ritorna il giocatore con la massima influenza
+    }
+
+    private boolean endPhasePlay(){
         boolean endPhase = true;
 
         for(int i = 0; i < numberOfPlayer; i++){
@@ -297,6 +354,35 @@ public class GameController {
         }
 
         game.getTable().addCLoudTile(new CloudTile(students));
+    }
+
+    public void chooseCloudTile(int player, int cloudTile){
+
+        if(game.getGamePhase() == GamePhase.PLAYING && game.getTurnPhase() == TurnPhase.CHOOSE_CLOUD_TILE){
+            if(game.isCurrentPlayer(game.getPlayerByIndex(player))){
+                for(Colour colour : Colour.values()) {
+                    for(int i = 0; i < game.getTable().getCloudTilesByIndex(cloudTile).getTileStudents(colour); i++){
+                        game.getCurrentPlayer().getSchoolBoard().addStudentToEntrance(colour);
+                    }
+                }
+
+                game.getCurrentPlayer().setHasAlreadyPlayed(true);
+
+                if(!(endPhasePlay())){
+                    game.setCurrentPlayer(game.nextPlayerTurn());
+                    game.setTurnPhase(TurnPhase.MOVE_STUDENT);
+                } else {
+                    game.setCurrentPlayer(game.getFirstPlayerTurn());
+                    game.setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
+                    game.setTurnPhase(TurnPhase.WAITING);
+                    game.incrementRound();
+                    if(game.getRound() >= 11){
+                        endGame();
+                    }
+                }
+
+            }
+        }
     }
 
 }
