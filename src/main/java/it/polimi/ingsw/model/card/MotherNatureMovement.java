@@ -17,22 +17,19 @@ public class MotherNatureMovement extends CharacterCard {
 
     /**
      * Contructor
+     *
      * @param game
      */
     public MotherNatureMovement(Game game) {
         super(game);
     }
 
-    /**
-     * Activates the effect of the CharacterCard
-     */
-    public void effect(){
+    @Override
+    public boolean checkMotherNatureMovement(int player, int movement) {
+        if(game.getPlayerByIndex(player).getCurrentAssistantCard().getMotherNatureMovement() + 2 >= movement){
+            return true;
+        }
 
-        possibleMovement = game.getCurrentPlayer().getCurrentAssistantCard().getMotherNatureMovement() + 2;
-        newCard = new AssistantCard(game.getCurrentPlayer().getCurrentAssistantCard().getValue(), possibleMovement);
-        game.getCurrentPlayer().setCurrentAssistantCard(newCard);
-
-        game.setActiveCharacterCard(game.getBasicState());
-
+        return false;
     }
 }

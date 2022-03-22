@@ -72,8 +72,12 @@ public abstract class CharacterCard {
 
     }
 
-    public void checkMotherNatureMovement() {
+    public boolean checkMotherNatureMovement(int player, int movement) {
+        if(game.getPlayerByIndex(player).getCurrentAssistantCard().getMotherNatureMovement() >= movement){
+            return true;
+        }
 
+        return false;
     }
 
     /**
