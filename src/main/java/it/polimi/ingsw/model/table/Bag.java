@@ -14,11 +14,11 @@ public class Bag {
 
     public Bag() {
         bag = new HashMap<>();
-        bag.put(Colour.GREEN, 24);
-        bag.put(Colour.RED, 24);
-        bag.put(Colour.YELLOW, 24);
-        bag.put(Colour.PINK, 24);
-        bag.put(Colour.BLUE, 24);
+        bag.put(Colour.GREEN, 0);
+        bag.put(Colour.RED, 0);
+        bag.put(Colour.YELLOW, 0);
+        bag.put(Colour.PINK, 0);
+        bag.put(Colour.BLUE, 0);
     }
 
     /**

@@ -87,6 +87,23 @@ public class GameController {
             game.setStudentNumberMovement(3);
         }
 
+        for(Colour colour: Colour.values()){
+            for(int i=0;i<2;i++){
+                game.getTable().getBag().addStudentBag(colour);
+            }
+        }
+
+        for(int i=1;i<12;i++){
+            if(i==5)i++;
+            game.getTable().getGroupIslandByIndex(i).getIslandByIndex(0).addStudent(game.getTable().getBag().bagDrawStudent());
+        }
+
+        for(Colour colour: Colour.values()){
+            for(int i=0;i<24;i++){
+                game.getTable().getBag().addStudentBag(colour);
+            }
+        }
+
         for(int i = 0; i < numberOfPlayer; i++){
             createCloudTile();
         }
@@ -128,6 +145,13 @@ public class GameController {
         }
     }
 
+    private boolean canPlayAssistantCard(int player, int assistantCard){
+        for(int i=0;i<player;i++){
+            if(game.getPlayerByIndex(i).getCurrentAssistantCard().equals(game.getAssistantCard(assistantCard))) return false;
+        }
+        return true;
+    }
+
     public void moveStudentToIsland(int player, Colour colour, int groupIsland, int singleIsland){
     /*
     CONTROLLO CHE NON NE ABBIA MESSI PI§ DI 4
@@ -142,6 +166,16 @@ public class GameController {
                 }
             }
         }
+    }
+
+    public void moveStudentToDiningRoom(int player, Colour colour){
+            if(game.getGamePhase() == GamePhase.PLAYING && game.getTurnPhase() == TurnPhase.MOVE_STUDENT){
+                if(game.isCurrentPlayer(game.getPlayerByIndex(player))){
+                    if(game.getPlayerByIndex(player).getSchoolBoard().getEntrance(colour) > 0){
+
+                    }
+                }
+            }
     }
 
 
