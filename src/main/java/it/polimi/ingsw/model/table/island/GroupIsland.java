@@ -53,7 +53,7 @@ public abstract class GroupIsland {
      *
      * @return the SingleIsland corresponding to the the number given
      */
-    public SingleIsland getIslands(int island) {
+    public SingleIsland getIslandByIndex(int island) {
         return islandsContained.get(island);
     }
 

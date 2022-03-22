@@ -52,9 +52,10 @@ public class StudentToIsland extends CharacterCard {
      *
      * @param colour the colour of the student chosen
      * @param singleIsland the island chosen
+     * @throws IllegalArgumentException if there is no such colour on the card
      */
     @Override
-    public void setColourAndIsland(Colour colour, SingleIsland singleIsland){
+    public void setColourAndIsland (Colour colour, SingleIsland singleIsland) throws IllegalArgumentException {
         if(studentsOnCard.get(colour) == 0){
             throw new IllegalArgumentException("There is no such colour on the card");
         }

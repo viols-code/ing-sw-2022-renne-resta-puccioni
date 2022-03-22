@@ -136,7 +136,7 @@ public class GameController {
             if(game.getTurnPhase() == TurnPhase.MOVE_STUDENT){
                 if(game.isCurrentPlayer(game.getPlayerByIndex(player))){
                     if(game.getPlayerByIndex(player).getSchoolBoard().getEntrance(colour) > 0){
-                        game.getTable().getGroupIslandByIndex(groupIsland).getIslands(singleIsland).addStudent(colour);
+                        game.getTable().getGroupIslandByIndex(groupIsland).getIslandByIndex(singleIsland).addStudent(colour);
                         game.getPlayerByIndex(player).getSchoolBoard().removeStudentFromEntrance(colour);
                     }
                 }
@@ -188,7 +188,7 @@ public class GameController {
     private void unifyGroupIsland(GroupIsland groupIsland1, GroupIsland groupIsland2) {
 
         for (int i = 0; i < groupIsland2.getNumberOfSingleIsland(); i++) {
-            groupIsland1.addSingleIsland(groupIsland2.getIslands(i));
+            groupIsland1.addSingleIsland(groupIsland2.getIslandByIndex(i));
         }
     }
 

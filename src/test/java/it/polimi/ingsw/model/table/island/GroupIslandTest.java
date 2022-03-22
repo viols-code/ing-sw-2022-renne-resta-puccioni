@@ -29,7 +29,7 @@ class GroupIslandTest {
             assertEquals(1, game.getTable().getGroupIslandByIndex(i).getNumberOfSingleIsland());
         }
 
-        game.getTable().getGroupIslandByIndex(0).addSingleIsland(game.getTable().getGroupIslandByIndex(1).getIslands(0));
+        game.getTable().getGroupIslandByIndex(0).addSingleIsland(game.getTable().getGroupIslandByIndex(1).getIslandByIndex(0));
         game.getTable().removeGroupIsland(game.getTable().getGroupIslandByIndex(1));
 
         assertEquals(2, game.getTable().getGroupIslandByIndex(0).getNumberOfSingleIsland());
