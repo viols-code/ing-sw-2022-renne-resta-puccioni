@@ -187,4 +187,14 @@ public class SchoolBoard {
     public void removeTower(int num) {
         towers -= num;
     }
+
+    public int getNumberStudentsEntrance(){
+        int count = 0;
+
+        for(Colour colour : Colour.values()){
+            count += getEntrance(colour);
+        }
+
+        return count;
+    }
 }
