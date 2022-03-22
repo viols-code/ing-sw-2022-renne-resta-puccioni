@@ -81,6 +81,16 @@ public class GameController {
             game = new BasicGame();
         }
 
+        setting();
+
+
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public void setting(){
         game.getTable().setMotherNaturePosition(0);
         if(numberOfPlayer == 3){
             game.setNumberOfTowersPerPlayer(6);
@@ -92,13 +102,26 @@ public class GameController {
             game.setStudentNumberMovement(3);
         }
 
+        for(Colour colour: Colour.values()){
+            for(int i=0;i<2;i++){
+                game.getTable().getBag().addStudentBag(colour);
+            }
+        }
+
+        for(int i=1;i<12;i++){
+            if(i==5)i++;
+            game.getTable().getGroupIslandByIndex(i).getIslandByIndex(0).addStudent(game.getTable().getBag().bagDrawStudent());
+        }
+
+        for(Colour colour: Colour.values()){
+            for(int i=0;i<24;i++){
+                game.getTable().getBag().addStudentBag(colour);
+            }
+        }
+
         for(int i = 0; i < numberOfPlayer; i++){
             createCloudTile();
         }
-    }
-
-    public Game getGame() {
-        return game;
     }
 
     public void playCharacterCard(int player, int characterCard) {
@@ -113,24 +136,33 @@ public class GameController {
     }
 
     public void playAssistantCard(int player, int assistantCard) {
-        /*
-        AGGIUNGERE IL CONTROLLO CHE NESSUNO ABBIA GIà GIOCATO QUEL VALORE DI CARTA
-         */
+
         if(game.getGamePhase() == GamePhase.PLAY_ASSISTANT_CARD){
             if (game.isCurrentPlayer(game.getPlayerByIndex(player))){
                 if(game.getPlayerByIndex(player).isAssistantCardPresent(game.getAssistantCard(assistantCard))){
-                    game.getPlayerByIndex(player).setCurrentAssistantCard(game.getAssistantCard(assistantCard));
-                    game.getPlayerByIndex(player).removeAssistantCard(game.getAssistantCard(assistantCard));
-                    game.getPlayerByIndex(player).setHasAlreadyPlayed(true);
+                    if(canPlayAssistantCard(player, assistantCard)) {
+                        game.getPlayerByIndex(player).setCurrentAssistantCard(game.getAssistantCard(assistantCard));
+                        game.getPlayerByIndex(player).removeAssistantCard(game.getAssistantCard(assistantCard));
+                        game.getPlayerByIndex(player).setHasAlreadyPlayed(true);
 
-                    if(!endPhasePlay()){
-                        game.setCurrentPlayer(game.nextPlayerClockwise());
-                    } else {
-                        endPlayAssistantCard();
+                        if (!endPhasePlay()) {
+                            game.setCurrentPlayer(game.nextPlayerClockwise());
+                        } else {
+                            endPlayAssistantCard();
+                        }
                     }
                 }
             }
         }
+    }
+
+    private boolean canPlayAssistantCard(int player, int assistantCard){
+        for(int i=0;i<player;i++){
+            if(game.getPlayerByIndex(i).getHasAlreadyPlayed()){
+                if(game.getPlayerByIndex(i).getCurrentAssistantCard().equals(game.getAssistantCard(assistantCard))) return false;
+            }
+        }
+        return true;
     }
 
     public void moveStudentToIsland(int player, Colour colour, int groupIsland, int singleIsland){
@@ -158,6 +190,7 @@ public class GameController {
                     if(checkStudentsMovement(player)) {
                         game.getPlayerByIndex(player).getSchoolBoard().removeStudentFromEntrance(colour);
                         game.getPlayerByIndex(player).getSchoolBoard().addStudentToDiningRoom(colour);
+                        game.getActiveCharacterCard().checkProfessor(colour);
                     }
                 }
             }
@@ -376,6 +409,7 @@ public class GameController {
                     game.setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
                     game.setTurnPhase(TurnPhase.WAITING);
                     game.incrementRound();
+                    nobodyPlayed();
                     if(game.getRound() >= 11){
                         calculateWinner();
                         endGame();
