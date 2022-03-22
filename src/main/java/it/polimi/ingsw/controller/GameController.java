@@ -260,13 +260,14 @@ public class GameController {
 
     private Player calculateInfluence(GroupIsland groupIsland){
 
-        HashMap<Player, Integer> scores = new HashMap<>();
+       /* HashMap<Player, Integer> scores = new HashMap<>();
 
         for(int i = 0; i < numberOfPlayer; i++){
             scores.put(game.getPlayerByIndex(i), game.getActiveCharacterCard().calculateInfluence(game.getPlayerByIndex(i), groupIsland));
         }
 
-        //Player player = scores.entrySet().stream(); ritorna il giocatore con la massima influenza
+        //Player player = scores.entrySet().stream(); ritorna il giocatore con la massima influenza*/
+        return game.getCurrentPlayer();
     }
 
     private boolean endPhasePlay(){
