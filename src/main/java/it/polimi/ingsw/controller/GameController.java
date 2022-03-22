@@ -132,10 +132,10 @@ public class GameController {
     /*
     CONTROLLO CHE NON NE ABBIA MESSI PI§ DI 4
      */
-        if(game.getGamePhase() == GamePhase.PLAYING){
-            if(game.getTurnPhase() == TurnPhase.MOVE_STUDENT){
-                if(game.isCurrentPlayer(game.getPlayerByIndex(player))){
-                    if(game.getPlayerByIndex(player).getSchoolBoard().getEntrance(colour) > 0){
+        if(game.getGamePhase() == GamePhase.PLAYING && game.getTurnPhase() == TurnPhase.MOVE_STUDENT){
+            if(game.isCurrentPlayer(game.getPlayerByIndex(player))){
+                if(game.getPlayerByIndex(player).getSchoolBoard().getEntrance(colour) > 0){
+                    if(checkStudentsMovement(player)) {
                         game.getTable().getGroupIslandByIndex(groupIsland).getIslandByIndex(singleIsland).addStudent(colour);
                         game.getPlayerByIndex(player).getSchoolBoard().removeStudentFromEntrance(colour);
                     }
@@ -143,6 +143,15 @@ public class GameController {
             }
         }
     }
+
+    private boolean checkStudentsMovement(int player){
+        if(game.getPlayerByIndex(player).getSchoolBoard().getNumberStudentsEntrance() >= game.getNumberStudentsEntrance() - 4){
+            return true;
+        }
+
+        return false;
+    }
+
 
 
     private boolean endPhase(){
