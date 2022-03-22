@@ -125,11 +125,14 @@ public class GameController {
     }
 
     public void playCharacterCard(int player, int characterCard) {
+
         if (isGameExpert) {
-            if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
-                if (!game.getHasPlayedCharacterCard()) {
-                    game.setActiveCharacterCard(game.getCharacterCardsByIndex(characterCard));
-                    game.setHasPlayedCharacterCard(false);
+            if(game.getGamePhase() == GamePhase.PLAYING) {
+                if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
+                    if (!game.getHasPlayedCharacterCard()) {
+                        game.setActiveCharacterCard(game.getCharacterCardsByIndex(characterCard));
+                        game.setHasPlayedCharacterCard(true);
+                    }
                 }
             }
         }
