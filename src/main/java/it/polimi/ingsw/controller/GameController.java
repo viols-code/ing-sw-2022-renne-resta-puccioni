@@ -341,6 +341,15 @@ public class GameController {
 
     public void chooseCloudTile(int player, int cloudTile){
 
+        if(game.getGamePhase() == GamePhase.PLAYING && game.getTurnPhase() == TurnPhase.CHOOSE_CLOUD_TILE){
+            if(game.isCurrentPlayer(game.getPlayerByIndex(player))){
+                for(Colour colour : Colour.values()) {
+                    for(int i = 0; i < game.getTable().getCloudTilesByIndex(cloudTile).getTileStudents(colour); i++){
+                        game.getCurrentPlayer().getSchoolBoard().addStudentToEntrance(colour);
+                    }
+                }
+            }
+        }
     }
 
 }
