@@ -37,7 +37,7 @@ public class NoColour extends CharacterCard {
      * @return the influence of the given Player in the given GroupIsland without considering a colour
      */
     @Override
-    public int calculateInfluence(Player player, GroupIsland groupIsland) {
+    public int calculateInfluencePlayer(Player player, GroupIsland groupIsland) {
         int influence = 0;
 
         if (!groupIsland.isNoEntryTile()) {

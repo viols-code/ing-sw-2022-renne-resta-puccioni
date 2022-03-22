@@ -27,7 +27,7 @@ public class NoTower extends CharacterCard {
      * @return the influence that the player has on the group island
      */
     @Override
-    public int calculateInfluence(Player player, GroupIsland groupIsland) {
+    public int calculateInfluencePlayer(Player player, GroupIsland groupIsland) {
         int influence = 0;
 
         if (!groupIsland.isNoEntryTile()) {

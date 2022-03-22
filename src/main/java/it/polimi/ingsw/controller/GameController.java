@@ -232,26 +232,28 @@ public class GameController {
                 if(game.getActiveCharacterCard().checkMotherNatureMovement(player, movement)){
                    int num = (game.getTable().getMotherNaturePosition() + movement) % game.getTable().getNumberOfGroupIsland();
                    game.getTable().setMotherNaturePosition(num);
-                   Player influencePlayer = calculateInfluence(game.getTable().getGroupIslandByIndex(num));
-                   if(game.getTable().getGroupIslandByIndex(num).getInfluence()==null){
-                       game.getTable().getGroupIslandByIndex(num).changeInfluence(influencePlayer);
-                       if(influencePlayer.getSchoolBoard().getTowers() - game.getTable().getGroupIslandByIndex(num).getNumberOfSingleIsland() <= 0){
-                           setWinner(influencePlayer);
-                           endGame();
-                       } else{
-                           influencePlayer.getSchoolBoard().removeTower(game.getTable().getGroupIslandByIndex(num).getNumberOfSingleIsland());
-                       }
-                   } else if(!(game.getTable().getGroupIslandByIndex(num).getInfluence().equals(influencePlayer))){
-                       game.getTable().getGroupIslandByIndex(num).getInfluence().getSchoolBoard().addTower(game.getTable().getGroupIslandByIndex(num).getNumberOfSingleIsland());
-                       game.getTable().getGroupIslandByIndex(num).changeInfluence(influencePlayer);
-                       if(influencePlayer.getSchoolBoard().getTowers() - game.getTable().getGroupIslandByIndex(num).getNumberOfSingleIsland() <= 0){
-                           setWinner(influencePlayer);
-                           endGame();
-                       } else{
-                           influencePlayer.getSchoolBoard().removeTower(game.getTable().getGroupIslandByIndex(num).getNumberOfSingleIsland());
-                       }
+
+                    Player influencePlayer = game.getActiveCharacterCard().calculateInfluence(game.getTable().getGroupIslandByIndex(num));
+                    if(game.getTable().getGroupIslandByIndex(num).getInfluence()==null){
+                        game.getTable().getGroupIslandByIndex(num).changeInfluence(influencePlayer);
+                        if(influencePlayer.getSchoolBoard().getTowers() - game.getTable().getGroupIslandByIndex(num).getNumberOfSingleIsland() <= 0){
+                            setWinner(influencePlayer);
+                            endGame();
+                        } else{
+                            influencePlayer.getSchoolBoard().removeTower(game.getTable().getGroupIslandByIndex(num).getNumberOfSingleIsland());
+                        }
+                    } else if(!(game.getTable().getGroupIslandByIndex(num).getInfluence().equals(influencePlayer))){
+                        game.getTable().getGroupIslandByIndex(num).getInfluence().getSchoolBoard().addTower(game.getTable().getGroupIslandByIndex(num).getNumberOfSingleIsland());
+                        game.getTable().getGroupIslandByIndex(num).changeInfluence(influencePlayer);
+                        if(influencePlayer.getSchoolBoard().getTowers() - game.getTable().getGroupIslandByIndex(num).getNumberOfSingleIsland() <= 0){
+                            setWinner(influencePlayer);
+                            endGame();
+                        } else{
+                            influencePlayer.getSchoolBoard().removeTower(game.getTable().getGroupIslandByIndex(num).getNumberOfSingleIsland());
+                        }
                     }
 
+                   game.getActiveCharacterCard().changeInfluenceGroupIsland(num);
                    game.setTurnPhase(TurnPhase.CHOOSE_CLOUD_TILE);
                 }
             }
@@ -262,17 +264,7 @@ public class GameController {
 
     }
 
-    private Player calculateInfluence(GroupIsland groupIsland){
 
-       /* HashMap<Player, Integer> scores = new HashMap<>();
-
-        for(int i = 0; i < numberOfPlayer; i++){
-            scores.put(game.getPlayerByIndex(i), game.getActiveCharacterCard().calculateInfluence(game.getPlayerByIndex(i), groupIsland));
-        }
-
-        //Player player = scores.entrySet().stream(); ritorna il giocatore con la massima influenza*/
-        return game.getCurrentPlayer();
-    }
 
     private boolean endPhasePlay(){
         boolean endPhase = true;
