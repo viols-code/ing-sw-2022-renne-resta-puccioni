@@ -191,6 +191,11 @@ public class GameController {
                 }
             }
         }
+
+        if(numberOfPlayer==game.getNumberOfPlayer()){
+            game.setCurrentPlayer(game.getPlayerByIndex(0));
+            game.setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
+        }
     }
 
     /**
