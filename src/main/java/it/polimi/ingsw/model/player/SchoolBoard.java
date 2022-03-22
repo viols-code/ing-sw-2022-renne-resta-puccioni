@@ -197,4 +197,16 @@ public class SchoolBoard {
 
         return count;
     }
+
+    public int getNumberOfProfessors(){
+        int count = 0;
+
+        for(Colour colour : Colour.values()){
+            if(hasProfessor(colour)){
+                count++;
+            }
+        }
+
+        return count;
+    }
 }
