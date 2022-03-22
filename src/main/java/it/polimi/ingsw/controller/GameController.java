@@ -11,6 +11,7 @@ import it.polimi.ingsw.model.player.BasicPlayer;
 import it.polimi.ingsw.model.player.ExpertPlayer;
 import it.polimi.ingsw.model.player.Wizard;
 import it.polimi.ingsw.model.table.CloudTile;
+import it.polimi.ingsw.model.table.island.SingleIsland;
 
 import javax.swing.*;
 import java.lang.reflect.InvocationTargetException;
@@ -409,6 +410,27 @@ public class GameController {
             }
         }
     }
+
+    public void setColour(Colour colour){
+        game.getActiveCharacterCard().setColour(colour);
+    }
+
+    public void setColourAndIsland(Colour colour, int groupIsland, int singleIsland){
+        game.getActiveCharacterCard().setColourAndIsland(colour, game.getTable().getGroupIslandByIndex(groupIsland).getIslandByIndex(singleIsland));
+    }
+
+    public void setGroupIsland(int groupIsland){
+        game.getActiveCharacterCard().setGroupIsland(game.getTable().getGroupIslandByIndex(groupIsland));
+    }
+
+    public void setColourDiningRoomEntrance(Colour colourDiningRoom, Colour colourEntrance) {
+        game.getActiveCharacterCard().setColourDiningRoomEntrance(colourDiningRoom, colourEntrance);
+    }
+
+    public void setColourCardEntrance(Colour colourCard, Colour colourEntrance) {
+       game.getActiveCharacterCard().setColourCardEntrance(colourCard, colourEntrance);
+    }
+
 
     private void calculateWinner(){
 
