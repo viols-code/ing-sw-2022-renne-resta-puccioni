@@ -484,6 +484,16 @@ public abstract class Game {
     }
 
     /**
+     * Gets the number of coins available on the table
+     *
+     * @return the number of coins available
+     * @throws  IllegalAccessError if the game is not expert
+     */
+    public int getCoins() throws IllegalAccessError{
+        throw new IllegalAccessError("This is for the Expert Mode");
+    }
+
+    /**
      * Return true if the game has the ProtectIsland card
      *
      * @return true if the game has the ProtectIsland card, false otherwise

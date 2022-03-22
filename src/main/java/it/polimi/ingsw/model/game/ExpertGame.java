@@ -17,11 +17,17 @@ public class ExpertGame extends Game {
      */
     private boolean hasPlayedCharacterCard;
 
+    /**
+    * Number of coins available
+     */
+    private int coins;
+
     public ExpertGame() {
         super();
         characterCards = new ArrayList<>();
         basicState = super.getActiveCharacterCard();
         hasPlayedCharacterCard = false;
+        coins=20-getNumberOfPlayer();
     }
 
     /**
@@ -85,6 +91,15 @@ public class ExpertGame extends Game {
                 return true;
         }
         return false;
+    }
+
+    /**
+     * Gets the number of coins available on the table
+     *
+     * @return the number of coins available
+     */
+    public int getCoins(){
+        return coins;
     }
 
 }
