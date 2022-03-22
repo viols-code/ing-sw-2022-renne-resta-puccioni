@@ -228,7 +228,7 @@ public class GameController {
                 if(game.getActiveCharacterCard().checkMotherNatureMovement(player, movement)){
                    int num = (game.getTable().getMotherNaturePosition() + movement) % game.getTable().getNumberOfGroupIsland();
                    game.getTable().setMotherNaturePosition(num);
-                   Player influencePlayer = calculateInfluence(game.getTable().getGroupIslandByIndex(num));
+                   Player influencePlayer = game.getActiveCharacterCard().calculateInfluence(game.getTable().getGroupIslandByIndex(num));
                    if(game.getTable().getGroupIslandByIndex(num).getInfluence()==null){
                        game.getTable().getGroupIslandByIndex(num).changeInfluence(influencePlayer);
                        if(influencePlayer.getSchoolBoard().getTowers() - game.getTable().getGroupIslandByIndex(num).getNumberOfSingleIsland() <= 0){
@@ -258,17 +258,7 @@ public class GameController {
 
     }
 
-    private Player calculateInfluence(GroupIsland groupIsland){
 
-       /* HashMap<Player, Integer> scores = new HashMap<>();
-
-        for(int i = 0; i < numberOfPlayer; i++){
-            scores.put(game.getPlayerByIndex(i), game.getActiveCharacterCard().calculateInfluence(game.getPlayerByIndex(i), groupIsland));
-        }
-
-        //Player player = scores.entrySet().stream(); ritorna il giocatore con la massima influenza*/
-        return game.getCurrentPlayer();
-    }
 
     private boolean endPhasePlay(){
         boolean endPhase = true;
