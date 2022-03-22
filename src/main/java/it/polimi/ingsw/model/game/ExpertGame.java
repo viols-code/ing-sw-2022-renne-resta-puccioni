@@ -102,4 +102,13 @@ public class ExpertGame extends Game {
         return coins;
     }
 
+    /**
+     * Sets the number of coins available on the table
+     *
+     * @param coins the coins
+     */
+    public void setCoins(int coins){
+        this.coins=coins;
+    }
+
 }
