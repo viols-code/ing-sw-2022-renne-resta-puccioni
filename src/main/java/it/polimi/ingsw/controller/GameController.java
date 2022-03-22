@@ -129,9 +129,7 @@ public class GameController {
     }
 
     public void moveStudentToIsland(int player, Colour colour, int groupIsland, int singleIsland){
-    /*
-    CONTROLLO CHE NON NE ABBIA MESSI PI§ DI 4
-     */
+
         if(game.getGamePhase() == GamePhase.PLAYING && game.getTurnPhase() == TurnPhase.MOVE_STUDENT){
             if(game.isCurrentPlayer(game.getPlayerByIndex(player))){
                 if(game.getPlayerByIndex(player).getSchoolBoard().getEntrance(colour) > 0){
@@ -141,6 +139,10 @@ public class GameController {
                     }
                 }
             }
+        }
+
+        if(checkEndMovementPhase(player)){
+            game.setTurnPhase(TurnPhase.MOVE_MOTHER_NATURE);
         }
     }
 
@@ -152,7 +154,13 @@ public class GameController {
         return false;
     }
 
+    private boolean checkEndMovementPhase(int player){
+        if(game.getPlayerByIndex(player).getSchoolBoard().getNumberStudentsEntrance() == 4){
+            return true;
+        }
 
+        return false;
+    }
 
     private boolean endPhase(){
         boolean endPhase = true;
