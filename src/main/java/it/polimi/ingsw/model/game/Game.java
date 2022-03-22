@@ -194,7 +194,7 @@ public abstract class Game {
 
         for(int i = 0; i < getNumberOfPlayer(); i++){
             if(!getPlayerByIndex(i).getHasAlreadyPlayed()){
-                if(getPlayerByIndex(i).getCurrentAssistantCard().getValue() < min && getPlayerByIndex(i) != getCurrentPlayer()){
+                if(getPlayerByIndex(i).getCurrentAssistantCard().getValue() < min){
                     min = getPlayerByIndex(i).getCurrentAssistantCard().getValue();
                     nextPlayer = getPlayerByIndex(i);
                 }

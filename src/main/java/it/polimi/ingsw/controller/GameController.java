@@ -161,6 +161,7 @@ public class GameController {
         game.setGamePhase(GamePhase.PLAYING);
         nobodyPlayed();
         game.setCurrentPlayer(game.nextPlayerTurn());
+        game.setFirstPlayerTurn(game.nextPlayerTurn());
         game.setTurnPhase(TurnPhase.MOVE_STUDENT);
     }
 
