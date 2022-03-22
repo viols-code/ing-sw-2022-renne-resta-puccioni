@@ -348,6 +348,22 @@ public class GameController {
                         game.getCurrentPlayer().getSchoolBoard().addStudentToEntrance(colour);
                     }
                 }
+
+                game.getCurrentPlayer().setHasAlreadyPlayed(true);
+
+                if(!(endPhasePlay())){
+                    game.setCurrentPlayer(game.nextPlayerTurn());
+                    game.setTurnPhase(TurnPhase.MOVE_STUDENT);
+                } else {
+                    game.setCurrentPlayer(game.getFirstPlayerTurn());
+                    game.setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
+                    game.setTurnPhase(TurnPhase.WAITING);
+                    game.incrementRound();
+                    if(game.getRound() >= 11){
+                        endGame();
+                    }
+                }
+
             }
         }
     }
