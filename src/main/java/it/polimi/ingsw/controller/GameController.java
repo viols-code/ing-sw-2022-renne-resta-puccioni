@@ -170,14 +170,67 @@ public class GameController {
         }
     }
 
-
+    /**
+     * Adds a new player with the nickname and wizard chosen
+     *
+     * @param nickname
+     * @param wizard
+     */
+    //Se il numero di giocatori è pari all'attributo in gameController si fa partire il gioco
     public void addPlayer(String nickname, Wizard wizard) {
         if (isGameExpert) {
-            game.addPlayer(new ExpertPlayer(nickname, wizard));
+            if(checkUniqueNickname(nickname)) {
+                if(checkUniqueWizard(wizard)) { //altrimenti mandiamo un messaggio di cambiare nickname/wizard
+                    game.addPlayer(new ExpertPlayer(nickname, wizard));
+                }
+            }
         } else {
-            game.addPlayer(new BasicPlayer(nickname, wizard));
+            if(checkUniqueNickname(nickname)){
+                if(checkUniqueWizard(wizard)){
+                    game.addPlayer(new BasicPlayer(nickname, wizard));
+                }
+            }
         }
     }
+
+    /**
+     * Checks if the nickname has already been taken
+     *
+     * @param nickname
+     * @return a boolean which says if the nickname has already been taken
+     */
+    private boolean checkUniqueNickname(String nickname){
+
+        for(int i = 0; i < numberOfPlayer; i++){
+            if(game.getPlayerByIndex(i)!=game.getCurrentPlayer()){
+                if(game.getPlayerByIndex(i).getNickname().equals(game.getCurrentPlayer().getNickname())){
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Checks if the nickname has already been taken
+     *
+     * @param wizard
+     * @return a boolean which says if the wizard has already been taken
+     */
+    private boolean checkUniqueWizard(Wizard wizard){
+
+        for(int i = 0; i < numberOfPlayer; i++){
+            if(game.getPlayerByIndex(i)!=game.getCurrentPlayer()){
+                if(game.getPlayerByIndex(i).getWizard()==game.getCurrentPlayer().getWizard()){
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
 
     /**
      * Unifies two GroupIsland
