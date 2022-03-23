@@ -402,6 +402,7 @@ public class GameController {
         int max = 0;
         List<Player> possibleWinner = new ArrayList<>();
 
+        //trova il massimo numero di torri fuori
         for(int i = 0; i < numberOfPlayer; i++){
             if(game.getPlayerByIndex(i).getSchoolBoard().getTowers() > max){
                 max = game.getPlayerByIndex(i).getSchoolBoard().getTowers();

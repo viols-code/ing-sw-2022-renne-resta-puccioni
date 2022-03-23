@@ -76,12 +76,12 @@ public abstract class CharacterCard {
      * @param groupIsland the groupIsland
      * @return
      */
-    public void calculateInfluence(GroupIsland groupIsland){
+    public void calculateInfluence(int groupIsland){
         HashMap<Player,Integer> scores=new HashMap<>();
         List<Player> res=new ArrayList<>();
         for(int i=0;i<game.getNumberOfPlayer();i++){
-            if(!game.getPlayerByIndex(i).equals(groupIsland.getInfluence()))
-                scores.put(game.getPlayerByIndex(i),calculateInfluencePlayer(game.getPlayerByIndex(i),groupIsland));
+            if(!game.getPlayerByIndex(i).equals(game.getTable().getGroupIslandByIndex(groupIsland).getInfluence()))
+                scores.put(game.getPlayerByIndex(i),calculateInfluencePlayer(game.getPlayerByIndex(i),game.getTable().getGroupIslandByIndex(groupIsland)));
         }
 
         Integer maxInfluence = scores.values().stream().reduce(0,(y1, y2)->{if(y1>y2)return y1;
@@ -103,26 +103,28 @@ public abstract class CharacterCard {
      * Checks if there is any change due to the change of the influence of the groupIsland selected
      * @param groupIsland
      */
-    public void changeInfluenceGroupIsland(Player influencePlayer,GroupIsland groupIsland){
-        if(groupIsland.getInfluence()==null){
-            groupIsland.changeInfluence(influencePlayer);
-            if(influencePlayer.getSchoolBoard().getTowers() - groupIsland.getNumberOfSingleIsland() <= 0){
+    public void changeInfluenceGroupIsland(Player influencePlayer,int groupIsland){
+        if(game.getTable().getGroupIslandByIndex(groupIsland).getInfluence()==null){
+            game.getTable().getGroupIslandByIndex(groupIsland).changeInfluence(influencePlayer);
+            if(influencePlayer.getSchoolBoard().getTowers() - game.getTable().getGroupIslandByIndex(groupIsland).getNumberOfSingleIsland() <= 0){
                 game.setWinner(influencePlayer);
 
             } else{
-                influencePlayer.getSchoolBoard().removeTower(groupIsland.getNumberOfSingleIsland());
+                influencePlayer.getSchoolBoard().removeTower(game.getTable().getGroupIslandByIndex(groupIsland).getNumberOfSingleIsland());
             }
-        } else if(!(groupIsland.getInfluence().equals(influencePlayer))){
-            groupIsland.getInfluence().getSchoolBoard().addTower(groupIsland.getNumberOfSingleIsland());
-            groupIsland.changeInfluence(influencePlayer);
-            if(influencePlayer.getSchoolBoard().getTowers() - groupIsland.getNumberOfSingleIsland() <= 0){
+        } else if(!(game.getTable().getGroupIslandByIndex(groupIsland).getInfluence().equals(influencePlayer))){
+            game.getTable().getGroupIslandByIndex(groupIsland).getInfluence().getSchoolBoard().addTower(game.getTable().getGroupIslandByIndex(groupIsland).getNumberOfSingleIsland());
+            game.getTable().getGroupIslandByIndex(groupIsland).changeInfluence(influencePlayer);
+            if(influencePlayer.getSchoolBoard().getTowers() - game.getTable().getGroupIslandByIndex(groupIsland).getNumberOfSingleIsland() <= 0){
                 game.setWinner(influencePlayer);
 
             } else{
-                influencePlayer.getSchoolBoard().removeTower(groupIsland.getNumberOfSingleIsland());
+                influencePlayer.getSchoolBoard().removeTower(game.getTable().getGroupIslandByIndex(groupIsland).getNumberOfSingleIsland());
             }
         }
+        checkUnifyIsland(groupIsland);
     }
+
 
 
     public void checkProfessor(Colour colour) {
