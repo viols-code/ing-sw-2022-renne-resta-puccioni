@@ -199,6 +199,10 @@ public class GameController {
                     if(checkStudentsMovement(player)) {
                         game.getPlayerByIndex(player).getSchoolBoard().removeStudentFromEntrance(colour);
                         game.getPlayerByIndex(player).getSchoolBoard().addStudentToDiningRoom(colour);
+                        if(((game.getPlayerByIndex(player).getSchoolBoard().getDiningRoom(colour) + 1) % 3) == 0){
+                            game.getPlayerByIndex(player).addCoins(1);
+                            game.setCoins(game.getCoins() - 1);
+                        }
                         game.getActiveCharacterCard().checkProfessor(colour);
                     }
                 }
