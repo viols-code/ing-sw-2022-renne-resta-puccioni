@@ -68,15 +68,17 @@ public abstract class CharacterCard {
     }
 
     public Player calculateInfluence(GroupIsland groupIsland){
-
-       /* HashMap<Player, Integer> scores = new HashMap<>();
-
-        for(int i = 0; i < numberOfPlayer; i++){
-            scores.put(game.getPlayerByIndex(i), game.getActiveCharacterCard().calculateInfluence(game.getPlayerByIndex(i), groupIsland));
+        Player influencePlayer=game.getPlayerByIndex(0);
+        int maxInfluence=calculateInfluencePlayer(influencePlayer,groupIsland);
+        int influence;
+        for(int i=1; i<game.getNumberOfPlayer();i++){
+            influence=calculateInfluencePlayer(game.getPlayerByIndex(i),groupIsland);
+            if(influence>maxInfluence){
+                maxInfluence=influence;
+                influencePlayer=game.getPlayerByIndex(i);
+            }
         }
-
-        //Player player = scores.entrySet().stream(); ritorna il giocatore con la massima influenza*/
-        return game.getCurrentPlayer();
+        return influencePlayer;
     }
 
     /**
