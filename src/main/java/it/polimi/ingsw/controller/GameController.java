@@ -30,7 +30,6 @@ public class GameController {
      */
     private final int numberOfPlayer;
 
-    private Player winner;
 
     /**
      * Constructor: creates a GameController
@@ -40,7 +39,6 @@ public class GameController {
     public GameController(boolean isGameExpert, int numberOfPlayer) {
         this.isGameExpert = isGameExpert;
         this.numberOfPlayer = numberOfPlayer;
-        winner = null;
 
         if (isGameExpert) {
             game = new ExpertGame();
