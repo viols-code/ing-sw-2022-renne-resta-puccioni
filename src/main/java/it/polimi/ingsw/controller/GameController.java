@@ -125,14 +125,19 @@ public class GameController {
         }
     }
 
-    public void playCharacterCard(int player, int characterCard) {
+    public void playCharacterCard(int player, int characterCard) throws IllegalAccessError {
 
         if (isGameExpert) {
             if(game.getGamePhase() == GamePhase.PLAYING) {
                 if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
-                    if (!game.getHasPlayedCharacterCard()) {
+                    if (!game.getHasPlayedCharacterCard() && game.getCurrentPlayer().getCoins() >= game.getCharacterCardsByIndex(characterCard).getCost()) {
                         game.setActiveCharacterCard(game.getCharacterCardsByIndex(characterCard));
                         game.setHasPlayedCharacterCard(true);
+                        game.getCurrentPlayer().removeCoins(game.getCharacterCardsByIndex(characterCard).getCost());
+                        game.getCharacterCardsByIndex(characterCard).incrementCost();
+                        game.setCoins(game.getCoins() + game.getCharacterCardsByIndex(characterCard).getCost() - 1);
+                    } else {
+                        throw new IllegalAccessError("You haven't got enough coins to play this card");
                     }
                 }
             }
