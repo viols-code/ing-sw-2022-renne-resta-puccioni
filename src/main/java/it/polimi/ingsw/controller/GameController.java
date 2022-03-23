@@ -227,16 +227,15 @@ public class GameController {
     }
 
 
+    public void moveMotherNature(int player, int movement) {
 
-    public void moveMotherNature(int player, int movement){
+        if (game.getGamePhase() == GamePhase.PLAYING && game.getTurnPhase() == TurnPhase.MOVE_MOTHER_NATURE) {
+            if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
+                if (game.getActiveCharacterCard().checkMotherNatureMovement(player, movement)) {
+                    game.getActiveCharacterCard().calculateInfluence(game.getTable().getMotherNaturePosition() + movement);
 
-        if(game.getGamePhase() == GamePhase.PLAYING && game.getTurnPhase() == TurnPhase.MOVE_MOTHER_NATURE){
-            if(game.isCurrentPlayer(game.getPlayerByIndex(player))){
-                if(game.getActiveCharacterCard().checkMotherNatureMovement(player,movement)){
-                    game.getActiveCharacterCard().calculateInfluence(game.getTable().getMotherNaturePosition()+movement);
-
-                    if(game.getWinner()!=null)endGame();
-                    else if(game.getTable().getNumberOfGroupIsland()<=3)calculateWinner();
+                    if (game.getWinner() != null) endGame();
+                    else if (game.getTable().getNumberOfGroupIsland() <= 3) calculateWinner();
 
                     game.setTurnPhase(TurnPhase.CHOOSE_CLOUD_TILE);
                 }
@@ -245,9 +244,9 @@ public class GameController {
         }
     }
 
-    private boolean isBagEmpty(){
-        for(Colour colour:Colour.values()){
-            if(game.getTable().getBag().getBagStudent(colour)>0)
+    private boolean isBagEmpty() {
+        for (Colour colour : Colour.values()) {
+            if (game.getTable().getBag().getBagStudent(colour) > 0)
                 return false;
         }
         return true;
@@ -437,24 +436,25 @@ public class GameController {
 
         if (possibleWinner.size() == 1) {
             game.setWinner(possibleWinner.get(0));
-        if(possibleWinner.size() == 1){
-            game.setWinner(possibleWinner.get(0));
-            return;
-        } else {
-            for (int i = 0; i < possibleWinner.size(); i++) {
-                if (possibleWinner.get(i).getSchoolBoard().getNumberOfProfessors() > max) {
-                    max = possibleWinner.get(i).getSchoolBoard().getNumberOfProfessors();
+            if (possibleWinner.size() == 1) {
+                game.setWinner(possibleWinner.get(0));
+                return;
+            } else {
+                for (int i = 0; i < possibleWinner.size(); i++) {
+                    if (possibleWinner.get(i).getSchoolBoard().getNumberOfProfessors() > max) {
+                        max = possibleWinner.get(i).getSchoolBoard().getNumberOfProfessors();
+                    }
                 }
             }
-        }
 
-        for(int i = 0; i < possibleWinner.size(); i++){
-            if(possibleWinner.get(i).getSchoolBoard().getNumberOfProfessors() == max){
-                game.setWinner((possibleWinner.get(i)));
-                return;
+            for (int i = 0; i < possibleWinner.size(); i++) {
+                if (possibleWinner.get(i).getSchoolBoard().getNumberOfProfessors() == max) {
+                    game.setWinner((possibleWinner.get(i)));
+                    return;
+                }
             }
+
         }
 
     }
-
-}}
+}

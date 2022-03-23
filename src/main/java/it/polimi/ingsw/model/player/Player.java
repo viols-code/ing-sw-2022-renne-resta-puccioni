@@ -27,17 +27,14 @@ public abstract class Player {
      * a Set containing the AssistantCard of the player
      */
     protected final Set<AssistantCard> assistantCardSet;
-
-    /**
-     * card played by the player in the current round
-     */
-    protected AssistantCard currentAssistantCard;
-
     /**
      * the school board associated to the player
      */
     protected final SchoolBoard schoolBoard;
-
+    /**
+     * card played by the player in the current round
+     */
+    protected AssistantCard currentAssistantCard;
     /**
      * true if the player has already played in the round, false otherwise
      */
@@ -157,21 +154,21 @@ public abstract class Player {
      */
 
     /**
-     * Set hasAlreadyPlayed
-     *
-     * @param hasAlreadyPlayed true if the player has already played in the round, false otherwise
-     */
-    public void setHasAlreadyPlayed(boolean hasAlreadyPlayed) {
-        this.hasAlreadyPlayed = hasAlreadyPlayed;
-    }
-
-    /**
      * Return hasAlreadyPlayed
      *
      * @return true if the player has already played in the round, false otherwise
      */
     public boolean getHasAlreadyPlayed() {
         return hasAlreadyPlayed;
+    }
+
+    /**
+     * Set hasAlreadyPlayed
+     *
+     * @param hasAlreadyPlayed true if the player has already played in the round, false otherwise
+     */
+    public void setHasAlreadyPlayed(boolean hasAlreadyPlayed) {
+        this.hasAlreadyPlayed = hasAlreadyPlayed;
     }
 
     /*

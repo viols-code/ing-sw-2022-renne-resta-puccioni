@@ -21,47 +21,38 @@ public abstract class Game {
      * A List containing the players in the match
      */
     protected final List<Player> players;
-
-    /**
-     * Identifies the player who's playing his turn
-     */
-    protected Player currentPlayer;
-
-    /**
-     * Identifies the next player
-     */
-    protected Player nextPlayer;
-
-    /**
-     * the first player of the current round
-     */
-    protected Player firstPlayerTurn;
-
     /**
      * the table of the game
      */
     protected final Table table;
-
-    /**
-     * Number of the current round
-     */
-    protected int round;
-
-    /**
-     * the active character card
-     */
-    protected CharacterCard activeCharacterCard;
-
-    /**
-     * the basic state
-     */
-    protected CharacterCard basicState;
-
     /**
      * A List containing the assistant cards
      */
     protected final List<AssistantCard> assistantCard;
-
+    /**
+     * Identifies the player who's playing his turn
+     */
+    protected Player currentPlayer;
+    /**
+     * Identifies the next player
+     */
+    protected Player nextPlayer;
+    /**
+     * the first player of the current round
+     */
+    protected Player firstPlayerTurn;
+    /**
+     * Number of the current round
+     */
+    protected int round;
+    /**
+     * the active character card
+     */
+    protected CharacterCard activeCharacterCard;
+    /**
+     * the basic state
+     */
+    protected CharacterCard basicState;
     /**
      * Number of student that each Player has to move in a round
      */
@@ -88,7 +79,7 @@ public abstract class Game {
     protected TurnPhase turnPhase;
 
     /**
-    The winner of the game
+     * The winner of the game
      */
     protected Player winner;
 
@@ -219,21 +210,21 @@ public abstract class Game {
     }
 
     /**
-     * Get the current player
-     *
-     * @return the current player
-     */
-    public boolean isCurrentPlayer(Player player) {
-        return player.equals(currentPlayer);
-    }
-
-    /**
      * Set the current Player
      *
      * @param player the player to be set as the current player
      */
     public void setCurrentPlayer(Player player) {
         this.currentPlayer = player;
+    }
+
+    /**
+     * Get the current player
+     *
+     * @return the current player
+     */
+    public boolean isCurrentPlayer(Player player) {
+        return player.equals(currentPlayer);
     }
 
     /**
@@ -458,9 +449,13 @@ public abstract class Game {
     /*
     WINNER
     */
-    public Player getWinner(){return winner;}
+    public Player getWinner() {
+        return winner;
+    }
 
-    public void setWinner(Player winner){this.winner=winner;}
+    public void setWinner(Player winner) {
+        this.winner = winner;
+    }
 
 
     /*

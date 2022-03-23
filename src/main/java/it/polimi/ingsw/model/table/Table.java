@@ -15,17 +15,14 @@ public class Table {
      * A List containing the Groups of island in the match
      */
     private final List<GroupIsland> islands;
-
-
-    /**
-     * Position corresponding to the index in the List named islands
-     */
-    private int motherNaturePosition;
-
     /**
      * A List containing the cloudTiles
      */
     private final List<CloudTile> cloudTiles;
+    /**
+     * Position corresponding to the index in the List named islands
+     */
+    private int motherNaturePosition;
 
     /**
      * Constructor: creates a new game
