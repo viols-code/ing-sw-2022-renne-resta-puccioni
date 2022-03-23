@@ -16,6 +16,7 @@ public class Table {
      */
     private final List<GroupIsland> islands;
 
+
     /**
      * Position corresponding to the index in the List named islands
      */
@@ -99,6 +100,7 @@ public class Table {
     public int getNextGroupIslandClockWise() {
         return (getMotherNaturePosition() + 1) % islands.size();
     }
+
 
        /*
     MOTHER NATURE
