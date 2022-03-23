@@ -125,7 +125,7 @@ public class GameController {
         }
     }
 
-    public void playCharacterCard(int player, int characterCard) throws IllegalAccessError {
+    public void playCharacterCard(int player, int characterCard) {
 
         if (isGameExpert) {
             if(game.getGamePhase() == GamePhase.PLAYING) {
@@ -136,8 +136,6 @@ public class GameController {
                         game.getCurrentPlayer().removeCoins(game.getCharacterCardsByIndex(characterCard).getCost());
                         game.getCharacterCardsByIndex(characterCard).incrementCost();
                         game.setCoins(game.getCoins() + game.getCharacterCardsByIndex(characterCard).getCost() - 1);
-                    } else {
-                        throw new IllegalAccessError("You haven't got enough coins to play this card");
                     }
                 }
             }
@@ -196,10 +194,10 @@ public class GameController {
         if(game.getGamePhase() == GamePhase.PLAYING && game.getTurnPhase() == TurnPhase.MOVE_STUDENT){
             if(game.isCurrentPlayer(game.getPlayerByIndex(player))){
                 if(game.getPlayerByIndex(player).getSchoolBoard().getEntrance(colour) > 0){
-                    if(checkStudentsMovement(player)) {
+                    if(checkStudentsMovement(player) && game.getPlayerByIndex(player).getSchoolBoard().getDiningRoom(colour) < 10) {
                         game.getPlayerByIndex(player).getSchoolBoard().removeStudentFromEntrance(colour);
                         game.getPlayerByIndex(player).getSchoolBoard().addStudentToDiningRoom(colour);
-                        if(((game.getPlayerByIndex(player).getSchoolBoard().getDiningRoom(colour) + 1) % 3) == 0){
+                        if(isGameExpert && ((game.getPlayerByIndex(player).getSchoolBoard().getDiningRoom(colour) + 1) % 3) == 0){
                             game.getPlayerByIndex(player).addCoins(1);
                             game.setCoins(game.getCoins() - 1);
                         }
