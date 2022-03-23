@@ -253,7 +253,7 @@ public class GameController {
                         }
                     }
 
-                   game.getActiveCharacterCard().changeInfluenceGroupIsland(num);
+                   //game.getActiveCharacterCard().changeInfluenceGroupIsland(num);
                    game.setTurnPhase(TurnPhase.CHOOSE_CLOUD_TILE);
                 }
             }

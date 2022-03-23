@@ -84,7 +84,7 @@ public abstract class CharacterCard {
                 scores.put(game.getPlayerByIndex(i),calculateInfluencePlayer(game.getPlayerByIndex(i),groupIsland));
         }
 
-        Optional<Integer> maxInfluence=scores.entrySet().stream().map(y -> y.getValue()).max((y1, y2)->{if(y1>y2)return y1;
+        Integer maxInfluence = scores.values().stream().reduce(0,(y1, y2)->{if(y1>y2)return y1;
                                                                                 else return y2;});
 
         res = scores.entrySet()
@@ -103,11 +103,24 @@ public abstract class CharacterCard {
      * Checks if there is any change due to the change of the influence of the groupIsland selected
      * @param groupIsland
      */
-    public void changeInfluenceGroupIsland(Player newInfluencePlayer,GroupIsland groupIsland){
-        if(groupIsland.getInfluence().getSchoolBoard().getTowers() - groupIsland.getNumberOfSingleIsland() <= 0){
-            game.setWinner(groupIsland.getInfluence());
-        } else{
-            //groupIsland.getInfluence().getSchoolBoard().removeTower(.getNumberOfSingleIsland());
+    private void changeInfluenceGroupIsland(Player influencePlayer,GroupIsland groupIsland){
+        if(groupIsland.getInfluence()==null){
+            groupIsland.changeInfluence(influencePlayer);
+            if(influencePlayer.getSchoolBoard().getTowers() - groupIsland.getNumberOfSingleIsland() <= 0){
+                game.setWinner(influencePlayer);
+
+            } else{
+                influencePlayer.getSchoolBoard().removeTower(groupIsland.getNumberOfSingleIsland());
+            }
+        } else if(!(groupIsland.getInfluence().equals(influencePlayer))){
+            groupIsland.getInfluence().getSchoolBoard().addTower(groupIsland.getNumberOfSingleIsland());
+            groupIsland.changeInfluence(influencePlayer);
+            if(influencePlayer.getSchoolBoard().getTowers() - groupIsland.getNumberOfSingleIsland() <= 0){
+                game.setWinner(influencePlayer);
+
+            } else{
+                influencePlayer.getSchoolBoard().removeTower(groupIsland.getNumberOfSingleIsland());
+            }
         }
     }
 
