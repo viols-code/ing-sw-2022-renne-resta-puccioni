@@ -221,9 +221,7 @@ public class GameController {
         return false;
     }
 
-    private void setWinner(Player player){
-        this.winner = player;
-    }
+
 
     public void moveMotherNature(int player, int movement){
 
@@ -418,7 +416,7 @@ public class GameController {
         max = 0;
 
         if(possibleWinner.size() == 1){
-            setWinner(possibleWinner.get(0));
+            game.setWinner(possibleWinner.get(0));
             return;
         } else {
             for(int i = 0; i < possibleWinner.size(); i++){
@@ -430,7 +428,7 @@ public class GameController {
 
         for(int i = 0; i < possibleWinner.size(); i++){
             if(possibleWinner.get(i).getSchoolBoard().getNumberOfProfessors() == max){
-                setWinner((possibleWinner.get(i)));
+                game.setWinner((possibleWinner.get(i)));
                 return;
             }
         }
