@@ -36,11 +36,11 @@ public class StudentToIsland extends CharacterCard {
 
         studentsOnCard = new HashMap<>();
 
-        for(Colour colour : Colour.values()){
+        for (Colour colour : Colour.values()) {
             studentsOnCard.put(colour, 0);
         }
 
-        for(int i = 0; i < 4; i++){
+        for (int i = 0; i < 4; i++) {
             Colour colour = game.getTable().getBag().bagDrawStudent();
             studentsOnCard.replace(colour, studentsOnCard.get(colour), studentsOnCard.get(colour) + 1);
         }
@@ -50,13 +50,13 @@ public class StudentToIsland extends CharacterCard {
     /**
      * Set the colour of the chosen student and the island chosen
      *
-     * @param colour the colour of the student chosen
+     * @param colour       the colour of the student chosen
      * @param singleIsland the island chosen
      * @throws IllegalArgumentException if there is no such colour on the card
      */
     @Override
-    public void setColourAndIsland (Colour colour, SingleIsland singleIsland) throws IllegalArgumentException {
-        if(studentsOnCard.get(colour) == 0){
+    public void setColourAndIsland(Colour colour, SingleIsland singleIsland) throws IllegalArgumentException {
+        if (studentsOnCard.get(colour) == 0) {
             throw new IllegalArgumentException("There is no such colour on the card");
         }
 
@@ -69,7 +69,7 @@ public class StudentToIsland extends CharacterCard {
      * Activate the effect of the characterCard
      */
     @Override
-    public void effect(){
+    public void effect() {
         islandChosen.addStudent(colour);
         studentsOnCard.replace(colour, studentsOnCard.get(colour), studentsOnCard.get(colour) - 1);
         Colour newColour = game.getTable().getBag().bagDrawStudent();

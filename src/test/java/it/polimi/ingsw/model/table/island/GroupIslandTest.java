@@ -39,6 +39,7 @@ class GroupIslandTest {
 
     @Test
     void removeMotherNature() {
+        game.getTable().setMotherNaturePosition(0);
         assertTrue(game.getTable().getGroupIslandByIndex(0).getMotherNature());
         game.getTable().getGroupIslandByIndex(0).removeMotherNature();
         game.getTable().getGroupIslandByIndex(1).placeMotherNature();
@@ -48,6 +49,7 @@ class GroupIslandTest {
 
     @Test
     void placeMotherNature() {
+        game.getTable().setMotherNaturePosition(0);
         assertTrue(game.getTable().getGroupIslandByIndex(0).getMotherNature());
         game.getTable().getGroupIslandByIndex(0).removeMotherNature();
         game.getTable().getGroupIslandByIndex(2).placeMotherNature();

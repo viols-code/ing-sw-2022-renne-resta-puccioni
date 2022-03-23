@@ -161,7 +161,7 @@ public abstract class Player {
      *
      * @param hasAlreadyPlayed true if the player has already played in the round, false otherwise
      */
-    public void setHasAlreadyPlayed(boolean hasAlreadyPlayed){
+    public void setHasAlreadyPlayed(boolean hasAlreadyPlayed) {
         this.hasAlreadyPlayed = hasAlreadyPlayed;
     }
 
@@ -170,7 +170,7 @@ public abstract class Player {
      *
      * @return true if the player has already played in the round, false otherwise
      */
-    public boolean getHasAlreadyPlayed(){
+    public boolean getHasAlreadyPlayed() {
         return hasAlreadyPlayed;
     }
 

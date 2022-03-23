@@ -2,8 +2,8 @@ package it.polimi.ingsw.model.card;
 
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.Game;
-import it.polimi.ingsw.model.table.island.GroupIsland;
 import it.polimi.ingsw.model.player.Player;
+import it.polimi.ingsw.model.table.island.GroupIsland;
 
 public class NoTower extends CharacterCard {
 

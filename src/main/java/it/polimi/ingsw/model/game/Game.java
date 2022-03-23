@@ -192,9 +192,9 @@ public abstract class Game {
     public Player nextPlayerTurn() {
         int min = 11;
 
-        for(int i = 0; i < getNumberOfPlayer(); i++){
-            if(!getPlayerByIndex(i).getHasAlreadyPlayed()){
-                if(getPlayerByIndex(i).getCurrentAssistantCard().getValue() < min){
+        for (int i = 0; i < getNumberOfPlayer(); i++) {
+            if (!getPlayerByIndex(i).getHasAlreadyPlayed()) {
+                if (getPlayerByIndex(i).getCurrentAssistantCard().getValue() < min) {
                     min = getPlayerByIndex(i).getCurrentAssistantCard().getValue();
                     nextPlayer = getPlayerByIndex(i);
                 }
@@ -487,9 +487,9 @@ public abstract class Game {
      * Gets the number of coins available on the table
      *
      * @return the number of coins available
-     * @throws  IllegalAccessError if the game is not expert
+     * @throws IllegalAccessError if the game is not expert
      */
-    public int getCoins() throws IllegalAccessError{
+    public int getCoins() throws IllegalAccessError {
         throw new IllegalAccessError("This is for the Expert Mode");
     }
 
@@ -497,9 +497,9 @@ public abstract class Game {
      * Sets the number of coins available on the table
      *
      * @param coins the coins
-     * @throws  IllegalAccessError if the game is not expert
+     * @throws IllegalAccessError if the game is not expert
      */
-    public void setCoins(int coins) throws IllegalAccessError{
+    public void setCoins(int coins) throws IllegalAccessError {
         throw new IllegalAccessError("This is for the Expert Mode");
     }
 

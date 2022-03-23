@@ -26,7 +26,7 @@ public class MotherNatureMovement extends CharacterCard {
 
     @Override
     public boolean checkMotherNatureMovement(int player, int movement) {
-        if(game.getPlayerByIndex(player).getCurrentAssistantCard().getMotherNatureMovement() + 2 >= movement){
+        if (game.getPlayerByIndex(player).getCurrentAssistantCard().getMotherNatureMovement() + 2 >= movement) {
             return true;
         }
 

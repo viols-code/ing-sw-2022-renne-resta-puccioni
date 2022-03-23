@@ -3,17 +3,14 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.card.*;
 import it.polimi.ingsw.model.game.*;
-import it.polimi.ingsw.model.player.Player;
-import it.polimi.ingsw.model.table.island.AdvancedGroupIsland;
-import it.polimi.ingsw.model.table.island.BasicGroupIsland;
-import it.polimi.ingsw.model.table.island.GroupIsland;
 import it.polimi.ingsw.model.player.BasicPlayer;
 import it.polimi.ingsw.model.player.ExpertPlayer;
+import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.Wizard;
 import it.polimi.ingsw.model.table.CloudTile;
-import it.polimi.ingsw.model.table.island.SingleIsland;
+import it.polimi.ingsw.model.table.island.AdvancedGroupIsland;
+import it.polimi.ingsw.model.table.island.BasicGroupIsland;
 
-import javax.swing.*;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
@@ -91,9 +88,9 @@ public class GameController {
         return game;
     }
 
-    public void setting(){
+    public void setting() {
         game.getTable().setMotherNaturePosition(0);
-        if(numberOfPlayer == 3){
+        if (numberOfPlayer == 3) {
             game.setNumberOfTowersPerPlayer(6);
             game.setNumberStudentsEntrance(9);
             game.setStudentNumberMovement(4);
@@ -103,24 +100,24 @@ public class GameController {
             game.setStudentNumberMovement(3);
         }
 
-        for(Colour colour: Colour.values()){
-            for(int i=0;i<2;i++){
+        for (Colour colour : Colour.values()) {
+            for (int i = 0; i < 2; i++) {
                 game.getTable().getBag().addStudentBag(colour);
             }
         }
 
-        for(int i=1;i<12;i++){
-            if(i==5)i++;
+        for (int i = 1; i < 12; i++) {
+            if (i == 5) i++;
             game.getTable().getGroupIslandByIndex(i).getIslandByIndex(0).addStudent(game.getTable().getBag().bagDrawStudent());
         }
 
-        for(Colour colour: Colour.values()){
-            for(int i=0;i<24;i++){
+        for (Colour colour : Colour.values()) {
+            for (int i = 0; i < 24; i++) {
                 game.getTable().getBag().addStudentBag(colour);
             }
         }
 
-        for(int i = 0; i < numberOfPlayer; i++){
+        for (int i = 0; i < numberOfPlayer; i++) {
             createCloudTile();
         }
     }
@@ -128,7 +125,7 @@ public class GameController {
     public void playCharacterCard(int player, int characterCard) {
 
         if (isGameExpert) {
-            if(game.getGamePhase() == GamePhase.PLAYING) {
+            if (game.getGamePhase() == GamePhase.PLAYING) {
                 if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
                     if (!game.getHasPlayedCharacterCard() && game.getCurrentPlayer().getCoins() >= game.getCharacterCardsByIndex(characterCard).getCost()) {
                         game.setActiveCharacterCard(game.getCharacterCardsByIndex(characterCard));
@@ -144,10 +141,10 @@ public class GameController {
 
     public void playAssistantCard(int player, int assistantCard) {
 
-        if(game.getGamePhase() == GamePhase.PLAY_ASSISTANT_CARD){
-            if (game.isCurrentPlayer(game.getPlayerByIndex(player))){
-                if(game.getPlayerByIndex(player).isAssistantCardPresent(game.getAssistantCard(assistantCard))){
-                    if(canPlayAssistantCard(player, assistantCard)) {
+        if (game.getGamePhase() == GamePhase.PLAY_ASSISTANT_CARD) {
+            if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
+                if (game.getPlayerByIndex(player).isAssistantCardPresent(game.getAssistantCard(assistantCard))) {
+                    if (canPlayAssistantCard(player, assistantCard)) {
                         game.getPlayerByIndex(player).setCurrentAssistantCard(game.getAssistantCard(assistantCard));
                         game.getPlayerByIndex(player).removeAssistantCard(game.getAssistantCard(assistantCard));
                         game.getPlayerByIndex(player).setHasAlreadyPlayed(true);
@@ -163,21 +160,22 @@ public class GameController {
         }
     }
 
-    private boolean canPlayAssistantCard(int player, int assistantCard){
-        for(int i=0;i<player;i++){
-            if(game.getPlayerByIndex(i).getHasAlreadyPlayed()){
-                if(game.getPlayerByIndex(i).getCurrentAssistantCard().equals(game.getAssistantCard(assistantCard))) return false;
+    private boolean canPlayAssistantCard(int player, int assistantCard) {
+        for (int i = 0; i < player; i++) {
+            if (game.getPlayerByIndex(i).getHasAlreadyPlayed()) {
+                if (game.getPlayerByIndex(i).getCurrentAssistantCard().equals(game.getAssistantCard(assistantCard)))
+                    return false;
             }
         }
         return true;
     }
 
-    public void moveStudentToIsland(int player, Colour colour, int groupIsland, int singleIsland){
+    public void moveStudentToIsland(int player, Colour colour, int groupIsland, int singleIsland) {
 
-        if(game.getGamePhase() == GamePhase.PLAYING && game.getTurnPhase() == TurnPhase.MOVE_STUDENT){
-            if(game.isCurrentPlayer(game.getPlayerByIndex(player))){
-                if(game.getPlayerByIndex(player).getSchoolBoard().getEntrance(colour) > 0){
-                    if(checkStudentsMovement(player)) {
+        if (game.getGamePhase() == GamePhase.PLAYING && game.getTurnPhase() == TurnPhase.MOVE_STUDENT) {
+            if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
+                if (game.getPlayerByIndex(player).getSchoolBoard().getEntrance(colour) > 0) {
+                    if (checkStudentsMovement(player)) {
                         game.getTable().getGroupIslandByIndex(groupIsland).getIslandByIndex(singleIsland).addStudent(colour);
                         game.getPlayerByIndex(player).getSchoolBoard().removeStudentFromEntrance(colour);
                     }
@@ -185,19 +183,19 @@ public class GameController {
             }
         }
 
-        if(checkEndMovementPhase(player)){
+        if (checkEndMovementPhase(player)) {
             game.setTurnPhase(TurnPhase.MOVE_MOTHER_NATURE);
         }
     }
 
-    public void moveStudentToDiningRoom(int player, Colour colour){
-        if(game.getGamePhase() == GamePhase.PLAYING && game.getTurnPhase() == TurnPhase.MOVE_STUDENT){
-            if(game.isCurrentPlayer(game.getPlayerByIndex(player))){
-                if(game.getPlayerByIndex(player).getSchoolBoard().getEntrance(colour) > 0){
-                    if(checkStudentsMovement(player) && game.getPlayerByIndex(player).getSchoolBoard().getDiningRoom(colour) < 10) {
+    public void moveStudentToDiningRoom(int player, Colour colour) {
+        if (game.getGamePhase() == GamePhase.PLAYING && game.getTurnPhase() == TurnPhase.MOVE_STUDENT) {
+            if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
+                if (game.getPlayerByIndex(player).getSchoolBoard().getEntrance(colour) > 0) {
+                    if (checkStudentsMovement(player) && game.getPlayerByIndex(player).getSchoolBoard().getDiningRoom(colour) < 10) {
                         game.getPlayerByIndex(player).getSchoolBoard().removeStudentFromEntrance(colour);
                         game.getPlayerByIndex(player).getSchoolBoard().addStudentToDiningRoom(colour);
-                        if(isGameExpert && ((game.getPlayerByIndex(player).getSchoolBoard().getDiningRoom(colour) + 1) % 3) == 0){
+                        if (isGameExpert && ((game.getPlayerByIndex(player).getSchoolBoard().getDiningRoom(colour) + 1) % 3) == 0) {
                             game.getPlayerByIndex(player).addCoins(1);
                             game.setCoins(game.getCoins() - 1);
                         }
@@ -207,77 +205,76 @@ public class GameController {
             }
         }
 
-        if(checkEndMovementPhase(player)){
+        if (checkEndMovementPhase(player)) {
             game.setTurnPhase(TurnPhase.MOVE_MOTHER_NATURE);
         }
     }
 
-    private boolean checkStudentsMovement(int player){
-        if(game.getPlayerByIndex(player).getSchoolBoard().getNumberStudentsEntrance() >= game.getNumberStudentsEntrance() - 4){
+    private boolean checkStudentsMovement(int player) {
+        if (game.getPlayerByIndex(player).getSchoolBoard().getNumberStudentsEntrance() >= game.getNumberStudentsEntrance() - 4) {
             return true;
         }
 
         return false;
     }
 
-    private boolean checkEndMovementPhase(int player){
-        if(game.getPlayerByIndex(player).getSchoolBoard().getNumberStudentsEntrance() == 4){
+    private boolean checkEndMovementPhase(int player) {
+        if (game.getPlayerByIndex(player).getSchoolBoard().getNumberStudentsEntrance() == 4) {
             return true;
         }
 
         return false;
     }
 
-    private void setWinner(Player player){
+    private void setWinner(Player player) {
         this.winner = player;
     }
 
-    public void moveMotherNature(int player, int movement){
+    public void moveMotherNature(int player, int movement) {
 
-        if(game.getGamePhase() == GamePhase.PLAYING && game.getTurnPhase() == TurnPhase.MOVE_MOTHER_NATURE){
-            if(game.isCurrentPlayer(game.getPlayerByIndex(player))){
-                if(game.getActiveCharacterCard().checkMotherNatureMovement(player, movement)){
-                   int num = (game.getTable().getMotherNaturePosition() + movement) % game.getTable().getNumberOfGroupIsland();
-                   game.getTable().setMotherNaturePosition(num);
+        if (game.getGamePhase() == GamePhase.PLAYING && game.getTurnPhase() == TurnPhase.MOVE_MOTHER_NATURE) {
+            if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
+                if (game.getActiveCharacterCard().checkMotherNatureMovement(player, movement)) {
+                    int num = (game.getTable().getMotherNaturePosition() + movement) % game.getTable().getNumberOfGroupIsland();
+                    game.getTable().setMotherNaturePosition(num);
 
                     Player influencePlayer = game.getActiveCharacterCard().calculateInfluence(game.getTable().getGroupIslandByIndex(num));
-                    if(game.getTable().getGroupIslandByIndex(num).getInfluence()==null){
+                    if (game.getTable().getGroupIslandByIndex(num).getInfluence() == null) {
                         game.getTable().getGroupIslandByIndex(num).changeInfluence(influencePlayer);
-                        if(influencePlayer.getSchoolBoard().getTowers() - game.getTable().getGroupIslandByIndex(num).getNumberOfSingleIsland() <= 0){
+                        if (influencePlayer.getSchoolBoard().getTowers() - game.getTable().getGroupIslandByIndex(num).getNumberOfSingleIsland() <= 0) {
                             setWinner(influencePlayer);
                             endGame();
-                        } else{
+                        } else {
                             influencePlayer.getSchoolBoard().removeTower(game.getTable().getGroupIslandByIndex(num).getNumberOfSingleIsland());
                         }
-                    } else if(!(game.getTable().getGroupIslandByIndex(num).getInfluence().equals(influencePlayer))){
+                    } else if (!(game.getTable().getGroupIslandByIndex(num).getInfluence().equals(influencePlayer))) {
                         game.getTable().getGroupIslandByIndex(num).getInfluence().getSchoolBoard().addTower(game.getTable().getGroupIslandByIndex(num).getNumberOfSingleIsland());
                         game.getTable().getGroupIslandByIndex(num).changeInfluence(influencePlayer);
-                        if(influencePlayer.getSchoolBoard().getTowers() - game.getTable().getGroupIslandByIndex(num).getNumberOfSingleIsland() <= 0){
+                        if (influencePlayer.getSchoolBoard().getTowers() - game.getTable().getGroupIslandByIndex(num).getNumberOfSingleIsland() <= 0) {
                             setWinner(influencePlayer);
                             endGame();
-                        } else{
+                        } else {
                             influencePlayer.getSchoolBoard().removeTower(game.getTable().getGroupIslandByIndex(num).getNumberOfSingleIsland());
                         }
                     }
 
-                   game.getActiveCharacterCard().changeInfluenceGroupIsland(num);
-                   game.setTurnPhase(TurnPhase.CHOOSE_CLOUD_TILE);
+                    game.getActiveCharacterCard().changeInfluenceGroupIsland(num);
+                    game.setTurnPhase(TurnPhase.CHOOSE_CLOUD_TILE);
                 }
             }
         }
     }
 
-    private void endGame(){
+    private void endGame() {
 
     }
 
 
-
-    private boolean endPhasePlay(){
+    private boolean endPhasePlay() {
         boolean endPhase = true;
 
-        for(int i = 0; i < numberOfPlayer; i++){
-            if(!game.getPlayerByIndex(i).getHasAlreadyPlayed()){
+        for (int i = 0; i < numberOfPlayer; i++) {
+            if (!game.getPlayerByIndex(i).getHasAlreadyPlayed()) {
                 endPhase = false;
             }
         }
@@ -285,7 +282,7 @@ public class GameController {
         return endPhase;
     }
 
-    private void endPlayAssistantCard(){
+    private void endPlayAssistantCard() {
         game.setGamePhase(GamePhase.PLAYING);
         nobodyPlayed();
         game.setCurrentPlayer(game.nextPlayerTurn());
@@ -293,8 +290,8 @@ public class GameController {
         game.setTurnPhase(TurnPhase.MOVE_STUDENT);
     }
 
-    private void nobodyPlayed(){
-        for(int i = 0; i < numberOfPlayer; i++){
+    private void nobodyPlayed() {
+        for (int i = 0; i < numberOfPlayer; i++) {
             game.getPlayerByIndex(i).setHasAlreadyPlayed(false);
         }
     }
@@ -307,20 +304,20 @@ public class GameController {
      */
     public void addPlayer(String nickname, Wizard wizard) {
         if (isGameExpert) {
-            if(checkUniqueNickname(nickname)) {
-                if(checkUniqueWizard(wizard)) { //altrimenti mandiamo un messaggio di cambiare nickname/wizard
+            if (checkUniqueNickname(nickname)) {
+                if (checkUniqueWizard(wizard)) { //altrimenti mandiamo un messaggio di cambiare nickname/wizard
                     game.addPlayer(new ExpertPlayer(nickname, wizard));
                 }
             }
         } else {
-            if(checkUniqueNickname(nickname)){
-                if(checkUniqueWizard(wizard)){
+            if (checkUniqueNickname(nickname)) {
+                if (checkUniqueWizard(wizard)) {
                     game.addPlayer(new BasicPlayer(nickname, wizard));
                 }
             }
         }
 
-        if(numberOfPlayer==game.getNumberOfPlayer()){
+        if (numberOfPlayer == game.getNumberOfPlayer()) {
             game.setCurrentPlayer(game.getPlayerByIndex(0));
             game.setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
         }
@@ -332,11 +329,11 @@ public class GameController {
      * @param nickname
      * @return a boolean which says if the nickname has already been taken
      */
-    private boolean checkUniqueNickname(String nickname){
+    private boolean checkUniqueNickname(String nickname) {
 
-        for(int i = 0; i < numberOfPlayer; i++){
-            if(game.getPlayerByIndex(i)!=game.getCurrentPlayer()){
-                if(game.getPlayerByIndex(i).getNickname().equals(game.getCurrentPlayer().getNickname())){
+        for (int i = 0; i < numberOfPlayer; i++) {
+            if (game.getPlayerByIndex(i) != game.getCurrentPlayer()) {
+                if (game.getPlayerByIndex(i).getNickname().equals(game.getCurrentPlayer().getNickname())) {
                     return false;
                 }
             }
@@ -351,11 +348,11 @@ public class GameController {
      * @param wizard
      * @return a boolean which says if the wizard has already been taken
      */
-    private boolean checkUniqueWizard(Wizard wizard){
+    private boolean checkUniqueWizard(Wizard wizard) {
 
-        for(int i = 0; i < numberOfPlayer; i++){
-            if(game.getPlayerByIndex(i)!=game.getCurrentPlayer()){
-                if(game.getPlayerByIndex(i).getWizard()==game.getCurrentPlayer().getWizard()){
+        for (int i = 0; i < numberOfPlayer; i++) {
+            if (game.getPlayerByIndex(i) != game.getCurrentPlayer()) {
+                if (game.getPlayerByIndex(i).getWizard() == game.getCurrentPlayer().getWizard()) {
                     return false;
                 }
             }
@@ -365,13 +362,13 @@ public class GameController {
     }
 
 
-    private void createCloudTile(){
+    private void createCloudTile() {
         HashMap<Colour, Integer> students = new HashMap<>();
-        for(Colour colour : Colour.values()){
+        for (Colour colour : Colour.values()) {
             students.put(colour, 0);
         }
 
-        for(int i = 0; i < game.getStudentNumberMovement(); i++){
+        for (int i = 0; i < game.getStudentNumberMovement(); i++) {
             Colour colour1 = game.getTable().getBag().bagDrawStudent();
             students.replace(colour1, students.get(colour1), students.get(colour1) + 1);
         }
@@ -379,19 +376,19 @@ public class GameController {
         game.getTable().addCLoudTile(new CloudTile(students));
     }
 
-    public void chooseCloudTile(int player, int cloudTile){
+    public void chooseCloudTile(int player, int cloudTile) {
 
-        if(game.getGamePhase() == GamePhase.PLAYING && game.getTurnPhase() == TurnPhase.CHOOSE_CLOUD_TILE){
-            if(game.isCurrentPlayer(game.getPlayerByIndex(player))){
-                for(Colour colour : Colour.values()) {
-                    for(int i = 0; i < game.getTable().getCloudTilesByIndex(cloudTile).getTileStudents(colour); i++){
+        if (game.getGamePhase() == GamePhase.PLAYING && game.getTurnPhase() == TurnPhase.CHOOSE_CLOUD_TILE) {
+            if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
+                for (Colour colour : Colour.values()) {
+                    for (int i = 0; i < game.getTable().getCloudTilesByIndex(cloudTile).getTileStudents(colour); i++) {
                         game.getCurrentPlayer().getSchoolBoard().addStudentToEntrance(colour);
                     }
                 }
 
                 game.getCurrentPlayer().setHasAlreadyPlayed(true);
 
-                if(!(endPhasePlay())){
+                if (!(endPhasePlay())) {
                     game.setCurrentPlayer(game.nextPlayerTurn());
                     game.setTurnPhase(TurnPhase.MOVE_STUDENT);
                 } else {
@@ -400,7 +397,7 @@ public class GameController {
                     game.setTurnPhase(TurnPhase.WAITING);
                     game.incrementRound();
                     nobodyPlayed();
-                    if(game.getRound() >= 11){
+                    if (game.getRound() >= 11) {
                         calculateWinner();
                         endGame();
                     }
@@ -410,15 +407,15 @@ public class GameController {
         }
     }
 
-    public void setColour(Colour colour){
+    public void setColour(Colour colour) {
         game.getActiveCharacterCard().setColour(colour);
     }
 
-    public void setColourAndIsland(Colour colour, int groupIsland, int singleIsland){
+    public void setColourAndIsland(Colour colour, int groupIsland, int singleIsland) {
         game.getActiveCharacterCard().setColourAndIsland(colour, game.getTable().getGroupIslandByIndex(groupIsland).getIslandByIndex(singleIsland));
     }
 
-    public void setGroupIsland(int groupIsland){
+    public void setGroupIsland(int groupIsland) {
         game.getActiveCharacterCard().setGroupIsland(game.getTable().getGroupIslandByIndex(groupIsland));
     }
 
@@ -427,42 +424,42 @@ public class GameController {
     }
 
     public void setColourCardEntrance(Colour colourCard, Colour colourEntrance) {
-       game.getActiveCharacterCard().setColourCardEntrance(colourCard, colourEntrance);
+        game.getActiveCharacterCard().setColourCardEntrance(colourCard, colourEntrance);
     }
 
 
-    private void calculateWinner(){
+    private void calculateWinner() {
 
         int max = 0;
         List<Player> possibleWinner = new ArrayList<>();
 
-        for(int i = 0; i < numberOfPlayer; i++){
-            if(game.getPlayerByIndex(i).getSchoolBoard().getTowers() > max){
+        for (int i = 0; i < numberOfPlayer; i++) {
+            if (game.getPlayerByIndex(i).getSchoolBoard().getTowers() > max) {
                 max = game.getPlayerByIndex(i).getSchoolBoard().getTowers();
             }
         }
 
-        for(int i = 0; i < numberOfPlayer; i++){
-            if(game.getPlayerByIndex(i).getSchoolBoard().getTowers() == max){
+        for (int i = 0; i < numberOfPlayer; i++) {
+            if (game.getPlayerByIndex(i).getSchoolBoard().getTowers() == max) {
                 possibleWinner.add(game.getPlayerByIndex(i));
             }
         }
 
         max = 0;
 
-        if(possibleWinner.size() == 1){
+        if (possibleWinner.size() == 1) {
             setWinner(possibleWinner.get(0));
             return;
         } else {
-            for(int i = 0; i < possibleWinner.size(); i++){
-                if(possibleWinner.get(i).getSchoolBoard().getNumberOfProfessors() > max){
+            for (int i = 0; i < possibleWinner.size(); i++) {
+                if (possibleWinner.get(i).getSchoolBoard().getNumberOfProfessors() > max) {
                     max = possibleWinner.get(i).getSchoolBoard().getNumberOfProfessors();
                 }
             }
         }
 
-        for(int i = 0; i < possibleWinner.size(); i++){
-            if(possibleWinner.get(i).getSchoolBoard().getNumberOfProfessors() == max){
+        for (int i = 0; i < possibleWinner.size(); i++) {
+            if (possibleWinner.get(i).getSchoolBoard().getNumberOfProfessors() == max) {
                 setWinner((possibleWinner.get(i)));
                 return;
             }

@@ -2,9 +2,9 @@ package it.polimi.ingsw.model.card;
 
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.Game;
+import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.table.island.GroupIsland;
 import it.polimi.ingsw.model.table.island.SingleIsland;
-import it.polimi.ingsw.model.player.Player;
 
 public abstract class CharacterCard {
     protected Game game;
@@ -67,7 +67,7 @@ public abstract class CharacterCard {
         return influence;
     }
 
-    public Player calculateInfluence(GroupIsland groupIsland){
+    public Player calculateInfluence(GroupIsland groupIsland) {
 
        /* HashMap<Player, Integer> scores = new HashMap<>();
 
@@ -81,15 +81,16 @@ public abstract class CharacterCard {
 
     /**
      * change the influence on a group island
+     *
      * @param num
      */
-    public void changeInfluenceGroupIsland(int num){
+    public void changeInfluenceGroupIsland(int num) {
 
     }
 
 
     public void checkProfessor(Colour colour) {
-        for(int i = 0; i<game.getNumberOfPlayer(); i++){
+        for (int i = 0; i < game.getNumberOfPlayer(); i++) {
             if (game.getCurrentPlayer().getSchoolBoard().getDiningRoom(colour) > game.getPlayerByIndex(i).getSchoolBoard().getDiningRoom(colour)) {
                 game.getCurrentPlayer().getSchoolBoard().hasProfessor(colour);
             }
@@ -97,7 +98,7 @@ public abstract class CharacterCard {
     }
 
     public boolean checkMotherNatureMovement(int player, int movement) {
-        if(game.getPlayerByIndex(player).getCurrentAssistantCard().getMotherNatureMovement() >= movement){
+        if (game.getPlayerByIndex(player).getCurrentAssistantCard().getMotherNatureMovement() >= movement) {
             return true;
         }
 
@@ -120,7 +121,7 @@ public abstract class CharacterCard {
      * @param colour the colour chosen
      * @param island the island chosen
      */
-    public void setColourAndIsland(Colour colour, SingleIsland island){
+    public void setColourAndIsland(Colour colour, SingleIsland island) {
 
     }
 
@@ -130,7 +131,7 @@ public abstract class CharacterCard {
      *
      * @param groupIsland
      */
-    public void setGroupIsland(GroupIsland groupIsland){
+    public void setGroupIsland(GroupIsland groupIsland) {
 
     }
 
@@ -169,13 +170,13 @@ public abstract class CharacterCard {
         }
     }
 
-    public void checkUnifyIsland(int groupIsland){
+    public void checkUnifyIsland(int groupIsland) {
 
-        if(game.getTable().getIslandAfter(groupIsland).getInfluence().equals(game.getTable().getGroupIslandByIndex(groupIsland).getInfluence())){
+        if (game.getTable().getIslandAfter(groupIsland).getInfluence().equals(game.getTable().getGroupIslandByIndex(groupIsland).getInfluence())) {
             unifyGroupIsland(game.getTable().getGroupIslandByIndex(groupIsland), game.getTable().getIslandAfter(groupIsland));
         }
 
-        if(game.getTable().getIslandBefore(groupIsland).getInfluence().equals(game.getTable().getGroupIslandByIndex(groupIsland).getInfluence())){
+        if (game.getTable().getIslandBefore(groupIsland).getInfluence().equals(game.getTable().getGroupIslandByIndex(groupIsland).getInfluence())) {
             unifyGroupIsland(game.getTable().getGroupIslandByIndex(groupIsland), game.getTable().getIslandBefore(groupIsland));
         }
 

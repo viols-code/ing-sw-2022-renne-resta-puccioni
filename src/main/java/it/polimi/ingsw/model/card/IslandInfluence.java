@@ -25,7 +25,7 @@ public class IslandInfluence extends CharacterCard {
      * @param groupIsland
      */
     @Override
-    public void setGroupIsland(GroupIsland groupIsland){
+    public void setGroupIsland(GroupIsland groupIsland) {
         this.islandChosen = groupIsland;
         this.effect();
     }
@@ -34,7 +34,7 @@ public class IslandInfluence extends CharacterCard {
      * Activates the effect of the characterCard
      */
     @Override
-    public void effect(){
+    public void effect() {
 
         calculateInfluencePlayer(game.getCurrentPlayer(), islandChosen);
 

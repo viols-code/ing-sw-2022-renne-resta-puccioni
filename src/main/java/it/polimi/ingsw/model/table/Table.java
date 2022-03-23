@@ -96,7 +96,7 @@ public class Table {
      *
      * @return the next island where mother nature will pass
      */
-    public int getNextGroupIslandClockWise(){
+    public int getNextGroupIslandClockWise() {
         return (getMotherNaturePosition() + 1) % islands.size();
     }
 
@@ -164,12 +164,12 @@ public class Table {
         cloudTiles.remove(cloudTile);
     }
 
-    public GroupIsland getIslandAfter(int groupIsland){
-        return getGroupIslandByIndex((groupIsland+1) % islands.size());
+    public GroupIsland getIslandAfter(int groupIsland) {
+        return getGroupIslandByIndex((groupIsland + 1) % islands.size());
     }
 
-    public GroupIsland getIslandBefore(int groupIsland){
-        return getGroupIslandByIndex((groupIsland-1) % islands.size());
+    public GroupIsland getIslandBefore(int groupIsland) {
+        return getGroupIslandByIndex((groupIsland - 1) % islands.size());
     }
 
 }

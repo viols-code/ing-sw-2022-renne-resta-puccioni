@@ -188,21 +188,21 @@ public class SchoolBoard {
         towers -= num;
     }
 
-    public int getNumberStudentsEntrance(){
+    public int getNumberStudentsEntrance() {
         int count = 0;
 
-        for(Colour colour : Colour.values()){
+        for (Colour colour : Colour.values()) {
             count += getEntrance(colour);
         }
 
         return count;
     }
 
-    public int getNumberOfProfessors(){
+    public int getNumberOfProfessors() {
         int count = 0;
 
-        for(Colour colour : Colour.values()){
-            if(hasProfessor(colour)){
+        for (Colour colour : Colour.values()) {
+            if (hasProfessor(colour)) {
                 count++;
             }
         }

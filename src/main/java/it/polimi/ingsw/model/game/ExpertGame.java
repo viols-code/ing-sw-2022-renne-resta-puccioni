@@ -18,7 +18,7 @@ public class ExpertGame extends Game {
     private boolean hasPlayedCharacterCard;
 
     /**
-    * Number of coins available
+     * Number of coins available
      */
     private int coins;
 
@@ -27,7 +27,7 @@ public class ExpertGame extends Game {
         characterCards = new ArrayList<>();
         basicState = super.getActiveCharacterCard();
         hasPlayedCharacterCard = false;
-        coins=20-getNumberOfPlayer();
+        coins = 20 - getNumberOfPlayer();
     }
 
     /**
@@ -98,7 +98,7 @@ public class ExpertGame extends Game {
      *
      * @return the number of coins available
      */
-    public int getCoins(){
+    public int getCoins() {
         return coins;
     }
 
@@ -107,8 +107,8 @@ public class ExpertGame extends Game {
      *
      * @param coins the coins
      */
-    public void setCoins(int coins){
-        this.coins=coins;
+    public void setCoins(int coins) {
+        this.coins = coins;
     }
 
 }

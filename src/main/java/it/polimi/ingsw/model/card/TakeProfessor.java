@@ -19,11 +19,11 @@ public class TakeProfessor extends CharacterCard {
      * @param colour
      */
     @Override
-    public void checkProfessor(Colour colour){
-        for(int i = 0; i<game.getNumberOfPlayer(); i++){
-                if (game.getCurrentPlayer().getSchoolBoard().getDiningRoom(colour) >= game.getPlayerByIndex(i).getSchoolBoard().getDiningRoom(colour)) {
-                    game.getCurrentPlayer().getSchoolBoard().hasProfessor(colour);
-                }
+    public void checkProfessor(Colour colour) {
+        for (int i = 0; i < game.getNumberOfPlayer(); i++) {
+            if (game.getCurrentPlayer().getSchoolBoard().getDiningRoom(colour) >= game.getPlayerByIndex(i).getSchoolBoard().getDiningRoom(colour)) {
+                game.getCurrentPlayer().getSchoolBoard().hasProfessor(colour);
+            }
         }
 
         //game.setActiveCharacterCard(game.getBasicState());
