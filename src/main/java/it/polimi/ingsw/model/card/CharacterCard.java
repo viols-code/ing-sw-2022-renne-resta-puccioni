@@ -6,6 +6,11 @@ import it.polimi.ingsw.model.table.island.GroupIsland;
 import it.polimi.ingsw.model.table.island.SingleIsland;
 import it.polimi.ingsw.model.player.Player;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public abstract class CharacterCard {
     protected Game game;
     protected int initialCost;
@@ -67,26 +72,52 @@ public abstract class CharacterCard {
         return influence;
     }
 
-    public Player calculateInfluence(GroupIsland groupIsland){
-        Player influencePlayer=game.getPlayerByIndex(0);
-        int maxInfluence=calculateInfluencePlayer(influencePlayer,groupIsland);
-        int influence;
-        for(int i=1; i<game.getNumberOfPlayer();i++){
-            influence=calculateInfluencePlayer(game.getPlayerByIndex(i),groupIsland);
-            if(influence>maxInfluence){
-                maxInfluence=influence;
-                influencePlayer=game.getPlayerByIndex(i);
-            }
+    /**
+     * Updates the influence of a group island if necessary
+     *
+     * @param groupIsland the groupIsland
+     * @return
+     */
+    public void calculateInfluence(GroupIsland groupIsland){
+        HashMap<Player,Integer> scores=new HashMap<>();
+        List<Player> res=new ArrayList<>();
+        for(int i=0;i<game.getNumberOfPlayer();i++){
+            if(!game.getPlayerByIndex(i).equals(groupIsland.getInfluence()))
+                scores.put(game.getPlayerByIndex(i),calculateInfluencePlayer(game.getPlayerByIndex(i),groupIsland));
         }
-        return influencePlayer;
+        if(groupIsland.getInfluence()!=null) {
+            res = scores.entrySet()
+                    .stream()
+                    .filter(x -> x.getValue() > calculateInfluencePlayer(groupIsland.getInfluence(), groupIsland))
+                    .filter(x -> x.getValue().equals(scores.entrySet().stream().mapToInt(y -> y.getValue()).max()))
+                    .map(x -> x.getKey())
+                    .collect(Collectors.toList());
+        }
+        else{
+            res = scores.entrySet()
+                    .stream()
+                    .filter(x -> x.getValue().equals(scores.entrySet().stream().mapToInt(y -> y.getValue()).max()))
+                    .map(x -> x.getKey())
+                    .collect(Collectors.toList());
+        }
+
+        if(scores.size()==1){
+            groupIsland.changeInfluence(res.get(0));
+            checkChanges(groupIsland);
+        }
     }
 
     /**
-     * change the influence on a group island
-     * @param num
+     * Checks if there is any change due to the change of the influence of the groupIsland selected
+     * @param groupIsland
      */
-    public void changeInfluenceGroupIsland(int num){
-
+    public void checkChanges(GroupIsland groupIsland){
+        /*if(groupIsland.getInfluence().getSchoolBoard().getTowers() - groupIsland.getNumberOfSingleIsland() <= 0){
+            setWinner(influencePlayer);
+            endGame();
+        } else{
+            influencePlayer.getSchoolBoard().removeTower(game.getTable().getGroupIslandByIndex(num).getNumberOfSingleIsland());
+        }*/
     }
 
 
