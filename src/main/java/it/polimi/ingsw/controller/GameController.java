@@ -229,33 +229,6 @@ public class GameController {
 
         if(game.getGamePhase() == GamePhase.PLAYING && game.getTurnPhase() == TurnPhase.MOVE_MOTHER_NATURE){
             if(game.isCurrentPlayer(game.getPlayerByIndex(player))){
-                if(game.getActiveCharacterCard().checkMotherNatureMovement(player, movement)){
-                   int num = (game.getTable().getMotherNaturePosition() + movement) % game.getTable().getNumberOfGroupIsland();
-                   game.getTable().setMotherNaturePosition(num);
-
-                    Player influencePlayer = game.getActiveCharacterCard().calculateInfluence(game.getTable().getGroupIslandByIndex(num));
-                    if(game.getTable().getGroupIslandByIndex(num).getInfluence()==null){
-                        game.getTable().getGroupIslandByIndex(num).changeInfluence(influencePlayer);
-                        if(influencePlayer.getSchoolBoard().getTowers() - game.getTable().getGroupIslandByIndex(num).getNumberOfSingleIsland() <= 0){
-                            setWinner(influencePlayer);
-                            endGame();
-                        } else{
-                            influencePlayer.getSchoolBoard().removeTower(game.getTable().getGroupIslandByIndex(num).getNumberOfSingleIsland());
-                        }
-                    } else if(!(game.getTable().getGroupIslandByIndex(num).getInfluence().equals(influencePlayer))){
-                        game.getTable().getGroupIslandByIndex(num).getInfluence().getSchoolBoard().addTower(game.getTable().getGroupIslandByIndex(num).getNumberOfSingleIsland());
-                        game.getTable().getGroupIslandByIndex(num).changeInfluence(influencePlayer);
-                        if(influencePlayer.getSchoolBoard().getTowers() - game.getTable().getGroupIslandByIndex(num).getNumberOfSingleIsland() <= 0){
-                            setWinner(influencePlayer);
-                            endGame();
-                        } else{
-                            influencePlayer.getSchoolBoard().removeTower(game.getTable().getGroupIslandByIndex(num).getNumberOfSingleIsland());
-                        }
-                    }
-
-                   //game.getActiveCharacterCard().changeInfluenceGroupIsland(num);
-                   game.setTurnPhase(TurnPhase.CHOOSE_CLOUD_TILE);
-                }
             }
         }
     }

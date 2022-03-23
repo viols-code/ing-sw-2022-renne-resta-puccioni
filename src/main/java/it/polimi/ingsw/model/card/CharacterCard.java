@@ -103,7 +103,7 @@ public abstract class CharacterCard {
      * Checks if there is any change due to the change of the influence of the groupIsland selected
      * @param groupIsland
      */
-    private void changeInfluenceGroupIsland(Player influencePlayer,GroupIsland groupIsland){
+    public void changeInfluenceGroupIsland(Player influencePlayer,GroupIsland groupIsland){
         if(groupIsland.getInfluence()==null){
             groupIsland.changeInfluence(influencePlayer);
             if(influencePlayer.getSchoolBoard().getTowers() - groupIsland.getNumberOfSingleIsland() <= 0){
