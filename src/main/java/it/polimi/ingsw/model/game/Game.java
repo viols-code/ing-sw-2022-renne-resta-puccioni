@@ -87,6 +87,11 @@ public abstract class Game {
      */
     protected TurnPhase turnPhase;
 
+    /**
+    The winner of the game
+     */
+    protected Player winner;
+
 
     /**
      * Constructor: creates a game
@@ -449,6 +454,14 @@ public abstract class Game {
     public void setTurnPhase(TurnPhase turnPhase) {
         this.turnPhase = turnPhase;
     }
+
+    /*
+    WINNER
+    */
+    public Player getWinner(){return winner;}
+
+    public void setWinner(Player winner){this.winner=winner;}
+
 
     /*
     HAS PROTECTED ISLAND

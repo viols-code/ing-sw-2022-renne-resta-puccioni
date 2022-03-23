@@ -6,9 +6,7 @@ import it.polimi.ingsw.model.table.island.GroupIsland;
 import it.polimi.ingsw.model.table.island.SingleIsland;
 import it.polimi.ingsw.model.player.Player;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public abstract class CharacterCard {
@@ -85,25 +83,19 @@ public abstract class CharacterCard {
             if(!game.getPlayerByIndex(i).equals(groupIsland.getInfluence()))
                 scores.put(game.getPlayerByIndex(i),calculateInfluencePlayer(game.getPlayerByIndex(i),groupIsland));
         }
-        if(groupIsland.getInfluence()!=null) {
-            res = scores.entrySet()
+
+        Optional<Integer> maxInfluence=scores.entrySet().stream().map(y -> y.getValue()).max((y1, y2)->{if(y1>y2)return y1;
+                                                                                else return y2;});
+
+        res = scores.entrySet()
                     .stream()
-                    .filter(x -> x.getValue() > calculateInfluencePlayer(groupIsland.getInfluence(), groupIsland))
-                    .filter(x -> x.getValue().equals(scores.entrySet().stream().mapToInt(y -> y.getValue()).max()))
-                    .map(x -> x.getKey())
+                    .filter(x -> x.getValue().equals(maxInfluence))
+                    .map(Map.Entry::getKey)
                     .collect(Collectors.toList());
-        }
-        else{
-            res = scores.entrySet()
-                    .stream()
-                    .filter(x -> x.getValue().equals(scores.entrySet().stream().mapToInt(y -> y.getValue()).max()))
-                    .map(x -> x.getKey())
-                    .collect(Collectors.toList());
-        }
+
 
         if(scores.size()==1){
-            groupIsland.changeInfluence(res.get(0));
-            checkChanges(groupIsland);
+            changeInfluenceGroupIsland(res.get(0),groupIsland);
         }
     }
 
@@ -111,13 +103,12 @@ public abstract class CharacterCard {
      * Checks if there is any change due to the change of the influence of the groupIsland selected
      * @param groupIsland
      */
-    public void checkChanges(GroupIsland groupIsland){
-        /*if(groupIsland.getInfluence().getSchoolBoard().getTowers() - groupIsland.getNumberOfSingleIsland() <= 0){
-            setWinner(influencePlayer);
-            endGame();
+    public void changeInfluenceGroupIsland(Player newInfluencePlayer,GroupIsland groupIsland){
+        if(groupIsland.getInfluence().getSchoolBoard().getTowers() - groupIsland.getNumberOfSingleIsland() <= 0){
+            game.setWinner(groupIsland.getInfluence());
         } else{
-            influencePlayer.getSchoolBoard().removeTower(game.getTable().getGroupIslandByIndex(num).getNumberOfSingleIsland());
-        }*/
+            //groupIsland.getInfluence().getSchoolBoard().removeTower(.getNumberOfSingleIsland());
+        }
     }
 
 
