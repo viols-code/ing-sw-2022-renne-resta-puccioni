@@ -227,6 +227,15 @@ public class GameController {
 
         if(game.getGamePhase() == GamePhase.PLAYING && game.getTurnPhase() == TurnPhase.MOVE_MOTHER_NATURE){
             if(game.isCurrentPlayer(game.getPlayerByIndex(player))){
+                if(game.getPlayerByIndex(player).getCurrentAssistantCard().getMotherNatureMovement()>=movement){
+                    game.getActiveCharacterCard().calculateInfluence(game.getTable().getMotherNaturePosition()+movement);
+
+                    if(game.getWinner()!=null)endGame();
+                    else if(game.getTable().getNumberOfGroupIsland()<=3)calculateWinner();
+
+                    game.setTurnPhase(TurnPhase.CHOOSE_CLOUD_TILE);
+                }
+
             }
         }
     }
