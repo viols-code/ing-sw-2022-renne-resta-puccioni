@@ -24,16 +24,9 @@ public class TwoPoints extends CharacterCard {
      */
     @Override
     public int calculateInfluencePlayer(Player player, GroupIsland groupIsland) {
-        int influence = 2;
-
-        if (!groupIsland.isNoEntryTile()) {
-            for (Colour colour : Colour.values()) {
-                if (player.getSchoolBoard().hasProfessor(colour)) {
-                    influence += groupIsland.getNumberStudent(colour);
-                }
-            }
-        }
-        game.setActiveCharacterCard(game.getBasicState());
-        return influence;
+        if(player.equals(game.getCurrentPlayer()))
+            return super.calculateInfluencePlayer(player,groupIsland)+2;
+        else
+            return super.calculateInfluencePlayer(player,groupIsland);
     }
 }
