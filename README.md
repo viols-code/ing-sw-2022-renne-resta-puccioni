@@ -1,8 +1,10 @@
 # Eriantys
 
-Final project for the course Software Engineering 2021/2022 at Polimi.
+Final project for the course Software Engineering 2021/2022
 
-**Teacher:** Gianpaolo Cugola  
+**Professor:** Gianpaolo Cugola  
+
+Group: GC-16
 
 ## Project Status
 
