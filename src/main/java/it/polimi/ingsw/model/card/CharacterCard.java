@@ -71,10 +71,9 @@ public abstract class CharacterCard {
     }
 
     /**
-     * Updates the influence of a group island if necessary
+     * If the influence on the group island selected is changed calls the method changeInfluenceGroupIsland to update the state
      *
      * @param groupIsland the groupIsland
-     * @return
      */
     public void calculateInfluence(int groupIsland){
         HashMap<Player,Integer> scores=new HashMap<>();
@@ -100,8 +99,12 @@ public abstract class CharacterCard {
     }
 
     /**
-     * Checks if there is any change due to the change of the influence of the groupIsland selected
-     * @param groupIsland
+     * Changes the influence on a group island
+     * Unifies islands when necessary
+     * If the new influence player has finished his towers sets him as the winner
+     *
+     * @param groupIsland the groupIsland selected
+     * @param influencePlayer the new influence player of the group island selected
      */
     public void changeInfluenceGroupIsland(Player influencePlayer,int groupIsland){
         if(game.getTable().getGroupIslandByIndex(groupIsland).getInfluence()==null){
@@ -126,7 +129,11 @@ public abstract class CharacterCard {
     }
 
 
-
+    /**
+     * Checks if the current player can take the control of the professor selected
+     *
+     * @param colour the colour of the professor selected
+     */
     public void checkProfessor(Colour colour) {
         for(int i = 0; i<game.getNumberOfPlayer(); i++){
             if (game.getCurrentPlayer().getSchoolBoard().getDiningRoom(colour) > game.getPlayerByIndex(i).getSchoolBoard().getDiningRoom(colour)) {
@@ -135,6 +142,13 @@ public abstract class CharacterCard {
         }
     }
 
+    /**
+     * Checks if mother nature can do the steps required from the player
+     *
+     * @param player the player who wants to move mother nature
+     * @param movement the steps required for mother nature
+     * @return true if mother nature can do the steps required
+     */
     public boolean checkMotherNatureMovement(int player, int movement) {
         if(game.getPlayerByIndex(player).getCurrentAssistantCard().getMotherNatureMovement() >= movement){
             return true;
@@ -208,6 +222,11 @@ public abstract class CharacterCard {
         }
     }
 
+    /**
+     * Checks if the selected group island is unifiable with adjacent ones
+     *
+     * @param groupIsland the group island selected
+     */
     public void checkUnifyIsland(int groupIsland){
 
         if(game.getTable().getIslandAfter(groupIsland).getInfluence().equals(game.getTable().getGroupIslandByIndex(groupIsland).getInfluence())){
