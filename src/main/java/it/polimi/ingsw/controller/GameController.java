@@ -244,14 +244,6 @@ public class GameController {
         }
     }
 
-    private boolean isBagEmpty() {
-        for (Colour colour : Colour.values()) {
-            if (game.getTable().getBag().getBagStudent(colour) > 0)
-                return false;
-        }
-        return true;
-    }
-
     private void endGame() {
 
     }

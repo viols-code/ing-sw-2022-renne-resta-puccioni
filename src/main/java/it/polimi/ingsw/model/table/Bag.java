@@ -50,6 +50,19 @@ public class Bag {
     }
 
     /**
+     * Checks if the bag is empty
+     *
+     * @return true if there are no students in the bag
+     */
+    public boolean isBagEmpty() {
+        for (Colour colour : Colour.values()) {
+            if (getBagStudent(colour)>0)
+                return false;
+        }
+        return true;
+    }
+
+    /**
      * Draw a student from the bag
      *
      * @return the student drawn
