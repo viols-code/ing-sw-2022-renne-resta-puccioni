@@ -395,7 +395,7 @@ public class GameController {
     }
 
     public void setGroupIsland(int groupIsland) {
-        game.getActiveCharacterCard().setGroupIsland(game.getTable().getGroupIslandByIndex(groupIsland));
+        game.getActiveCharacterCard().setGroupIsland(groupIsland);
     }
 
     public void setColourDiningRoomEntrance(Colour colourDiningRoom, Colour colourEntrance) {

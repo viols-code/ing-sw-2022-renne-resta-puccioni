@@ -8,7 +8,7 @@ public class IslandInfluence extends CharacterCard {
     /**
      * The groupIsland chosen
      */
-    GroupIsland islandChosen;
+    int islandChosen;
 
     /**
      * Constructor
@@ -25,7 +25,7 @@ public class IslandInfluence extends CharacterCard {
      * @param groupIsland
      */
     @Override
-    public void setGroupIsland(GroupIsland groupIsland) {
+    public void setGroupIsland(int groupIsland) {
         this.islandChosen = groupIsland;
         this.effect();
     }
@@ -36,7 +36,7 @@ public class IslandInfluence extends CharacterCard {
     @Override
     public void effect() {
 
-        calculateInfluencePlayer(game.getCurrentPlayer(), islandChosen);
+        calculateInfluence(islandChosen);
 
         game.setActiveCharacterCard(game.getBasicState());
     }

@@ -188,7 +188,7 @@ public abstract class CharacterCard {
      *
      * @param groupIsland
      */
-    public void setGroupIsland(GroupIsland groupIsland) {
+    public void setGroupIsland(int groupIsland) {
 
     }
 
