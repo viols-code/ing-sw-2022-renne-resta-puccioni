@@ -436,7 +436,7 @@ public class GameController {
         max = 0;
 
         if (possibleWinner.size() == 1) {
-            setWinner(possibleWinner.get(0));
+            game.setWinner(possibleWinner.get(0));
         if(possibleWinner.size() == 1){
             game.setWinner(possibleWinner.get(0));
             return;
@@ -457,4 +457,4 @@ public class GameController {
 
     }
 
-}
+}}
