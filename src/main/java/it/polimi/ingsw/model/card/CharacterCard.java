@@ -26,7 +26,7 @@ public abstract class CharacterCard {
         this.game = game;
     }
 
-    public void setting(){
+    public void setting() {
 
     }
 

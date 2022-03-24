@@ -21,7 +21,7 @@ public class StudentToDiningRoom extends CharacterCard {
         students = new HashMap<>();
     }
 
-    public void setting(){
+    public void setting() {
         for (Colour colour1 : Colour.values()) {
             students.put(colour1, 0);
         }

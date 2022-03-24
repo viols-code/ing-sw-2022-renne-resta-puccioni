@@ -17,7 +17,7 @@ class BagTest {
     }
 
     @Test
-    void checkSetting(){
+    void checkSetting() {
         for (Colour colour : Colour.values()) {
             assertEquals(24, gameController.getGame().getTable().getBag().getBagStudent(colour));
         }
@@ -34,8 +34,8 @@ class BagTest {
     }
 
     @Test
-    void isBagEmpty(){
-        while(! gameController.getGame().getTable().getBag().isBagEmpty()){
+    void isBagEmpty() {
+        while (!gameController.getGame().getTable().getBag().isBagEmpty()) {
             gameController.getGame().getTable().getBag().bagDrawStudent();
         }
         assertThrows(IllegalAccessError.class, () -> gameController.getGame().getTable().getBag().bagDrawStudent());

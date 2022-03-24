@@ -140,7 +140,7 @@ class SchoolBoardTest {
     }
 
     @Test
-    void getNumberOfProfessors(){
+    void getNumberOfProfessors() {
 
     }
 

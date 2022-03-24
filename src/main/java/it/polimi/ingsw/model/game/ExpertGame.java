@@ -87,7 +87,7 @@ public class ExpertGame extends Game {
      */
     public boolean hasProtectIslandCard() {
         for (int i = 0; i < characterCards.size(); i++) {
-            if (this.getCharacterCardsByIndex(i) instanceof ProtectIsland){
+            if (this.getCharacterCardsByIndex(i) instanceof ProtectIsland) {
                 return true;
             }
         }

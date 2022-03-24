@@ -19,7 +19,7 @@ class GroupIslandTest {
     }
 
     @Test
-    void  checkSetting(){
+    void checkSetting() {
         int numberBlue = 0;
         int numberRed = 0;
         int numberGreen = 0;
@@ -27,17 +27,17 @@ class GroupIslandTest {
         int numberYellow = 0;
         int num;
 
-        for(int i = 0; i < gameController.getGame().getTable().getNumberOfGroupIsland(); i++){
+        for (int i = 0; i < gameController.getGame().getTable().getNumberOfGroupIsland(); i++) {
             num = gameController.getGame().getTable().getGroupIslandByIndex(i).getIslandByIndex(0).getStudents(Colour.BLUE);
             numberBlue += num;
             num = gameController.getGame().getTable().getGroupIslandByIndex(i).getIslandByIndex(0).getStudents(Colour.RED);
             numberRed += num;
             num = gameController.getGame().getTable().getGroupIslandByIndex(i).getIslandByIndex(0).getStudents(Colour.GREEN);
-            numberGreen+= num;
+            numberGreen += num;
             num = gameController.getGame().getTable().getGroupIslandByIndex(i).getIslandByIndex(0).getStudents(Colour.PINK);
-            numberPink+= num;
+            numberPink += num;
             num = gameController.getGame().getTable().getGroupIslandByIndex(i).getIslandByIndex(0).getStudents(Colour.YELLOW);
-            numberYellow+= num;
+            numberYellow += num;
 
         }
 

@@ -18,10 +18,10 @@ class AdvancedGroupIslandTest {
 
     @Test
     void checkSetting() {
-        if(gameController.getGame().hasProtectIslandCard()){
+        if (gameController.getGame().hasProtectIslandCard()) {
             assertEquals(12, gameController.getGame().getTable().getNumberOfGroupIsland());
 
-            for(int i = 0; i < gameController.getGame().getTable().getNumberOfGroupIsland(); i++){
+            for (int i = 0; i < gameController.getGame().getTable().getNumberOfGroupIsland(); i++) {
                 assertEquals(0, gameController.getGame().getTable().getGroupIslandByIndex(i).getNumberOfNoEntryTile());
             }
         }
@@ -30,7 +30,7 @@ class AdvancedGroupIslandTest {
 
     @Test
     void addNoEntryTile() {
-        if(gameController.getGame().hasProtectIslandCard()){
+        if (gameController.getGame().hasProtectIslandCard()) {
             for (int i = 0; i < gameController.getGame().getTable().getNumberOfGroupIsland(); i++) {
                 assertEquals(0, gameController.getGame().getTable().getGroupIslandByIndex(i).getNumberOfNoEntryTile());
             }
@@ -40,7 +40,7 @@ class AdvancedGroupIslandTest {
     }
 
     @Test
-    void checkAddNoEntryTile(){
+    void checkAddNoEntryTile() {
         groupIsland = new AdvancedGroupIsland();
         assertEquals(0, groupIsland.getNumberOfNoEntryTile());
         groupIsland.addNoEntryTile();
@@ -49,7 +49,7 @@ class AdvancedGroupIslandTest {
 
     @Test
     void removeNoEntryTile() {
-        if(gameController.getGame().hasProtectIslandCard()){
+        if (gameController.getGame().hasProtectIslandCard()) {
             for (int i = 0; i < gameController.getGame().getTable().getNumberOfGroupIsland(); i++) {
                 assertEquals(0, gameController.getGame().getTable().getGroupIslandByIndex(i).getNumberOfNoEntryTile());
             }
@@ -61,7 +61,7 @@ class AdvancedGroupIslandTest {
     }
 
     @Test
-    void checkReoveNoEntryTile(){
+    void checkReoveNoEntryTile() {
         groupIsland = new AdvancedGroupIsland();
         assertEquals(0, groupIsland.getNumberOfNoEntryTile());
         groupIsland.addNoEntryTile();

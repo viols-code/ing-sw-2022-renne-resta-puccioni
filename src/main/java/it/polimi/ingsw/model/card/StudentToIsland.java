@@ -37,7 +37,7 @@ public class StudentToIsland extends CharacterCard {
 
     }
 
-    public void setting(){
+    public void setting() {
         for (Colour colour : Colour.values()) {
             studentsOnCard.put(colour, 0);
         }

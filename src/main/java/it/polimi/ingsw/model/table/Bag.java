@@ -66,10 +66,10 @@ public class Bag {
      *
      * @return the student drawn
      */
-    public Colour bagDrawStudent() throws IllegalAccessError{
-        if(isBagEmpty()){
+    public Colour bagDrawStudent() throws IllegalAccessError {
+        if (isBagEmpty()) {
             throw new IllegalAccessError("There is no student in the bag");
-        } else{
+        } else {
             int bag_size = 0;
 
             for (Colour colour : Colour.values()) {

@@ -41,8 +41,9 @@ class PlayerTest {
         playerTest.setCurrentAssistantCard(card);
         assertEquals(card, playerTest.getCurrentAssistantCard());
     }
+
     @Test
-    void setHasAlreadyPlayed(){
+    void setHasAlreadyPlayed() {
 
     }
 

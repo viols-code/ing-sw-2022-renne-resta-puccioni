@@ -78,7 +78,7 @@ public class GameController {
         settingInteger();
         settingCloudTile();
 
-        if(isGameExpert){
+        if (isGameExpert) {
             settingCard();
         }
 
@@ -88,7 +88,7 @@ public class GameController {
         return game;
     }
 
-    private void settingBag(){
+    private void settingBag() {
         for (Colour colour : Colour.values()) {
             for (int i = 0; i < 2; i++) {
                 game.getTable().getBag().addStudentBag(colour);
@@ -107,7 +107,7 @@ public class GameController {
         }
     }
 
-    private void settingCloudTile(){
+    private void settingCloudTile() {
         for (int i = 0; i < numberOfPlayer; i++) {
             createCloudTile();
         }
@@ -126,8 +126,8 @@ public class GameController {
         }
     }
 
-    private void settingCard(){
-        for(int i = 0; i < 3; i++){
+    private void settingCard() {
+        for (int i = 0; i < 3; i++) {
             game.getCharacterCardsByIndex(i).setting();
         }
     }
