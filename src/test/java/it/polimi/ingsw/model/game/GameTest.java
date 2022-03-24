@@ -2,6 +2,8 @@ package it.polimi.ingsw.model.game;
 
 import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.model.AssistantCard;
+import it.polimi.ingsw.model.card.CharacterCard;
+import it.polimi.ingsw.model.card.NoColour;
 import it.polimi.ingsw.model.game.BasicGame;
 import it.polimi.ingsw.model.game.Game;
 import it.polimi.ingsw.model.game.GamePhase;
@@ -154,14 +156,26 @@ class GameTest {
     }
 
     @Test
-    void removeGroupIsland() {
-        // GroupIsland islandRemoved = gameTest.getTable().getGroupIslandByIndex(2);
-        //gameTest.getTable().removeGroupIsland(gameTest.getTable().getGroupIslandByIndex(2));
-        // for (int i = 0; i < gameTest.getTable().getNumberOfGroupIsland(); i++) {
-        //    assertNotEquals(gameTest.getTable().getGroupIslandByIndex(i), islandRemoved);
-        //  }
+    void getCharacterCardsByIndex(){
+
     }
 
+    @Test
+    void getNumberOfCharacterCard(){
+
+    }
+
+    @Test
+    void addCharacterCard(){
+
+        CharacterCard card1 = new NoColour(gameController.getGame());
+        IllegalAccessError exception = assertThrows(IllegalAccessError.class, () -> gameController.getGame().addCharacterCard(card1));
+
+        String expectedMessage = "This is for the Expert Mode";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
 
     @Test
     void setStudentNumberMovement() {
