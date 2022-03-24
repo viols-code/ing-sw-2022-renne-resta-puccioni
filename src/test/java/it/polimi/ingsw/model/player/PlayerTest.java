@@ -81,6 +81,12 @@ class PlayerTest {
     }
 
     @Test
+    void getSchoolBoard(){
+        assertEquals(gameController.getGame().getPlayerByIndex(0).schoolBoard,gameController.getGame().getPlayerByIndex(0).getSchoolBoard());
+        assertEquals(gameController.getGame().getPlayerByIndex(0).schoolBoard,gameController.getGame().getPlayerByIndex(0).getSchoolBoard());
+    }
+
+    @Test
     void setHasAlreadyPlayed() {
         gameController.getGame().getPlayerByIndex(0).setHasAlreadyPlayed(true);
         assertTrue(gameController.getGame().getPlayerByIndex(0).getHasAlreadyPlayed());
