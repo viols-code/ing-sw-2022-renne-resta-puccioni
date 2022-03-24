@@ -103,8 +103,7 @@ public abstract class CharacterCard {
         HashMap<Player, Integer> scores = new HashMap<>();
         List<Player> res;
         for (int i = 0; i < game.getNumberOfPlayer(); i++) {
-            if (!game.getPlayerByIndex(i).equals(game.getTable().getGroupIslandByIndex(groupIsland).getInfluence()))
-                scores.put(game.getPlayerByIndex(i), calculateInfluencePlayer(game.getPlayerByIndex(i), game.getTable().getGroupIslandByIndex(groupIsland)));
+            scores.put(game.getPlayerByIndex(i), calculateInfluencePlayer(game.getPlayerByIndex(i), game.getTable().getGroupIslandByIndex(groupIsland)));
         }
 
         Integer maxInfluence = scores.values().stream().reduce(0, (y1, y2) -> {
@@ -290,14 +289,13 @@ public abstract class CharacterCard {
      * @param groupIsland the group island selected
      */
     public void checkUnifyIsland(int groupIsland) {
-        if (game.getTable().getIslandAfter(groupIsland).getInfluence().equals(game.getTable().getGroupIslandByIndex(groupIsland).getInfluence())) {
+        if (game.getTable().getGroupIslandByIndex(groupIsland).getInfluence().equals(game.getTable().getIslandAfter(groupIsland).getInfluence())) {
             unifyGroupIsland(game.getTable().getGroupIslandByIndex(groupIsland), game.getTable().getIslandAfter(groupIsland));
         }
 
-        if (game.getTable().getIslandBefore(groupIsland).getInfluence().equals(game.getTable().getGroupIslandByIndex(groupIsland).getInfluence())) {
+        if (game.getTable().getGroupIslandByIndex(groupIsland).getInfluence().equals(game.getTable().getIslandBefore(groupIsland).getInfluence())) {
             unifyGroupIsland(game.getTable().getGroupIslandByIndex(groupIsland), game.getTable().getIslandBefore(groupIsland));
         }
-
     }
 
 }
