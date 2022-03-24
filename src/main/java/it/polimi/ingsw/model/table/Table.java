@@ -163,10 +163,22 @@ public class Table {
         cloudTiles.remove(cloudTile);
     }
 
+    /**
+     * Get the GroupIsland before clockwise
+     *
+     * @param groupIsland the reference GroupIsland
+     * @return the GroupIsland before clockwise
+     */
     public GroupIsland getIslandAfter(int groupIsland) {
         return getGroupIslandByIndex((groupIsland + 1) % islands.size());
     }
 
+    /**
+     * Get the GroupIsland after clockwise
+     *
+     * @param groupIsland the reference GroupIsland
+     * @return the GroupIsland after clockwise
+     */
     public GroupIsland getIslandBefore(int groupIsland) {
         return getGroupIslandByIndex((groupIsland - 1) % islands.size());
     }
