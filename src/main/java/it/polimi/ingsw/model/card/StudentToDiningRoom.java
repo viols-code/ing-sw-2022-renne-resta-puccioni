@@ -19,7 +19,9 @@ public class StudentToDiningRoom extends CharacterCard {
         initialCost = 2;
         actualCost = initialCost;
         students = new HashMap<>();
+    }
 
+    public void setting(){
         for (Colour colour1 : Colour.values()) {
             students.put(colour1, 0);
         }

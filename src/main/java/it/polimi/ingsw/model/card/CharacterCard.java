@@ -26,6 +26,10 @@ public abstract class CharacterCard {
         this.game = game;
     }
 
+    public void setting(){
+
+    }
+
     /**
      * Get the actualCost of the CharacterCard
      *

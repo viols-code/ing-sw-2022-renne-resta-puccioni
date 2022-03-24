@@ -12,39 +12,42 @@ class AdvancedGroupIslandTest {
 
     @BeforeEach
     void setUp() {
-        do {
-            gameController = new GameController(true, 3);
-        } while (!gameController.getGame().hasProtectIslandCard());
+        gameController = new GameController(true, 2);
     }
 
     @Test
-    void numberOfGroupIsland() {
-        int i = 0;
-        assertEquals(12, gameController.getGame().getTable().getNumberOfGroupIsland());
+    void checkSetting() {
+        if(gameController.getGame().hasProtectIslandCard()){
+            assertEquals(12, gameController.getGame().getTable().getNumberOfGroupIsland());
+
+            for(int i = 0; i < gameController.getGame().getTable().getNumberOfGroupIsland(); i++){
+                assertEquals(0, gameController.getGame().getTable().getGroupIslandByIndex(i).getNumberOfNoEntryTile());
+            }
+        }
     }
 
-    @Test
-    void getNumberOfNoEntryTile() {
-        assertEquals(0, gameController.getGame().getTable().getGroupIslandByIndex(0).getNumberOfNoEntryTile());
-    }
 
     @Test
     void addNoEntryTile() {
-        for (int i = 0; i < gameController.getGame().getTable().getNumberOfGroupIsland(); i++) {
-            assertEquals(0, gameController.getGame().getTable().getGroupIslandByIndex(i).getNumberOfNoEntryTile());
+        if(gameController.getGame().hasProtectIslandCard()){
+            for (int i = 0; i < gameController.getGame().getTable().getNumberOfGroupIsland(); i++) {
+                assertEquals(0, gameController.getGame().getTable().getGroupIslandByIndex(i).getNumberOfNoEntryTile());
+            }
+            gameController.getGame().getTable().getGroupIslandByIndex(0).addNoEntryTile();
+            assertEquals(1, gameController.getGame().getTable().getGroupIslandByIndex(0).getNumberOfNoEntryTile());
         }
-        gameController.getGame().getTable().getGroupIslandByIndex(0).addNoEntryTile();
-        assertEquals(1, gameController.getGame().getTable().getGroupIslandByIndex(0).getNumberOfNoEntryTile());
     }
 
     @Test
     void removeNoEntryTile() {
-        for (int i = 0; i < gameController.getGame().getTable().getNumberOfGroupIsland(); i++) {
-            assertEquals(0, gameController.getGame().getTable().getGroupIslandByIndex(i).getNumberOfNoEntryTile());
+        if(gameController.getGame().hasProtectIslandCard()){
+            for (int i = 0; i < gameController.getGame().getTable().getNumberOfGroupIsland(); i++) {
+                assertEquals(0, gameController.getGame().getTable().getGroupIslandByIndex(i).getNumberOfNoEntryTile());
+            }
+            gameController.getGame().getTable().getGroupIslandByIndex(0).addNoEntryTile();
+            assertEquals(1, gameController.getGame().getTable().getGroupIslandByIndex(0).getNumberOfNoEntryTile());
+            gameController.getGame().getTable().getGroupIslandByIndex(0).removeNoEntryTile();
+            assertEquals(0, gameController.getGame().getTable().getGroupIslandByIndex(0).getNumberOfNoEntryTile());
         }
-        gameController.getGame().getTable().getGroupIslandByIndex(0).addNoEntryTile();
-        assertEquals(1, gameController.getGame().getTable().getGroupIslandByIndex(0).getNumberOfNoEntryTile());
-        gameController.getGame().getTable().getGroupIslandByIndex(0).removeNoEntryTile();
-        assertEquals(0, gameController.getGame().getTable().getGroupIslandByIndex(0).getNumberOfNoEntryTile());
     }
 }

@@ -22,6 +22,9 @@ public class StudentToEntrance extends CharacterCard {
         actualCost = initialCost;
         times = 0;
         students = new HashMap<>();
+    }
+
+    public void setting(){
         for (Colour colour1 : Colour.values()) {
             students.put(colour1, 0);
         }

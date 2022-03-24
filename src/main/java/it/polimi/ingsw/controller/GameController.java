@@ -42,7 +42,6 @@ public class GameController {
 
         if (isGameExpert) {
             game = new ExpertGame();
-
             List<Class<? extends CharacterCard>> cardTypes = new ArrayList<>(
                     Arrays.asList(StudentToIsland.class, TakeProfessor.class, IslandInfluence.class,
                             MotherNatureMovement.class, ProtectIsland.class, NoTower.class, StudentToEntrance.class,
@@ -72,13 +71,16 @@ public class GameController {
                 }
             }
 
-
         } else {
             game = new BasicGame();
         }
+        settingBag();
+        settingInteger();
+        settingCloudTile();
 
-        setting();
-
+        if(isGameExpert){
+            settingCard();
+        }
 
     }
 
@@ -86,18 +88,7 @@ public class GameController {
         return game;
     }
 
-    public void setting() {
-        game.getTable().setMotherNaturePosition(0);
-        if (numberOfPlayer == 3) {
-            game.setNumberOfTowersPerPlayer(6);
-            game.setNumberStudentsEntrance(9);
-            game.setStudentNumberMovement(4);
-        } else {
-            game.setNumberOfTowersPerPlayer(8);
-            game.setNumberStudentsEntrance(7);
-            game.setStudentNumberMovement(3);
-        }
-
+    private void settingBag(){
         for (Colour colour : Colour.values()) {
             for (int i = 0; i < 2; i++) {
                 game.getTable().getBag().addStudentBag(colour);
@@ -114,9 +105,30 @@ public class GameController {
                 game.getTable().getBag().addStudentBag(colour);
             }
         }
+    }
 
+    private void settingCloudTile(){
         for (int i = 0; i < numberOfPlayer; i++) {
             createCloudTile();
+        }
+    }
+
+    private void settingInteger() {
+        game.getTable().setMotherNaturePosition(0);
+        if (numberOfPlayer == 3) {
+            game.setNumberOfTowersPerPlayer(6);
+            game.setNumberStudentsEntrance(9);
+            game.setStudentNumberMovement(4);
+        } else {
+            game.setNumberOfTowersPerPlayer(8);
+            game.setNumberStudentsEntrance(7);
+            game.setStudentNumberMovement(3);
+        }
+    }
+
+    private void settingCard(){
+        for(int i = 0; i < 3; i++){
+            game.getCharacterCardsByIndex(i).setting();
         }
     }
 

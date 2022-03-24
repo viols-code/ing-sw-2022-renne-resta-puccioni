@@ -33,9 +33,11 @@ public class StudentToIsland extends CharacterCard {
 
         initialCost = 1;
         actualCost = initialCost;
-
         studentsOnCard = new HashMap<>();
 
+    }
+
+    public void setting(){
         for (Colour colour : Colour.values()) {
             studentsOnCard.put(colour, 0);
         }
@@ -44,7 +46,6 @@ public class StudentToIsland extends CharacterCard {
             Colour colour = game.getTable().getBag().bagDrawStudent();
             studentsOnCard.replace(colour, studentsOnCard.get(colour), studentsOnCard.get(colour) + 1);
         }
-
     }
 
     /**
