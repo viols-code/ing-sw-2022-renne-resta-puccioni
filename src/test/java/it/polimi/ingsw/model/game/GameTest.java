@@ -123,8 +123,7 @@ class GameTest {
         gameController.getGame().incrementRound();
         gameController.getGame().incrementRound();
         gameController.getGame().incrementRound();
-        assertEquals(7, gameController.getGame().getRound());
-        gameController.getGame().incrementRound();
+        assertEquals(8, gameController.getGame().getRound());
         gameController.getGame().incrementRound();
         gameController.getGame().incrementRound();
         assertEquals(10, gameController.getGame().getRound());
