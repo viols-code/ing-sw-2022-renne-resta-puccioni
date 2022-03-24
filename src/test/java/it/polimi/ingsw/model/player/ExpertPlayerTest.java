@@ -12,8 +12,8 @@ class ExpertPlayerTest {
     @BeforeEach
     void setUp() {
         gameController = new GameController(true, 2);
-        gameController.getGame().addPlayer(new BasicPlayer("sara",Wizard.TYPE_1));
-        gameController.getGame().addPlayer(new BasicPlayer("laura",Wizard.TYPE_2));
+        gameController.getGame().addPlayer(new ExpertPlayer("sara",Wizard.TYPE_1));
+        gameController.getGame().addPlayer(new ExpertPlayer("laura",Wizard.TYPE_2));
     }
     @Test
     void addCoins() {
