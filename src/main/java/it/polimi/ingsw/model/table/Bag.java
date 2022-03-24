@@ -65,6 +65,7 @@ public class Bag {
      * Draw a student from the bag
      *
      * @return the student drawn
+     * @throws IllegalAccessError if there are no student in the bag
      */
     public Colour bagDrawStudent() throws IllegalAccessError {
         if (isBagEmpty()) {
