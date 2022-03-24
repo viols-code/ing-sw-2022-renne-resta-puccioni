@@ -123,7 +123,7 @@ public abstract class Game {
         numberStudentsEntrance = 0;
         gamePhase = GamePhase.SETTING;
         turnPhase = TurnPhase.WAITING;
-        winner=null;
+        winner = null;
     }
 
     /*

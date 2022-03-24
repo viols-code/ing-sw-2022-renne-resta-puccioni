@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model.card;
 
-import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.Game;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.table.island.GroupIsland;
@@ -24,9 +23,9 @@ public class TwoPoints extends CharacterCard {
      */
     @Override
     public int calculateInfluencePlayer(Player player, GroupIsland groupIsland) {
-        if(player.equals(game.getCurrentPlayer()))
-            return super.calculateInfluencePlayer(player,groupIsland)+2;
+        if (player.equals(game.getCurrentPlayer()))
+            return super.calculateInfluencePlayer(player, groupIsland) + 2;
         else
-            return super.calculateInfluencePlayer(player,groupIsland);
+            return super.calculateInfluencePlayer(player, groupIsland);
     }
 }

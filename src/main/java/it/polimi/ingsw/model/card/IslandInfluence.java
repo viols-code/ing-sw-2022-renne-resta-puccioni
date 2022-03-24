@@ -1,7 +1,6 @@
 package it.polimi.ingsw.model.card;
 
 import it.polimi.ingsw.model.game.Game;
-import it.polimi.ingsw.model.table.island.GroupIsland;
 
 public class IslandInfluence extends CharacterCard {
 

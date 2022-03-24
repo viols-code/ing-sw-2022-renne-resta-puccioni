@@ -56,7 +56,7 @@ public class Bag {
      */
     public boolean isBagEmpty() {
         for (Colour colour : Colour.values()) {
-            if (getBagStudent(colour)>0)
+            if (getBagStudent(colour) > 0)
                 return false;
         }
         return true;
