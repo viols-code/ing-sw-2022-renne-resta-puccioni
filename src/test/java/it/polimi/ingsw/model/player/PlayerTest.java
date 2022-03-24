@@ -87,6 +87,13 @@ class PlayerTest {
     }
 
     @Test
+    void getHasAlreadyPlayed(){
+        gameController.getGame().getPlayerByIndex(0).setHasAlreadyPlayed(true);
+        assertTrue(gameController.getGame().getPlayerByIndex(0).getHasAlreadyPlayed());
+        assertFalse(gameController.getGame().getPlayerByIndex(1).getHasAlreadyPlayed());
+    }
+
+    @Test
     void setHasAlreadyPlayed() {
         gameController.getGame().getPlayerByIndex(0).setHasAlreadyPlayed(true);
         assertTrue(gameController.getGame().getPlayerByIndex(0).getHasAlreadyPlayed());
