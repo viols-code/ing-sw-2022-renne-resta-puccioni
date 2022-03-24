@@ -4,6 +4,7 @@ import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.model.AssistantCard;
 import it.polimi.ingsw.model.game.BasicGame;
 import it.polimi.ingsw.model.game.Game;
+import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -32,12 +33,23 @@ class PlayerTest {
 
     }
 
+    @Before
+    void fillAssistantCardDeck(){
+        AssistantCard card;
+        for(int i=0;i<10;i++){
+            card = gameController.getGame().getAssistantCard(i);
+            gameController.getGame().getPlayerByIndex(0).addAssistantCard(card);
+        }
+    }
+
     @Test
     void removeAssistantCard() {
-        AssistantCard card = gameController.getGame().getAssistantCard(1);
-        gameController.getGame().getPlayerByIndex(0).addAssistantCard(card);
-        gameController.getGame().getPlayerByIndex(0).removeAssistantCard(card);
-        assertFalse(gameController.getGame().getPlayerByIndex(0).isAssistantCardPresent(card));
+        AssistantCard card;
+        for(int i=0;i<10;i++){
+            card = gameController.getGame().getAssistantCard(i);
+            gameController.getGame().getPlayerByIndex(0).removeAssistantCard(card);
+            assertFalse(gameController.getGame().getPlayerByIndex(0).isAssistantCardPresent(card));
+        }
     }
 
     @Test
