@@ -24,7 +24,7 @@ public class StudentToIsland extends CharacterCard {
     SingleIsland islandChosen;
 
     /**
-     * Costructor
+     * Constructor: StudentToIsland
      *
      * @param game the game
      */
@@ -34,14 +34,13 @@ public class StudentToIsland extends CharacterCard {
         initialCost = 1;
         actualCost = initialCost;
         studentsOnCard = new HashMap<>();
-
-    }
-
-    public void setting() {
         for (Colour colour : Colour.values()) {
             studentsOnCard.put(colour, 0);
         }
 
+    }
+
+    public void setting() {
         for (int i = 0; i < 4; i++) {
             Colour colour = game.getTable().getBag().bagDrawStudent();
             studentsOnCard.replace(colour, studentsOnCard.get(colour), studentsOnCard.get(colour) + 1);
@@ -73,7 +72,7 @@ public class StudentToIsland extends CharacterCard {
     public void effect() {
         islandChosen.addStudent(colour);
         studentsOnCard.replace(colour, studentsOnCard.get(colour), studentsOnCard.get(colour) - 1);
-        if (game.getTable().getBag().isBagEmpty()) {
+        if (!game.getTable().getBag().isBagEmpty()) {
             Colour newColour = game.getTable().getBag().bagDrawStudent();
             studentsOnCard.replace(newColour, studentsOnCard.get(newColour), studentsOnCard.get(newColour) + 1);
         }
