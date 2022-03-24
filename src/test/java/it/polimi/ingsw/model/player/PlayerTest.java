@@ -18,6 +18,17 @@ class PlayerTest {
         gameController.getGame().addPlayer(new BasicPlayer("laura",Wizard.TYPE_2));
     }
 
+    @Test
+    void getNickname(){
+        assertEquals("sara",gameController.getGame().getPlayerByIndex(0).getNickname());
+        assertEquals("laura",gameController.getGame().getPlayerByIndex(1).getNickname());
+    }
+
+    @Test
+    void getWizard(){
+        assertEquals(Wizard.TYPE_1,gameController.getGame().getPlayerByIndex(0).getWizard());
+        assertEquals(Wizard.TYPE_2,gameController.getGame().getPlayerByIndex(1).getWizard());
+    }
 
     @Test
     void addAssistantCard() {
