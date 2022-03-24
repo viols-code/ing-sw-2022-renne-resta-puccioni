@@ -18,7 +18,7 @@ class GameTest {
 
     @BeforeEach
     void setUp() {
-        gameController = new GameController(false, 2);
+        gameController = new GameController(false, 3);
     }
 
     @Test
@@ -34,6 +34,12 @@ class GameTest {
         assertEquals(2, gameController.getGame().getNumberOfPlayer());
         assertEquals("Sara", gameController.getGame().getPlayerByIndex(1).getNickname());
         assertEquals(Wizard.TYPE_3, gameController.getGame().getPlayerByIndex(1).getWizard());
+
+        Player player3 = new BasicPlayer("Viola", Wizard.TYPE_2);
+        gameController.getGame().addPlayer(player3);
+        assertEquals(3, gameController.getGame().getNumberOfPlayer());
+        assertEquals("Viola", gameController.getGame().getPlayerByIndex(2).getNickname());
+        assertEquals(Wizard.TYPE_2, gameController.getGame().getPlayerByIndex(2).getWizard());
     }
 
     @Test
@@ -52,12 +58,16 @@ class GameTest {
 
     @Test
     void nextPlayerClockwise() {
-        player2 = new BasicPlayer("Sara", Wizard.TYPE_2);
-        player3 = new BasicPlayer("Laura", Wizard.TYPE_3);
-        gameTest.addPlayer(player2);
-        gameTest.addPlayer(player3);
-        gameTest.setCurrentPlayer(player3);
-        // assertEquals(player1, gameTest.nextPlayerClockwise());
+        Player player1 = new BasicPlayer("Viola", Wizard.TYPE_2);
+        Player player2 = new BasicPlayer("Laura", Wizard.TYPE_3);
+        Player player3 = new BasicPlayer("Sara", Wizard.TYPE_3);
+        gameController.getGame().addPlayer(player1);
+        gameController.getGame().addPlayer(player2);
+        gameController.getGame().addPlayer(player3);
+        gameController.getGame().setCurrentPlayer(player1);
+        assertEquals(player2, gameController.getGame().nextPlayerClockwise());
+        gameController.getGame().setCurrentPlayer(player3);
+        assertEquals(player1, gameController.getGame().nextPlayerClockwise());
 
     }
 
