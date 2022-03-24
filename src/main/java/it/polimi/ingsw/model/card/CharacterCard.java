@@ -119,7 +119,7 @@ public abstract class CharacterCard {
                 .collect(Collectors.toList());
 
 
-        if (scores.size() == 1) {
+        if (res.size() == 1) {
             changeInfluenceGroupIsland(res.get(0), groupIsland);
         }
     }
@@ -290,7 +290,6 @@ public abstract class CharacterCard {
      * @param groupIsland the group island selected
      */
     public void checkUnifyIsland(int groupIsland) {
-
         if (game.getTable().getIslandAfter(groupIsland).getInfluence().equals(game.getTable().getGroupIslandByIndex(groupIsland).getInfluence())) {
             unifyGroupIsland(game.getTable().getGroupIslandByIndex(groupIsland), game.getTable().getIslandAfter(groupIsland));
         }
