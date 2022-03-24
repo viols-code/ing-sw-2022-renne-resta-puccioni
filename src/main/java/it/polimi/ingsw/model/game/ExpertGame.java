@@ -50,7 +50,7 @@ public class ExpertGame extends Game {
      * @return the number of CharacterCard in the list
      */
     @Override
-    public int getNumberOfCharacterCard(){
+    public int getNumberOfCharacterCard() {
         return characterCards.size();
     }
 

@@ -7,14 +7,15 @@ import it.polimi.ingsw.model.table.island.BasicGroupIsland;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class StudentToIslandTest {
     private StudentToIsland cardTest;
     private Game gameTest;
 
     @BeforeEach
-    void setUp(){
+    void setUp() {
         gameTest = new ExpertGame();
         cardTest = new StudentToIsland(gameTest);
 
@@ -33,7 +34,7 @@ class StudentToIslandTest {
 
         int num = 0;
 
-        for(Colour colour: Colour.values()){
+        for (Colour colour : Colour.values()) {
             num += cardTest.getStudent(colour);
         }
 
@@ -47,13 +48,13 @@ class StudentToIslandTest {
 
         int num = 0;
 
-        for(Colour colour: Colour.values()){
+        for (Colour colour : Colour.values()) {
             num += cardTest.getStudent(colour);
         }
         assertEquals(4, num);
 
-        for(Colour colour: Colour.values()){
-            if(cardTest.getStudent(colour) > 0){
+        for (Colour colour : Colour.values()) {
+            if (cardTest.getStudent(colour) > 0) {
                 colourTest = colour;
                 break;
             }
@@ -66,13 +67,13 @@ class StudentToIslandTest {
 
         num = 0;
 
-        for(Colour colour: Colour.values()){
+        for (Colour colour : Colour.values()) {
             num += cardTest.getStudent(colour);
         }
         assertEquals(4, num);
 
-        for(Colour colour: Colour.values()){
-            if(cardTest.getStudent(colour) == 0){
+        for (Colour colour : Colour.values()) {
+            if (cardTest.getStudent(colour) == 0) {
                 colourTest = colour;
                 break;
             }

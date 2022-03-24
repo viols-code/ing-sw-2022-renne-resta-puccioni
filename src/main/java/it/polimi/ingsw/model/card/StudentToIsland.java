@@ -89,7 +89,7 @@ public class StudentToIsland extends CharacterCard {
      * @param colour colour
      * @return number of student of the given colour
      */
-    protected int getStudent(Colour colour){
+    protected int getStudent(Colour colour) {
         return studentsOnCard.get(colour);
     }
 

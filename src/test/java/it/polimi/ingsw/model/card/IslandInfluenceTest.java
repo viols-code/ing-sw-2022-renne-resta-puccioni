@@ -10,7 +10,7 @@ import it.polimi.ingsw.model.table.island.BasicGroupIsland;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class IslandInfluenceTest {
     private IslandInfluence cardTest;
@@ -19,7 +19,7 @@ class IslandInfluenceTest {
     private Player player2;
 
     @BeforeEach
-    void setUp(){
+    void setUp() {
         gameTest = new ExpertGame();
         cardTest = new IslandInfluence(gameTest);
 

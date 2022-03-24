@@ -24,24 +24,24 @@ public class TakeProfessor extends CharacterCard {
     public void checkProfessor(Colour colour) {
         boolean control = true;
         for (int i = 0; i < game.getNumberOfPlayer(); i++) {
-            if(game.getPlayerByIndex(i).getSchoolBoard().hasProfessor(colour) && !game.getPlayerByIndex(i).equals(game.getCurrentPlayer())){
+            if (game.getPlayerByIndex(i).getSchoolBoard().hasProfessor(colour) && !game.getPlayerByIndex(i).equals(game.getCurrentPlayer())) {
                 control = false;
-                if (game.getCurrentPlayer().getSchoolBoard().getDiningRoom(colour) >= game.getPlayerByIndex(i).getSchoolBoard().getDiningRoom(colour)){
+                if (game.getCurrentPlayer().getSchoolBoard().getDiningRoom(colour) >= game.getPlayerByIndex(i).getSchoolBoard().getDiningRoom(colour)) {
                     game.getCurrentPlayer().getSchoolBoard().addProfessor(colour);
                     game.getPlayerByIndex(i).getSchoolBoard().removeProfessor(colour);
                 }
             }
         }
 
-        if(control){
+        if (control) {
             boolean check = true;
             for (int i = 0; i < game.getNumberOfPlayer(); i++) {
                 if (game.getCurrentPlayer().getSchoolBoard().getDiningRoom(colour) < game.getPlayerByIndex(i).getSchoolBoard().getDiningRoom(colour)
-                        && !game.getPlayerByIndex(i).equals(game.getCurrentPlayer())){
+                        && !game.getPlayerByIndex(i).equals(game.getCurrentPlayer())) {
                     check = false;
                 }
             }
-            if(check){
+            if (check) {
                 game.getCurrentPlayer().getSchoolBoard().addProfessor(colour);
             }
         }
@@ -52,7 +52,7 @@ public class TakeProfessor extends CharacterCard {
      */
     @Override
     public void professor() {
-        for(Colour colour: Colour.values()){
+        for (Colour colour : Colour.values()) {
             this.checkProfessor(colour);
         }
     }

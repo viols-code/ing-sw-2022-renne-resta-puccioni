@@ -19,7 +19,7 @@ class TakeProfessorTest {
     private Player player2;
 
     @BeforeEach
-    void setUp(){
+    void setUp() {
         gameTest = new ExpertGame();
         cardTest = new TakeProfessor(gameTest);
 

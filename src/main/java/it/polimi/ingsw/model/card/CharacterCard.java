@@ -32,7 +32,8 @@ public abstract class CharacterCard {
     /**
      * Set the state of the card
      */
-    public void setting() {}
+    public void setting() {
+    }
 
     /*
     COINS
@@ -164,24 +165,24 @@ public abstract class CharacterCard {
     public void checkProfessor(Colour colour) {
         boolean control = true;
         for (int i = 0; i < game.getNumberOfPlayer(); i++) {
-            if(game.getPlayerByIndex(i).getSchoolBoard().hasProfessor(colour) && !game.getPlayerByIndex(i).equals(game.getCurrentPlayer())){
+            if (game.getPlayerByIndex(i).getSchoolBoard().hasProfessor(colour) && !game.getPlayerByIndex(i).equals(game.getCurrentPlayer())) {
                 control = false;
-                if (game.getCurrentPlayer().getSchoolBoard().getDiningRoom(colour) > game.getPlayerByIndex(i).getSchoolBoard().getDiningRoom(colour)){
+                if (game.getCurrentPlayer().getSchoolBoard().getDiningRoom(colour) > game.getPlayerByIndex(i).getSchoolBoard().getDiningRoom(colour)) {
                     game.getCurrentPlayer().getSchoolBoard().addProfessor(colour);
                     game.getPlayerByIndex(i).getSchoolBoard().removeProfessor(colour);
                 }
             }
         }
 
-        if(control){
+        if (control) {
             boolean check = true;
             for (int i = 0; i < game.getNumberOfPlayer(); i++) {
                 if (game.getCurrentPlayer().getSchoolBoard().getDiningRoom(colour) <= game.getPlayerByIndex(i).getSchoolBoard().getDiningRoom(colour)
-                        && !game.getPlayerByIndex(i).equals(game.getCurrentPlayer())){
+                        && !game.getPlayerByIndex(i).equals(game.getCurrentPlayer())) {
                     check = false;
                 }
             }
-            if(check){
+            if (check) {
                 game.getCurrentPlayer().getSchoolBoard().addProfessor(colour);
             }
         }
@@ -190,7 +191,8 @@ public abstract class CharacterCard {
     /**
      * Checks if the current player can take the control of the professors
      */
-    public void professor() {}
+    public void professor() {
+    }
 
     /*
     MOTHER NATURE
@@ -228,7 +230,7 @@ public abstract class CharacterCard {
      * @param island the island chosen
      * @throws IllegalAccessError if the CharacterCard doesn't have this method
      */
-    public void setColourAndIsland(Colour colour, SingleIsland island) throws IllegalAccessError{
+    public void setColourAndIsland(Colour colour, SingleIsland island) throws IllegalAccessError {
         throw new IllegalAccessError("The card doesn't have this method");
     }
 
@@ -239,7 +241,7 @@ public abstract class CharacterCard {
      * @param groupIsland the GroupIsland to be set
      * @throws IllegalAccessError if the CharacterCard doesn't have this method
      */
-    public void setGroupIsland(int groupIsland) throws IllegalAccessError{
+    public void setGroupIsland(int groupIsland) throws IllegalAccessError {
         throw new IllegalAccessError("The card doesn't have this method");
     }
 
