@@ -74,7 +74,6 @@ class IslandInfluenceTest {
         assertEquals(7, player2.getSchoolBoard().getTowers());
 
         gameTest.getTable().getGroupIslandByIndex(1).getIslandByIndex(0).addStudent(Colour.BLUE);
-        gameTest.getTable().getGroupIslandByIndex(1).getIslandByIndex(0).addStudent(Colour.BLUE);
         gameTest.getTable().getGroupIslandByIndex(1).getIslandByIndex(0).addStudent(Colour.RED);
         gameTest.getTable().getGroupIslandByIndex(1).getIslandByIndex(0).addStudent(Colour.RED);
         gameTest.getTable().getGroupIslandByIndex(1).getIslandByIndex(0).addStudent(Colour.RED);

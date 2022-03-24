@@ -49,7 +49,6 @@ class TakeProfessorTest {
         player1.getSchoolBoard().addStudentToDiningRoom(Colour.BLUE);
         player2.getSchoolBoard().addStudentToDiningRoom(Colour.RED);
 
-
         assertFalse(player1.getSchoolBoard().hasProfessor(Colour.BLUE));
         assertFalse(player1.getSchoolBoard().hasProfessor(Colour.GREEN));
         assertFalse(player1.getSchoolBoard().hasProfessor(Colour.YELLOW));
@@ -62,10 +61,8 @@ class TakeProfessorTest {
         assertFalse(player2.getSchoolBoard().hasProfessor(Colour.PINK));
         assertFalse(player2.getSchoolBoard().hasProfessor(Colour.BLUE));
 
-
         gameTest.setCurrentPlayer(player1);
         cardTest.professor();
-
 
         assertTrue(player1.getSchoolBoard().hasProfessor(Colour.BLUE));
         assertTrue(player1.getSchoolBoard().hasProfessor(Colour.GREEN));
@@ -78,7 +75,6 @@ class TakeProfessorTest {
         assertFalse(player2.getSchoolBoard().hasProfessor(Colour.YELLOW));
         assertFalse(player2.getSchoolBoard().hasProfessor(Colour.PINK));
         assertFalse(player2.getSchoolBoard().hasProfessor(Colour.BLUE));
-
 
         gameTest.setCurrentPlayer(player2);
         cardTest.professor();
@@ -94,7 +90,50 @@ class TakeProfessorTest {
         assertFalse(player1.getSchoolBoard().hasProfessor(Colour.YELLOW));
         assertFalse(player1.getSchoolBoard().hasProfessor(Colour.PINK));
         assertFalse(player1.getSchoolBoard().hasProfessor(Colour.RED));
+    }
 
+    @Test
+    void incrementCost(){
+        int cost = cardTest.getCost();
+        assertEquals(cost, cardTest.getCost());
+        cardTest.incrementCost();
+        assertEquals(cost + 1, cardTest.getCost());
+    }
+
+    @Test
+    void setColour(){
+        for(Colour colour: Colour.values()){
+            assertThrows(IllegalAccessError.class, () -> cardTest.setColour(colour));
+        }
+    }
+
+    @Test
+    void setColourAndIsland() {
+        for(Colour colour: Colour.values()){
+            assertThrows(IllegalAccessError.class, () -> cardTest.setColourAndIsland(colour, gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0)));
+        }
+    }
+
+    @Test
+    public void setColourDiningRoomEntrance() {
+        for(Colour colour: Colour.values()){
+            assertThrows(IllegalAccessError.class, () -> cardTest.setColourDiningRoomEntrance(colour, colour));
+        }
+    }
+
+    @Test
+    public void setColourCardEntrance(){
+        for(Colour colour: Colour.values()){
+            assertThrows(IllegalAccessError.class, () -> cardTest.setColourCardEntrance(colour, colour));
+        }
+    }
+
+    @Test
+    void setGroupIsland() {
+        for(int i = 0; i < gameTest.getTable().getNumberOfGroupIsland(); i++){
+            int finalI = i;
+            assertThrows(IllegalAccessError.class, () -> cardTest.setGroupIsland(finalI));
+        }
     }
 
     private void settingBag() {
