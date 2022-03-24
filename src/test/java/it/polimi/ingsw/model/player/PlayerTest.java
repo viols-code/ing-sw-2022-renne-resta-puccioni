@@ -25,6 +25,7 @@ class PlayerTest {
         AssistantCard card = gameController.getGame().getAssistantCard(1);
         gameController.getGame().getPlayerByIndex(0).addAssistantCard(card);
         assertTrue(gameController.getGame().getPlayerByIndex(0).isAssistantCardPresent(card));
+
     }
 
     @Test
