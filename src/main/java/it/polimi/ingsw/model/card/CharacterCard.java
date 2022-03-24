@@ -6,7 +6,6 @@ import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.table.island.GroupIsland;
 import it.polimi.ingsw.model.table.island.SingleIsland;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,9 +25,18 @@ public abstract class CharacterCard {
         this.game = game;
     }
 
-    public void setting() {
+    /*
+    SETTING
+     */
 
-    }
+    /**
+     * Set the state of the card
+     */
+    public void setting() {}
+
+    /*
+    COINS
+     */
 
     /**
      * Get the actualCost of the CharacterCard
@@ -46,11 +54,20 @@ public abstract class CharacterCard {
         actualCost += 1;
     }
 
+    /*
+    EFFECT
+     */
+
     /**
      * Activates the effect of the CharacterCard
      */
     public void effect() {
     }
+
+
+    /*
+    INFLUENCE
+     */
 
     /**
      * Calculates influence of the given Player in the given GroupIsland
@@ -84,7 +101,7 @@ public abstract class CharacterCard {
      */
     public void calculateInfluence(int groupIsland) {
         HashMap<Player, Integer> scores = new HashMap<>();
-        List<Player> res = new ArrayList<>();
+        List<Player> res;
         for (int i = 0; i < game.getNumberOfPlayer(); i++) {
             if (!game.getPlayerByIndex(i).equals(game.getTable().getGroupIslandByIndex(groupIsland).getInfluence()))
                 scores.put(game.getPlayerByIndex(i), calculateInfluencePlayer(game.getPlayerByIndex(i), game.getTable().getGroupIslandByIndex(groupIsland)));
@@ -137,6 +154,9 @@ public abstract class CharacterCard {
         checkUnifyIsland(groupIsland);
     }
 
+    /*
+    PROFESSOR
+     */
 
     /**
      * Checks if the current player can take the control of the professor selected
@@ -151,6 +171,10 @@ public abstract class CharacterCard {
         }
     }
 
+    /*
+    MOTHER NATURE
+     */
+
     /**
      * Checks if mother nature can do the steps required from the player
      *
@@ -159,12 +183,12 @@ public abstract class CharacterCard {
      * @return true if mother nature can do the steps required
      */
     public boolean checkMotherNatureMovement(int player, int movement) {
-        if (game.getPlayerByIndex(player).getCurrentAssistantCard().getMotherNatureMovement() >= movement) {
-            return true;
-        }
-
-        return false;
+        return game.getPlayerByIndex(player).getCurrentAssistantCard().getMotherNatureMovement() >= movement;
     }
+
+    /*
+    STATE
+     */
 
     /**
      * Set the colour
@@ -181,19 +205,21 @@ public abstract class CharacterCard {
      *
      * @param colour the colour chosen
      * @param island the island chosen
+     * @throws IllegalAccessError if the CharacterCard doesn't have this method
      */
-    public void setColourAndIsland(Colour colour, SingleIsland island) {
-
+    public void setColourAndIsland(Colour colour, SingleIsland island) throws IllegalAccessError{
+        throw new IllegalAccessError("The card doesn't have this method");
     }
 
 
     /**
      * Set the island to choose
      *
-     * @param groupIsland
+     * @param groupIsland the GroupIsland to be set
+     * @throws IllegalAccessError if the CharacterCard doesn't have this method
      */
-    public void setGroupIsland(int groupIsland) {
-
+    public void setGroupIsland(int groupIsland) throws IllegalAccessError{
+        throw new IllegalAccessError("The card doesn't have this method");
     }
 
     /**
@@ -217,6 +243,10 @@ public abstract class CharacterCard {
     public void setColourCardEntrance(Colour colourCard, Colour colourEntrance) throws IllegalAccessError {
         throw new IllegalAccessError("The card doesn't have this method");
     }
+
+    /*
+    UNIFY ISLANDS
+     */
 
     /**
      * Unifies two GroupIsland
