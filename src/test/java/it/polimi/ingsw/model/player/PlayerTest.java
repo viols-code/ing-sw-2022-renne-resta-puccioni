@@ -32,7 +32,7 @@ class PlayerTest {
     }
 
     @Before
-    public void fillAssistantCardDeck(){
+    public void setUpRemoveAssistantCard(){
         AssistantCard card;
         for(int i=0;i<10;i++){
             card = gameController.getGame().getAssistantCard(i);
@@ -49,13 +49,24 @@ class PlayerTest {
             assertFalse(gameController.getGame().getPlayerByIndex(0).isAssistantCardPresent(card));
         }
     }
+    @Before
+    public void setUpSetCurrentAssistantCard(){
+        AssistantCard card;
+        for(int i=0;i<10;i++){
+            card = gameController.getGame().getAssistantCard(i);
+            gameController.getGame().getPlayerByIndex(0).addAssistantCard(card);
+        }
+    }
 
     @Test
     void setCurrentAssistantCard() {
-        AssistantCard card = gameController.getGame().getAssistantCard(1);
-        gameController.getGame().getPlayerByIndex(0).addAssistantCard(card);
-        gameController.getGame().getPlayerByIndex(0).setCurrentAssistantCard(card);
-        assertEquals(card, gameController.getGame().getPlayerByIndex(0).getCurrentAssistantCard());
+        AssistantCard card;
+        for(int i=0;i<10;i++){
+            card = gameController.getGame().getAssistantCard(i);
+            gameController.getGame().getPlayerByIndex(0).setCurrentAssistantCard(card);
+            assertEquals(card, gameController.getGame().getPlayerByIndex(0).getCurrentAssistantCard());
+            assertFalse(gameController.getGame().getPlayerByIndex(0).isAssistantCardPresent(gameController.getGame().getAssistantCard(i)));
+        }
     }
 
     @Test
