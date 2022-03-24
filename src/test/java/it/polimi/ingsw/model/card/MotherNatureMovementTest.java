@@ -10,8 +10,8 @@ import it.polimi.ingsw.model.table.island.BasicGroupIsland;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class MotherNatureMovementTest {
     private MotherNatureMovement cardTest;
@@ -41,6 +41,50 @@ class MotherNatureMovementTest {
         assertEquals(1, gameTest.getAssistantCard(0).getMotherNatureMovement());
         assertEquals(gameTest.getAssistantCard(0), player1.getCurrentAssistantCard());
         assertTrue(cardTest.checkMotherNatureMovement(0, 3));
+    }
+
+    @Test
+    void incrementCost(){
+        int cost = cardTest.getCost();
+        assertEquals(cost, cardTest.getCost());
+        cardTest.incrementCost();
+        assertEquals(cost + 1, cardTest.getCost());
+    }
+
+    @Test
+    void setColour(){
+        for(Colour colour: Colour.values()){
+            assertThrows(IllegalAccessError.class, () -> cardTest.setColour(colour));
+        }
+    }
+
+    @Test
+    void setColourAndIsland() {
+        for(Colour colour: Colour.values()){
+            assertThrows(IllegalAccessError.class, () -> cardTest.setColourAndIsland(colour, gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0)));
+        }
+    }
+
+    @Test
+    public void setColourDiningRoomEntrance() {
+        for(Colour colour: Colour.values()){
+            assertThrows(IllegalAccessError.class, () -> cardTest.setColourDiningRoomEntrance(colour, colour));
+        }
+    }
+
+    @Test
+    public void setColourCardEntrance(){
+        for(Colour colour: Colour.values()){
+            assertThrows(IllegalAccessError.class, () -> cardTest.setColourCardEntrance(colour, colour));
+        }
+    }
+
+    @Test
+    void setGroupIsland() {
+        for(int i = 0; i < gameTest.getTable().getNumberOfGroupIsland(); i++){
+            int finalI = i;
+            assertThrows(IllegalAccessError.class, () -> cardTest.setGroupIsland(finalI));
+        }
     }
 
     private void settingBag() {
