@@ -7,25 +7,24 @@ public class TakeProfessor extends CharacterCard {
     /**
      * Constructor
      *
-     * @param game
+     * @param game the Game
      */
     public TakeProfessor(Game game) {
         super(game);
     }
 
     /**
-     * Take the professor of the colour given if possible
+     * Checks if the current player can take the control of the professor selected
      *
-     * @param colour
+     * @param colour the colour of the professor selected
      */
     @Override
     public void checkProfessor(Colour colour) {
         for (int i = 0; i < game.getNumberOfPlayer(); i++) {
-            if (game.getCurrentPlayer().getSchoolBoard().getDiningRoom(colour) >= game.getPlayerByIndex(i).getSchoolBoard().getDiningRoom(colour)) {
-                game.getCurrentPlayer().getSchoolBoard().hasProfessor(colour);
+            if (game.getPlayerByIndex(i).getSchoolBoard().hasProfessor(colour) && game.getCurrentPlayer().getSchoolBoard().getDiningRoom(colour) >= game.getPlayerByIndex(i).getSchoolBoard().getDiningRoom(colour)){
+                game.getCurrentPlayer().getSchoolBoard().addProfessor(colour);
+                game.getPlayerByIndex(i).getSchoolBoard().removeProfessor(colour);
             }
         }
-
-        //game.setActiveCharacterCard(game.getBasicState());
     }
 }
