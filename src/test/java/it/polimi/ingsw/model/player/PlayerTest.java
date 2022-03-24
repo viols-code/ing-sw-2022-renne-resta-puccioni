@@ -18,6 +18,7 @@ class PlayerTest {
         game = new BasicGame();
     }
 
+
     @Test
     void addAssistantCard() {
         AssistantCard card = game.getAssistantCard(1);
@@ -39,6 +40,10 @@ class PlayerTest {
         playerTest.addAssistantCard(card);
         playerTest.setCurrentAssistantCard(card);
         assertEquals(card, playerTest.getCurrentAssistantCard());
+    }
+    @Test
+    void setHasAlreadyPlayed(){
+
     }
 
     @Test

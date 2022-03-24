@@ -139,4 +139,9 @@ class SchoolBoardTest {
         }
     }
 
+    @Test
+    void getNumberOfProfessors(){
+
+    }
+
 }
