@@ -1,5 +1,6 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.game;
 
+import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.model.game.BasicGame;
 import it.polimi.ingsw.model.game.Game;
 import it.polimi.ingsw.model.game.GamePhase;
@@ -13,23 +14,26 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class GameTest {
-    Game gameTest;
-    Player player1;
-    Player player2;
-    Player player3;
+    private GameController gameController;
 
     @BeforeEach
     void setUp() {
-        gameTest = new BasicGame();
-        player1 = new BasicPlayer("Viola", Wizard.TYPE_1);
-        gameTest.addPlayer(player1);
+        gameController = new GameController(false, 2);
     }
 
     @Test
     void addPlayer() {
-        assertEquals(1, gameTest.getNumberOfPlayer());
-        assertEquals("Viola", gameTest.getPlayerByIndex(0).getNickname());
-        assertEquals(Wizard.TYPE_1, gameTest.getPlayerByIndex(0).getWizard());
+        Player player1 = new BasicPlayer("Laura", Wizard.TYPE_1);
+        gameController.getGame().addPlayer(player1);
+        assertEquals(1, gameController.getGame().getNumberOfPlayer());
+        assertEquals("Laura", gameController.getGame().getPlayerByIndex(0).getNickname());
+        assertEquals(Wizard.TYPE_1, gameController.getGame().getPlayerByIndex(0).getWizard());
+
+        Player player2 = new BasicPlayer("Sara", Wizard.TYPE_3);
+        gameController.getGame().addPlayer(player2);
+        assertEquals(2, gameController.getGame().getNumberOfPlayer());
+        assertEquals("Sara", gameController.getGame().getPlayerByIndex(1).getNickname());
+        assertEquals(Wizard.TYPE_3, gameController.getGame().getPlayerByIndex(1).getWizard());
     }
 
     @Test
