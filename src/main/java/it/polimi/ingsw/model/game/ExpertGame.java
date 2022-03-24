@@ -30,6 +30,10 @@ public class ExpertGame extends Game {
         coins = 20 - getNumberOfPlayer();
     }
 
+    /*
+    CHARACTER CARD
+     */
+
     /**
      * Get the Character Card at the given index
      *
@@ -38,6 +42,16 @@ public class ExpertGame extends Game {
     @Override
     public CharacterCard getCharacterCardsByIndex(int index) {
         return characterCards.get(index);
+    }
+
+    /**
+     * Get the number of CharacterCard in the list
+     *
+     * @return the number of CharacterCard in the list
+     */
+    @Override
+    public int getNumberOfCharacterCard(){
+        return characterCards.size();
     }
 
     /**

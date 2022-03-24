@@ -289,6 +289,16 @@ public abstract class Game {
     }
 
     /**
+     * Get the number of CharacterCard in the list
+     *
+     * @return the number of CharacterCard in the list
+     * @throws IllegalAccessError if the mode is basic
+     */
+    public int getNumberOfCharacterCard() throws IllegalAccessError{
+        throw new IllegalAccessError("This is for the Expert Mode");
+    }
+
+    /**
      * Add the character card given to the List
      *
      * @param card the Character Card to be added
