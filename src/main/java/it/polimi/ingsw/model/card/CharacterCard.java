@@ -145,7 +145,6 @@ public abstract class CharacterCard {
             game.getTable().getGroupIslandByIndex(groupIsland).changeInfluence(influencePlayer);
             if (influencePlayer.getSchoolBoard().getTowers() - game.getTable().getGroupIslandByIndex(groupIsland).getNumberOfSingleIsland() <= 0) {
                 game.setWinner(influencePlayer);
-
             } else {
                 influencePlayer.getSchoolBoard().removeTower(game.getTable().getGroupIslandByIndex(groupIsland).getNumberOfSingleIsland());
             }
@@ -277,10 +276,10 @@ public abstract class CharacterCard {
      * @param groupIsland2 the second GroupIsland to be unified
      */
     private void unifyGroupIsland(GroupIsland groupIsland1, GroupIsland groupIsland2) {
-
         for (int i = 0; i < groupIsland2.getNumberOfSingleIsland(); i++) {
-            groupIsland1.addSingleIsland(groupIsland2.getIslandByIndex(i));
+            groupIsland1.addSingleIsland(groupIsland1.getIslandByIndex(i));
         }
+        game.getTable().removeGroupIsland(groupIsland2);
     }
 
     /**
