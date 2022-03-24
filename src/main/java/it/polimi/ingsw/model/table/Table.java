@@ -98,6 +98,29 @@ public class Table {
         return (getMotherNaturePosition() + 1) % islands.size();
     }
 
+    /**
+     * Get the GroupIsland before clockwise
+     *
+     * @param groupIsland the reference GroupIsland
+     * @return the GroupIsland before clockwise
+     */
+    public GroupIsland getIslandAfter(int groupIsland) {
+        return getGroupIslandByIndex((groupIsland + 1) % islands.size());
+    }
+
+    /**
+     * Get the GroupIsland after clockwise
+     *
+     * @param groupIsland the reference GroupIsland
+     * @return the GroupIsland after clockwise
+     */
+    public GroupIsland getIslandBefore(int groupIsland) {
+        groupIsland = (groupIsland - 1) % islands.size();
+        if(groupIsland == -1){
+            groupIsland = 11;
+        }
+        return getGroupIslandByIndex(groupIsland);
+    }
 
        /*
     MOTHER NATURE
@@ -161,30 +184,6 @@ public class Table {
      */
     public void removeCLoudTile(CloudTile cloudTile) {
         cloudTiles.remove(cloudTile);
-    }
-
-    /**
-     * Get the GroupIsland before clockwise
-     *
-     * @param groupIsland the reference GroupIsland
-     * @return the GroupIsland before clockwise
-     */
-    public GroupIsland getIslandAfter(int groupIsland) {
-        return getGroupIslandByIndex((groupIsland + 1) % islands.size());
-    }
-
-    /**
-     * Get the GroupIsland after clockwise
-     *
-     * @param groupIsland the reference GroupIsland
-     * @return the GroupIsland after clockwise
-     */
-    public GroupIsland getIslandBefore(int groupIsland) {
-        groupIsland = (groupIsland - 1) % islands.size();
-        if(groupIsland == -1){
-            groupIsland = 11;
-        }
-        return getGroupIslandByIndex(groupIsland);
     }
 
 }
