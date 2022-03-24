@@ -22,12 +22,16 @@ class AssistantCardTest {
     @Test
     void getValue() {
         for(int i=1;i<=10;i++){
-            assertEquals(i,gameController.getGame().getAssistantCard(i).getValue());
+            assertEquals(i,gameController.getGame().getAssistantCard(i-1).getValue());
         }
     }
 
     @Test
     void getMotherNatureMovement() {
+        for(int i=1;i<=10;i+=2){
+            assertEquals(i,gameController.getGame().getAssistantCard(i-1).getValue());
+            assertEquals(i+1,gameController.getGame().getAssistantCard(i).getValue());
+        }
     }
 
     @Test
