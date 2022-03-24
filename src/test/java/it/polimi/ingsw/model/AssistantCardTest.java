@@ -36,9 +36,13 @@ class AssistantCardTest {
 
     @Test
     void testEquals() {
+        assertEquals(gameController.getGame().getAssistantCard(0),gameController.getGame().getAssistantCard(0));
+        assertNotEquals(gameController.getGame().getAssistantCard(0),gameController.getGame().getAssistantCard(1));
     }
 
     @Test
     void testHashCode() {
+        assertEquals(gameController.getGame().getAssistantCard(0).hashCode(),gameController.getGame().getAssistantCard(0).hashCode());
+        assertNotEquals(gameController.getGame().getAssistantCard(0).hashCode(),gameController.getGame().getAssistantCard(1).hashCode());
     }
 }
