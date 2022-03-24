@@ -90,7 +90,7 @@ class GameTest {
 
         gameController.getGame().getPlayerByIndex(0).setCurrentAssistantCard(card1);
         gameController.getGame().getPlayerByIndex(1).setCurrentAssistantCard(card2);
-        gameController.getGame().getPlayerByIndex(0).setCurrentAssistantCard(card3);
+        gameController.getGame().getPlayerByIndex(2).setCurrentAssistantCard(card3);
 
         gameController.getGame().setCurrentPlayer(player1);
 
