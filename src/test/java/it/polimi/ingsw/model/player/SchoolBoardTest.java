@@ -144,6 +144,16 @@ class SchoolBoardTest {
     }
 
     @Test
+    void getNumberStudentEntrance(){
+        gameController.getGame().getPlayerByIndex(0).getSchoolBoard().addStudentToEntrance(Colour.RED);
+        gameController.getGame().getPlayerByIndex(0).getSchoolBoard().addStudentToEntrance(Colour.YELLOW);
+        gameController.getGame().getPlayerByIndex(0).getSchoolBoard().addStudentToEntrance(Colour.RED);
+        gameController.getGame().getPlayerByIndex(0).getSchoolBoard().addStudentToEntrance(Colour.PINK);
+        assertEquals(4,gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getNumberStudentsEntrance());
+
+    }
+
+    @Test
     void getNumberOfProfessors() {
         int contaProfessori=0;
         for(Colour colour:Colour.values()){
@@ -153,5 +163,4 @@ class SchoolBoardTest {
         }
         assertEquals(contaProfessori,gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getNumberOfProfessors());
     }
-
 }
