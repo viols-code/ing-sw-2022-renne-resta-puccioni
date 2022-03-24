@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class AdvancedGroupIslandTest {
     private GameController gameController;
+    private AdvancedGroupIsland groupIsland;
 
 
     @BeforeEach
@@ -39,6 +40,14 @@ class AdvancedGroupIslandTest {
     }
 
     @Test
+    void checkAddNoEntryTile(){
+        groupIsland = new AdvancedGroupIsland();
+        assertEquals(0, groupIsland.getNumberOfNoEntryTile());
+        groupIsland.addNoEntryTile();
+        assertEquals(1, groupIsland.getNumberOfNoEntryTile());
+    }
+
+    @Test
     void removeNoEntryTile() {
         if(gameController.getGame().hasProtectIslandCard()){
             for (int i = 0; i < gameController.getGame().getTable().getNumberOfGroupIsland(); i++) {
@@ -49,5 +58,15 @@ class AdvancedGroupIslandTest {
             gameController.getGame().getTable().getGroupIslandByIndex(0).removeNoEntryTile();
             assertEquals(0, gameController.getGame().getTable().getGroupIslandByIndex(0).getNumberOfNoEntryTile());
         }
+    }
+
+    @Test
+    void checkReoveNoEntryTile(){
+        groupIsland = new AdvancedGroupIsland();
+        assertEquals(0, groupIsland.getNumberOfNoEntryTile());
+        groupIsland.addNoEntryTile();
+        assertEquals(1, groupIsland.getNumberOfNoEntryTile());
+        groupIsland.removeNoEntryTile();
+        assertEquals(0, groupIsland.getNumberOfNoEntryTile());
     }
 }

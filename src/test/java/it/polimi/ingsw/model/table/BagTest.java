@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class BagTest {
     GameController gameController;
@@ -30,6 +31,14 @@ class BagTest {
 
         gameController.getGame().getTable().getBag().addStudentBag(Colour.BLUE);
         assertEquals(25, gameController.getGame().getTable().getBag().getBagStudent(Colour.BLUE));
+    }
+
+    @Test
+    void isBagEmpty(){
+        while(! gameController.getGame().getTable().getBag().isBagEmpty()){
+            gameController.getGame().getTable().getBag().bagDrawStudent();
+        }
+        assertThrows(IllegalAccessError.class, () -> gameController.getGame().getTable().getBag().bagDrawStudent());
     }
 
     @Test

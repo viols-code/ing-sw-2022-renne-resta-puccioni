@@ -2,8 +2,6 @@ package it.polimi.ingsw.model.table;
 
 import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.model.Colour;
-import it.polimi.ingsw.model.game.BasicGame;
-import it.polimi.ingsw.model.game.Game;
 import it.polimi.ingsw.model.table.island.BasicGroupIsland;
 import it.polimi.ingsw.model.table.island.GroupIsland;
 import org.junit.jupiter.api.BeforeEach;
@@ -41,6 +39,34 @@ class TableTest {
         assertEquals(11, gameController.getGame().getTable().getNumberOfGroupIsland());
         for (int i = 0; i < gameController.getGame().getTable().getNumberOfGroupIsland(); i++) {
             assertNotEquals(groupIsland, gameController.getGame().getTable().getGroupIslandByIndex(i));
+        }
+    }
+
+    @Test
+    void getNextGroupIslandClockWise(){
+        int num = gameController.getGame().getTable().getNumberOfGroupIsland();
+        assertEquals(0, gameController.getGame().getTable().getMotherNaturePosition());
+        for(int i = 0; i < num; i++){
+            assertEquals((i + 1) % num, gameController.getGame().getTable().getNextGroupIslandClockWise());
+            gameController.getGame().getTable().setMotherNaturePosition(gameController.getGame().getTable().getNextGroupIslandClockWise());
+        }
+    }
+
+    @Test
+    void getIslandBefore(){
+        int num = gameController.getGame().getTable().getNumberOfGroupIsland();
+        for(int i = 0; i < num; i++){
+            assertEquals(gameController.getGame().getTable().getGroupIslandByIndex(i),
+                    gameController.getGame().getTable().getIslandBefore((i + 1) % num));
+        }
+    }
+
+    @Test
+    void getIslandAfter(){
+        int num = gameController.getGame().getTable().getNumberOfGroupIsland();
+        for(int i = 0; i < num; i++){
+            assertEquals(gameController.getGame().getTable().getGroupIslandByIndex(i),
+                    gameController.getGame().getTable().getIslandAfter((i - 1) % num));
         }
     }
 
@@ -101,23 +127,5 @@ class TableTest {
 
         gameController.getGame().getTable().removeCLoudTile(gameController.getGame().getTable().getCloudTilesByIndex(0));
         assertEquals(2, gameController.getGame().getTable().getNumberOfCloudTile());
-    }
-
-    @Test
-    void getIslandBefore(){
-        int num = gameController.getGame().getTable().getNumberOfGroupIsland();
-        for(int i = 0; i < num; i++){
-            assertEquals(gameController.getGame().getTable().getGroupIslandByIndex(i),
-                    gameController.getGame().getTable().getIslandBefore((i + 1) % num));
-        }
-    }
-
-    @Test
-    void getIslandAfter(){
-        int num = gameController.getGame().getTable().getNumberOfGroupIsland();
-        for(int i = 0; i < num; i++){
-            assertEquals(gameController.getGame().getTable().getGroupIslandByIndex(i),
-                    gameController.getGame().getTable().getIslandAfter((i - 1) % num));
-        }
     }
 }

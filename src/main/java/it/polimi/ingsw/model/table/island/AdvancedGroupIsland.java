@@ -34,7 +34,7 @@ public class AdvancedGroupIsland extends GroupIsland {
      * Remove one no entry tile
      */
     @Override
-    public void removeNoEntryTile() throws IllegalAccessError {
+    public void removeNoEntryTile() {
         numberOfNoEntryTile -= 1;
 
         if (numberOfNoEntryTile == 0) {
