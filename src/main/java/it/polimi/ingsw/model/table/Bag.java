@@ -66,34 +66,38 @@ public class Bag {
      *
      * @return the student drawn
      */
-    public Colour bagDrawStudent() {
-        int bag_size = 0;
+    public Colour bagDrawStudent() throws IllegalAccessError{
+        if(isBagEmpty()){
+            throw new IllegalAccessError("There is no student in the bag");
+        } else{
+            int bag_size = 0;
 
-        for (Colour colour : Colour.values()) {
-            bag_size += bag.get(colour);
-        }
+            for (Colour colour : Colour.values()) {
+                bag_size += bag.get(colour);
+            }
 
-        Random rand = new Random();
-        int upperbound = bag_size;
-        int n;
-        n = rand.nextInt(upperbound) + 1;
+            Random rand = new Random();
+            int upperbound = bag_size;
+            int n;
+            n = rand.nextInt(upperbound) + 1;
 
-        if (n <= getBagStudent(Colour.YELLOW)) {
-            this.removeStudentBag(Colour.YELLOW);
-            return Colour.YELLOW;
-        } else if (n > getBagStudent(Colour.YELLOW) && n <= getBagStudent(Colour.YELLOW) + getBagStudent(Colour.BLUE)) {
-            this.removeStudentBag(Colour.BLUE);
-            return Colour.BLUE;
-        } else if (n > getBagStudent(Colour.YELLOW) + getBagStudent(Colour.BLUE) && n <= getBagStudent(Colour.YELLOW) + getBagStudent(Colour.BLUE) + getBagStudent(Colour.PINK)) {
-            this.removeStudentBag(Colour.PINK);
-            return Colour.PINK;
-        } else if (n > getBagStudent(Colour.YELLOW) + getBagStudent(Colour.BLUE) + getBagStudent(Colour.PINK)
-                && n <= getBagStudent(Colour.YELLOW) + getBagStudent(Colour.BLUE) + getBagStudent(Colour.PINK) + getBagStudent(Colour.RED)) {
-            this.removeStudentBag(Colour.RED);
-            return Colour.RED;
-        } else {
-            this.removeStudentBag(Colour.GREEN);
-            return Colour.GREEN;
+            if (n <= getBagStudent(Colour.YELLOW)) {
+                this.removeStudentBag(Colour.YELLOW);
+                return Colour.YELLOW;
+            } else if (n > getBagStudent(Colour.YELLOW) && n <= getBagStudent(Colour.YELLOW) + getBagStudent(Colour.BLUE)) {
+                this.removeStudentBag(Colour.BLUE);
+                return Colour.BLUE;
+            } else if (n > getBagStudent(Colour.YELLOW) + getBagStudent(Colour.BLUE) && n <= getBagStudent(Colour.YELLOW) + getBagStudent(Colour.BLUE) + getBagStudent(Colour.PINK)) {
+                this.removeStudentBag(Colour.PINK);
+                return Colour.PINK;
+            } else if (n > getBagStudent(Colour.YELLOW) + getBagStudent(Colour.BLUE) + getBagStudent(Colour.PINK)
+                    && n <= getBagStudent(Colour.YELLOW) + getBagStudent(Colour.BLUE) + getBagStudent(Colour.PINK) + getBagStudent(Colour.RED)) {
+                this.removeStudentBag(Colour.RED);
+                return Colour.RED;
+            } else {
+                this.removeStudentBag(Colour.GREEN);
+                return Colour.GREEN;
+            }
         }
     }
 }
