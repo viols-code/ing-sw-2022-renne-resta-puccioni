@@ -11,8 +11,7 @@ import it.polimi.ingsw.model.player.Wizard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class GameTest {
     private GameController gameController;
@@ -103,14 +102,23 @@ class GameTest {
 
     @Test
     void setCurrentPlayer() {
-        gameTest.setCurrentPlayer(player1);
-        assertTrue(gameTest.isCurrentPlayer(player1));
+
+    }
+
+    @Test
+    void isCurrentPlayer(){
+
+        Player player1 = new BasicPlayer("Laura", Wizard.TYPE_1);
+        Player player2 = new BasicPlayer("Sara", Wizard.TYPE_2);
+        gameController.getGame().setCurrentPlayer(player1);
+        assertTrue(gameController.getGame().isCurrentPlayer(player1));
+        assertFalse(gameController.getGame().isCurrentPlayer(player2));
+
     }
 
     @Test
     void setFirstPlayerTurn() {
-        gameTest.setFirstPlayerTurn(player1);
-        assertEquals(player1, gameTest.getFirstPlayerTurn());
+
     }
 
     @Test
@@ -160,12 +168,6 @@ class GameTest {
         assertEquals(GamePhase.SETTING, gameTest.getGamePhase());
         gameTest.setGamePhase(GamePhase.SET_CLOUD_TILE);
         assertEquals(GamePhase.SET_CLOUD_TILE, gameTest.getGamePhase());
-    }
-
-    @Test
-    void isCurrentPlayer() {
-        gameTest.setCurrentPlayer(player1);
-        assertTrue(gameTest.isCurrentPlayer(player1));
     }
 
 }
