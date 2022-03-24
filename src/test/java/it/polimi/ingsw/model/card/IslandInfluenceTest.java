@@ -10,7 +10,7 @@ import it.polimi.ingsw.model.table.island.BasicGroupIsland;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class IslandInfluenceTest {
     private IslandInfluence cardTest;
@@ -19,7 +19,7 @@ class IslandInfluenceTest {
     private Player player2;
 
     @BeforeEach
-    void setUp(){
+    void setUp() {
         gameTest = new ExpertGame();
         cardTest = new IslandInfluence(gameTest);
 
@@ -61,9 +61,26 @@ class IslandInfluenceTest {
     @Test
     void setGroupIsland() {
         cardTest.setGroupIsland(0);
-        if(gameTest.getTable().getGroupIslandByIndex(0).getInfluence() != null){
-            assertEquals(player1, gameTest.getTable().getGroupIslandByIndex(0).getInfluence());
-        }
+        assertEquals(player1, gameTest.getTable().getGroupIslandByIndex(0).getInfluence());
+        assertEquals(7, player1.getSchoolBoard().getTowers());
+        gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0).addStudent(Colour.RED);
+        gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0).addStudent(Colour.RED);
+        gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0).addStudent(Colour.RED);
+        gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0).addStudent(Colour.RED);
+        cardTest.setGroupIsland(0);
+        assertEquals(player2, gameTest.getTable().getGroupIslandByIndex(0).getInfluence());
+        assertEquals(8, player1.getSchoolBoard().getTowers());
+        assertEquals(7, player2.getSchoolBoard().getTowers());
+
+        gameTest.getTable().getGroupIslandByIndex(1).getIslandByIndex(0).addStudent(Colour.BLUE);
+        gameTest.getTable().getGroupIslandByIndex(1).getIslandByIndex(0).addStudent(Colour.BLUE);
+        gameTest.getTable().getGroupIslandByIndex(1).getIslandByIndex(0).addStudent(Colour.RED);
+        gameTest.getTable().getGroupIslandByIndex(1).getIslandByIndex(0).addStudent(Colour.RED);
+        gameTest.getTable().getGroupIslandByIndex(1).getIslandByIndex(0).addStudent(Colour.RED);
+        assertEquals(12, gameTest.getTable().getNumberOfGroupIsland());
+        cardTest.setGroupIsland(1);
+        assertEquals(11, gameTest.getTable().getNumberOfGroupIsland());
+        assertEquals(player2, gameTest.getTable().getGroupIslandByIndex(0).getInfluence());
     }
 
     private void settingBag() {

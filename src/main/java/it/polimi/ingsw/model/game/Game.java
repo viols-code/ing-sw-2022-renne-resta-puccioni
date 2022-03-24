@@ -294,7 +294,7 @@ public abstract class Game {
      * @return the number of CharacterCard in the list
      * @throws IllegalAccessError if the mode is basic
      */
-    public int getNumberOfCharacterCard() throws IllegalAccessError{
+    public int getNumberOfCharacterCard() throws IllegalAccessError {
         throw new IllegalAccessError("This is for the Expert Mode");
     }
 

@@ -32,7 +32,8 @@ public abstract class CharacterCard {
     /**
      * Set the state of the card
      */
-    public void setting() {}
+    public void setting() {
+    }
 
     /*
     COINS
@@ -103,8 +104,7 @@ public abstract class CharacterCard {
         HashMap<Player, Integer> scores = new HashMap<>();
         List<Player> res;
         for (int i = 0; i < game.getNumberOfPlayer(); i++) {
-            if (!game.getPlayerByIndex(i).equals(game.getTable().getGroupIslandByIndex(groupIsland).getInfluence()))
-                scores.put(game.getPlayerByIndex(i), calculateInfluencePlayer(game.getPlayerByIndex(i), game.getTable().getGroupIslandByIndex(groupIsland)));
+            scores.put(game.getPlayerByIndex(i), calculateInfluencePlayer(game.getPlayerByIndex(i), game.getTable().getGroupIslandByIndex(groupIsland)));
         }
 
         Integer maxInfluence = scores.values().stream().reduce(0, (y1, y2) -> {
@@ -146,7 +146,6 @@ public abstract class CharacterCard {
             game.getTable().getGroupIslandByIndex(groupIsland).changeInfluence(influencePlayer);
             if (influencePlayer.getSchoolBoard().getTowers() - game.getTable().getGroupIslandByIndex(groupIsland).getNumberOfSingleIsland() <= 0) {
                 game.setWinner(influencePlayer);
-
             } else {
                 influencePlayer.getSchoolBoard().removeTower(game.getTable().getGroupIslandByIndex(groupIsland).getNumberOfSingleIsland());
             }
@@ -166,24 +165,24 @@ public abstract class CharacterCard {
     public void checkProfessor(Colour colour) {
         boolean control = true;
         for (int i = 0; i < game.getNumberOfPlayer(); i++) {
-            if(game.getPlayerByIndex(i).getSchoolBoard().hasProfessor(colour) && !game.getPlayerByIndex(i).equals(game.getCurrentPlayer())){
+            if (game.getPlayerByIndex(i).getSchoolBoard().hasProfessor(colour) && !game.getPlayerByIndex(i).equals(game.getCurrentPlayer())) {
                 control = false;
-                if (game.getCurrentPlayer().getSchoolBoard().getDiningRoom(colour) > game.getPlayerByIndex(i).getSchoolBoard().getDiningRoom(colour)){
+                if (game.getCurrentPlayer().getSchoolBoard().getDiningRoom(colour) > game.getPlayerByIndex(i).getSchoolBoard().getDiningRoom(colour)) {
                     game.getCurrentPlayer().getSchoolBoard().addProfessor(colour);
                     game.getPlayerByIndex(i).getSchoolBoard().removeProfessor(colour);
                 }
             }
         }
 
-        if(control){
+        if (control) {
             boolean check = true;
             for (int i = 0; i < game.getNumberOfPlayer(); i++) {
                 if (game.getCurrentPlayer().getSchoolBoard().getDiningRoom(colour) <= game.getPlayerByIndex(i).getSchoolBoard().getDiningRoom(colour)
-                        && !game.getPlayerByIndex(i).equals(game.getCurrentPlayer())){
+                        && !game.getPlayerByIndex(i).equals(game.getCurrentPlayer())) {
                     check = false;
                 }
             }
-            if(check){
+            if (check) {
                 game.getCurrentPlayer().getSchoolBoard().addProfessor(colour);
             }
         }
@@ -192,7 +191,8 @@ public abstract class CharacterCard {
     /**
      * Checks if the current player can take the control of the professors
      */
-    public void professor() {}
+    public void professor() {
+    }
 
     /*
     MOTHER NATURE
@@ -230,7 +230,7 @@ public abstract class CharacterCard {
      * @param island the island chosen
      * @throws IllegalAccessError if the CharacterCard doesn't have this method
      */
-    public void setColourAndIsland(Colour colour, SingleIsland island) throws IllegalAccessError{
+    public void setColourAndIsland(Colour colour, SingleIsland island) throws IllegalAccessError {
         throw new IllegalAccessError("The card doesn't have this method");
     }
 
@@ -241,7 +241,7 @@ public abstract class CharacterCard {
      * @param groupIsland the GroupIsland to be set
      * @throws IllegalAccessError if the CharacterCard doesn't have this method
      */
-    public void setGroupIsland(int groupIsland) throws IllegalAccessError{
+    public void setGroupIsland(int groupIsland) throws IllegalAccessError {
         throw new IllegalAccessError("The card doesn't have this method");
     }
 
@@ -278,10 +278,10 @@ public abstract class CharacterCard {
      * @param groupIsland2 the second GroupIsland to be unified
      */
     private void unifyGroupIsland(GroupIsland groupIsland1, GroupIsland groupIsland2) {
-
         for (int i = 0; i < groupIsland2.getNumberOfSingleIsland(); i++) {
-            groupIsland1.addSingleIsland(groupIsland2.getIslandByIndex(i));
+            groupIsland1.addSingleIsland(groupIsland1.getIslandByIndex(i));
         }
+        game.getTable().removeGroupIsland(groupIsland2);
     }
 
     /**
@@ -290,14 +290,13 @@ public abstract class CharacterCard {
      * @param groupIsland the group island selected
      */
     public void checkUnifyIsland(int groupIsland) {
-        if (game.getTable().getIslandAfter(groupIsland).getInfluence().equals(game.getTable().getGroupIslandByIndex(groupIsland).getInfluence())) {
+        if (game.getTable().getGroupIslandByIndex(groupIsland).getInfluence().equals(game.getTable().getIslandAfter(groupIsland).getInfluence())) {
             unifyGroupIsland(game.getTable().getGroupIslandByIndex(groupIsland), game.getTable().getIslandAfter(groupIsland));
         }
 
-        if (game.getTable().getIslandBefore(groupIsland).getInfluence().equals(game.getTable().getGroupIslandByIndex(groupIsland).getInfluence())) {
+        if (game.getTable().getGroupIslandByIndex(groupIsland).getInfluence().equals(game.getTable().getIslandBefore(groupIsland).getInfluence())) {
             unifyGroupIsland(game.getTable().getGroupIslandByIndex(groupIsland), game.getTable().getIslandBefore(groupIsland));
         }
-
     }
 
 }

@@ -210,7 +210,7 @@ public class GameController {
                             game.getPlayerByIndex(player).addCoins(1);
                             game.setCoins(game.getCoins() - 1);
                         }
-                        if(!game.getCurrentPlayer().getSchoolBoard().hasProfessor(colour)){
+                        if (!game.getCurrentPlayer().getSchoolBoard().hasProfessor(colour)) {
                             game.getActiveCharacterCard().checkProfessor(colour);
                         }
                     }
@@ -283,8 +283,8 @@ public class GameController {
     /**
      * Adds a new player with the nickname and wizard chosen
      *
-     * @param nickname
-     * @param wizard
+     * @param nickname the nickname chosen by the player
+     * @param wizard the wizard chosen by the player
      */
     public void addPlayer(String nickname, Wizard wizard) {
         if (isGameExpert) {
@@ -310,7 +310,7 @@ public class GameController {
     /**
      * Checks if the nickname has already been taken
      *
-     * @param nickname
+     * @param nickname the nickname of the player
      * @return a boolean which says if the nickname has already been taken
      */
     private boolean checkUniqueNickname(String nickname) {
@@ -329,7 +329,7 @@ public class GameController {
     /**
      * Checks if the nickname has already been taken
      *
-     * @param wizard
+     * @param wizard the wizard of the player
      * @return a boolean which says if the wizard has already been taken
      */
     private boolean checkUniqueWizard(Wizard wizard) {
