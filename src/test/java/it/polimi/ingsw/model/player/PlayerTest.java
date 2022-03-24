@@ -2,8 +2,6 @@ package it.polimi.ingsw.model.player;
 
 import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.model.AssistantCard;
-import it.polimi.ingsw.model.game.BasicGame;
-import it.polimi.ingsw.model.game.Game;
 import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -34,7 +32,7 @@ class PlayerTest {
     }
 
     @Before
-    void fillAssistantCardDeck(){
+    public void fillAssistantCardDeck(){
         AssistantCard card;
         for(int i=0;i<10;i++){
             card = gameController.getGame().getAssistantCard(i);
