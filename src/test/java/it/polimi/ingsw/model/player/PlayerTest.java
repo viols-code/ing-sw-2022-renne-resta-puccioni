@@ -143,4 +143,9 @@ class PlayerTest {
     void equals(){
         assertFalse(gameController.getGame().getPlayerByIndex(0).equals(gameController.getGame().getPlayerByIndex(1)));
     }
+
+    @Test
+    void hashCodeTest(){
+        assertNotEquals(gameController.getGame().getPlayerByIndex(0).hashCode(),gameController.getGame().getPlayerByIndex(1).hashCode());
+    }
 }
