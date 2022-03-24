@@ -11,7 +11,6 @@ public class Bag {
      */
     private final HashMap<Colour, Integer> bag;
 
-
     public Bag() {
         bag = new HashMap<>();
         bag.put(Colour.GREEN, 0);
@@ -75,7 +74,7 @@ public class Bag {
         }
 
         Random rand = new Random();
-        int upperbound = bag_size - 1;
+        int upperbound = bag_size;
         int n;
         n = rand.nextInt(upperbound) + 1;
 

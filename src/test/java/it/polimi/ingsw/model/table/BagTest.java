@@ -1,38 +1,44 @@
 package it.polimi.ingsw.model.table;
 
+import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.model.Colour;
-import it.polimi.ingsw.model.game.BasicGame;
-import it.polimi.ingsw.model.game.Game;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class BagTest {
-    Game gameTest;
+    GameController gameController;
 
     @BeforeEach
     void setUp() {
-        gameTest = new BasicGame();
+        gameController = new GameController(false, 2);
+    }
+
+    @Test
+    void checkSetting(){
+        for (Colour colour : Colour.values()) {
+            assertEquals(24, gameController.getGame().getTable().getBag().getBagStudent(colour));
+        }
     }
 
     @Test
     void addStudentBag() {
         for (Colour colour : Colour.values()) {
-            assertEquals(24, gameTest.getTable().getBag().getBagStudent(colour));
+            assertEquals(24, gameController.getGame().getTable().getBag().getBagStudent(colour));
         }
 
-        gameTest.getTable().getBag().addStudentBag(Colour.BLUE);
-        assertEquals(25, gameTest.getTable().getBag().getBagStudent(Colour.BLUE));
+        gameController.getGame().getTable().getBag().addStudentBag(Colour.BLUE);
+        assertEquals(25, gameController.getGame().getTable().getBag().getBagStudent(Colour.BLUE));
     }
 
     @Test
     void bagDrawStudent() {
-        int numPinkRemained = gameTest.getTable().getBag().getBagStudent(Colour.PINK);
-        int numBlueRemained = gameTest.getTable().getBag().getBagStudent(Colour.BLUE);
-        int numGreenRemained = gameTest.getTable().getBag().getBagStudent(Colour.GREEN);
-        int numYellowRemained = gameTest.getTable().getBag().getBagStudent(Colour.YELLOW);
-        int numRedRemained = gameTest.getTable().getBag().getBagStudent(Colour.RED);
+        int numPinkRemained = gameController.getGame().getTable().getBag().getBagStudent(Colour.PINK);
+        int numBlueRemained = gameController.getGame().getTable().getBag().getBagStudent(Colour.BLUE);
+        int numGreenRemained = gameController.getGame().getTable().getBag().getBagStudent(Colour.GREEN);
+        int numYellowRemained = gameController.getGame().getTable().getBag().getBagStudent(Colour.YELLOW);
+        int numRedRemained = gameController.getGame().getTable().getBag().getBagStudent(Colour.RED);
 
         assertEquals(24, numPinkRemained);
         assertEquals(24, numBlueRemained);
@@ -41,42 +47,42 @@ class BagTest {
         assertEquals(24, numRedRemained);
 
         for (int i = 0; i < 24; i++) {
-            Colour colour = gameTest.getTable().getBag().bagDrawStudent();
+            Colour colour = gameController.getGame().getTable().getBag().bagDrawStudent();
             if (colour.equals(Colour.PINK)) {
                 numPinkRemained--;
-                assertEquals(numPinkRemained, gameTest.getTable().getBag().getBagStudent(Colour.PINK));
-                assertEquals(numGreenRemained, gameTest.getTable().getBag().getBagStudent(Colour.GREEN));
-                assertEquals(numBlueRemained, gameTest.getTable().getBag().getBagStudent(Colour.BLUE));
-                assertEquals(numRedRemained, gameTest.getTable().getBag().getBagStudent(Colour.RED));
-                assertEquals(numYellowRemained, gameTest.getTable().getBag().getBagStudent(Colour.YELLOW));
+                assertEquals(numPinkRemained, gameController.getGame().getTable().getBag().getBagStudent(Colour.PINK));
+                assertEquals(numGreenRemained, gameController.getGame().getTable().getBag().getBagStudent(Colour.GREEN));
+                assertEquals(numBlueRemained, gameController.getGame().getTable().getBag().getBagStudent(Colour.BLUE));
+                assertEquals(numRedRemained, gameController.getGame().getTable().getBag().getBagStudent(Colour.RED));
+                assertEquals(numYellowRemained, gameController.getGame().getTable().getBag().getBagStudent(Colour.YELLOW));
             } else if (colour.equals(Colour.GREEN)) {
                 numGreenRemained--;
-                assertEquals(numPinkRemained, gameTest.getTable().getBag().getBagStudent(Colour.PINK));
-                assertEquals(numGreenRemained, gameTest.getTable().getBag().getBagStudent(Colour.GREEN));
-                assertEquals(numBlueRemained, gameTest.getTable().getBag().getBagStudent(Colour.BLUE));
-                assertEquals(numRedRemained, gameTest.getTable().getBag().getBagStudent(Colour.RED));
-                assertEquals(numYellowRemained, gameTest.getTable().getBag().getBagStudent(Colour.YELLOW));
+                assertEquals(numPinkRemained, gameController.getGame().getTable().getBag().getBagStudent(Colour.PINK));
+                assertEquals(numGreenRemained, gameController.getGame().getTable().getBag().getBagStudent(Colour.GREEN));
+                assertEquals(numBlueRemained, gameController.getGame().getTable().getBag().getBagStudent(Colour.BLUE));
+                assertEquals(numRedRemained, gameController.getGame().getTable().getBag().getBagStudent(Colour.RED));
+                assertEquals(numYellowRemained, gameController.getGame().getTable().getBag().getBagStudent(Colour.YELLOW));
             } else if (colour.equals(Colour.BLUE)) {
                 numBlueRemained--;
-                assertEquals(numPinkRemained, gameTest.getTable().getBag().getBagStudent(Colour.PINK));
-                assertEquals(numGreenRemained, gameTest.getTable().getBag().getBagStudent(Colour.GREEN));
-                assertEquals(numBlueRemained, gameTest.getTable().getBag().getBagStudent(Colour.BLUE));
-                assertEquals(numRedRemained, gameTest.getTable().getBag().getBagStudent(Colour.RED));
-                assertEquals(numYellowRemained, gameTest.getTable().getBag().getBagStudent(Colour.YELLOW));
+                assertEquals(numPinkRemained, gameController.getGame().getTable().getBag().getBagStudent(Colour.PINK));
+                assertEquals(numGreenRemained, gameController.getGame().getTable().getBag().getBagStudent(Colour.GREEN));
+                assertEquals(numBlueRemained, gameController.getGame().getTable().getBag().getBagStudent(Colour.BLUE));
+                assertEquals(numRedRemained, gameController.getGame().getTable().getBag().getBagStudent(Colour.RED));
+                assertEquals(numYellowRemained, gameController.getGame().getTable().getBag().getBagStudent(Colour.YELLOW));
             } else if (colour.equals(Colour.RED)) {
                 numRedRemained--;
-                assertEquals(numPinkRemained, gameTest.getTable().getBag().getBagStudent(Colour.PINK));
-                assertEquals(numGreenRemained, gameTest.getTable().getBag().getBagStudent(Colour.GREEN));
-                assertEquals(numBlueRemained, gameTest.getTable().getBag().getBagStudent(Colour.BLUE));
-                assertEquals(numRedRemained, gameTest.getTable().getBag().getBagStudent(Colour.RED));
-                assertEquals(numYellowRemained, gameTest.getTable().getBag().getBagStudent(Colour.YELLOW));
+                assertEquals(numPinkRemained, gameController.getGame().getTable().getBag().getBagStudent(Colour.PINK));
+                assertEquals(numGreenRemained, gameController.getGame().getTable().getBag().getBagStudent(Colour.GREEN));
+                assertEquals(numBlueRemained, gameController.getGame().getTable().getBag().getBagStudent(Colour.BLUE));
+                assertEquals(numRedRemained, gameController.getGame().getTable().getBag().getBagStudent(Colour.RED));
+                assertEquals(numYellowRemained, gameController.getGame().getTable().getBag().getBagStudent(Colour.YELLOW));
             } else {
                 numYellowRemained--;
-                assertEquals(numPinkRemained, gameTest.getTable().getBag().getBagStudent(Colour.PINK));
-                assertEquals(numGreenRemained, gameTest.getTable().getBag().getBagStudent(Colour.GREEN));
-                assertEquals(numBlueRemained, gameTest.getTable().getBag().getBagStudent(Colour.BLUE));
-                assertEquals(numRedRemained, gameTest.getTable().getBag().getBagStudent(Colour.RED));
-                assertEquals(numYellowRemained, gameTest.getTable().getBag().getBagStudent(Colour.YELLOW));
+                assertEquals(numPinkRemained, gameController.getGame().getTable().getBag().getBagStudent(Colour.PINK));
+                assertEquals(numGreenRemained, gameController.getGame().getTable().getBag().getBagStudent(Colour.GREEN));
+                assertEquals(numBlueRemained, gameController.getGame().getTable().getBag().getBagStudent(Colour.BLUE));
+                assertEquals(numRedRemained, gameController.getGame().getTable().getBag().getBagStudent(Colour.RED));
+                assertEquals(numYellowRemained, gameController.getGame().getTable().getBag().getBagStudent(Colour.YELLOW));
             }
         }
     }

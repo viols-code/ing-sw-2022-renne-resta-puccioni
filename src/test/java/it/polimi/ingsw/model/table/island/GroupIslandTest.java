@@ -1,8 +1,7 @@
 package it.polimi.ingsw.model.table.island;
 
+import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.model.Colour;
-import it.polimi.ingsw.model.game.BasicGame;
-import it.polimi.ingsw.model.game.Game;
 import it.polimi.ingsw.model.player.BasicPlayer;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.Wizard;
@@ -12,11 +11,24 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class GroupIslandTest {
-    private Game game;
+    private GameController gameController;
 
     @BeforeEach
     void setUp() {
-        game = new BasicGame();
+        gameController = new GameController(false, 2);
+    }
+
+    @Test
+    void  checkSetting(){
+        int numberBlue = 0;
+        int numberRed = 0;
+        int numberGreen = 0;
+        int numberPink = 0;
+        int numberYellow = 0;
+
+        for(int i = 0; i < gameController.getGame().getTable().getNumberOfGroupIsland(); i++){
+
+        }
     }
 
     @Test
