@@ -145,7 +145,13 @@ class SchoolBoardTest {
 
     @Test
     void getNumberOfProfessors() {
-
+        int contaProfessori=0;
+        for(Colour colour:Colour.values()){
+            if(gameController.getGame().getPlayerByIndex(0).getSchoolBoard().hasProfessor(colour)){
+                contaProfessori+=1;
+            }
+        }
+        assertEquals(contaProfessori,gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getNumberOfProfessors());
     }
 
 }
