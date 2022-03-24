@@ -117,8 +117,40 @@ class GameTest {
     }
 
     @Test
+    void getFirstPlayerTurn(){
+
+    }
+
+    @Test
     void setFirstPlayerTurn() {
 
+    }
+
+    @Test
+    void getTable(){
+
+    }
+
+    @Test
+    void getRound(){
+
+    }
+
+    @Test
+    void incrementRound(){
+        gameController.getGame().incrementRound();
+        assertEquals(2, gameController.getGame().getRound());
+        gameController.getGame().incrementRound();
+        gameController.getGame().incrementRound();
+        gameController.getGame().incrementRound();
+        gameController.getGame().incrementRound();
+        gameController.getGame().incrementRound();
+        gameController.getGame().incrementRound();
+        assertEquals(7, gameController.getGame().getRound());
+        gameController.getGame().incrementRound();
+        gameController.getGame().incrementRound();
+        gameController.getGame().incrementRound();
+        assertEquals(10, gameController.getGame().getRound());
     }
 
     @Test
@@ -128,12 +160,6 @@ class GameTest {
         // for (int i = 0; i < gameTest.getTable().getNumberOfGroupIsland(); i++) {
         //    assertNotEquals(gameTest.getTable().getGroupIslandByIndex(i), islandRemoved);
         //  }
-    }
-
-    @Test
-    void incrementRound() {
-        gameTest.incrementRound();
-        assertEquals(1, gameTest.getRound());
     }
 
 
