@@ -4,7 +4,7 @@ import it.polimi.ingsw.controller.GameController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ExpertPlayerTest {
     private GameController gameController;
@@ -32,7 +32,16 @@ class ExpertPlayerTest {
             assertEquals(10 - i + 1, gameController.getGame().getPlayerByIndex(0).getCoins());
             gameController.getGame().getPlayerByIndex(0).addCoins(i);
         }
+    }
 
+    @Test
+    void equals(){
+        assertFalse(gameController.getGame().getPlayerByIndex(0).equals(gameController.getGame().getPlayerByIndex(1)));
+    }
+
+    @Test
+    void hashCodeTest(){
+        assertNotEquals(gameController.getGame().getPlayerByIndex(0).hashCode(),gameController.getGame().getPlayerByIndex(1).hashCode());
     }
 
 }
