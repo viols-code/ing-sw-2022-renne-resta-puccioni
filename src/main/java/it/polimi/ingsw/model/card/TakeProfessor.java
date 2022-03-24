@@ -22,29 +22,27 @@ public class TakeProfessor extends CharacterCard {
      */
     @Override
     public void checkProfessor(Colour colour) {
-        if(!game.getCurrentPlayer().getSchoolBoard().hasProfessor(colour)){
-            boolean control = true;
-            for (int i = 0; i < game.getNumberOfPlayer(); i++) {
-                if(game.getPlayerByIndex(i).getSchoolBoard().hasProfessor(colour) && !game.getPlayerByIndex(i).equals(game.getCurrentPlayer())){
-                    control = false;
-                    if (game.getCurrentPlayer().getSchoolBoard().getDiningRoom(colour) >= game.getPlayerByIndex(i).getSchoolBoard().getDiningRoom(colour)){
-                        game.getCurrentPlayer().getSchoolBoard().addProfessor(colour);
-                        game.getPlayerByIndex(i).getSchoolBoard().removeProfessor(colour);
-                    }
+        boolean control = true;
+        for (int i = 0; i < game.getNumberOfPlayer(); i++) {
+            if(game.getPlayerByIndex(i).getSchoolBoard().hasProfessor(colour) && !game.getPlayerByIndex(i).equals(game.getCurrentPlayer())){
+                control = false;
+                if (game.getCurrentPlayer().getSchoolBoard().getDiningRoom(colour) >= game.getPlayerByIndex(i).getSchoolBoard().getDiningRoom(colour)){
+                    game.getCurrentPlayer().getSchoolBoard().addProfessor(colour);
+                    game.getPlayerByIndex(i).getSchoolBoard().removeProfessor(colour);
                 }
             }
+        }
 
-            if(control){
-                boolean check = true;
-                for (int i = 0; i < game.getNumberOfPlayer(); i++) {
-                    if (game.getCurrentPlayer().getSchoolBoard().getDiningRoom(colour) < game.getPlayerByIndex(i).getSchoolBoard().getDiningRoom(colour)
-                            && !game.getPlayerByIndex(i).equals(game.getCurrentPlayer())){
-                        check = false;
-                    }
+        if(control){
+            boolean check = true;
+            for (int i = 0; i < game.getNumberOfPlayer(); i++) {
+                if (game.getCurrentPlayer().getSchoolBoard().getDiningRoom(colour) < game.getPlayerByIndex(i).getSchoolBoard().getDiningRoom(colour)
+                        && !game.getPlayerByIndex(i).equals(game.getCurrentPlayer())){
+                    check = false;
                 }
-                if(check){
-                    game.getCurrentPlayer().getSchoolBoard().addProfessor(colour);
-                }
+            }
+            if(check){
+                game.getCurrentPlayer().getSchoolBoard().addProfessor(colour);
             }
         }
     }

@@ -210,7 +210,9 @@ public class GameController {
                             game.getPlayerByIndex(player).addCoins(1);
                             game.setCoins(game.getCoins() - 1);
                         }
-                        game.getActiveCharacterCard().checkProfessor(colour);
+                        if(!game.getCurrentPlayer().getSchoolBoard().hasProfessor(colour)){
+                            game.getActiveCharacterCard().checkProfessor(colour);
+                        }
                     }
                 }
             }
