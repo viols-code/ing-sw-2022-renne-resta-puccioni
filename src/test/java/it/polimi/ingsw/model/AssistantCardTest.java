@@ -23,6 +23,7 @@ class AssistantCardTest {
     void getValue() {
         for(int i=1;i<=10;i++){
             assertEquals(i,gameController.getGame().getAssistantCard(i).getValue());
+
         }
     }
 
