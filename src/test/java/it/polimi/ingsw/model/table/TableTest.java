@@ -102,4 +102,22 @@ class TableTest {
         gameController.getGame().getTable().removeCLoudTile(gameController.getGame().getTable().getCloudTilesByIndex(0));
         assertEquals(2, gameController.getGame().getTable().getNumberOfCloudTile());
     }
+
+    @Test
+    void getIslandBefore(){
+        int num = gameController.getGame().getTable().getNumberOfGroupIsland();
+        for(int i = 0; i < num; i++){
+            assertEquals(gameController.getGame().getTable().getGroupIslandByIndex(i),
+                    gameController.getGame().getTable().getIslandBefore((i + 1) % num));
+        }
+    }
+
+    @Test
+    void getIslandAfter(){
+        int num = gameController.getGame().getTable().getNumberOfGroupIsland();
+        for(int i = 0; i < num; i++){
+            assertEquals(gameController.getGame().getTable().getGroupIslandByIndex(i),
+                    gameController.getGame().getTable().getIslandAfter((i - 1) % num));
+        }
+    }
 }

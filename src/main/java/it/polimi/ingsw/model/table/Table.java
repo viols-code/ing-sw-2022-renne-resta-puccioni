@@ -180,7 +180,11 @@ public class Table {
      * @return the GroupIsland after clockwise
      */
     public GroupIsland getIslandBefore(int groupIsland) {
-        return getGroupIslandByIndex((groupIsland - 1) % islands.size());
+        groupIsland = (groupIsland - 1) % islands.size();
+        if(groupIsland == -1){
+            groupIsland = 11;
+        }
+        return getGroupIslandByIndex(groupIsland);
     }
 
 }
