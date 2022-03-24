@@ -209,19 +209,11 @@ public class GameController {
     }
 
     private boolean checkStudentsMovement(int player) {
-        if (game.getPlayerByIndex(player).getSchoolBoard().getNumberStudentsEntrance() >= game.getNumberStudentsEntrance() - 4) {
-            return true;
-        }
-
-        return false;
+        return game.getPlayerByIndex(player).getSchoolBoard().getNumberStudentsEntrance() >= game.getNumberStudentsEntrance() - 4;
     }
 
     private boolean checkEndMovementPhase(int player) {
-        if (game.getPlayerByIndex(player).getSchoolBoard().getNumberStudentsEntrance() == 4) {
-            return true;
-        }
-
-        return false;
+        return game.getPlayerByIndex(player).getSchoolBoard().getNumberStudentsEntrance() == 4;
     }
 
 
@@ -432,16 +424,16 @@ public class GameController {
                 game.setWinner(possibleWinner.get(0));
                 return;
             } else {
-                for (int i = 0; i < possibleWinner.size(); i++) {
-                    if (possibleWinner.get(i).getSchoolBoard().getNumberOfProfessors() > max) {
-                        max = possibleWinner.get(i).getSchoolBoard().getNumberOfProfessors();
+                for (Player player : possibleWinner) {
+                    if (player.getSchoolBoard().getNumberOfProfessors() > max) {
+                        max = player.getSchoolBoard().getNumberOfProfessors();
                     }
                 }
             }
 
-            for (int i = 0; i < possibleWinner.size(); i++) {
-                if (possibleWinner.get(i).getSchoolBoard().getNumberOfProfessors() == max) {
-                    game.setWinner((possibleWinner.get(i)));
+            for (Player player : possibleWinner) {
+                if (player.getSchoolBoard().getNumberOfProfessors() == max) {
+                    game.setWinner(player);
                     return;
                 }
             }
