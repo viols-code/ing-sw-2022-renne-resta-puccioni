@@ -132,4 +132,9 @@ class PlayerTest {
     void removeCoins() {
         assertThrows(IllegalAccessError.class, () -> gameController.getGame().getPlayerByIndex(0).removeCoins(10));
     }
+
+    @Test
+    void equals(){
+        assertFalse(gameController.getGame().getPlayerByIndex(0).equals(gameController.getGame().getPlayerByIndex(1)));
+    }
 }
