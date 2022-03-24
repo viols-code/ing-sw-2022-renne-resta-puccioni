@@ -38,8 +38,16 @@ class GameTest {
 
     @Test
     void removePlayer() {
-        gameTest.removePlayer(player1);
-        assertEquals(0, gameTest.getNumberOfPlayer());
+
+        Player player1 = new BasicPlayer("Laura", Wizard.TYPE_1);
+        gameController.getGame().addPlayer(player1);
+        Player player2 = new BasicPlayer("Sara", Wizard.TYPE_3);
+        gameController.getGame().addPlayer(player2);
+        gameController.getGame().removePlayer(player1);
+
+        assertEquals(1, gameController.getGame().getNumberOfPlayer());
+        assertEquals(player2, gameController.getGame().getPlayerByIndex(0));
+
     }
 
     @Test
