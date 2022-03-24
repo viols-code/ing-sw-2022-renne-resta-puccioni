@@ -79,4 +79,18 @@ public class StudentToIsland extends CharacterCard {
         game.setActiveCharacterCard(game.getBasicState());
     }
 
+    /*
+    FOR TESTING
+     */
+
+    /**
+     * Get number of student of the given colour
+     *
+     * @param colour colour
+     * @return number of student of the given colour
+     */
+    protected int getStudent(Colour colour){
+        return studentsOnCard.get(colour);
+    }
+
 }
