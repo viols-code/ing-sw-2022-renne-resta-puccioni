@@ -93,7 +93,7 @@ public abstract class Game {
         nextPlayer = null;
         firstPlayerTurn = null;
         table = new Table();
-        round = 0;
+        round = 1;
         activeCharacterCard = new BasicState(this);
         assistantCard = new ArrayList<>();
 
