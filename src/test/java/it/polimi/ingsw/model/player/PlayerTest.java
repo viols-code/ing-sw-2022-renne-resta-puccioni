@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.player;
 
+import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.model.AssistantCard;
 import it.polimi.ingsw.model.game.BasicGame;
 import it.polimi.ingsw.model.game.Game;
@@ -9,13 +10,11 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class PlayerTest {
-    private Player playerTest;
-    private Game game;
+    private GameController gameController;
 
     @BeforeEach
     void setUp() {
-        playerTest = new BasicPlayer("Sara", Wizard.TYPE_2);
-        game = new BasicGame();
+        gameController = new GameController(false, 2);
     }
 
 
