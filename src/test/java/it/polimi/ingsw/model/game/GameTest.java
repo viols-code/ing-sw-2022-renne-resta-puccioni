@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.game;
 
 import it.polimi.ingsw.controller.GameController;
+import it.polimi.ingsw.model.AssistantCard;
 import it.polimi.ingsw.model.game.BasicGame;
 import it.polimi.ingsw.model.game.Game;
 import it.polimi.ingsw.model.game.GamePhase;
@@ -74,22 +75,29 @@ class GameTest {
     @Test
     void nextPlayerTurn() {
 
-        AssistantCard card1 = new AssistantCard(3, 4);
-        AssistantCard card2 = new AssistantCard(4, 4);
-        AssistantCard card3 = new AssistantCard(6, 4);
+        Player player1 = new BasicPlayer("Viola", Wizard.TYPE_2);
+        Player player2 = new BasicPlayer("Laura", Wizard.TYPE_3);
+        Player player3 = new BasicPlayer("Sara", Wizard.TYPE_3);
 
-        player1.setCurrentAssistantCard(card1);
-        gameTest.setCurrentPlayer(player1);
+        gameController.getGame().addPlayer(player1);
+        gameController.getGame().addPlayer(player2);
+        gameController.getGame().addPlayer(player3);
 
-        player2 = new BasicPlayer("Sara", Wizard.TYPE_2);
-        player3 = new BasicPlayer("Laura", Wizard.TYPE_3);
-        gameTest.addPlayer(player2);
-        gameTest.addPlayer(player3);
+        AssistantCard card1 = new AssistantCard(6, 3);
+        AssistantCard card2 = new AssistantCard(10, 5);
+        AssistantCard card3 = new AssistantCard(7, 4);
 
-        player2.setCurrentAssistantCard(card3);
-        player3.setCurrentAssistantCard(card2);
+        gameController.getGame().getPlayerByIndex(0).setCurrentAssistantCard(card1);
+        gameController.getGame().getPlayerByIndex(1).setCurrentAssistantCard(card2);
+        gameController.getGame().getPlayerByIndex(0).setCurrentAssistantCard(card3);
 
-//        assertEquals(player3, gameTest.nextPlayerTurn());
+        gameController.getGame().setCurrentPlayer(player1);
+
+        assertEquals(player3, gameController.getGame().nextPlayerTurn());
+
+        gameController.getGame().setCurrentPlayer(player3);
+
+        assertEquals(player2, gameController.getGame().nextPlayerTurn());
 
     }
 
