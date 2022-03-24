@@ -12,16 +12,18 @@ public class IslandInfluence extends CharacterCard {
     /**
      * Constructor
      *
-     * @param game
+     * @param game the Game
      */
     public IslandInfluence(Game game) {
         super(game);
+        initialCost = 3;
+        actualCost = initialCost;
     }
 
     /**
      * Set the island to choose
      *
-     * @param groupIsland
+     * @param groupIsland the GroupIsland chosen
      */
     @Override
     public void setGroupIsland(int groupIsland) {

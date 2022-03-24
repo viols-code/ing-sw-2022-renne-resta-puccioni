@@ -16,20 +16,18 @@ public class MotherNatureMovement extends CharacterCard {
     AssistantCard newCard;
 
     /**
-     * Contructor
+     * Constructor
      *
-     * @param game
+     * @param game the Game
      */
     public MotherNatureMovement(Game game) {
         super(game);
+        initialCost = 1;
+        actualCost = initialCost;
     }
 
     @Override
     public boolean checkMotherNatureMovement(int player, int movement) {
-        if (game.getPlayerByIndex(player).getCurrentAssistantCard().getMotherNatureMovement() + 2 >= movement) {
-            return true;
-        }
-
-        return false;
+        return game.getPlayerByIndex(player).getCurrentAssistantCard().getMotherNatureMovement() + 2 >= movement;
     }
 }

@@ -12,6 +12,8 @@ public class TwoPoints extends CharacterCard {
      */
     public TwoPoints(Game game) {
         super(game);
+        initialCost = 2;
+        actualCost = initialCost;
     }
 
     /**
