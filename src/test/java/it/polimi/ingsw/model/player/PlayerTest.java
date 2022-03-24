@@ -61,6 +61,25 @@ class PlayerTest {
         }
     }
     @Before
+    public void setUpGetCurrentAssistantCard(){
+        AssistantCard card;
+        for(int i=0;i<10;i++){
+            card = gameController.getGame().getAssistantCard(i);
+            gameController.getGame().getPlayerByIndex(0).addAssistantCard(card);
+        }
+    }
+
+    @Test
+    void getCurrentAssistantCard(){
+        AssistantCard card;
+        for(int i=0;i<10;i++){
+            card = gameController.getGame().getAssistantCard(i);
+            gameController.getGame().getPlayerByIndex(0).setCurrentAssistantCard(card);
+            assertEquals(card,gameController.getGame().getPlayerByIndex(0).getCurrentAssistantCard());
+        }
+    }
+
+    @Before
     public void setUpSetCurrentAssistantCard(){
         AssistantCard card;
         for(int i=0;i<10;i++){
