@@ -71,6 +71,16 @@ class IslandInfluenceTest {
         assertEquals(player2, gameTest.getTable().getGroupIslandByIndex(0).getInfluence());
         assertEquals(8, player1.getSchoolBoard().getTowers());
         assertEquals(7, player2.getSchoolBoard().getTowers());
+
+        gameTest.getTable().getGroupIslandByIndex(1).getIslandByIndex(0).addStudent(Colour.BLUE);
+        gameTest.getTable().getGroupIslandByIndex(1).getIslandByIndex(0).addStudent(Colour.BLUE);
+        gameTest.getTable().getGroupIslandByIndex(1).getIslandByIndex(0).addStudent(Colour.RED);
+        gameTest.getTable().getGroupIslandByIndex(1).getIslandByIndex(0).addStudent(Colour.RED);
+        gameTest.getTable().getGroupIslandByIndex(1).getIslandByIndex(0).addStudent(Colour.RED);
+        assertEquals(12, gameTest.getTable().getNumberOfGroupIsland());
+        cardTest.setGroupIsland(1);
+        assertEquals(11, gameTest.getTable().getNumberOfGroupIsland());
+        assertEquals(player2, gameTest.getTable().getGroupIslandByIndex(0).getInfluence());
     }
 
     private void settingBag() {
