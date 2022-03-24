@@ -36,9 +36,7 @@ public class IslandInfluence extends CharacterCard {
      */
     @Override
     public void effect() {
-
         calculateInfluence(islandChosen);
-
         game.setActiveCharacterCard(game.getBasicState());
     }
 }
