@@ -1,64 +1,92 @@
 package it.polimi.ingsw.model.player;
 
+import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.model.AssistantCard;
-import it.polimi.ingsw.model.game.BasicGame;
-import it.polimi.ingsw.model.game.Game;
+import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class PlayerTest {
-    private Player playerTest;
-    private Game game;
+    private GameController gameController;
 
     @BeforeEach
     void setUp() {
-        playerTest = new BasicPlayer("Sara", Wizard.TYPE_2);
-        game = new BasicGame();
+        gameController = new GameController(false, 2);
+        gameController.getGame().addPlayer(new BasicPlayer("sara",Wizard.TYPE_1));
+        gameController.getGame().addPlayer(new BasicPlayer("laura",Wizard.TYPE_2));
     }
 
 
     @Test
     void addAssistantCard() {
-        AssistantCard card = game.getAssistantCard(1);
-        playerTest.addAssistantCard(card);
-        assertTrue(playerTest.isAssistantCardPresent(card));
+        AssistantCard card;
+        for(int i=0;i<10;i++){
+            card = gameController.getGame().getAssistantCard(i);
+            gameController.getGame().getPlayerByIndex(0).addAssistantCard(card);
+            assertTrue(gameController.getGame().getPlayerByIndex(0).isAssistantCardPresent(card));
+        }
+
+
+    }
+
+    @Before
+    public void setUpRemoveAssistantCard(){
+        AssistantCard card;
+        for(int i=0;i<10;i++){
+            card = gameController.getGame().getAssistantCard(i);
+            gameController.getGame().getPlayerByIndex(0).addAssistantCard(card);
+        }
     }
 
     @Test
     void removeAssistantCard() {
-        AssistantCard card = game.getAssistantCard(1);
-        playerTest.addAssistantCard(card);
-        playerTest.removeAssistantCard(card);
-        assertFalse(playerTest.isAssistantCardPresent(card));
+        AssistantCard card;
+        for(int i=0;i<10;i++){
+            card = gameController.getGame().getAssistantCard(i);
+            gameController.getGame().getPlayerByIndex(0).removeAssistantCard(card);
+            assertFalse(gameController.getGame().getPlayerByIndex(0).isAssistantCardPresent(card));
+        }
+    }
+    @Before
+    public void setUpSetCurrentAssistantCard(){
+        AssistantCard card;
+        for(int i=0;i<10;i++){
+            card = gameController.getGame().getAssistantCard(i);
+            gameController.getGame().getPlayerByIndex(0).addAssistantCard(card);
+        }
     }
 
     @Test
     void setCurrentAssistantCard() {
-        AssistantCard card = game.getAssistantCard(1);
-        playerTest.addAssistantCard(card);
-        playerTest.setCurrentAssistantCard(card);
-        assertEquals(card, playerTest.getCurrentAssistantCard());
+        AssistantCard card;
+        for(int i=0;i<10;i++){
+            card = gameController.getGame().getAssistantCard(i);
+            gameController.getGame().getPlayerByIndex(0).setCurrentAssistantCard(card);
+            assertEquals(card, gameController.getGame().getPlayerByIndex(0).getCurrentAssistantCard());
+            assertFalse(gameController.getGame().getPlayerByIndex(0).isAssistantCardPresent(gameController.getGame().getAssistantCard(i)));
+        }
     }
 
     @Test
     void setHasAlreadyPlayed() {
-
+        gameController.getGame().getPlayerByIndex(0).setHasAlreadyPlayed(true);
+        assertTrue(gameController.getGame().getPlayerByIndex(0).getHasAlreadyPlayed());
     }
 
     @Test
     void getCoin() {
-        assertThrows(IllegalAccessError.class, () -> playerTest.getCoins());
+        assertThrows(IllegalAccessError.class, () -> gameController.getGame().getPlayerByIndex(0).getCoins());
     }
 
     @Test
     void addCoins() {
-        assertThrows(IllegalAccessError.class, () -> playerTest.addCoins(10));
+        assertThrows(IllegalAccessError.class, () -> gameController.getGame().getPlayerByIndex(0).addCoins(10));
     }
 
     @Test
     void removeCoins() {
-        assertThrows(IllegalAccessError.class, () -> playerTest.removeCoins(10));
+        assertThrows(IllegalAccessError.class, () -> gameController.getGame().getPlayerByIndex(0).removeCoins(10));
     }
 }
