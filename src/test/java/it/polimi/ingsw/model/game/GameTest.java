@@ -4,9 +4,6 @@ import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.model.AssistantCard;
 import it.polimi.ingsw.model.card.CharacterCard;
 import it.polimi.ingsw.model.card.NoColour;
-import it.polimi.ingsw.model.game.BasicGame;
-import it.polimi.ingsw.model.game.Game;
-import it.polimi.ingsw.model.game.GamePhase;
 import it.polimi.ingsw.model.player.BasicPlayer;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.Wizard;
@@ -78,7 +75,7 @@ class GameTest {
 
         Player player1 = new BasicPlayer("Viola", Wizard.TYPE_2);
         Player player2 = new BasicPlayer("Laura", Wizard.TYPE_3);
-        Player player3 = new BasicPlayer("Sara", Wizard.TYPE_3);
+        Player player3 = new BasicPlayer("Sara", Wizard.TYPE_4);
 
         gameController.getGame().addPlayer(player1);
         gameController.getGame().addPlayer(player2);
@@ -92,11 +89,11 @@ class GameTest {
         gameController.getGame().getPlayerByIndex(1).setCurrentAssistantCard(card2);
         gameController.getGame().getPlayerByIndex(2).setCurrentAssistantCard(card3);
 
-        gameController.getGame().setCurrentPlayer(player1);
+        gameController.getGame().getPlayerByIndex(0).setHasAlreadyPlayed(true);
 
         assertEquals(player3, gameController.getGame().nextPlayerTurn());
 
-        gameController.getGame().setCurrentPlayer(player3);
+        gameController.getGame().getPlayerByIndex(2).setHasAlreadyPlayed(true);
 
         assertEquals(player2, gameController.getGame().nextPlayerTurn());
 
