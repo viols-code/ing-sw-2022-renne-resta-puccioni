@@ -103,11 +103,6 @@ class GameTest {
     }
 
     @Test
-    void setCurrentPlayer() {
-
-    }
-
-    @Test
     void isCurrentPlayer(){
 
         Player player1 = new BasicPlayer("Laura", Wizard.TYPE_1);
@@ -115,26 +110,6 @@ class GameTest {
         gameController.getGame().setCurrentPlayer(player1);
         assertTrue(gameController.getGame().isCurrentPlayer(player1));
         assertFalse(gameController.getGame().isCurrentPlayer(player2));
-
-    }
-
-    @Test
-    void getFirstPlayerTurn(){
-
-    }
-
-    @Test
-    void setFirstPlayerTurn() {
-
-    }
-
-    @Test
-    void getTable(){
-
-    }
-
-    @Test
-    void getRound(){
 
     }
 
@@ -156,16 +131,6 @@ class GameTest {
     }
 
     @Test
-    void getCharacterCardsByIndex(){
-
-    }
-
-    @Test
-    void getNumberOfCharacterCard(){
-
-    }
-
-    @Test
     void addCharacterCard(){
 
         CharacterCard card1 = new NoColour(gameController.getGame());
@@ -178,36 +143,14 @@ class GameTest {
     }
 
     @Test
-    void setStudentNumberMovement() {
-        gameTest.setStudentNumberMovement(4);
-        assertEquals(4, gameTest.getStudentNumberMovement());
-        gameTest.setStudentNumberMovement(3);
-        assertEquals(3, gameTest.getStudentNumberMovement());
+    void hasProtectedIslandCard(){
 
-    }
+        IllegalAccessError exception = assertThrows(IllegalAccessError.class, () -> gameController.getGame().hasProtectIslandCard());
 
-    @Test
-    void setNumberOfTowersPerPlayer() {
-        gameTest.setNumberOfTowersPerPlayer(6);
-        assertEquals(6, gameTest.getNumberOfTowersPerPlayer());
-        gameTest.setNumberOfTowersPerPlayer(8);
-        assertEquals(8, gameTest.getNumberOfTowersPerPlayer());
-    }
+        String expectedMessage = "This is for the Expert Mode";
+        String actualMessage = exception.getMessage();
 
-    @Test
-    void setNumberStudentsEntrance() {
-        gameTest.setNumberStudentsEntrance(7);
-        assertEquals(7, gameTest.getNumberStudentsEntrance());
-        gameTest.setNumberStudentsEntrance(9);
-        assertEquals(9, gameTest.getNumberStudentsEntrance());
-    }
-
-    @Test
-    void setGamePhase() {
-        gameTest.setGamePhase(GamePhase.SETTING);
-        assertEquals(GamePhase.SETTING, gameTest.getGamePhase());
-        gameTest.setGamePhase(GamePhase.SET_CLOUD_TILE);
-        assertEquals(GamePhase.SET_CLOUD_TILE, gameTest.getGamePhase());
+        assertTrue(actualMessage.contains(expectedMessage));
     }
 
 }
