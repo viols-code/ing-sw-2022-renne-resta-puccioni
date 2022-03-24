@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class IslandInfluenceTest {
     private IslandInfluence cardTest;
@@ -81,6 +82,42 @@ class IslandInfluenceTest {
         cardTest.setGroupIsland(1);
         assertEquals(11, gameTest.getTable().getNumberOfGroupIsland());
         assertEquals(player2, gameTest.getTable().getGroupIslandByIndex(0).getInfluence());
+    }
+
+    @Test
+    void incrementCost(){
+        int cost = cardTest.getCost();
+        assertEquals(cost, cardTest.getCost());
+        cardTest.incrementCost();
+        assertEquals(cost + 1, cardTest.getCost());
+    }
+
+    @Test
+    void setColour(){
+        for(Colour colour: Colour.values()){
+            assertThrows(IllegalAccessError.class, () -> cardTest.setColour(colour));
+        }
+    }
+
+   @Test
+    void setColourAndIsland() {
+       for(Colour colour: Colour.values()){
+           assertThrows(IllegalAccessError.class, () -> cardTest.setColourAndIsland(colour, gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0)));
+       }
+    }
+
+    @Test
+    public void setColourDiningRoomEntrance() {
+        for(Colour colour: Colour.values()){
+            assertThrows(IllegalAccessError.class, () -> cardTest.setColourDiningRoomEntrance(colour, colour));
+        }
+    }
+
+    @Test
+    public void setColourCardEntrance(){
+        for(Colour colour: Colour.values()){
+            assertThrows(IllegalAccessError.class, () -> cardTest.setColourCardEntrance(colour, colour));
+        }
     }
 
     private void settingBag() {
