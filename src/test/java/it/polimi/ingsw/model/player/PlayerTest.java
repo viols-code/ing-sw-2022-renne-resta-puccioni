@@ -15,30 +15,32 @@ class PlayerTest {
     @BeforeEach
     void setUp() {
         gameController = new GameController(false, 2);
+        gameController.getGame().addPlayer(new BasicPlayer("sara",Wizard.TYPE_1));
+        gameController.getGame().addPlayer(new BasicPlayer("laura",Wizard.TYPE_2));
     }
 
 
     @Test
     void addAssistantCard() {
-        AssistantCard card = game.getAssistantCard(1);
-        playerTest.addAssistantCard(card);
-        assertTrue(playerTest.isAssistantCardPresent(card));
+        AssistantCard card = gameController.getGame().getAssistantCard(1);
+        gameController.getGame().getPlayerByIndex(0).addAssistantCard(card);
+        assertTrue(gameController.getGame().getPlayerByIndex(0).isAssistantCardPresent(card));
     }
 
     @Test
     void removeAssistantCard() {
-        AssistantCard card = game.getAssistantCard(1);
-        playerTest.addAssistantCard(card);
-        playerTest.removeAssistantCard(card);
-        assertFalse(playerTest.isAssistantCardPresent(card));
+        AssistantCard card = gameController.getGame().getAssistantCard(1);
+        gameController.getGame().getPlayerByIndex(0).addAssistantCard(card);
+        gameController.getGame().getPlayerByIndex(0).removeAssistantCard(card);
+        assertFalse(gameController.getGame().getPlayerByIndex(0).isAssistantCardPresent(card));
     }
 
     @Test
     void setCurrentAssistantCard() {
-        AssistantCard card = game.getAssistantCard(1);
-        playerTest.addAssistantCard(card);
-        playerTest.setCurrentAssistantCard(card);
-        assertEquals(card, playerTest.getCurrentAssistantCard());
+        AssistantCard card = gameController.getGame().getAssistantCard(1);
+        gameController.getGame().getPlayerByIndex(0).addAssistantCard(card);
+        gameController.getGame().getPlayerByIndex(0).setCurrentAssistantCard(card);
+        assertEquals(card, gameController.getGame().getPlayerByIndex(0).getCurrentAssistantCard());
     }
 
     @Test
@@ -48,16 +50,16 @@ class PlayerTest {
 
     @Test
     void getCoin() {
-        assertThrows(IllegalAccessError.class, () -> playerTest.getCoins());
+        assertThrows(IllegalAccessError.class, () -> gameController.getGame().getPlayerByIndex(0).getCoins());
     }
 
     @Test
     void addCoins() {
-        assertThrows(IllegalAccessError.class, () -> playerTest.addCoins(10));
+        assertThrows(IllegalAccessError.class, () -> gameController.getGame().getPlayerByIndex(0).addCoins(10));
     }
 
     @Test
     void removeCoins() {
-        assertThrows(IllegalAccessError.class, () -> playerTest.removeCoins(10));
+        assertThrows(IllegalAccessError.class, () -> gameController.getGame().getPlayerByIndex(0).removeCoins(10));
     }
 }
