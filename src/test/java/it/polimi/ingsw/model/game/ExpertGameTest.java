@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ExpertGameTest {
+class ExpertGameTest {
 
     private GameController gameController;
 
@@ -27,9 +27,9 @@ public class ExpertGameTest {
     void hasProtectedIslandCard() {
 
         if (gameController.getGame().getCharacterCardsByIndex(0) instanceof ProtectIsland ||
-                gameController.getGame().getCharacterCardsByIndex(1) instanceof ProtectIsland ||
-                gameController.getGame().getCharacterCardsByIndex(2) instanceof ProtectIsland) {
-            assertTrue(gameController.getGame().hasProtectIslandCard());
+            gameController.getGame().getCharacterCardsByIndex(1) instanceof ProtectIsland ||
+            gameController.getGame().getCharacterCardsByIndex(2) instanceof ProtectIsland) {
+                 assertTrue(gameController.getGame().hasProtectIslandCard());
         }
         else {
             assertFalse(gameController.getGame().hasProtectIslandCard());
