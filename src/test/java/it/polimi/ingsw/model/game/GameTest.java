@@ -118,6 +118,14 @@ class GameTest {
     }
 
     @Test
+    void getFirstPlayerTurn(){
+        Player player1 = new BasicPlayer("Laura", Wizard.TYPE_1);
+        gameController.getGame().addPlayer(player1);
+        gameController.getGame().setFirstPlayerTurn(player1);
+        assertEquals(player1, gameController.getGame().getFirstPlayerTurn());
+    }
+
+    @Test
     void incrementRound(){
         gameController.getGame().incrementRound();
         assertEquals(2, gameController.getGame().getRound());
