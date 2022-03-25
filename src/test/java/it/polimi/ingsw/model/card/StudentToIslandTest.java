@@ -60,8 +60,8 @@ class StudentToIslandTest {
             }
         }
 
-        int students = 0;
-        gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0).getStudents(colourTest);
+        int students;
+        students = gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0).getStudents(colourTest);
         cardTest.setColourAndIsland(colourTest, gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0));
         assertEquals(students + 1, gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0).getStudents(colourTest));
 
