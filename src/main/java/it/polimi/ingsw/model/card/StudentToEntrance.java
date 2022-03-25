@@ -77,4 +77,14 @@ public class StudentToEntrance extends CharacterCard {
     private void increaseTimes() {
         times += 1;
     }
+
+    /**
+     * Get number of student of the given colour
+     *
+     * @param colour colour
+     * @return number of student of the given colour
+     */
+    protected int getStudent(Colour colour) {
+        return students.get(colour);
+    }
 }
