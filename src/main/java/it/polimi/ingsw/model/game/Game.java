@@ -460,10 +460,21 @@ public abstract class Game {
     /*
     WINNER
     */
+
+    /**
+     * Return the winner of the game
+     *
+     * @return the winner of the game
+     */
     public Player getWinner() {
         return winner;
     }
 
+    /**
+     * Se the winner of the game
+     *
+     * @param winner the winner of the game
+     */
     public void setWinner(Player winner) {
         this.winner = winner;
     }
