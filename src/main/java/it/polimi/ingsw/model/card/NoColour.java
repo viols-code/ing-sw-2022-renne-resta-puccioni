@@ -15,8 +15,7 @@ public class NoColour extends CharacterCard {
      */
     public NoColour(Game game) {
         super(game);
-        initialCost = 3;
-        actualCost = initialCost;
+        actualCost = 3;
     }
 
     /**

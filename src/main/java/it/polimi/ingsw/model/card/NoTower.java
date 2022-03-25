@@ -14,8 +14,7 @@ public class NoTower extends CharacterCard {
      */
     public NoTower(Game game) {
         super(game);
-        super.initialCost = 3;
-        actualCost = initialCost;
+        actualCost = 3;
     }
 
 

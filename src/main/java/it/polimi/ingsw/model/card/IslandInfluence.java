@@ -16,8 +16,7 @@ public class IslandInfluence extends CharacterCard {
      */
     public IslandInfluence(Game game) {
         super(game);
-        initialCost = 3;
-        actualCost = initialCost;
+        actualCost = 3;
     }
 
     /**

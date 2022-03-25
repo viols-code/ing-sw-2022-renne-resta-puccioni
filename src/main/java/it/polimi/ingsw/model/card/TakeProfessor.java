@@ -11,8 +11,7 @@ public class TakeProfessor extends CharacterCard {
      */
     public TakeProfessor(Game game) {
         super(game);
-        initialCost = 2;
-        actualCost = initialCost;
+        actualCost = 2;
     }
 
     /**

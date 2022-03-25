@@ -17,8 +17,7 @@ public class ProtectIsland extends CharacterCard {
      */
     public ProtectIsland(Game game) {
         super(game);
-        initialCost = 2;
-        actualCost = initialCost;
+        actualCost = 2;
         numberOfNoEntryTiles = 4;
     }
 

@@ -30,9 +30,7 @@ public class StudentToIsland extends CharacterCard {
      */
     public StudentToIsland(Game game) {
         super(game);
-
-        initialCost = 1;
-        actualCost = initialCost;
+        actualCost = 1;
         studentsOnCard = new HashMap<>();
         for (Colour colour : Colour.values()) {
             studentsOnCard.put(colour, 0);

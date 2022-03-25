@@ -22,8 +22,7 @@ public class MotherNatureMovement extends CharacterCard {
      */
     public MotherNatureMovement(Game game) {
         super(game);
-        initialCost = 1;
-        actualCost = initialCost;
+        actualCost = 1;
     }
 
     @Override

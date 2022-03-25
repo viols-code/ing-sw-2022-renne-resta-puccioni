@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 
 public abstract class CharacterCard {
     protected Game game;
-    protected int initialCost;
     protected int actualCost;
 
     /**

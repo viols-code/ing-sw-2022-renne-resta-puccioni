@@ -16,8 +16,7 @@ public class StudentToDiningRoom extends CharacterCard {
      */
     public StudentToDiningRoom(Game game) {
         super(game);
-        initialCost = 2;
-        actualCost = initialCost;
+        actualCost = 2;
         students = new HashMap<>();
     }
 

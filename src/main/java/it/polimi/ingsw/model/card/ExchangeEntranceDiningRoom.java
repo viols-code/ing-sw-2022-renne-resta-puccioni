@@ -15,8 +15,7 @@ public class ExchangeEntranceDiningRoom extends CharacterCard {
      */
     public ExchangeEntranceDiningRoom(Game game) {
         super(game);
-        initialCost = 1;
-        actualCost = initialCost;
+        actualCost = 1;
     }
 
     /**
