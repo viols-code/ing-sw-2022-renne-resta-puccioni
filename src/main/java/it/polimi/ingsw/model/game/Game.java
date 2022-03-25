@@ -542,18 +542,4 @@ public abstract class Game {
     public boolean hasProtectIslandCard() throws IllegalAccessError {
         throw new IllegalAccessError("This is for the Expert Mode");
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Game)) return false;
-        Game game = (Game) o;
-        return round == game.round && studentNumberMovement == game.studentNumberMovement && numberOfTowersPerPlayer == game.numberOfTowersPerPlayer && numberStudentsEntrance == game.numberStudentsEntrance && Objects.equals(players, game.players) && Objects.equals(currentPlayer, game.currentPlayer) && Objects.equals(firstPlayerTurn, game.firstPlayerTurn) && gamePhase == game.gamePhase && turnPhase == game.turnPhase;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(players, currentPlayer, firstPlayerTurn, round, studentNumberMovement, numberOfTowersPerPlayer, numberStudentsEntrance, gamePhase, turnPhase);
-    }
-
 }

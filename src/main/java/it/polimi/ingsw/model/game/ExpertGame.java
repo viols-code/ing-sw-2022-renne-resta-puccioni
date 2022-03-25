@@ -127,17 +127,4 @@ public class ExpertGame extends Game {
         this.coins = coins;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ExpertGame)) return false;
-        if (!super.equals(o)) return false;
-        ExpertGame that = (ExpertGame) o;
-        return hasPlayedCharacterCard == that.hasPlayedCharacterCard && coins == that.coins && characterCards.equals(that.characterCards);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), characterCards, hasPlayedCharacterCard, coins);
-    }
 }

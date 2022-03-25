@@ -53,6 +53,13 @@ class GameTest {
         assertEquals(1, gameController.getGame().getNumberOfPlayer());
         assertEquals(player2, gameController.getGame().getPlayerByIndex(0));
 
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> gameController.getGame().removePlayer(player1));
+
+        String expectedMessage = "This player is not in the game";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+
     }
 
     @Test
@@ -111,6 +118,14 @@ class GameTest {
     }
 
     @Test
+    void getFirstPlayerTurn(){
+        Player player1 = new BasicPlayer("Laura", Wizard.TYPE_1);
+        gameController.getGame().addPlayer(player1);
+        gameController.getGame().setFirstPlayerTurn(player1);
+        assertEquals(player1, gameController.getGame().getFirstPlayerTurn());
+    }
+
+    @Test
     void incrementRound(){
         gameController.getGame().incrementRound();
         assertEquals(2, gameController.getGame().getRound());
@@ -127,6 +142,29 @@ class GameTest {
     }
 
     @Test
+    void getCharacterCardByIndex(){
+
+        IllegalAccessError exception = assertThrows(IllegalAccessError.class, () -> gameController.getGame().getCharacterCardsByIndex(0));
+
+        String expectedMessage = "This is for the Expert Mode";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+
+    }
+
+    @Test
+    void getNumberOfCharacterCard(){
+
+        IllegalAccessError exception = assertThrows(IllegalAccessError.class, () -> gameController.getGame().getNumberOfCharacterCard());
+
+        String expectedMessage = "This is for the Expert Mode";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
     void addCharacterCard(){
 
         CharacterCard card1 = new NoColour(gameController.getGame());
@@ -137,6 +175,84 @@ class GameTest {
 
         assertTrue(actualMessage.contains(expectedMessage));
     }
+
+    @Test
+    void setActiveCharacterCard(){
+
+        CharacterCard card1 = new NoColour(gameController.getGame());
+        IllegalAccessError exception = assertThrows(IllegalAccessError.class, () -> gameController.getGame().setActiveCharacterCard(card1));
+
+        String expectedMessage = "This is for the Expert Mode";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void getNumberOfTowersPerPlayer(){
+        gameController.getGame().setNumberOfTowersPerPlayer(6);
+        assertEquals(6, gameController.getGame().getNumberOfTowersPerPlayer());
+    }
+
+    @Test
+    void getNumberStudentsEntrance(){
+        gameController.getGame().setNumberStudentsEntrance(9);
+        assertEquals(9, gameController.getGame().getNumberStudentsEntrance());
+    }
+
+    @Test
+    void getGamePhase(){
+        gameController.getGame().setGamePhase(GamePhase.SETTING);
+        assertEquals(GamePhase.SETTING, gameController.getGame().getGamePhase());
+
+        gameController.getGame().setGamePhase(GamePhase.PLAYING);
+        assertEquals(GamePhase.PLAYING, gameController.getGame().getGamePhase());
+
+    }
+
+    @Test
+    void getTurnPhase(){
+        gameController.getGame().setTurnPhase(TurnPhase.MOVE_STUDENT);
+        assertEquals(TurnPhase.MOVE_STUDENT, gameController.getGame().getTurnPhase());
+
+        gameController.getGame().setTurnPhase(TurnPhase.CHOOSE_CLOUD_TILE);
+        assertEquals(TurnPhase.CHOOSE_CLOUD_TILE, gameController.getGame().getTurnPhase());
+
+    }
+
+    @Test
+    void getWinner() {
+
+        Player player1 = new BasicPlayer("Laura", Wizard.TYPE_2);
+        gameController.getGame().setWinner(player1);
+        assertEquals(player1, gameController.getGame().getWinner());
+    }
+
+    @Test
+    void setHasProtectIsland(){
+        assertThrows(IllegalAccessError.class, () -> gameController.getGame().setHasProtectIsland());
+    }
+
+    @Test
+    void getHasPlayedCharacterCard(){
+        assertThrows(IllegalAccessError.class, () -> gameController.getGame().getHasPlayedCharacterCard());
+    }
+
+    @Test
+    void setHasPlayedCharacterCard(){
+        assertThrows(IllegalAccessError.class, () -> gameController.getGame().setHasPlayedCharacterCard(true));
+    }
+
+    @Test
+    void getCoins(){
+        assertThrows(IllegalAccessError.class, () -> gameController.getGame().getCoins());
+    }
+
+    @Test
+    void setCoins(){
+        assertThrows(IllegalAccessError.class, () -> gameController.getGame().setCoins(1));
+    }
+
 
     @Test
     void hasProtectedIslandCard(){
