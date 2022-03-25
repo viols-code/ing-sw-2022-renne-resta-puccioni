@@ -111,18 +111,16 @@ class StudentToEntranceTest {
             }
         }
 
-        int studentsInEntrance = 0;
+        int studentsInEntrance;
         studentsInEntrance = gameTest.getPlayerByIndex(0).getSchoolBoard().getEntrance(colourCard);
 
-        int studentsOnCard = 0;
+        int studentsOnCard;
         studentsOnCard = cardTest.getStudent(colourEntrance);
 
         cardTest.setColourCardEntrance(colourCard, colourEntrance);
 
         assertEquals(studentsInEntrance + 1, gameTest.getPlayerByIndex(0).getSchoolBoard().getEntrance(colourCard));
         assertEquals(studentsOnCard + 1, cardTest.getStudent(colourEntrance));
-
-
 
     }
 
@@ -150,6 +148,7 @@ class StudentToEntranceTest {
             gameTest.getCharacterCardsByIndex(i).setting();
         }
     }
+
 
 
 }
