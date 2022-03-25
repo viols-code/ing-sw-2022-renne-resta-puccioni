@@ -3,7 +3,7 @@ package it.polimi.ingsw.model.card;
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.ExpertGame;
 import it.polimi.ingsw.model.game.Game;
-import it.polimi.ingsw.model.player.BasicPlayer;
+import it.polimi.ingsw.model.player.ExpertPlayer;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.Wizard;
 import it.polimi.ingsw.model.table.island.BasicGroupIsland;
@@ -32,8 +32,8 @@ class NoTowerTest {
         settingBag();
         settingCard();
 
-        player1 = new BasicPlayer("Viola", Wizard.TYPE_3);
-        player2 = new BasicPlayer("Laura", Wizard.TYPE_1);
+        player1 = new ExpertPlayer("Viola", Wizard.TYPE_3);
+        player2 = new ExpertPlayer("Laura", Wizard.TYPE_1);
 
         gameTest.addPlayer(player1);
         gameTest.addPlayer(player2);
