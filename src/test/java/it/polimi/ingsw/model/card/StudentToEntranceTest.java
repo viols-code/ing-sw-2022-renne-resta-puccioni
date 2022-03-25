@@ -48,9 +48,14 @@ class StudentToEntranceTest {
     void setting() {
 
         assertEquals(1, cardTest.getCost());
-        /*
-        TO DO
-         */
+
+        int numStudentsOnCard = 0;
+
+        for (Colour colour : Colour.values()) {
+            numStudentsOnCard += cardTest.getStudent(colour);
+        }
+
+        assertEquals(6, numStudentsOnCard);
     }
 
     @Test
@@ -84,9 +89,41 @@ class StudentToEntranceTest {
 
     @Test
     public void setColourCardEntrance(){
-        /*
-        TO DO
-         */
+
+        Colour colourCard;
+        colourCard = Colour.RED;
+        Colour colourEntrance;
+        colourEntrance = Colour.BLUE;
+
+        gameTest.setCurrentPlayer(player1);
+
+        for (Colour colour : Colour.values()) {
+            if (cardTest.getStudent(colourCard) > 0) {
+                colourCard = colour;
+                break;
+            }
+        }
+
+        for (Colour colour : Colour.values()) {
+            if (gameTest.getPlayerByIndex(0).getSchoolBoard().getEntrance(colourEntrance) > 0) {
+                colourEntrance = colour;
+                break;
+            }
+        }
+
+        int studentsInEntrance = 0;
+        studentsInEntrance = gameTest.getPlayerByIndex(0).getSchoolBoard().getEntrance(colourCard);
+
+        int studentsOnCard = 0;
+        studentsOnCard = cardTest.getStudent(colourEntrance);
+
+        cardTest.setColourCardEntrance(colourCard, colourEntrance);
+
+        assertEquals(studentsInEntrance + 1, gameTest.getPlayerByIndex(0).getSchoolBoard().getEntrance(colourCard));
+        assertEquals(studentsOnCard + 1, cardTest.getStudent(colourEntrance));
+
+
+
     }
 
     private void settingBag() {
