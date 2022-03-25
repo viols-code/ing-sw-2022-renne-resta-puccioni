@@ -6,7 +6,7 @@ import it.polimi.ingsw.model.game.Game;
 import it.polimi.ingsw.model.player.ExpertPlayer;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.Wizard;
-import it.polimi.ingsw.model.table.island.BasicGroupIsland;
+import it.polimi.ingsw.model.table.island.AdvancedGroupIsland;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -29,7 +29,7 @@ public class ProtectIslandTest {
 
         gameTest.addCharacterCard(cardTest);
         for (int i = 0; i < 12; i++) {
-            gameTest.getTable().addGroupIsland(new BasicGroupIsland());
+            gameTest.getTable().addGroupIsland(new AdvancedGroupIsland());
         }
 
         settingBag();
@@ -77,9 +77,10 @@ public class ProtectIslandTest {
 
         cardTest.setGroupIsland(3);
 
-        /*
-        To do
-         */
+        assertEquals(1, gameTest.getTable().getGroupIslandByIndex(3).getNumberOfNoEntryTile());
+
+        cardTest.setGroupIsland(3);
+        assertEquals(2, gameTest.getTable().getGroupIslandByIndex(3).getNumberOfNoEntryTile());
     }
 
     private void settingBag() {
