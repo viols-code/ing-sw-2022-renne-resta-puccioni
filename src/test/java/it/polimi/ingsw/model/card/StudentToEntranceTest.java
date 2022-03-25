@@ -112,9 +112,58 @@ class StudentToEntranceTest {
         }
 
         int studentsInEntrance;
-        studentsInEntrance = gameTest.getPlayerByIndex(0).getSchoolBoard().getEntrance(colourCard);
-
         int studentsOnCard;
+        studentsInEntrance = gameTest.getPlayerByIndex(0).getSchoolBoard().getEntrance(colourCard);
+        studentsOnCard = cardTest.getStudent(colourEntrance);
+
+        cardTest.setColourCardEntrance(colourCard, colourEntrance);
+
+        assertEquals(studentsInEntrance + 1, gameTest.getPlayerByIndex(0).getSchoolBoard().getEntrance(colourCard));
+        assertEquals(studentsOnCard + 1, cardTest.getStudent(colourEntrance));
+
+        colourCard = Colour.RED;
+        colourEntrance = Colour.BLUE;
+
+        for (Colour colour : Colour.values()) {
+            if (cardTest.getStudent(colourCard) > 0) {
+                colourCard = colour;
+                break;
+            }
+        }
+
+        for (Colour colour : Colour.values()) {
+            if (gameTest.getPlayerByIndex(0).getSchoolBoard().getEntrance(colourEntrance) > 0) {
+                colourEntrance = colour;
+                break;
+            }
+        }
+
+        studentsInEntrance = gameTest.getPlayerByIndex(0).getSchoolBoard().getEntrance(colourCard);
+        studentsOnCard = cardTest.getStudent(colourEntrance);
+
+        cardTest.setColourCardEntrance(colourCard, colourEntrance);
+
+        assertEquals(studentsInEntrance + 1, gameTest.getPlayerByIndex(0).getSchoolBoard().getEntrance(colourCard));
+        assertEquals(studentsOnCard + 1, cardTest.getStudent(colourEntrance));
+
+        colourCard = Colour.RED;
+        colourEntrance = Colour.BLUE;
+
+        for (Colour colour : Colour.values()) {
+            if (cardTest.getStudent(colourCard) > 0) {
+                colourCard = colour;
+                break;
+            }
+        }
+
+        for (Colour colour : Colour.values()) {
+            if (gameTest.getPlayerByIndex(0).getSchoolBoard().getEntrance(colourEntrance) > 0) {
+                colourEntrance = colour;
+                break;
+            }
+        }
+
+        studentsInEntrance = gameTest.getPlayerByIndex(0).getSchoolBoard().getEntrance(colourCard);
         studentsOnCard = cardTest.getStudent(colourEntrance);
 
         cardTest.setColourCardEntrance(colourCard, colourEntrance);

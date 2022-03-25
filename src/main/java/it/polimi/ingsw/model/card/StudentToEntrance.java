@@ -43,7 +43,7 @@ public class StudentToEntrance extends CharacterCard {
         game.getCurrentPlayer().getSchoolBoard().addStudentToEntrance(colourCard);
         students.replace(colourCard, students.get(colourCard), students.get(colourCard) - 1);
         students.replace(colourEntrance, students.get(colourEntrance), students.get(colourEntrance) + 1);
-        if (times == 3) {
+        if (times == 2) {
             resetTimes();
             game.setActiveCharacterCard(game.getBasicState());
         } else {
