@@ -53,6 +53,13 @@ class GameTest {
         assertEquals(1, gameController.getGame().getNumberOfPlayer());
         assertEquals(player2, gameController.getGame().getPlayerByIndex(0));
 
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> gameController.getGame().removePlayer(player1));
+
+        String expectedMessage = "This player is not in the game";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+
     }
 
     @Test
