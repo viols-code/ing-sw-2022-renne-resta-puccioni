@@ -61,8 +61,6 @@ class NoTowerTest {
         gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0).addStudent(Colour.RED);
         gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0).addStudent(Colour.RED);
 
-        gameTest.setActiveCharacterCard(cardTest);
-
         assertEquals(2, cardTest.calculateInfluencePlayer(player1, gameTest.getTable().getGroupIslandByIndex(0)));
         assertEquals(3, cardTest.calculateInfluencePlayer(player2, gameTest.getTable().getGroupIslandByIndex(0)));
 
