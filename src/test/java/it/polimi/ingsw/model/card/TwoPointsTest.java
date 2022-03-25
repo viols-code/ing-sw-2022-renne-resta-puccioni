@@ -3,7 +3,6 @@ package it.polimi.ingsw.model.card;
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.ExpertGame;
 import it.polimi.ingsw.model.game.Game;
-import it.polimi.ingsw.model.player.BasicPlayer;
 import it.polimi.ingsw.model.player.ExpertPlayer;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.Wizard;
