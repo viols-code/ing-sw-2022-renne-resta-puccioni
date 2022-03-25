@@ -51,4 +51,15 @@ public class ProtectIsland extends CharacterCard {
         this.numberOfNoEntryTiles = numberOfNoEntryTiles;
     }
 
+    /**
+     * Set the island to choose
+     *
+     * @param groupIsland the GroupIsland chosen
+     */
+    @Override
+    public void setGroupIsland(int groupIsland) {
+        this.groupIslandToProtect = groupIsland;
+        this.effect();
+    }
+
 }
