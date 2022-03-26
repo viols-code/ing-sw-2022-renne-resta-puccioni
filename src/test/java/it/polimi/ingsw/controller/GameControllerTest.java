@@ -155,25 +155,128 @@ class GameControllerTest {
 
     @Test
     void chooseCloudTile() {
+        gameController.addPlayer("Viola", Wizard.TYPE_1);
+        gameController.addPlayer("Laura", Wizard.TYPE_2);
+        gameController.playAssistantCard(0, 0);
+        gameController.playAssistantCard(1, 1);
+        for(int i = 0; i < 3; i++){
+            for(Colour colour: Colour.values()){
+                if(gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0){
+                    gameController.moveStudentToDiningRoom(0, colour);
+                }
+            }
+        }
+        gameController.moveMotherNature(0, 1);
+        assertEquals(1, gameController.getGame().getTable().getMotherNaturePosition());
+        gameController.chooseCloudTile(0, 0);
+        assertEquals(7, gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getNumberStudentsEntrance());
     }
 
     @Test
     void setColour() {
+        gameController.addPlayer("Viola", Wizard.TYPE_1);
+        gameController.addPlayer("Laura", Wizard.TYPE_2);
+        gameController.playAssistantCard(0, 0);
+        gameController.playAssistantCard(1, 1);
+        assertThrows(IllegalAccessError.class, () -> gameController.setColour(Colour.PINK));
+        for(int i = 0; i < 3; i++){
+            for(Colour colour: Colour.values()){
+                if(gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0){
+                    gameController.moveStudentToDiningRoom(0, colour);
+                }
+            }
+        }
+        assertThrows(IllegalAccessError.class, () -> gameController.setColour(Colour.GREEN));
+        gameController.moveMotherNature(0, 1);
+        assertEquals(1, gameController.getGame().getTable().getMotherNaturePosition());
+        gameController.chooseCloudTile(0, 0);
+        assertEquals(7, gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getNumberStudentsEntrance());
+        assertThrows(IllegalAccessError.class, () -> gameController.setColour(Colour.BLUE));
     }
 
     @Test
     void setColourAndIsland() {
+        gameController.addPlayer("Viola", Wizard.TYPE_1);
+        gameController.addPlayer("Laura", Wizard.TYPE_2);
+        gameController.playAssistantCard(0, 0);
+        gameController.playAssistantCard(1, 1);
+        assertThrows(IllegalAccessError.class, () -> gameController.setColourAndIsland(Colour.GREEN, 1, 0));
+        for(int i = 0; i < 3; i++){
+            for(Colour colour: Colour.values()){
+                if(gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0){
+                    gameController.moveStudentToDiningRoom(0, colour);
+                }
+            }
+        }
+        assertThrows(IllegalAccessError.class, () -> gameController.setColourAndIsland(Colour.YELLOW, 1, 0));
+        gameController.moveMotherNature(0, 1);
+        assertEquals(1, gameController.getGame().getTable().getMotherNaturePosition());
+        gameController.chooseCloudTile(0, 0);
+        assertEquals(7, gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getNumberStudentsEntrance());
+        assertThrows(IllegalAccessError.class, () -> gameController.setColourAndIsland(Colour.BLUE, 0, 0));
     }
 
     @Test
     void setGroupIsland() {
+        gameController.addPlayer("Viola", Wizard.TYPE_1);
+        gameController.addPlayer("Laura", Wizard.TYPE_2);
+        gameController.playAssistantCard(0, 0);
+        gameController.playAssistantCard(1, 1);
+        assertThrows(IllegalAccessError.class, () -> gameController.setGroupIsland(0));
+        for(int i = 0; i < 3; i++){
+            for(Colour colour: Colour.values()){
+                if(gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0){
+                    gameController.moveStudentToDiningRoom(0, colour);
+                }
+            }
+        }
+        gameController.moveMotherNature(0, 1);
+        assertEquals(1, gameController.getGame().getTable().getMotherNaturePosition());
+        gameController.chooseCloudTile(0, 0);
+        assertEquals(7, gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getNumberStudentsEntrance());
+        assertThrows(IllegalAccessError.class, () -> gameController.setGroupIsland(0));
     }
 
     @Test
     void setColourDiningRoomEntrance() {
+        gameController.addPlayer("Viola", Wizard.TYPE_1);
+        gameController.addPlayer("Laura", Wizard.TYPE_2);
+        gameController.playAssistantCard(0, 0);
+        gameController.playAssistantCard(1, 1);
+        assertThrows(IllegalAccessError.class, () -> gameController.setColourDiningRoomEntrance(Colour.PINK, Colour.RED));
+        for(int i = 0; i < 3; i++){
+            for(Colour colour: Colour.values()){
+                if(gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0){
+                    gameController.moveStudentToDiningRoom(0, colour);
+                }
+            }
+        }
+        assertThrows(IllegalAccessError.class, () -> gameController.setColourDiningRoomEntrance(Colour.BLUE, Colour.YELLOW));
+        gameController.moveMotherNature(0, 1);
+        assertEquals(1, gameController.getGame().getTable().getMotherNaturePosition());
+        gameController.chooseCloudTile(0, 0);
+        assertEquals(7, gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getNumberStudentsEntrance());
+        assertThrows(IllegalAccessError.class, () -> gameController.setColourDiningRoomEntrance(Colour.BLUE, Colour.RED));
     }
 
     @Test
     void setColourCardEntrance() {
+        gameController.addPlayer("Viola", Wizard.TYPE_1);
+        gameController.addPlayer("Laura", Wizard.TYPE_2);
+        gameController.playAssistantCard(0, 0);
+        gameController.playAssistantCard(1, 1);
+        assertThrows(IllegalAccessError.class, () -> gameController.setColourCardEntrance(Colour.BLUE, Colour.GREEN));
+        for(int i = 0; i < 3; i++){
+            for(Colour colour: Colour.values()){
+                if(gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0){
+                    gameController.moveStudentToDiningRoom(0, colour);
+                }
+            }
+        }
+        gameController.moveMotherNature(0, 1);
+        assertEquals(1, gameController.getGame().getTable().getMotherNaturePosition());
+        gameController.chooseCloudTile(0, 0);
+        assertEquals(7, gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getNumberStudentsEntrance());
+        assertThrows(IllegalAccessError.class, () -> gameController.setColourCardEntrance(Colour.BLUE, Colour.RED));
     }
 }
