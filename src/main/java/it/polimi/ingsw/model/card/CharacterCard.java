@@ -61,7 +61,7 @@ public abstract class CharacterCard {
     /**
      * Activates the effect of the CharacterCard
      */
-    public void effect() {
+    protected void effect() {
     }
 
 
