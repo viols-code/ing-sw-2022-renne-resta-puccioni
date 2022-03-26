@@ -276,7 +276,7 @@ public abstract class CharacterCard {
      * @param groupIsland1 the first GroupIsland to be unified
      * @param groupIsland2 the second GroupIsland to be unified
      */
-    private void unifyGroupIsland(GroupIsland groupIsland1, GroupIsland groupIsland2) {
+    protected void unifyGroupIsland(GroupIsland groupIsland1, GroupIsland groupIsland2) {
         for (int i = 0; i < groupIsland2.getNumberOfSingleIsland(); i++) {
             groupIsland1.addSingleIsland(groupIsland1.getIslandByIndex(i));
         }
@@ -288,13 +288,21 @@ public abstract class CharacterCard {
      *
      * @param groupIsland the group island selected
      */
-    public void checkUnifyIsland(int groupIsland) {
+    protected void checkUnifyIsland(int groupIsland) {
         if (game.getTable().getGroupIslandByIndex(groupIsland).getInfluence().equals(game.getTable().getIslandAfter(groupIsland).getInfluence())) {
-            unifyGroupIsland(game.getTable().getGroupIslandByIndex(groupIsland), game.getTable().getIslandAfter(groupIsland));
+            if(groupIsland == game.getTable().getNumberOfGroupIsland() - 1){
+                game.getTable().setMotherNaturePosition(0);
+                unifyGroupIsland(game.getTable().getIslandAfter(groupIsland), game.getTable().getGroupIslandByIndex(groupIsland));
+            } else{
+                unifyGroupIsland(game.getTable().getGroupIslandByIndex(groupIsland), game.getTable().getIslandAfter(groupIsland));
+            }
         }
 
         if (game.getTable().getGroupIslandByIndex(groupIsland).getInfluence().equals(game.getTable().getIslandBefore(groupIsland).getInfluence())) {
-            unifyGroupIsland(game.getTable().getGroupIslandByIndex(groupIsland), game.getTable().getIslandBefore(groupIsland));
+            if(groupIsland != 0){
+                game.getTable().setMotherNaturePosition(groupIsland - 1);
+            }
+            unifyGroupIsland(game.getTable().getIslandBefore(groupIsland), game.getTable().getGroupIslandByIndex(groupIsland));
         }
     }
 
