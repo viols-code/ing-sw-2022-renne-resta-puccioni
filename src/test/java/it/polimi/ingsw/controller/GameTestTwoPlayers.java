@@ -3,17 +3,14 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.GamePhase;
 import it.polimi.ingsw.model.game.TurnPhase;
-import it.polimi.ingsw.model.player.BasicPlayer;
-import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.Wizard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;
-import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 
-public class GameTest2Players {
+public class GameTestTwoPlayers {
 
     private GameController gameController;
 
@@ -22,7 +19,8 @@ public class GameTest2Players {
         gameController = new GameController(false, 2);
     }
 
-    @Test
+
+    @RepeatedTest(1000)
     void gameTest2Players(){
 
         assertEquals(GamePhase.SETTING, gameController.getGame().getGamePhase());
@@ -123,9 +121,9 @@ public class GameTest2Players {
         assertEquals(GamePhase.PLAYING, gameController.getGame().getGamePhase());
         assertEquals(TurnPhase.CHOOSE_CLOUD_TILE, gameController.getGame().getTurnPhase());
 
-        /*gameController.chooseCloudTile(1, 1);
+        gameController.chooseCloudTile(1, 1);
         assertEquals(GamePhase.PLAYING, gameController.getGame().getGamePhase());
-        assertEquals(TurnPhase.CHOOSE_CLOUD_TILE, gameController.getGame().getTurnPhase());*/
+        assertEquals(TurnPhase.CHOOSE_CLOUD_TILE, gameController.getGame().getTurnPhase());
 
         gameController.chooseCloudTile(1, 0);
         assertEquals(7, gameController.getGame().getPlayerByIndex(1).getSchoolBoard().getNumberStudentsEntrance());
@@ -290,11 +288,56 @@ public class GameTest2Players {
 
         gameController.moveMotherNature(0,1);
 
-        assertEquals(GamePhase.PLAYING, gameController.getGame().getGamePhase());
-        assertEquals(TurnPhase.CHOOSE_CLOUD_TILE, gameController.getGame().getTurnPhase());
+        if(gameController.getGame().getPlayerByIndex(1).getSchoolBoard().getTowers() == 0){
+            assertEquals(GamePhase.END_GAME, gameController.getGame().getGamePhase());
+        } else{
+            assertEquals(GamePhase.PLAYING, gameController.getGame().getGamePhase());
+        }
 
 
         gameController.chooseCloudTile(0, 0);
+
+        // SESTO TURNO
+        gameController.playAssistantCard(1,5);
+        gameController.playAssistantCard(0,3);
+
+        i = 0;
+        while(i<3) {
+            for (Colour colour : Colour.values()) {
+                if (gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
+                    gameController.moveStudentToIsland(0, colour, 4,0);
+                    i++;
+                }
+            }
+        }
+
+        gameController.moveMotherNature(0,1);
+
+        if(gameController.getGame().getPlayerByIndex(1).getSchoolBoard().getTowers() == 0){
+            assertEquals(GamePhase.END_GAME, gameController.getGame().getGamePhase());
+        } else{
+            assertEquals(GamePhase.PLAYING, gameController.getGame().getGamePhase());
+        }
+
+        gameController.chooseCloudTile(0, 1);
+
+        i = 0;
+        while(i<3) {
+            for (Colour colour : Colour.values()) {
+                if (gameController.getGame().getPlayerByIndex(1).getSchoolBoard().getEntrance(colour) > 0) {
+                    gameController.moveStudentToIsland(1, colour, 6,0);
+                    i++;
+                }
+            }
+        }
+
+        gameController.moveMotherNature(1,1);
+
+        if(gameController.getGame().getPlayerByIndex(1).getSchoolBoard().getTowers() == 0){
+            assertEquals(GamePhase.END_GAME, gameController.getGame().getGamePhase());
+        } else{
+            assertEquals(GamePhase.PLAYING, gameController.getGame().getGamePhase());
+        }
 
 
     }

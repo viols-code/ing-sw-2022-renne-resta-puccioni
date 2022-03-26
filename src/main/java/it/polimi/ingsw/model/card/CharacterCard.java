@@ -135,8 +135,8 @@ public abstract class CharacterCard {
         if (game.getTable().getGroupIslandByIndex(groupIsland).getInfluence() == null) {
             game.getTable().getGroupIslandByIndex(groupIsland).changeInfluence(influencePlayer);
             if (influencePlayer.getSchoolBoard().getTowers() - game.getTable().getGroupIslandByIndex(groupIsland).getNumberOfSingleIsland() <= 0) {
+                influencePlayer.getSchoolBoard().removeTower(influencePlayer.getSchoolBoard().getTowers());
                 game.setWinner(influencePlayer);
-
             } else {
                 influencePlayer.getSchoolBoard().removeTower(game.getTable().getGroupIslandByIndex(groupIsland).getNumberOfSingleIsland());
             }
@@ -144,6 +144,7 @@ public abstract class CharacterCard {
             game.getTable().getGroupIslandByIndex(groupIsland).getInfluence().getSchoolBoard().addTower(game.getTable().getGroupIslandByIndex(groupIsland).getNumberOfSingleIsland());
             game.getTable().getGroupIslandByIndex(groupIsland).changeInfluence(influencePlayer);
             if (influencePlayer.getSchoolBoard().getTowers() - game.getTable().getGroupIslandByIndex(groupIsland).getNumberOfSingleIsland() <= 0) {
+                influencePlayer.getSchoolBoard().removeTower(influencePlayer.getSchoolBoard().getTowers());
                 game.setWinner(influencePlayer);
             } else {
                 influencePlayer.getSchoolBoard().removeTower(game.getTable().getGroupIslandByIndex(groupIsland).getNumberOfSingleIsland());
