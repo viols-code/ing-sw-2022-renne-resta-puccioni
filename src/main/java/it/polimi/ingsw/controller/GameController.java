@@ -400,11 +400,13 @@ public class GameController {
     }
 
     public void setColourAndIsland(Colour colour, int groupIsland, int singleIsland) {
-        game.getActiveCharacterCard().setColourAndIsland(colour, game.getTable().getGroupIslandByIndex(groupIsland).getIslandByIndex(singleIsland));
+        if(groupIsland>=0&&groupIsland<game.getTable().getNumberOfGroupIsland()&&singleIsland>=0&&singleIsland<game.getTable().getGroupIslandByIndex(groupIsland).getNumberOfSingleIsland())
+            game.getActiveCharacterCard().setColourAndIsland(colour, game.getTable().getGroupIslandByIndex(groupIsland).getIslandByIndex(singleIsland));
     }
 
     public void setGroupIsland(int groupIsland) {
-        game.getActiveCharacterCard().setGroupIsland(groupIsland);
+        if(groupIsland>=0&&groupIsland<game.getTable().getNumberOfGroupIsland())
+            game.getActiveCharacterCard().setGroupIsland(groupIsland);
     }
 
     public void setColourDiningRoomEntrance(Colour colourDiningRoom, Colour colourEntrance) {
