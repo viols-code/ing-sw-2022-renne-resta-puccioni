@@ -151,6 +151,10 @@ public abstract class Game {
      */
     public void addPlayer(Player player) {
         this.players.add(player);
+        player.getSchoolBoard().addTower(this.numberOfTowersPerPlayer);
+        for(int i = 0; i < this.numberStudentsEntrance; i++){
+            player.getSchoolBoard().addStudentToEntrance(this.getTable().getBag().bagDrawStudent());
+        }
     }
 
     /**
