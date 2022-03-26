@@ -96,7 +96,7 @@ public class GameController {
         }
 
         for (int i = 1; i < 12; i++) {
-            if (i == 5) i++;
+            if (i == 6) i++;
             game.getTable().getGroupIslandByIndex(i).getIslandByIndex(0).addStudent(game.getTable().getBag().bagDrawStudent());
         }
 
