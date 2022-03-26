@@ -252,7 +252,8 @@ public class GameController {
     }
 
     private void endGame() {
-
+        game.setGamePhase(GamePhase.END_GAME);
+        game.setTurnPhase(TurnPhase.WAITING);
     }
 
 

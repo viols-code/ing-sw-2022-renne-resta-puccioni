@@ -158,6 +158,194 @@ public class BasicGameThreePlayerTest {
 
         assertEquals(GamePhase.PLAY_ASSISTANT_CARD, gameController.getGame().getGamePhase());
         assertEquals(TurnPhase.WAITING, gameController.getGame().getTurnPhase());
+        assertEquals(3, gameController.getGame().getTable().getNumberOfCloudTile());
+
+        gameController.playAssistantCard(2, 7);
+        gameController.playAssistantCard(0, 2);
+        gameController.playAssistantCard(1, 4);
+
+        assertEquals(GamePhase.PLAYING, gameController.getGame().getGamePhase());
+        assertEquals(TurnPhase.MOVE_STUDENT, gameController.getGame().getTurnPhase());
+
+        i = 0;
+        while(i < 4){
+            for(Colour colour: Colour.values()) {
+                if(gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0){
+                    gameController.moveStudentToIsland(0, colour, 7, 0);
+                    i++;
+                }
+            }
+        }
+        gameController.moveMotherNature(0, 1);
+        gameController.chooseCloudTile(0, 0);
+
+        i = 0;
+        while(i < 4){
+            for(Colour colour: Colour.values()) {
+                if(gameController.getGame().getPlayerByIndex(1).getSchoolBoard().getEntrance(colour) > 0){
+                    gameController.moveStudentToIsland(1, colour, 10, 0);
+                    i++;
+                }
+            }
+        }
+        gameController.moveMotherNature(1, 2);
+        gameController.chooseCloudTile(1, 0);
+
+        i = 0;
+        while(i < 4){
+            for(Colour colour: Colour.values()) {
+                if(gameController.getGame().getPlayerByIndex(2).getSchoolBoard().getEntrance(colour) > 0){
+                    gameController.moveStudentToIsland(2, colour, 7, 0);
+                    i++;
+                }
+            }
+        }
+        gameController.moveMotherNature(2, 1);
+        gameController.chooseCloudTile(2, 0);
+
+        assertEquals(GamePhase.PLAY_ASSISTANT_CARD, gameController.getGame().getGamePhase());
+        assertEquals(TurnPhase.WAITING, gameController.getGame().getTurnPhase());
+
+        gameController.playAssistantCard(0, 5);
+        gameController.playAssistantCard(1, 1);
+        gameController.playAssistantCard(2, 8);
+
+        assertEquals(GamePhase.PLAYING, gameController.getGame().getGamePhase());
+        assertEquals(TurnPhase.MOVE_STUDENT, gameController.getGame().getTurnPhase());
+
+        i = 0;
+        while(i < 4){
+            for(Colour colour: Colour.values()) {
+                if(gameController.getGame().getPlayerByIndex(1).getSchoolBoard().getEntrance(colour) > 0){
+                    gameController.moveStudentToIsland(1, colour, 10, 0);
+                    i++;
+                }
+            }
+        }
+        gameController.moveMotherNature(1, 2);
+        gameController.chooseCloudTile(1, 0);
+
+
+        i = 0;
+        while(i < 4){
+            for(Colour colour: Colour.values()) {
+                if(gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0){
+                    gameController.moveStudentToIsland(0, colour, 7, 0);
+                    i++;
+                }
+            }
+        }
+        gameController.moveMotherNature(0, 1);
+        gameController.chooseCloudTile(0, 0);
+
+        i = 0;
+        while(i < 4){
+            for(Colour colour: Colour.values()) {
+                if(gameController.getGame().getPlayerByIndex(2).getSchoolBoard().getEntrance(colour) > 0){
+                    gameController.moveStudentToIsland(2, colour, 7, 0);
+                    i++;
+                }
+            }
+        }
+        gameController.moveMotherNature(2, 1);
+        gameController.chooseCloudTile(2, 0);
+
+        assertEquals(GamePhase.PLAY_ASSISTANT_CARD, gameController.getGame().getGamePhase());
+        assertEquals(TurnPhase.WAITING, gameController.getGame().getTurnPhase());
+
+        gameController.playAssistantCard(1, 5);
+        gameController.playAssistantCard(2, 1);
+        gameController.playAssistantCard(0, 8);
+
+
+        assertEquals(GamePhase.PLAYING, gameController.getGame().getGamePhase());
+        assertEquals(TurnPhase.MOVE_STUDENT, gameController.getGame().getTurnPhase());
+
+        i = 0;
+        while(i < 4){
+            for(Colour colour: Colour.values()) {
+                if(gameController.getGame().getPlayerByIndex(2).getSchoolBoard().getEntrance(colour) > 0){
+                    gameController.moveStudentToIsland(2, colour, 3, 0);
+                    i++;
+                }
+            }
+        }
+        gameController.moveMotherNature(2, 1);
+        gameController.chooseCloudTile(2, 0);
+
+        i = 0;
+        while(i < 4){
+            for(Colour colour: Colour.values()) {
+                if(gameController.getGame().getPlayerByIndex(1).getSchoolBoard().getEntrance(colour) > 0){
+                    gameController.moveStudentToIsland(1, colour, 4, 0);
+                    i++;
+                }
+            }
+        }
+        gameController.moveMotherNature(1, 1);
+        gameController.chooseCloudTile(1, 0);
+
+
+        i = 0;
+        while(i < 4){
+            for(Colour colour: Colour.values()) {
+                if(gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0){
+                    gameController.moveStudentToIsland(0, colour, 5, 0);
+                    i++;
+                }
+            }
+        }
+        gameController.moveMotherNature(0, 1);
+        gameController.chooseCloudTile(0, 0);
+
+        assertEquals(GamePhase.PLAY_ASSISTANT_CARD, gameController.getGame().getGamePhase());
+        assertEquals(TurnPhase.WAITING, gameController.getGame().getTurnPhase());
+
+        gameController.playAssistantCard(2, 6);
+        gameController.playAssistantCard(0, 3);
+        gameController.playAssistantCard(1, 10);
+
+        assertEquals(GamePhase.PLAYING, gameController.getGame().getGamePhase());
+        assertEquals(TurnPhase.MOVE_STUDENT, gameController.getGame().getTurnPhase());
+
+        i = 0;
+        while(i < 4){
+            for(Colour colour: Colour.values()) {
+                if(gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0){
+                    gameController.moveStudentToIsland(0, colour, 1, 0);
+                    i++;
+                }
+            }
+        }
+        gameController.moveMotherNature(0, 1);
+        gameController.chooseCloudTile(0, 0);
+
+        i = 0;
+        while(i < 4){
+            for(Colour colour: Colour.values()) {
+                if(gameController.getGame().getPlayerByIndex(2).getSchoolBoard().getEntrance(colour) > 0){
+                    gameController.moveStudentToIsland(2, colour, 2, 0);
+                    i++;
+                }
+            }
+        }
+        gameController.moveMotherNature(2, 1);
+        gameController.chooseCloudTile(2, 0);
+
+        i = 0;
+        while(i < 4){
+            for(Colour colour: Colour.values()) {
+                if(gameController.getGame().getPlayerByIndex(1).getSchoolBoard().getEntrance(colour) > 0){
+                    gameController.moveStudentToIsland(1, colour, 3, 0);
+                    i++;
+                }
+            }
+        }
+        gameController.moveMotherNature(1, 1);
+        gameController.chooseCloudTile(1, 0);
+
+        assertEquals(GamePhase.PLAY_ASSISTANT_CARD, gameController.getGame().getGamePhase());
+        assertEquals(TurnPhase.WAITING, gameController.getGame().getTurnPhase());
 
     }
 }
