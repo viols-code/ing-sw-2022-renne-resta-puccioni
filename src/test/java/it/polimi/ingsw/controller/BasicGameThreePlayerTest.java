@@ -227,7 +227,7 @@ public class BasicGameThreePlayerTest {
                 }
             }
         }
-        gameController.moveMotherNature(1, 2);
+        gameController.moveMotherNature(1, 1);
         gameController.chooseCloudTile(1, 0);
 
 
