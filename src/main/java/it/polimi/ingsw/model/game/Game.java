@@ -8,7 +8,6 @@ import it.polimi.ingsw.model.table.Table;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Game
@@ -33,10 +32,6 @@ public abstract class Game {
      * Identifies the player who's playing his turn
      */
     protected Player currentPlayer;
-    /**
-     * Identifies the next player
-     */
-    protected Player nextPlayer;
     /**
      * the first player of the current round
      */
@@ -90,7 +85,6 @@ public abstract class Game {
     public Game() {
         players = new ArrayList<>();
         currentPlayer = null;
-        nextPlayer = null;
         firstPlayerTurn = null;
         table = new Table();
         round = 1;
@@ -188,6 +182,8 @@ public abstract class Game {
      */
     public Player nextPlayerTurn() {
         int min = 11;
+
+        Player nextPlayer = null;
 
         for (int i = 0; i < getNumberOfPlayer(); i++) {
             if (!getPlayerByIndex(i).getHasAlreadyPlayed()) {
