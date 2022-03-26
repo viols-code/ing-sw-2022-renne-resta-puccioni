@@ -35,7 +35,7 @@ public class ExchangeEntranceDiningRoom extends CharacterCard {
 
         checkProfessor(colourEntrance);
 
-        if (times == 2) {
+        if (times == 1) {
             resetTimes();
             game.setActiveCharacterCard(game.getBasicState());
         } else {
