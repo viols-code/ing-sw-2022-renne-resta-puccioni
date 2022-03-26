@@ -37,7 +37,7 @@ public class StudentToEntrance extends CharacterCard {
     /**
      * Activates the effect of the card
      */
-    public void effect() {
+    protected void effect() {
         game.getCurrentPlayer().getSchoolBoard().removeStudentFromEntrance(colourEntrance);
         game.getCurrentPlayer().getSchoolBoard().addStudentToEntrance(colourCard);
         students.replace(colourCard, students.get(colourCard), students.get(colourCard) - 1);

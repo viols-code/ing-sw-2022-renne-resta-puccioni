@@ -20,7 +20,7 @@ public class ThreeStudent extends CharacterCard {
      * Activates the effect of the CharacterCard
      */
     @Override
-    public void effect() {
+    protected void effect() {
         int n;
         for(int i=0; i< game.getNumberOfPlayer();i++) {
             n = game.getPlayerByIndex(i).getSchoolBoard().getDiningRoom(colour);

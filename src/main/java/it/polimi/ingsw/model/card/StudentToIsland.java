@@ -67,7 +67,7 @@ public class StudentToIsland extends CharacterCard {
      * Activate the effect of the characterCard
      */
     @Override
-    public void effect() {
+    protected void effect() {
         islandChosen.addStudent(colour);
         studentsOnCard.replace(colour, studentsOnCard.get(colour), studentsOnCard.get(colour) - 1);
         if (!game.getTable().getBag().isBagEmpty()) {

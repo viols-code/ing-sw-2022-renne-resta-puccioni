@@ -35,7 +35,7 @@ public class StudentToDiningRoom extends CharacterCard {
      * Activates the effect of the CharacterCard
      */
     @Override
-    public void effect() {
+    protected void effect() {
         game.getCurrentPlayer().getSchoolBoard().addStudentToDiningRoom(colour);
 
         if (((game.getCurrentPlayer().getSchoolBoard().getDiningRoom(colour) + 1) % 3) == 0) {

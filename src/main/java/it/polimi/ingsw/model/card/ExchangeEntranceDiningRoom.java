@@ -22,7 +22,7 @@ public class ExchangeEntranceDiningRoom extends CharacterCard {
      * Activates the effect of the CharacterCard
      */
     @Override
-    public void effect() {
+    protected void effect() {
         game.getCurrentPlayer().getSchoolBoard().addStudentToDiningRoom(colourEntrance);
         game.getCurrentPlayer().getSchoolBoard().removeStudentFromDiningRoom(colourDiningRoom);
         game.getCurrentPlayer().getSchoolBoard().addStudentToEntrance(colourDiningRoom);
