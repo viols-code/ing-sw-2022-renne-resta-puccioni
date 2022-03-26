@@ -382,6 +382,7 @@ public class GameController {
                         game.setCurrentPlayer(game.nextPlayerTurn());
                         game.setTurnPhase(TurnPhase.MOVE_STUDENT);
                     } else {
+                        settingCloudTile();
                         game.setCurrentPlayer(game.getFirstPlayerTurn());
                         game.setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
                         game.setTurnPhase(TurnPhase.WAITING);
