@@ -69,4 +69,8 @@ public class ExchangeEntranceDiningRoom extends CharacterCard {
     private void increaseTimes() {
         times += 1;
     }
+
+    protected Colour getColourEntrance(){return colourEntrance;}
+
+    protected Colour getColourDiningRoom(){return colourDiningRoom;}
 }
