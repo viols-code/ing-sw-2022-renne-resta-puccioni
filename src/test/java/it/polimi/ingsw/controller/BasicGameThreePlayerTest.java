@@ -85,5 +85,10 @@ public class BasicGameThreePlayerTest {
         assertEquals(5, num);
         assertEquals(GamePhase.PLAYING, gameController.getGame().getGamePhase());
         assertEquals(TurnPhase.MOVE_MOTHER_NATURE, gameController.getGame().getTurnPhase());
+
+        gameController.moveMotherNature(2, 1);
+        assertEquals(1, gameController.getGame().getTable().getMotherNaturePosition());
+        assertNull(gameController.getGame().getTable().getGroupIslandByIndex(1).getInfluence());
+
     }
 }
