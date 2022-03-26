@@ -24,7 +24,9 @@ class NoColourTest {
         gameTest.addCharacterCard(cardTest);
         gameTest.addPlayer(new ExpertPlayer("sara",Wizard.TYPE_2));
         gameTest.addPlayer(new ExpertPlayer("sara",Wizard.TYPE_3));
-    }
+        for (int i = 0; i < 12; i++) {
+            gameTest.getTable().addGroupIsland(new BasicGroupIsland());
+    }}
 
     @Test
     void setColour() {
@@ -34,20 +36,20 @@ class NoColourTest {
         }
     }
 
-    @Before
-    protected void setUpCalculateInfluencePlayer(){
-        gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0).addStudent(Colour.PINK);
-        gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0).addStudent(Colour.PINK);
-    }
 
     @Test
     void calculateInfluencePlayer() {
+        gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0).addStudent(Colour.PINK);
+        gameTest.getTable().getGroupIslandByIndex(0).changeInfluence(gameTest.getPlayerByIndex(0));
+        gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0).addStudent(Colour.RED);
+        gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0).addStudent(Colour.YELLOW);
+        gameTest.getPlayerByIndex(0).getSchoolBoard().addProfessor(Colour.PINK);
+        gameTest.getPlayerByIndex(1).getSchoolBoard().addProfessor(Colour.RED);
+        gameTest.getPlayerByIndex(1).getSchoolBoard().addProfessor(Colour.YELLOW);
+        cardTest.setColour(Colour.PINK);
+        cardTest.calculateInfluence(0);
+        assertEquals(gameTest.getPlayerByIndex(1),gameTest.getTable().getGroupIslandByIndex(0).getInfluence());
 
     }
 
-    private void setUpSchoolBoardPlayer0(){
-        gameTest.getPlayerByIndex(0).getSchoolBoard().addStudentToDiningRoom(Colour.PINK);
-        gameTest.getPlayerByIndex(0).getSchoolBoard().addStudentToDiningRoom(Colour.PINK);
-        gameTest.getPlayerByIndex(0).getSchoolBoard().addStudentToDiningRoom(Colour.PINK);
-    }
 }
