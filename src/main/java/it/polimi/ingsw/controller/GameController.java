@@ -151,7 +151,6 @@ public class GameController {
     }
 
     public void playAssistantCard(int player, int assistantCard) {
-
         if (game.getGamePhase() == GamePhase.PLAY_ASSISTANT_CARD) {
             if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
                 if (game.getPlayerByIndex(player).isAssistantCardPresent(game.getAssistantCard(assistantCard))) {

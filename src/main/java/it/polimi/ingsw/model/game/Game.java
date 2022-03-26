@@ -155,6 +155,10 @@ public abstract class Game {
         for(int i = 0; i < this.numberStudentsEntrance; i++){
             player.getSchoolBoard().addStudentToEntrance(this.getTable().getBag().bagDrawStudent());
         }
+
+        for(int i = 0; i < 10; i++){
+            player.addAssistantCard(this.getAssistantCard(i));
+        }
     }
 
     /**
