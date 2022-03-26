@@ -95,7 +95,42 @@ public class GameTest2Players {
         assertEquals(GamePhase.PLAYING, gameController.getGame().getGamePhase());
         assertEquals(TurnPhase.MOVE_STUDENT, gameController.getGame().getTurnPhase());
         assertEquals(1, gameController.getGame().getTable().getNumberOfCloudTile());
+        assertEquals(gameController.getGame().getCurrentPlayer(), gameController.getGame().getPlayerByIndex(1));
 
+        int j = 0;
+        while (j < 3) {
+            for (Colour colour : Colour.values()) {
+                if (gameController.getGame().getPlayerByIndex(1).getSchoolBoard().getEntrance(colour) > 0) {
+                    gameController.moveStudentToDiningRoom(1, colour);
+                    j++;
+                }
+            }
+        }
+
+        assertEquals(GamePhase.PLAYING, gameController.getGame().getGamePhase());
+        assertEquals(TurnPhase.MOVE_MOTHER_NATURE, gameController.getGame().getTurnPhase());
+
+        assertEquals(4, gameController.getGame().getPlayerByIndex(1).getSchoolBoard().getNumberStudentsEntrance());
+        assertEquals(7, gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getNumberStudentsEntrance());
+
+        gameController.moveMotherNature(1,3);
+
+        assertEquals(5, gameController.getGame().getTable().getMotherNaturePosition());
+
+        assertEquals(GamePhase.PLAYING, gameController.getGame().getGamePhase());
+        assertEquals(TurnPhase.CHOOSE_CLOUD_TILE, gameController.getGame().getTurnPhase());
+
+        gameController.chooseCloudTile(1, 1);
+        assertEquals(GamePhase.PLAYING, gameController.getGame().getGamePhase());
+        assertEquals(TurnPhase.CHOOSE_CLOUD_TILE, gameController.getGame().getTurnPhase());
+
+        gameController.chooseCloudTile(1, 0);
+        assertEquals(7, gameController.getGame().getPlayerByIndex(1).getSchoolBoard().getNumberStudentsEntrance());
+        assertEquals(0, gameController.getGame().getTable().getNumberOfCloudTile());
+        assertEquals(GamePhase.PLAYING, gameController.getGame().getGamePhase());
+        assertEquals(TurnPhase.MOVE_STUDENT, gameController.getGame().getTurnPhase());
+
+        assertEquals(gameController.getGame().getCurrentPlayer(), gameController.getGame().getPlayerByIndex(0));
 
     }
 
