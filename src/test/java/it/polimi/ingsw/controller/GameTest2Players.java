@@ -71,7 +71,6 @@ public class GameTest2Players {
 
         assertEquals(4, gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getNumberStudentsEntrance());
         assertEquals(4, gameController.getGame().getTable().getGroupIslandByIndex(2).getIslandByIndex(0).getStudents());
-        assertEquals();
 
 
     }
