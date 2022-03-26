@@ -27,7 +27,7 @@ public class ExchangeEntranceDiningRoom extends CharacterCard {
         game.getCurrentPlayer().getSchoolBoard().removeStudentFromDiningRoom(colourEntrance);
         game.getCurrentPlayer().getSchoolBoard().addStudentToEntrance(colourEntrance);
         game.getCurrentPlayer().getSchoolBoard().removeStudentFromEntrance(colourDiningRoom);
-
+        checkProfessor(colourDiningRoom);
         if (times == 2) {
             resetTimes();
             game.setActiveCharacterCard(game.getBasicState());
