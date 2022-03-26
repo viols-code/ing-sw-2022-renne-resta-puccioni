@@ -217,7 +217,7 @@ public class GameTest2Players {
 
         //QUARTO TURNO
 
-        gameController.playAssistantCard(1,10);
+        gameController.playAssistantCard(1,7);
         gameController.playAssistantCard(0,1);
 
         i = 0;
@@ -230,7 +230,7 @@ public class GameTest2Players {
             }
         }
 
-        gameController.moveMotherNature(0,2);
+        gameController.moveMotherNature(0,1);
 
         assertEquals(GamePhase.PLAYING, gameController.getGame().getGamePhase());
         assertEquals(TurnPhase.CHOOSE_CLOUD_TILE, gameController.getGame().getTurnPhase());
