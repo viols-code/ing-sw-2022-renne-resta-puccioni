@@ -141,7 +141,7 @@ class PlayerTest {
 
     @Test
     void equals() {
-        assertFalse(gameController.getGame().getPlayerByIndex(0).equals(gameController.getGame().getPlayerByIndex(1)));
+        assertNotEquals(gameController.getGame().getPlayerByIndex(0), gameController.getGame().getPlayerByIndex(1));
     }
 
     @Test

@@ -61,7 +61,7 @@ class AdvancedGroupIslandTest {
     }
 
     @Test
-    void checkReoveNoEntryTile() {
+    void checkRemoveNoEntryTile() {
         groupIsland = new AdvancedGroupIsland();
         assertEquals(0, groupIsland.getNumberOfNoEntryTile());
         groupIsland.addNoEntryTile();

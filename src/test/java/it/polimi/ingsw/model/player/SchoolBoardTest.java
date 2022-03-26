@@ -77,7 +77,7 @@ class SchoolBoardTest {
 
         Colour colour1 = Colour.RED;
         for (Colour colour : Colour.values()) {
-            int num = 0;
+            int num;
             if (gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
                 num = gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour);
                 gameController.getGame().getPlayerByIndex(0).getSchoolBoard().removeStudentFromEntrance(colour);
@@ -99,7 +99,7 @@ class SchoolBoardTest {
 
         Colour colour1 = Colour.RED;
         for (Colour colour : Colour.values()) {
-            int num = 0;
+            int num;
             if (gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
                 num = gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour);
                 gameController.getGame().getPlayerByIndex(0).getSchoolBoard().removeStudentFromEntrance(colour);
