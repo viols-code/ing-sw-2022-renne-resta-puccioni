@@ -287,23 +287,25 @@ public class GameController {
      * @param wizard the wizard chosen by the player
      */
     public void addPlayer(String nickname, Wizard wizard) {
-        if (isGameExpert) {
-            if (checkUniqueNickname(nickname)) {
-                if (checkUniqueWizard(wizard)) { //altrimenti mandiamo un messaggio di cambiare nickname/wizard
-                    game.addPlayer(new ExpertPlayer(nickname, wizard));
+        if(game.getNumberOfPlayer() < numberOfPlayer && game.getGamePhase() == GamePhase.SETTING){
+            if (isGameExpert) {
+                if (checkUniqueNickname(nickname)) {
+                    if (checkUniqueWizard(wizard)) { //altrimenti mandiamo un messaggio di cambiare nickname/wizard
+                        game.addPlayer(new ExpertPlayer(nickname, wizard));
+                    }
+                }
+            } else {
+                if (checkUniqueNickname(nickname)) {
+                    if (checkUniqueWizard(wizard)) {
+                        game.addPlayer(new BasicPlayer(nickname, wizard));
+                    }
                 }
             }
-        } else {
-            if (checkUniqueNickname(nickname)) {
-                if (checkUniqueWizard(wizard)) {
-                    game.addPlayer(new BasicPlayer(nickname, wizard));
-                }
-            }
-        }
 
-        if (numberOfPlayer == game.getNumberOfPlayer()) {
-            game.setCurrentPlayer(game.getPlayerByIndex(0));
-            game.setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
+            if (numberOfPlayer == game.getNumberOfPlayer()) {
+                game.setCurrentPlayer(game.getPlayerByIndex(0));
+                game.setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
+            }
         }
     }
 
