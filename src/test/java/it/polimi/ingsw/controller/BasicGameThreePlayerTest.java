@@ -5,10 +5,7 @@ import it.polimi.ingsw.model.game.GamePhase;
 import it.polimi.ingsw.model.game.TurnPhase;
 import it.polimi.ingsw.model.player.Wizard;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledIf;
-import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -22,6 +19,7 @@ public class BasicGameThreePlayerTest {
 
     @Test
     void threePlayerGame(){
+        // start of the game
         assertEquals(GamePhase.SETTING, gameController.getGame().getGamePhase());
         assertEquals(TurnPhase.WAITING, gameController.getGame().getTurnPhase());
         assertEquals(4, gameController.getGame().getStudentNumberMovement());
@@ -55,6 +53,7 @@ public class BasicGameThreePlayerTest {
             assertEquals(gameController.getGame().getNumberOfTowersPerPlayer(), gameController.getGame().getPlayerByIndex(i).getSchoolBoard().getTowers());
         }
 
+        // playing AssistantCard first turn
         gameController.playAssistantCard(1, 0);
         assertNull(gameController.getGame().getPlayerByIndex(1).getCurrentAssistantCard());
         gameController.playAssistantCard(0, 4);
@@ -67,6 +66,7 @@ public class BasicGameThreePlayerTest {
         assertEquals(GamePhase.PLAYING, gameController.getGame().getGamePhase());
         assertEquals(TurnPhase.MOVE_STUDENT, gameController.getGame().getTurnPhase());
 
+        // first turn
         int i = 0;
         while(i < 4){
             for(Colour colour: Colour.values()) {
@@ -127,7 +127,7 @@ public class BasicGameThreePlayerTest {
         assertEquals(GamePhase.PLAYING, gameController.getGame().getGamePhase());
         assertEquals(TurnPhase.CHOOSE_CLOUD_TILE, gameController.getGame().getTurnPhase());
 
-        // gameController.chooseCloudTile(0, 2);
+        gameController.chooseCloudTile(0, 2);
         assertEquals(GamePhase.PLAYING, gameController.getGame().getGamePhase());
         assertEquals(TurnPhase.CHOOSE_CLOUD_TILE, gameController.getGame().getTurnPhase());
 
@@ -163,6 +163,7 @@ public class BasicGameThreePlayerTest {
         assertEquals(TurnPhase.WAITING, gameController.getGame().getTurnPhase());
         assertEquals(3, gameController.getGame().getTable().getNumberOfCloudTile());
 
+        // second turn
         gameController.playAssistantCard(2, 7);
         gameController.playAssistantCard(0, 2);
         gameController.playAssistantCard(1, 4);
@@ -209,6 +210,7 @@ public class BasicGameThreePlayerTest {
         assertEquals(GamePhase.PLAY_ASSISTANT_CARD, gameController.getGame().getGamePhase());
         assertEquals(TurnPhase.WAITING, gameController.getGame().getTurnPhase());
 
+        // third turn
         gameController.playAssistantCard(0, 5);
         gameController.playAssistantCard(1, 1);
         gameController.playAssistantCard(2, 8);
@@ -256,6 +258,7 @@ public class BasicGameThreePlayerTest {
         assertEquals(GamePhase.PLAY_ASSISTANT_CARD, gameController.getGame().getGamePhase());
         assertEquals(TurnPhase.WAITING, gameController.getGame().getTurnPhase());
 
+        // fourth turn
         gameController.playAssistantCard(1, 5);
         gameController.playAssistantCard(2, 1);
         gameController.playAssistantCard(0, 8);
@@ -304,6 +307,7 @@ public class BasicGameThreePlayerTest {
         assertEquals(GamePhase.PLAY_ASSISTANT_CARD, gameController.getGame().getGamePhase());
         assertEquals(TurnPhase.WAITING, gameController.getGame().getTurnPhase());
 
+        // fifth turn
         gameController.playAssistantCard(2, 6);
         gameController.playAssistantCard(0, 3);
         gameController.playAssistantCard(1, 10);

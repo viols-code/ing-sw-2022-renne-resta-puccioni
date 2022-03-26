@@ -367,7 +367,7 @@ public class GameController {
     }
 
     public void chooseCloudTile(int player, int cloudTile) {
-        if (cloudTile >= 0 && cloudTile <= game.getTable().getNumberOfCloudTile()) {
+        if (cloudTile >= 0 && cloudTile < game.getTable().getNumberOfCloudTile()) {
             if (game.getGamePhase() == GamePhase.PLAYING && game.getTurnPhase() == TurnPhase.CHOOSE_CLOUD_TILE) {
                 if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
                     for (Colour colour : Colour.values()) {
