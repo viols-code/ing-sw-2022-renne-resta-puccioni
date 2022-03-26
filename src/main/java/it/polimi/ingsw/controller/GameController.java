@@ -133,7 +133,7 @@ public class GameController {
     }
 
     public void playCharacterCard(int player, int characterCard) {
-        if (isGameExpert) {
+        if (isGameExpert && player >=0 && player<numberOfPlayer && characterCard>=0&& characterCard<3) {
             if (game.getGamePhase() == GamePhase.PLAYING) {
                 if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
                     if (!game.getHasPlayedCharacterCard() &&
@@ -151,6 +151,7 @@ public class GameController {
     }
 
     public void playAssistantCard(int player, int assistantCard) {
+        if(player >=0 && player<numberOfPlayer && assistantCard>=0&& assistantCard<10){
         if (game.getGamePhase() == GamePhase.PLAY_ASSISTANT_CARD) {
             if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
                 if (game.getPlayerByIndex(player).isAssistantCardPresent(game.getAssistantCard(assistantCard))) {
@@ -167,10 +168,13 @@ public class GameController {
                     }
                 }
             }
-        }
+        }}
     }
 
     private boolean canPlayAssistantCard(int player, int assistantCard) {
+        if(!(player>=0&&player<numberOfPlayer&&assistantCard>=0&& assistantCard<10)){
+            return false;
+        }
         for (int i = 0; i < player; i++) {
             if (game.getPlayerByIndex(i).getHasAlreadyPlayed()) {
                 if (game.getPlayerByIndex(i).getCurrentAssistantCard().equals(game.getAssistantCard(assistantCard)))
@@ -181,6 +185,7 @@ public class GameController {
     }
 
     public void moveStudentToIsland(int player, Colour colour, int groupIsland, int singleIsland) {
+        if(player>=0 && player<numberOfPlayer && groupIsland>=0 && groupIsland<game.getTable().getNumberOfGroupIsland() && singleIsland >=0 && singleIsland<game.getTable().getGroupIslandByIndex(groupIsland).getNumberOfSingleIsland() ){
         if (game.getGamePhase() == GamePhase.PLAYING && game.getTurnPhase() == TurnPhase.MOVE_STUDENT) {
             if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
                 if (game.getPlayerByIndex(player).getSchoolBoard().getEntrance(colour) > 0) {
@@ -193,10 +198,11 @@ public class GameController {
                     }
                 }
             }
-        }
+        }}
     }
 
     public void moveStudentToDiningRoom(int player, Colour colour) {
+        if(player>=0 && player<numberOfPlayer){
         if (game.getGamePhase() == GamePhase.PLAYING && game.getTurnPhase() == TurnPhase.MOVE_STUDENT) {
             if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
                 if (game.getPlayerByIndex(player).getSchoolBoard().getEntrance(colour) > 0) {
@@ -216,7 +222,7 @@ public class GameController {
                     }
                 }
             }
-        }
+        }}
     }
 
     private boolean checkStudentsMovement(int player) {
