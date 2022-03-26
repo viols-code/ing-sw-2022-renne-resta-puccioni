@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.game.GamePhase;
 import it.polimi.ingsw.model.game.TurnPhase;
 import it.polimi.ingsw.model.player.Wizard;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -18,6 +19,7 @@ public class BasicGameThreePlayerTest {
     }
 
     @Test
+    @Disabled
     void threePlayerGame(){
         // start of the game
         assertEquals(GamePhase.SETTING, gameController.getGame().getGamePhase());
