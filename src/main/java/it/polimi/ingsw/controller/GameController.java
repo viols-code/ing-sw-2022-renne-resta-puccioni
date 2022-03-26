@@ -187,13 +187,12 @@ public class GameController {
                     if (checkStudentsMovement(player)) {
                         game.getTable().getGroupIslandByIndex(groupIsland).getIslandByIndex(singleIsland).addStudent(colour);
                         game.getPlayerByIndex(player).getSchoolBoard().removeStudentFromEntrance(colour);
+                        if (checkEndMovementPhase(player)) {
+                            game.setTurnPhase(TurnPhase.MOVE_MOTHER_NATURE);
+                        }
                     }
                 }
             }
-        }
-
-        if (checkEndMovementPhase(player)) {
-            game.setTurnPhase(TurnPhase.MOVE_MOTHER_NATURE);
         }
     }
 
@@ -211,13 +210,12 @@ public class GameController {
                         if (!game.getCurrentPlayer().getSchoolBoard().hasProfessor(colour)) {
                             game.getActiveCharacterCard().checkProfessor(colour);
                         }
+                        if (checkEndMovementPhase(player)) {
+                            game.setTurnPhase(TurnPhase.MOVE_MOTHER_NATURE);
+                        }
                     }
                 }
             }
-        }
-
-        if (checkEndMovementPhase(player)) {
-            game.setTurnPhase(TurnPhase.MOVE_MOTHER_NATURE);
         }
     }
 
@@ -226,7 +224,7 @@ public class GameController {
     }
 
     private boolean checkEndMovementPhase(int player) {
-        return game.getPlayerByIndex(player).getSchoolBoard().getNumberStudentsEntrance() == 4;
+        return game.getPlayerByIndex(player).getSchoolBoard().getNumberStudentsEntrance() == game.getNumberStudentsEntrance() - game.getStudentNumberMovement();
     }
 
 
