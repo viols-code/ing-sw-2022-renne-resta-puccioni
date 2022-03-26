@@ -117,7 +117,7 @@ public class Table {
     public GroupIsland getIslandBefore(int groupIsland) {
         groupIsland = (groupIsland - 1) % islands.size();
         if (groupIsland == -1) {
-            groupIsland = 11;
+            groupIsland = islands.size() - 1;
         }
         return getGroupIslandByIndex(groupIsland);
     }

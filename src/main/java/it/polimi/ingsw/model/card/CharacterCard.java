@@ -293,13 +293,14 @@ public abstract class CharacterCard {
             if(groupIsland == game.getTable().getNumberOfGroupIsland() - 1){
                 game.getTable().setMotherNaturePosition(0);
                 unifyGroupIsland(game.getTable().getIslandAfter(groupIsland), game.getTable().getGroupIslandByIndex(groupIsland));
+                groupIsland = 0;
             } else{
                 unifyGroupIsland(game.getTable().getGroupIslandByIndex(groupIsland), game.getTable().getIslandAfter(groupIsland));
             }
         }
 
         if (game.getTable().getGroupIslandByIndex(groupIsland).getInfluence().equals(game.getTable().getIslandBefore(groupIsland).getInfluence())) {
-            if(groupIsland != 0){
+            if(groupIsland > 0){
                 game.getTable().setMotherNaturePosition(groupIsland - 1);
             }
             unifyGroupIsland(game.getTable().getIslandBefore(groupIsland), game.getTable().getGroupIslandByIndex(groupIsland));
