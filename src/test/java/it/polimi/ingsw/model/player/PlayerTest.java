@@ -101,7 +101,6 @@ class PlayerTest {
             card = gameController.getGame().getAssistantCard(i);
             gameController.getGame().getPlayerByIndex(0).setCurrentAssistantCard(card);
             assertEquals(card, gameController.getGame().getPlayerByIndex(0).getCurrentAssistantCard());
-            assertFalse(gameController.getGame().getPlayerByIndex(0).isAssistantCardPresent(gameController.getGame().getAssistantCard(i)));
         }
     }
 

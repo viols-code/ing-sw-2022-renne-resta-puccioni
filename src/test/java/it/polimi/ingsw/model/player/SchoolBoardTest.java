@@ -68,29 +68,44 @@ class SchoolBoardTest {
 
     @Test
     void addStudentToEntrance() {
-        for (Colour colour : Colour.values())
-            assertEquals(0, gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour));
+        int size = 0;
+        for(Colour colour: Colour.values()){
+            size += gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour);
+        }
 
-        for (Colour colour : Colour.values()) {
-            for (int i = 1; i <= 7; i++) {
+        assertEquals(7, size);
+
+        Colour colour1 = Colour.RED;
+        for(Colour colour: Colour.values()){
+            int num = 0;
+            if(gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0){
+                num = gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour);
+                gameController.getGame().getPlayerByIndex(0).getSchoolBoard().removeStudentFromEntrance(colour);
+                assertEquals(num - 1, gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour));
                 gameController.getGame().getPlayerByIndex(0).getSchoolBoard().addStudentToEntrance(colour);
-                assertEquals(i, gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour));
+                assertEquals(num, gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour));
             }
         }
     }
 
     @Test
     void removeStudentFromEntrance() {
-        for (Colour colour : Colour.values())
-            assertEquals(0, gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour));
+        int size = 0;
+        for(Colour colour: Colour.values()){
+            size += gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour);
+        }
 
-        for (Colour colour : Colour.values()) {
-            for (int i = 1; i <= 7; i++) {
-                gameController.getGame().getPlayerByIndex(0).getSchoolBoard().addStudentToEntrance(colour);
-            }
-            for (int i = 1; i <= 7; i++) {
+        assertEquals(7, size);
+
+        Colour colour1 = Colour.RED;
+        for(Colour colour: Colour.values()){
+            int num = 0;
+            if(gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0){
+                num = gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour);
                 gameController.getGame().getPlayerByIndex(0).getSchoolBoard().removeStudentFromEntrance(colour);
-                assertEquals(7 - i, gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour));
+                assertEquals(num - 1, gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour));
+                gameController.getGame().getPlayerByIndex(0).getSchoolBoard().addStudentToEntrance(colour);
+                assertEquals(num, gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour));
             }
         }
     }
@@ -125,32 +140,30 @@ class SchoolBoardTest {
 
     @Test
     void addTower() {
-        for (int i = 1; i <= 5; i++) {
-            gameController.getGame().getPlayerByIndex(0).getSchoolBoard().addTower(i);
-            assertEquals(i, gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getTowers());
-            gameController.getGame().getPlayerByIndex(0).getSchoolBoard().removeTower(i);
-        }
-
+        assertEquals(8, gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getTowers());
+        gameController.getGame().getPlayerByIndex(0).getSchoolBoard().removeTower(1);
+        assertEquals(7, gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getTowers());
+        gameController.getGame().getPlayerByIndex(0).getSchoolBoard().removeTower(2);
+        assertEquals(5, gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getTowers());
+        gameController.getGame().getPlayerByIndex(0).getSchoolBoard().addTower(1);
+        assertEquals(6, gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getTowers());
     }
 
     @Test
     void removeTower() {
-        gameController.getGame().getPlayerByIndex(0).getSchoolBoard().addTower(8);
-        for (int i = 1; i <= 7; i++) {
-            gameController.getGame().getPlayerByIndex(0).getSchoolBoard().removeTower(i);
-            assertEquals(8 - i, gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getTowers());
-            gameController.getGame().getPlayerByIndex(0).getSchoolBoard().addTower(i);
-        }
+        assertEquals(8, gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getTowers());
+        gameController.getGame().getPlayerByIndex(0).getSchoolBoard().removeTower(1);
+        assertEquals(7, gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getTowers());
+        gameController.getGame().getPlayerByIndex(0).getSchoolBoard().removeTower(2);
+        assertEquals(5, gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getTowers());
+        gameController.getGame().getPlayerByIndex(0).getSchoolBoard().addTower(1);
+        assertEquals(6, gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getTowers());
     }
 
     @Test
     void getNumberStudentEntrance(){
-        gameController.getGame().getPlayerByIndex(0).getSchoolBoard().addStudentToEntrance(Colour.RED);
-        gameController.getGame().getPlayerByIndex(0).getSchoolBoard().addStudentToEntrance(Colour.YELLOW);
-        gameController.getGame().getPlayerByIndex(0).getSchoolBoard().addStudentToEntrance(Colour.RED);
-        gameController.getGame().getPlayerByIndex(0).getSchoolBoard().addStudentToEntrance(Colour.PINK);
-        assertEquals(4,gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getNumberStudentsEntrance());
-
+        assertEquals(7, gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getNumberStudentsEntrance());
+        assertEquals(7, gameController.getGame().getPlayerByIndex(1).getSchoolBoard().getNumberStudentsEntrance());
     }
 
     @Test
