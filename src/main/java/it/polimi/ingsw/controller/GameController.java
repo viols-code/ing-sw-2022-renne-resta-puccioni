@@ -316,10 +316,9 @@ public class GameController {
      * @return a boolean which says if the nickname has already been taken
      */
     private boolean checkUniqueNickname(String nickname) {
-
-        for (int i = 0; i < numberOfPlayer; i++) {
+        for (int i = 0; i < game.getNumberOfPlayer(); i++) {
             if (game.getPlayerByIndex(i) != game.getCurrentPlayer()) {
-                if (game.getPlayerByIndex(i).getNickname().equals(game.getCurrentPlayer().getNickname())) {
+                if (game.getPlayerByIndex(i).getNickname().equals(nickname)) {
                     return false;
                 }
             }
@@ -336,9 +335,9 @@ public class GameController {
      */
     private boolean checkUniqueWizard(Wizard wizard) {
 
-        for (int i = 0; i < numberOfPlayer; i++) {
+        for (int i = 0; i < game.getNumberOfPlayer(); i++) {
             if (game.getPlayerByIndex(i) != game.getCurrentPlayer()) {
-                if (game.getPlayerByIndex(i).getWizard() == game.getCurrentPlayer().getWizard()) {
+                if (game.getPlayerByIndex(i).getWizard() == wizard) {
                     return false;
                 }
             }
