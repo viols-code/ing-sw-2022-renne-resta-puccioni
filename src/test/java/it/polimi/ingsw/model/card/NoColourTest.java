@@ -25,11 +25,15 @@ class NoColourTest {
 
     @Test
     void setColour() {
-        
+        for(Colour colour1: Colour.values()){
+            cardTest.setColour(colour1);
+            assertEquals(colour1,cardTest.getColour());
+        }
     }
 
     @Test
     void calculateInfluencePlayer() {
+
     }
 
 }
