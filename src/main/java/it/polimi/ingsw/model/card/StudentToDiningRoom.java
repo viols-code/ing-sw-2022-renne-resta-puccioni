@@ -37,8 +37,16 @@ public class StudentToDiningRoom extends CharacterCard {
     @Override
     public void effect() {
         game.getCurrentPlayer().getSchoolBoard().addStudentToDiningRoom(colour);
+
+        if (((game.getCurrentPlayer().getSchoolBoard().getDiningRoom(colour) + 1) % 3) == 0) {
+            game.getCurrentPlayer().addCoins(1);
+            game.setCoins(game.getCoins() - 1);
+        }
+
+        checkProfessor(colour);
+
         students.replace(colour, students.get(colour), students.get(colour) - 1);
-        if (game.getTable().getBag().isBagEmpty()) {
+        if (!game.getTable().getBag().isBagEmpty()) {
             Colour colour1 = game.getTable().getBag().bagDrawStudent();
             students.replace(colour1, students.get(colour1), students.get(colour1) + 1);
         }
@@ -54,6 +62,10 @@ public class StudentToDiningRoom extends CharacterCard {
     public void setColour(Colour colour) {
         this.colour = colour;
         this.effect();
+    }
+
+    protected int getStudents(Colour colour){
+        return students.get(colour);
     }
 
 }

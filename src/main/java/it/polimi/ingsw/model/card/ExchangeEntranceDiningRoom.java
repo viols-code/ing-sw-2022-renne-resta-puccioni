@@ -23,12 +23,19 @@ public class ExchangeEntranceDiningRoom extends CharacterCard {
      */
     @Override
     public void effect() {
-        game.getCurrentPlayer().getSchoolBoard().addStudentToDiningRoom(colourDiningRoom);
-        game.getCurrentPlayer().getSchoolBoard().removeStudentFromDiningRoom(colourEntrance);
-        game.getCurrentPlayer().getSchoolBoard().addStudentToEntrance(colourEntrance);
-        game.getCurrentPlayer().getSchoolBoard().removeStudentFromEntrance(colourDiningRoom);
+        game.getCurrentPlayer().getSchoolBoard().addStudentToDiningRoom(colourEntrance);
+        game.getCurrentPlayer().getSchoolBoard().removeStudentFromDiningRoom(colourDiningRoom);
+        game.getCurrentPlayer().getSchoolBoard().addStudentToEntrance(colourDiningRoom);
+        game.getCurrentPlayer().getSchoolBoard().removeStudentFromEntrance(colourEntrance);
 
-        if (times == 2) {
+        if (((game.getCurrentPlayer().getSchoolBoard().getDiningRoom(colourDiningRoom) + 1) % 3) == 0) {
+            game.getCurrentPlayer().addCoins(1);
+            game.setCoins(game.getCoins() - 1);
+        }
+
+        checkProfessor(colourEntrance);
+
+        if (times == 1) {
             resetTimes();
             game.setActiveCharacterCard(game.getBasicState());
         } else {
@@ -62,4 +69,8 @@ public class ExchangeEntranceDiningRoom extends CharacterCard {
     private void increaseTimes() {
         times += 1;
     }
+
+    protected Colour getColourEntrance(){return colourEntrance;}
+
+    protected Colour getColourDiningRoom(){return colourDiningRoom;}
 }

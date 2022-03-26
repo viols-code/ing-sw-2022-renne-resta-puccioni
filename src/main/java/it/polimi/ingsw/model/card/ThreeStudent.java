@@ -21,15 +21,25 @@ public class ThreeStudent extends CharacterCard {
      */
     @Override
     public void effect() {
-        for (int i = 0; i < game.getNumberOfPlayer(); i++) {
-            if (game.getPlayerByIndex(i).getSchoolBoard().getDiningRoom(colour) < 3) {
+        int n;
+        for(int i=0; i< game.getNumberOfPlayer();i++) {
+            n = game.getPlayerByIndex(i).getSchoolBoard().getDiningRoom(colour);
+            for (int j = 0; j < n && j < 3; j++) {
+                game.getPlayerByIndex(i).getSchoolBoard().removeStudentFromDiningRoom(colour);
+            }
+        }
+
+
+
+
+            /*if (game.getPlayerByIndex(i).getSchoolBoard().getDiningRoom(colour) < 3) {
                 game.getPlayerByIndex(i).getSchoolBoard().removeAllStudentFromDiningRoom();
             } else {
                 for (int j = 0; j < 3; j++) {
                     game.getPlayerByIndex(i).getSchoolBoard().removeStudentFromDiningRoom(colour);
                 }
             }
-        }
+        }*/
 
         game.setActiveCharacterCard(game.getBasicState());
     }
