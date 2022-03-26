@@ -18,19 +18,20 @@ class BagTest {
 
     @Test
     void checkSetting() {
-        for (Colour colour : Colour.values()) {
-            assertEquals(24, gameController.getGame().getTable().getBag().getBagStudent(colour));
+        int size = 0;
+        for(Colour colour: Colour.values()){
+            size += gameController.getGame().getTable().getBag().getBagStudent(colour);
         }
+
+        assertEquals(114, size);
     }
 
     @Test
     void addStudentBag() {
-        for (Colour colour : Colour.values()) {
-            assertEquals(24, gameController.getGame().getTable().getBag().getBagStudent(colour));
-        }
+        int numBlueRemained = gameController.getGame().getTable().getBag().getBagStudent(Colour.BLUE);
 
         gameController.getGame().getTable().getBag().addStudentBag(Colour.BLUE);
-        assertEquals(25, gameController.getGame().getTable().getBag().getBagStudent(Colour.BLUE));
+        assertEquals(numBlueRemained + 1, gameController.getGame().getTable().getBag().getBagStudent(Colour.BLUE));
     }
 
     @Test
@@ -48,12 +49,6 @@ class BagTest {
         int numGreenRemained = gameController.getGame().getTable().getBag().getBagStudent(Colour.GREEN);
         int numYellowRemained = gameController.getGame().getTable().getBag().getBagStudent(Colour.YELLOW);
         int numRedRemained = gameController.getGame().getTable().getBag().getBagStudent(Colour.RED);
-
-        assertEquals(24, numPinkRemained);
-        assertEquals(24, numBlueRemained);
-        assertEquals(24, numGreenRemained);
-        assertEquals(24, numYellowRemained);
-        assertEquals(24, numRedRemained);
 
         for (int i = 0; i < 24; i++) {
             Colour colour = gameController.getGame().getTable().getBag().bagDrawStudent();
