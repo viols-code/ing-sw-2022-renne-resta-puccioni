@@ -132,6 +132,36 @@ public class GameTest2Players {
 
         assertEquals(gameController.getGame().getCurrentPlayer(), gameController.getGame().getPlayerByIndex(0));
 
+        gameController.playAssistantCard(0,9);
+        gameController.playAssistantCard(1,6);
+
+        i = 0;
+        while(i<3) {
+            for (Colour colour : Colour.values()) {
+                if (gameController.getGame().getPlayerByIndex(1).getSchoolBoard().getEntrance(colour) > 0) {
+                    gameController.moveStudentToIsland(1, colour, 9,0);
+                    i++;
+                }
+            }
+        }
+
+        gameController.moveMotherNature(1,1);
+        gameController.chooseCloudTile(1, 1);
+
+        i = 0;
+        while(i<3) {
+            for (Colour colour : Colour.values()) {
+                if (gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
+                    gameController.moveStudentToIsland(0, colour, 8,0);
+                    i++;
+                }
+            }
+        }
+
+        gameController.moveMotherNature(0,2);
+        gameController.chooseCloudTile(0, 0);
+
+
     }
 
 }
