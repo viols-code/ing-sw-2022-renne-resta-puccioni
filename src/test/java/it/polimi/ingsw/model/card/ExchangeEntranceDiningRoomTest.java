@@ -9,6 +9,8 @@ import it.polimi.ingsw.model.table.island.BasicGroupIsland;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 class ExchangeEntranceDiningRoomTest {
     private Game gameTest;
     private ExchangeEntranceDiningRoom cardTest;
