@@ -278,7 +278,7 @@ public abstract class CharacterCard {
      */
     protected void unifyGroupIsland(GroupIsland groupIsland1, GroupIsland groupIsland2) {
         for (int i = 0; i < groupIsland2.getNumberOfSingleIsland(); i++) {
-            groupIsland1.addSingleIsland(groupIsland1.getIslandByIndex(i));
+            groupIsland1.addSingleIsland(groupIsland2.getIslandByIndex(i));
         }
         game.getTable().removeGroupIsland(groupIsland2);
     }
