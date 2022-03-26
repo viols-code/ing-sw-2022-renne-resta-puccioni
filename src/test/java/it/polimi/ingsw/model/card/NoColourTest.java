@@ -49,7 +49,6 @@ class NoColourTest {
         cardTest.setColour(Colour.PINK);
         cardTest.calculateInfluence(0);
         assertEquals(gameTest.getPlayerByIndex(1),gameTest.getTable().getGroupIslandByIndex(0).getInfluence());
-
     }
 
 }
