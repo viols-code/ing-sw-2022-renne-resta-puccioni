@@ -86,6 +86,17 @@ public class GameTest2Players {
         assertEquals(2, gameController.getGame().getTable().getMotherNaturePosition());
         assertNull(gameController.getGame().getTable().getGroupIslandByIndex(2).getInfluence());
 
+        assertEquals(GamePhase.PLAYING, gameController.getGame().getGamePhase());
+        assertEquals(TurnPhase.CHOOSE_CLOUD_TILE, gameController.getGame().getTurnPhase());
+
+        gameController.chooseCloudTile(0, 1);
+        assertEquals(7, gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getNumberStudentsEntrance());
+
+        assertEquals(GamePhase.PLAYING, gameController.getGame().getGamePhase());
+        assertEquals(TurnPhase.MOVE_STUDENT, gameController.getGame().getTurnPhase());
+        assertEquals(1, gameController.getGame().getTable().getNumberOfCloudTile());
+
+
     }
 
 }
