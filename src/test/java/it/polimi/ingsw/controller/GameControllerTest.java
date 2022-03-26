@@ -1,6 +1,7 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.Colour;
+import it.polimi.ingsw.model.game.Game;
 import it.polimi.ingsw.model.player.Wizard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -48,6 +49,15 @@ class GameControllerTest {
             }
             assertEquals(3, num);
         }
+    }
+
+    @Test
+    void playCharacterCard(){
+        gameController.addPlayer("Viola", Wizard.TYPE_3);
+        gameController.addPlayer("Laura", Wizard.TYPE_4);
+        Game game = gameController.getGame();
+        gameController.playCharacterCard(0, 0);
+        assertEquals(game, gameController.getGame());
     }
 
     @Test
