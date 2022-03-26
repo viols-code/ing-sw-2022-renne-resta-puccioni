@@ -33,7 +33,7 @@ public class ExchangeEntranceDiningRoom extends CharacterCard {
             game.setCoins(game.getCoins() - 1);
         }
 
-        checkProfessor(colourDiningRoom);
+        checkProfessor(colourEntrance);
 
         if (times == 2) {
             resetTimes();
