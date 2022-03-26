@@ -180,7 +180,7 @@ public class BasicGameThreePlayerTest {
                 }
             }
         }
-        gameController.moveMotherNature(0, 1);
+        gameController.moveMotherNature(0, 2);
         gameController.chooseCloudTile(0, 0);
 
         i = 0;
@@ -192,7 +192,7 @@ public class BasicGameThreePlayerTest {
                 }
             }
         }
-        gameController.moveMotherNature(1, 2);
+        gameController.moveMotherNature(1, 3);
         gameController.chooseCloudTile(1, 0);
 
         i = 0;
@@ -204,7 +204,7 @@ public class BasicGameThreePlayerTest {
                 }
             }
         }
-        gameController.moveMotherNature(2, 1);
+        gameController.moveMotherNature(2, 4);
         gameController.chooseCloudTile(2, 0);
 
         assertEquals(GamePhase.PLAY_ASSISTANT_CARD, gameController.getGame().getGamePhase());
@@ -240,7 +240,7 @@ public class BasicGameThreePlayerTest {
                 }
             }
         }
-        gameController.moveMotherNature(0, 1);
+        gameController.moveMotherNature(0, 3);
         gameController.chooseCloudTile(0, 0);
 
         i = 0;
@@ -252,7 +252,7 @@ public class BasicGameThreePlayerTest {
                 }
             }
         }
-        gameController.moveMotherNature(2, 1);
+        gameController.moveMotherNature(2, 4);
         gameController.chooseCloudTile(2, 0);
 
         assertEquals(GamePhase.PLAY_ASSISTANT_CARD, gameController.getGame().getGamePhase());
