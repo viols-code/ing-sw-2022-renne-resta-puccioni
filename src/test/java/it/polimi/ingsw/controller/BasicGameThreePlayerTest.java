@@ -100,5 +100,64 @@ public class BasicGameThreePlayerTest {
         assertEquals(2, gameController.getGame().getTable().getNumberOfCloudTile());
         assertEquals(gameController.getGame().getCurrentPlayer(), gameController.getGame().getPlayerByIndex(0));
 
+
+        i = 0;
+        while(i < 4){
+            for(Colour colour: Colour.values()){
+                if(gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0){
+                    gameController.moveStudentToDiningRoom(0, colour);
+                    i++;
+                }
+            }
+        }
+
+        assertEquals(GamePhase.PLAYING, gameController.getGame().getGamePhase());
+        assertEquals(TurnPhase.MOVE_MOTHER_NATURE, gameController.getGame().getTurnPhase());
+        assertEquals(5, gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getNumberStudentsEntrance());
+        assertEquals(9, gameController.getGame().getPlayerByIndex(1).getSchoolBoard().getNumberStudentsEntrance());
+        assertEquals(9, gameController.getGame().getPlayerByIndex(2).getSchoolBoard().getNumberStudentsEntrance());
+
+        gameController.moveMotherNature(0, 4);
+        assertEquals(GamePhase.PLAYING, gameController.getGame().getGamePhase());
+        assertEquals(TurnPhase.MOVE_MOTHER_NATURE, gameController.getGame().getTurnPhase());
+        gameController.moveMotherNature(0, 3);
+        assertEquals(GamePhase.PLAYING, gameController.getGame().getGamePhase());
+        assertEquals(TurnPhase.CHOOSE_CLOUD_TILE, gameController.getGame().getTurnPhase());
+
+        // gameController.chooseCloudTile(0, 2);
+        assertEquals(GamePhase.PLAYING, gameController.getGame().getGamePhase());
+        assertEquals(TurnPhase.CHOOSE_CLOUD_TILE, gameController.getGame().getTurnPhase());
+
+        gameController.chooseCloudTile(0, 1);
+        assertEquals(1, gameController.getGame().getTable().getNumberOfCloudTile());
+        assertEquals(GamePhase.PLAYING, gameController.getGame().getGamePhase());
+        assertEquals(TurnPhase.MOVE_STUDENT, gameController.getGame().getTurnPhase());
+        assertEquals(gameController.getGame().getCurrentPlayer(), gameController.getGame().getPlayerByIndex(1));
+
+
+        i = 0;
+        while(i < 4){
+            for(Colour colour: Colour.values()){
+                if(gameController.getGame().getPlayerByIndex(1).getSchoolBoard().getEntrance(colour) > 0){
+                    gameController.moveStudentToDiningRoom(1, colour);
+                    i++;
+                }
+            }
+        }
+
+        assertEquals(GamePhase.PLAYING, gameController.getGame().getGamePhase());
+        assertEquals(TurnPhase.MOVE_MOTHER_NATURE, gameController.getGame().getTurnPhase());
+        assertEquals(5, gameController.getGame().getPlayerByIndex(1).getSchoolBoard().getNumberStudentsEntrance());
+        assertEquals(9, gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getNumberStudentsEntrance());
+        assertEquals(9, gameController.getGame().getPlayerByIndex(2).getSchoolBoard().getNumberStudentsEntrance());
+
+        gameController.moveMotherNature(1, 4);
+        assertEquals(GamePhase.PLAYING, gameController.getGame().getGamePhase());
+        assertEquals(TurnPhase.CHOOSE_CLOUD_TILE, gameController.getGame().getTurnPhase());
+        gameController.chooseCloudTile(1, 0);
+
+        assertEquals(GamePhase.PLAY_ASSISTANT_CARD, gameController.getGame().getGamePhase());
+        assertEquals(TurnPhase.WAITING, gameController.getGame().getTurnPhase());
+
     }
 }
