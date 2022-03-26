@@ -46,6 +46,8 @@ public class GameTest2Players {
 
         assertNull(gameController.getGame().getPlayerByIndex(0).getCurrentAssistantCard());
 
+        //PRIMO TURNO
+
         gameController.playAssistantCard(0, 4);
         assertEquals(gameController.getGame().getAssistantCard(4), gameController.getGame().getPlayerByIndex(0).getCurrentAssistantCard());
         assertFalse(gameController.getGame().getPlayerByIndex(0).isAssistantCardPresent(gameController.getGame().getAssistantCard(4)));
@@ -126,11 +128,14 @@ public class GameTest2Players {
 
         gameController.chooseCloudTile(1, 0);
         assertEquals(7, gameController.getGame().getPlayerByIndex(1).getSchoolBoard().getNumberStudentsEntrance());
-        assertEquals(0, gameController.getGame().getTable().getNumberOfCloudTile());
+        assertEquals(2, gameController.getGame().getTable().getNumberOfCloudTile());
         assertEquals(GamePhase.PLAY_ASSISTANT_CARD, gameController.getGame().getGamePhase());
         assertEquals(TurnPhase.WAITING, gameController.getGame().getTurnPhase());
 
         assertEquals(gameController.getGame().getCurrentPlayer(), gameController.getGame().getPlayerByIndex(0));
+
+
+        //SECONDO TURNO
 
         gameController.playAssistantCard(0,9);
         gameController.playAssistantCard(1,6);
@@ -170,6 +175,8 @@ public class GameTest2Players {
 
         gameController.chooseCloudTile(0, 0);
 
+        //TERZO TURNO
+
         gameController.playAssistantCard(1,3);
         gameController.playAssistantCard(0,5);
 
@@ -208,6 +215,8 @@ public class GameTest2Players {
 
         gameController.chooseCloudTile(0, 0);
 
+        //QUARTO TURNO
+
         gameController.playAssistantCard(1,10);
         gameController.playAssistantCard(0,1);
 
@@ -245,6 +254,8 @@ public class GameTest2Players {
 
 
         gameController.chooseCloudTile(1, 0);
+
+        //QUINTO TURNO
 
         gameController.playAssistantCard(0,8);
         gameController.playAssistantCard(1,2);
