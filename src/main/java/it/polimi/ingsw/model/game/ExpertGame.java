@@ -5,7 +5,6 @@ import it.polimi.ingsw.model.card.ProtectIsland;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class ExpertGame extends Game {
     /**

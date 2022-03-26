@@ -49,7 +49,7 @@ class NoTowerTest {
     }
 
     @Test
-    void calculateInfluencePlayer(){
+    void calculateInfluencePlayer() {
 
         gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0).addStudent(Colour.BLUE);
         gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0).addStudent(Colour.BLUE);
@@ -67,7 +67,7 @@ class NoTowerTest {
     }
 
     @Test
-    void incrementCost(){
+    void incrementCost() {
         int cost = cardTest.getCost();
         assertEquals(cost, cardTest.getCost());
         cardTest.incrementCost();
@@ -75,29 +75,29 @@ class NoTowerTest {
     }
 
     @Test
-    void setColour(){
-        for(Colour colour: Colour.values()){
+    void setColour() {
+        for (Colour colour : Colour.values()) {
             assertThrows(IllegalAccessError.class, () -> cardTest.setColour(colour));
         }
     }
 
     @Test
     void setColourAndIsland() {
-        for(Colour colour: Colour.values()){
+        for (Colour colour : Colour.values()) {
             assertThrows(IllegalAccessError.class, () -> cardTest.setColourAndIsland(colour, gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0)));
         }
     }
 
     @Test
     public void setColourDiningRoomEntrance() {
-        for(Colour colour: Colour.values()){
+        for (Colour colour : Colour.values()) {
             assertThrows(IllegalAccessError.class, () -> cardTest.setColourDiningRoomEntrance(colour, colour));
         }
     }
 
     @Test
-    public void setColourCardEntrance(){
-        for(Colour colour: Colour.values()){
+    public void setColourCardEntrance() {
+        for (Colour colour : Colour.values()) {
             assertThrows(IllegalAccessError.class, () -> cardTest.setColourCardEntrance(colour, colour));
         }
     }

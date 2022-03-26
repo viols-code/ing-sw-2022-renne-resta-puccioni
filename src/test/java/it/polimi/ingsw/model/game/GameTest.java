@@ -107,7 +107,7 @@ class GameTest {
     }
 
     @Test
-    void isCurrentPlayer(){
+    void isCurrentPlayer() {
 
         Player player1 = new BasicPlayer("Laura", Wizard.TYPE_1);
         Player player2 = new BasicPlayer("Sara", Wizard.TYPE_2);
@@ -118,7 +118,7 @@ class GameTest {
     }
 
     @Test
-    void getFirstPlayerTurn(){
+    void getFirstPlayerTurn() {
         Player player1 = new BasicPlayer("Laura", Wizard.TYPE_1);
         gameController.getGame().addPlayer(player1);
         gameController.getGame().setFirstPlayerTurn(player1);
@@ -126,7 +126,7 @@ class GameTest {
     }
 
     @Test
-    void incrementRound(){
+    void incrementRound() {
         gameController.getGame().incrementRound();
         assertEquals(2, gameController.getGame().getRound());
         gameController.getGame().incrementRound();
@@ -142,7 +142,7 @@ class GameTest {
     }
 
     @Test
-    void getCharacterCardByIndex(){
+    void getCharacterCardByIndex() {
 
         IllegalAccessError exception = assertThrows(IllegalAccessError.class, () -> gameController.getGame().getCharacterCardsByIndex(0));
 
@@ -154,7 +154,7 @@ class GameTest {
     }
 
     @Test
-    void getNumberOfCharacterCard(){
+    void getNumberOfCharacterCard() {
 
         IllegalAccessError exception = assertThrows(IllegalAccessError.class, () -> gameController.getGame().getNumberOfCharacterCard());
 
@@ -165,7 +165,7 @@ class GameTest {
     }
 
     @Test
-    void addCharacterCard(){
+    void addCharacterCard() {
 
         CharacterCard card1 = new NoColour(gameController.getGame());
         IllegalAccessError exception = assertThrows(IllegalAccessError.class, () -> gameController.getGame().addCharacterCard(card1));
@@ -177,7 +177,7 @@ class GameTest {
     }
 
     @Test
-    void setActiveCharacterCard(){
+    void setActiveCharacterCard() {
 
         CharacterCard card1 = new NoColour(gameController.getGame());
         IllegalAccessError exception = assertThrows(IllegalAccessError.class, () -> gameController.getGame().setActiveCharacterCard(card1));
@@ -189,19 +189,19 @@ class GameTest {
     }
 
     @Test
-    void getNumberOfTowersPerPlayer(){
+    void getNumberOfTowersPerPlayer() {
         gameController.getGame().setNumberOfTowersPerPlayer(6);
         assertEquals(6, gameController.getGame().getNumberOfTowersPerPlayer());
     }
 
     @Test
-    void getNumberStudentsEntrance(){
+    void getNumberStudentsEntrance() {
         gameController.getGame().setNumberStudentsEntrance(9);
         assertEquals(9, gameController.getGame().getNumberStudentsEntrance());
     }
 
     @Test
-    void getGamePhase(){
+    void getGamePhase() {
         gameController.getGame().setGamePhase(GamePhase.SETTING);
         assertEquals(GamePhase.SETTING, gameController.getGame().getGamePhase());
 
@@ -211,7 +211,7 @@ class GameTest {
     }
 
     @Test
-    void getTurnPhase(){
+    void getTurnPhase() {
         gameController.getGame().setTurnPhase(TurnPhase.MOVE_STUDENT);
         assertEquals(TurnPhase.MOVE_STUDENT, gameController.getGame().getTurnPhase());
 
@@ -229,33 +229,33 @@ class GameTest {
     }
 
     @Test
-    void setHasProtectIsland(){
+    void setHasProtectIsland() {
         assertThrows(IllegalAccessError.class, () -> gameController.getGame().setHasProtectIsland());
     }
 
     @Test
-    void getHasPlayedCharacterCard(){
+    void getHasPlayedCharacterCard() {
         assertThrows(IllegalAccessError.class, () -> gameController.getGame().getHasPlayedCharacterCard());
     }
 
     @Test
-    void setHasPlayedCharacterCard(){
+    void setHasPlayedCharacterCard() {
         assertThrows(IllegalAccessError.class, () -> gameController.getGame().setHasPlayedCharacterCard(true));
     }
 
     @Test
-    void getCoins(){
+    void getCoins() {
         assertThrows(IllegalAccessError.class, () -> gameController.getGame().getCoins());
     }
 
     @Test
-    void setCoins(){
+    void setCoins() {
         assertThrows(IllegalAccessError.class, () -> gameController.getGame().setCoins(1));
     }
 
 
     @Test
-    void hasProtectedIslandCard(){
+    void hasProtectedIslandCard() {
 
         IllegalAccessError exception = assertThrows(IllegalAccessError.class, () -> gameController.getGame().hasProtectIslandCard());
 

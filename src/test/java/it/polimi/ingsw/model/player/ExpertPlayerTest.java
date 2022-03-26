@@ -1,7 +1,6 @@
 package it.polimi.ingsw.model.player;
 
 import it.polimi.ingsw.controller.GameController;
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,9 +12,10 @@ class ExpertPlayerTest {
     @BeforeEach
     void setUp() {
         gameController = new GameController(true, 2);
-        gameController.getGame().addPlayer(new ExpertPlayer("sara",Wizard.TYPE_1));
-        gameController.getGame().addPlayer(new ExpertPlayer("laura",Wizard.TYPE_2));
+        gameController.getGame().addPlayer(new ExpertPlayer("sara", Wizard.TYPE_1));
+        gameController.getGame().addPlayer(new ExpertPlayer("laura", Wizard.TYPE_2));
     }
+
     @Test
     void addCoins() {
         for (int i = 1; i <= 10; i++) {
@@ -36,13 +36,13 @@ class ExpertPlayerTest {
     }
 
     @Test
-    void equals(){
+    void equals() {
         assertFalse(gameController.getGame().getPlayerByIndex(0).equals(gameController.getGame().getPlayerByIndex(1)));
     }
 
     @Test
-    void hashCodeTest(){
-        assertNotEquals(gameController.getGame().getPlayerByIndex(0).hashCode(),gameController.getGame().getPlayerByIndex(1).hashCode());
+    void hashCodeTest() {
+        assertNotEquals(gameController.getGame().getPlayerByIndex(0).hashCode(), gameController.getGame().getPlayerByIndex(1).hashCode());
     }
 
 }

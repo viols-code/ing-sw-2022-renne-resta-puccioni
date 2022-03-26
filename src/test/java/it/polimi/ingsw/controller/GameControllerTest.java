@@ -16,17 +16,17 @@ class GameControllerTest {
     }
 
     @Test
-    void setting(){
+    void setting() {
         assertEquals(8, gameController.getGame().getNumberOfTowersPerPlayer());
         assertEquals(7, gameController.getGame().getNumberStudentsEntrance());
         assertEquals(3, gameController.getGame().getStudentNumberMovement());
         assertEquals(12, gameController.getGame().getTable().getNumberOfGroupIsland());
-        for(int i = 0; i < 12; i++){
+        for (int i = 0; i < 12; i++) {
             int num = 0;
-            for(Colour colour: Colour.values()){
+            for (Colour colour : Colour.values()) {
                 num += gameController.getGame().getTable().getGroupIslandByIndex(i).getIslandByIndex(0).getStudents(colour);
             }
-            if(i == 0 || i == 6){
+            if (i == 0 || i == 6) {
                 assertEquals(0, num);
             } else {
                 assertEquals(1, num);
@@ -34,16 +34,16 @@ class GameControllerTest {
         }
 
         int size = 0;
-        for(Colour colour: Colour.values()){
+        for (Colour colour : Colour.values()) {
             size += gameController.getGame().getTable().getBag().getBagStudent(colour);
         }
         assertEquals(114, size);
 
         assertEquals(2, gameController.getGame().getTable().getNumberOfCloudTile());
 
-        for(int i = 0; i < gameController.getGame().getTable().getNumberOfCloudTile(); i++){
+        for (int i = 0; i < gameController.getGame().getTable().getNumberOfCloudTile(); i++) {
             int num = 0;
-            for(Colour colour: Colour.values()) {
+            for (Colour colour : Colour.values()) {
                 num += gameController.getGame().getTable().getCloudTilesByIndex(i).getTileStudents(colour);
             }
             assertEquals(3, num);
@@ -83,7 +83,7 @@ class GameControllerTest {
         assertFalse(gameController.getGame().getPlayerByIndex(1).isAssistantCardPresent(gameController.getGame().getAssistantCard(1)));
         int num = gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(Colour.PINK);
         gameController.moveStudentToIsland(0, Colour.PINK, 0, 0);
-        if(num > 0){
+        if (num > 0) {
             assertEquals(1, gameController.getGame().getTable().getGroupIslandByIndex(0).getIslandByIndex(0).getStudents(Colour.PINK));
             assertEquals(6, gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getNumberStudentsEntrance());
         } else {
@@ -98,9 +98,9 @@ class GameControllerTest {
         gameController.addPlayer("Laura", Wizard.TYPE_2);
         gameController.playAssistantCard(0, 0);
         gameController.playAssistantCard(1, 1);
-        for(int i = 0; i < 3; i++){
-            for(Colour colour: Colour.values()){
-                if(gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0){
+        for (int i = 0; i < 3; i++) {
+            for (Colour colour : Colour.values()) {
+                if (gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
                     gameController.moveStudentToDiningRoom(0, colour);
                 }
             }
@@ -114,9 +114,9 @@ class GameControllerTest {
         gameController.addPlayer("Laura", Wizard.TYPE_2);
         gameController.playAssistantCard(0, 0);
         gameController.playAssistantCard(1, 1);
-        for(int i = 0; i < 3; i++){
-            for(Colour colour: Colour.values()){
-                if(gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0){
+        for (int i = 0; i < 3; i++) {
+            for (Colour colour : Colour.values()) {
+                if (gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
                     gameController.moveStudentToDiningRoom(0, colour);
                 }
             }
@@ -131,19 +131,19 @@ class GameControllerTest {
         assertEquals(1, gameController.getGame().getNumberOfPlayer());
 
         int size = 0;
-        for(Colour colour: Colour.values()){
+        for (Colour colour : Colour.values()) {
             size += gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour);
         }
         assertEquals(7, size);
         assertEquals(7, gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getNumberStudentsEntrance());
 
         size = 0;
-        for(Colour colour: Colour.values()){
+        for (Colour colour : Colour.values()) {
             size += gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getDiningRoom(colour);
         }
         assertEquals(0, size);
 
-        for(int i = 0; i < 10; i++){
+        for (int i = 0; i < 10; i++) {
             assertTrue(gameController.getGame().getPlayerByIndex(0).isAssistantCardPresent(gameController.getGame().getAssistantCard(i)));
         }
 
@@ -159,9 +159,9 @@ class GameControllerTest {
         gameController.addPlayer("Laura", Wizard.TYPE_2);
         gameController.playAssistantCard(0, 0);
         gameController.playAssistantCard(1, 1);
-        for(int i = 0; i < 3; i++){
-            for(Colour colour: Colour.values()){
-                if(gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0){
+        for (int i = 0; i < 3; i++) {
+            for (Colour colour : Colour.values()) {
+                if (gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
                     gameController.moveStudentToDiningRoom(0, colour);
                 }
             }
@@ -179,9 +179,9 @@ class GameControllerTest {
         gameController.playAssistantCard(0, 0);
         gameController.playAssistantCard(1, 1);
         assertThrows(IllegalAccessError.class, () -> gameController.setColour(Colour.PINK));
-        for(int i = 0; i < 3; i++){
-            for(Colour colour: Colour.values()){
-                if(gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0){
+        for (int i = 0; i < 3; i++) {
+            for (Colour colour : Colour.values()) {
+                if (gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
                     gameController.moveStudentToDiningRoom(0, colour);
                 }
             }
@@ -201,9 +201,9 @@ class GameControllerTest {
         gameController.playAssistantCard(0, 0);
         gameController.playAssistantCard(1, 1);
         assertThrows(IllegalAccessError.class, () -> gameController.setColourAndIsland(Colour.GREEN, 1, 0));
-        for(int i = 0; i < 3; i++){
-            for(Colour colour: Colour.values()){
-                if(gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0){
+        for (int i = 0; i < 3; i++) {
+            for (Colour colour : Colour.values()) {
+                if (gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
                     gameController.moveStudentToDiningRoom(0, colour);
                 }
             }
@@ -223,9 +223,9 @@ class GameControllerTest {
         gameController.playAssistantCard(0, 0);
         gameController.playAssistantCard(1, 1);
         assertThrows(IllegalAccessError.class, () -> gameController.setGroupIsland(0));
-        for(int i = 0; i < 3; i++){
-            for(Colour colour: Colour.values()){
-                if(gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0){
+        for (int i = 0; i < 3; i++) {
+            for (Colour colour : Colour.values()) {
+                if (gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
                     gameController.moveStudentToDiningRoom(0, colour);
                 }
             }
@@ -244,9 +244,9 @@ class GameControllerTest {
         gameController.playAssistantCard(0, 0);
         gameController.playAssistantCard(1, 1);
         assertThrows(IllegalAccessError.class, () -> gameController.setColourDiningRoomEntrance(Colour.PINK, Colour.RED));
-        for(int i = 0; i < 3; i++){
-            for(Colour colour: Colour.values()){
-                if(gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0){
+        for (int i = 0; i < 3; i++) {
+            for (Colour colour : Colour.values()) {
+                if (gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
                     gameController.moveStudentToDiningRoom(0, colour);
                 }
             }
@@ -266,9 +266,9 @@ class GameControllerTest {
         gameController.playAssistantCard(0, 0);
         gameController.playAssistantCard(1, 1);
         assertThrows(IllegalAccessError.class, () -> gameController.setColourCardEntrance(Colour.BLUE, Colour.GREEN));
-        for(int i = 0; i < 3; i++){
-            for(Colour colour: Colour.values()){
-                if(gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0){
+        for (int i = 0; i < 3; i++) {
+            for (Colour colour : Colour.values()) {
+                if (gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
                     gameController.moveStudentToDiningRoom(0, colour);
                 }
             }

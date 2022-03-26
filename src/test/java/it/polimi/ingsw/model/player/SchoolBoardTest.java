@@ -13,8 +13,8 @@ class SchoolBoardTest {
     @BeforeEach
     void setUp() {
         gameController = new GameController(false, 2);
-        gameController.getGame().addPlayer(new BasicPlayer("sara",Wizard.TYPE_1));
-        gameController.getGame().addPlayer(new BasicPlayer("laura",Wizard.TYPE_2));
+        gameController.getGame().addPlayer(new BasicPlayer("sara", Wizard.TYPE_1));
+        gameController.getGame().addPlayer(new BasicPlayer("laura", Wizard.TYPE_2));
     }
 
 
@@ -69,16 +69,16 @@ class SchoolBoardTest {
     @Test
     void addStudentToEntrance() {
         int size = 0;
-        for(Colour colour: Colour.values()){
+        for (Colour colour : Colour.values()) {
             size += gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour);
         }
 
         assertEquals(7, size);
 
         Colour colour1 = Colour.RED;
-        for(Colour colour: Colour.values()){
+        for (Colour colour : Colour.values()) {
             int num = 0;
-            if(gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0){
+            if (gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
                 num = gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour);
                 gameController.getGame().getPlayerByIndex(0).getSchoolBoard().removeStudentFromEntrance(colour);
                 assertEquals(num - 1, gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour));
@@ -91,16 +91,16 @@ class SchoolBoardTest {
     @Test
     void removeStudentFromEntrance() {
         int size = 0;
-        for(Colour colour: Colour.values()){
+        for (Colour colour : Colour.values()) {
             size += gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour);
         }
 
         assertEquals(7, size);
 
         Colour colour1 = Colour.RED;
-        for(Colour colour: Colour.values()){
+        for (Colour colour : Colour.values()) {
             int num = 0;
-            if(gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0){
+            if (gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
                 num = gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour);
                 gameController.getGame().getPlayerByIndex(0).getSchoolBoard().removeStudentFromEntrance(colour);
                 assertEquals(num - 1, gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour));
@@ -161,7 +161,7 @@ class SchoolBoardTest {
     }
 
     @Test
-    void getNumberStudentEntrance(){
+    void getNumberStudentEntrance() {
         assertEquals(7, gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getNumberStudentsEntrance());
         assertEquals(7, gameController.getGame().getPlayerByIndex(1).getSchoolBoard().getNumberStudentsEntrance());
     }
@@ -170,11 +170,11 @@ class SchoolBoardTest {
     void getNumberOfProfessors() {
         gameController.getGame().getPlayerByIndex(0).getSchoolBoard().addProfessor(Colour.PINK);
         int professorCount = 0;
-        for(Colour colour:Colour.values()){
-            if(gameController.getGame().getPlayerByIndex(0).getSchoolBoard().hasProfessor(colour)){
+        for (Colour colour : Colour.values()) {
+            if (gameController.getGame().getPlayerByIndex(0).getSchoolBoard().hasProfessor(colour)) {
                 professorCount += 1;
             }
         }
-        assertEquals(professorCount,gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getNumberOfProfessors());
+        assertEquals(professorCount, gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getNumberOfProfessors());
     }
 }

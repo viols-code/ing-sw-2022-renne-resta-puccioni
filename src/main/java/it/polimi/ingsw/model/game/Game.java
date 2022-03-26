@@ -152,11 +152,11 @@ public abstract class Game {
     public void addPlayer(Player player) {
         this.players.add(player);
         player.getSchoolBoard().addTower(this.numberOfTowersPerPlayer);
-        for(int i = 0; i < this.numberStudentsEntrance; i++){
+        for (int i = 0; i < this.numberStudentsEntrance; i++) {
             player.getSchoolBoard().addStudentToEntrance(this.getTable().getBag().bagDrawStudent());
         }
 
-        for(int i = 0; i < 10; i++){
+        for (int i = 0; i < 10; i++) {
             player.addAssistantCard(this.getAssistantCard(i));
         }
     }

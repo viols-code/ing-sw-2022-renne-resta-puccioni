@@ -10,7 +10,7 @@ import it.polimi.ingsw.model.table.island.BasicGroupIsland;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class TwoPointsTest {
@@ -21,7 +21,7 @@ class TwoPointsTest {
     private Player player2;
 
     @BeforeEach
-    void setup(){
+    void setup() {
         gameTest = new ExpertGame();
         cardTest = new TwoPoints(gameTest);
         player1 = new ExpertPlayer("Laura", Wizard.TYPE_1);
@@ -48,7 +48,7 @@ class TwoPointsTest {
     }
 
     @Test
-    void calculateInfluencePlayer(){
+    void calculateInfluencePlayer() {
 
         gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0).addStudent(Colour.BLUE);
         gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0).addStudent(Colour.BLUE);
@@ -64,7 +64,7 @@ class TwoPointsTest {
     }
 
     @Test
-    void incrementCost(){
+    void incrementCost() {
         int cost = cardTest.getCost();
         assertEquals(cost, cardTest.getCost());
         cardTest.incrementCost();
@@ -72,29 +72,29 @@ class TwoPointsTest {
     }
 
     @Test
-    void setColour(){
-        for(Colour colour: Colour.values()){
+    void setColour() {
+        for (Colour colour : Colour.values()) {
             assertThrows(IllegalAccessError.class, () -> cardTest.setColour(colour));
         }
     }
 
     @Test
     void setColourAndIsland() {
-        for(Colour colour: Colour.values()){
+        for (Colour colour : Colour.values()) {
             assertThrows(IllegalAccessError.class, () -> cardTest.setColourAndIsland(colour, gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0)));
         }
     }
 
     @Test
     public void setColourDiningRoomEntrance() {
-        for(Colour colour: Colour.values()){
+        for (Colour colour : Colour.values()) {
             assertThrows(IllegalAccessError.class, () -> cardTest.setColourDiningRoomEntrance(colour, colour));
         }
     }
 
     @Test
-    public void setColourCardEntrance(){
-        for(Colour colour: Colour.values()){
+    public void setColourCardEntrance() {
+        for (Colour colour : Colour.values()) {
             assertThrows(IllegalAccessError.class, () -> cardTest.setColourCardEntrance(colour, colour));
         }
     }

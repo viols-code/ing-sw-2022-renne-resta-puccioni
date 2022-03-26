@@ -235,7 +235,7 @@ public class GameController {
             if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
                 if (game.getActiveCharacterCard().checkMotherNatureMovement(player, movement)) {
                     game.getTable().setMotherNaturePosition((game.getTable().getMotherNaturePosition() + movement) % game.getTable().getNumberOfGroupIsland());
-                    game.getActiveCharacterCard().calculateInfluence((game.getTable().getMotherNaturePosition() + movement) % game.getTable().getNumberOfGroupIsland() );
+                    game.getActiveCharacterCard().calculateInfluence((game.getTable().getMotherNaturePosition() + movement) % game.getTable().getNumberOfGroupIsland());
                     if (game.getWinner() != null) endGame();
                     else if (game.getTable().getNumberOfGroupIsland() <= 3) calculateWinner();
                     game.setTurnPhase(TurnPhase.CHOOSE_CLOUD_TILE);
@@ -280,10 +280,10 @@ public class GameController {
      * Adds a new player with the nickname and wizard chosen
      *
      * @param nickname the nickname chosen by the player
-     * @param wizard the wizard chosen by the player
+     * @param wizard   the wizard chosen by the player
      */
     public void addPlayer(String nickname, Wizard wizard) {
-        if(game.getNumberOfPlayer() < numberOfPlayer && game.getGamePhase() == GamePhase.SETTING){
+        if (game.getNumberOfPlayer() < numberOfPlayer && game.getGamePhase() == GamePhase.SETTING) {
             if (isGameExpert) {
                 if (checkUniqueNickname(nickname)) {
                     if (checkUniqueWizard(wizard)) { //altrimenti mandiamo un messaggio di cambiare nickname/wizard

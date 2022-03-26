@@ -13,7 +13,7 @@ public class ThreeStudent extends CharacterCard {
      */
     public ThreeStudent(Game game) {
         super(game);
-        actualCost =  3;
+        actualCost = 3;
     }
 
     /**

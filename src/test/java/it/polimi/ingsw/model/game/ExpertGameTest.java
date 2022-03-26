@@ -29,23 +29,22 @@ class ExpertGameTest {
     void hasProtectedIslandCard() {
 
         if (gameController.getGame().getCharacterCardsByIndex(0) instanceof ProtectIsland ||
-            gameController.getGame().getCharacterCardsByIndex(1) instanceof ProtectIsland ||
-            gameController.getGame().getCharacterCardsByIndex(2) instanceof ProtectIsland) {
-                 assertTrue(gameController.getGame().hasProtectIslandCard());
-        }
-        else {
+                gameController.getGame().getCharacterCardsByIndex(1) instanceof ProtectIsland ||
+                gameController.getGame().getCharacterCardsByIndex(2) instanceof ProtectIsland) {
+            assertTrue(gameController.getGame().hasProtectIslandCard());
+        } else {
             assertFalse(gameController.getGame().hasProtectIslandCard());
         }
     }
 
     @Test
-    void getCoins(){
+    void getCoins() {
         gameController.getGame().setCoins(20);
         assertEquals(20, gameController.getGame().getCoins());
     }
 
     @Test
-    void getHasPlayedCharacterCard(){
+    void getHasPlayedCharacterCard() {
         gameController.getGame().setHasPlayedCharacterCard(true);
         assertTrue(gameController.getGame().getHasPlayedCharacterCard());
         gameController.getGame().setHasPlayedCharacterCard(false);
@@ -53,7 +52,7 @@ class ExpertGameTest {
     }
 
     @Test
-    void setActiveCharacterCard(){
+    void setActiveCharacterCard() {
         CharacterCard card1 = new NoColour(gameController.getGame());
         gameController.getGame().setActiveCharacterCard(card1);
         assertEquals(card1, gameController.getGame().getActiveCharacterCard());

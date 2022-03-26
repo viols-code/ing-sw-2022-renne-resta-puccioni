@@ -19,7 +19,7 @@ class BagTest {
     @Test
     void checkSetting() {
         int size = 0;
-        for(Colour colour: Colour.values()){
+        for (Colour colour : Colour.values()) {
             size += gameController.getGame().getTable().getBag().getBagStudent(colour);
         }
 
