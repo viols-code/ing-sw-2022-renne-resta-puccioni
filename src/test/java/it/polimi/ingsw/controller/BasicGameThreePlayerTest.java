@@ -90,5 +90,15 @@ public class BasicGameThreePlayerTest {
         assertEquals(1, gameController.getGame().getTable().getMotherNaturePosition());
         assertNull(gameController.getGame().getTable().getGroupIslandByIndex(1).getInfluence());
 
+        assertEquals(GamePhase.PLAYING, gameController.getGame().getGamePhase());
+        assertEquals(TurnPhase.CHOOSE_CLOUD_TILE, gameController.getGame().getTurnPhase());
+
+        gameController.chooseCloudTile(2, 2);
+        assertEquals(9, gameController.getGame().getPlayerByIndex(2).getSchoolBoard().getNumberStudentsEntrance());
+        assertEquals(GamePhase.PLAYING, gameController.getGame().getGamePhase());
+        assertEquals(TurnPhase.MOVE_STUDENT, gameController.getGame().getTurnPhase());
+        assertEquals(2, gameController.getGame().getTable().getNumberOfCloudTile());
+        assertEquals(gameController.getGame().getCurrentPlayer(), gameController.getGame().getPlayerByIndex(0));
+
     }
 }

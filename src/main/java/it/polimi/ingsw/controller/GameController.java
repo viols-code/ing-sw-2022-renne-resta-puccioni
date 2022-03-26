@@ -366,7 +366,7 @@ public class GameController {
                         game.getCurrentPlayer().getSchoolBoard().addStudentToEntrance(colour);
                     }
                 }
-
+                game.getTable().removeCLoudTile(game.getTable().getCloudTilesByIndex(cloudTile));
                 game.getCurrentPlayer().setHasAlreadyPlayed(true);
 
                 if (!(endPhasePlay())) {
