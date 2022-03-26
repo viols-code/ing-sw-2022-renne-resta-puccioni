@@ -8,6 +8,7 @@ import it.polimi.ingsw.model.player.ExpertPlayer;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.Wizard;
 import it.polimi.ingsw.model.table.island.BasicGroupIsland;
+import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -21,6 +22,8 @@ class NoColourTest {
         gameTest = new ExpertGame();
         cardTest = new NoColour(gameTest);
         gameTest.addCharacterCard(cardTest);
+        gameTest.addPlayer(new ExpertPlayer("sara",Wizard.TYPE_2));
+        gameTest.addPlayer(new ExpertPlayer("sara",Wizard.TYPE_3));
     }
 
     @Test
@@ -31,9 +34,20 @@ class NoColourTest {
         }
     }
 
+    @Before
+    protected void setUpCalculateInfluencePlayer(){
+        gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0).addStudent(Colour.PINK);
+        gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0).addStudent(Colour.PINK);
+    }
+
     @Test
     void calculateInfluencePlayer() {
 
     }
 
+    private void setUpSchoolBoardPlayer0(){
+        gameTest.getPlayerByIndex(0).getSchoolBoard().addStudentToDiningRoom(Colour.PINK);
+        gameTest.getPlayerByIndex(0).getSchoolBoard().addStudentToDiningRoom(Colour.PINK);
+        gameTest.getPlayerByIndex(0).getSchoolBoard().addStudentToDiningRoom(Colour.PINK);
+    }
 }
