@@ -70,8 +70,21 @@ public class GameTest2Players {
         }
 
         assertEquals(4, gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getNumberStudentsEntrance());
-        assertEquals(4, gameController.getGame().getTable().getGroupIslandByIndex(2).getIslandByIndex(0).getStudents());
+        assertEquals(7, gameController.getGame().getPlayerByIndex(1).getSchoolBoard().getNumberStudentsEntrance());
 
+        int num = 0;
+        for(Colour colour: Colour.values()){
+            num += gameController.getGame().getTable().getGroupIslandByIndex(2).getNumberStudent(colour);
+        }
+
+        assertEquals(4, num);
+        assertEquals(GamePhase.PLAYING, gameController.getGame().getGamePhase());
+        assertEquals(TurnPhase.MOVE_MOTHER_NATURE, gameController.getGame().getTurnPhase());
+
+        gameController.moveMotherNature(0,2);
+
+        assertEquals(2, gameController.getGame().getTable().getMotherNaturePosition());
+        assertNull(gameController.getGame().getTable().getGroupIslandByIndex(2).getInfluence());
 
     }
 
