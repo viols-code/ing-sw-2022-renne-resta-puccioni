@@ -233,7 +233,7 @@ public class GameController {
             if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
                 if (game.getActiveCharacterCard().checkMotherNatureMovement(player, movement)) {
                     game.getTable().setMotherNaturePosition((game.getTable().getMotherNaturePosition() + movement) % game.getTable().getNumberOfGroupIsland());
-                    game.getActiveCharacterCard().calculateInfluence((game.getTable().getMotherNaturePosition() + movement) % game.getTable().getNumberOfGroupIsland());
+                    game.getActiveCharacterCard().calculateInfluence(game.getTable().getMotherNaturePosition());
                     if (game.getWinner() != null) endGame();
                     else if (game.getTable().getNumberOfGroupIsland() <= 3) calculateWinner();
                     game.setTurnPhase(TurnPhase.CHOOSE_CLOUD_TILE);
