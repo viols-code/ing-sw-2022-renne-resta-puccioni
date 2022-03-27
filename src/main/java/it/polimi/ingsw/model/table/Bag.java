@@ -40,28 +40,6 @@ public class Bag {
     }
 
     /**
-     * Remove a student from the bag
-     *
-     * @param colour the colour of the student to be removed
-     */
-    private void removeStudentBag(Colour colour) {
-        bag.replace(colour, bag.get(colour), bag.get(colour) - 1);
-    }
-
-    /**
-     * Checks if the bag is empty
-     *
-     * @return true if there are no students in the bag
-     */
-    public boolean isBagEmpty() {
-        for (Colour colour : Colour.values()) {
-            if (getBagStudent(colour) > 0)
-                return false;
-        }
-        return true;
-    }
-
-    /**
      * Draw a student from the bag
      *
      * @return the student drawn
@@ -100,5 +78,27 @@ public class Bag {
                 return Colour.GREEN;
             }
         }
+    }
+
+    /**
+     * Checks if the bag is empty
+     *
+     * @return true if there are no students in the bag
+     */
+    public boolean isBagEmpty() {
+        for (Colour colour : Colour.values()) {
+            if (getBagStudent(colour) > 0)
+                return false;
+        }
+        return true;
+    }
+
+    /**
+     * Remove a student from the bag
+     *
+     * @param colour the colour of the student to be removed
+     */
+    private void removeStudentBag(Colour colour) {
+        bag.replace(colour, bag.get(colour), bag.get(colour) - 1);
     }
 }
