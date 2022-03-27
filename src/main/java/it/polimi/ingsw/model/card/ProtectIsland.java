@@ -27,7 +27,7 @@ public class ProtectIsland extends CharacterCard {
      * @throws IllegalAccessError if there are no more "no entry tiles" available
      */
     @Override
-    protected void effect() throws IllegalAccessError{
+    protected void effect() throws IllegalAccessError {
         if (getNumberOfNoEntryTiles() == 0) throw new IllegalAccessError("There are no more no entry tiles");
         game.getTable().getGroupIslandByIndex(groupIslandToProtect).addNoEntryTile();
         setNumberOfNoEntryTiles(numberOfNoEntryTiles - 1);

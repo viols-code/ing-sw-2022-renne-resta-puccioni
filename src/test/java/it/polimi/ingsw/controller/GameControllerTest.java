@@ -57,14 +57,14 @@ class GameControllerTest {
     }
 
     @Test
-    void settingTest(){
+    void settingTest() {
         assertEquals(8, gameController.getGame().getNumberOfTowersPerPlayer());
         assertEquals(7, gameController.getGame().getNumberStudentsEntrance());
         assertEquals(3, gameController.getGame().getStudentNumberMovement());
 
         assertEquals(2, gameController.getGame().getTable().getNumberOfCloudTile());
         assertEquals(12, gameController.getGame().getTable().getNumberOfGroupIsland());
-        for(int i = 0; i < 12; i++){
+        for (int i = 0; i < 12; i++) {
             assertEquals(1, gameController.getGame().getTable().getGroupIslandByIndex(i).getNumberOfSingleIsland());
         }
         assertEquals(0, gameController.getGame().getTable().getMotherNaturePosition());
@@ -75,7 +75,7 @@ class GameControllerTest {
         int numRed = 0;
         int numYellow = 0;
 
-        for(int i = 0; i < 12; i++){
+        for (int i = 0; i < 12; i++) {
             numBlue += gameController.getGame().getTable().getGroupIslandByIndex(i).getNumberStudent(Colour.BLUE);
             numGreen += gameController.getGame().getTable().getGroupIslandByIndex(i).getNumberStudent(Colour.GREEN);
             numPink += gameController.getGame().getTable().getGroupIslandByIndex(i).getNumberStudent(Colour.PINK);

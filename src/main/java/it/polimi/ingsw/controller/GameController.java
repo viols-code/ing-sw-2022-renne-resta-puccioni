@@ -34,7 +34,7 @@ public class GameController {
     /**
      * Constructor: creates a GameController
      *
-     * @param isGameExpert indicates if the game is in the expert mode
+     * @param isGameExpert   indicates if the game is in the expert mode
      * @param numberOfPlayer indicates the numberOfPlayer
      */
     public GameController(boolean isGameExpert, int numberOfPlayer) {
@@ -71,7 +71,7 @@ public class GameController {
                         game.getTable().addGroupIsland(new BasicGroupIsland());
                     }
                 }
-            }catch(IllegalAccessError ex){
+            } catch (IllegalAccessError ex) {
                 ex.printStackTrace();
             }
 
@@ -104,9 +104,9 @@ public class GameController {
 
         for (int i = 1; i < 12; i++) {
             if (i == 6) i++;
-            try{
+            try {
                 game.getTable().getGroupIslandByIndex(i).getIslandByIndex(0).addStudent(game.getTable().getBag().bagDrawStudent());
-            }catch(IllegalAccessError ex){
+            } catch (IllegalAccessError ex) {
                 ex.printStackTrace();
             }
         }
@@ -149,9 +149,9 @@ public class GameController {
     private void settingCard() {
 
         for (int i = 0; i < 3; i++) {
-            try{
+            try {
                 game.getCharacterCardByIndex(i).setting();
-            }catch(IllegalAccessError ex){
+            } catch (IllegalAccessError ex) {
                 ex.printStackTrace();
             }
 
@@ -180,7 +180,7 @@ public class GameController {
     /**
      * Playing CharacterCard
      *
-     * @param player the index of the player
+     * @param player        the index of the player
      * @param characterCard the index of the CharacterCard
      */
     public void playCharacterCard(int player, int characterCard) {
@@ -197,7 +197,7 @@ public class GameController {
                             game.setCoins(game.getCoins() + game.getCharacterCardByIndex(characterCard).getCost() - 1);
                             game.getCharacterCardByIndex(characterCard).professor();
                         }
-                    }catch (IllegalAccessError ex){
+                    } catch (IllegalAccessError ex) {
                         ex.printStackTrace();
                     }
                 }
@@ -212,7 +212,7 @@ public class GameController {
     /**
      * Playing AssistantCard
      *
-     * @param player the index of the player
+     * @param player        the index of the player
      * @param assistantCard the index of the AssistantCard
      */
     public void playAssistantCard(int player, int assistantCard) {
@@ -233,7 +233,7 @@ public class GameController {
                                 }
                             }
                         }
-                    }catch (IllegalArgumentException ex){
+                    } catch (IllegalArgumentException ex) {
                         ex.printStackTrace();
                     }
                 }
@@ -244,7 +244,7 @@ public class GameController {
     /**
      * Check if the player can play an AssistantCard
      *
-     * @param player the index of the player
+     * @param player        the index of the player
      * @param assistantCard the index of the AssistantCard
      * @return true if the Player can play the AssistantCard, false otherwise
      */
@@ -254,7 +254,7 @@ public class GameController {
                 try {
                     if (game.getPlayerByIndex(i).getCurrentAssistantCard().equals(game.getAssistantCard(assistantCard)))
                         return false;
-                }catch(IllegalArgumentException ex){
+                } catch (IllegalArgumentException ex) {
                     ex.printStackTrace();
                 }
 
@@ -270,9 +270,9 @@ public class GameController {
     /**
      * Move student from entrance to a SingleIsland
      *
-     * @param player the index of the player
-     * @param colour the colour of the student to be moved
-     * @param groupIsland the index of the GroupIsland
+     * @param player       the index of the player
+     * @param colour       the colour of the student to be moved
+     * @param groupIsland  the index of the GroupIsland
      * @param singleIsland the index of the SingleIsland
      */
     public void moveStudentToIsland(int player, Colour colour, int groupIsland, int singleIsland) {
@@ -312,7 +312,7 @@ public class GameController {
                                     game.getPlayerByIndex(player).addCoins(1);
                                     game.setCoins(game.getCoins() - 1);
                                 }
-                            }catch(IllegalAccessError ex){
+                            } catch (IllegalAccessError ex) {
                                 ex.printStackTrace();
                             }
                             if (!game.getCurrentPlayer().getSchoolBoard().hasProfessor(colour)) {
@@ -356,7 +356,7 @@ public class GameController {
     /**
      * Move mother nature
      *
-     * @param player the index of the Player
+     * @param player   the index of the Player
      * @param movement the number of moves
      */
     public void moveMotherNature(int player, int movement) {
@@ -429,17 +429,17 @@ public class GameController {
      */
     public void addPlayer(String nickname, Wizard wizard) {
         if (game.getNumberOfPlayer() < numberOfPlayer && game.getGamePhase() == GamePhase.SETTING) {
-            if(checkUniqueNickname(nickname)){
-                if(checkUniqueWizard(wizard)){
-                    if(isGameExpert){
+            if (checkUniqueNickname(nickname)) {
+                if (checkUniqueWizard(wizard)) {
+                    if (isGameExpert) {
                         game.addPlayer(new ExpertPlayer(nickname, wizard));
                         try {
                             game.setCoins(game.getCoins() - 1);
-                        }catch(IllegalAccessError ex){
+                        } catch (IllegalAccessError ex) {
                             ex.printStackTrace();
                         }
 
-                    } else{
+                    } else {
                         game.addPlayer(new BasicPlayer(nickname, wizard));
                     }
                 }
@@ -501,10 +501,10 @@ public class GameController {
 
         for (int i = 0; i < game.getStudentNumberMovement(); i++) {
             if (!game.getTable().getBag().isBagEmpty()) {
-                try{
+                try {
                     Colour colour1 = game.getTable().getBag().bagDrawStudent();
                     students.replace(colour1, students.get(colour1), students.get(colour1) + 1);
-                }catch(IllegalAccessError ex){
+                } catch (IllegalAccessError ex) {
                     ex.printStackTrace();
                 }
 
@@ -517,7 +517,7 @@ public class GameController {
     /**
      * Choose a cloudTile
      *
-     * @param player index of the player
+     * @param player    index of the player
      * @param cloudTile index of the cloudTile
      */
     public void chooseCloudTile(int player, int cloudTile) {
@@ -549,11 +549,11 @@ public class GameController {
 
                     }
 
-                    if(isGameExpert){
-                        try{
+                    if (isGameExpert) {
+                        try {
                             game.setHasPlayedCharacterCard(false);
                             game.setActiveCharacterCard(game.getBasicState());
-                        }catch (IllegalAccessError ex){
+                        } catch (IllegalAccessError ex) {
                             ex.printStackTrace();
                         }
                     }
@@ -568,10 +568,9 @@ public class GameController {
      * @param colour the colour
      */
     public void setColour(Colour colour) {
-        try{
-        game.getActiveCharacterCard().setColour(colour);
-        }
-        catch (IllegalAccessError ex){
+        try {
+            game.getActiveCharacterCard().setColour(colour);
+        } catch (IllegalAccessError ex) {
             ex.printStackTrace();
         }
     }
@@ -579,16 +578,15 @@ public class GameController {
     /**
      * Sets the parameters needed for the character card StudentToIsland
      *
-     * @param colour colour of the student on the card
-     * @param groupIsland the group island chosen
+     * @param colour       colour of the student on the card
+     * @param groupIsland  the group island chosen
      * @param singleIsland the single island chosen
      */
     public void setColourAndIsland(Colour colour, int groupIsland, int singleIsland) {
-        try{
+        try {
             if (groupIsland >= 0 && groupIsland < game.getTable().getNumberOfGroupIsland() && singleIsland >= 0 && singleIsland < game.getTable().getGroupIslandByIndex(groupIsland).getNumberOfSingleIsland())
                 game.getActiveCharacterCard().setColourAndIsland(colour, game.getTable().getGroupIslandByIndex(groupIsland).getIslandByIndex(singleIsland));
-        }
-        catch (IllegalAccessError | IllegalArgumentException ex){
+        } catch (IllegalAccessError | IllegalArgumentException ex) {
             ex.printStackTrace();
         }
 
@@ -600,11 +598,10 @@ public class GameController {
      * @param groupIsland the group island
      */
     public void setGroupIsland(int groupIsland) {
-        try{
+        try {
             if (groupIsland >= 0 && groupIsland < game.getTable().getNumberOfGroupIsland())
                 game.getActiveCharacterCard().setGroupIsland(groupIsland);
-        }
-        catch (IllegalAccessError ex){
+        } catch (IllegalAccessError ex) {
             ex.printStackTrace();
         }
     }
@@ -613,13 +610,12 @@ public class GameController {
      * Sets the parameters for the character card ExchangeDiningRoomEntrance
      *
      * @param colourDiningRoom the student of the dining room
-     * @param colourEntrance the student of the entrance
+     * @param colourEntrance   the student of the entrance
      */
     public void setColourDiningRoomEntrance(Colour colourDiningRoom, Colour colourEntrance) {
-        try{
+        try {
             game.getActiveCharacterCard().setColourDiningRoomEntrance(colourDiningRoom, colourEntrance);
-        }
-        catch (IllegalAccessError ex){
+        } catch (IllegalAccessError ex) {
             ex.printStackTrace();
         }
 
@@ -628,14 +624,13 @@ public class GameController {
     /**
      * Sets the parameter for the character card StudentToEntrance
      *
-     * @param colourCard the student of the card
+     * @param colourCard     the student of the card
      * @param colourEntrance the student of the entrance
      */
     public void setColourCardEntrance(Colour colourCard, Colour colourEntrance) {
-        try{
+        try {
             game.getActiveCharacterCard().setColourCardEntrance(colourCard, colourEntrance);
-        }
-        catch (IllegalAccessError ex){
+        } catch (IllegalAccessError ex) {
             ex.printStackTrace();
         }
 

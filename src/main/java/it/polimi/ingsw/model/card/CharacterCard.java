@@ -147,7 +147,7 @@ public abstract class CharacterCard {
         checkUnifyIsland(groupIsland);
     }
 
-    private void setNewInfluencePlayer(Player influencePlayer, int groupIsland){
+    private void setNewInfluencePlayer(Player influencePlayer, int groupIsland) {
         game.getTable().getGroupIslandByIndex(groupIsland).changeInfluence(influencePlayer);
         if (influencePlayer.getSchoolBoard().getTowers() - game.getTable().getGroupIslandByIndex(groupIsland).getNumberOfSingleIsland() <= 0) {
             influencePlayer.getSchoolBoard().removeTower(influencePlayer.getSchoolBoard().getTowers());
