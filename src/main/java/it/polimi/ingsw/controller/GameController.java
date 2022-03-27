@@ -60,16 +60,19 @@ public class GameController {
                 }
             }
 
-            boolean hasProtectIsland = game.hasProtectIslandCard();
 
-            if (hasProtectIsland) {
-                for (int i = 0; i < 12; i++) {
-                    game.getTable().addGroupIsland(new AdvancedGroupIsland());
+            try {
+                if (game.hasProtectIslandCard()) {
+                    for (int i = 0; i < 12; i++) {
+                        game.getTable().addGroupIsland(new AdvancedGroupIsland());
+                    }
+                } else {
+                    for (int i = 0; i < 12; i++) {
+                        game.getTable().addGroupIsland(new BasicGroupIsland());
+                    }
                 }
-            } else {
-                for (int i = 0; i < 12; i++) {
-                    game.getTable().addGroupIsland(new BasicGroupIsland());
-                }
+            }catch(IllegalAccessError ex){
+                ex.printStackTrace();
             }
 
         } else {
@@ -500,7 +503,13 @@ public class GameController {
      * @param cloudTile index of the cloudTile
      */
     public void chooseCloudTile(int player, int cloudTile) {
-        game.setHasPlayedCharacterCard(false);
+        try{
+            if(isGameExpert)
+                game.setHasPlayedCharacterCard(false);
+        }catch (IllegalAccessError ex){
+            ex.printStackTrace();
+        }
+
         game.setActiveCharacterCard(game.getBasicState());
         if (cloudTile >= 0 && cloudTile < game.getTable().getNumberOfCloudTile()) {
             if (game.getGamePhase() == GamePhase.PLAYING && game.getTurnPhase() == TurnPhase.CHOOSE_CLOUD_TILE) {
