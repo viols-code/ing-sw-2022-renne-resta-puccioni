@@ -255,7 +255,11 @@ public class GameController {
                     if (game.getPlayerByIndex(player).getSchoolBoard().getEntrance(colour) > 0) {
                         if (checkStudentsMovement(player)) {
                             game.getTable().getGroupIslandByIndex(groupIsland).getIslandByIndex(singleIsland).addStudent(colour);
-                            game.getPlayerByIndex(player).getSchoolBoard().removeStudentFromEntrance(colour);
+                            try {
+                                game.getPlayerByIndex(player).getSchoolBoard().removeStudentFromEntrance(colour);
+                            }catch(IllegalArgumentException ex){
+                                ex.printStackTrace();
+                            }
                             if (checkEndMovementPhase(player)) {
                                 game.setTurnPhase(TurnPhase.MOVE_MOTHER_NATURE);
                             }
@@ -278,7 +282,11 @@ public class GameController {
                 if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
                     if (game.getPlayerByIndex(player).getSchoolBoard().getEntrance(colour) > 0) {
                         if (checkStudentsMovement(player) && game.getPlayerByIndex(player).getSchoolBoard().getDiningRoom(colour) < 10) {
-                            game.getPlayerByIndex(player).getSchoolBoard().removeStudentFromEntrance(colour);
+                            try {
+                                game.getPlayerByIndex(player).getSchoolBoard().removeStudentFromEntrance(colour);
+                            }catch(IllegalArgumentException ex){
+                                ex.printStackTrace();
+                            }
                             try {
                                 game.getPlayerByIndex(player).getSchoolBoard().addStudentToDiningRoom(colour);
                             }catch(IllegalArgumentException ex){
@@ -491,7 +499,11 @@ public class GameController {
                 if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
                     for (Colour colour : Colour.values()) {
                         for (int i = 0; i < game.getTable().getCloudTilesByIndex(cloudTile).getTileStudents(colour); i++) {
-                            game.getCurrentPlayer().getSchoolBoard().addStudentToEntrance(colour);
+                            try {
+                                game.getCurrentPlayer().getSchoolBoard().addStudentToEntrance(colour);
+                            }catch(IllegalArgumentException ex){
+                                ex.printStackTrace();
+                            }
                         }
                     }
                     game.getTable().removeCLoudTile(game.getTable().getCloudTilesByIndex(cloudTile));
