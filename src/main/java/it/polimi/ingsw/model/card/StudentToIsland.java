@@ -16,12 +16,12 @@ public class StudentToIsland extends CharacterCard {
     /**
      * The colour chosen by the player
      */
-    Colour colour;
+    private Colour colour;
 
     /**
      * The singleIsland chosen by the player
      */
-    SingleIsland islandChosen;
+    private SingleIsland islandChosen;
 
     /**
      * Constructor: StudentToIsland
