@@ -20,7 +20,7 @@ public class GameTestTwoPlayers {
     }
 
 
-    @RepeatedTest(1000)
+    @RepeatedTest(10)
     void gameTest2Players(){
 
         assertEquals(GamePhase.SETTING, gameController.getGame().getGamePhase());
@@ -45,7 +45,7 @@ public class GameTestTwoPlayers {
 
         assertNull(gameController.getGame().getPlayerByIndex(0).getCurrentAssistantCard());
 
-        //PRIMO TURNO
+        //First turn
 
         gameController.playAssistantCard(0, 4);
         assertEquals(gameController.getGame().getAssistantCard(4), gameController.getGame().getPlayerByIndex(0).getCurrentAssistantCard());
@@ -134,7 +134,7 @@ public class GameTestTwoPlayers {
         assertEquals(gameController.getGame().getCurrentPlayer(), gameController.getGame().getPlayerByIndex(0));
 
 
-        //SECONDO TURNO
+        //Second turn
 
         gameController.playAssistantCard(0,9);
         gameController.playAssistantCard(1,6);
@@ -174,7 +174,7 @@ public class GameTestTwoPlayers {
 
         gameController.chooseCloudTile(0, 0);
 
-        //TERZO TURNO
+        //Third turn
 
         gameController.playAssistantCard(1,3);
         gameController.playAssistantCard(0,5);
@@ -214,7 +214,7 @@ public class GameTestTwoPlayers {
 
         gameController.chooseCloudTile(0, 0);
 
-        //QUARTO TURNO
+        //Fourth turn
 
         gameController.playAssistantCard(1,7);
         gameController.playAssistantCard(0,1);
@@ -254,7 +254,7 @@ public class GameTestTwoPlayers {
 
         gameController.chooseCloudTile(1, 0);
 
-        //QUINTO TURNO
+        //Fifth turn
 
         gameController.playAssistantCard(0,8);
         gameController.playAssistantCard(1,2);
@@ -297,7 +297,7 @@ public class GameTestTwoPlayers {
 
         gameController.chooseCloudTile(0, 0);
 
-        // SESTO TURNO
+        //Sixth turn
         gameController.playAssistantCard(1,5);
         gameController.playAssistantCard(0,3);
 

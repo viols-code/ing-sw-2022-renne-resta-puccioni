@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.table.island;
 
 import it.polimi.ingsw.controller.GameController;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -16,7 +17,7 @@ class AdvancedGroupIslandTest {
         gameController = new GameController(true, 2);
     }
 
-    @Test
+    @RepeatedTest(12)
     void checkSetting() {
         if (gameController.getGame().hasProtectIslandCard()) {
             assertEquals(12, gameController.getGame().getTable().getNumberOfGroupIsland());
@@ -28,7 +29,7 @@ class AdvancedGroupIslandTest {
     }
 
 
-    @Test
+    @RepeatedTest(12)
     void addNoEntryTile() {
         if (gameController.getGame().hasProtectIslandCard()) {
             for (int i = 0; i < gameController.getGame().getTable().getNumberOfGroupIsland(); i++) {
@@ -47,7 +48,7 @@ class AdvancedGroupIslandTest {
         assertEquals(1, groupIsland.getNumberOfNoEntryTile());
     }
 
-    @Test
+    @RepeatedTest(12)
     void removeNoEntryTile() {
         if (gameController.getGame().hasProtectIslandCard()) {
             for (int i = 0; i < gameController.getGame().getTable().getNumberOfGroupIsland(); i++) {
@@ -60,7 +61,7 @@ class AdvancedGroupIslandTest {
         }
     }
 
-    @Test
+    @RepeatedTest(12)
     void checkRemoveNoEntryTile() {
         groupIsland = new AdvancedGroupIsland();
         assertEquals(0, groupIsland.getNumberOfNoEntryTile());

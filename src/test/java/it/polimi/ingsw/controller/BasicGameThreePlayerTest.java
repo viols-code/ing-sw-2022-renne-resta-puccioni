@@ -5,8 +5,7 @@ import it.polimi.ingsw.model.game.GamePhase;
 import it.polimi.ingsw.model.game.TurnPhase;
 import it.polimi.ingsw.model.player.Wizard;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.RepeatedTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,8 +17,7 @@ public class BasicGameThreePlayerTest {
         gameController = new GameController(false, 3);
     }
 
-    @Test
-    @Disabled
+    @RepeatedTest(10)
     void threePlayerGame(){
         // start of the game
         assertEquals(GamePhase.SETTING, gameController.getGame().getGamePhase());
@@ -257,8 +255,12 @@ public class BasicGameThreePlayerTest {
         gameController.moveMotherNature(2, 4);
         gameController.chooseCloudTile(2, 0);
 
-        assertEquals(GamePhase.PLAY_ASSISTANT_CARD, gameController.getGame().getGamePhase());
-        assertEquals(TurnPhase.WAITING, gameController.getGame().getTurnPhase());
+        if(gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getTowers() == 0){
+            assertEquals(GamePhase.END_GAME, gameController.getGame().getGamePhase());
+        } else{
+            assertEquals(GamePhase.PLAY_ASSISTANT_CARD, gameController.getGame().getGamePhase());
+            assertEquals(TurnPhase.WAITING, gameController.getGame().getTurnPhase());
+        }
 
         // fourth turn
         gameController.playAssistantCard(1, 5);
@@ -266,8 +268,13 @@ public class BasicGameThreePlayerTest {
         gameController.playAssistantCard(0, 8);
 
 
-        assertEquals(GamePhase.PLAYING, gameController.getGame().getGamePhase());
-        assertEquals(TurnPhase.MOVE_STUDENT, gameController.getGame().getTurnPhase());
+
+        if(gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getTowers() == 0){
+            assertEquals(GamePhase.END_GAME, gameController.getGame().getGamePhase());
+        } else{
+            assertEquals(GamePhase.PLAYING, gameController.getGame().getGamePhase());
+            assertEquals(TurnPhase.MOVE_STUDENT, gameController.getGame().getTurnPhase());
+        }
 
         i = 0;
         while(i < 4){
@@ -306,16 +313,24 @@ public class BasicGameThreePlayerTest {
         gameController.moveMotherNature(0, 1);
         gameController.chooseCloudTile(0, 0);
 
-        assertEquals(GamePhase.PLAY_ASSISTANT_CARD, gameController.getGame().getGamePhase());
-        assertEquals(TurnPhase.WAITING, gameController.getGame().getTurnPhase());
+        if(gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getTowers() == 0){
+            assertEquals(GamePhase.END_GAME, gameController.getGame().getGamePhase());
+        } else{
+            assertEquals(GamePhase.PLAY_ASSISTANT_CARD, gameController.getGame().getGamePhase());
+            assertEquals(TurnPhase.WAITING, gameController.getGame().getTurnPhase());
+        }
 
         // fifth turn
         gameController.playAssistantCard(2, 6);
         gameController.playAssistantCard(0, 3);
-        gameController.playAssistantCard(1, 10);
+        gameController.playAssistantCard(1, 9);
 
-        assertEquals(GamePhase.PLAYING, gameController.getGame().getGamePhase());
-        assertEquals(TurnPhase.MOVE_STUDENT, gameController.getGame().getTurnPhase());
+        if(gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getTowers() == 0){
+            assertEquals(GamePhase.END_GAME, gameController.getGame().getGamePhase());
+        } else{
+            assertEquals(GamePhase.PLAYING, gameController.getGame().getGamePhase());
+            assertEquals(TurnPhase.MOVE_STUDENT, gameController.getGame().getTurnPhase());
+        }
 
         i = 0;
         while(i < 4){
@@ -353,8 +368,12 @@ public class BasicGameThreePlayerTest {
         gameController.moveMotherNature(1, 1);
         gameController.chooseCloudTile(1, 0);
 
-        assertEquals(GamePhase.PLAY_ASSISTANT_CARD, gameController.getGame().getGamePhase());
-        assertEquals(TurnPhase.WAITING, gameController.getGame().getTurnPhase());
+        if(gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getTowers() == 0){
+            assertEquals(GamePhase.END_GAME, gameController.getGame().getGamePhase());
+        } else{
+            assertEquals(GamePhase.PLAY_ASSISTANT_CARD, gameController.getGame().getGamePhase());
+            assertEquals(TurnPhase.WAITING, gameController.getGame().getTurnPhase());
+        }
 
     }
 }

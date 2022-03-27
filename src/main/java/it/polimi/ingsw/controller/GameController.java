@@ -423,44 +423,41 @@ public class GameController {
 
 
     private void calculateWinner() {
-        int max = 0;
+        int min = 8;
         List<Player> possibleWinner = new ArrayList<>();
 
         for (int i = 0; i < numberOfPlayer; i++) {
-            if (game.getPlayerByIndex(i).getSchoolBoard().getTowers() > max) {
-                max = game.getPlayerByIndex(i).getSchoolBoard().getTowers();
+            if (game.getPlayerByIndex(i).getSchoolBoard().getTowers() < min) {
+                min = game.getPlayerByIndex(i).getSchoolBoard().getTowers();
             }
         }
 
         for (int i = 0; i < numberOfPlayer; i++) {
-            if (game.getPlayerByIndex(i).getSchoolBoard().getTowers() == max) {
+            if (game.getPlayerByIndex(i).getSchoolBoard().getTowers() == min) {
                 possibleWinner.add(game.getPlayerByIndex(i));
             }
         }
 
-        max = 0;
+        int max = 0;
 
         if (possibleWinner.size() == 1) {
             game.setWinner(possibleWinner.get(0));
-            if (possibleWinner.size() == 1) {
-                game.setWinner(possibleWinner.get(0));
-                return;
-            } else {
-                for (Player player : possibleWinner) {
-                    if (player.getSchoolBoard().getNumberOfProfessors() > max) {
-                        max = player.getSchoolBoard().getNumberOfProfessors();
-                    }
-                }
-            }
-
+            return;
+        } else {
             for (Player player : possibleWinner) {
-                if (player.getSchoolBoard().getNumberOfProfessors() == max) {
-                    game.setWinner(player);
-                    return;
+                if (player.getSchoolBoard().getNumberOfProfessors() > max) {
+                    max = player.getSchoolBoard().getNumberOfProfessors();
                 }
             }
-
         }
+
+        for (Player player : possibleWinner) {
+            if (player.getSchoolBoard().getNumberOfProfessors() == max) {
+                game.setWinner(player);
+                return;
+            }
+        }
+
 
     }
 }
