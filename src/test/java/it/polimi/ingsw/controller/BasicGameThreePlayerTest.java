@@ -257,6 +257,7 @@ public class BasicGameThreePlayerTest {
 
         if (gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getTowers() == 0) {
             assertEquals(GamePhase.END_GAME, gameController.getGame().getGamePhase());
+            assertEquals("Viola", gameController.getGame().getWinner().getNickname());
         } else {
             assertEquals(GamePhase.PLAY_ASSISTANT_CARD, gameController.getGame().getGamePhase());
             assertEquals(TurnPhase.WAITING, gameController.getGame().getTurnPhase());
@@ -270,6 +271,7 @@ public class BasicGameThreePlayerTest {
 
         if (gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getTowers() == 0) {
             assertEquals(GamePhase.END_GAME, gameController.getGame().getGamePhase());
+            assertEquals("Viola", gameController.getGame().getWinner().getNickname());
         } else {
             assertEquals(GamePhase.PLAYING, gameController.getGame().getGamePhase());
             assertEquals(TurnPhase.MOVE_STUDENT, gameController.getGame().getTurnPhase());
@@ -314,6 +316,7 @@ public class BasicGameThreePlayerTest {
 
         if (gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getTowers() == 0) {
             assertEquals(GamePhase.END_GAME, gameController.getGame().getGamePhase());
+            assertEquals("Viola", gameController.getGame().getWinner().getNickname());
         } else {
             assertEquals(GamePhase.PLAY_ASSISTANT_CARD, gameController.getGame().getGamePhase());
             assertEquals(TurnPhase.WAITING, gameController.getGame().getTurnPhase());
@@ -326,6 +329,7 @@ public class BasicGameThreePlayerTest {
 
         if (gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getTowers() == 0) {
             assertEquals(GamePhase.END_GAME, gameController.getGame().getGamePhase());
+            assertEquals("Viola", gameController.getGame().getWinner().getNickname());
         } else {
             assertEquals(GamePhase.PLAYING, gameController.getGame().getGamePhase());
             assertEquals(TurnPhase.MOVE_STUDENT, gameController.getGame().getTurnPhase());
@@ -369,6 +373,7 @@ public class BasicGameThreePlayerTest {
 
         if (gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getTowers() == 0) {
             assertEquals(GamePhase.END_GAME, gameController.getGame().getGamePhase());
+            assertEquals("Viola", gameController.getGame().getWinner().getNickname());
         } else {
             assertEquals(GamePhase.PLAY_ASSISTANT_CARD, gameController.getGame().getGamePhase());
             assertEquals(TurnPhase.WAITING, gameController.getGame().getTurnPhase());

@@ -17,6 +17,7 @@ public class GameControllerTestBasic {
         gameController = new GameController(false, 2);
     }
 
+    // Test that after 10 rounds the game ends
     @RepeatedTest(10)
     void testTwoPlayer() {
         // adding player to the game
@@ -303,6 +304,7 @@ public class GameControllerTestBasic {
         gameController.chooseCloudTile(0, 0);
 
         assertEquals(GamePhase.END_GAME, gameController.getGame().getGamePhase());
+        assertEquals(11, gameController.getGame().getRound());
         for (int j = 0; j < 10; j++) {
             assertFalse(gameController.getGame().getPlayerByIndex(0).isAssistantCardPresent(gameController.getGame().getAssistantCard(j)));
             assertFalse(gameController.getGame().getPlayerByIndex(1).isAssistantCardPresent(gameController.getGame().getAssistantCard(j)));

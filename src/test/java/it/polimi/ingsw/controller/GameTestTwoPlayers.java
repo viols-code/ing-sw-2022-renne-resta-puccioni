@@ -22,7 +22,6 @@ public class GameTestTwoPlayers {
 
     @RepeatedTest(10)
     void gameTest2Players() {
-
         assertEquals(GamePhase.SETTING, gameController.getGame().getGamePhase());
         assertEquals(TurnPhase.WAITING, gameController.getGame().getTurnPhase());
 
@@ -288,6 +287,7 @@ public class GameTestTwoPlayers {
 
         if (gameController.getGame().getPlayerByIndex(1).getSchoolBoard().getTowers() == 0) {
             assertEquals(GamePhase.END_GAME, gameController.getGame().getGamePhase());
+            assertEquals("Viola", gameController.getGame().getWinner().getNickname());
         } else {
             assertEquals(GamePhase.PLAYING, gameController.getGame().getGamePhase());
         }
@@ -313,6 +313,7 @@ public class GameTestTwoPlayers {
 
         if (gameController.getGame().getPlayerByIndex(1).getSchoolBoard().getTowers() == 0) {
             assertEquals(GamePhase.END_GAME, gameController.getGame().getGamePhase());
+            assertEquals("Viola", gameController.getGame().getWinner().getNickname());
         } else {
             assertEquals(GamePhase.PLAYING, gameController.getGame().getGamePhase());
         }
@@ -333,6 +334,7 @@ public class GameTestTwoPlayers {
 
         if (gameController.getGame().getPlayerByIndex(1).getSchoolBoard().getTowers() == 0) {
             assertEquals(GamePhase.END_GAME, gameController.getGame().getGamePhase());
+            assertEquals("Viola", gameController.getGame().getWinner().getNickname());
         } else {
             assertEquals(GamePhase.PLAYING, gameController.getGame().getGamePhase());
         }
