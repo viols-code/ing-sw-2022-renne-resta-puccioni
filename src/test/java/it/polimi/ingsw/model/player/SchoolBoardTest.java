@@ -58,11 +58,9 @@ class SchoolBoardTest {
             assertEquals(1, gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getDiningRoom(colour));
         }
 
-        gameController.getGame().getPlayerByIndex(0).getSchoolBoard().removeAllStudentFromDiningRoom();
+        gameController.getGame().getPlayerByIndex(0).getSchoolBoard().removeAllStudentFromDiningRoom(Colour.BLUE);
 
-        for (Colour colour : Colour.values()) {
-            assertEquals(0, gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getDiningRoom(colour));
-        }
+        assertEquals(0, gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getDiningRoom(Colour.BLUE));
     }
 
 
@@ -75,7 +73,6 @@ class SchoolBoardTest {
 
         assertEquals(7, size);
 
-        Colour colour1 = Colour.RED;
         for (Colour colour : Colour.values()) {
             int num;
             if (gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
@@ -97,7 +94,6 @@ class SchoolBoardTest {
 
         assertEquals(7, size);
 
-        Colour colour1 = Colour.RED;
         for (Colour colour : Colour.values()) {
             int num;
             if (gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {

@@ -229,11 +229,6 @@ class GameTest {
     }
 
     @Test
-    void setHasProtectIsland() {
-        assertThrows(IllegalAccessError.class, () -> gameController.getGame().setHasProtectIsland());
-    }
-
-    @Test
     void getHasPlayedCharacterCard() {
         assertThrows(IllegalAccessError.class, () -> gameController.getGame().getHasPlayedCharacterCard());
     }
