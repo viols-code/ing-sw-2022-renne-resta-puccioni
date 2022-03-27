@@ -47,9 +47,7 @@ public class SingleIsland {
      * @param colour the colour of the student to be added
      */
     public void addStudent(Colour colour) {
-
         students.replace(colour, students.get(colour), students.get(colour) + 1);
-
     }
 
 
