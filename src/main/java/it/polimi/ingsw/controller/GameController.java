@@ -187,6 +187,10 @@ public class GameController {
         }
     }
 
+    /*
+    ASSISTANT CARD
+     */
+
     /**
      * Playing AssistantCard
      *
@@ -232,6 +236,18 @@ public class GameController {
         return true;
     }
 
+    /*
+    MOVE STUDENT PHASE
+     */
+
+    /**
+     * Move student from entrance to a SingleIsland
+     *
+     * @param player the index of the player
+     * @param colour the colour of the student to be moved
+     * @param groupIsland the index of the GroupIsland
+     * @param singleIsland the index of the SingleIsland
+     */
     public void moveStudentToIsland(int player, Colour colour, int groupIsland, int singleIsland) {
         if (player >= 0 && player < numberOfPlayer && groupIsland >= 0 && groupIsland < game.getTable().getNumberOfGroupIsland() && singleIsland >= 0 && singleIsland < game.getTable().getGroupIslandByIndex(groupIsland).getNumberOfSingleIsland()) {
             if (game.getGamePhase() == GamePhase.PLAYING && game.getTurnPhase() == TurnPhase.MOVE_STUDENT) {
@@ -250,6 +266,12 @@ public class GameController {
         }
     }
 
+    /**
+     * Move student from entrance to a diningRoom
+     *
+     * @param player the index of the player
+     * @param colour the colour of the student to be moved
+     */
     public void moveStudentToDiningRoom(int player, Colour colour) {
         if (player >= 0 && player < numberOfPlayer) {
             if (game.getGamePhase() == GamePhase.PLAYING && game.getTurnPhase() == TurnPhase.MOVE_STUDENT) {
@@ -275,15 +297,37 @@ public class GameController {
         }
     }
 
+    /**
+     * Check for the movement of students
+     *
+     * @param player the index of the Player
+     * @return true if the player can move another student, false otherwise
+     */
     private boolean checkStudentsMovement(int player) {
         return game.getPlayerByIndex(player).getSchoolBoard().getNumberStudentsEntrance() >= game.getNumberStudentsEntrance() - 4;
     }
 
+    /**
+     * Check if the movement phase is ended
+     *
+     * @param player the index of the Player
+     * @return true if the movement phase is ended, false otherwise
+     */
     private boolean checkEndMovementPhase(int player) {
         return game.getPlayerByIndex(player).getSchoolBoard().getNumberStudentsEntrance() == game.getNumberStudentsEntrance() - game.getStudentNumberMovement();
     }
 
+    /*
+    MOVING MOTHER NATURE
+     */
 
+
+    /**
+     * Move mother nature
+     *
+     * @param player the index of the Player
+     * @param movement the number of moves
+     */
     public void moveMotherNature(int player, int movement) {
         if (movement > 0) {
             if (game.getGamePhase() == GamePhase.PLAYING && game.getTurnPhase() == TurnPhase.MOVE_MOTHER_NATURE) {
@@ -301,12 +345,19 @@ public class GameController {
         }
     }
 
+    /**
+     * Sets the end of the Game
+     */
     private void endGame() {
         game.setGamePhase(GamePhase.END_GAME);
         game.setTurnPhase(TurnPhase.WAITING);
     }
 
-
+    /**
+     * Checks if all the players have played
+     *
+     * @return true if all the players have played, false otherwise
+     */
     private boolean endPhasePlay() {
         boolean endPhase = true;
 
@@ -319,6 +370,9 @@ public class GameController {
         return endPhase;
     }
 
+    /**
+     * True if every player has played an AssistantCard
+     */
     private void endPlayAssistantCard() {
         game.setGamePhase(GamePhase.PLAYING);
         nobodyPlayed();
@@ -327,6 +381,9 @@ public class GameController {
         game.setTurnPhase(TurnPhase.MOVE_STUDENT);
     }
 
+    /**
+     * Set hasAlreadyPlayed false for all players
+     */
     private void nobodyPlayed() {
         for (int i = 0; i < numberOfPlayer; i++) {
             game.getPlayerByIndex(i).setHasAlreadyPlayed(false);
@@ -397,6 +454,9 @@ public class GameController {
     }
 
 
+    /**
+     * Create the cloudTile
+     */
     private void createCloudTile() {
         HashMap<Colour, Integer> students = new HashMap<>();
         for (Colour colour : Colour.values()) {
@@ -413,6 +473,12 @@ public class GameController {
         game.getTable().addCLoudTile(new CloudTile(students));
     }
 
+    /**
+     * Choose a cloudTile
+     *
+     * @param player index of the player
+     * @param cloudTile index of the cloudTile
+     */
     public void chooseCloudTile(int player, int cloudTile) {
         if (cloudTile >= 0 && cloudTile < game.getTable().getNumberOfCloudTile()) {
             if (game.getGamePhase() == GamePhase.PLAYING && game.getTurnPhase() == TurnPhase.CHOOSE_CLOUD_TILE) {
@@ -446,6 +512,7 @@ public class GameController {
         }
     }
 
+
     public void setColour(Colour colour) {
         game.getActiveCharacterCard().setColour(colour);
     }
@@ -469,6 +536,9 @@ public class GameController {
     }
 
 
+    /**
+     * Calculate the winner of the Game
+     */
     private void calculateWinner() {
         int min = 8;
         List<Player> possibleWinner = new ArrayList<>();
