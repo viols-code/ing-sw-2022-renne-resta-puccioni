@@ -64,7 +64,7 @@ public abstract class Player {
      *
      * @return a string with the nickname
      */
-    public synchronized String getNickname() {
+    public String getNickname() {
         return nickname;
     }
 
