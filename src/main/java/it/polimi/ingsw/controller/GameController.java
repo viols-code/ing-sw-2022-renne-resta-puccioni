@@ -371,7 +371,7 @@ public class GameController {
     }
 
     /**
-     * True if every player has played an AssistantCard
+     * Sets the end of the playAssistantCardPhase
      */
     private void endPlayAssistantCard() {
         game.setGamePhase(GamePhase.PLAYING);
