@@ -140,9 +140,16 @@ public class GameController {
      * Setting the CharacterCard
      */
     private void settingCard() {
+
         for (int i = 0; i < 3; i++) {
-            game.getCharacterCardByIndex(i).setting();
+            try{
+                game.getCharacterCardByIndex(i).setting();
+            }catch(IllegalAccessError ex){
+                ex.printStackTrace();
+            }
+
         }
+
     }
 
     /*
@@ -173,14 +180,18 @@ public class GameController {
         if (isGameExpert && player >= 0 && player < numberOfPlayer && characterCard >= 0 && characterCard < 3) {
             if (game.getGamePhase() == GamePhase.PLAYING) {
                 if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
-                    if (!game.getHasPlayedCharacterCard() &&
-                            game.getCurrentPlayer().getCoins() >= game.getCharacterCardByIndex(characterCard).getCost()) {
-                        game.setActiveCharacterCard(game.getCharacterCardByIndex(characterCard));
-                        game.setHasPlayedCharacterCard(true);
-                        game.getCurrentPlayer().removeCoins(game.getCharacterCardByIndex(characterCard).getCost());
-                        game.getCharacterCardByIndex(characterCard).incrementCost();
-                        game.setCoins(game.getCoins() + game.getCharacterCardByIndex(characterCard).getCost() - 1);
-                        game.getCharacterCardByIndex(characterCard).professor();
+                    try {
+                        if (!game.getHasPlayedCharacterCard() &&
+                                game.getCurrentPlayer().getCoins() >= game.getCharacterCardByIndex(characterCard).getCost()) {
+                            game.setActiveCharacterCard(game.getCharacterCardByIndex(characterCard));
+                            game.setHasPlayedCharacterCard(true);
+                            game.getCurrentPlayer().removeCoins(game.getCharacterCardByIndex(characterCard).getCost());
+                            game.getCharacterCardByIndex(characterCard).incrementCost();
+                            game.setCoins(game.getCoins() + game.getCharacterCardByIndex(characterCard).getCost() - 1);
+                            game.getCharacterCardByIndex(characterCard).professor();
+                        }
+                    }catch (IllegalAccessError ex){
+                        ex.printStackTrace();
                     }
                 }
             }
@@ -201,18 +212,22 @@ public class GameController {
         if (player >= 0 && player < numberOfPlayer && assistantCard >= 0 && assistantCard < 10) {
             if (game.getGamePhase() == GamePhase.PLAY_ASSISTANT_CARD) {
                 if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
-                    if (game.getPlayerByIndex(player).isAssistantCardPresent(game.getAssistantCard(assistantCard))) {
-                        if (canPlayAssistantCard(player, assistantCard)) {
-                            game.getPlayerByIndex(player).setCurrentAssistantCard(game.getAssistantCard(assistantCard));
-                            game.getPlayerByIndex(player).removeAssistantCard(game.getAssistantCard(assistantCard));
-                            game.getPlayerByIndex(player).setHasAlreadyPlayed(true);
+                    try {
+                        if (game.getPlayerByIndex(player).isAssistantCardPresent(game.getAssistantCard(assistantCard))) {
+                            if (canPlayAssistantCard(player, assistantCard)) {
+                                game.getPlayerByIndex(player).setCurrentAssistantCard(game.getAssistantCard(assistantCard));
+                                game.getPlayerByIndex(player).removeAssistantCard(game.getAssistantCard(assistantCard));
+                                game.getPlayerByIndex(player).setHasAlreadyPlayed(true);
 
-                            if (!endPhasePlay()) {
-                                game.setCurrentPlayer(game.nextPlayerClockwise());
-                            } else {
-                                endPlayAssistantCard();
+                                if (!endPhasePlay()) {
+                                    game.setCurrentPlayer(game.nextPlayerClockwise());
+                                } else {
+                                    endPlayAssistantCard();
+                                }
                             }
                         }
+                    }catch (IllegalArgumentException ex){
+                        ex.printStackTrace();
                     }
                 }
             }
@@ -229,8 +244,13 @@ public class GameController {
     private boolean canPlayAssistantCard(int player, int assistantCard) {
         for (int i = 0; i < player; i++) {
             if (game.getPlayerByIndex(i).getHasAlreadyPlayed()) {
-                if (game.getPlayerByIndex(i).getCurrentAssistantCard().equals(game.getAssistantCard(assistantCard)))
-                    return false;
+                try {
+                    if (game.getPlayerByIndex(i).getCurrentAssistantCard().equals(game.getAssistantCard(assistantCard)))
+                        return false;
+                }catch(IllegalArgumentException ex){
+                    ex.printStackTrace();
+                }
+
             }
         }
         return true;
