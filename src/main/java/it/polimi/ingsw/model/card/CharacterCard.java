@@ -12,7 +12,13 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public abstract class CharacterCard {
+    /**
+     * The Game
+     */
     protected Game game;
+    /**
+     * Cost of the card
+     */
     protected int actualCost;
 
     /**
