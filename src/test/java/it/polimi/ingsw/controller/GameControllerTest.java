@@ -227,7 +227,6 @@ class GameControllerTest {
         gameController.addPlayer("Laura", Wizard.TYPE_2);
         gameController.playAssistantCard(0, 0);
         gameController.playAssistantCard(1, 1);
-        assertThrows(IllegalAccessError.class, () -> gameController.setColour(Colour.PINK));
         for (int i = 0; i < 3; i++) {
             for (Colour colour : Colour.values()) {
                 if (gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
@@ -235,12 +234,12 @@ class GameControllerTest {
                 }
             }
         }
-        assertThrows(IllegalAccessError.class, () -> gameController.setColour(Colour.GREEN));
         gameController.moveMotherNature(0, 1);
         assertEquals(1, gameController.getGame().getTable().getMotherNaturePosition());
         gameController.chooseCloudTile(0, 0);
         assertEquals(7, gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getNumberStudentsEntrance());
-        assertThrows(IllegalAccessError.class, () -> gameController.setColour(Colour.BLUE));
+        gameController.setColour(Colour.PINK);
+        assertEquals(gameController.getGame().getActiveCharacterCard(), gameController.getGame().getBasicState());
     }
 
     @Test
@@ -249,7 +248,6 @@ class GameControllerTest {
         gameController.addPlayer("Laura", Wizard.TYPE_2);
         gameController.playAssistantCard(0, 0);
         gameController.playAssistantCard(1, 1);
-        assertThrows(IllegalAccessError.class, () -> gameController.setColourAndIsland(Colour.GREEN, 1, 0));
         for (int i = 0; i < 3; i++) {
             for (Colour colour : Colour.values()) {
                 if (gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
@@ -257,12 +255,12 @@ class GameControllerTest {
                 }
             }
         }
-        assertThrows(IllegalAccessError.class, () -> gameController.setColourAndIsland(Colour.YELLOW, 1, 0));
         gameController.moveMotherNature(0, 1);
         assertEquals(1, gameController.getGame().getTable().getMotherNaturePosition());
         gameController.chooseCloudTile(0, 0);
         assertEquals(7, gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getNumberStudentsEntrance());
-        assertThrows(IllegalAccessError.class, () -> gameController.setColourAndIsland(Colour.BLUE, 0, 0));
+        gameController.setColourAndIsland(Colour.PINK, 0, 0);
+        assertEquals(gameController.getGame().getActiveCharacterCard(), gameController.getGame().getBasicState());
     }
 
     @Test
@@ -271,7 +269,6 @@ class GameControllerTest {
         gameController.addPlayer("Laura", Wizard.TYPE_2);
         gameController.playAssistantCard(0, 0);
         gameController.playAssistantCard(1, 1);
-        assertThrows(IllegalAccessError.class, () -> gameController.setGroupIsland(0));
         for (int i = 0; i < 3; i++) {
             for (Colour colour : Colour.values()) {
                 if (gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
@@ -283,7 +280,9 @@ class GameControllerTest {
         assertEquals(1, gameController.getGame().getTable().getMotherNaturePosition());
         gameController.chooseCloudTile(0, 0);
         assertEquals(7, gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getNumberStudentsEntrance());
-        assertThrows(IllegalAccessError.class, () -> gameController.setGroupIsland(0));
+        assertEquals(gameController.getGame().getActiveCharacterCard(), gameController.getGame().getBasicState());
+        gameController.setGroupIsland(0);
+        assertEquals(gameController.getGame().getActiveCharacterCard(), gameController.getGame().getBasicState());
     }
 
     @Test
@@ -292,7 +291,6 @@ class GameControllerTest {
         gameController.addPlayer("Laura", Wizard.TYPE_2);
         gameController.playAssistantCard(0, 0);
         gameController.playAssistantCard(1, 1);
-        assertThrows(IllegalAccessError.class, () -> gameController.setColourDiningRoomEntrance(Colour.PINK, Colour.RED));
         for (int i = 0; i < 3; i++) {
             for (Colour colour : Colour.values()) {
                 if (gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
@@ -300,12 +298,13 @@ class GameControllerTest {
                 }
             }
         }
-        assertThrows(IllegalAccessError.class, () -> gameController.setColourDiningRoomEntrance(Colour.BLUE, Colour.YELLOW));
         gameController.moveMotherNature(0, 1);
         assertEquals(1, gameController.getGame().getTable().getMotherNaturePosition());
         gameController.chooseCloudTile(0, 0);
         assertEquals(7, gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getNumberStudentsEntrance());
-        assertThrows(IllegalAccessError.class, () -> gameController.setColourDiningRoomEntrance(Colour.BLUE, Colour.RED));
+        assertEquals(gameController.getGame().getActiveCharacterCard(), gameController.getGame().getBasicState());
+        gameController.setColourDiningRoomEntrance(Colour.RED, Colour.BLUE);
+        assertEquals(gameController.getGame().getActiveCharacterCard(), gameController.getGame().getBasicState());
     }
 
     @Test
@@ -314,7 +313,6 @@ class GameControllerTest {
         gameController.addPlayer("Laura", Wizard.TYPE_2);
         gameController.playAssistantCard(0, 0);
         gameController.playAssistantCard(1, 1);
-        assertThrows(IllegalAccessError.class, () -> gameController.setColourCardEntrance(Colour.BLUE, Colour.GREEN));
         for (int i = 0; i < 3; i++) {
             for (Colour colour : Colour.values()) {
                 if (gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
@@ -326,7 +324,9 @@ class GameControllerTest {
         assertEquals(1, gameController.getGame().getTable().getMotherNaturePosition());
         gameController.chooseCloudTile(0, 0);
         assertEquals(7, gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getNumberStudentsEntrance());
-        assertThrows(IllegalAccessError.class, () -> gameController.setColourCardEntrance(Colour.BLUE, Colour.RED));
+        assertEquals(gameController.getGame().getActiveCharacterCard(), gameController.getGame().getBasicState());
+        gameController.setColourCardEntrance(Colour.RED, Colour.BLUE);
+        assertEquals(gameController.getGame().getActiveCharacterCard(), gameController.getGame().getBasicState());
     }
 
     // Tests that after 10 rounds the game ends

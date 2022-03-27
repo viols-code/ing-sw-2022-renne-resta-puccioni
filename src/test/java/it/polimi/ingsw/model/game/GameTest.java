@@ -22,6 +22,7 @@ class GameTest {
 
     @Test
     void addPlayer() {
+        assertEquals(gameController.getGame().getActiveCharacterCard(), gameController.getGame().getBasicState());
         Player player1 = new BasicPlayer("Laura", Wizard.TYPE_1);
         gameController.getGame().addPlayer(player1);
         assertEquals(1, gameController.getGame().getNumberOfPlayer());
@@ -43,13 +44,13 @@ class GameTest {
 
     @Test
     void removePlayer() {
-
+        assertEquals(gameController.getGame().getActiveCharacterCard(), gameController.getGame().getBasicState());
         Player player1 = new BasicPlayer("Laura", Wizard.TYPE_1);
         gameController.getGame().addPlayer(player1);
         Player player2 = new BasicPlayer("Sara", Wizard.TYPE_3);
         gameController.getGame().addPlayer(player2);
         gameController.getGame().removePlayer(player1);
-
+        assertEquals(gameController.getGame().getActiveCharacterCard(), gameController.getGame().getBasicState());
         assertEquals(1, gameController.getGame().getNumberOfPlayer());
         assertEquals(player2, gameController.getGame().getPlayerByIndex(0));
 

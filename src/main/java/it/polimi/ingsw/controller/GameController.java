@@ -305,9 +305,9 @@ public class GameController {
                 if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
                     if (game.getPlayerByIndex(player).getSchoolBoard().getEntrance(colour) > 0) {
                         if (checkStudentsMovement(player) && game.getPlayerByIndex(player).getSchoolBoard().getDiningRoom(colour) < 10) {
-                            game.getPlayerByIndex(player).getSchoolBoard().removeStudentFromEntrance(colour);
                             try {
                                 game.getPlayerByIndex(player).getSchoolBoard().addStudentToDiningRoom(colour);
+                                game.getPlayerByIndex(player).getSchoolBoard().removeStudentFromEntrance(colour);
                                 if (isGameExpert && ((game.getPlayerByIndex(player).getSchoolBoard().getDiningRoom(colour) + 1) % 3) == 0 && game.getCoins() > 0) {
                                     game.getPlayerByIndex(player).addCoins(1);
                                     game.setCoins(game.getCoins() - 1);
@@ -521,7 +521,6 @@ public class GameController {
      * @param cloudTile index of the cloudTile
      */
     public void chooseCloudTile(int player, int cloudTile) {
-        game.setActiveCharacterCard(game.getBasicState());
         if (cloudTile >= 0 && cloudTile < game.getTable().getNumberOfCloudTile()) {
             if (game.getGamePhase() == GamePhase.PLAYING && game.getTurnPhase() == TurnPhase.CHOOSE_CLOUD_TILE) {
                 if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
@@ -553,6 +552,7 @@ public class GameController {
                     if(isGameExpert){
                         try{
                             game.setHasPlayedCharacterCard(false);
+                            game.setActiveCharacterCard(game.getBasicState());
                         }catch (IllegalAccessError ex){
                             ex.printStackTrace();
                         }

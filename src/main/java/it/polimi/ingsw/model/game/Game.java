@@ -89,6 +89,7 @@ public abstract class Game {
         table = new Table();
         round = 1;
         activeCharacterCard = new BasicState(this);
+        basicState = activeCharacterCard;
         assistantCard = new ArrayList<>();
 
         AssistantCard card1 = new AssistantCard(1, 1);
