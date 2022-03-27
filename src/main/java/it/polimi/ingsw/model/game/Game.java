@@ -8,7 +8,6 @@ import it.polimi.ingsw.model.table.Table;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Game
@@ -546,18 +545,5 @@ public abstract class Game {
      */
     public boolean hasProtectIslandCard() throws IllegalAccessError {
         throw new IllegalAccessError("This is for the Expert Mode");
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Game game = (Game) o;
-        return getRound() == game.getRound() && getStudentNumberMovement() == game.getStudentNumberMovement() && getNumberOfTowersPerPlayer() == game.getNumberOfTowersPerPlayer() && getNumberStudentsEntrance() == game.getNumberStudentsEntrance() && players.equals(game.players) && getTable().equals(game.getTable()) && assistantCard.equals(game.assistantCard) && Objects.equals(getCurrentPlayer(), game.getCurrentPlayer()) && Objects.equals(getFirstPlayerTurn(), game.getFirstPlayerTurn()) && Objects.equals(getActiveCharacterCard(), game.getActiveCharacterCard()) && Objects.equals(getBasicState(), game.getBasicState()) && getGamePhase() == game.getGamePhase() && getTurnPhase() == game.getTurnPhase() && Objects.equals(getWinner(), game.getWinner());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(players, getTable(), assistantCard, getCurrentPlayer(), getFirstPlayerTurn(), getRound(), getActiveCharacterCard(), getBasicState(), getStudentNumberMovement(), getNumberOfTowersPerPlayer(), getNumberStudentsEntrance(), getGamePhase(), getTurnPhase(), getWinner());
     }
 }
