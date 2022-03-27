@@ -157,6 +157,38 @@ public class SchoolBoard {
         return professorTable.get(colour);
     }
 
+    /**
+     * Return the total number of student if the entrance
+     *
+     * @return the total number of student if the entrance
+     */
+    public int getNumberStudentsEntrance() {
+        int count = 0;
+
+        for (Colour colour : Colour.values()) {
+            count += getEntrance(colour);
+        }
+
+        return count;
+    }
+
+    /**
+     * Return the number of professor
+     *
+     * @return the number of professor
+     */
+    public int getNumberOfProfessors() {
+        int count = 0;
+
+        for (Colour colour : Colour.values()) {
+            if (hasProfessor(colour)) {
+                count++;
+            }
+        }
+
+        return count;
+    }
+
     /*
     TOWERS
      */
@@ -184,27 +216,5 @@ public class SchoolBoard {
      */
     public void removeTower(int num) {
         towers -= num;
-    }
-
-    public int getNumberStudentsEntrance() {
-        int count = 0;
-
-        for (Colour colour : Colour.values()) {
-            count += getEntrance(colour);
-        }
-
-        return count;
-    }
-
-    public int getNumberOfProfessors() {
-        int count = 0;
-
-        for (Colour colour : Colour.values()) {
-            if (hasProfessor(colour)) {
-                count++;
-            }
-        }
-
-        return count;
     }
 }

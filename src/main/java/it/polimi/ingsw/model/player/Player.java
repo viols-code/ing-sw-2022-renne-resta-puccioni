@@ -28,13 +28,13 @@ public abstract class Player {
      */
     protected final Set<AssistantCard> assistantCardSet;
     /**
-     * the school board associated to the player
-     */
-    protected final SchoolBoard schoolBoard;
-    /**
      * card played by the player in the current round
      */
     protected AssistantCard currentAssistantCard;
+    /**
+     * the school board associated to the player
+     */
+    protected final SchoolBoard schoolBoard;
     /**
      * true if the player has already played in the round, false otherwise
      */

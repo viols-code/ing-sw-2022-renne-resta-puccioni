@@ -74,6 +74,10 @@ public class ExpertGame extends Game {
         super.activeCharacterCard = card;
     }
 
+    /*
+    HAS PLAYED CHARACTER CARD
+     */
+
     /**
      * Get hasPlayedCharacterCard
      *
@@ -94,6 +98,10 @@ public class ExpertGame extends Game {
         this.hasPlayedCharacterCard = hasPlayedCharacterCard;
     }
 
+    /*
+    PROTECT ISLAND
+     */
+
     /**
      * Return true if the game has the ProtectIsland card
      *
@@ -107,6 +115,10 @@ public class ExpertGame extends Game {
         }
         return false;
     }
+
+    /*
+    COINS
+     */
 
     /**
      * Gets the number of coins available on the table

@@ -142,6 +142,10 @@ public abstract class GroupIsland {
         influencePlayer = newInfluencePlayer;
     }
 
+    /*
+    NO ENTRY TILE
+     */
+
     /**
      * Get the no entry tile
      *

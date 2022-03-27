@@ -21,14 +21,6 @@ public abstract class Game {
      */
     protected final List<Player> players;
     /**
-     * the table of the game
-     */
-    protected final Table table;
-    /**
-     * A List containing the assistant cards
-     */
-    protected final List<AssistantCard> assistantCard;
-    /**
      * Identifies the player who's playing his turn
      */
     protected Player currentPlayer;
@@ -36,6 +28,10 @@ public abstract class Game {
      * the first player of the current round
      */
     protected Player firstPlayerTurn;
+    /**
+     * the table of the game
+     */
+    protected final Table table;
     /**
      * Number of the current round
      */
@@ -48,6 +44,10 @@ public abstract class Game {
      * the basic state
      */
     protected CharacterCard basicState;
+    /**
+     * A List containing the assistant cards
+     */
+    protected final List<AssistantCard> assistantCard;
     /**
      * Number of student that each Player has to move in a round
      */
@@ -489,13 +489,18 @@ public abstract class Game {
      */
 
     /**
-     * Set hasProtectIsland
+     * Return true if the game has the ProtectIsland card
      *
-     * @throws IllegalAccessError if the game mode is basic
+     * @return true if the game has the ProtectIsland card, false otherwise
+     * @throws IllegalAccessError if the game is basic
      */
-    public void setHasProtectIsland() throws IllegalAccessError {
+    public boolean hasProtectIslandCard() throws IllegalAccessError {
         throw new IllegalAccessError("This is for the Expert Mode");
     }
+
+    /*
+    HAS PLAYED CHARACTER CARD
+     */
 
     /**
      * Get hasPlayedCharacterCard
@@ -517,6 +522,10 @@ public abstract class Game {
         throw new IllegalAccessError("This is for the Expert Mode");
     }
 
+    /*
+    COINS
+     */
+
     /**
      * Gets the number of coins available on the table
      *
@@ -534,16 +543,6 @@ public abstract class Game {
      * @throws IllegalAccessError if the game is not expert
      */
     public void setCoins(int coins) throws IllegalAccessError {
-        throw new IllegalAccessError("This is for the Expert Mode");
-    }
-
-    /**
-     * Return true if the game has the ProtectIsland card
-     *
-     * @return true if the game has the ProtectIsland card, false otherwise
-     * @throws IllegalAccessError if the game is basic
-     */
-    public boolean hasProtectIslandCard() throws IllegalAccessError {
         throw new IllegalAccessError("This is for the Expert Mode");
     }
 }

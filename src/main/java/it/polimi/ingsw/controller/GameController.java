@@ -35,6 +35,7 @@ public class GameController {
      * Constructor: creates a GameController
      *
      * @param isGameExpert indicates if the game is in the expert mode
+     * @param numberOfPlayer indicates the numberOfPlayer
      */
     public GameController(boolean isGameExpert, int numberOfPlayer) {
         this.isGameExpert = isGameExpert;
@@ -84,10 +85,13 @@ public class GameController {
 
     }
 
-    public Game getGame() {
-        return game;
-    }
+    /*
+    SETTING PHASE
+    */
 
+    /**
+     * Setting the bag and the students on the SingleIsland
+     */
     private void settingBag() {
         for (Colour colour : Colour.values()) {
             for (int i = 0; i < 2; i++) {
@@ -107,12 +111,18 @@ public class GameController {
         }
     }
 
+    /**
+     * Setting the cloudTiles
+     */
     private void settingCloudTile() {
         for (int i = 0; i < numberOfPlayer; i++) {
             createCloudTile();
         }
     }
 
+    /**
+     * Setting the integer for the control of the game
+     */
     private void settingInteger() {
         game.getTable().setMotherNaturePosition(0);
         if (numberOfPlayer == 3) {
@@ -126,12 +136,39 @@ public class GameController {
         }
     }
 
+    /**
+     * Setting the CharacterCard
+     */
     private void settingCard() {
         for (int i = 0; i < 3; i++) {
             game.getCharacterCardsByIndex(i).setting();
         }
     }
 
+    /*
+    GAME
+     */
+
+    /**
+     * Get the instance of the Game
+     *
+     * @return the Game
+     */
+    public Game getGame() {
+        return game;
+    }
+
+
+    /*
+    CharacterCard Playing
+     */
+
+    /**
+     * Playing CharacterCard
+     *
+     * @param player the index of the player
+     * @param characterCard the index of the CharacterCard
+     */
     public void playCharacterCard(int player, int characterCard) {
         if (isGameExpert && player >= 0 && player < numberOfPlayer && characterCard >= 0 && characterCard < 3) {
             if (game.getGamePhase() == GamePhase.PLAYING) {
@@ -150,6 +187,12 @@ public class GameController {
         }
     }
 
+    /**
+     * Playing AssistantCard
+     *
+     * @param player the index of the player
+     * @param assistantCard the index of the AssistantCard
+     */
     public void playAssistantCard(int player, int assistantCard) {
         if (player >= 0 && player < numberOfPlayer && assistantCard >= 0 && assistantCard < 10) {
             if (game.getGamePhase() == GamePhase.PLAY_ASSISTANT_CARD) {
@@ -172,6 +215,13 @@ public class GameController {
         }
     }
 
+    /**
+     * Check if the player can play an AssistantCard
+     *
+     * @param player the index of the player
+     * @param assistantCard the index of the AssistantCard
+     * @return true if the Player can play the AssistantCard, false otherwise
+     */
     private boolean canPlayAssistantCard(int player, int assistantCard) {
         for (int i = 0; i < player; i++) {
             if (game.getPlayerByIndex(i).getHasAlreadyPlayed()) {
