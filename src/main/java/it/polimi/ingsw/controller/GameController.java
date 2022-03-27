@@ -291,15 +291,12 @@ public class GameController {
      */
     public void addPlayer(String nickname, Wizard wizard) {
         if (game.getNumberOfPlayer() < numberOfPlayer && game.getGamePhase() == GamePhase.SETTING) {
-            if (isGameExpert) {
-                if (checkUniqueNickname(nickname)) {
-                    if (checkUniqueWizard(wizard)) { //altrimenti mandiamo un messaggio di cambiare nickname/wizard
+            if(checkUniqueNickname(nickname)){
+                if(checkUniqueWizard(wizard)){
+                    if(isGameExpert){
                         game.addPlayer(new ExpertPlayer(nickname, wizard));
-                    }
-                }
-            } else {
-                if (checkUniqueNickname(nickname)) {
-                    if (checkUniqueWizard(wizard)) {
+                        game.setCoins(game.getCoins() - 1);
+                    } else{
                         game.addPlayer(new BasicPlayer(nickname, wizard));
                     }
                 }
@@ -457,7 +454,5 @@ public class GameController {
                 return;
             }
         }
-
-
     }
 }
