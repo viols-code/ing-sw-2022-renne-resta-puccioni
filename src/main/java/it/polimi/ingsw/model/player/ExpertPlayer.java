@@ -29,7 +29,7 @@ public class ExpertPlayer extends Player {
      *
      * @return the number of coins
      */
-    public int getCoins() throws IllegalAccessError {
+    public int getCoins() {
         return coins;
     }
 
@@ -38,7 +38,7 @@ public class ExpertPlayer extends Player {
      *
      * @param num the number of coins to add to the player
      */
-    public void addCoins(int num) throws IllegalAccessError {
+    public void addCoins(int num) {
         coins += num;
     }
 
@@ -47,7 +47,7 @@ public class ExpertPlayer extends Player {
      *
      * @param num the number of coins to remove to the player
      */
-    public void removeCoins(int num) throws IllegalAccessError {
+    public void removeCoins(int num) {
         coins -= num;
     }
 
