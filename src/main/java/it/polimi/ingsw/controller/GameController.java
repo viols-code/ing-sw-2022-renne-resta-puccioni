@@ -141,7 +141,7 @@ public class GameController {
      */
     private void settingCard() {
         for (int i = 0; i < 3; i++) {
-            game.getCharacterCardsByIndex(i).setting();
+            game.getCharacterCardByIndex(i).setting();
         }
     }
 
@@ -174,13 +174,13 @@ public class GameController {
             if (game.getGamePhase() == GamePhase.PLAYING) {
                 if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
                     if (!game.getHasPlayedCharacterCard() &&
-                            game.getCurrentPlayer().getCoins() >= game.getCharacterCardsByIndex(characterCard).getCost()) {
-                        game.setActiveCharacterCard(game.getCharacterCardsByIndex(characterCard));
+                            game.getCurrentPlayer().getCoins() >= game.getCharacterCardByIndex(characterCard).getCost()) {
+                        game.setActiveCharacterCard(game.getCharacterCardByIndex(characterCard));
                         game.setHasPlayedCharacterCard(true);
-                        game.getCurrentPlayer().removeCoins(game.getCharacterCardsByIndex(characterCard).getCost());
-                        game.getCharacterCardsByIndex(characterCard).incrementCost();
-                        game.setCoins(game.getCoins() + game.getCharacterCardsByIndex(characterCard).getCost() - 1);
-                        game.getCharacterCardsByIndex(characterCard).professor();
+                        game.getCurrentPlayer().removeCoins(game.getCharacterCardByIndex(characterCard).getCost());
+                        game.getCharacterCardByIndex(characterCard).incrementCost();
+                        game.setCoins(game.getCoins() + game.getCharacterCardByIndex(characterCard).getCost() - 1);
+                        game.getCharacterCardByIndex(characterCard).professor();
                     }
                 }
             }
