@@ -22,7 +22,7 @@ public class ThreeStudent extends CharacterCard {
     @Override
     protected void effect() {
         int n;
-        for(int i=0; i< game.getNumberOfPlayer();i++) {
+        for (int i = 0; i < game.getNumberOfPlayer(); i++) {
             n = game.getPlayerByIndex(i).getSchoolBoard().getDiningRoom(colour);
             for (int j = 0; j < n && j < 3; j++) {
                 game.getPlayerByIndex(i).getSchoolBoard().removeStudentFromDiningRoom(colour);

@@ -21,7 +21,7 @@ class ExchangeEntranceDiningRoomTest {
         cardTest = new ExchangeEntranceDiningRoom(gameTest);
         gameTest.addCharacterCard(cardTest);
         gameTest.addPlayer(new ExpertPlayer("sara", Wizard.TYPE_2));
-        gameTest.addPlayer(new ExpertPlayer("viola",Wizard.TYPE_3));
+        gameTest.addPlayer(new ExpertPlayer("viola", Wizard.TYPE_3));
         for (int i = 0; i < 12; i++) {
             gameTest.getTable().addGroupIsland(new BasicGroupIsland());
         }
@@ -44,15 +44,15 @@ class ExchangeEntranceDiningRoomTest {
 
     @Test
     void setColourDiningRoomEntrance() {
-        cardTest.setColourDiningRoomEntrance(Colour.YELLOW,Colour.GREEN);
-        assertEquals(Colour.YELLOW,cardTest.getColourDiningRoom());
-        assertEquals(Colour.GREEN,cardTest.getColourEntrance());
+        cardTest.setColourDiningRoomEntrance(Colour.YELLOW, Colour.GREEN);
+        assertEquals(Colour.YELLOW, cardTest.getColourDiningRoom());
+        assertEquals(Colour.GREEN, cardTest.getColourEntrance());
         assertTrue(gameTest.getPlayerByIndex(0).getSchoolBoard().hasProfessor(Colour.YELLOW));
         assertTrue(gameTest.getPlayerByIndex(1).getSchoolBoard().hasProfessor(Colour.GREEN));
         assertFalse(gameTest.getPlayerByIndex(0).getSchoolBoard().hasProfessor(Colour.GREEN));
-        cardTest.setColourDiningRoomEntrance(Colour.YELLOW,Colour.GREEN);
-        assertEquals(Colour.YELLOW,cardTest.getColourDiningRoom());
-        assertEquals(Colour.GREEN,cardTest.getColourEntrance());
+        cardTest.setColourDiningRoomEntrance(Colour.YELLOW, Colour.GREEN);
+        assertEquals(Colour.YELLOW, cardTest.getColourDiningRoom());
+        assertEquals(Colour.GREEN, cardTest.getColourEntrance());
         assertTrue(gameTest.getPlayerByIndex(0).getSchoolBoard().hasProfessor(Colour.YELLOW));
         assertTrue(gameTest.getPlayerByIndex(0).getSchoolBoard().hasProfessor(Colour.GREEN));
         assertFalse(gameTest.getPlayerByIndex(1).getSchoolBoard().hasProfessor(Colour.GREEN));

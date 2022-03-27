@@ -1,38 +1,37 @@
 package it.polimi.ingsw.model.card;
 
-import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.ExpertGame;
 import it.polimi.ingsw.model.game.Game;
 import it.polimi.ingsw.model.player.ExpertPlayer;
-import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.Wizard;
 import it.polimi.ingsw.model.table.island.BasicGroupIsland;
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class NoColourTest {
     private Game gameTest;
     private NoColour cardTest;
+
     @BeforeEach
     void setUp() {
         gameTest = new ExpertGame();
         cardTest = new NoColour(gameTest);
         gameTest.addCharacterCard(cardTest);
-        gameTest.addPlayer(new ExpertPlayer("sara",Wizard.TYPE_2));
-        gameTest.addPlayer(new ExpertPlayer("sara",Wizard.TYPE_3));
+        gameTest.addPlayer(new ExpertPlayer("sara", Wizard.TYPE_2));
+        gameTest.addPlayer(new ExpertPlayer("sara", Wizard.TYPE_3));
         for (int i = 0; i < 12; i++) {
             gameTest.getTable().addGroupIsland(new BasicGroupIsland());
-    }}
+        }
+    }
 
     @Test
     void setColour() {
-        for(Colour colour1: Colour.values()){
+        for (Colour colour1 : Colour.values()) {
             cardTest.setColour(colour1);
-            assertEquals(colour1,cardTest.getColour());
+            assertEquals(colour1, cardTest.getColour());
         }
     }
 
@@ -48,7 +47,7 @@ class NoColourTest {
         gameTest.getPlayerByIndex(1).getSchoolBoard().addProfessor(Colour.YELLOW);
         cardTest.setColour(Colour.PINK);
         cardTest.calculateInfluence(0);
-        assertEquals(gameTest.getPlayerByIndex(1),gameTest.getTable().getGroupIslandByIndex(0).getInfluence());
+        assertEquals(gameTest.getPlayerByIndex(1), gameTest.getTable().getGroupIslandByIndex(0).getInfluence());
     }
 
 }

@@ -52,7 +52,7 @@ class GameControllerTest {
     }
 
     @Test
-    void playCharacterCard(){
+    void playCharacterCard() {
         gameController.addPlayer("Viola", Wizard.TYPE_3);
         gameController.addPlayer("Laura", Wizard.TYPE_4);
         Game game = gameController.getGame();

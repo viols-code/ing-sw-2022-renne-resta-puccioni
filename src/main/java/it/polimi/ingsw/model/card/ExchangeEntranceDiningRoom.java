@@ -70,7 +70,11 @@ public class ExchangeEntranceDiningRoom extends CharacterCard {
         times += 1;
     }
 
-    protected Colour getColourEntrance(){return colourEntrance;}
+    protected Colour getColourEntrance() {
+        return colourEntrance;
+    }
 
-    protected Colour getColourDiningRoom(){return colourDiningRoom;}
+    protected Colour getColourDiningRoom() {
+        return colourDiningRoom;
+    }
 }

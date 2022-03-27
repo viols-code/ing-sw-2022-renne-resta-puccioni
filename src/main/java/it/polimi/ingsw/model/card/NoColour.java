@@ -54,6 +54,8 @@ public class NoColour extends CharacterCard {
         return influence;
     }
 
-    protected Colour getColour(){return colour;}
+    protected Colour getColour() {
+        return colour;
+    }
 
 }

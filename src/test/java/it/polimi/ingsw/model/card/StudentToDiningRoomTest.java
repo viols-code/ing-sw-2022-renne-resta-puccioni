@@ -5,7 +5,6 @@ import it.polimi.ingsw.model.game.ExpertGame;
 import it.polimi.ingsw.model.game.Game;
 import it.polimi.ingsw.model.player.ExpertPlayer;
 import it.polimi.ingsw.model.player.Wizard;
-import it.polimi.ingsw.model.table.island.BasicGroupIsland;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -25,11 +24,11 @@ class StudentToDiningRoomTest {
         cardTest = new StudentToDiningRoom(gameTest);
         gameTest.addCharacterCard(cardTest);
         gameTest.addPlayer(new ExpertPlayer("sara", Wizard.TYPE_2));
-        gameTest.addPlayer(new ExpertPlayer("viola",Wizard.TYPE_3));
+        gameTest.addPlayer(new ExpertPlayer("viola", Wizard.TYPE_3));
         gameTest.setCurrentPlayer(gameTest.getPlayerByIndex(0));
         settingBag();
         cardTest.setting();
-        for(Colour colour: Colour.values()){
+        for (Colour colour : Colour.values()) {
             gameTest.getPlayerByIndex(0).getSchoolBoard().addStudentToDiningRoom(colour);
             gameTest.getPlayerByIndex(1).getSchoolBoard().addStudentToDiningRoom(colour);
             gameTest.getPlayerByIndex(1).getSchoolBoard().addProfessor(colour);
@@ -42,14 +41,14 @@ class StudentToDiningRoomTest {
 
     @Test
     void setColour() {
-        List<Colour> colourList=new ArrayList<>();
-        for(Colour colour: Colour.values()){
-            if(cardTest.getStudents(colour)>0){
+        List<Colour> colourList = new ArrayList<>();
+        for (Colour colour : Colour.values()) {
+            if (cardTest.getStudents(colour) > 0) {
                 colourList.add(colour);
             }
         }
         cardTest.setColour(colourList.get(0));
-        assertEquals(2,gameTest.getPlayerByIndex(0).getSchoolBoard().getDiningRoom(colourList.get(0)));
+        assertEquals(2, gameTest.getPlayerByIndex(0).getSchoolBoard().getDiningRoom(colourList.get(0)));
         assertTrue(gameTest.getPlayerByIndex(0).getSchoolBoard().hasProfessor(colourList.get(0)));
         assertFalse(gameTest.getPlayerByIndex(1).getSchoolBoard().hasProfessor(colourList.get(0)));
     }

@@ -64,7 +64,7 @@ public class StudentToDiningRoom extends CharacterCard {
         this.effect();
     }
 
-    protected int getStudents(Colour colour){
+    protected int getStudents(Colour colour) {
         return students.get(colour);
     }
 
