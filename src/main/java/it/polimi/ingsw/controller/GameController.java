@@ -303,9 +303,13 @@ public class GameController {
                         if (checkStudentsMovement(player) && game.getPlayerByIndex(player).getSchoolBoard().getDiningRoom(colour) < 10) {
                             game.getPlayerByIndex(player).getSchoolBoard().removeStudentFromEntrance(colour);
                             game.getPlayerByIndex(player).getSchoolBoard().addStudentToDiningRoom(colour);
-                            if (isGameExpert && ((game.getPlayerByIndex(player).getSchoolBoard().getDiningRoom(colour) + 1) % 3) == 0 && game.getCoins() > 0) {
-                                game.getPlayerByIndex(player).addCoins(1);
-                                game.setCoins(game.getCoins() - 1);
+                            try {
+                                if (isGameExpert && ((game.getPlayerByIndex(player).getSchoolBoard().getDiningRoom(colour) + 1) % 3) == 0 && game.getCoins() > 0) {
+                                    game.getPlayerByIndex(player).addCoins(1);
+                                    game.setCoins(game.getCoins() - 1);
+                                }
+                            }catch(IllegalAccessError ex){
+                                ex.printStackTrace();
                             }
                             if (!game.getCurrentPlayer().getSchoolBoard().hasProfessor(colour)) {
                                 game.getActiveCharacterCard().checkProfessor(colour);
@@ -425,7 +429,12 @@ public class GameController {
                 if(checkUniqueWizard(wizard)){
                     if(isGameExpert){
                         game.addPlayer(new ExpertPlayer(nickname, wizard));
-                        game.setCoins(game.getCoins() - 1);
+                        try {
+                            game.setCoins(game.getCoins() - 1);
+                        }catch(IllegalAccessError ex){
+                            ex.printStackTrace();
+                        }
+
                     } else{
                         game.addPlayer(new BasicPlayer(nickname, wizard));
                     }
