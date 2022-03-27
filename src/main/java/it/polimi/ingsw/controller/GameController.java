@@ -529,7 +529,7 @@ public class GameController {
             if (groupIsland >= 0 && groupIsland < game.getTable().getNumberOfGroupIsland() && singleIsland >= 0 && singleIsland < game.getTable().getGroupIslandByIndex(groupIsland).getNumberOfSingleIsland())
                 game.getActiveCharacterCard().setColourAndIsland(colour, game.getTable().getGroupIslandByIndex(groupIsland).getIslandByIndex(singleIsland));
         }
-        catch (IllegalAccessError ex){
+        catch (IllegalAccessError | IllegalArgumentException ex){
             ex.printStackTrace();
         }
 
