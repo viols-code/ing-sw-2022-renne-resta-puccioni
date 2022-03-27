@@ -516,25 +516,53 @@ public class GameController {
 
 
     public void setColour(Colour colour) {
+        try{
         game.getActiveCharacterCard().setColour(colour);
+        }
+        catch (IllegalAccessError ex){
+            ex.printStackTrace();
+        }
     }
 
     public void setColourAndIsland(Colour colour, int groupIsland, int singleIsland) {
-        if (groupIsland >= 0 && groupIsland < game.getTable().getNumberOfGroupIsland() && singleIsland >= 0 && singleIsland < game.getTable().getGroupIslandByIndex(groupIsland).getNumberOfSingleIsland())
-            game.getActiveCharacterCard().setColourAndIsland(colour, game.getTable().getGroupIslandByIndex(groupIsland).getIslandByIndex(singleIsland));
+        try{
+            if (groupIsland >= 0 && groupIsland < game.getTable().getNumberOfGroupIsland() && singleIsland >= 0 && singleIsland < game.getTable().getGroupIslandByIndex(groupIsland).getNumberOfSingleIsland())
+                game.getActiveCharacterCard().setColourAndIsland(colour, game.getTable().getGroupIslandByIndex(groupIsland).getIslandByIndex(singleIsland));
+        }
+        catch (IllegalAccessError ex){
+            ex.printStackTrace();
+        }
+
     }
 
     public void setGroupIsland(int groupIsland) {
-        if (groupIsland >= 0 && groupIsland < game.getTable().getNumberOfGroupIsland())
-            game.getActiveCharacterCard().setGroupIsland(groupIsland);
+        try{
+            if (groupIsland >= 0 && groupIsland < game.getTable().getNumberOfGroupIsland())
+                game.getActiveCharacterCard().setGroupIsland(groupIsland);
+        }
+        catch (IllegalAccessError ex){
+            ex.printStackTrace();
+        }
     }
 
     public void setColourDiningRoomEntrance(Colour colourDiningRoom, Colour colourEntrance) {
-        game.getActiveCharacterCard().setColourDiningRoomEntrance(colourDiningRoom, colourEntrance);
+        try{
+            game.getActiveCharacterCard().setColourDiningRoomEntrance(colourDiningRoom, colourEntrance);
+        }
+        catch (IllegalAccessError ex){
+            ex.printStackTrace();
+        }
+
     }
 
     public void setColourCardEntrance(Colour colourCard, Colour colourEntrance) {
-        game.getActiveCharacterCard().setColourCardEntrance(colourCard, colourEntrance);
+        try{
+            game.getActiveCharacterCard().setColourCardEntrance(colourCard, colourEntrance);
+        }
+        catch (IllegalAccessError ex){
+            ex.printStackTrace();
+        }
+
     }
 
 
