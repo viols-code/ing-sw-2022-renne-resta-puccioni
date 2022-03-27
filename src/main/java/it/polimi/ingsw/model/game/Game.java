@@ -288,7 +288,7 @@ public abstract class Game {
      * @return the Character Card at the given index
      * @throws IllegalAccessError if the mode is basic
      */
-    public CharacterCard getCharacterCardsByIndex(int index) throws IllegalAccessError {
+    public CharacterCard getCharacterCardByIndex(int index) throws IllegalAccessError {
         throw new IllegalAccessError("This is for the Expert Mode");
     }
 

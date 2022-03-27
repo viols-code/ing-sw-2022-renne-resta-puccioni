@@ -40,7 +40,7 @@ public class ExpertGame extends Game {
      * @return the Character Card at the given index
      */
     @Override
-    public CharacterCard getCharacterCardsByIndex(int index) {
+    public CharacterCard getCharacterCardByIndex(int index) {
         return characterCards.get(index);
     }
 
@@ -74,6 +74,24 @@ public class ExpertGame extends Game {
         super.activeCharacterCard = card;
     }
 
+        /*
+    PROTECT ISLAND
+     */
+
+    /**
+     * Return true if the game has the ProtectIsland card
+     *
+     * @return true if the game has the ProtectIsland card, false otherwise
+     */
+    public boolean hasProtectIslandCard() {
+        for (int i = 0; i < characterCards.size(); i++) {
+            if (this.getCharacterCardByIndex(i) instanceof ProtectIsland) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /*
     HAS PLAYED CHARACTER CARD
      */
@@ -96,24 +114,6 @@ public class ExpertGame extends Game {
     @Override
     public void setHasPlayedCharacterCard(boolean hasPlayedCharacterCard) {
         this.hasPlayedCharacterCard = hasPlayedCharacterCard;
-    }
-
-    /*
-    PROTECT ISLAND
-     */
-
-    /**
-     * Return true if the game has the ProtectIsland card
-     *
-     * @return true if the game has the ProtectIsland card, false otherwise
-     */
-    public boolean hasProtectIslandCard() {
-        for (int i = 0; i < characterCards.size(); i++) {
-            if (this.getCharacterCardsByIndex(i) instanceof ProtectIsland) {
-                return true;
-            }
-        }
-        return false;
     }
 
     /*
