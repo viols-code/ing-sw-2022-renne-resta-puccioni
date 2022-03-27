@@ -561,7 +561,11 @@ public class GameController {
         }
     }
 
-
+    /**
+     * Sets the colour of the student
+     *
+     * @param colour the colour
+     */
     public void setColour(Colour colour) {
         try{
         game.getActiveCharacterCard().setColour(colour);
@@ -571,6 +575,13 @@ public class GameController {
         }
     }
 
+    /**
+     * Sets the parameters needed for the character card StudentToIsland
+     *
+     * @param colour colour of the student on the card
+     * @param groupIsland the group island chosen
+     * @param singleIsland the single island chosen
+     */
     public void setColourAndIsland(Colour colour, int groupIsland, int singleIsland) {
         try{
             if (groupIsland >= 0 && groupIsland < game.getTable().getNumberOfGroupIsland() && singleIsland >= 0 && singleIsland < game.getTable().getGroupIslandByIndex(groupIsland).getNumberOfSingleIsland())
@@ -582,6 +593,11 @@ public class GameController {
 
     }
 
+    /**
+     * Sets the group island in the character card IslandInfluence
+     *
+     * @param groupIsland the group island
+     */
     public void setGroupIsland(int groupIsland) {
         try{
             if (groupIsland >= 0 && groupIsland < game.getTable().getNumberOfGroupIsland())
@@ -592,6 +608,12 @@ public class GameController {
         }
     }
 
+    /**
+     * Sets the parameters for the character card ExchangeDiningRoomEntrance
+     *
+     * @param colourDiningRoom the student of the dining room
+     * @param colourEntrance the student of the entrance
+     */
     public void setColourDiningRoomEntrance(Colour colourDiningRoom, Colour colourEntrance) {
         try{
             game.getActiveCharacterCard().setColourDiningRoomEntrance(colourDiningRoom, colourEntrance);
@@ -602,6 +624,12 @@ public class GameController {
 
     }
 
+    /**
+     * Sets the parameter for the character card StudentToEntrance
+     *
+     * @param colourCard the student of the card
+     * @param colourEntrance the student of the entrance
+     */
     public void setColourCardEntrance(Colour colourCard, Colour colourEntrance) {
         try{
             game.getActiveCharacterCard().setColourCardEntrance(colourCard, colourEntrance);
