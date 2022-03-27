@@ -68,8 +68,10 @@ public class SchoolBoard {
      * Add a student of the given colour to the diningRoom
      *
      * @param colour the colour of the student to add to the diningRoom
+     * @throws IllegalArgumentException if there are already 10 students of that colour
      */
-    public void addStudentToDiningRoom(Colour colour) {
+    public void addStudentToDiningRoom(Colour colour) throws IllegalArgumentException {
+        if(getDiningRoom(colour)==10) throw new IllegalArgumentException("This table of the dining room is full");
         diningRoom.replace(colour, diningRoom.get(colour), diningRoom.get(colour) + 1);
     }
 
@@ -77,8 +79,10 @@ public class SchoolBoard {
      * Remove a student of the given colour from the diningRoom
      *
      * @param colour the colour of the student to remove from the diningRoom
+     * @throws IllegalArgumentException if there are no students of the colour selected
      */
-    public void removeStudentFromDiningRoom(Colour colour) {
+    public void removeStudentFromDiningRoom(Colour colour)throws IllegalArgumentException {
+        if(getDiningRoom(colour)==0)throw new IllegalArgumentException("There are no students of that colour in the dining room");
         diningRoom.replace(colour, diningRoom.get(colour), diningRoom.get(colour) - 1);
     }
 
@@ -107,8 +111,9 @@ public class SchoolBoard {
      * Add a student of the given colour to the entrance
      *
      * @param colour the colour of the student to add to the entrance
+     * @throws  IllegalArgumentException if the entrance is full
      */
-    public void addStudentToEntrance(Colour colour) {
+    public void addStudentToEntrance(Colour colour)throws IllegalArgumentException {
         entrance.replace(colour, entrance.get(colour), entrance.get(colour) + 1);
     }
 

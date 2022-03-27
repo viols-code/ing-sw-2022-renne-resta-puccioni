@@ -60,16 +60,19 @@ public class GameController {
                 }
             }
 
-            boolean hasProtectIsland = game.hasProtectIslandCard();
 
-            if (hasProtectIsland) {
-                for (int i = 0; i < 12; i++) {
-                    game.getTable().addGroupIsland(new AdvancedGroupIsland());
+            try {
+                if (game.hasProtectIslandCard()) {
+                    for (int i = 0; i < 12; i++) {
+                        game.getTable().addGroupIsland(new AdvancedGroupIsland());
+                    }
+                } else {
+                    for (int i = 0; i < 12; i++) {
+                        game.getTable().addGroupIsland(new BasicGroupIsland());
+                    }
                 }
-            } else {
-                for (int i = 0; i < 12; i++) {
-                    game.getTable().addGroupIsland(new BasicGroupIsland());
-                }
+            }catch(IllegalAccessError ex){
+                ex.printStackTrace();
             }
 
         } else {
@@ -101,7 +104,11 @@ public class GameController {
 
         for (int i = 1; i < 12; i++) {
             if (i == 6) i++;
-            game.getTable().getGroupIslandByIndex(i).getIslandByIndex(0).addStudent(game.getTable().getBag().bagDrawStudent());
+            try{
+                game.getTable().getGroupIslandByIndex(i).getIslandByIndex(0).addStudent(game.getTable().getBag().bagDrawStudent());
+            }catch(IllegalAccessError ex){
+                ex.printStackTrace();
+            }
         }
 
         for (Colour colour : Colour.values()) {
@@ -140,9 +147,16 @@ public class GameController {
      * Setting the CharacterCard
      */
     private void settingCard() {
+
         for (int i = 0; i < 3; i++) {
-            game.getCharacterCardByIndex(i).setting();
+            try{
+                game.getCharacterCardByIndex(i).setting();
+            }catch(IllegalAccessError ex){
+                ex.printStackTrace();
+            }
+
         }
+
     }
 
     /*
@@ -173,14 +187,18 @@ public class GameController {
         if (isGameExpert && player >= 0 && player < numberOfPlayer && characterCard >= 0 && characterCard < 3) {
             if (game.getGamePhase() == GamePhase.PLAYING) {
                 if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
-                    if (!game.getHasPlayedCharacterCard() &&
-                            game.getCurrentPlayer().getCoins() >= game.getCharacterCardByIndex(characterCard).getCost()) {
-                        game.setActiveCharacterCard(game.getCharacterCardByIndex(characterCard));
-                        game.setHasPlayedCharacterCard(true);
-                        game.getCurrentPlayer().removeCoins(game.getCharacterCardByIndex(characterCard).getCost());
-                        game.getCharacterCardByIndex(characterCard).incrementCost();
-                        game.setCoins(game.getCoins() + game.getCharacterCardByIndex(characterCard).getCost() - 1);
-                        game.getCharacterCardByIndex(characterCard).professor();
+                    try {
+                        if (!game.getHasPlayedCharacterCard() &&
+                                game.getCurrentPlayer().getCoins() >= game.getCharacterCardByIndex(characterCard).getCost()) {
+                            game.setActiveCharacterCard(game.getCharacterCardByIndex(characterCard));
+                            game.setHasPlayedCharacterCard(true);
+                            game.getCurrentPlayer().removeCoins(game.getCharacterCardByIndex(characterCard).getCost());
+                            game.getCharacterCardByIndex(characterCard).incrementCost();
+                            game.setCoins(game.getCoins() + game.getCharacterCardByIndex(characterCard).getCost() - 1);
+                            game.getCharacterCardByIndex(characterCard).professor();
+                        }
+                    }catch (IllegalAccessError ex){
+                        ex.printStackTrace();
                     }
                 }
             }
@@ -201,18 +219,22 @@ public class GameController {
         if (player >= 0 && player < numberOfPlayer && assistantCard >= 0 && assistantCard < 10) {
             if (game.getGamePhase() == GamePhase.PLAY_ASSISTANT_CARD) {
                 if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
-                    if (game.getPlayerByIndex(player).isAssistantCardPresent(game.getAssistantCard(assistantCard))) {
-                        if (canPlayAssistantCard(player, assistantCard)) {
-                            game.getPlayerByIndex(player).setCurrentAssistantCard(game.getAssistantCard(assistantCard));
-                            game.getPlayerByIndex(player).removeAssistantCard(game.getAssistantCard(assistantCard));
-                            game.getPlayerByIndex(player).setHasAlreadyPlayed(true);
+                    try {
+                        if (game.getPlayerByIndex(player).isAssistantCardPresent(game.getAssistantCard(assistantCard))) {
+                            if (canPlayAssistantCard(player, assistantCard)) {
+                                game.getPlayerByIndex(player).setCurrentAssistantCard(game.getAssistantCard(assistantCard));
+                                game.getPlayerByIndex(player).removeAssistantCard(game.getAssistantCard(assistantCard));
+                                game.getPlayerByIndex(player).setHasAlreadyPlayed(true);
 
-                            if (!endPhasePlay()) {
-                                game.setCurrentPlayer(game.nextPlayerClockwise());
-                            } else {
-                                endPlayAssistantCard();
+                                if (!endPhasePlay()) {
+                                    game.setCurrentPlayer(game.nextPlayerClockwise());
+                                } else {
+                                    endPlayAssistantCard();
+                                }
                             }
                         }
+                    }catch (IllegalArgumentException ex){
+                        ex.printStackTrace();
                     }
                 }
             }
@@ -229,8 +251,13 @@ public class GameController {
     private boolean canPlayAssistantCard(int player, int assistantCard) {
         for (int i = 0; i < player; i++) {
             if (game.getPlayerByIndex(i).getHasAlreadyPlayed()) {
-                if (game.getPlayerByIndex(i).getCurrentAssistantCard().equals(game.getAssistantCard(assistantCard)))
-                    return false;
+                try {
+                    if (game.getPlayerByIndex(i).getCurrentAssistantCard().equals(game.getAssistantCard(assistantCard)))
+                        return false;
+                }catch(IllegalArgumentException ex){
+                    ex.printStackTrace();
+                }
+
             }
         }
         return true;
@@ -279,12 +306,14 @@ public class GameController {
                     if (game.getPlayerByIndex(player).getSchoolBoard().getEntrance(colour) > 0) {
                         if (checkStudentsMovement(player) && game.getPlayerByIndex(player).getSchoolBoard().getDiningRoom(colour) < 10) {
                             game.getPlayerByIndex(player).getSchoolBoard().removeStudentFromEntrance(colour);
-
-                                game.getPlayerByIndex(player).getSchoolBoard().addStudentToDiningRoom(colour);
-
-                            if (isGameExpert && ((game.getPlayerByIndex(player).getSchoolBoard().getDiningRoom(colour) + 1) % 3) == 0 && game.getCoins() > 0) {
-                                game.getPlayerByIndex(player).addCoins(1);
-                                game.setCoins(game.getCoins() - 1);
+                            game.getPlayerByIndex(player).getSchoolBoard().addStudentToDiningRoom(colour);
+                            try {
+                                if (isGameExpert && ((game.getPlayerByIndex(player).getSchoolBoard().getDiningRoom(colour) + 1) % 3) == 0 && game.getCoins() > 0) {
+                                    game.getPlayerByIndex(player).addCoins(1);
+                                    game.setCoins(game.getCoins() - 1);
+                                }
+                            }catch(IllegalAccessError ex){
+                                ex.printStackTrace();
                             }
                             if (!game.getCurrentPlayer().getSchoolBoard().hasProfessor(colour)) {
                                 game.getActiveCharacterCard().checkProfessor(colour);
@@ -404,7 +433,12 @@ public class GameController {
                 if(checkUniqueWizard(wizard)){
                     if(isGameExpert){
                         game.addPlayer(new ExpertPlayer(nickname, wizard));
-                        game.setCoins(game.getCoins() - 1);
+                        try {
+                            game.setCoins(game.getCoins() - 1);
+                        }catch(IllegalAccessError ex){
+                            ex.printStackTrace();
+                        }
+
                     } else{
                         game.addPlayer(new BasicPlayer(nickname, wizard));
                     }
@@ -467,8 +501,13 @@ public class GameController {
 
         for (int i = 0; i < game.getStudentNumberMovement(); i++) {
             if (!game.getTable().getBag().isBagEmpty()) {
-                Colour colour1 = game.getTable().getBag().bagDrawStudent();
-                students.replace(colour1, students.get(colour1), students.get(colour1) + 1);
+                try{
+                    Colour colour1 = game.getTable().getBag().bagDrawStudent();
+                    students.replace(colour1, students.get(colour1), students.get(colour1) + 1);
+                }catch(IllegalAccessError ex){
+                    ex.printStackTrace();
+                }
+
             }
         }
 
@@ -482,7 +521,13 @@ public class GameController {
      * @param cloudTile index of the cloudTile
      */
     public void chooseCloudTile(int player, int cloudTile) {
-        game.setHasPlayedCharacterCard(false);
+        try{
+            if(isGameExpert)
+                game.setHasPlayedCharacterCard(false);
+        }catch (IllegalAccessError ex){
+            ex.printStackTrace();
+        }
+
         game.setActiveCharacterCard(game.getBasicState());
         if (cloudTile >= 0 && cloudTile < game.getTable().getNumberOfCloudTile()) {
             if (game.getGamePhase() == GamePhase.PLAYING && game.getTurnPhase() == TurnPhase.CHOOSE_CLOUD_TILE) {
@@ -516,27 +561,83 @@ public class GameController {
         }
     }
 
-
+    /**
+     * Sets the colour of the student
+     *
+     * @param colour the colour
+     */
     public void setColour(Colour colour) {
+        try{
         game.getActiveCharacterCard().setColour(colour);
+        }
+        catch (IllegalAccessError ex){
+            ex.printStackTrace();
+        }
     }
 
+    /**
+     * Sets the parameters needed for the character card StudentToIsland
+     *
+     * @param colour colour of the student on the card
+     * @param groupIsland the group island chosen
+     * @param singleIsland the single island chosen
+     */
     public void setColourAndIsland(Colour colour, int groupIsland, int singleIsland) {
-        if (groupIsland >= 0 && groupIsland < game.getTable().getNumberOfGroupIsland() && singleIsland >= 0 && singleIsland < game.getTable().getGroupIslandByIndex(groupIsland).getNumberOfSingleIsland())
-            game.getActiveCharacterCard().setColourAndIsland(colour, game.getTable().getGroupIslandByIndex(groupIsland).getIslandByIndex(singleIsland));
+        try{
+            if (groupIsland >= 0 && groupIsland < game.getTable().getNumberOfGroupIsland() && singleIsland >= 0 && singleIsland < game.getTable().getGroupIslandByIndex(groupIsland).getNumberOfSingleIsland())
+                game.getActiveCharacterCard().setColourAndIsland(colour, game.getTable().getGroupIslandByIndex(groupIsland).getIslandByIndex(singleIsland));
+        }
+        catch (IllegalAccessError | IllegalArgumentException ex){
+            ex.printStackTrace();
+        }
+
     }
 
+    /**
+     * Sets the group island in the character card IslandInfluence
+     *
+     * @param groupIsland the group island
+     */
     public void setGroupIsland(int groupIsland) {
-        if (groupIsland >= 0 && groupIsland < game.getTable().getNumberOfGroupIsland())
-            game.getActiveCharacterCard().setGroupIsland(groupIsland);
+        try{
+            if (groupIsland >= 0 && groupIsland < game.getTable().getNumberOfGroupIsland())
+                game.getActiveCharacterCard().setGroupIsland(groupIsland);
+        }
+        catch (IllegalAccessError ex){
+            ex.printStackTrace();
+        }
     }
 
+    /**
+     * Sets the parameters for the character card ExchangeDiningRoomEntrance
+     *
+     * @param colourDiningRoom the student of the dining room
+     * @param colourEntrance the student of the entrance
+     */
     public void setColourDiningRoomEntrance(Colour colourDiningRoom, Colour colourEntrance) {
-        game.getActiveCharacterCard().setColourDiningRoomEntrance(colourDiningRoom, colourEntrance);
+        try{
+            game.getActiveCharacterCard().setColourDiningRoomEntrance(colourDiningRoom, colourEntrance);
+        }
+        catch (IllegalAccessError ex){
+            ex.printStackTrace();
+        }
+
     }
 
+    /**
+     * Sets the parameter for the character card StudentToEntrance
+     *
+     * @param colourCard the student of the card
+     * @param colourEntrance the student of the entrance
+     */
     public void setColourCardEntrance(Colour colourCard, Colour colourEntrance) {
-        game.getActiveCharacterCard().setColourCardEntrance(colourCard, colourEntrance);
+        try{
+            game.getActiveCharacterCard().setColourCardEntrance(colourCard, colourEntrance);
+        }
+        catch (IllegalAccessError ex){
+            ex.printStackTrace();
+        }
+
     }
 
 
