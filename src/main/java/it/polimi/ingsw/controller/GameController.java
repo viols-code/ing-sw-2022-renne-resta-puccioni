@@ -104,7 +104,11 @@ public class GameController {
 
         for (int i = 1; i < 12; i++) {
             if (i == 6) i++;
-            game.getTable().getGroupIslandByIndex(i).getIslandByIndex(0).addStudent(game.getTable().getBag().bagDrawStudent());
+            try{
+                game.getTable().getGroupIslandByIndex(i).getIslandByIndex(0).addStudent(game.getTable().getBag().bagDrawStudent());
+            }catch(IllegalAccessError ex){
+                ex.printStackTrace();
+            }
         }
 
         for (Colour colour : Colour.values()) {
@@ -497,8 +501,13 @@ public class GameController {
 
         for (int i = 0; i < game.getStudentNumberMovement(); i++) {
             if (!game.getTable().getBag().isBagEmpty()) {
-                Colour colour1 = game.getTable().getBag().bagDrawStudent();
-                students.replace(colour1, students.get(colour1), students.get(colour1) + 1);
+                try{
+                    Colour colour1 = game.getTable().getBag().bagDrawStudent();
+                    students.replace(colour1, students.get(colour1), students.get(colour1) + 1);
+                }catch(IllegalAccessError ex){
+                    ex.printStackTrace();
+                }
+
             }
         }
 
