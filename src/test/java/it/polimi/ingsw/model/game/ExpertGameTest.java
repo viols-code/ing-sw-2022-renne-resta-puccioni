@@ -27,9 +27,9 @@ class ExpertGameTest {
 
     @Test
     void hasProtectedIslandCard() {
-        if (gameController.getGame().getCharacterCardsByIndex(0) instanceof ProtectIsland ||
-                gameController.getGame().getCharacterCardsByIndex(1) instanceof ProtectIsland ||
-                gameController.getGame().getCharacterCardsByIndex(2) instanceof ProtectIsland) {
+        if (gameController.getGame().getCharacterCardByIndex(0) instanceof ProtectIsland ||
+                gameController.getGame().getCharacterCardByIndex(1) instanceof ProtectIsland ||
+                gameController.getGame().getCharacterCardByIndex(2) instanceof ProtectIsland) {
             assertTrue(gameController.getGame().hasProtectIslandCard());
         } else {
             assertFalse(gameController.getGame().hasProtectIslandCard());
@@ -73,17 +73,17 @@ class ExpertGameTest {
         gameController.playAssistantCard(0, 0);
         gameController.playAssistantCard(1, 1);
         gameController.playAssistantCard(2, 2);
-        if(gameController.getGame().getCharacterCardsByIndex(0).getCost() == 1){
+        if(gameController.getGame().getCharacterCardByIndex(0).getCost() == 1){
             gameController.playCharacterCard(0, 0);
             assertTrue(gameController.getGame().getHasPlayedCharacterCard());
             assertEquals(0, gameController.getGame().getPlayerByIndex(0).getCoins());
             assertEquals(2, gameController.getGame().getActiveCharacterCard().getCost());
-        } else if(gameController.getGame().getCharacterCardsByIndex(1).getCost() == 1){
+        } else if(gameController.getGame().getCharacterCardByIndex(1).getCost() == 1){
             gameController.playCharacterCard(0, 1);
             assertTrue(gameController.getGame().getHasPlayedCharacterCard());
             assertEquals(0, gameController.getGame().getPlayerByIndex(0).getCoins());
             assertEquals(2, gameController.getGame().getActiveCharacterCard().getCost());
-        } else if(gameController.getGame().getCharacterCardsByIndex(2).getCost() == 1){
+        } else if(gameController.getGame().getCharacterCardByIndex(2).getCost() == 1){
             gameController.playCharacterCard(0, 2);
             assertTrue(gameController.getGame().getHasPlayedCharacterCard());
             assertEquals(0, gameController.getGame().getPlayerByIndex(0).getCoins());

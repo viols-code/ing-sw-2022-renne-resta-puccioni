@@ -120,7 +120,7 @@ class TwoPointsTest {
 
     private void settingCard() {
         for (int i = 0; i < gameTest.getNumberOfCharacterCard(); i++) {
-            gameTest.getCharacterCardsByIndex(i).setting();
+            gameTest.getCharacterCardByIndex(i).setting();
         }
     }
 }

@@ -521,13 +521,6 @@ public class GameController {
      * @param cloudTile index of the cloudTile
      */
     public void chooseCloudTile(int player, int cloudTile) {
-        try{
-            if(isGameExpert)
-                game.setHasPlayedCharacterCard(false);
-        }catch (IllegalAccessError ex){
-            ex.printStackTrace();
-        }
-
         game.setActiveCharacterCard(game.getBasicState());
         if (cloudTile >= 0 && cloudTile < game.getTable().getNumberOfCloudTile()) {
             if (game.getGamePhase() == GamePhase.PLAYING && game.getTurnPhase() == TurnPhase.CHOOSE_CLOUD_TILE) {
@@ -555,6 +548,14 @@ public class GameController {
                             endGame();
                         }
 
+                    }
+
+                    if(isGameExpert){
+                        try{
+                            game.setHasPlayedCharacterCard(false);
+                        }catch (IllegalAccessError ex){
+                            ex.printStackTrace();
+                        }
                     }
                 }
             }

@@ -144,7 +144,7 @@ class GameTest {
     @Test
     void getCharacterCardByIndex() {
 
-        IllegalAccessError exception = assertThrows(IllegalAccessError.class, () -> gameController.getGame().getCharacterCardsByIndex(0));
+        IllegalAccessError exception = assertThrows(IllegalAccessError.class, () -> gameController.getGame().getCharacterCardByIndex(0));
 
         String expectedMessage = "This is for the Expert Mode";
         String actualMessage = exception.getMessage();
