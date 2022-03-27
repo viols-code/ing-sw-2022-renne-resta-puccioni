@@ -27,7 +27,7 @@ public class ExpertGame extends Game {
         characterCards = new ArrayList<>();
         basicState = super.getActiveCharacterCard();
         hasPlayedCharacterCard = false;
-        coins = 20 - getNumberOfPlayer();
+        coins = 20;
     }
 
     /*
