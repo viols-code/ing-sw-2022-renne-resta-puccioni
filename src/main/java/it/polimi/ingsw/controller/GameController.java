@@ -480,6 +480,8 @@ public class GameController {
      * @param cloudTile index of the cloudTile
      */
     public void chooseCloudTile(int player, int cloudTile) {
+        game.setHasPlayedCharacterCard(false);
+        game.setActiveCharacterCard(game.getBasicState());
         if (cloudTile >= 0 && cloudTile < game.getTable().getNumberOfCloudTile()) {
             if (game.getGamePhase() == GamePhase.PLAYING && game.getTurnPhase() == TurnPhase.CHOOSE_CLOUD_TILE) {
                 if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
