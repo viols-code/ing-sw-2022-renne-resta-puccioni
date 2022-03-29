@@ -109,7 +109,6 @@ class GameTest {
 
     @Test
     void isCurrentPlayer() {
-
         Player player1 = new BasicPlayer("Laura", Wizard.TYPE_1);
         Player player2 = new BasicPlayer("Sara", Wizard.TYPE_2);
         gameController.getGame().setCurrentPlayer(player1);
@@ -144,7 +143,6 @@ class GameTest {
 
     @Test
     void getCharacterCardByIndex() {
-
         IllegalAccessError exception = assertThrows(IllegalAccessError.class, () -> gameController.getGame().getCharacterCardByIndex(0));
 
         String expectedMessage = "This is for the Expert Mode";
@@ -156,7 +154,6 @@ class GameTest {
 
     @Test
     void getNumberOfCharacterCard() {
-
         IllegalAccessError exception = assertThrows(IllegalAccessError.class, () -> gameController.getGame().getNumberOfCharacterCard());
 
         String expectedMessage = "This is for the Expert Mode";
@@ -167,7 +164,6 @@ class GameTest {
 
     @Test
     void addCharacterCard() {
-
         CharacterCard card1 = new NoColour(gameController.getGame());
         IllegalAccessError exception = assertThrows(IllegalAccessError.class, () -> gameController.getGame().addCharacterCard(card1));
 
@@ -179,7 +175,6 @@ class GameTest {
 
     @Test
     void setActiveCharacterCard() {
-
         CharacterCard card1 = new NoColour(gameController.getGame());
         IllegalAccessError exception = assertThrows(IllegalAccessError.class, () -> gameController.getGame().setActiveCharacterCard(card1));
 
@@ -259,6 +254,11 @@ class GameTest {
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void getAssistantCard(){
+        assertThrows(IllegalArgumentException.class, () -> gameController.getGame().getAssistantCard(10));
     }
 
 }
