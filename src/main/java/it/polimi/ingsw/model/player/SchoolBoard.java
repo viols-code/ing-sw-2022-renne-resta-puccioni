@@ -27,25 +27,19 @@ public class SchoolBoard {
 
     public SchoolBoard() {
         diningRoom = new HashMap<>();
-        diningRoom.put(Colour.GREEN, 0);
-        diningRoom.put(Colour.RED, 0);
-        diningRoom.put(Colour.YELLOW, 0);
-        diningRoom.put(Colour.PINK, 0);
-        diningRoom.put(Colour.BLUE, 0);
+        for(Colour colour: Colour.values()){
+            diningRoom.put(colour, 0);
+        }
 
         entrance = new HashMap<>();
-        entrance.put(Colour.GREEN, 0);
-        entrance.put(Colour.RED, 0);
-        entrance.put(Colour.YELLOW, 0);
-        entrance.put(Colour.PINK, 0);
-        entrance.put(Colour.BLUE, 0);
+        for(Colour colour: Colour.values()){
+            entrance.put(colour, 0);
+        }
 
         professorTable = new HashMap<>();
-        professorTable.put(Colour.GREEN, false);
-        professorTable.put(Colour.RED, false);
-        professorTable.put(Colour.YELLOW, false);
-        professorTable.put(Colour.PINK, false);
-        professorTable.put(Colour.BLUE, false);
+        for(Colour colour: Colour.values()){
+            professorTable.put(colour, false);
+        }
 
         towers = 0;
     }
