@@ -288,7 +288,9 @@ public abstract class CharacterCard {
         for (int i = 0; i < groupIsland2.getNumberOfSingleIsland(); i++) {
             groupIsland1.addSingleIsland(groupIsland2.getIslandByIndex(i));
             if(groupIsland2.isNoEntryTile()){
-                groupIsland1.addNoEntryTile();
+                for(int j = 0; j < groupIsland2.getNumberOfNoEntryTile(); j++){
+                    groupIsland1.addNoEntryTile();
+                }
             }
         }
         game.getTable().removeGroupIsland(groupIsland2);
