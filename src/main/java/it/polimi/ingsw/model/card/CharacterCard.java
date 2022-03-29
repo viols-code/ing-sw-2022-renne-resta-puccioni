@@ -85,16 +85,14 @@ public abstract class CharacterCard {
     public int calculateInfluencePlayer(Player player, GroupIsland groupIsland) {
         int influence = 0;
 
-        if (!groupIsland.isNoEntryTile()) {
-            for (Colour colour : Colour.values()) {
-                if (player.getSchoolBoard().hasProfessor(colour)) {
-                    influence += groupIsland.getNumberStudent(colour);
-                }
+        for (Colour colour : Colour.values()) {
+            if (player.getSchoolBoard().hasProfessor(colour)) {
+                influence += groupIsland.getNumberStudent(colour);
             }
+        }
 
-            if (player.equals(groupIsland.getInfluence())) {
-                influence += groupIsland.getNumberOfSingleIsland();
-            }
+        if (player.equals(groupIsland.getInfluence())) {
+            influence += groupIsland.getNumberOfSingleIsland();
         }
 
         return influence;
@@ -106,26 +104,30 @@ public abstract class CharacterCard {
      * @param groupIsland the groupIsland
      */
     public void calculateInfluence(int groupIsland) {
-        HashMap<Player, Integer> scores = new HashMap<>();
-        List<Player> res;
-        for (int i = 0; i < game.getNumberOfPlayer(); i++) {
-            scores.put(game.getPlayerByIndex(i), calculateInfluencePlayer(game.getPlayerByIndex(i), game.getTable().getGroupIslandByIndex(groupIsland)));
-        }
+        if(!game.getTable().getGroupIslandByIndex(groupIsland).isNoEntryTile()){
+            HashMap<Player, Integer> scores = new HashMap<>();
+            List<Player> res;
+            for (int i = 0; i < game.getNumberOfPlayer(); i++) {
+                scores.put(game.getPlayerByIndex(i), calculateInfluencePlayer(game.getPlayerByIndex(i), game.getTable().getGroupIslandByIndex(groupIsland)));
+            }
 
-        Integer maxInfluence = scores.values().stream().reduce(0, (y1, y2) -> {
-            if (y1 > y2) return y1;
-            else return y2;
-        });
+            Integer maxInfluence = scores.values().stream().reduce(0, (y1, y2) -> {
+                if (y1 > y2) return y1;
+                else return y2;
+            });
 
-        res = scores.entrySet()
-                .stream()
-                .filter(x -> x.getValue().equals(maxInfluence))
-                .map(Map.Entry::getKey)
-                .collect(Collectors.toList());
+            res = scores.entrySet()
+                    .stream()
+                    .filter(x -> x.getValue().equals(maxInfluence))
+                    .map(Map.Entry::getKey)
+                    .collect(Collectors.toList());
 
 
-        if (res.size() == 1) {
-            changeInfluenceGroupIsland(res.get(0), groupIsland);
+            if (res.size() == 1) {
+                changeInfluenceGroupIsland(res.get(0), groupIsland);
+            }
+        } else{
+            game.getTable().getGroupIslandByIndex(groupIsland).removeNoEntryTile();
         }
     }
 
