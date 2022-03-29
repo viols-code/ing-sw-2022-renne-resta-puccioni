@@ -77,7 +77,7 @@ class AdvancedGroupIslandTest {
     }
 
     @RepeatedTest(20)
-    void checkUnify(){
+    void checkUnify() {
         if (gameController.getGame().hasProtectIslandCard()) {
             gameController.addPlayer("Viola", Wizard.TYPE_3);
             gameController.addPlayer("Laura", Wizard.TYPE_2);

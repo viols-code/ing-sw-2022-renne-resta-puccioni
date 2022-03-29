@@ -27,17 +27,17 @@ public class SchoolBoard {
 
     public SchoolBoard() {
         diningRoom = new HashMap<>();
-        for(Colour colour: Colour.values()){
+        for (Colour colour : Colour.values()) {
             diningRoom.put(colour, 0);
         }
 
         entrance = new HashMap<>();
-        for(Colour colour: Colour.values()){
+        for (Colour colour : Colour.values()) {
             entrance.put(colour, 0);
         }
 
         professorTable = new HashMap<>();
-        for(Colour colour: Colour.values()){
+        for (Colour colour : Colour.values()) {
             professorTable.put(colour, false);
         }
 

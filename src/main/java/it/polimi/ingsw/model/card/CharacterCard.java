@@ -104,7 +104,7 @@ public abstract class CharacterCard {
      * @param groupIsland the groupIsland
      */
     public void calculateInfluence(int groupIsland) {
-        if(!game.getTable().getGroupIslandByIndex(groupIsland).isNoEntryTile()){
+        if (!game.getTable().getGroupIslandByIndex(groupIsland).isNoEntryTile()) {
             HashMap<Player, Integer> scores = new HashMap<>();
             List<Player> res;
             for (int i = 0; i < game.getNumberOfPlayer(); i++) {
@@ -126,7 +126,7 @@ public abstract class CharacterCard {
             if (res.size() == 1) {
                 changeInfluenceGroupIsland(res.get(0), groupIsland);
             }
-        } else{
+        } else {
             game.getTable().getGroupIslandByIndex(groupIsland).removeNoEntryTile();
         }
     }
@@ -153,7 +153,7 @@ public abstract class CharacterCard {
      * Set a new influence on an island
      *
      * @param influencePlayer the Player that influences the island
-     * @param groupIsland GroupIsland
+     * @param groupIsland     GroupIsland
      */
     private void setNewInfluencePlayer(Player influencePlayer, int groupIsland) {
         game.getTable().getGroupIslandByIndex(groupIsland).changeInfluence(influencePlayer);
@@ -293,8 +293,8 @@ public abstract class CharacterCard {
     protected void unifyGroupIsland(GroupIsland groupIsland1, GroupIsland groupIsland2) {
         for (int i = 0; i < groupIsland2.getNumberOfSingleIsland(); i++) {
             groupIsland1.addSingleIsland(groupIsland2.getIslandByIndex(i));
-            if(groupIsland2.isNoEntryTile()){
-                for(int j = 0; j < groupIsland2.getNumberOfNoEntryTile(); j++){
+            if (groupIsland2.isNoEntryTile()) {
+                for (int j = 0; j < groupIsland2.getNumberOfNoEntryTile(); j++) {
                     groupIsland1.addNoEntryTile();
                 }
             }

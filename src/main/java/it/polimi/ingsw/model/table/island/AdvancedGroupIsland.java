@@ -28,7 +28,7 @@ public class AdvancedGroupIsland extends GroupIsland {
     @Override
     public void addNoEntryTile() {
         numberOfNoEntryTile += 1;
-        if(!noEntryTile){
+        if (!noEntryTile) {
             this.noEntryTile = true;
         }
     }

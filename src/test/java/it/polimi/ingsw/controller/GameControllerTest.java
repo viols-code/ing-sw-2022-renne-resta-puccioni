@@ -1,7 +1,6 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.Colour;
-import it.polimi.ingsw.model.card.ProtectIsland;
 import it.polimi.ingsw.model.game.Game;
 import it.polimi.ingsw.model.game.GamePhase;
 import it.polimi.ingsw.model.game.TurnPhase;
@@ -1311,7 +1310,7 @@ class GameControllerTest {
     }
 
     @Test
-    void professorAreCorrect(){
+    void professorAreCorrect() {
         gameControllerTwo.addPlayer("Viola", Wizard.TYPE_3);
         gameControllerTwo.addPlayer("Laura", Wizard.TYPE_1);
 
@@ -1319,8 +1318,8 @@ class GameControllerTest {
         gameControllerTwo.playAssistantCard(1, 1);
 
         Colour colour1 = Colour.RED;
-        for(Colour colour: Colour.values()){
-            if(gameControllerTwo.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0){
+        for (Colour colour : Colour.values()) {
+            if (gameControllerTwo.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
                 colour1 = colour;
                 break;
             }
@@ -1329,8 +1328,8 @@ class GameControllerTest {
         gameControllerTwo.moveStudentToDiningRoom(0, colour1);
         assertTrue(gameControllerTwo.getGame().getPlayerByIndex(0).getSchoolBoard().hasProfessor(colour1));
 
-        for(Colour colour: Colour.values()){
-            if(gameControllerTwo.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0){
+        for (Colour colour : Colour.values()) {
+            if (gameControllerTwo.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
                 colour1 = colour;
                 break;
             }
@@ -1342,7 +1341,7 @@ class GameControllerTest {
     }
 
     @Test
-    void unify(){
+    void unify() {
         GameController gameController;
         gameController = new GameController(true, 2);
         gameController.addPlayer("Viola", Wizard.TYPE_1);
@@ -1353,29 +1352,29 @@ class GameControllerTest {
         gameController.playAssistantCard(1, 1);
 
         int j = 0;
-        while(j <= 3){
-            for(Colour colour: Colour.values()){
-                if(gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0){
+        while (j <= 3) {
+            for (Colour colour : Colour.values()) {
+                if (gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
                     gameController.moveStudentToDiningRoom(0, colour);
                     j++;
                 }
             }
         }
 
-        gameController.moveMotherNature(0,1);
+        gameController.moveMotherNature(0, 1);
         gameController.chooseCloudTile(0, 0);
 
         j = 0;
-        while(j <= 3){
-            for(Colour colour: Colour.values()){
-                if(gameController.getGame().getPlayerByIndex(1).getSchoolBoard().getEntrance(colour) > 0){
+        while (j <= 3) {
+            for (Colour colour : Colour.values()) {
+                if (gameController.getGame().getPlayerByIndex(1).getSchoolBoard().getEntrance(colour) > 0) {
                     gameController.moveStudentToIsland(1, colour, 2, 0);
                     j++;
                 }
             }
         }
 
-        gameController.moveMotherNature(1,1);
+        gameController.moveMotherNature(1, 1);
         gameController.chooseCloudTile(1, 0);
 
 
@@ -1384,29 +1383,29 @@ class GameControllerTest {
         gameController.playAssistantCard(1, 2);
 
         j = 0;
-        while(j <= 3){
-            for(Colour colour: Colour.values()){
-                if(gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0){
+        while (j <= 3) {
+            for (Colour colour : Colour.values()) {
+                if (gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
                     gameController.moveStudentToDiningRoom(0, colour);
                     j++;
                 }
             }
         }
 
-        gameController.moveMotherNature(0,1);
+        gameController.moveMotherNature(0, 1);
         gameController.chooseCloudTile(0, 0);
 
         j = 0;
-        while(j <= 3){
-            for(Colour colour: Colour.values()){
-                if(gameController.getGame().getPlayerByIndex(1).getSchoolBoard().getEntrance(colour) > 0){
+        while (j <= 3) {
+            for (Colour colour : Colour.values()) {
+                if (gameController.getGame().getPlayerByIndex(1).getSchoolBoard().getEntrance(colour) > 0) {
                     gameController.moveStudentToIsland(1, colour, 2, 0);
                     j++;
                 }
             }
         }
 
-        gameController.moveMotherNature(1,2);
+        gameController.moveMotherNature(1, 2);
         gameController.chooseCloudTile(1, 0);
 
         // Third turn
@@ -1414,29 +1413,29 @@ class GameControllerTest {
         gameController.playAssistantCard(1, 3);
 
         j = 0;
-        while(j <= 3){
-            for(Colour colour: Colour.values()){
-                if(gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0){
+        while (j <= 3) {
+            for (Colour colour : Colour.values()) {
+                if (gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
                     gameController.moveStudentToDiningRoom(0, colour);
                     j++;
                 }
             }
         }
 
-        gameController.moveMotherNature(0,1);
+        gameController.moveMotherNature(0, 1);
         gameController.chooseCloudTile(0, 0);
 
         j = 0;
-        while(j <= 3){
-            for(Colour colour: Colour.values()){
-                if(gameController.getGame().getPlayerByIndex(1).getSchoolBoard().getEntrance(colour) > 0){
+        while (j <= 3) {
+            for (Colour colour : Colour.values()) {
+                if (gameController.getGame().getPlayerByIndex(1).getSchoolBoard().getEntrance(colour) > 0) {
                     gameController.moveStudentToIsland(1, colour, 2, 0);
                     j++;
                 }
             }
         }
 
-        gameController.moveMotherNature(1,2);
+        gameController.moveMotherNature(1, 2);
         gameController.chooseCloudTile(1, 0);
 
     }
