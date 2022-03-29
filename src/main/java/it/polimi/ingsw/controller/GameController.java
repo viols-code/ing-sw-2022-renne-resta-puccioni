@@ -308,7 +308,7 @@ public class GameController {
                             try {
                                 game.getPlayerByIndex(player).getSchoolBoard().addStudentToDiningRoom(colour);
                                 game.getPlayerByIndex(player).getSchoolBoard().removeStudentFromEntrance(colour);
-                                if (isGameExpert && ((game.getPlayerByIndex(player).getSchoolBoard().getDiningRoom(colour) + 1) % 3) == 0 && game.getCoins() > 0) {
+                                if (isGameExpert && ((game.getPlayerByIndex(player).getSchoolBoard().getDiningRoom(colour)) % 3) == 0 && game.getCoins() > 0) {
                                     game.getPlayerByIndex(player).addCoins(1);
                                     game.setCoins(game.getCoins() - 1);
                                 }
