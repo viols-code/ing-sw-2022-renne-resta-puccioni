@@ -149,6 +149,12 @@ public abstract class CharacterCard {
         checkUnifyIsland(groupIsland);
     }
 
+    /**
+     * Set a new influence on an island
+     *
+     * @param influencePlayer the Player that influences the island
+     * @param groupIsland GroupIsland
+     */
     private void setNewInfluencePlayer(Player influencePlayer, int groupIsland) {
         game.getTable().getGroupIslandByIndex(groupIsland).changeInfluence(influencePlayer);
         if (influencePlayer.getSchoolBoard().getTowers() - game.getTable().getGroupIslandByIndex(groupIsland).getNumberOfSingleIsland() <= 0) {
