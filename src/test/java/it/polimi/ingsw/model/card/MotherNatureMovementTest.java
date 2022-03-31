@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.game.ExpertGame;
 import it.polimi.ingsw.model.game.Game;
 import it.polimi.ingsw.model.player.ExpertPlayer;
 import it.polimi.ingsw.model.player.Player;
+import it.polimi.ingsw.model.player.TowerColour;
 import it.polimi.ingsw.model.player.Wizard;
 import it.polimi.ingsw.model.table.island.BasicGroupIsland;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,7 +22,7 @@ class MotherNatureMovementTest {
     void setUp() {
         gameTest = new ExpertGame();
         cardTest = new MotherNatureMovement(gameTest);
-        player1 = new ExpertPlayer("Viola", Wizard.TYPE_4);
+        player1 = new ExpertPlayer("Viola", Wizard.TYPE_4, TowerColour.WHITE);
 
         gameTest.addPlayer(player1);
         player1.setCurrentAssistantCard(gameTest.getAssistantCard(0));

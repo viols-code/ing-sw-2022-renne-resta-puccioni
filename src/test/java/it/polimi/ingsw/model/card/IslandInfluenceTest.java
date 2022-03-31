@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.game.ExpertGame;
 import it.polimi.ingsw.model.game.Game;
 import it.polimi.ingsw.model.player.BasicPlayer;
 import it.polimi.ingsw.model.player.Player;
+import it.polimi.ingsw.model.player.TowerColour;
 import it.polimi.ingsw.model.player.Wizard;
 import it.polimi.ingsw.model.table.island.BasicGroupIsland;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,8 +33,8 @@ class IslandInfluenceTest {
         settingBag();
         settingCard();
 
-        player1 = new BasicPlayer("Viola", Wizard.TYPE_4);
-        player2 = new BasicPlayer("Laura", Wizard.TYPE_1);
+        player1 = new BasicPlayer("Viola", Wizard.TYPE_4, TowerColour.WHITE);
+        player2 = new BasicPlayer("Laura", Wizard.TYPE_1, TowerColour.BLACK);
 
         gameTest.addPlayer(player1);
         gameTest.addPlayer(player2);

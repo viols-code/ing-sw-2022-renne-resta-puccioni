@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.ExpertGame;
 import it.polimi.ingsw.model.game.Game;
 import it.polimi.ingsw.model.player.ExpertPlayer;
+import it.polimi.ingsw.model.player.TowerColour;
 import it.polimi.ingsw.model.player.Wizard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,8 +21,8 @@ class ThreeStudentTest {
         gameTest = new ExpertGame();
         cardTest = new ThreeStudent(gameTest);
         gameTest.addCharacterCard(cardTest);
-        gameTest.addPlayer(new ExpertPlayer("sara", Wizard.TYPE_2));
-        gameTest.addPlayer(new ExpertPlayer("viola", Wizard.TYPE_3));
+        gameTest.addPlayer(new ExpertPlayer("sara", Wizard.TYPE_2, TowerColour.WHITE));
+        gameTest.addPlayer(new ExpertPlayer("viola", Wizard.TYPE_3, TowerColour.BLACK));
         gameTest.setCurrentPlayer(gameTest.getPlayerByIndex(0));
         for (Colour colour : Colour.values()) {
             gameTest.getPlayerByIndex(0).getSchoolBoard().addStudentToDiningRoom(colour);

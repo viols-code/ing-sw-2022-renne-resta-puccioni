@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.Game;
 import it.polimi.ingsw.model.game.GamePhase;
 import it.polimi.ingsw.model.game.TurnPhase;
+import it.polimi.ingsw.model.player.TowerColour;
 import it.polimi.ingsw.model.player.Wizard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;
@@ -178,6 +179,7 @@ class GameControllerTest {
     void addPlayer() {
         gameControllerTwo.addPlayer("Viola", Wizard.TYPE_1);
         assertEquals(1, gameControllerTwo.getGame().getNumberOfPlayer());
+        assertEquals(TowerColour.WHITE, gameControllerTwo.getGame().getPlayerByIndex(0).getTowerColour());
 
         int size = 0;
         for (Colour colour : Colour.values()) {
@@ -205,7 +207,9 @@ class GameControllerTest {
     @Test
     void chooseCloudTile() {
         gameControllerTwo.addPlayer("Viola", Wizard.TYPE_1);
+        assertEquals(TowerColour.WHITE, gameControllerTwo.getGame().getPlayerByIndex(0).getTowerColour());
         gameControllerTwo.addPlayer("Laura", Wizard.TYPE_2);
+        assertEquals(TowerColour.BLACK, gameControllerTwo.getGame().getPlayerByIndex(1).getTowerColour());
         gameControllerTwo.playAssistantCard(0, 0);
         gameControllerTwo.playAssistantCard(1, 1);
         for (int i = 0; i < 3; i++) {
@@ -636,12 +640,14 @@ class GameControllerTest {
         assertEquals(6, gameControllerThree.getGame().getNumberOfTowersPerPlayer());
         assertNull(gameControllerThree.getGame().getCurrentPlayer());
         gameControllerThree.addPlayer("Viola", Wizard.TYPE_1);
+        assertEquals(TowerColour.WHITE, gameControllerThree.getGame().getPlayerByIndex(0).getTowerColour());
         assertEquals(1, gameControllerThree.getGame().getNumberOfPlayer());
         assertEquals("Viola", gameControllerThree.getGame().getPlayerByIndex(0).getNickname());
         assertEquals(Wizard.TYPE_1, gameControllerThree.getGame().getPlayerByIndex(0).getWizard());
         gameControllerThree.addPlayer("Laura", Wizard.TYPE_1);
         assertEquals(1, gameControllerThree.getGame().getNumberOfPlayer());
         gameControllerThree.addPlayer("Laura", Wizard.TYPE_3);
+        assertEquals(TowerColour.BLACK, gameControllerThree.getGame().getPlayerByIndex(1).getTowerColour());
         assertEquals("Laura", gameControllerThree.getGame().getPlayerByIndex(1).getNickname());
         assertEquals(Wizard.TYPE_3, gameControllerThree.getGame().getPlayerByIndex(1).getWizard());
         assertEquals(2, gameControllerThree.getGame().getNumberOfPlayer());
@@ -649,6 +655,7 @@ class GameControllerTest {
         assertEquals(GamePhase.SETTING, gameControllerThree.getGame().getGamePhase());
         assertEquals(2, gameControllerThree.getGame().getNumberOfPlayer());
         gameControllerThree.addPlayer("Sara", Wizard.TYPE_4);
+        assertEquals(TowerColour.GREY, gameControllerThree.getGame().getPlayerByIndex(2).getTowerColour());
         assertEquals(3, gameControllerThree.getGame().getNumberOfPlayer());
         assertEquals("Sara", gameControllerThree.getGame().getPlayerByIndex(2).getNickname());
         assertEquals(Wizard.TYPE_4, gameControllerThree.getGame().getPlayerByIndex(2).getWizard());

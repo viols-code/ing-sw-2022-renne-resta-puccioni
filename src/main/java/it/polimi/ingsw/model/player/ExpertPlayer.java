@@ -14,8 +14,8 @@ public class ExpertPlayer extends Player {
      * @param nickname a string with the nickname
      * @param wizard   the wizard chosen by the player
      */
-    public ExpertPlayer(String nickname, Wizard wizard) {
-        super(nickname, wizard);
+    public ExpertPlayer(String nickname, Wizard wizard, TowerColour towerColour) {
+        super(nickname, wizard, towerColour);
         coins = 1;
     }
 

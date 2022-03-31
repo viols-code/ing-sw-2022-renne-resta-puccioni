@@ -12,17 +12,18 @@ import java.util.Set;
  * @version 1.0
  */
 public abstract class Player {
-
     /**
      * the nickname of the player
      */
     protected final String nickname;
-
     /**
      * the wizard chosen by the player
      */
     protected final Wizard wizard;
-
+    /**
+     * The colour of the tower
+     */
+    protected final TowerColour towerColour;
     /**
      * a Set containing the AssistantCard of the player
      */
@@ -46,9 +47,10 @@ public abstract class Player {
      * @param nickname a string with the nickname
      * @param wizard   the wizard chosen by the player
      */
-    public Player(String nickname, Wizard wizard) {
+    public Player(String nickname, Wizard wizard, TowerColour towerColour) {
         this.nickname = nickname;
         this.wizard = wizard;
+        this.towerColour = towerColour;
         assistantCardSet = new HashSet<>();
         currentAssistantCard = null;
         schoolBoard = new SchoolBoard();
@@ -80,6 +82,13 @@ public abstract class Player {
     public Wizard getWizard() {
         return wizard;
     }
+
+    /**
+     * Get the TowerColour
+     *
+     * @return the towerColour
+     */
+    public TowerColour getTowerColour(){ return towerColour; }
 
 
     /*

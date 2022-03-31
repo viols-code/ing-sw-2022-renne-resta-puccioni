@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.ExpertGame;
 import it.polimi.ingsw.model.game.Game;
 import it.polimi.ingsw.model.player.ExpertPlayer;
+import it.polimi.ingsw.model.player.TowerColour;
 import it.polimi.ingsw.model.player.Wizard;
 import it.polimi.ingsw.model.table.island.BasicGroupIsland;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,8 +21,8 @@ class NoColourTest {
         gameTest = new ExpertGame();
         cardTest = new NoColour(gameTest);
         gameTest.addCharacterCard(cardTest);
-        gameTest.addPlayer(new ExpertPlayer("sara", Wizard.TYPE_2));
-        gameTest.addPlayer(new ExpertPlayer("sara", Wizard.TYPE_3));
+        gameTest.addPlayer(new ExpertPlayer("sara", Wizard.TYPE_2, TowerColour.WHITE));
+        gameTest.addPlayer(new ExpertPlayer("sara", Wizard.TYPE_3, TowerColour.GREY));
         for (int i = 0; i < 12; i++) {
             gameTest.getTable().addGroupIsland(new BasicGroupIsland());
         }

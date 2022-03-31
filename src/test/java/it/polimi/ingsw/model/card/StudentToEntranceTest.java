@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.game.ExpertGame;
 import it.polimi.ingsw.model.game.Game;
 import it.polimi.ingsw.model.player.ExpertPlayer;
 import it.polimi.ingsw.model.player.Player;
+import it.polimi.ingsw.model.player.TowerColour;
 import it.polimi.ingsw.model.player.Wizard;
 import it.polimi.ingsw.model.table.island.BasicGroupIsland;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,10 +19,10 @@ class StudentToEntranceTest {
     private StudentToEntrance cardTest;
     private Game gameTest;
     private Player player1;
-    private Player player2;
 
     @BeforeEach
     void setUp() {
+        Player player2;
         gameTest = new ExpertGame();
         cardTest = new StudentToEntrance(gameTest);
 
@@ -33,8 +34,8 @@ class StudentToEntranceTest {
         settingBag();
         settingCard();
 
-        player1 = new ExpertPlayer("Viola", Wizard.TYPE_3);
-        player2 = new ExpertPlayer("Laura", Wizard.TYPE_1);
+        player1 = new ExpertPlayer("Viola", Wizard.TYPE_3, TowerColour.WHITE);
+        player2 = new ExpertPlayer("Laura", Wizard.TYPE_1, TowerColour.BLACK);
 
         gameTest.addPlayer(player1);
         gameTest.addPlayer(player2);

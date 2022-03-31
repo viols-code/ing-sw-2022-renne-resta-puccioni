@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.game.ExpertGame;
 import it.polimi.ingsw.model.game.Game;
 import it.polimi.ingsw.model.player.ExpertPlayer;
 import it.polimi.ingsw.model.player.Player;
+import it.polimi.ingsw.model.player.TowerColour;
 import it.polimi.ingsw.model.player.Wizard;
 import it.polimi.ingsw.model.table.island.AdvancedGroupIsland;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,13 +17,13 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class ProtectIslandTest {
     private ProtectIsland cardTest;
     private Game gameTest;
-    private Player player1;
 
     @BeforeEach
     void setUp() {
+        Player player1;
         gameTest = new ExpertGame();
         cardTest = new ProtectIsland(gameTest);
-        player1 = new ExpertPlayer("Viola", Wizard.TYPE_4);
+        player1 = new ExpertPlayer("Viola", Wizard.TYPE_4, TowerColour.WHITE);
 
         gameTest.addPlayer(player1);
         player1.setCurrentAssistantCard(gameTest.getAssistantCard(0));

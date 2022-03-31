@@ -8,7 +8,7 @@ public class BasicPlayer extends Player {
      * @param nickname a string with the nickname
      * @param wizard   the wizard chosen by the player
      */
-    public BasicPlayer(String nickname, Wizard wizard) {
-        super(nickname, wizard);
+    public BasicPlayer(String nickname, Wizard wizard, TowerColour towerColour) {
+        super(nickname, wizard, towerColour);
     }
 }

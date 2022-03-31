@@ -4,6 +4,7 @@ import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.player.BasicPlayer;
 import it.polimi.ingsw.model.player.Player;
+import it.polimi.ingsw.model.player.TowerColour;
 import it.polimi.ingsw.model.player.Wizard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -88,7 +89,7 @@ class GroupIslandTest {
 
     @Test
     void changeInfluence() {
-        Player playerTest = new BasicPlayer("Viola", Wizard.TYPE_4);
+        Player playerTest = new BasicPlayer("Viola", Wizard.TYPE_4, TowerColour.WHITE);
         assertNull(gameController.getGame().getTable().getGroupIslandByIndex(0).getInfluence());
         gameController.getGame().getTable().getGroupIslandByIndex(0).changeInfluence(playerTest);
         assertEquals(playerTest, gameController.getGame().getTable().getGroupIslandByIndex(0).getInfluence());

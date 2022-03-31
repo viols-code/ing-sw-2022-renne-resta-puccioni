@@ -6,6 +6,7 @@ import it.polimi.ingsw.model.card.CharacterCard;
 import it.polimi.ingsw.model.card.NoColour;
 import it.polimi.ingsw.model.player.BasicPlayer;
 import it.polimi.ingsw.model.player.Player;
+import it.polimi.ingsw.model.player.TowerColour;
 import it.polimi.ingsw.model.player.Wizard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,19 +24,19 @@ class GameTest {
     @Test
     void addPlayer() {
         assertEquals(gameController.getGame().getActiveCharacterCard(), gameController.getGame().getBasicState());
-        Player player1 = new BasicPlayer("Laura", Wizard.TYPE_1);
+        Player player1 = new BasicPlayer("Laura", Wizard.TYPE_1, TowerColour.WHITE);
         gameController.getGame().addPlayer(player1);
         assertEquals(1, gameController.getGame().getNumberOfPlayer());
         assertEquals("Laura", gameController.getGame().getPlayerByIndex(0).getNickname());
         assertEquals(Wizard.TYPE_1, gameController.getGame().getPlayerByIndex(0).getWizard());
 
-        Player player2 = new BasicPlayer("Sara", Wizard.TYPE_3);
+        Player player2 = new BasicPlayer("Sara", Wizard.TYPE_3, TowerColour.BLACK);
         gameController.getGame().addPlayer(player2);
         assertEquals(2, gameController.getGame().getNumberOfPlayer());
         assertEquals("Sara", gameController.getGame().getPlayerByIndex(1).getNickname());
         assertEquals(Wizard.TYPE_3, gameController.getGame().getPlayerByIndex(1).getWizard());
 
-        Player player3 = new BasicPlayer("Viola", Wizard.TYPE_2);
+        Player player3 = new BasicPlayer("Viola", Wizard.TYPE_2, TowerColour.GREY);
         gameController.getGame().addPlayer(player3);
         assertEquals(3, gameController.getGame().getNumberOfPlayer());
         assertEquals("Viola", gameController.getGame().getPlayerByIndex(2).getNickname());
@@ -45,9 +46,9 @@ class GameTest {
     @Test
     void removePlayer() {
         assertEquals(gameController.getGame().getActiveCharacterCard(), gameController.getGame().getBasicState());
-        Player player1 = new BasicPlayer("Laura", Wizard.TYPE_1);
+        Player player1 = new BasicPlayer("Laura", Wizard.TYPE_1, TowerColour.WHITE);
         gameController.getGame().addPlayer(player1);
-        Player player2 = new BasicPlayer("Sara", Wizard.TYPE_3);
+        Player player2 = new BasicPlayer("Sara", Wizard.TYPE_3, TowerColour.BLACK);
         gameController.getGame().addPlayer(player2);
         gameController.getGame().removePlayer(player1);
         assertEquals(gameController.getGame().getActiveCharacterCard(), gameController.getGame().getBasicState());
@@ -65,9 +66,9 @@ class GameTest {
 
     @Test
     void nextPlayerClockwise() {
-        Player player1 = new BasicPlayer("Viola", Wizard.TYPE_2);
-        Player player2 = new BasicPlayer("Laura", Wizard.TYPE_3);
-        Player player3 = new BasicPlayer("Sara", Wizard.TYPE_3);
+        Player player1 = new BasicPlayer("Viola", Wizard.TYPE_2, TowerColour.WHITE);
+        Player player2 = new BasicPlayer("Laura", Wizard.TYPE_3, TowerColour.BLACK);
+        Player player3 = new BasicPlayer("Sara", Wizard.TYPE_3, TowerColour.GREY);
         gameController.getGame().addPlayer(player1);
         gameController.getGame().addPlayer(player2);
         gameController.getGame().addPlayer(player3);
@@ -81,9 +82,9 @@ class GameTest {
     @Test
     void nextPlayerTurn() {
 
-        Player player1 = new BasicPlayer("Viola", Wizard.TYPE_2);
-        Player player2 = new BasicPlayer("Laura", Wizard.TYPE_3);
-        Player player3 = new BasicPlayer("Sara", Wizard.TYPE_4);
+        Player player1 = new BasicPlayer("Viola", Wizard.TYPE_2, TowerColour.WHITE);
+        Player player2 = new BasicPlayer("Laura", Wizard.TYPE_3, TowerColour.BLACK);
+        Player player3 = new BasicPlayer("Sara", Wizard.TYPE_4, TowerColour.GREY);
 
         gameController.getGame().addPlayer(player1);
         gameController.getGame().addPlayer(player2);
@@ -109,8 +110,8 @@ class GameTest {
 
     @Test
     void isCurrentPlayer() {
-        Player player1 = new BasicPlayer("Laura", Wizard.TYPE_1);
-        Player player2 = new BasicPlayer("Sara", Wizard.TYPE_2);
+        Player player1 = new BasicPlayer("Laura", Wizard.TYPE_1, TowerColour.WHITE);
+        Player player2 = new BasicPlayer("Sara", Wizard.TYPE_2, TowerColour.BLACK);
         gameController.getGame().setCurrentPlayer(player1);
         assertTrue(gameController.getGame().isCurrentPlayer(player1));
         assertFalse(gameController.getGame().isCurrentPlayer(player2));
@@ -119,7 +120,7 @@ class GameTest {
 
     @Test
     void getFirstPlayerTurn() {
-        Player player1 = new BasicPlayer("Laura", Wizard.TYPE_1);
+        Player player1 = new BasicPlayer("Laura", Wizard.TYPE_1, TowerColour.WHITE);
         gameController.getGame().addPlayer(player1);
         gameController.getGame().setFirstPlayerTurn(player1);
         assertEquals(player1, gameController.getGame().getFirstPlayerTurn());
@@ -219,7 +220,7 @@ class GameTest {
     @Test
     void getWinner() {
 
-        Player player1 = new BasicPlayer("Laura", Wizard.TYPE_2);
+        Player player1 = new BasicPlayer("Laura", Wizard.TYPE_2, TowerColour.WHITE);
         gameController.getGame().setWinner(player1);
         assertEquals(player1, gameController.getGame().getWinner());
     }

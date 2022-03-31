@@ -3,10 +3,7 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.card.*;
 import it.polimi.ingsw.model.game.*;
-import it.polimi.ingsw.model.player.BasicPlayer;
-import it.polimi.ingsw.model.player.ExpertPlayer;
-import it.polimi.ingsw.model.player.Player;
-import it.polimi.ingsw.model.player.Wizard;
+import it.polimi.ingsw.model.player.*;
 import it.polimi.ingsw.model.table.CloudTile;
 import it.polimi.ingsw.model.table.island.AdvancedGroupIsland;
 import it.polimi.ingsw.model.table.island.BasicGroupIsland;
@@ -432,7 +429,7 @@ public class GameController {
             if (checkUniqueNickname(nickname)) {
                 if (checkUniqueWizard(wizard)) {
                     if (isGameExpert) {
-                        game.addPlayer(new ExpertPlayer(nickname, wizard));
+                        game.addPlayer(new ExpertPlayer(nickname, wizard, TowerColour.valueOf(game.getNumberOfPlayer())));
                         try {
                             game.setCoins(game.getCoins() - 1);
                         } catch (IllegalAccessError ex) {
@@ -440,7 +437,7 @@ public class GameController {
                         }
 
                     } else {
-                        game.addPlayer(new BasicPlayer(nickname, wizard));
+                        game.addPlayer(new BasicPlayer(nickname, wizard, TowerColour.valueOf(game.getNumberOfPlayer())));
                     }
                 }
             }
