@@ -258,7 +258,7 @@ class GameTest {
     }
 
     @Test
-    void getAssistantCard(){
+    void getAssistantCard() {
         assertThrows(IllegalArgumentException.class, () -> gameController.getGame().getAssistantCard(10));
     }
 

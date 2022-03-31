@@ -11,13 +11,13 @@ public enum TowerColour {
     private final int value;
     private static final Map<Integer, TowerColour> map = new HashMap<>();
 
-    TowerColour(int value){
+    TowerColour(int value) {
         this.value = value;
     }
 
     static {
         for (TowerColour towerColour : TowerColour.values()) {
-             map.put(towerColour.value, towerColour);
+            map.put(towerColour.value, towerColour);
         }
     }
 

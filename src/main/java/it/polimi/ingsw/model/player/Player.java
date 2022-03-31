@@ -88,7 +88,9 @@ public abstract class Player {
      *
      * @return the towerColour
      */
-    public TowerColour getTowerColour(){ return towerColour; }
+    public TowerColour getTowerColour() {
+        return towerColour;
+    }
 
 
     /*
