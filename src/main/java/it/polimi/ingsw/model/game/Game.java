@@ -298,6 +298,11 @@ public abstract class Game {
     TABLE
      */
 
+    /**
+     * Return the table of the game
+     *
+     * @return the Table of the Game
+     */
     public Table getTable() {
         return table;
     }
