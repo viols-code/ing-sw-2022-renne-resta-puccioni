@@ -1466,7 +1466,7 @@ class GameControllerTest {
     }
 
     @Test
-    void checkAssistantCard(){
+    void checkAssistantCard() {
         gameControllerTwo.addPlayer("Viola", Wizard.TYPE_3);
         gameControllerTwo.addPlayer("Laura", Wizard.TYPE_4);
 
@@ -1530,7 +1530,7 @@ class GameControllerTest {
         gameControllerTwo.playAssistantCard(0, 9);
         assertEquals(gameControllerTwo.getGame().getPlayerByIndex(1), gameControllerTwo.getGame().getCurrentPlayer());
         assertEquals(gameControllerTwo.getGame().getGamePhase(), GamePhase.PLAYING);
-        for(int i = 0; i < 10; i++){
+        for (int i = 0; i < 10; i++) {
             assertFalse(gameControllerTwo.getGame().getPlayerByIndex(0).isAssistantCardPresent(gameControllerTwo.getGame().getAssistantCard(i)));
             assertFalse(gameControllerTwo.getGame().getPlayerByIndex(1).isAssistantCardPresent(gameControllerTwo.getGame().getAssistantCard(i)));
         }
