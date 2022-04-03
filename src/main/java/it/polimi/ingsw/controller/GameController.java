@@ -431,8 +431,9 @@ public class GameController {
     private void endPlayAssistantCard() {
         game.setGamePhase(GamePhase.PLAYING);
         nobodyPlayed();
-        game.setCurrentPlayer(game.nextPlayerTurn());
+        game.setFirstPlayerLastTurn(game.getFirstPlayerTurn());
         game.setFirstPlayerTurn(game.nextPlayerTurn());
+        game.setCurrentPlayer(game.nextPlayerTurn());
         game.setTurnPhase(TurnPhase.MOVE_STUDENT);
     }
 

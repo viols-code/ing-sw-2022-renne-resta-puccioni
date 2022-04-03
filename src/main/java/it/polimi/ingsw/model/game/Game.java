@@ -7,7 +7,10 @@ import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.table.Table;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Game
@@ -28,6 +31,10 @@ public abstract class Game {
      * the first player of the current round
      */
     protected Player firstPlayerTurn;
+    /**
+     * the first player of the last round
+     */
+    protected Player firstPlayerLastTurn;
     /**
      * the table of the game
      */
@@ -86,6 +93,7 @@ public abstract class Game {
         players = new ArrayList<>();
         currentPlayer = null;
         firstPlayerTurn = null;
+        firstPlayerLastTurn = null;
         table = new Table();
         round = 1;
         activeCharacterCard = new BasicState(this);
@@ -190,20 +198,46 @@ public abstract class Game {
      * @return the nextPlayer according to the assistantCard number
      */
     public Player nextPlayerTurn() {
-        int min = 11;
-
-        Player nextPlayer = null;
+        HashMap<Player, Integer> values = new HashMap<>();
+        List<Player> res;
 
         for (int i = 0; i < getNumberOfPlayer(); i++) {
             if (!getPlayerByIndex(i).getHasAlreadyPlayed()) {
-                if (getPlayerByIndex(i).getCurrentAssistantCard().getValue() < min) {
-                    min = getPlayerByIndex(i).getCurrentAssistantCard().getValue();
-                    nextPlayer = getPlayerByIndex(i);
-                }
+               values.put(getPlayerByIndex(i), getPlayerByIndex(i).getCurrentAssistantCard().getValue());
             }
         }
 
-        return nextPlayer;
+        Integer min = values.values().stream().reduce(11, (y1, y2) -> {
+            if (y1 < y2) return y1;
+            else return y2;
+        });
+
+        res = values.entrySet()
+                .stream()
+                .filter(x -> x.getValue().equals(min))
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
+
+
+        if (res.size() == 1) {
+            return res.get(0);
+        } else {
+            int j = 0;
+            for(int i = 0; i < getNumberOfPlayer(); i++){
+                if(firstPlayerLastTurn.equals(getPlayerByIndex(i))){
+                    j = i;
+                }
+            }
+            int i = 0;
+            while(i < getNumberOfPlayer()){
+                if(res.contains(getPlayerByIndex(j))){
+                    return getPlayerByIndex(j);
+                }
+                j = (j + 1) % getNumberOfPlayer();
+                i++;
+            }
+        }
+        return getPlayerByIndex(0);
     }
 
     /**
@@ -249,6 +283,15 @@ public abstract class Game {
      */
     public void setFirstPlayerTurn(Player player) {
         this.firstPlayerTurn = player;
+    }
+
+    /**
+     * Set the player who played first in the last round
+     *
+     * @param player the player who played first in the last round
+     */
+    public void setFirstPlayerLastTurn(Player player) {
+        this.firstPlayerLastTurn = player;
     }
 
     /*

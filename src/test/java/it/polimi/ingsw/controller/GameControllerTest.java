@@ -1510,6 +1510,7 @@ class GameControllerTest {
 
         gameControllerTwo.playAssistantCard(1, 9);
         gameControllerTwo.playAssistantCard(0, 9);
+        assertEquals(gameControllerTwo.getGame().getPlayerByIndex(1), gameControllerTwo.getGame().getCurrentPlayer());
         assertEquals(gameControllerTwo.getGame().getGamePhase(), GamePhase.PLAYING);
         for(int i = 0; i < 10; i++){
             assertFalse(gameControllerTwo.getGame().getPlayerByIndex(0).isAssistantCardPresent(gameControllerTwo.getGame().getAssistantCard(i)));
