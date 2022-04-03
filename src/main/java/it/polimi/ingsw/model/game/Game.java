@@ -203,7 +203,7 @@ public abstract class Game {
 
         for (int i = 0; i < getNumberOfPlayer(); i++) {
             if (!getPlayerByIndex(i).getHasAlreadyPlayed()) {
-               values.put(getPlayerByIndex(i), getPlayerByIndex(i).getCurrentAssistantCard().getValue());
+                values.put(getPlayerByIndex(i), getPlayerByIndex(i).getCurrentAssistantCard().getValue());
             }
         }
 
@@ -223,14 +223,14 @@ public abstract class Game {
             return res.get(0);
         } else {
             int j = 0;
-            for(int i = 0; i < getNumberOfPlayer(); i++){
-                if(firstPlayerLastTurn.equals(getPlayerByIndex(i))){
+            for (int i = 0; i < getNumberOfPlayer(); i++) {
+                if (firstPlayerLastTurn.equals(getPlayerByIndex(i))) {
                     j = i;
                 }
             }
             int i = 0;
-            while(i < getNumberOfPlayer()){
-                if(res.contains(getPlayerByIndex(j))){
+            while (i < getNumberOfPlayer()) {
+                if (res.contains(getPlayerByIndex(j))) {
                     return getPlayerByIndex(j);
                 }
                 j = (j + 1) % getNumberOfPlayer();

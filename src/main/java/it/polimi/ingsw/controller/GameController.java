@@ -250,7 +250,7 @@ public class GameController {
         for (int i = 0; i < player; i++) {
             if (game.getPlayerByIndex(i).getHasAlreadyPlayed()) {
                 try {
-                    if (game.getPlayerByIndex(i).getCurrentAssistantCard().equals(game.getAssistantCard(assistantCard))){
+                    if (game.getPlayerByIndex(i).getCurrentAssistantCard().equals(game.getAssistantCard(assistantCard))) {
                         check = false;
                     }
                 } catch (IllegalArgumentException ex) {
@@ -259,15 +259,15 @@ public class GameController {
 
             }
         }
-        if(check){
+        if (check) {
             return true;
         }
 
-        for(int j = 0; j < 10; j++){
-            if(game.getCurrentPlayer().isAssistantCardPresent(game.getAssistantCard(j))){
+        for (int j = 0; j < 10; j++) {
+            if (game.getCurrentPlayer().isAssistantCardPresent(game.getAssistantCard(j))) {
                 check = true;
-                for(int i = 0; i < game.getNumberOfPlayer(); i++){
-                    if(! game.getPlayerByIndex(i).equals(game.getCurrentPlayer())) {
+                for (int i = 0; i < game.getNumberOfPlayer(); i++) {
+                    if (!game.getPlayerByIndex(i).equals(game.getCurrentPlayer())) {
                         if (game.getPlayerByIndex(i).getHasAlreadyPlayed()) {
                             if (game.getPlayerByIndex(i).getCurrentAssistantCard().equals(game.getAssistantCard(j))) {
                                 check = false;
@@ -276,7 +276,7 @@ public class GameController {
                     }
                 }
 
-                if(check){
+                if (check) {
                     return false;
                 }
             }
