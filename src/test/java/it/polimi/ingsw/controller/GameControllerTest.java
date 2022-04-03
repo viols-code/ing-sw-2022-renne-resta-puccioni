@@ -1446,4 +1446,74 @@ class GameControllerTest {
         gameController.chooseCloudTile(1, 0);
 
     }
+
+    @Test
+    void checkAssistantCard(){
+        gameControllerTwo.addPlayer("Viola", Wizard.TYPE_3);
+        gameControllerTwo.addPlayer("Laura", Wizard.TYPE_4);
+
+        gameControllerTwo.playAssistantCard(0, 0);
+        gameControllerTwo.playAssistantCard(1, 0);
+        assertEquals(gameControllerTwo.getGame().getGamePhase(), GamePhase.PLAY_ASSISTANT_CARD);
+        gameControllerTwo.playAssistantCard(1, 1);
+        assertEquals(gameControllerTwo.getGame().getGamePhase(), GamePhase.PLAYING);
+        gameControllerTwo.getGame().setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
+        gameControllerTwo.getGame().setTurnPhase(TurnPhase.WAITING);
+
+        gameControllerTwo.playAssistantCard(0, 1);
+        gameControllerTwo.playAssistantCard(1, 2);
+        assertEquals(gameControllerTwo.getGame().getGamePhase(), GamePhase.PLAYING);
+        gameControllerTwo.getGame().setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
+        gameControllerTwo.getGame().setTurnPhase(TurnPhase.WAITING);
+
+        gameControllerTwo.playAssistantCard(0, 2);
+        gameControllerTwo.playAssistantCard(1, 0);
+        assertEquals(gameControllerTwo.getGame().getGamePhase(), GamePhase.PLAYING);
+        gameControllerTwo.getGame().setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
+        gameControllerTwo.getGame().setTurnPhase(TurnPhase.WAITING);
+
+        gameControllerTwo.playAssistantCard(1, 4);
+        gameControllerTwo.playAssistantCard(0, 3);
+        assertEquals(gameControllerTwo.getGame().getGamePhase(), GamePhase.PLAYING);
+        gameControllerTwo.getGame().setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
+        gameControllerTwo.getGame().setTurnPhase(TurnPhase.WAITING);
+
+        gameControllerTwo.playAssistantCard(0, 4);
+        gameControllerTwo.playAssistantCard(1, 5);
+        assertEquals(gameControllerTwo.getGame().getGamePhase(), GamePhase.PLAYING);
+        gameControllerTwo.getGame().setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
+        gameControllerTwo.getGame().setTurnPhase(TurnPhase.WAITING);
+
+        gameControllerTwo.playAssistantCard(0, 5);
+        gameControllerTwo.playAssistantCard(1, 3);
+        assertEquals(gameControllerTwo.getGame().getGamePhase(), GamePhase.PLAYING);
+        gameControllerTwo.getGame().setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
+        gameControllerTwo.getGame().setTurnPhase(TurnPhase.WAITING);
+
+        gameControllerTwo.playAssistantCard(1, 7);
+        gameControllerTwo.playAssistantCard(0, 6);
+        assertEquals(gameControllerTwo.getGame().getGamePhase(), GamePhase.PLAYING);
+        gameControllerTwo.getGame().setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
+        gameControllerTwo.getGame().setTurnPhase(TurnPhase.WAITING);
+
+        gameControllerTwo.playAssistantCard(0, 7);
+        gameControllerTwo.playAssistantCard(1, 8);
+        assertEquals(gameControllerTwo.getGame().getGamePhase(), GamePhase.PLAYING);
+        gameControllerTwo.getGame().setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
+        gameControllerTwo.getGame().setTurnPhase(TurnPhase.WAITING);
+
+        gameControllerTwo.playAssistantCard(0, 8);
+        gameControllerTwo.playAssistantCard(1, 6);
+        assertEquals(gameControllerTwo.getGame().getGamePhase(), GamePhase.PLAYING);
+        gameControllerTwo.getGame().setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
+        gameControllerTwo.getGame().setTurnPhase(TurnPhase.WAITING);
+
+        gameControllerTwo.playAssistantCard(1, 9);
+        gameControllerTwo.playAssistantCard(0, 9);
+        assertEquals(gameControllerTwo.getGame().getGamePhase(), GamePhase.PLAYING);
+        for(int i = 0; i < 10; i++){
+            assertFalse(gameControllerTwo.getGame().getPlayerByIndex(0).isAssistantCardPresent(gameControllerTwo.getGame().getAssistantCard(i)));
+            assertFalse(gameControllerTwo.getGame().getPlayerByIndex(1).isAssistantCardPresent(gameControllerTwo.getGame().getAssistantCard(i)));
+        }
+    }
 }

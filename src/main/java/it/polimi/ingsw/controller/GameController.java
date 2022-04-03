@@ -246,18 +246,45 @@ public class GameController {
      * @return true if the Player can play the AssistantCard, false otherwise
      */
     private boolean canPlayAssistantCard(int player, int assistantCard) {
+        boolean check = true;
         for (int i = 0; i < player; i++) {
             if (game.getPlayerByIndex(i).getHasAlreadyPlayed()) {
                 try {
-                    if (game.getPlayerByIndex(i).getCurrentAssistantCard().equals(game.getAssistantCard(assistantCard)))
-                        return false;
+                    if (game.getPlayerByIndex(i).getCurrentAssistantCard().equals(game.getAssistantCard(assistantCard))){
+                        check = false;
+                    }
                 } catch (IllegalArgumentException ex) {
                     ex.printStackTrace();
                 }
 
             }
         }
+        if(check){
+            return true;
+        }
+
+        for(int j = 0; j < 10; j++){
+            if(game.getCurrentPlayer().isAssistantCardPresent(game.getAssistantCard(j))){
+                check = true;
+                for(int i = 0; i < game.getNumberOfPlayer(); i++){
+                    if(! game.getPlayerByIndex(i).equals(game.getCurrentPlayer())) {
+                        if (game.getPlayerByIndex(i).getHasAlreadyPlayed()) {
+                            if (game.getPlayerByIndex(i).getCurrentAssistantCard().equals(game.getAssistantCard(j))) {
+                                check = false;
+                            }
+                        }
+                    }
+                }
+
+                if(check){
+                    return false;
+                }
+            }
+        }
+
         return true;
+
+
     }
 
     /*
