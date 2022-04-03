@@ -1466,7 +1466,7 @@ class GameControllerTest {
     }
 
     @Test
-    void checkAssistantCard() {
+    void checkCanPlayAssistantCardTwoPlayer() {
         gameControllerTwo.addPlayer("Viola", Wizard.TYPE_3);
         gameControllerTwo.addPlayer("Laura", Wizard.TYPE_4);
 
@@ -1515,12 +1515,16 @@ class GameControllerTest {
         gameControllerTwo.getGame().setTurnPhase(TurnPhase.WAITING);
 
         gameControllerTwo.playAssistantCard(0, 7);
+        gameControllerTwo.playAssistantCard(1, 7);
+        assertEquals(gameControllerTwo.getGame().getGamePhase(), GamePhase.PLAY_ASSISTANT_CARD);
         gameControllerTwo.playAssistantCard(1, 8);
         assertEquals(gameControllerTwo.getGame().getGamePhase(), GamePhase.PLAYING);
         gameControllerTwo.getGame().setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
         gameControllerTwo.getGame().setTurnPhase(TurnPhase.WAITING);
 
         gameControllerTwo.playAssistantCard(0, 8);
+        gameControllerTwo.playAssistantCard(1, 8);
+        assertEquals(gameControllerTwo.getGame().getGamePhase(), GamePhase.PLAY_ASSISTANT_CARD);
         gameControllerTwo.playAssistantCard(1, 6);
         assertEquals(gameControllerTwo.getGame().getGamePhase(), GamePhase.PLAYING);
         gameControllerTwo.getGame().setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
@@ -1535,4 +1539,117 @@ class GameControllerTest {
             assertFalse(gameControllerTwo.getGame().getPlayerByIndex(1).isAssistantCardPresent(gameControllerTwo.getGame().getAssistantCard(i)));
         }
     }
+
+    @Test
+    void checkCanPlayAssistantCardThreePlayer() {
+        gameControllerThree.addPlayer("Viola", Wizard.TYPE_3);
+        gameControllerThree.addPlayer("Laura", Wizard.TYPE_4);
+        gameControllerThree.addPlayer("Sara", Wizard.TYPE_2);
+
+        gameControllerThree.playAssistantCard(0, 0);
+        gameControllerThree.playAssistantCard(1, 1);
+        gameControllerThree.playAssistantCard(2, 2);
+        assertEquals(gameControllerThree.getGame().getGamePhase(), GamePhase.PLAYING);
+        gameControllerThree.getGame().setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
+        gameControllerThree.getGame().setTurnPhase(TurnPhase.WAITING);
+
+        gameControllerThree.playAssistantCard(0, 2);
+        gameControllerThree.playAssistantCard(1, 0);
+        gameControllerThree.playAssistantCard(2, 1);
+        assertEquals(gameControllerThree.getGame().getGamePhase(), GamePhase.PLAYING);
+        gameControllerThree.getGame().setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
+        gameControllerThree.getGame().setTurnPhase(TurnPhase.WAITING);
+
+        gameControllerThree.playAssistantCard(1, 2);
+        gameControllerThree.playAssistantCard(2, 0);
+        gameControllerThree.playAssistantCard(0, 1);
+        assertEquals(gameControllerThree.getGame().getGamePhase(), GamePhase.PLAYING);
+        gameControllerThree.getGame().setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
+        gameControllerThree.getGame().setTurnPhase(TurnPhase.WAITING);
+
+        gameControllerThree.playAssistantCard(2, 5);
+        gameControllerThree.playAssistantCard(0, 3);
+        gameControllerThree.playAssistantCard(1, 4);
+        assertEquals(gameControllerThree.getGame().getGamePhase(), GamePhase.PLAYING);
+        gameControllerThree.getGame().setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
+        gameControllerThree.getGame().setTurnPhase(TurnPhase.WAITING);
+
+        gameControllerThree.playAssistantCard(0, 4);
+        gameControllerThree.playAssistantCard(1, 5);
+        gameControllerThree.playAssistantCard(2, 3);
+        assertEquals(gameControllerThree.getGame().getGamePhase(), GamePhase.PLAYING);
+        gameControllerThree.getGame().setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
+        gameControllerThree.getGame().setTurnPhase(TurnPhase.WAITING);
+
+        gameControllerThree.playAssistantCard(2, 4);
+        gameControllerThree.playAssistantCard(0, 5);
+        gameControllerThree.playAssistantCard(1, 3);
+        assertEquals(gameControllerThree.getGame().getGamePhase(), GamePhase.PLAYING);
+        gameControllerThree.getGame().setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
+        gameControllerThree.getGame().setTurnPhase(TurnPhase.WAITING);
+
+        gameControllerThree.playAssistantCard(1, 7);
+        gameControllerThree.playAssistantCard(2, 8);
+        gameControllerThree.playAssistantCard(0, 6);
+        assertEquals(gameControllerThree.getGame().getGamePhase(), GamePhase.PLAYING);
+        gameControllerThree.getGame().setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
+        gameControllerThree.getGame().setTurnPhase(TurnPhase.WAITING);
+
+        gameControllerThree.playAssistantCard(0, 7);
+        gameControllerThree.playAssistantCard(1, 8);
+        gameControllerThree.playAssistantCard(2, 6);
+        assertEquals(gameControllerThree.getGame().getGamePhase(), GamePhase.PLAYING);
+        gameControllerThree.getGame().setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
+        gameControllerThree.getGame().setTurnPhase(TurnPhase.WAITING);
+
+        gameControllerThree.playAssistantCard(2, 7);
+        gameControllerThree.playAssistantCard(0, 8);
+        gameControllerThree.playAssistantCard(1, 6);
+        assertEquals(gameControllerThree.getGame().getGamePhase(), GamePhase.PLAYING);
+        gameControllerThree.getGame().setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
+        gameControllerThree.getGame().setTurnPhase(TurnPhase.WAITING);
+
+        gameControllerThree.playAssistantCard(1, 9);
+        gameControllerThree.playAssistantCard(2, 9);
+        gameControllerThree.playAssistantCard(0, 9);
+        assertEquals(gameControllerThree.getGame().getPlayerByIndex(1), gameControllerThree.getGame().getCurrentPlayer());
+        assertEquals(gameControllerThree.getGame().getGamePhase(), GamePhase.PLAYING);
+        int j = 0;
+        while(j < 4){
+            for(Colour colour: Colour.values()){
+                if(gameControllerThree.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) > 0){
+                    gameControllerThree.moveStudentToIsland(1, colour, 0, 0);
+                    j++;
+                }
+            }
+        }
+        gameControllerThree.moveMotherNature(1, 0);
+        gameControllerThree.moveMotherNature(1, 1);
+        assertEquals(1, gameControllerThree.getGame().getTable().getMotherNaturePosition());
+        gameControllerThree.chooseCloudTile(1, 0);
+        assertEquals(gameControllerThree.getGame().getPlayerByIndex(2), gameControllerThree.getGame().getCurrentPlayer());
+        assertEquals(gameControllerThree.getGame().getGamePhase(), GamePhase.PLAYING);
+        j = 0;
+        while(j < 4){
+            for(Colour colour: Colour.values()){
+                if(gameControllerThree.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) > 0){
+                    gameControllerThree.moveStudentToIsland(2, colour, 0, 0);
+                    j++;
+                }
+            }
+        }
+        gameControllerThree.moveMotherNature(2, 0);
+        gameControllerThree.moveMotherNature(2, 1);
+        assertEquals(2, gameControllerThree.getGame().getTable().getMotherNaturePosition());
+        gameControllerThree.chooseCloudTile(2, 0);
+        assertEquals(gameControllerThree.getGame().getPlayerByIndex(0), gameControllerThree.getGame().getCurrentPlayer());
+        assertEquals(gameControllerThree.getGame().getGamePhase(), GamePhase.PLAYING);
+
+        for (int i = 0; i < 10; i++) {
+            assertFalse(gameControllerThree.getGame().getPlayerByIndex(0).isAssistantCardPresent(gameControllerThree.getGame().getAssistantCard(i)));
+            assertFalse(gameControllerThree.getGame().getPlayerByIndex(1).isAssistantCardPresent(gameControllerThree.getGame().getAssistantCard(i)));
+            assertFalse(gameControllerThree.getGame().getPlayerByIndex(2).isAssistantCardPresent(gameControllerThree.getGame().getAssistantCard(i)));
+        }
+    }
+
 }
