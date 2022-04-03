@@ -30,4 +30,4 @@ Software Engineering Project A.A. 2021/2022
 * [Laura Puccioni](https://github.com/)
 
 ## Software used
-**LucidApp** - UML diagrams
+**Draw.io** - UML diagrams
