@@ -118,17 +118,17 @@ class GameControllerTest {
         gameControllerTwo.addPlayer("Viola", Wizard.TYPE_1);
         gameControllerTwo.addPlayer("Laura", Wizard.TYPE_2);
 
-        for(int i=0; i<9; i++){
-            gameControllerTwo.playAssistantCard(0,i);
-            assertEquals(gameControllerTwo.getGame().getAssistantCard(i),gameControllerTwo.getGame().getPlayerByIndex(0).getCurrentAssistantCard());
-            gameControllerTwo.playAssistantCard(1,(i + 1)%9);
-            assertEquals(gameControllerTwo.getGame().getAssistantCard((i+1)%9),gameControllerTwo.getGame().getPlayerByIndex(1).getCurrentAssistantCard());
+        for (int i = 0; i < 9; i++) {
+            gameControllerTwo.playAssistantCard(0, i);
+            assertEquals(gameControllerTwo.getGame().getAssistantCard(i), gameControllerTwo.getGame().getPlayerByIndex(0).getCurrentAssistantCard());
+            gameControllerTwo.playAssistantCard(1, (i + 1) % 9);
+            assertEquals(gameControllerTwo.getGame().getAssistantCard((i + 1) % 9), gameControllerTwo.getGame().getPlayerByIndex(1).getCurrentAssistantCard());
             gameControllerTwo.getGame().setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
         }
-        gameControllerTwo.playAssistantCard(1,9);
-        gameControllerTwo.playAssistantCard(0,9);
-        assertEquals(gameControllerTwo.getGame().getAssistantCard(9),gameControllerTwo.getGame().getPlayerByIndex(1).getCurrentAssistantCard());
-        assertEquals(gameControllerTwo.getGame().getAssistantCard(9),gameControllerTwo.getGame().getPlayerByIndex(0).getCurrentAssistantCard());
+        gameControllerTwo.playAssistantCard(1, 9);
+        gameControllerTwo.playAssistantCard(0, 9);
+        assertEquals(gameControllerTwo.getGame().getAssistantCard(9), gameControllerTwo.getGame().getPlayerByIndex(1).getCurrentAssistantCard());
+        assertEquals(gameControllerTwo.getGame().getAssistantCard(9), gameControllerTwo.getGame().getPlayerByIndex(0).getCurrentAssistantCard());
     }
 
     @Test
@@ -1615,9 +1615,9 @@ class GameControllerTest {
         assertEquals(gameControllerThree.getGame().getPlayerByIndex(1), gameControllerThree.getGame().getCurrentPlayer());
         assertEquals(gameControllerThree.getGame().getGamePhase(), GamePhase.PLAYING);
         int j = 0;
-        while(j < 4){
-            for(Colour colour: Colour.values()){
-                if(gameControllerThree.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) > 0){
+        while (j < 4) {
+            for (Colour colour : Colour.values()) {
+                if (gameControllerThree.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) > 0) {
                     gameControllerThree.moveStudentToIsland(1, colour, 0, 0);
                     j++;
                 }
@@ -1630,9 +1630,9 @@ class GameControllerTest {
         assertEquals(gameControllerThree.getGame().getPlayerByIndex(2), gameControllerThree.getGame().getCurrentPlayer());
         assertEquals(gameControllerThree.getGame().getGamePhase(), GamePhase.PLAYING);
         j = 0;
-        while(j < 4){
-            for(Colour colour: Colour.values()){
-                if(gameControllerThree.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) > 0){
+        while (j < 4) {
+            for (Colour colour : Colour.values()) {
+                if (gameControllerThree.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) > 0) {
                     gameControllerThree.moveStudentToIsland(2, colour, 0, 0);
                     j++;
                 }
