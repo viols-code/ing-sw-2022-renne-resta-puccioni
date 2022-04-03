@@ -114,6 +114,24 @@ class GameControllerTest {
     }
 
     @Test
+    void playAssistantCardCornerCase() {
+        gameControllerTwo.addPlayer("Viola", Wizard.TYPE_1);
+        gameControllerTwo.addPlayer("Laura", Wizard.TYPE_2);
+
+        for(int i=0; i<9; i++){
+            gameControllerTwo.playAssistantCard(0,i);
+            assertEquals(gameControllerTwo.getGame().getAssistantCard(i),gameControllerTwo.getGame().getPlayerByIndex(0).getCurrentAssistantCard());
+            gameControllerTwo.playAssistantCard(1,(i + 1)%9);
+            assertEquals(gameControllerTwo.getGame().getAssistantCard((i+1)%9),gameControllerTwo.getGame().getPlayerByIndex(1).getCurrentAssistantCard());
+            gameControllerTwo.getGame().setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
+        }
+        gameControllerTwo.playAssistantCard(1,9);
+        gameControllerTwo.playAssistantCard(0,9);
+        assertEquals(gameControllerTwo.getGame().getAssistantCard(9),gameControllerTwo.getGame().getPlayerByIndex(1).getCurrentAssistantCard());
+        assertEquals(gameControllerTwo.getGame().getAssistantCard(9),gameControllerTwo.getGame().getPlayerByIndex(0).getCurrentAssistantCard());
+    }
+
+    @Test
     void moveStudentToIsland() {
         gameControllerTwo.addPlayer("Viola", Wizard.TYPE_1);
         assertNull(gameControllerTwo.getGame().getPlayerByIndex(0).getCurrentAssistantCard());
