@@ -1,6 +1,5 @@
 package it.polimi.ingsw.server;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import it.polimi.ingsw.observer.Observable;
 import it.polimi.ingsw.server.messages.*;
 
@@ -69,7 +68,7 @@ public class Lobby extends Observable<IServerPacket> {
     }
 
     /**
-     * Sets the player name for the given connection. If there is an other player with this name already connected sends
+     * Sets the player name for the given connection. If there is another player with this name already connected sends
      * an error message to the client.
      *
      * @param connection the connection that will have its player name set
@@ -142,14 +141,14 @@ public class Lobby extends Observable<IServerPacket> {
      */
     public void setGameMode(SocketClientConnection connection) {
         isGameModeSet = true;
-        notify(new GameConfigSetMessage(connection));
+        notify(new GameModeSetMessage(connection));
     }
 
     /**
      * Notifies all connected clients of game start.
      */
     public synchronized void startGame() {
-        notify(new GameStartMessage(customGameConfig == null ? GameConfig.loadDefaultGameConfig() : customGameConfig));
+        //notify(new GameStartMessage(customGameConfig == null ? GameConfig.loadDefaultGameConfig() : customGameConfig));
     }
 
     /**
