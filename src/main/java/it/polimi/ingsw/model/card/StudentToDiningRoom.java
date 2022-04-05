@@ -50,13 +50,12 @@ public class StudentToDiningRoom extends CharacterCard {
         checkProfessor(colour);
 
         students.replace(colour, students.get(colour), students.get(colour) - 1);
-        if (!game.getTable().getBag().isBagEmpty()) {
-                try {
-                    Colour colour1 = game.getTable().getBag().bagDrawStudent();
-                    students.replace(colour1, students.get(colour1), students.get(colour1) + 1);
-                }catch(IllegalAccessError ex){
-                    ex.printStackTrace();
-                }
+
+        try {
+            Colour colour1 = game.getTable().getBag().bagDrawStudent();
+            students.replace(colour1, students.get(colour1), students.get(colour1) + 1);
+        }catch(IllegalAccessError ex){
+            ex.printStackTrace();
         }
         game.setActiveCharacterCard(game.getBasicState());
     }
