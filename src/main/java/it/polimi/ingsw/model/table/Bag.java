@@ -10,6 +10,10 @@ public class Bag {
      * A Map containing the number of students for each colour in the bag
      */
     private final HashMap<Colour, Integer> bag;
+    /**
+     * True if we tried to get student from an empty bag
+     */
+    private boolean noStudent;
 
     public Bag() {
         bag = new HashMap<>();
@@ -18,6 +22,8 @@ public class Bag {
         bag.put(Colour.YELLOW, 0);
         bag.put(Colour.PINK, 0);
         bag.put(Colour.BLUE, 0);
+
+        this.noStudent = false;
     }
 
     /**
@@ -47,6 +53,7 @@ public class Bag {
      */
     public Colour bagDrawStudent() throws IllegalAccessError {
         if (isBagEmpty()) {
+            this.noStudent = true;
             throw new IllegalAccessError("There is no student in the bag");
         } else {
             int bag_size = 0;
@@ -100,5 +107,14 @@ public class Bag {
      */
     private void removeStudentBag(Colour colour) {
         bag.replace(colour, bag.get(colour), bag.get(colour) - 1);
+    }
+
+    /**
+     * Return noStudent
+     *
+     * @return noStudent
+     */
+    public boolean getNoStudent(){
+        return this.noStudent;
     }
 }
