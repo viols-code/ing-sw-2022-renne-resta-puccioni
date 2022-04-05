@@ -208,7 +208,7 @@ public class Lobby extends Observable<IServerPacket> {
      */
     public synchronized boolean canStart() {
         for (SocketClientConnection conn : connections)
-            if (conn.getPlayerName() == null)
+            if (conn.getPlayerName() == null || conn.getWizard() == null)
                 return false;
         if (!isGameModeSet) return false;
         return playersToStart == connections.size();
