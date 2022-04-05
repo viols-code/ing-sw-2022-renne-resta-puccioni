@@ -29,8 +29,12 @@ public class StudentToEntrance extends CharacterCard {
         }
 
         for (int i = 0; i < 6; i++) {
-            Colour colour1 = game.getTable().getBag().bagDrawStudent();
-            students.replace(colour1, students.get(colour1), students.get(colour1) + 1);
+            try{
+                Colour colour1 = game.getTable().getBag().bagDrawStudent();
+                students.replace(colour1, students.get(colour1), students.get(colour1) + 1);
+            } catch (IllegalAccessError ex) {
+                ex.printStackTrace();
+            }
         }
     }
 

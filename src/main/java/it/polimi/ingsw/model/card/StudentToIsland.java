@@ -40,8 +40,12 @@ public class StudentToIsland extends CharacterCard {
 
     public void setting() {
         for (int i = 0; i < 4; i++) {
-            Colour colour = game.getTable().getBag().bagDrawStudent();
-            studentsOnCard.replace(colour, studentsOnCard.get(colour), studentsOnCard.get(colour) + 1);
+            try{
+                Colour colour = game.getTable().getBag().bagDrawStudent();
+                studentsOnCard.replace(colour, studentsOnCard.get(colour), studentsOnCard.get(colour) + 1);
+            } catch (IllegalAccessError ex) {
+                ex.printStackTrace();
+            }
         }
     }
 
