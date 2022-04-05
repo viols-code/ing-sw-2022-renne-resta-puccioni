@@ -161,7 +161,11 @@ public abstract class Game {
         this.players.add(player);
         player.getSchoolBoard().addTower(this.numberOfTowersPerPlayer);
         for (int i = 0; i < this.numberStudentsEntrance; i++) {
-            player.getSchoolBoard().addStudentToEntrance(this.getTable().getBag().bagDrawStudent());
+            try {
+                player.getSchoolBoard().addStudentToEntrance(this.getTable().getBag().bagDrawStudent());
+            }catch(IllegalAccessError ex){
+                ex.printStackTrace();
+            }
         }
 
         for (int i = 0; i < 10; i++) {
