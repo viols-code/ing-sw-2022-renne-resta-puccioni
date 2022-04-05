@@ -74,9 +74,11 @@ public class StudentToIsland extends CharacterCard {
     protected void effect() {
         islandChosen.addStudent(colour);
         studentsOnCard.replace(colour, studentsOnCard.get(colour), studentsOnCard.get(colour) - 1);
-        if (!game.getTable().getBag().isBagEmpty()) {
+        try{
             Colour newColour = game.getTable().getBag().bagDrawStudent();
             studentsOnCard.replace(newColour, studentsOnCard.get(newColour), studentsOnCard.get(newColour) + 1);
+        }catch(IllegalAccessError ex){
+            ex.printStackTrace();
         }
         game.setActiveCharacterCard(game.getBasicState());
     }
