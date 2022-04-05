@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import it.polimi.ingsw.observer.Observable;
 import it.polimi.ingsw.server.messages.*;
 
@@ -15,9 +16,8 @@ public class Lobby extends Observable<IServerPacket> {
     private SocketClientConnection firstConnection;
     private final List<SocketClientConnection> connections;
     private int playersToStart;
-    private boolean isGameConfigSet;
-
-    private GameConfig customGameConfig;
+    private Boolean gameMode;
+    private boolean isGameModeSet;
 
     /**
      * Constructs a new Lobby with a random UUID, an empty connection list and the players needed to start set to -1.
@@ -27,8 +27,8 @@ public class Lobby extends Observable<IServerPacket> {
         this.firstConnection = null;
         this.connections = new ArrayList<>();
         this.playersToStart = -1;
-        this.customGameConfig = null;
-        this.isGameConfigSet = false;
+        this.gameMode = null;
+        this.isGameModeSet = false;
     }
 
     /**
@@ -49,23 +49,6 @@ public class Lobby extends Observable<IServerPacket> {
         return connections;
     }
 
-    /**
-     * Gets the custom game config for this Lobby.
-     *
-     * @return the custom game config for the lobby, or null if not set
-     */
-    public GameConfig getCustomGameConfig() {
-        return customGameConfig;
-    }
-
-    /**
-     * Checks if the players needed to start is set to 1.
-     *
-     * @return true if playersToStart = 1, false otherwise
-     */
-    public boolean isSinglePlayer() {
-        return playersToStart == 1;
-    }
 
     /**
      * Adds the given connection to this lobby.
@@ -74,7 +57,7 @@ public class Lobby extends Observable<IServerPacket> {
      * @throws IllegalStateException if 4 clients are already connected to this lobby
      */
     public void addConnection(SocketClientConnection connection) throws IllegalStateException {
-        if (connections.size() > 4)
+        if (connections.size() > 3)
             throw new IllegalStateException();
 
         connections.add(connection);
@@ -127,8 +110,8 @@ public class Lobby extends Observable<IServerPacket> {
             notify(new ErrorMessage(connection, "Only the first player that connected to the lobby can set the number of players needed to start the game"));
             return;
         }
-        if (playersToStart < 1 || playersToStart > 4) {
-            notify(new ErrorMessage(connection, "This is not a number between 1 and 4"));
+        if (playersToStart < 2 || playersToStart > 3) {
+            notify(new ErrorMessage(connection, "This is not a number between 2 and 3"));
             return;
         }
         if (playersToStart < connections.size()) {
@@ -140,25 +123,25 @@ public class Lobby extends Observable<IServerPacket> {
         notify(new PlayersToStartSetMessage(connection, playersToStart));
     }
 
-    public void setCustomGameConfig(SocketClientConnection connection, GameConfig gameConfig) {
+    public void setGameMode(SocketClientConnection connection, Boolean gameMode) {
         if (connections.indexOf(connection) != 0) {
-            notify(new ErrorMessage(connection, "Only the first player that connected to the lobby can set the number of players needed to start the game"));
+            notify(new ErrorMessage(connection, "Only the first player that connected to the lobby can set game mode"));
             return;
         }
-        if (gameConfig == null) {
-            notify(new ErrorMessage(connection, "The game configuration file that you have chosen is invalid!"));
+        if (gameMode == null) {
+            notify(new ErrorMessage(connection, "The game mode that you have chosen is invalid!"));
             return;
         }
 
-        this.customGameConfig = gameConfig;
-        setGameConfigSet(connection);
+        this.gameMode = gameMode;
+        setGameMode(connection);
     }
 
     /**
      * Sets to true if the master player has already chosen the desired game config
      */
-    public void setGameConfigSet(SocketClientConnection connection) {
-        isGameConfigSet = true;
+    public void setGameMode(SocketClientConnection connection) {
+        isGameModeSet = true;
         notify(new GameConfigSetMessage(connection));
     }
 
@@ -214,7 +197,7 @@ public class Lobby extends Observable<IServerPacket> {
      * @return true if 0 &lt; playersToStart &lt; 5, false otherwise
      */
     public boolean isPlayersToStartSet() {
-        return playersToStart > 0 && playersToStart < 5;
+        return playersToStart > 1 && playersToStart < 4;
     }
 
     /**
@@ -227,7 +210,7 @@ public class Lobby extends Observable<IServerPacket> {
         for (SocketClientConnection conn : connections)
             if (conn.getPlayerName() == null)
                 return false;
-        if (!isGameConfigSet) return false;
+        if (!isGameModeSet) return false;
         return playersToStart == connections.size();
     }
 
