@@ -8,10 +8,8 @@ import java.net.Socket;
  * Main server instance.
  */
 public class Server {
-    private static final int PORT = 12345;
-
+    private static final int PORT = 54321;
     private final ServerSocket serverSocket;
-
     private final LobbyController lobbyController;
 
     /**
@@ -32,11 +30,11 @@ public class Server {
 
         while (true) {
             try {
-                Socket newSocket = serverSocket.accept();
+                Socket connection = serverSocket.accept();
 
                 System.out.println("Accepted new connection");
 
-                SocketClientConnection socketConnection = new SocketClientConnection(newSocket, lobbyController);
+                SocketClientConnection socketConnection = new SocketClientConnection(connection, lobbyController);
                 Thread t = new Thread(socketConnection);
                 t.start();
             } catch (IOException e) {
