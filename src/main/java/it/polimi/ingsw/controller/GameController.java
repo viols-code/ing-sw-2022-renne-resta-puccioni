@@ -393,23 +393,7 @@ public class GameController {
                         if (game.getWinner() != null) endGame();
                         else if (game.getTable().getNumberOfGroupIsland() <= 3) calculateWinner();
                         if(game.getTable().getBag().getNoStudent()){
-                            if (!(endPhasePlay())) {
-                                game.setTurnPhase(TurnPhase.MOVE_STUDENT);
-                                game.getCurrentPlayer().setHasAlreadyPlayed(true);
-                                game.setCurrentPlayer(game.nextPlayerTurn());
-                            } else {
-                                    calculateWinner();
-                                    endGame();
-                                }
-
-                            if (isGameExpert) {
-                                try {
-                                    game.setHasPlayedCharacterCard(false);
-                                    game.setActiveCharacterCard(game.getBasicState());
-                                } catch (IllegalAccessError ex) {
-                                    ex.printStackTrace();
-                                }
-                            }
+                            endTurn();
                         } else {
                             game.setTurnPhase(TurnPhase.CHOOSE_CLOUD_TILE);
                         }
@@ -572,34 +556,46 @@ public class GameController {
                         }
                     }
                     game.getTable().removeCLoudTile(game.getTable().getCloudTilesByIndex(cloudTile));
-                    game.getCurrentPlayer().setHasAlreadyPlayed(true);
-
-                    if (!(endPhasePlay())) {
-                        game.setCurrentPlayer(game.nextPlayerTurn());
-                        game.setTurnPhase(TurnPhase.MOVE_STUDENT);
-                    } else {
-                        settingCloudTile();
-                        game.setCurrentPlayer(game.getFirstPlayerTurn());
-                        game.setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
-                        game.setTurnPhase(TurnPhase.WAITING);
-                        game.incrementRound();
-                        nobodyPlayed();
-                        if (game.getRound() >= 11) {
-                            calculateWinner();
-                            endGame();
-                        }
-
-                    }
-
-                    if (isGameExpert) {
-                        try {
-                            game.setHasPlayedCharacterCard(false);
-                            game.setActiveCharacterCard(game.getBasicState());
-                        } catch (IllegalAccessError ex) {
-                            ex.printStackTrace();
-                        }
-                    }
+                    endTurn();
                 }
+            }
+        }
+    }
+
+    /**
+     * End of the turn of the current Player
+     */
+    private void endTurn(){
+        game.getCurrentPlayer().setHasAlreadyPlayed(true);
+
+        if (!(endPhasePlay())) {
+            game.setCurrentPlayer(game.nextPlayerTurn());
+            game.setTurnPhase(TurnPhase.MOVE_STUDENT);
+        } else {
+            if(!game.getTable().getBag().getNoStudent()){
+                settingCloudTile();
+                game.setCurrentPlayer(game.getFirstPlayerTurn());
+                game.setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
+                game.setTurnPhase(TurnPhase.WAITING);
+                game.incrementRound();
+                nobodyPlayed();
+                if (game.getRound() >= 11) {
+                    calculateWinner();
+                    endGame();
+                }
+            } else {
+                calculateWinner();
+                endGame();
+            }
+
+        }
+
+        if (isGameExpert) {
+            try {
+                game.setHasPlayedCharacterCard(false);
+                game.setActiveCharacterCard(game.getBasicState());
+            } catch (IllegalAccessError ex) {
+                ex.printStackTrace();
             }
         }
     }
