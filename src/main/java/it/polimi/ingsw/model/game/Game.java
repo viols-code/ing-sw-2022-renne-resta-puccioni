@@ -144,6 +144,22 @@ public abstract class Game {
     }
 
     /**
+     * Get the player with the given nickname
+     *
+     * @param nickname the nickname of the player to return
+     * @return the player with the given nickname
+     */
+    public Player getPlayerByNickname(String nickname) throws IllegalArgumentException{
+        for(int i = 0; i < getNumberOfPlayer(); i++){
+            if(nickname.equals(getPlayerByIndex(i).getNickname())){
+                return getPlayerByIndex(i);
+            }
+        }
+
+        throw new IllegalArgumentException("The nickname is not present");
+    }
+
+    /**
      * Get the number of players
      *
      * @return the number of players

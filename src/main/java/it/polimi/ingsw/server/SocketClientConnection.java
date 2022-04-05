@@ -1,5 +1,7 @@
 package it.polimi.ingsw.server;
 
+import it.polimi.ingsw.model.player.Wizard;
+
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -17,6 +19,7 @@ public class SocketClientConnection implements Runnable {
     private final Socket socket;
     private WriteThread writeThread;
     private String playerName;
+    private Wizard wizard;
     private final RemoteView remoteView;
     private UUID lobbyUUID;
 
@@ -31,6 +34,7 @@ public class SocketClientConnection implements Runnable {
     SocketClientConnection(Socket socket, LobbyController lobbyController) {
         this.socket = socket;
         this.playerName = null;
+        this.wizard = null;
         this.remoteView = new RemoteView(this, lobbyController);
         this.lobbyUUID = null;
     }
@@ -67,6 +71,24 @@ public class SocketClientConnection implements Runnable {
      */
     public synchronized void setPlayerName(String playerName) {
         this.playerName = playerName;
+    }
+
+    /**
+     * Gets the wizard associated with this connection.
+     *
+     * @return the wizard, or <code>null</code> if it has not been set yet
+     */
+    public synchronized Wizard getWizard() {
+        return wizard;
+    }
+
+    /**
+     * Sets the wizard associated with this connection.
+     *
+     * @param wizard the wizard to associate with this connection
+     */
+    public synchronized void setWizard(Wizard wizard) {
+        this.wizard = wizard;
     }
 
     /**
