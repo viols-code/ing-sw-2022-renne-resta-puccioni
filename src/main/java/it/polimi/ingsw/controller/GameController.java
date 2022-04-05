@@ -392,7 +392,27 @@ public class GameController {
                         game.getActiveCharacterCard().calculateInfluence(game.getTable().getMotherNaturePosition());
                         if (game.getWinner() != null) endGame();
                         else if (game.getTable().getNumberOfGroupIsland() <= 3) calculateWinner();
-                        game.setTurnPhase(TurnPhase.CHOOSE_CLOUD_TILE);
+                        if(game.getTable().getBag().getNoStudent()){
+                            if (!(endPhasePlay())) {
+                                game.setTurnPhase(TurnPhase.MOVE_STUDENT);
+                                game.getCurrentPlayer().setHasAlreadyPlayed(true);
+                                game.setCurrentPlayer(game.nextPlayerTurn());
+                            } else {
+                                    calculateWinner();
+                                    endGame();
+                                }
+
+                            if (isGameExpert) {
+                                try {
+                                    game.setHasPlayedCharacterCard(false);
+                                    game.setActiveCharacterCard(game.getBasicState());
+                                } catch (IllegalAccessError ex) {
+                                    ex.printStackTrace();
+                                }
+                            }
+                        } else {
+                            game.setTurnPhase(TurnPhase.CHOOSE_CLOUD_TILE);
+                        }
                     }
                 }
 
@@ -525,15 +545,12 @@ public class GameController {
         }
 
         for (int i = 0; i < game.getStudentNumberMovement(); i++) {
-            if (!game.getTable().getBag().isBagEmpty()) {
                 try {
                     Colour colour1 = game.getTable().getBag().bagDrawStudent();
                     students.replace(colour1, students.get(colour1), students.get(colour1) + 1);
                 } catch (IllegalAccessError ex) {
                     ex.printStackTrace();
                 }
-
-            }
         }
 
         game.getTable().addCLoudTile(new CloudTile(students));
@@ -586,6 +603,10 @@ public class GameController {
             }
         }
     }
+
+
+
+
 
     /**
      * Sets the colour of the student
