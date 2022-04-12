@@ -27,6 +27,6 @@ public class PlayersToStartSetMessage extends DirectServerMessage {
 
     @Override
     public void process(View view) {
-        view.handleSetPlayersToStart(playersToStart);
+        //view.handleSetPlayersToStart(playersToStart);
     }
 }

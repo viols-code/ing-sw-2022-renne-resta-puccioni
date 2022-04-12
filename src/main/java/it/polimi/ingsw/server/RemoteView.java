@@ -3,11 +3,9 @@ package it.polimi.ingsw.server;
 import it.polimi.ingsw.IProcessablePacket;
 import it.polimi.ingsw.client.message.ClientMessage;
 import it.polimi.ingsw.controller.GameController;
-import it.polimi.ingsw.model.messages.InvalidActionUpdate;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.observer.Observer;
 import it.polimi.ingsw.server.messages.DirectServerMessage;
-import it.polimi.ingsw.view.messages.PlayerActionEvent;
 
 /**
  * Represents a client view on the server. It is responsible of handling incoming and outgoing messages and updates to
@@ -74,7 +72,7 @@ public class RemoteView implements Observer<IServerPacket> {
      *
      * @param event the player action event that will be notified to the game controller
      */
-    private void notifyActionEvent(PlayerActionEvent event) {
+    /*private void notifyActionEvent(PlayerActionEvent event) {
         if (gameController != null) {
             event.setPlayer(player);
             try {
@@ -85,6 +83,7 @@ public class RemoteView implements Observer<IServerPacket> {
         } else
             System.err.println("Received PlayerActionEvent, but game is not started yet");
     }
+    */
 
     /**
      * Notifies the LobbyController of the given ClientMessage, if the game is already started (GameController is not null)
@@ -109,6 +108,7 @@ public class RemoteView implements Observer<IServerPacket> {
      *
      * @param packet the packet to be sent to the client
      */
+    /*
     @Override
     public synchronized void update(IServerPacket packet) {
         if (packet instanceof DirectServerMessage) {
@@ -122,6 +122,7 @@ public class RemoteView implements Observer<IServerPacket> {
         } else
             clientConnection.send(packet);
     }
+*/
 
     /**
      * Handles an incoming packet, notifying it to the adequate controller.
@@ -130,7 +131,7 @@ public class RemoteView implements Observer<IServerPacket> {
      */
     void handlePacket(Object packet) {
         System.out.println("Received: " + packet);
-
+    /*
         if (packet instanceof IProcessablePacket) {
             if (packet instanceof ClientMessage) {
                 ClientMessage clientMessage = (ClientMessage) packet;
@@ -142,5 +143,12 @@ public class RemoteView implements Observer<IServerPacket> {
         } else {
             System.err.println("Received object is of unknown type");
         }
+
+     */
+    }
+
+    @Override
+    public void update(IServerPacket message) {
+
     }
 }

@@ -20,6 +20,6 @@ public class GameModeSetMessage extends DirectServerMessage {
 
     @Override
     public void process(View controller) {
-        controller.handleSetGameConfig();
+        //controller.handleSetGameConfig();
     }
 }

@@ -24,6 +24,6 @@ public class PlayerLeaveMessage extends ServerMessage {
 
     @Override
     public void process(View view) {
-        view.handlePlayerDisconnect(playerName);
+        //view.handlePlayerDisconnect(playerName);
     }
 }

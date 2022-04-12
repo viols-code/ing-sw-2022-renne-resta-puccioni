@@ -24,6 +24,6 @@ public class PlayerCrashMessage extends ServerMessage {
 
     @Override
     public void process(View view) {
-        view.handlePlayerCrash(playerName);
+        //view.handlePlayerCrash(playerName);
     }
 }

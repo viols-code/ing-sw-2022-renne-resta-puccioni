@@ -88,8 +88,8 @@ public class LobbyController {
         Lobby lobbyToStart = currentLobby;
         playingLobbies.put(currentLobby.getUuid(), lobbyToStart);
 
-        Thread t = new Thread(new GameInstance(lobbyToStart));
-        t.start();
+        //Thread t = new Thread(new GameInstance(lobbyToStart));
+        //t.start();
 
         currentLobby = new Lobby();
     }

@@ -33,6 +33,6 @@ public class PlayerConnectMessage extends ServerMessage {
 
     @Override
     public void process(View view) {
-        view.handlePlayerConnect(playerName, currentPlayers, playersToStart, otherConnectedPlayers);
+       // view.handlePlayerConnect(playerName, currentPlayers, playersToStart, otherConnectedPlayers);
     }
 }
