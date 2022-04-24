@@ -1,11 +1,9 @@
 package it.polimi.ingsw.server;
 
-import it.polimi.ingsw.IProcessablePacket;
-import it.polimi.ingsw.client.message.ClientMessage;
+import it.polimi.ingsw.client.messages.ClientMessage;
 import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.observer.Observer;
-import it.polimi.ingsw.server.messages.DirectServerMessage;
 
 /**
  * Represents a client view on the server. It is responsible of handling incoming and outgoing messages and updates to

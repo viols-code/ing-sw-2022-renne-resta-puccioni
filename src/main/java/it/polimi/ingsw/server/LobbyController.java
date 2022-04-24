@@ -1,6 +1,6 @@
 package it.polimi.ingsw.server;
 
-import it.polimi.ingsw.client.message.ClientMessage;
+import it.polimi.ingsw.client.messages.ClientMessage;
 
 import java.util.HashMap;
 import java.util.Map;

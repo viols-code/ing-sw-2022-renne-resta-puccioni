@@ -1,4 +1,4 @@
-package it.polimi.ingsw.client.message;
+package it.polimi.ingsw.client.messages;
 
 import it.polimi.ingsw.IProcessablePacket;
 import it.polimi.ingsw.server.LobbyController;

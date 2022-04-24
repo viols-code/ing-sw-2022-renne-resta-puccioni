@@ -1,8 +1,10 @@
 package it.polimi.ingsw.server;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Scanner;
 
 /**
  * Main server instance.
@@ -34,9 +36,14 @@ public class Server {
 
                 System.out.println("Accepted new connection");
 
-                SocketClientConnection socketConnection = new SocketClientConnection(connection, lobbyController);
+                /*SocketClientConnection socketConnection = new SocketClientConnection(connection, lobbyController);
                 Thread t = new Thread(socketConnection);
-                t.start();
+                t.start();*/
+                PrintWriter out = new PrintWriter(connection.getOutputStream());
+                out.println("ciao, come ti chiami?");
+                out.flush();
+                Scanner in = new Scanner(connection.getInputStream());
+                System.out.println(in.nextLine());
             } catch (IOException e) {
                 System.err.println("Connection Error!");
             } catch (Exception e) {

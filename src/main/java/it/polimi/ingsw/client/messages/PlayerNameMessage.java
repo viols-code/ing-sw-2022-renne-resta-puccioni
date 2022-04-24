@@ -1,6 +1,5 @@
 package it.polimi.ingsw.client.messages;
 
-import it.polimi.ingsw.client.message.ClientMessage;
 import it.polimi.ingsw.server.LobbyController;
 
 import java.io.Serial;
