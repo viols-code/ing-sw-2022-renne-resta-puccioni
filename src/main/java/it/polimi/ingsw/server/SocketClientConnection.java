@@ -72,14 +72,15 @@ public class SocketClientConnection implements Runnable {
     @Override
     public void run() {
         ObjectInputStream in;
+        ObjectOutputStream out;
         try{
             in = new ObjectInputStream(socket.getInputStream());
             Object read;
+            out = new ObjectOutputStream(socket.getOutputStream());
             while (isActive()) {
                 read = in.readObject();
                 if(read instanceof ClientMessage2){
                         System.out.println(((ClientMessage2)read).getMessage());
-                        ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
                     if(read instanceof Mex3){
                         ServerMessage2 mex = new Mex1();
                         mex.process(socket,out);

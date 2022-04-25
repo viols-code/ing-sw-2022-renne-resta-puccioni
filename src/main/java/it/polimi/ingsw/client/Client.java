@@ -43,17 +43,20 @@ public class Client {
     }
 
     public boolean connect(){
+        ObjectOutputStream out;
+        ObjectInputStream in;
         try{
             socket = new Socket(ip,port);
             System.out.println("Connection established");
-            ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
-            ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
+            out = new ObjectOutputStream(socket.getOutputStream());
+            in = new ObjectInputStream(socket.getInputStream());
             Object read;
             ClientMessage2 mex;
 
             mex = new Mex3();
             mex.process(socket,out);
             System.out.println("ho inviato il messaggio 3");
+
 
             read = in.readObject();
             if(read instanceof ServerMessage2){
@@ -63,9 +66,11 @@ public class Client {
                 System.out.println("message not known");
             }
 
+
             mex = new Mex4();
             mex.process(socket,out);
             System.out.println("ho inviato il messaggio 4");
+
 
             read = in.readObject();
             if(read instanceof ServerMessage2){
