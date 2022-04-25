@@ -74,7 +74,7 @@ public class Lobby extends Observable<IServerPacket> {
      * @param connection the connection that will have its player name set
      * @param playerName the player name to be set, if it's null or empty sends an error message to the client
      */
-    public void setPlayerName(SocketClientConnection connection, String playerName) {
+    /*public void setPlayerName(SocketClientConnection connection, String playerName) {
         if (playerName == null || playerName.trim().equals("")) {
             notify(new ErrorMessage(connection, "Your username can't be empty"));
             return;
@@ -93,7 +93,7 @@ public class Lobby extends Observable<IServerPacket> {
                 otherNames.add(con.getPlayerName());
         });
         notify(new PlayerConnectMessage(playerName, connections.size(), playersToStart, otherNames));
-    }
+    }*/
 
     /**
      * Sets the players needed to start the game, if the given connection is not the first connection to the lobby
@@ -162,7 +162,7 @@ public class Lobby extends Observable<IServerPacket> {
             playersToStart = -1;
         }
 
-        notify(new PlayerLeaveMessage(connection.getPlayerName()));
+        //notify(new PlayerLeaveMessage(connection.getPlayerName()));
         connections.remove(connection);
     }
 
@@ -174,7 +174,7 @@ public class Lobby extends Observable<IServerPacket> {
     public void disconnectAll(SocketClientConnection crashedConnection) {
         connections.remove(crashedConnection);
 
-        notify(new PlayerCrashMessage(crashedConnection.getPlayerName()));
+        //notify(new PlayerCrashMessage(crashedConnection.getPlayerName()));
 
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
@@ -207,7 +207,7 @@ public class Lobby extends Observable<IServerPacket> {
      */
     public synchronized boolean canStart() {
         for (SocketClientConnection conn : connections)
-            if (conn.getPlayerName() == null || conn.getWizard() == null)
+            //if (conn.getPlayerName() == null || conn.getWizard() == null)
                 return false;
         if (!isGameModeSet) return false;
         return playersToStart == connections.size();

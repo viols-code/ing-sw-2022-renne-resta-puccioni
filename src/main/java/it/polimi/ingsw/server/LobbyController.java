@@ -28,7 +28,7 @@ public class LobbyController {
      * @param connection the connection that will be added to the lobby
      */
     public synchronized void addToLobby(SocketClientConnection connection) {
-        currentLobby.addObserver(connection.getRemoteView());
+        //currentLobby.addObserver(connection.getRemoteView());
         try {
             currentLobby.addConnection(connection);
         } catch (IllegalStateException e) {
@@ -44,7 +44,7 @@ public class LobbyController {
      * @param connection the connection that will have its player name set
      * @param playerName the name to be set
      */
-    public synchronized void setPlayerName(SocketClientConnection connection, String playerName) {
+    /*public synchronized void setPlayerName(SocketClientConnection connection, String playerName) {
         if (connection.getPlayerName() != null) {
             return;
         }
@@ -54,7 +54,7 @@ public class LobbyController {
 
         if (currentLobby.canStart())
             startGame();
-    }
+    }*/
 
     /**
      * Sets the number of players needed to start the game in the current lobby.
@@ -100,7 +100,7 @@ public class LobbyController {
      *
      * @param connection the connection to deregister
      */
-    public synchronized void deregisterConnection(SocketClientConnection connection) {
+    /*public synchronized void deregisterConnection(SocketClientConnection connection) {
         if (connection.getLobbyUUID() == null) {
             currentLobby.disconnect(connection);
         } else {
@@ -111,5 +111,5 @@ public class LobbyController {
                 playingLobbies.remove(connection.getLobbyUUID());
             }
         }
-    }
+    }*/
 }

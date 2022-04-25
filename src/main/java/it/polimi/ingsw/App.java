@@ -9,7 +9,6 @@ public class App {
         System.out.println("Hello World!");
         Client client = new Client();
         client.connect();
-        while(true);
 
     }
 }

@@ -1,11 +1,9 @@
 package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.controller.GameController;
+import it.polimi.ingsw.server.*;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.ConnectException;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -48,16 +46,32 @@ public class Client {
         try{
             socket = new Socket(ip,port);
             System.out.println("Connection established");
-            PrintWriter out = new PrintWriter(socket.getOutputStream());
-            Scanner in = new Scanner(socket.getInputStream());
-            System.out.println(in.nextLine());
-            Scanner scanner1 = new Scanner(System.in);
-            String message = scanner1.nextLine();
-            out.println(message);
-            out.flush();
-        }catch(UnknownHostException | ConnectException e){
+            ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
+            Object read;
+            ClientMessage2 mex;
+
+                mex = new Mex3();
+                mex.process(socket,out);
+                System.out.println("ho inviato il messaggio 3");
+
+                mex = new Mex4();
+                mex.process(socket,out);
+                System.out.println("ho inviato il messaggio 4");
+
+
+                read = in.readObject();
+                if(read instanceof ServerMessage2){
+                    System.out.println(((ServerMessage2)read).getMessage());
+                }
+                else{
+                    System.out.println("message not known");
+                }
+
+
+        }catch(UnknownHostException | ConnectException | ClassNotFoundException e){
             return false;
-        }catch(NoSuchElementException | IOException e){
+        }catch(NoSuchElementException | IOException  e){
             System.out.println("Connection closed from the client side");
             e.printStackTrace();
         }

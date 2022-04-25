@@ -30,7 +30,7 @@ public class GameInstance implements Runnable {
      */
     @Override
     public void run() {
-        System.out.println("Starting game!");
+       /* System.out.println("Starting game!");
 
         GameController controller = new GameController(isExpertGame, numberOfPlayers);
         List<RemoteView> registeredViews = new ArrayList<>();
@@ -57,7 +57,7 @@ public class GameInstance implements Runnable {
             }
         }
 
-        lobby.startGame();
+        lobby.startGame();*/
 
     }
 }
