@@ -51,22 +51,29 @@ public class Client {
             Object read;
             ClientMessage2 mex;
 
-                mex = new Mex3();
-                mex.process(socket,out);
-                System.out.println("ho inviato il messaggio 3");
+            mex = new Mex3();
+            mex.process(socket,out);
+            System.out.println("ho inviato il messaggio 3");
 
-                mex = new Mex4();
-                mex.process(socket,out);
-                System.out.println("ho inviato il messaggio 4");
+            read = in.readObject();
+            if(read instanceof ServerMessage2){
+                System.out.println(((ServerMessage2)read).getMessage());
+            }
+            else{
+                System.out.println("message not known");
+            }
 
+            mex = new Mex4();
+            mex.process(socket,out);
+            System.out.println("ho inviato il messaggio 4");
 
-                read = in.readObject();
-                if(read instanceof ServerMessage2){
-                    System.out.println(((ServerMessage2)read).getMessage());
-                }
-                else{
-                    System.out.println("message not known");
-                }
+            read = in.readObject();
+            if(read instanceof ServerMessage2){
+                System.out.println(((ServerMessage2)read).getMessage());
+            }
+            else{
+                System.out.println("message not known");
+            }
 
 
         }catch(UnknownHostException | ConnectException | ClassNotFoundException e){
