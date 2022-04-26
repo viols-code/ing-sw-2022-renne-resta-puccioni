@@ -10,12 +10,12 @@ Software Engineering Project A.A. 2021/2022
 
 | Functionality | State |
 |:-----------------------|:------------------------------------:|
-| Basic rules | [![YELLOW](https://via.placeholder.com//15/ffdd00/ffdd00)](#) |
-| Complete rules | [![YELLOW](https://via.placeholder.com//15/ffdd00/ffdd00)](#)|
+| Basic rules | [![GREEN](https://via.placeholder.com//15/44bb44/44bb44)](#) |
+| Complete rules | [![GREEN](https://via.placeholder.com//15/44bb44/44bb44)](#) |
 | CLI | [![RED](https://via.placeholder.com//15/f03c15/f03c15)](#) |
 | GUI | [![RED](https://via.placeholder.com//15/f03c15/f03c15)](#) |
-| Socket | [![RED](https://via.placeholder.com//15/f03c15/f03c15)](#) |
-| Character Cards | [![RED](https://via.placeholder.com//15/f03c15/f03c15)](#) |
+| Socket | [![YELLOW](https://via.placeholder.com//15/ffdd00/ffdd00)](#) |
+| Character Cards | [![GREEN](https://via.placeholder.com//15/44bb44/44bb44)](#) |
 
 <!--
 [![RED](https://via.placeholder.com//15/f03c15/f03c15)](#)
