@@ -8,7 +8,6 @@ import java.io.Serial;
 public class PlayerWizardMessage extends ClientMessage{
     @Serial
     private static final long serialVersionUID = 7311855340201090917L;
-
     private final Wizard wizard;
 
     /**

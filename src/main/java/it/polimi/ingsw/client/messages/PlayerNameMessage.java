@@ -10,7 +10,6 @@ import java.io.Serial;
 public class PlayerNameMessage extends ClientMessage {
     @Serial
     private static final long serialVersionUID = 7401855340201090917L;
-
     private final String playerName;
 
     /**

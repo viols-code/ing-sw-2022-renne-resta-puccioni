@@ -13,7 +13,6 @@ import java.io.Serializable;
 public abstract class ClientMessage implements Serializable, IProcessablePacket<LobbyController> {
     @Serial
     private static final long serialVersionUID = 463009486016884875L;
-
     private transient SocketClientConnection clientConnection;
 
     /**

@@ -11,7 +11,6 @@ import java.io.Serial;
 public class AddToLobbyMessage extends DirectServerMessage {
     @Serial
     private static final long serialVersionUID = -695696550449639574L;
-
     private final boolean firstConnection;
 
     /**
