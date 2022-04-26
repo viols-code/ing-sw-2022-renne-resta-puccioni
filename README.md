@@ -31,4 +31,5 @@ Software Engineering Project A.A. 2021/2022
 
 ## Software used
 **Draw.io** - UML diagrams
+
 **Intellij IDEA Ultimate** - main IDE
