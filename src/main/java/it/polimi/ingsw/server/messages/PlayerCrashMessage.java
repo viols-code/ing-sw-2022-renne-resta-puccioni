@@ -25,5 +25,6 @@ public class PlayerCrashMessage extends ServerMessage {
     @Override
     public void process(View view) {
         //view.handlePlayerCrash(playerName);
+        System.out.println("Ciao ciao - ti sei disconnesso");
     }
 }

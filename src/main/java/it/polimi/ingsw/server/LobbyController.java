@@ -63,7 +63,7 @@ public class LobbyController {
         }
         currentLobby.setWizard(connection, wizard);
 
-        System.out.println("Player connected: " + connection.getWizard());
+        System.out.println("Player connected with Wizard: " + connection.getWizard());
 
         if (currentLobby.canStart())
             startGame();

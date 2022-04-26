@@ -1,6 +1,8 @@
 package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.IProcessablePacket;
+import it.polimi.ingsw.client.messages.ClientMessage;
+import it.polimi.ingsw.client.messages.PlayerNameMessage;
 import it.polimi.ingsw.model.player.Wizard;
 
 import java.io.EOFException;
@@ -23,13 +25,23 @@ public class SocketClientConnection implements Runnable {
     private String playerName;
     private Wizard wizard;
 
+    private static final int BUFFER_CAPACITY = 20;
+    private final ObjectOutputStream out;
+    private final ObjectInputStream in;
+    private final ArrayBlockingQueue<Object> bufferOut;
+    private final RemoteView remoteView;
+
     /**
      * Creates a new SocketClientConnection that manages the communication with the given Socket.
      *
      * @param socket          the client socket
      */
-    SocketClientConnection(Socket socket) {
+    SocketClientConnection(Socket socket, LobbyController lobbyController) throws IOException{
         this.socket = socket;
+        this.out = new ObjectOutputStream(socket.getOutputStream());
+        this.in = new ObjectInputStream(socket.getInputStream());
+        bufferOut = new ArrayBlockingQueue<>(BUFFER_CAPACITY);
+        this.remoteView = new RemoteView(this, lobbyController);
     }
 
     /**
@@ -109,32 +121,20 @@ public class SocketClientConnection implements Runnable {
      */
     @Override
     public void run() {
-        ObjectInputStream in;
-        ObjectOutputStream out;
         try{
-            in = new ObjectInputStream(socket.getInputStream());
+            remoteView.getLobbyController().addToLobby(this);
             Object read;
-            out = new ObjectOutputStream(socket.getOutputStream());
             while (isActive()) {
                 read = in.readObject();
-                if(read instanceof ClientMessage2){
-                        System.out.println(((ClientMessage2)read).getMessage());
-                    if(read instanceof Mex3){
-                        ServerMessage2 mex = new Mex1();
-                        mex.process(socket,out);
-                        System.out.println("ho inviato il messaggio 1");
-                    }
-                    else if(read instanceof Mex4){
-                        ServerMessage2 mex = new Mex2();
-                        mex.process(socket,out);
-                        System.out.println("ho inviato il messaggio 2");
-                    }
-                }
-                else{
-                    System.out.println("message not known");
-                }
 
+                try {
+                    remoteView.handlePacket(read);
+                } catch (Exception e) {
+                    System.err.println("Packet from " + playerName + " handling threw an uncaught exception!");
+                    e.printStackTrace();
+                }
             }
+
         }catch(IOException | ClassNotFoundException e){
             e.printStackTrace();
         }finally{
@@ -147,7 +147,35 @@ public class SocketClientConnection implements Runnable {
             System.out.println("Deregistering client...");
 
         }
-}}
+    }
+
+    /**
+     * Sends a message to the client.
+     *
+     * @param message the message to be sent, should be a {@link IServerPacket}
+     */
+    public synchronized void send(Object message) {
+        if (bufferOut.remainingCapacity() > 0) {
+            bufferOut.add(message);
+            try {
+                while (this.isActive()) {
+                    Object object = bufferOut.take();
+
+                    out.reset();
+                    out.writeObject(object);
+                    out.flush();
+                }
+            } catch (EOFException | SocketException ignored) {
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.err.println("Error in SocketClientConnection WriteThread");
+                this.setInactive();
+            }
+        } else {
+            System.err.println("WRITE_THREAD: Trying to send too many messages at once!");
+        }
+    }
+}
 
 
 

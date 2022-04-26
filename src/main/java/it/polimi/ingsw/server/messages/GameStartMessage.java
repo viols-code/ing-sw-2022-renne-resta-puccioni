@@ -27,6 +27,7 @@ public class GameStartMessage extends ServerMessage {
     @Override
     public void process(View view) {
        // view.handleGameStart(gameConfig);
+        System.out.println("Il gioco inizia");
     }
 
 }

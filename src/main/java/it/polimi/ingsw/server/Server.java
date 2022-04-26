@@ -41,7 +41,7 @@ public class Server {
                 Thread t = new Thread(socketConnection);
                 t.start();*/
 
-                SocketClientConnection socketConnection = new SocketClientConnection(connection);
+                SocketClientConnection socketConnection = new SocketClientConnection(connection, lobbyController);
                 Thread t = new Thread(socketConnection);
                 t.start();
 
@@ -50,6 +50,7 @@ public class Server {
                 out.flush();
                 Scanner in = new Scanner(connection.getInputStream());
                 System.out.println(in.nextLine());*/
+                System.out.println("Ciao");
             } catch (IOException e) {
                 System.err.println("Connection Error!");
             } catch (Exception e) {

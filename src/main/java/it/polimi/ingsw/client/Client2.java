@@ -15,7 +15,7 @@ import java.net.UnknownHostException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-public class Client {
+public class Client2 extends Client{
     private String ip = "localhost";
     private int port = 54321;
 
@@ -54,6 +54,7 @@ public class Client {
         this.port = port;
     }
 
+    @Override
     public boolean connect(){
         ObjectOutputStream out;
         ObjectInputStream in;
@@ -68,10 +69,8 @@ public class Client {
             writeThread.start();
             System.out.println("Connection established");
 
-            send(new PlayerNameMessage("Viola"));
-            send(new PlayerWizardMessage(Wizard.TYPE_1));
-            send(new GameModeMessage(false));
-            send(new PlayersToStartMessage(2));
+            send(new PlayerNameMessage("Laura"));
+            send(new PlayerWizardMessage(Wizard.TYPE_2));
 
         }catch(UnknownHostException | ConnectException e){
             return false;

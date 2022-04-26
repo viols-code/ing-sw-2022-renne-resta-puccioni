@@ -28,5 +28,6 @@ public class AddToLobbyMessage extends DirectServerMessage {
     @Override
     public void process(View view) {
         //view.addToLobby(firstConnection);
+        System.out.println("Ho fatto qualcosa, ancora da capire cosa");
     }
 }
