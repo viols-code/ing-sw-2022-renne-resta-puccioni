@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server;
 
+import it.polimi.ingsw.model.player.Wizard;
 import it.polimi.ingsw.observer.Observable;
 import it.polimi.ingsw.server.messages.*;
 
@@ -74,7 +75,7 @@ public class Lobby extends Observable<IServerPacket> {
      * @param connection the connection that will have its player name set
      * @param playerName the player name to be set, if it's null or empty sends an error message to the client
      */
-    /*public void setPlayerName(SocketClientConnection connection, String playerName) {
+    public void setPlayerName(SocketClientConnection connection, String playerName) {
         if (playerName == null || playerName.trim().equals("")) {
             notify(new ErrorMessage(connection, "Your username can't be empty"));
             return;
@@ -93,7 +94,32 @@ public class Lobby extends Observable<IServerPacket> {
                 otherNames.add(con.getPlayerName());
         });
         notify(new PlayerConnectMessage(playerName, connections.size(), playersToStart, otherNames));
-    }*/
+    }
+
+    /**
+     * Sets the player name for the given connection. If there is another player with this name already connected sends
+     * an error message to the client.
+     */
+    public void setWizard(SocketClientConnection connection, Wizard wizard) {
+        if (wizard == null) {
+            notify(new ErrorMessage(connection, "Your username can't be empty"));
+            return;
+        }
+        for (SocketClientConnection clientConnection : connections) {
+            if (wizard.equals(clientConnection.getWizard())) {
+                notify(new ErrorMessage(connection, "This username is already taken"));
+                return;
+            }
+        }
+
+        connection.setWizard(wizard);
+        List<Wizard> otherWizard = new ArrayList<>();
+        connections.forEach(con -> {
+            if (con.getWizard() != null)
+                otherWizard.add(con.getWizard());
+        });
+        //notify(new PlayerConnectMessage(wizard, connections.size(), playersToStart, otherWizard));
+    }
 
     /**
      * Sets the players needed to start the game, if the given connection is not the first connection to the lobby
@@ -207,7 +233,7 @@ public class Lobby extends Observable<IServerPacket> {
      */
     public synchronized boolean canStart() {
         for (SocketClientConnection conn : connections)
-            //if (conn.getPlayerName() == null || conn.getWizard() == null)
+            if (conn.getPlayerName() == null || conn.getWizard() == null)
                 return false;
         if (!isGameModeSet) return false;
         return playersToStart == connections.size();

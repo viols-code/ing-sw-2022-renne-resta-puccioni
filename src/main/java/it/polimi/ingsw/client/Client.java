@@ -19,9 +19,16 @@ public class Client {
     private String localPlayerName;
     private Boolean isGameExpert = null;
     private boolean active = true;
+    private SocketClientWrite writeThread;
+    private SocketClientRead readThread;
 
-    public Client(){
-
+    /**
+     * Checks if this client is still active.
+     *
+     * @return true if the client is active, false otherwise
+     */
+    public synchronized boolean isActive() {
+        return active;
     }
 
     /**
@@ -47,41 +54,18 @@ public class Client {
         ObjectInputStream in;
         try{
             socket = new Socket(ip,port);
-            System.out.println("Connection established");
             out = new ObjectOutputStream(socket.getOutputStream());
             in = new ObjectInputStream(socket.getInputStream());
-            Object read;
-            ClientMessage2 mex;
 
-            mex = new Mex3();
-            mex.process(socket,out);
-            System.out.println("ho inviato il messaggio 3");
+            readThread = new SocketClientRead(this, in);
+            writeThread = new SocketClientWrite(this, out);
+            readThread.start();
+            writeThread.start();
+            System.out.println("Connection established");
 
+            send(new Mex3());
 
-            read = in.readObject();
-            if(read instanceof ServerMessage2){
-                System.out.println(((ServerMessage2)read).getMessage());
-            }
-            else{
-                System.out.println("message not known");
-            }
-
-
-            mex = new Mex4();
-            mex.process(socket,out);
-            System.out.println("ho inviato il messaggio 4");
-
-
-            read = in.readObject();
-            if(read instanceof ServerMessage2){
-                System.out.println(((ServerMessage2)read).getMessage());
-            }
-            else{
-                System.out.println("message not known");
-            }
-
-
-        }catch(UnknownHostException | ConnectException | ClassNotFoundException e){
+        }catch(UnknownHostException | ConnectException e){
             return false;
         }catch(NoSuchElementException | IOException  e){
             System.out.println("Connection closed from the client side");
@@ -89,5 +73,36 @@ public class Client {
         }
         return true;
 
+    }
+
+    /**
+     * Sends a message to the Server.
+     *
+     * @param message the message that will be sent to the server
+     */
+    public void send(Object message) {
+        writeThread.send(message);
+    }
+
+    /**
+     * Terminates this client.
+     */
+    public synchronized void terminate() {
+        this.active = false;
+        if (socket != null)
+            try {
+                socket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        if (writeThread != null)
+            writeThread.interrupt();
+
+        System.out.flush();
+
+        if (readThread != null)
+            readThread.interrupt();
+        System.exit(0);
     }
 }

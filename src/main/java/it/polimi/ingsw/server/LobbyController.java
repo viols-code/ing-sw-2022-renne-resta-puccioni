@@ -1,6 +1,7 @@
 package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.client.messages.ClientMessage;
+import it.polimi.ingsw.model.player.Wizard;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -44,7 +45,7 @@ public class LobbyController {
      * @param connection the connection that will have its player name set
      * @param playerName the name to be set
      */
-    /*public synchronized void setPlayerName(SocketClientConnection connection, String playerName) {
+    public synchronized void setPlayerName(SocketClientConnection connection, String playerName) {
         if (connection.getPlayerName() != null) {
             return;
         }
@@ -54,7 +55,20 @@ public class LobbyController {
 
         if (currentLobby.canStart())
             startGame();
-    }*/
+    }
+
+    public synchronized void setWizard(SocketClientConnection connection, Wizard wizard) {
+        if (connection.getWizard() != null) {
+            return;
+        }
+        currentLobby.setWizard(connection, wizard);
+
+        System.out.println("Player connected: " + connection.getWizard());
+
+        if (currentLobby.canStart())
+            startGame();
+    }
+
 
     /**
      * Sets the number of players needed to start the game in the current lobby.
@@ -70,14 +84,11 @@ public class LobbyController {
     }
 
     public synchronized void setGameMode(SocketClientConnection connection, boolean GameMode) {
-
         currentLobby.setGameMode(connection, GameMode);
-
         if (currentLobby.canStart())
             startGame();
 
         return;
-
     }
 
     /**

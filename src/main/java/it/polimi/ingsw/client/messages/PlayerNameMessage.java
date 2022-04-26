@@ -28,6 +28,6 @@ public class PlayerNameMessage extends ClientMessage {
 
     @Override
     public void process(LobbyController lobbyController) {
-       // lobbyController.setPlayerName(getClientConnection(), playerName);
+       lobbyController.setPlayerName(getClientConnection(), playerName);
     }
 }

@@ -20,6 +20,8 @@ import java.util.concurrent.ArrayBlockingQueue;
 public class SocketClientConnection implements Runnable {
     private final Socket socket;
     private boolean active = true;
+    private String playerName;
+    private Wizard wizard;
 
     /**
      * Creates a new SocketClientConnection that manages the communication with the given Socket.
@@ -44,6 +46,42 @@ public class SocketClientConnection implements Runnable {
      */
     synchronized void setInactive() {
         this.active = false;
+    }
+
+    /**
+     * Gets the player name associated with this connection.
+     *
+     * @return the player name, or <code>null</code> if it has not been set yet
+     */
+    public synchronized String getPlayerName() {
+        return playerName;
+    }
+
+    /**
+     * Sets the player name associated with this connection.
+     *
+     * @param playerName the player name to associate with this connection
+     */
+    public synchronized void setPlayerName(String playerName) {
+        this.playerName = playerName;
+    }
+
+    /**
+     * Gets the player name associated with this connection.
+     *
+     * @return the player name, or <code>null</code> if it has not been set yet
+     */
+    public synchronized Wizard getWizard() {
+        return wizard;
+    }
+
+    /**
+     * Sets the player name associated with this connection.
+     *
+     * @param wizard the player name to associate with this connection
+     */
+    public synchronized void setWizard(Wizard wizard) {
+        this.wizard = wizard;
     }
 
     /**
