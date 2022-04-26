@@ -4,7 +4,7 @@ Software Engineering Project A.A. 2021/2022
 
 **Professor:** Gianpaolo Cugola  
 
-**Group**: GC-16
+**Group**: GC16
 
 ## Project Status
 
