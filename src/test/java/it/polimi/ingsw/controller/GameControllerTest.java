@@ -260,7 +260,7 @@ class GameControllerTest {
         assertEquals(1, gameControllerTwo.getGame().getTable().getMotherNaturePosition());
         gameControllerTwo.chooseCloudTile(0, 0);
         assertEquals(7, gameControllerTwo.getGame().getPlayerByIndex(0).getSchoolBoard().getNumberStudentsEntrance());
-        gameControllerTwo.setColour(Colour.PINK);
+        gameControllerTwo.setColour(0, Colour.PINK);
         assertEquals(gameControllerTwo.getGame().getActiveCharacterCard(), gameControllerTwo.getGame().getBasicState());
     }
 
@@ -281,7 +281,7 @@ class GameControllerTest {
         assertEquals(1, gameControllerTwo.getGame().getTable().getMotherNaturePosition());
         gameControllerTwo.chooseCloudTile(0, 0);
         assertEquals(7, gameControllerTwo.getGame().getPlayerByIndex(0).getSchoolBoard().getNumberStudentsEntrance());
-        gameControllerTwo.setColourAndIsland(Colour.PINK, 0, 0);
+        gameControllerTwo.setColourAndIsland(0, Colour.PINK, 0, 0);
         assertEquals(gameControllerTwo.getGame().getActiveCharacterCard(), gameControllerTwo.getGame().getBasicState());
     }
 
@@ -303,7 +303,7 @@ class GameControllerTest {
         gameControllerTwo.chooseCloudTile(0, 0);
         assertEquals(7, gameControllerTwo.getGame().getPlayerByIndex(0).getSchoolBoard().getNumberStudentsEntrance());
         assertEquals(gameControllerTwo.getGame().getActiveCharacterCard(), gameControllerTwo.getGame().getBasicState());
-        gameControllerTwo.setGroupIsland(0);
+        gameControllerTwo.setGroupIsland(0,0);
         assertEquals(gameControllerTwo.getGame().getActiveCharacterCard(), gameControllerTwo.getGame().getBasicState());
     }
 
@@ -325,7 +325,7 @@ class GameControllerTest {
         gameControllerTwo.chooseCloudTile(0, 0);
         assertEquals(7, gameControllerTwo.getGame().getPlayerByIndex(0).getSchoolBoard().getNumberStudentsEntrance());
         assertEquals(gameControllerTwo.getGame().getActiveCharacterCard(), gameControllerTwo.getGame().getBasicState());
-        gameControllerTwo.setColourDiningRoomEntrance(Colour.RED, Colour.BLUE);
+        gameControllerTwo.setColourDiningRoomEntrance(0, Colour.RED, Colour.BLUE);
         assertEquals(gameControllerTwo.getGame().getActiveCharacterCard(), gameControllerTwo.getGame().getBasicState());
     }
 
@@ -347,7 +347,7 @@ class GameControllerTest {
         gameControllerTwo.chooseCloudTile(0, 0);
         assertEquals(7, gameControllerTwo.getGame().getPlayerByIndex(0).getSchoolBoard().getNumberStudentsEntrance());
         assertEquals(gameControllerTwo.getGame().getActiveCharacterCard(), gameControllerTwo.getGame().getBasicState());
-        gameControllerTwo.setColourCardEntrance(Colour.RED, Colour.BLUE);
+        gameControllerTwo.setColourCardEntrance(0, Colour.RED, Colour.BLUE);
         assertEquals(gameControllerTwo.getGame().getActiveCharacterCard(), gameControllerTwo.getGame().getBasicState());
     }
 
