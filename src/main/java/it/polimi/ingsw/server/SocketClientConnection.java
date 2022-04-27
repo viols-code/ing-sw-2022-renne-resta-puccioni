@@ -144,7 +144,7 @@ public class SocketClientConnection implements Runnable {
                 System.err.println("Error when closing socket!");
             }
             active = false;
-            System.out.println("Deregistering client...");
+            close();
 
         }
     }
@@ -152,7 +152,7 @@ public class SocketClientConnection implements Runnable {
     /**
      * Sends a message to the client.
      *
-     * @param message the message to be sent, should be a {@link IServerPacket}
+     * @param message the message to be sent, should be a
      */
     public synchronized void send(Object message) {
         if (bufferOut.remainingCapacity() > 0) {

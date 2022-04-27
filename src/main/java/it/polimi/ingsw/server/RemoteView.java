@@ -11,7 +11,7 @@ import it.polimi.ingsw.server.messages.DirectServerMessage;
  * Represents a client view on the server. It is responsible of handling incoming and outgoing messages and updates to
  * the associated client connection.
  */
-public class RemoteView implements Observer<IServerPacket> {
+public class RemoteView implements Observer<IProcessablePacket> {
     private Player player;
     private final SocketClientConnection clientConnection;
     private final LobbyController lobbyController;
@@ -111,7 +111,7 @@ public class RemoteView implements Observer<IServerPacket> {
      * @param packet the packet to be sent to the client
      */
     @Override
-    public synchronized void update(IServerPacket packet) {
+    public synchronized void update(IProcessablePacket packet) {
         if (packet instanceof DirectServerMessage) {
             DirectServerMessage dm = (DirectServerMessage) packet;
             if (dm.getRecipient() == clientConnection)

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server;
 
+import it.polimi.ingsw.IProcessablePacket;
 import it.polimi.ingsw.model.player.Wizard;
 import it.polimi.ingsw.observer.Observable;
 import it.polimi.ingsw.server.messages.*;
@@ -10,7 +11,7 @@ import java.util.*;
  * Models a lobby, holding the list of connected clients, the first connected client and the number of players needed to
  * start the game in the current lobby.
  */
-public class Lobby extends Observable<IServerPacket> {
+public class Lobby extends Observable<IProcessablePacket> {
     private final UUID uuid;
 
     private SocketClientConnection firstConnection;
