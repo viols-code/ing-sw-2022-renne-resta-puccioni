@@ -8,7 +8,7 @@ import java.io.Serial;
 public class MoveStudentToDiningRoom extends PlayerAction{
 
     @Serial
-    private static final long serialVersionUID = 9204228452736058886L;
+    private static final long serialVersionUID = 9204228452737758886L;
     private int player;
     private final Colour colour;
 
