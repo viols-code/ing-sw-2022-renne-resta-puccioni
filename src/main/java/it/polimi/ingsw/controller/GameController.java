@@ -7,11 +7,13 @@ import it.polimi.ingsw.model.player.*;
 import it.polimi.ingsw.model.table.CloudTile;
 import it.polimi.ingsw.model.table.island.AdvancedGroupIsland;
 import it.polimi.ingsw.model.table.island.BasicGroupIsland;
+import it.polimi.ingsw.observer.Observer;
+import it.polimi.ingsw.view.messages.PlayerEvent;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
-public class GameController {
+public class GameController implements Observer<PlayerEvent> {
     /**
      * The Game
      */
@@ -392,7 +394,7 @@ public class GameController {
                         game.getActiveCharacterCard().calculateInfluence(game.getTable().getMotherNaturePosition());
                         if (game.getWinner() != null) endGame();
                         else if (game.getTable().getNumberOfGroupIsland() <= 3) calculateWinner();
-                        if(game.getTable().getBag().getNoStudent()){
+                        if (game.getTable().getBag().getNoStudent()) {
                             endTurn();
                         } else {
                             game.setTurnPhase(TurnPhase.CHOOSE_CLOUD_TILE);
@@ -528,12 +530,12 @@ public class GameController {
         }
 
         for (int i = 0; i < game.getStudentNumberMovement(); i++) {
-                try {
-                    Colour colour1 = game.getTable().getBag().bagDrawStudent();
-                    students.replace(colour1, students.get(colour1), students.get(colour1) + 1);
-                } catch (IllegalAccessError ex) {
-                    ex.printStackTrace();
-                }
+            try {
+                Colour colour1 = game.getTable().getBag().bagDrawStudent();
+                students.replace(colour1, students.get(colour1), students.get(colour1) + 1);
+            } catch (IllegalAccessError ex) {
+                ex.printStackTrace();
+            }
         }
 
         game.getTable().addCLoudTile(new CloudTile(students));
@@ -564,14 +566,14 @@ public class GameController {
     /**
      * End of the turn of the current Player
      */
-    private void endTurn(){
+    private void endTurn() {
         game.getCurrentPlayer().setHasAlreadyPlayed(true);
 
         if (!(endPhasePlay())) {
             game.setCurrentPlayer(game.nextPlayerTurn());
             game.setTurnPhase(TurnPhase.MOVE_STUDENT);
         } else {
-            if(!game.getTable().getBag().getNoStudent()){
+            if (!game.getTable().getBag().getNoStudent()) {
                 settingCloudTile();
                 game.setCurrentPlayer(game.getFirstPlayerTurn());
                 game.setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
@@ -618,7 +620,7 @@ public class GameController {
     /**
      * Sets the parameters needed for the character card StudentToIsland
      *
-     * @param player the index of the player
+     * @param player       the index of the player
      * @param colour       colour of the student on the card
      * @param groupIsland  the group island chosen
      * @param singleIsland the single island chosen
@@ -638,7 +640,7 @@ public class GameController {
     /**
      * Sets the group island in the character card IslandInfluence
      *
-     * @param player the index of the player
+     * @param player      the index of the player
      * @param groupIsland the group island
      */
     public void setGroupIsland(int player, int groupIsland) {
@@ -655,7 +657,7 @@ public class GameController {
     /**
      * Sets the parameters for the character card ExchangeDiningRoomEntrance
      *
-     * @param player the index of the player
+     * @param player           the index of the player
      * @param colourDiningRoom the student of the dining room
      * @param colourEntrance   the student of the entrance
      */
@@ -673,7 +675,7 @@ public class GameController {
     /**
      * Sets the parameter for the character card StudentToEntrance
      *
-     * @param player the index of the player
+     * @param player         the index of the player
      * @param colourCard     the student of the card
      * @param colourEntrance the student of the entrance
      */
@@ -726,5 +728,15 @@ public class GameController {
                 return;
             }
         }
+    }
+
+    @Override
+    public synchronized void update(PlayerEvent event) {
+        try {
+            event.process(this);
+        } catch (IllegalStateException ignored) {
+            //Ignored exception for player action that is not during his turn
+        }
+
     }
 }

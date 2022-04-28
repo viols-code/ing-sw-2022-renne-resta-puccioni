@@ -6,13 +6,14 @@ import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.observer.Observer;
 import it.polimi.ingsw.server.messages.DirectServerMessage;
+import it.polimi.ingsw.view.messages.PlayerEvent;
 
 /**
  * Represents a client view on the server. It is responsible of handling incoming and outgoing messages and updates to
  * the associated client connection.
  */
 public class RemoteView implements Observer<IProcessablePacket> {
-    private Player player;
+    private Integer player;
     private final SocketClientConnection clientConnection;
     private final LobbyController lobbyController;
     private GameController gameController;
@@ -35,7 +36,7 @@ public class RemoteView implements Observer<IProcessablePacket> {
      *
      * @param player the player to be associated with the remote view
      */
-    public synchronized void setPlayer(Player player) {
+    public synchronized void setPlayer(Integer player) {
         this.player = player;
     }
 
@@ -68,23 +69,21 @@ public class RemoteView implements Observer<IProcessablePacket> {
 
 
     /**
-     * Notifies the GameController of the given PlayerActionEvent, if the GameController is null (the game is not started)
+     * Notifies the GameController of the given PlayerEvent, if the GameController is null (the game is not started)
      * prints an error and does nothing.
      *
      */
-    /*
-    private void notifyActionEvent(PlayerActionEvent event) {
+    private void notifyActionEvent(PlayerEvent event) {
         if (gameController != null) {
             event.setPlayer(player);
             try {
-                gameController.update(event);
+               gameController.update(event);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         } else
             System.err.println("Received PlayerActionEvent, but game is not started yet");
     }
-    */
 
 
     /**
@@ -137,11 +136,10 @@ public class RemoteView implements Observer<IProcessablePacket> {
             if (packet instanceof ClientMessage) {
                 ClientMessage clientMessage = (ClientMessage) packet;
                 notifyClientMessage(clientMessage);
-            } /*else if (packet instanceof PlayerActionEvent) {
-                PlayerActionEvent actionEvent = (PlayerActionEvent) packet;
+            } else if (packet instanceof PlayerEvent) {
+                PlayerEvent actionEvent = (PlayerEvent) packet;
                 notifyActionEvent(actionEvent);
-            }*/
-        else {
+            } else {
                 System.err.println("Received object is of unknown type");
             }
         }
