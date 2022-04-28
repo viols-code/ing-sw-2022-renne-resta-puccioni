@@ -11,7 +11,7 @@ public abstract class PlayerEvent implements Serializable, IProcessablePacket<Ga
     private static final long serialVersionUID = -695696550449639585L;
     private int player;
 
-    public int getPlayer() {
+    protected int getPlayer() {
         return player;
     }
 
