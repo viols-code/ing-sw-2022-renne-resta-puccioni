@@ -8,6 +8,11 @@ public class MotherNaturePositionUpdate extends TableUpdate{
 
     @Serial
     private static final long serialVersionUID = 7611410559820901831L;
+    private int movement;
+
+    public MotherNaturePositionUpdate(int movement){
+        this.movement = movement;
+    }
 
     @Override
     public void process(View view){
