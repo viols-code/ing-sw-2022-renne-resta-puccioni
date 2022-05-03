@@ -26,8 +26,8 @@ Software Engineering Project A.A. 2021/2022
 
 ## Team Members
 * [Viola Renne](https://github.com/viols-code)
-* [Sara Resta](https://github.com/)
-* [Laura Puccioni](https://github.com/)
+* [Sara Resta](https://github.com/sararesta)
+* [Laura Puccioni](https://github.com/LaP19)
 
 ## Software used
 **Draw.io** - UML diagrams
