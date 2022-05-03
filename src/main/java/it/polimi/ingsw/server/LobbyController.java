@@ -111,8 +111,8 @@ public class LobbyController {
      *
      * @param connection the connection to deregister
      */
-    /*public synchronized void deregisterConnection(SocketClientConnection connection) {
-        if (connection.getLobbyUUID() == null) {
+    public synchronized void deregisterConnection(SocketClientConnection connection) {
+        /*if (connection.getLobbyUUID() == null) {
             currentLobby.disconnect(connection);
         } else {
             Lobby lobby = playingLobbies.get(connection.getLobbyUUID());
@@ -122,5 +122,6 @@ public class LobbyController {
                 playingLobbies.remove(connection.getLobbyUUID());
             }
         }
-    }*/
+         */
+    }
 }
