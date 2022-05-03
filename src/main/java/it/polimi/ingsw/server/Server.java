@@ -35,21 +35,9 @@ public class Server {
                 Socket connection = serverSocket.accept();
 
                 System.out.println("Accepted new connection");
-
-                //pezzo originale
-                /*SocketClientConnection socketConnection = new SocketClientConnection(connection, lobbyController);
-                Thread t = new Thread(socketConnection);
-                t.start();*/
-
                 SocketClientConnection socketConnection = new SocketClientConnection(connection, lobbyController);
                 Thread t = new Thread(socketConnection);
                 t.start();
-
-                /*PrintWriter out = new PrintWriter(connection.getOutputStream());
-                out.println("ciao, come ti chiami?");
-                out.flush();
-                Scanner in = new Scanner(connection.getInputStream());
-                System.out.println(in.nextLine());*/
                 System.out.println("Ciao");
             } catch (IOException e) {
                 System.err.println("Connection Error!");
