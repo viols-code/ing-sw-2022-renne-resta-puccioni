@@ -393,11 +393,15 @@ public class GameController implements Observer<PlayerEvent> {
                         game.getTable().setMotherNaturePosition((game.getTable().getMotherNaturePosition() + movement) % game.getTable().getNumberOfGroupIsland());
                         game.getActiveCharacterCard().calculateInfluence(game.getTable().getMotherNaturePosition());
                         if (game.getWinner() != null) endGame();
-                        else if (game.getTable().getNumberOfGroupIsland() <= 3) calculateWinner();
-                        if (game.getTable().getBag().getNoStudent()) {
-                            endTurn();
-                        } else {
-                            game.setTurnPhase(TurnPhase.CHOOSE_CLOUD_TILE);
+                        else if (game.getTable().getNumberOfGroupIsland() <= 3){
+                            calculateWinner();
+                            endGame();
+                        } else{
+                            if (game.getTable().getBag().getNoStudent()) {
+                                endTurn();
+                            } else {
+                                game.setTurnPhase(TurnPhase.CHOOSE_CLOUD_TILE);
+                            }
                         }
                     }
                 }
