@@ -3,7 +3,6 @@ package it.polimi.ingsw.server;
 import it.polimi.ingsw.IProcessablePacket;
 import it.polimi.ingsw.client.messages.ClientMessage;
 import it.polimi.ingsw.controller.GameController;
-import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.observer.Observer;
 import it.polimi.ingsw.server.messages.DirectServerMessage;
 import it.polimi.ingsw.view.messages.PlayerEvent;

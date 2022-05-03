@@ -29,7 +29,7 @@ public class MockModel {
     /**
      * A variable that states if the game mode is expert or not
      */
-    private final boolean isGameExpert;
+    private boolean isGameExpert;
 
     /**
      * Number of coins available
@@ -58,23 +58,17 @@ public class MockModel {
 
     /**
      * Constructs the local copy of the game
-     *
-     * @param localPlayer the player on this client
-     * @param isGameExpert indicates if the game mode is expert or not
      */
-    public MockModel(MockPlayer localPlayer, boolean isGameExpert) {
-        this.localPlayer = localPlayer;
-        this.isGameExpert = isGameExpert;
-        if(isGameExpert){
-            characterCards = new ArrayList<>();
-            coins = 20;
-        }
-        else{
-            characterCards = null;
-            coins = 0;
-        }
+    public MockModel() {
+        this.localPlayer = null;
         currentCharacterCard = null;
-
+        coins = -1;
+        characterCards = new ArrayList<>();
+        players = new ArrayList<>();
+        table = new MockTable();
+        currentCharacterCard = null;
+        gamePhase = null;
+        turnPhase = null;
     }
 
     /**

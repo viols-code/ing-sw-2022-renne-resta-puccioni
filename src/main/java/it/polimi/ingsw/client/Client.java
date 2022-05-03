@@ -6,14 +6,13 @@ import it.polimi.ingsw.client.messages.PlayerWizardMessage;
 import it.polimi.ingsw.client.messages.PlayersToStartMessage;
 import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.model.player.Wizard;
-import it.polimi.ingsw.server.*;
+import it.polimi.ingsw.view.View;
 
 import java.io.*;
 import java.net.ConnectException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.NoSuchElementException;
-import java.util.Scanner;
 
 public class Client {
     private String ip = "localhost";
@@ -23,9 +22,12 @@ public class Client {
     private GameController localGameController;
     private String localPlayerName;
     private Boolean isGameExpert = null;
+    //private final boolean startCli;
     private boolean active = true;
     private SocketClientWrite writeThread;
     private SocketClientRead readThread;
+
+    private View view;
 
     /**
      * Checks if this client is still active.
@@ -112,5 +114,29 @@ public class Client {
         if (readThread != null)
             readThread.interrupt();
         System.exit(0);
+    }
+
+    /**
+     * Gets the View associated with this Client.
+     *
+     * @return the view that's associated with this client
+     */
+    public View getView() {
+        return view;
+    }
+
+    /**
+     * Starts the main client loop, reading and interpreting user commands.
+     */
+    public void run() {
+        if (startCli) {
+           // view = new CLI(this);
+        } //else view = new GUI(this, stage);
+
+        try {
+            view.run();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
