@@ -61,6 +61,5 @@ public class SocketClientRead extends Thread {
             e.printStackTrace();
             client.terminate();
         }
-
     }
 }
