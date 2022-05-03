@@ -648,7 +648,7 @@ class GameControllerTest {
     }
 
     // A simple test with three players
-    @RepeatedTest(10)
+    @RepeatedTest(10000)
     void threePlayerGame() {
         // start of the game
         assertEquals(GamePhase.SETTING, gameControllerThree.getGame().getGamePhase());
@@ -902,8 +902,13 @@ class GameControllerTest {
         gameControllerThree.playAssistantCard(2, 1);
         gameControllerThree.playAssistantCard(0, 8);
 
-
         if (gameControllerThree.getGame().getPlayerByIndex(0).getSchoolBoard().getTowers() == 0) {
+            assertEquals(GamePhase.END_GAME, gameControllerThree.getGame().getGamePhase());
+            assertEquals("Viola", gameControllerThree.getGame().getWinner().getNickname());
+        } else if(gameControllerThree.getGame().getTable().getBag().isBagEmpty()){
+            assertEquals(GamePhase.END_GAME, gameControllerThree.getGame().getGamePhase());
+            assertEquals("Viola", gameControllerThree.getGame().getWinner().getNickname());
+        } else if(gameControllerThree.getGame().getTable().getNumberOfGroupIsland() <= 3){
             assertEquals(GamePhase.END_GAME, gameControllerThree.getGame().getGamePhase());
             assertEquals("Viola", gameControllerThree.getGame().getWinner().getNickname());
         } else {
@@ -945,10 +950,17 @@ class GameControllerTest {
                 }
             }
         }
+
         gameControllerThree.moveMotherNature(0, 1);
         gameControllerThree.chooseCloudTile(0, 0);
 
         if (gameControllerThree.getGame().getPlayerByIndex(0).getSchoolBoard().getTowers() == 0) {
+            assertEquals(GamePhase.END_GAME, gameControllerThree.getGame().getGamePhase());
+            assertEquals("Viola", gameControllerThree.getGame().getWinner().getNickname());
+        } else if(gameControllerThree.getGame().getTable().getBag().isBagEmpty()){
+            assertEquals(GamePhase.END_GAME, gameControllerThree.getGame().getGamePhase());
+            assertEquals("Viola", gameControllerThree.getGame().getWinner().getNickname());
+        } else if(gameControllerThree.getGame().getTable().getNumberOfGroupIsland() <= 3){
             assertEquals(GamePhase.END_GAME, gameControllerThree.getGame().getGamePhase());
             assertEquals("Viola", gameControllerThree.getGame().getWinner().getNickname());
         } else {
@@ -962,6 +974,12 @@ class GameControllerTest {
         gameControllerThree.playAssistantCard(1, 9);
 
         if (gameControllerThree.getGame().getPlayerByIndex(0).getSchoolBoard().getTowers() == 0) {
+            assertEquals(GamePhase.END_GAME, gameControllerThree.getGame().getGamePhase());
+            assertEquals("Viola", gameControllerThree.getGame().getWinner().getNickname());
+        } else if(gameControllerThree.getGame().getTable().getBag().isBagEmpty()){
+            assertEquals(GamePhase.END_GAME, gameControllerThree.getGame().getGamePhase());
+            assertEquals("Viola", gameControllerThree.getGame().getWinner().getNickname());
+        } else if(gameControllerThree.getGame().getTable().getNumberOfGroupIsland() <= 3){
             assertEquals(GamePhase.END_GAME, gameControllerThree.getGame().getGamePhase());
             assertEquals("Viola", gameControllerThree.getGame().getWinner().getNickname());
         } else {
@@ -1008,13 +1026,22 @@ class GameControllerTest {
         if (gameControllerThree.getGame().getPlayerByIndex(0).getSchoolBoard().getTowers() == 0) {
             assertEquals(GamePhase.END_GAME, gameControllerThree.getGame().getGamePhase());
             assertEquals("Viola", gameControllerThree.getGame().getWinner().getNickname());
+        } else if(gameControllerThree.getGame().getTable().getBag().isBagEmpty()){
+            assertEquals(GamePhase.END_GAME, gameControllerThree.getGame().getGamePhase());
+            assertEquals("Viola", gameControllerThree.getGame().getWinner().getNickname());
+        } else if(gameControllerThree.getGame().getTable().getNumberOfGroupIsland() <= 3){
+            assertEquals(GamePhase.END_GAME, gameControllerThree.getGame().getGamePhase());
+            assertEquals("Viola", gameControllerThree.getGame().getWinner().getNickname());
+        } else if(10 - gameControllerThree.getGame().getRound() == 0){
+            assertEquals(GamePhase.END_GAME, gameControllerThree.getGame().getGamePhase());
+            assertEquals(TurnPhase.WAITING, gameControllerThree.getGame().getTurnPhase());
         } else {
             assertEquals(GamePhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getGamePhase());
             assertEquals(TurnPhase.WAITING, gameControllerThree.getGame().getTurnPhase());
         }
     }
 
-    @RepeatedTest(10)
+    @RepeatedTest(10000)
     void gameTest2Players() {
         assertEquals(GamePhase.SETTING, gameControllerTwo.getGame().getGamePhase());
         assertEquals(TurnPhase.WAITING, gameControllerTwo.getGame().getTurnPhase());
