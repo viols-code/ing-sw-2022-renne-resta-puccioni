@@ -1,7 +1,10 @@
 package it.polimi.ingsw.model.table.island;
 
+import it.polimi.ingsw.IProcessablePacket;
 import it.polimi.ingsw.model.Colour;
+import it.polimi.ingsw.model.messages.InfluencePlayerUpdate;
 import it.polimi.ingsw.model.player.Player;
+import it.polimi.ingsw.observer.Observable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +14,7 @@ import java.util.List;
  *
  * @version 1.0
  */
-public abstract class GroupIsland {
+public abstract class GroupIsland extends Observable<IProcessablePacket> {
 
     /**
      * A list containing all the islands that form a GroupIsland
