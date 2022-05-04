@@ -30,7 +30,7 @@ public class GameInstance implements Runnable {
      */
     @Override
     public void run() {
-       /* System.out.println("Starting game!");
+        System.out.println("Starting game!");
 
         GameController controller = new GameController(isExpertGame, numberOfPlayers);
         List<RemoteView> registeredViews = new ArrayList<>();
@@ -39,7 +39,7 @@ public class GameInstance implements Runnable {
 
             controller.addPlayer(conn.getPlayerName(), conn.getWizard());
             RemoteView remoteView = conn.getRemoteView();
-            remoteView.setPlayer(controller.getGame().getPlayerByNickname(conn.getPlayerName()));
+            remoteView.setPlayer(controller.getGame().getIndexOfPlayer(controller.getGame().getPlayerByNickname(conn.getPlayerName())));
             remoteView.setGameController(controller);
 
             //controller.getGame().addObserver(remoteView);
@@ -52,12 +52,12 @@ public class GameInstance implements Runnable {
         for (int i = 0; i < controller.getGame().getNumberOfPlayer(); i++) {
             for (RemoteView remoteView : registeredViews) {
                 //controller.getGame().getPlayerByIndex(i).addObserver(remoteView);
-                //controller.getGame().getPlayerByIndex(i).getBoard().addObserver(remoteView);
+                //controller.getGame().getPlayerByIndex(i).getSchoolBoard().addObserver(remoteView);
                 //controller.getGame().getPlayerByIndex(i).getBoard().getDeposit().addObserver(remoteView);
             }
         }
 
-        lobby.startGame();*/
+        lobby.startGame();
 
     }
 }
