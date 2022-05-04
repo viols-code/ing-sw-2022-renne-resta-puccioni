@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.card;
 
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.Game;
+import it.polimi.ingsw.model.messages.NoColourUpdate;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.table.island.GroupIsland;
 
@@ -26,6 +27,7 @@ public class NoColour extends CharacterCard {
     @Override
     public void setColour(Colour colour) {
         this.colour = colour;
+        notify(new NoColourUpdate(this.colour));
     }
 
     /**
