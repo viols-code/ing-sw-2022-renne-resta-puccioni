@@ -55,7 +55,7 @@ public class ExchangeEntranceDiningRoom extends CharacterCard {
         this.colourDiningRoom = colourDiningRoom;
         this.colourEntrance = colourEntrance;
         this.effect();
-        notify(new ExchangeEntranceDiningRoomUpdate(colourDiningRoom,colourEntrance));
+
     }
 
     /**
