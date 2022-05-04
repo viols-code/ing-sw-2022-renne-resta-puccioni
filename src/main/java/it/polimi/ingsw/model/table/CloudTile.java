@@ -1,6 +1,9 @@
 package it.polimi.ingsw.model.table;
 
+import it.polimi.ingsw.IProcessablePacket;
 import it.polimi.ingsw.model.Colour;
+import it.polimi.ingsw.model.messages.CloudTileUpdate;
+import it.polimi.ingsw.observer.Observable;
 
 import java.util.HashMap;
 
@@ -10,7 +13,7 @@ import java.util.HashMap;
  * @version 1.0
  */
 
-public class CloudTile {
+public class CloudTile extends Observable<IProcessablePacket> {
 
     /**
      * A HashMap containing the students on the CloudTile
@@ -22,6 +25,7 @@ public class CloudTile {
      */
     public CloudTile(HashMap<Colour, Integer> cloudTile) {
         tileStudents = cloudTile;
+        notify(new CloudTileUpdate(tileStudents));
     }
 
     /**
