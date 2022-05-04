@@ -166,6 +166,14 @@ public class Lobby extends Observable<IProcessablePacket> {
         notify(new GameModeSetMessage(connection));
     }
 
+    public boolean getGameMode(){
+        return gameMode;
+    }
+
+    public int getPlayersToStart(){
+        return playersToStart;
+    }
+
     /**
      * Notifies all connected clients that the game is starting.
      */
