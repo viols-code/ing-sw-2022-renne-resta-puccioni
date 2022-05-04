@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.card;
 
 import it.polimi.ingsw.model.game.Game;
+import it.polimi.ingsw.model.messages.NoEntryTilesOnCardUpdate;
 
 public class ProtectIsland extends CharacterCard {
     /**
@@ -48,6 +49,7 @@ public class ProtectIsland extends CharacterCard {
      */
     private void setNumberOfNoEntryTiles(int numberOfNoEntryTiles) {
         this.numberOfNoEntryTiles = numberOfNoEntryTiles;
+        notify(new NoEntryTilesOnCardUpdate(this.numberOfNoEntryTiles));
     }
 
     /**
