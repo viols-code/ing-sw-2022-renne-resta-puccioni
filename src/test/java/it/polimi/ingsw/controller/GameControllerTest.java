@@ -776,7 +776,7 @@ class GameControllerTest {
         while (i < 4) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerThree.getGame().getPlayerByIndex(1).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerThree.moveStudentToDiningRoom(1, colour);
+                    gameControllerThree.moveStudentToIsland(1, colour, 0, 0);
                     i++;
                 }
             }
@@ -1034,7 +1034,7 @@ class GameControllerTest {
             assertEquals("Viola", gameControllerThree.getGame().getWinner().getNickname());
         } else if(10 - gameControllerThree.getGame().getRound() == 0){
             assertEquals(GamePhase.END_GAME, gameControllerThree.getGame().getGamePhase());
-            assertEquals(TurnPhase.WAITING, gameControllerThree.getGame().getTurnPhase());
+            assertEquals("Viola", gameControllerThree.getGame().getWinner().getNickname());
         } else {
             assertEquals(GamePhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getGamePhase());
             assertEquals(TurnPhase.WAITING, gameControllerThree.getGame().getTurnPhase());
