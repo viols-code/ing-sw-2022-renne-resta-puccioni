@@ -107,6 +107,15 @@ public class SocketClientConnection implements Runnable {
     }
 
     /**
+     * Gets the UUID of the Lobby that this connection is part of.
+     *
+     * @return the uuid of the lobby
+     */
+    public synchronized UUID getLobbyUUID(){
+        return lobbyUUID;
+    }
+
+    /**
      * Gets the remote view asssociated with this connection
      * @return the remoteView of this connection
      */
