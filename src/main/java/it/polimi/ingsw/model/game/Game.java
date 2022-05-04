@@ -144,6 +144,22 @@ public abstract class Game {
     }
 
     /**
+     * Gets the index of the given player in the list of players
+     *
+     * @param player of whom the index is wanted
+     * @return the index of the given player
+     */
+    public int getIndexOfPlayer(Player player) throws IllegalArgumentException{
+
+        for(int i = 0 ; i < players.size(); i++){
+            if(players.get(i).equals(player)){
+                return i;
+            }
+        }
+        throw new IllegalArgumentException("This player is not in the game");
+    }
+
+    /**
      * Get the player with the given nickname
      *
      * @param nickname the nickname of the player to return
