@@ -4,17 +4,16 @@ import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.view.View;
 
 import java.io.Serial;
+import java.util.HashMap;
 
 public class StudentToEntranceUpdate extends CardUpdate{
     @Serial
     private static final long serialVersionUID = 928675659820901831L;
 
-    private Colour colourEntrance;
-    private Colour colourCard;
+    private final HashMap<Colour,Integer> students;
 
-    public StudentToEntranceUpdate(Colour colourEntrance, Colour colourCard){
-        this.colourCard = colourCard;
-        this.colourEntrance = colourEntrance;
+    public StudentToEntranceUpdate(HashMap<Colour,Integer> students){
+        this.students = students;
     }
 
     @Override
