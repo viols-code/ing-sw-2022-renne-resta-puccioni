@@ -24,6 +24,7 @@ public class SocketClientConnection implements Runnable {
     private boolean active = true;
     private String playerName;
     private Wizard wizard;
+    private UUID lobbyUUID;
 
     private static final int BUFFER_CAPACITY = 20;
     private final ObjectOutputStream out;
@@ -94,6 +95,32 @@ public class SocketClientConnection implements Runnable {
      */
     public synchronized void setWizard(Wizard wizard) {
         this.wizard = wizard;
+    }
+
+    /**
+     * Sets the lobby UUID.
+     *
+     * @param lobbyUUID the UUID of the lobby
+     */
+    public synchronized void setLobbyUUID(UUID lobbyUUID){
+        this.lobbyUUID = lobbyUUID;
+    }
+
+    /**
+     * Gets the UUID of the Lobby that this connection is part of.
+     *
+     * @return the uuid of the lobby
+     */
+    public synchronized UUID getLobbyUUID(){
+        return lobbyUUID;
+    }
+
+    /**
+     * Gets the remote view asssociated with this connection
+     * @return the remoteView of this connection
+     */
+    public RemoteView getRemoteView(){
+        return remoteView;
     }
 
     /**
@@ -175,6 +202,8 @@ public class SocketClientConnection implements Runnable {
             System.err.println("WRITE_THREAD: Trying to send too many messages at once!");
         }
     }
+
+
 }
 
 

@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.card;
 
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.Game;
+import it.polimi.ingsw.model.messages.ExchangeEntranceDiningRoomUpdate;
 
 public class ExchangeEntranceDiningRoom extends CharacterCard {
     private Colour colourDiningRoom;
@@ -54,6 +55,7 @@ public class ExchangeEntranceDiningRoom extends CharacterCard {
         this.colourDiningRoom = colourDiningRoom;
         this.colourEntrance = colourEntrance;
         this.effect();
+
     }
 
     /**

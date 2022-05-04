@@ -2,6 +2,8 @@ package it.polimi.ingsw.model.card;
 
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.Game;
+import it.polimi.ingsw.model.messages.StudentToDiningRoomUpdate;
+import it.polimi.ingsw.model.messages.StudentToEntranceUpdate;
 
 import java.util.HashMap;
 
@@ -36,6 +38,7 @@ public class StudentToEntrance extends CharacterCard {
                 ex.printStackTrace();
             }
         }
+        notify(new StudentToEntranceUpdate(students));
     }
 
     /**
@@ -52,6 +55,7 @@ public class StudentToEntrance extends CharacterCard {
         } else {
             increaseTimes();
         }
+        notify(new StudentToEntranceUpdate(students));
     }
 
     /**

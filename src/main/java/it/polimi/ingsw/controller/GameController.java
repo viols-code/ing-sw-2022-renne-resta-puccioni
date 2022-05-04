@@ -332,8 +332,9 @@ public class GameController implements Observer<PlayerEvent> {
                     if (game.getPlayerByIndex(player).getSchoolBoard().getEntrance(colour) > 0) {
                         if (checkStudentsMovement(player) && game.getPlayerByIndex(player).getSchoolBoard().getDiningRoom(colour) < 10) {
                             try {
-                                game.getPlayerByIndex(player).getSchoolBoard().addStudentToDiningRoom(colour);
                                 game.getPlayerByIndex(player).getSchoolBoard().removeStudentFromEntrance(colour);
+                                game.getPlayerByIndex(player).getSchoolBoard().addStudentToDiningRoom(colour);
+
                                 if (isGameExpert && ((game.getPlayerByIndex(player).getSchoolBoard().getDiningRoom(colour)) % 3) == 0 && game.getCoins() > 0) {
                                     game.getPlayerByIndex(player).addCoins(1);
                                     game.setCoins(game.getCoins() - 1);

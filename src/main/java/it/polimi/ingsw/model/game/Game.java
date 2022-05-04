@@ -1,10 +1,13 @@
 package it.polimi.ingsw.model.game;
 
+import it.polimi.ingsw.IProcessablePacket;
 import it.polimi.ingsw.model.AssistantCard;
 import it.polimi.ingsw.model.card.BasicState;
 import it.polimi.ingsw.model.card.CharacterCard;
+import it.polimi.ingsw.model.messages.*;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.table.Table;
+import it.polimi.ingsw.observer.Observable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,7 +20,7 @@ import java.util.stream.Collectors;
  *
  * @version 1.0
  */
-public abstract class Game {
+public abstract class Game extends Observable<IProcessablePacket> {
 
     /**
      * A List containing the players in the match
@@ -144,6 +147,22 @@ public abstract class Game {
     }
 
     /**
+     * Gets the index of the given player in the list of players
+     *
+     * @param player of whom the index is wanted
+     * @return the index of the given player
+     */
+    public int getIndexOfPlayer(Player player) throws IllegalArgumentException{
+
+        for(int i = 0 ; i < players.size(); i++){
+            if(players.get(i).equals(player)){
+                return i;
+            }
+        }
+        throw new IllegalArgumentException("This player is not in the game");
+    }
+
+    /**
      * Get the player with the given nickname
      *
      * @param nickname the nickname of the player to return
@@ -187,6 +206,7 @@ public abstract class Game {
         for (int i = 0; i < 10; i++) {
             player.addAssistantCard(this.getAssistantCard(i));
         }
+        notify(new PlayersUpdate(this.players));
     }
 
     /**
@@ -200,6 +220,7 @@ public abstract class Game {
             throw new IllegalArgumentException("This player is not in the game");
         }
         this.players.remove(player);
+        notify(new PlayersUpdate(this.players));
     }
 
     /**
@@ -345,6 +366,7 @@ public abstract class Game {
      */
     public void incrementRound() {
         round += 1;
+        notify(new RoundUpdate(this.round));
     }
 
     /*
@@ -506,6 +528,7 @@ public abstract class Game {
      */
     public void setGamePhase(GamePhase gamePhase) {
         this.gamePhase = gamePhase;
+        notify(new GamePhaseUpdate(this.gamePhase));
     }
 
     /*
@@ -528,6 +551,7 @@ public abstract class Game {
      */
     public void setTurnPhase(TurnPhase turnPhase) {
         this.turnPhase = turnPhase;
+        notify(new TurnPhaseUpdate(this.turnPhase));
     }
 
     /*
@@ -550,6 +574,7 @@ public abstract class Game {
      */
     public void setWinner(Player winner) {
         this.winner = winner;
+        notify(new WinnerUpdate(winner.getNickname()));
     }
 
 

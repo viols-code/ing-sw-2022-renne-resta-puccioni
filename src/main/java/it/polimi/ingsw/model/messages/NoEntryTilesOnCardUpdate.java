@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.card;
+package it.polimi.ingsw.model.messages;
 
 import it.polimi.ingsw.model.messages.CardUpdate;
 import it.polimi.ingsw.view.View;

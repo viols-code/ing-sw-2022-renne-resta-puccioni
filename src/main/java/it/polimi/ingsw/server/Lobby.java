@@ -76,14 +76,26 @@ public class Lobby extends Observable<IProcessablePacket> {
      * @param connection the connection that will have its player name set
      * @param playerName the player name to be set, if it's null or empty sends an error message to the client
      */
-    public void setPlayerName(SocketClientConnection connection, String playerName) {
+    public void setPlayerNameAndWizard(SocketClientConnection connection, String playerName, Wizard wizard) {
         if (playerName == null || playerName.trim().equals("")) {
             notify(new ErrorMessage(connection, "Your username can't be empty"));
             return;
         }
+        if (wizard == null) {
+            notify(new ErrorMessage(connection, "Your wizard can't be empty"));
+            return;
+        }
+
         for (SocketClientConnection clientConnection : connections) {
             if (playerName.equalsIgnoreCase(clientConnection.getPlayerName())) {
                 notify(new ErrorMessage(connection, "This username is already taken"));
+                return;
+            }
+        }
+
+        for (SocketClientConnection clientConnection : connections) {
+            if (wizard.equals(clientConnection.getWizard())) {
+                notify(new ErrorMessage(connection, "This wizard is already taken"));
                 return;
             }
         }
@@ -94,24 +106,6 @@ public class Lobby extends Observable<IProcessablePacket> {
             if (con.getPlayerName() != null)
                 otherNames.add(con.getPlayerName());
         });
-        notify(new PlayerConnectMessage(playerName, connections.size(), playersToStart, otherNames));
-    }
-
-    /**
-     * Sets the player name for the given connection. If there is another player with this name already connected sends
-     * an error message to the client.
-     */
-    public void setWizard(SocketClientConnection connection, Wizard wizard) {
-        if (wizard == null) {
-            notify(new ErrorMessage(connection, "Your username can't be empty"));
-            return;
-        }
-        for (SocketClientConnection clientConnection : connections) {
-            if (wizard.equals(clientConnection.getWizard())) {
-                notify(new ErrorMessage(connection, "This username is already taken"));
-                return;
-            }
-        }
 
         connection.setWizard(wizard);
         List<Wizard> otherWizard = new ArrayList<>();
@@ -119,7 +113,8 @@ public class Lobby extends Observable<IProcessablePacket> {
             if (con.getWizard() != null)
                 otherWizard.add(con.getWizard());
         });
-        //notify(new PlayerConnectMessage(wizard, connections.size(), playersToStart, otherWizard));
+
+        notify(new PlayerConnectMessage(playerName, wizard, connections.size(), playersToStart, otherNames, otherWizard));
     }
 
     /**
@@ -164,18 +159,26 @@ public class Lobby extends Observable<IProcessablePacket> {
     }
 
     /**
-     * Sets to true if the master player has already chosen the desired game config
+     * Sets to true if the master player has already chosen the desired gameMode
      */
     public void setGameMode(SocketClientConnection connection) {
         isGameModeSet = true;
         notify(new GameModeSetMessage(connection));
     }
 
+    public boolean getGameMode(){
+        return gameMode;
+    }
+
+    public int getPlayersToStart(){
+        return playersToStart;
+    }
+
     /**
-     * Notifies all connected clients of game start.
+     * Notifies all connected clients that the game is starting.
      */
     public synchronized void startGame() {
-        //notify(new GameStartMessage(customGameConfig == null ? GameConfig.loadDefaultGameConfig() : customGameConfig));
+        notify(new GameStartMessage(gameMode));
     }
 
     /**
@@ -189,7 +192,7 @@ public class Lobby extends Observable<IProcessablePacket> {
             playersToStart = -1;
         }
 
-        //notify(new PlayerLeaveMessage(connection.getPlayerName()));
+        notify(new PlayerLeaveMessage(connection.getPlayerName()));
         connections.remove(connection);
     }
 
@@ -201,7 +204,7 @@ public class Lobby extends Observable<IProcessablePacket> {
     public void disconnectAll(SocketClientConnection crashedConnection) {
         connections.remove(crashedConnection);
 
-        //notify(new PlayerCrashMessage(crashedConnection.getPlayerName()));
+        notify(new PlayerCrashMessage(crashedConnection.getPlayerName()));
 
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
@@ -220,7 +223,7 @@ public class Lobby extends Observable<IProcessablePacket> {
     /**
      * Checks if the number of players needed to start the game for this Lobby is set.
      *
-     * @return true if 0 &lt; playersToStart &lt; 5, false otherwise
+     * @return true if the playersToStart set are 2 or 3, false otherwise
      */
     public boolean isPlayersToStartSet() {
         return playersToStart > 1 && playersToStart < 4;

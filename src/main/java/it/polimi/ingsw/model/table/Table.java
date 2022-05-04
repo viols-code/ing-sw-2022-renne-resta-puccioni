@@ -1,11 +1,14 @@
 package it.polimi.ingsw.model.table;
 
+import it.polimi.ingsw.IProcessablePacket;
+import it.polimi.ingsw.model.messages.MotherNaturePositionUpdate;
 import it.polimi.ingsw.model.table.island.GroupIsland;
+import it.polimi.ingsw.observer.Observable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Table {
+public class Table extends Observable<IProcessablePacket> {
     /**
      * the bag containing all the remaining students
      */
@@ -144,6 +147,7 @@ public class Table {
         getGroupIslandByIndex(this.motherNaturePosition).removeMotherNature();
         this.motherNaturePosition = motherNaturePosition;
         getGroupIslandByIndex(this.motherNaturePosition).placeMotherNature();
+        notify(new MotherNaturePositionUpdate(motherNaturePosition));
     }
 
      /*

@@ -45,30 +45,22 @@ public class LobbyController {
      * @param connection the connection that will have its player name set
      * @param playerName the name to be set
      */
-    public synchronized void setPlayerName(SocketClientConnection connection, String playerName) {
+    public synchronized void setPlayerNameAndWizard(SocketClientConnection connection, String playerName, Wizard wizard) {
         if (connection.getPlayerName() != null) {
             return;
         }
-        currentLobby.setPlayerName(connection, playerName);
 
-        System.out.println("Player connected: " + connection.getPlayerName());
-
-        if (currentLobby.canStart())
-            startGame();
-    }
-
-    public synchronized void setWizard(SocketClientConnection connection, Wizard wizard) {
         if (connection.getWizard() != null) {
             return;
         }
-        currentLobby.setWizard(connection, wizard);
 
-        System.out.println("Player connected with Wizard: " + connection.getWizard());
+        currentLobby.setPlayerNameAndWizard(connection, playerName, wizard);
+
+        System.out.println("Player connected: " + connection.getPlayerName() + ", with wizard: " + connection.getWizard());
 
         if (currentLobby.canStart())
             startGame();
     }
-
 
     /**
      * Sets the number of players needed to start the game in the current lobby.
@@ -87,8 +79,6 @@ public class LobbyController {
         currentLobby.setGameMode(connection, GameMode);
         if (currentLobby.canStart())
             startGame();
-
-        return;
     }
 
     /**
@@ -99,8 +89,8 @@ public class LobbyController {
         Lobby lobbyToStart = currentLobby;
         playingLobbies.put(currentLobby.getUuid(), lobbyToStart);
 
-        //Thread t = new Thread(new GameInstance(lobbyToStart));
-        //t.start();
+        Thread t = new Thread(new GameInstance(lobbyToStart, lobbyToStart.getGameMode(), lobbyToStart.getPlayersToStart()));
+        t.start();
 
         currentLobby = new Lobby();
     }
@@ -112,7 +102,7 @@ public class LobbyController {
      * @param connection the connection to deregister
      */
     public synchronized void deregisterConnection(SocketClientConnection connection) {
-        /*if (connection.getLobbyUUID() == null) {
+        if (connection.getLobbyUUID() == null) {
             currentLobby.disconnect(connection);
         } else {
             Lobby lobby = playingLobbies.get(connection.getLobbyUUID());
@@ -122,6 +112,5 @@ public class LobbyController {
                 playingLobbies.remove(connection.getLobbyUUID());
             }
         }
-         */
     }
 }

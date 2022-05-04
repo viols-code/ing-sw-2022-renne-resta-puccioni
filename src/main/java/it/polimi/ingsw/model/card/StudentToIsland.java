@@ -2,6 +2,8 @@ package it.polimi.ingsw.model.card;
 
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.Game;
+import it.polimi.ingsw.model.messages.StudentToEntranceUpdate;
+import it.polimi.ingsw.model.messages.StudentToIslandUpdate;
 import it.polimi.ingsw.model.table.island.SingleIsland;
 
 import java.util.HashMap;
@@ -47,6 +49,7 @@ public class StudentToIsland extends CharacterCard {
                 ex.printStackTrace();
             }
         }
+        notify(new StudentToIslandUpdate(studentsOnCard));
     }
 
     /**
@@ -80,6 +83,7 @@ public class StudentToIsland extends CharacterCard {
         }catch(IllegalAccessError ex){
             ex.printStackTrace();
         }
+        notify(new StudentToIslandUpdate(studentsOnCard));
         game.setActiveCharacterCard(game.getBasicState());
     }
 

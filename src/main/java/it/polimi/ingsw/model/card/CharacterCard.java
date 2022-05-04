@@ -1,17 +1,19 @@
 package it.polimi.ingsw.model.card;
 
+import it.polimi.ingsw.IProcessablePacket;
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.Game;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.table.island.GroupIsland;
 import it.polimi.ingsw.model.table.island.SingleIsland;
+import it.polimi.ingsw.observer.Observable;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public abstract class CharacterCard {
+public abstract class CharacterCard extends Observable<IProcessablePacket> {
     /**
      * The Game
      */
