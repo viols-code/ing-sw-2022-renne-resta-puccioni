@@ -3,6 +3,7 @@ package it.polimi.ingsw.server;
 import it.polimi.ingsw.IProcessablePacket;
 import it.polimi.ingsw.client.messages.ClientMessage;
 import it.polimi.ingsw.controller.GameController;
+import it.polimi.ingsw.model.messages.InvalidActionUpdate;
 import it.polimi.ingsw.observer.Observer;
 import it.polimi.ingsw.server.messages.DirectServerMessage;
 import it.polimi.ingsw.view.messages.PlayerEvent;
@@ -114,11 +115,11 @@ public class RemoteView implements Observer<IProcessablePacket> {
             DirectServerMessage dm = (DirectServerMessage) packet;
             if (dm.getRecipient() == clientConnection)
                 clientConnection.send(dm);
-        } /*else if (packet instanceof InvalidActionUpdate) {
+        } else if (packet instanceof InvalidActionUpdate) {
             InvalidActionUpdate update = (InvalidActionUpdate) packet;
-            if (update.getPlayer() == player)
+            if (update.getPlayerIndex() == player)
                 clientConnection.send(update);
-                */
+        }
          else
             clientConnection.send(packet);
     }
