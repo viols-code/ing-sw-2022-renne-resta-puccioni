@@ -1,10 +1,13 @@
 package it.polimi.ingsw.model.game;
 
+import it.polimi.ingsw.IProcessablePacket;
 import it.polimi.ingsw.model.AssistantCard;
 import it.polimi.ingsw.model.card.BasicState;
 import it.polimi.ingsw.model.card.CharacterCard;
+import it.polimi.ingsw.model.messages.*;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.table.Table;
+import it.polimi.ingsw.observer.Observable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,7 +20,7 @@ import java.util.stream.Collectors;
  *
  * @version 1.0
  */
-public abstract class Game {
+public abstract class Game extends Observable<IProcessablePacket> {
 
     /**
      * A List containing the players in the match
@@ -203,6 +206,7 @@ public abstract class Game {
         for (int i = 0; i < 10; i++) {
             player.addAssistantCard(this.getAssistantCard(i));
         }
+        notify(new PlayersUpdate(this.players));
     }
 
     /**
@@ -216,6 +220,7 @@ public abstract class Game {
             throw new IllegalArgumentException("This player is not in the game");
         }
         this.players.remove(player);
+        notify(new PlayersUpdate(this.players));
     }
 
     /**
@@ -361,6 +366,7 @@ public abstract class Game {
      */
     public void incrementRound() {
         round += 1;
+        notify(new RoundUpdate(this.round));
     }
 
     /*
@@ -522,6 +528,7 @@ public abstract class Game {
      */
     public void setGamePhase(GamePhase gamePhase) {
         this.gamePhase = gamePhase;
+        notify(new GamePhaseUpdate(this.gamePhase));
     }
 
     /*
@@ -544,6 +551,7 @@ public abstract class Game {
      */
     public void setTurnPhase(TurnPhase turnPhase) {
         this.turnPhase = turnPhase;
+        notify(new TurnPhaseUpdate(this.turnPhase));
     }
 
     /*
@@ -566,6 +574,7 @@ public abstract class Game {
      */
     public void setWinner(Player winner) {
         this.winner = winner;
+        notify(new WinnerUpdate(winner.getNickname()));
     }
 
 
