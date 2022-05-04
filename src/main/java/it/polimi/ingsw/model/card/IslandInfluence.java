@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.card;
 
 import it.polimi.ingsw.model.game.Game;
+import it.polimi.ingsw.model.messages.IslandInfluenceUpdate;
 
 public class IslandInfluence extends CharacterCard {
 
@@ -28,6 +29,7 @@ public class IslandInfluence extends CharacterCard {
     public void setGroupIsland(int groupIsland) {
         this.islandChosen = groupIsland;
         this.effect();
+        notify(new IslandInfluenceUpdate(groupIsland));
     }
 
     /**
