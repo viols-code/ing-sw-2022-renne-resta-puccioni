@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model.table.island;
 
+import it.polimi.ingsw.model.messages.NoEntryTileUpdate;
+
 public class AdvancedGroupIsland extends GroupIsland {
 
     /**
@@ -31,6 +33,7 @@ public class AdvancedGroupIsland extends GroupIsland {
         if (!noEntryTile) {
             this.noEntryTile = true;
         }
+        notify(new NoEntryTileUpdate(numberOfNoEntryTile));
     }
 
     /**
@@ -43,5 +46,6 @@ public class AdvancedGroupIsland extends GroupIsland {
         if (numberOfNoEntryTile == 0) {
             this.noEntryTile = false;
         }
+        notify(new NoEntryTileUpdate(numberOfNoEntryTile));
     }
 }
