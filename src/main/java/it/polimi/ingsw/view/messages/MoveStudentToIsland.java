@@ -9,12 +9,12 @@ public class MoveStudentToIsland extends PlayerAction{
 
     @Serial
     private static final long serialVersionUID = 9204228452736058886L;
-    private int player;
+    private final String player;
     private final Colour colour;
     private final int groupIsland;
     private final int singleIsland;
 
-    public MoveStudentToIsland(int player, Colour colour, int groupIsland, int singleIsland){
+    public MoveStudentToIsland(String player, Colour colour, int groupIsland, int singleIsland){
         this.player = player;
         this.colour = colour;
         this.groupIsland = groupIsland;
