@@ -11,7 +11,7 @@ public class InvalidActionUpdate extends ModelUpdate {
     @Serial
     private static final long serialVersionUID = 6266673714222888773L;
 
-    private transient final int player;
+    private transient final String player;
     private final String errorMessage;
 
     /**
@@ -20,7 +20,7 @@ public class InvalidActionUpdate extends ModelUpdate {
      * @param player       the player that performed the invalid action
      * @param errorMessage the error message
      */
-    public InvalidActionUpdate(int player, String errorMessage) {
+    public InvalidActionUpdate(String player, String errorMessage) {
         this.player = player;
         this.errorMessage = errorMessage;
     }
@@ -30,12 +30,12 @@ public class InvalidActionUpdate extends ModelUpdate {
      *
      * @return the player that performed the invalid action
      */
-    public int getPlayerIndex() {
+    public String getPlayerIndex() {
         return player;
     }
 
     @Override
     public void process(View view) {
-        //view.handleInvalidAction(errorMessage);
+        view.handleInvalidAction(errorMessage);
     }
 }
