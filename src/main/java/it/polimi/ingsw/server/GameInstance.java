@@ -39,10 +39,11 @@ public class GameInstance implements Runnable {
 
             controller.addPlayer(conn.getPlayerName(), conn.getWizard());
             RemoteView remoteView = conn.getRemoteView();
+            //remoteView.setPlayer(controller.getGame().getPlayerByNickname(conn.getPlayerName()));
             remoteView.setPlayer(controller.getGame().getIndexOfPlayer(controller.getGame().getPlayerByNickname(conn.getPlayerName())));
             remoteView.setGameController(controller);
 
-            //controller.getGame().addObserver(remoteView);
+            controller.getGame().addObserver(remoteView);
             //controller.getGame().getDeck().addObserver(remoteView);
             //controller.getGame().getMarket().addObserver(remoteView);
             registeredViews.add(remoteView);
@@ -51,8 +52,8 @@ public class GameInstance implements Runnable {
 
         for (int i = 0; i < controller.getGame().getNumberOfPlayer(); i++) {
             for (RemoteView remoteView : registeredViews) {
-                //controller.getGame().getPlayerByIndex(i).addObserver(remoteView);
-                //controller.getGame().getPlayerByIndex(i).getSchoolBoard().addObserver(remoteView);
+                controller.getGame().getPlayerByIndex(i).addObserver(remoteView);
+                controller.getGame().getPlayerByIndex(i).getSchoolBoard().addObserver(remoteView);
                 //controller.getGame().getPlayerByIndex(i).getBoard().getDeposit().addObserver(remoteView);
             }
         }
