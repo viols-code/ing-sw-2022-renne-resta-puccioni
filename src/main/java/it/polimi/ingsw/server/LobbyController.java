@@ -29,7 +29,7 @@ public class LobbyController {
      * @param connection the connection that will be added to the lobby
      */
     public synchronized void addToLobby(SocketClientConnection connection) {
-        //currentLobby.addObserver(connection.getRemoteView());
+        currentLobby.addObserver(connection.getRemoteView());
         try {
             currentLobby.addConnection(connection);
         } catch (IllegalStateException e) {
