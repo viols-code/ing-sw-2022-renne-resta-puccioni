@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.card;
 import it.polimi.ingsw.IProcessablePacket;
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.Game;
+import it.polimi.ingsw.model.messages.UnifyIslandsUpdate;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.table.island.GroupIsland;
 import it.polimi.ingsw.model.table.island.SingleIsland;
@@ -314,9 +315,11 @@ public abstract class CharacterCard extends Observable<IProcessablePacket> {
             if (groupIsland == game.getTable().getNumberOfGroupIsland() - 1) {
                 game.getTable().setMotherNaturePosition(0);
                 unifyGroupIsland(game.getTable().getIslandAfter(groupIsland), game.getTable().getGroupIslandByIndex(groupIsland));
+                notify(new UnifyIslandsUpdate(0,groupIsland));
                 groupIsland = 0;
             } else {
                 unifyGroupIsland(game.getTable().getGroupIslandByIndex(groupIsland), game.getTable().getIslandAfter(groupIsland));
+                notify(new UnifyIslandsUpdate(groupIsland,(groupIsland + 1)));
             }
         }
 
@@ -324,9 +327,10 @@ public abstract class CharacterCard extends Observable<IProcessablePacket> {
             if (groupIsland > 0) {
                 game.getTable().setMotherNaturePosition(groupIsland - 1);
                 unifyGroupIsland(game.getTable().getIslandBefore(groupIsland), game.getTable().getGroupIslandByIndex(groupIsland));
+                notify(new UnifyIslandsUpdate(groupIsland - 1, groupIsland));
             } else {
                 unifyGroupIsland(game.getTable().getGroupIslandByIndex(groupIsland), game.getTable().getIslandBefore(groupIsland));
-
+                notify(new UnifyIslandsUpdate(groupIsland, game.getTable().getNumberOfGroupIsland() - 1));
             }
 
         }
