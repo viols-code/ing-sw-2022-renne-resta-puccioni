@@ -1,7 +1,6 @@
 package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.controller.GameController;
-import it.polimi.ingsw.model.player.Player;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,13 +38,26 @@ public class GameInstance implements Runnable {
 
             controller.addPlayer(conn.getPlayerName(), conn.getWizard());
             RemoteView remoteView = conn.getRemoteView();
-            //remoteView.setPlayer(controller.getGame().getPlayerByNickname(conn.getPlayerName()));
-            remoteView.setPlayer(controller.getGame().getIndexOfPlayer(controller.getGame().getPlayerByNickname(conn.getPlayerName())));
+            remoteView.setPlayer(conn.getPlayerName());
             remoteView.setGameController(controller);
 
             controller.getGame().addObserver(remoteView);
-            //controller.getGame().getDeck().addObserver(remoteView);
-            //controller.getGame().getMarket().addObserver(remoteView);
+            for(int i = 0; i < controller.getGame().getTable().getNumberOfGroupIsland(); i++) {
+                controller.getGame().getTable().getGroupIslandByIndex(i).addObserver(remoteView);
+                for(int j = 0; j < controller.getGame().getTable().getGroupIslandByIndex(i).getNumberOfSingleIsland(); j++){
+                    controller.getGame().getTable().getGroupIslandByIndex(i).getIslandByIndex(j).addObserver(remoteView);
+                }
+            }
+
+            controller.getGame().getTable().addObserver(remoteView);
+            controller.getGame().getTable().getBag().addObserver(remoteView);
+
+            if(isExpertGame){
+                for(int i = 0; i < 3; i++){
+                    controller.getGame().getCharacterCardByIndex(i).addObserver(remoteView);
+                }
+            }
+
             registeredViews.add(remoteView);
 
         }
@@ -54,7 +66,6 @@ public class GameInstance implements Runnable {
             for (RemoteView remoteView : registeredViews) {
                 controller.getGame().getPlayerByIndex(i).addObserver(remoteView);
                 controller.getGame().getPlayerByIndex(i).getSchoolBoard().addObserver(remoteView);
-                //controller.getGame().getPlayerByIndex(i).getBoard().getDeposit().addObserver(remoteView);
             }
         }
 
