@@ -70,21 +70,21 @@ class ExpertGameTest {
         gameController.addPlayer("Viola", Wizard.TYPE_1);
         gameController.addPlayer("Laura", Wizard.TYPE_2);
         gameController.addPlayer("Sara", Wizard.TYPE_3);
-        gameController.playAssistantCard(0, 0);
-        gameController.playAssistantCard(1, 1);
-        gameController.playAssistantCard(2, 2);
+        gameController.playAssistantCard("Viola", 0);
+        gameController.playAssistantCard("Laura", 1);
+        gameController.playAssistantCard("Sara", 2);
         if (gameController.getGame().getCharacterCardByIndex(0).getCost() == 1) {
-            gameController.playCharacterCard(0, 0);
+            gameController.playCharacterCard("Viola", 0);
             assertTrue(gameController.getGame().getHasPlayedCharacterCard());
             assertEquals(0, gameController.getGame().getPlayerByIndex(0).getCoins());
             assertEquals(2, gameController.getGame().getActiveCharacterCard().getCost());
         } else if (gameController.getGame().getCharacterCardByIndex(1).getCost() == 1) {
-            gameController.playCharacterCard(0, 1);
+            gameController.playCharacterCard("Viola", 1);
             assertTrue(gameController.getGame().getHasPlayedCharacterCard());
             assertEquals(0, gameController.getGame().getPlayerByIndex(0).getCoins());
             assertEquals(2, gameController.getGame().getActiveCharacterCard().getCost());
         } else if (gameController.getGame().getCharacterCardByIndex(2).getCost() == 1) {
-            gameController.playCharacterCard(0, 2);
+            gameController.playCharacterCard("Viola", 2);
             assertTrue(gameController.getGame().getHasPlayedCharacterCard());
             assertEquals(0, gameController.getGame().getPlayerByIndex(0).getCoins());
             assertEquals(2, gameController.getGame().getActiveCharacterCard().getCost());
