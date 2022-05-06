@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.Game;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.table.island.GroupIsland;
+import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
 
 public class NoTower extends CharacterCard {
 
@@ -15,6 +16,7 @@ public class NoTower extends CharacterCard {
     public NoTower(Game game) {
         super(game);
         actualCost = 3;
+        type = CharacterCardEnumeration.NO_TOWER;
     }
 
 

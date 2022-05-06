@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.card;
 
 import it.polimi.ingsw.model.game.Game;
 import it.polimi.ingsw.model.messages.IslandInfluenceUpdate;
+import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
 
 public class IslandInfluence extends CharacterCard {
 
@@ -18,6 +19,7 @@ public class IslandInfluence extends CharacterCard {
     public IslandInfluence(Game game) {
         super(game);
         actualCost = 3;
+        type = CharacterCardEnumeration.ISLAND_INFLUENCE;
     }
 
     /**

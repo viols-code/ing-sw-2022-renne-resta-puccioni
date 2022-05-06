@@ -8,6 +8,7 @@ import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.table.island.GroupIsland;
 import it.polimi.ingsw.model.table.island.SingleIsland;
 import it.polimi.ingsw.observer.Observable;
+import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
 
 import java.util.HashMap;
 import java.util.List;
@@ -23,6 +24,10 @@ public abstract class CharacterCard extends Observable<IProcessablePacket> {
      * Cost of the card
      */
     protected int actualCost;
+    /**
+     * Type of the character card
+     */
+    protected CharacterCardEnumeration type;
 
     /**
      * Constructor: create a new CharacterCard
@@ -31,6 +36,18 @@ public abstract class CharacterCard extends Observable<IProcessablePacket> {
      */
     public CharacterCard(Game game) {
         this.game = game;
+    }
+    /*
+    TYPE
+     */
+
+    /**
+     * Gets the type of the character card
+     *
+     * @return the type
+     */
+    public CharacterCardEnumeration getCharacterCardType(){
+        return type;
     }
 
     /*

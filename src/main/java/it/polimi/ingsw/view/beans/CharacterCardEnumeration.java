@@ -15,5 +15,6 @@ public enum CharacterCardEnumeration {
     NO_TOWER,
     STUDENT_TO_ISLAND,
     TAKE_PROFESSOR,
-    TWO_POINTS
+    TWO_POINTS,
+    BASIC_STATE
 }

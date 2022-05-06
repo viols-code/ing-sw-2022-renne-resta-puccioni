@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.card;
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.Game;
 import it.polimi.ingsw.model.messages.ExchangeEntranceDiningRoomUpdate;
+import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
 
 public class ExchangeEntranceDiningRoom extends CharacterCard {
     private Colour colourDiningRoom;
@@ -17,6 +18,7 @@ public class ExchangeEntranceDiningRoom extends CharacterCard {
     public ExchangeEntranceDiningRoom(Game game) {
         super(game);
         actualCost = 1;
+        type = CharacterCardEnumeration.EXCHANGE_ENTRANCE_DINING_ROOM;
     }
 
     /**

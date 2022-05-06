@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.card;
 
 import it.polimi.ingsw.model.game.Game;
 import it.polimi.ingsw.model.messages.NoEntryTilesOnCardUpdate;
+import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
 
 public class ProtectIsland extends CharacterCard {
     /**
@@ -20,6 +21,7 @@ public class ProtectIsland extends CharacterCard {
         super(game);
         actualCost = 2;
         numberOfNoEntryTiles = 4;
+        type = CharacterCardEnumeration.PROTECT_ISLAND;
     }
 
     /**

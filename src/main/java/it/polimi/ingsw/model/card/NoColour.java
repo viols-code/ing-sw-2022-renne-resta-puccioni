@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.game.Game;
 import it.polimi.ingsw.model.messages.NoColourUpdate;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.table.island.GroupIsland;
+import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
 
 public class NoColour extends CharacterCard {
     private Colour colour;
@@ -17,6 +18,7 @@ public class NoColour extends CharacterCard {
     public NoColour(Game game) {
         super(game);
         actualCost = 3;
+        type = CharacterCardEnumeration.NO_COLOUR;
     }
 
     /**

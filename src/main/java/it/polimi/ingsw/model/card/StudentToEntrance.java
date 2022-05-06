@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.Game;
 import it.polimi.ingsw.model.messages.StudentToDiningRoomUpdate;
 import it.polimi.ingsw.model.messages.StudentToEntranceUpdate;
+import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
 
 import java.util.HashMap;
 
@@ -23,6 +24,7 @@ public class StudentToEntrance extends CharacterCard {
         actualCost = 1;
         times = 0;
         students = new HashMap<>();
+        type = CharacterCardEnumeration.STUDENT_TO_ENTRANCE;
     }
 
     public void setting() {

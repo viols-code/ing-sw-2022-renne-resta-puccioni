@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.game.Game;
 import it.polimi.ingsw.model.messages.StudentToEntranceUpdate;
 import it.polimi.ingsw.model.messages.StudentToIslandUpdate;
 import it.polimi.ingsw.model.table.island.SingleIsland;
+import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
 
 import java.util.HashMap;
 
@@ -37,6 +38,7 @@ public class StudentToIsland extends CharacterCard {
         for (Colour colour : Colour.values()) {
             studentsOnCard.put(colour, 0);
         }
+        type = CharacterCardEnumeration.STUDENT_TO_ISLAND;
 
     }
 
