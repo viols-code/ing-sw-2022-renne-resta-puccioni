@@ -13,7 +13,7 @@ import it.polimi.ingsw.view.messages.PlayerEvent;
  * the associated client connection.
  */
 public class RemoteView implements Observer<IProcessablePacket> {
-    private Integer player;
+    private String player;
     private final SocketClientConnection clientConnection;
     private final LobbyController lobbyController;
     private GameController gameController;
@@ -36,7 +36,7 @@ public class RemoteView implements Observer<IProcessablePacket> {
      *
      * @param player the player to be associated with the remote view
      */
-    public synchronized void setPlayer(Integer player) {
+    public synchronized void setPlayer(String player) {
         this.player = player;
     }
 
