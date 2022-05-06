@@ -24,10 +24,11 @@ public class ExchangeEntranceDiningRoom extends CharacterCard {
      */
     @Override
     protected void effect() {
-        game.getCurrentPlayer().getSchoolBoard().addStudentToDiningRoom(colourEntrance);
         game.getCurrentPlayer().getSchoolBoard().removeStudentFromDiningRoom(colourDiningRoom);
-        game.getCurrentPlayer().getSchoolBoard().addStudentToEntrance(colourDiningRoom);
         game.getCurrentPlayer().getSchoolBoard().removeStudentFromEntrance(colourEntrance);
+        game.getCurrentPlayer().getSchoolBoard().addStudentToEntrance(colourDiningRoom);
+        game.getCurrentPlayer().getSchoolBoard().addStudentToDiningRoom(colourEntrance);
+
 
         if (((game.getCurrentPlayer().getSchoolBoard().getDiningRoom(colourDiningRoom) + 1) % 3) == 0) {
             game.getCurrentPlayer().addCoins(1);
