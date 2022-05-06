@@ -13,7 +13,7 @@ import java.util.HashMap;
  * @version 1.0
  */
 
-public class CloudTile extends Observable<IProcessablePacket> {
+public class CloudTile {
 
     /**
      * A HashMap containing the students on the CloudTile
@@ -25,7 +25,6 @@ public class CloudTile extends Observable<IProcessablePacket> {
      */
     public CloudTile(HashMap<Colour, Integer> cloudTile) {
         tileStudents = cloudTile;
-        notify(new CloudTileUpdate(tileStudents));
     }
 
     /**
