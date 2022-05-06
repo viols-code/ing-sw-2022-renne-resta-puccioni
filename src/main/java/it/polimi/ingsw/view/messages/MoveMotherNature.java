@@ -7,9 +7,9 @@ import java.io.Serial;
 public class MoveMotherNature extends PlayerAction{
     @Serial
     private static final long serialVersionUID = -695696550449539585L;
-    private int player;
+    private String player;
     private final int movement;
-    public MoveMotherNature(int player, int movement){
+    public MoveMotherNature(String player, int movement){
         this.player = player;
         this.movement = movement;
     }
