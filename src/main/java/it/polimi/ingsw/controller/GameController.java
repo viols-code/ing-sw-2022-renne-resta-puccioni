@@ -179,10 +179,12 @@ public class GameController implements Observer<PlayerEvent> {
     /**
      * Playing CharacterCard
      *
-     * @param player        the index of the player
+     * @param nickname        the nickname of the player
      * @param characterCard the index of the CharacterCard
      */
-    public void playCharacterCard(int player, int characterCard) {
+    public void playCharacterCard(String nickname, int characterCard) {
+        int player = game.getIndexOfPlayer(game.getPlayerByNickname(nickname));
+
         if (isGameExpert && player >= 0 && player < numberOfPlayer && characterCard >= 0 && characterCard < 3) {
             if (game.getGamePhase() == GamePhase.PLAYING) {
                 if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
@@ -211,16 +213,17 @@ public class GameController implements Observer<PlayerEvent> {
     /**
      * Playing AssistantCard
      *
-     * @param player        the index of the player
+     * @param nickname        the nickname of the player
      * @param assistantCard the index of the AssistantCard
      */
-    public void playAssistantCard(int player, int assistantCard) {
+    public void playAssistantCard(String nickname, int assistantCard) {
+        int player = game.getIndexOfPlayer(game.getPlayerByNickname(nickname));
         if (player >= 0 && player < numberOfPlayer && assistantCard >= 0 && assistantCard < 10) {
             if (game.getGamePhase() == GamePhase.PLAY_ASSISTANT_CARD) {
                 if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
                     try {
                         if (game.getPlayerByIndex(player).isAssistantCardPresent(game.getAssistantCard(assistantCard))) {
-                            if (canPlayAssistantCard(player, assistantCard)) {
+                            if (canPlayAssistantCard(nickname, assistantCard)) {
                                 game.getPlayerByIndex(player).setCurrentAssistantCard(game.getAssistantCard(assistantCard));
                                 game.getPlayerByIndex(player).removeAssistantCard(game.getAssistantCard(assistantCard));
                                 game.getPlayerByIndex(player).setHasAlreadyPlayed(true);
@@ -243,11 +246,12 @@ public class GameController implements Observer<PlayerEvent> {
     /**
      * Check if the player can play an AssistantCard
      *
-     * @param player        the index of the player
+     * @param nickname        the nickname of the player
      * @param assistantCard the index of the AssistantCard
      * @return true if the Player can play the AssistantCard, false otherwise
      */
-    private boolean canPlayAssistantCard(int player, int assistantCard) {
+    private boolean canPlayAssistantCard(String nickname, int assistantCard) {
+        int player = game.getIndexOfPlayer(game.getPlayerByNickname(nickname));
         boolean check = true;
         for (int i = 0; i < player; i++) {
             if (game.getPlayerByIndex(i).getHasAlreadyPlayed()) {
@@ -296,12 +300,14 @@ public class GameController implements Observer<PlayerEvent> {
     /**
      * Move student from entrance to a SingleIsland
      *
-     * @param player       the index of the player
+     * @param nickname       the nickname of the player
      * @param colour       the colour of the student to be moved
      * @param groupIsland  the index of the GroupIsland
      * @param singleIsland the index of the SingleIsland
      */
-    public void moveStudentToIsland(int player, Colour colour, int groupIsland, int singleIsland) {
+    public void moveStudentToIsland(String nickname, Colour colour, int groupIsland, int singleIsland) {
+        int player = game.getIndexOfPlayer(game.getPlayerByNickname(nickname));
+
         if (player >= 0 && player < numberOfPlayer && groupIsland >= 0 && groupIsland < game.getTable().getNumberOfGroupIsland() && singleIsland >= 0 && singleIsland < game.getTable().getGroupIslandByIndex(groupIsland).getNumberOfSingleIsland()) {
             if (game.getGamePhase() == GamePhase.PLAYING && game.getTurnPhase() == TurnPhase.MOVE_STUDENT) {
                 if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
@@ -322,10 +328,12 @@ public class GameController implements Observer<PlayerEvent> {
     /**
      * Move student from entrance to a diningRoom
      *
-     * @param player the index of the player
+     * @param nickname the nickname of the player
      * @param colour the colour of the student to be moved
      */
-    public void moveStudentToDiningRoom(int player, Colour colour) {
+    public void moveStudentToDiningRoom(String nickname, Colour colour) {
+        int player = game.getIndexOfPlayer(game.getPlayerByNickname(nickname));
+
         if (player >= 0 && player < numberOfPlayer) {
             if (game.getGamePhase() == GamePhase.PLAYING && game.getTurnPhase() == TurnPhase.MOVE_STUDENT) {
                 if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
@@ -383,10 +391,12 @@ public class GameController implements Observer<PlayerEvent> {
     /**
      * Move mother nature
      *
-     * @param player   the index of the Player
+     * @param nickname   the nickname of the Player
      * @param movement the number of moves
      */
-    public void moveMotherNature(int player, int movement) {
+    public void moveMotherNature(String nickname, int movement) {
+        int player = game.getIndexOfPlayer(game.getPlayerByNickname(nickname));
+
         if (movement > 0) {
             if (game.getGamePhase() == GamePhase.PLAYING && game.getTurnPhase() == TurnPhase.MOVE_MOTHER_NATURE) {
                 if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
@@ -549,10 +559,12 @@ public class GameController implements Observer<PlayerEvent> {
     /**
      * Choose a cloudTile
      *
-     * @param player    index of the player
+     * @param nickname    nickname of the player
      * @param cloudTile index of the cloudTile
      */
-    public void chooseCloudTile(int player, int cloudTile) {
+    public void chooseCloudTile(String nickname, int cloudTile) {
+        int player = game.getIndexOfPlayer(game.getPlayerByNickname(nickname));
+
         if (cloudTile >= 0 && cloudTile < game.getTable().getNumberOfCloudTile()) {
             if (game.getGamePhase() == GamePhase.PLAYING && game.getTurnPhase() == TurnPhase.CHOOSE_CLOUD_TILE) {
                 if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
@@ -609,10 +621,12 @@ public class GameController implements Observer<PlayerEvent> {
     /**
      * Sets the colour of the student
      *
-     * @param player the index of the player
+     * @param nickname the nickname of the player
      * @param colour the colour
      */
-    public void setColour(int player, Colour colour) {
+    public void setColour(String nickname, Colour colour) {
+        int player = game.getIndexOfPlayer(game.getPlayerByNickname(nickname));
+
         if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
             try {
                 game.getActiveCharacterCard().setColour(colour);
@@ -625,12 +639,14 @@ public class GameController implements Observer<PlayerEvent> {
     /**
      * Sets the parameters needed for the character card StudentToIsland
      *
-     * @param player       the index of the player
+     * @param nickname       the nickname of the player
      * @param colour       colour of the student on the card
      * @param groupIsland  the group island chosen
      * @param singleIsland the single island chosen
      */
-    public void setColourAndIsland(int player, Colour colour, int groupIsland, int singleIsland) {
+    public void setColourAndIsland(String nickname, Colour colour, int groupIsland, int singleIsland) {
+        int player = game.getIndexOfPlayer(game.getPlayerByNickname(nickname));
+
         if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
             try {
                 if (groupIsland >= 0 && groupIsland < game.getTable().getNumberOfGroupIsland() && singleIsland >= 0 && singleIsland < game.getTable().getGroupIslandByIndex(groupIsland).getNumberOfSingleIsland())
@@ -645,10 +661,12 @@ public class GameController implements Observer<PlayerEvent> {
     /**
      * Sets the group island in the character card IslandInfluence
      *
-     * @param player      the index of the player
+     * @param nickname      the nickname of the player
      * @param groupIsland the group island
      */
-    public void setGroupIsland(int player, int groupIsland) {
+    public void setGroupIsland(String nickname, int groupIsland) {
+        int player = game.getIndexOfPlayer(game.getPlayerByNickname(nickname));
+
         if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
             try {
                 if (groupIsland >= 0 && groupIsland < game.getTable().getNumberOfGroupIsland())
@@ -662,11 +680,13 @@ public class GameController implements Observer<PlayerEvent> {
     /**
      * Sets the parameters for the character card ExchangeDiningRoomEntrance
      *
-     * @param player           the index of the player
+     * @param nickname           the nickname of the player
      * @param colourDiningRoom the student of the dining room
      * @param colourEntrance   the student of the entrance
      */
-    public void setColourDiningRoomEntrance(int player, Colour colourDiningRoom, Colour colourEntrance) {
+    public void setColourDiningRoomEntrance(String nickname, Colour colourDiningRoom, Colour colourEntrance) {
+        int player = game.getIndexOfPlayer(game.getPlayerByNickname(nickname));
+
         if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
             try {
                 game.getActiveCharacterCard().setColourDiningRoomEntrance(colourDiningRoom, colourEntrance);
@@ -680,11 +700,13 @@ public class GameController implements Observer<PlayerEvent> {
     /**
      * Sets the parameter for the character card StudentToEntrance
      *
-     * @param player         the index of the player
+     * @param nickname         the nickname of the player
      * @param colourCard     the student of the card
      * @param colourEntrance the student of the entrance
      */
-    public void setColourCardEntrance(int player, Colour colourCard, Colour colourEntrance) {
+    public void setColourCardEntrance(String nickname, Colour colourCard, Colour colourEntrance) {
+        int player = game.getIndexOfPlayer(game.getPlayerByNickname(nickname));
+
         if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
             try {
                 game.getActiveCharacterCard().setColourCardEntrance(colourCard, colourEntrance);
