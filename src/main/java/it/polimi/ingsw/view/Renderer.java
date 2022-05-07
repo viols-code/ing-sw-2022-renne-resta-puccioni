@@ -6,7 +6,7 @@ import it.polimi.ingsw.view.beans.MockPlayer;
 import java.util.Map;
 
 /**
- * Class responsible of game components rendering, mainly used for the CLI.
+ * Class responsible for game components rendering, mainly used for the CLI.
  */
 public abstract class Renderer {
     private final View view;
@@ -75,18 +75,6 @@ public abstract class Renderer {
     public void printFinalScores(Map<String, Integer> scores, String winnerName) {
     }
 
-    public void printSingleplayerFinalScore(boolean lorenzoWin, String loseReason, int playerScore) {
-    }
-
-
-    public void renderDeposit(MockPlayer player) {
-    }
-
-    public void renderLeadersDeposit(MockPlayer player) {
-    }
-
-    public void renderStrongbox(MockPlayer player) {
-    }
 
 
     public void help() {

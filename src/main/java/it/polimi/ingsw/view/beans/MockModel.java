@@ -2,8 +2,10 @@ package it.polimi.ingsw.view.beans;
 
 import it.polimi.ingsw.model.game.GamePhase;
 import it.polimi.ingsw.model.game.TurnPhase;
+import it.polimi.ingsw.model.player.Wizard;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -14,12 +16,12 @@ public class MockModel {
     /**
      * The local player
      */
-    private final MockPlayer localPlayer;
+    private MockPlayer localPlayer;
 
     /**
      * A list that contains the players in this game
      */
-    private List<MockPlayer> players;
+    private HashMap<String, MockPlayer> players;
 
     /**
      * A local copy of the game table
@@ -64,7 +66,7 @@ public class MockModel {
         currentCharacterCard = null;
         coins = -1;
         characterCards = new ArrayList<>();
-        players = new ArrayList<>();
+        players = new HashMap<>();
         table = new MockTable();
         currentCharacterCard = null;
         gamePhase = null;
@@ -85,17 +87,30 @@ public class MockModel {
      *
      * @return the players in this game
      */
-    public List<MockPlayer> getPlayers() {
+    public HashMap<String, MockPlayer> getPlayers() {
         return players;
+    }
+
+    /**
+     * Sets the MockPlayer that is playing with this instance of the client.
+     *
+     * @param localPlayer the local player to be set
+     */
+    public void setLocalPlayer(MockPlayer localPlayer) {
+        this.localPlayer = localPlayer;
     }
 
     /**
      * Adds the player in the list
      *
-     * @param player the new player
      */
-    public void addPlayer(MockPlayer player) {
-        this.players.add(player);
+    public MockPlayer addPlayer(String nickname, Wizard wizard, boolean gameMode,boolean localPlayer) {
+        if (!players.containsKey(nickname.toLowerCase())) {
+            MockPlayer newPlayer = new MockPlayer(nickname, wizard, gameMode, localPlayer);
+            players.put(nickname.toLowerCase(), newPlayer);
+            return newPlayer;
+        } else
+            return players.get(nickname.toLowerCase());
     }
 
     /**

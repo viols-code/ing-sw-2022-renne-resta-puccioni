@@ -2,6 +2,7 @@ package it.polimi.ingsw.view.beans;
 
 import it.polimi.ingsw.model.AssistantCard;
 import it.polimi.ingsw.model.player.TowerColour;
+import it.polimi.ingsw.model.player.Wizard;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,9 +12,20 @@ import java.util.List;
  */
 public class MockPlayer {
     /**
-     * A string than represents the nickname of the player
+     * A string that represents the nickname of the player
      */
     private final String nickname;
+
+    /**
+     * The wizard chosen by the player
+     */
+    private final Wizard wizard;
+
+
+    /**
+     * The current assistant card
+     */
+    private final boolean localPlayer;
 
     /**
      * The player's school board
@@ -33,7 +45,7 @@ public class MockPlayer {
     /**
      * The colour of the tower given to the player
      */
-    private final TowerColour towerColour;
+    private TowerColour towerColour;
 
     /**
      * A list representing the assistant card deck
@@ -50,12 +62,13 @@ public class MockPlayer {
      *
      * @param nickname    the string containing the nickname
      * @param hasCoins    true for expert game mode, false for basic game mode
-     * @param towerColour the colour of the tower
      */
-    public MockPlayer(String nickname, boolean hasCoins, TowerColour towerColour) {
+    public MockPlayer(String nickname, Wizard wizard, boolean hasCoins, boolean localPlayer) {
         this.nickname = nickname;
+        this.wizard = wizard;
+        this.localPlayer = localPlayer;
         this.hasCoins = hasCoins;
-        this.towerColour = towerColour;
+        this.towerColour = null;
         schoolBoard = new MockSchoolBoard();
         cards = new ArrayList<>();
         currentAssistantCard = null;

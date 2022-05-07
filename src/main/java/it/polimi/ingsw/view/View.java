@@ -2,7 +2,7 @@ package it.polimi.ingsw.view;
 
 import it.polimi.ingsw.client.messages.PlayerWizardMessage;
 import it.polimi.ingsw.model.player.Wizard;
-import it.polimi.ingsw.view.implementation.cli.ViewString;
+import it.polimi.ingsw.view.implementation.cli.utils.ViewString;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.messages.PlayerNameMessage;
 import it.polimi.ingsw.view.beans.MockModel;
@@ -152,9 +152,9 @@ public abstract class View {
      * @param playersToStart        the number of players required to start the game
      * @param otherConnectedPlayers the list of the other connected player names
      */
-    public void handlePlayerConnect(String playerName, Wizard wizard, int currentPlayers, int playersToStart, List<String> otherConnectedPlayers) {
+    public void handlePlayerConnect(String playerName, Wizard wizard, boolean gameMode, int currentPlayers, int playersToStart, List<String> otherConnectedPlayers) {
         if (playerName.equals(getPlayerName()) || wizard.equals(getPlayerWizard())) {
-            MockPlayer localPlayer = getModel().addPlayer(getPlayerName(), getPlayerWizard(), true);
+            MockPlayer localPlayer = getModel().addPlayer(getPlayerName(), getPlayerWizard(), gameMode, true);
             getModel().setLocalPlayer(localPlayer);
             if (isLobbyMaster()) {
                 setGameState(GameState.CHOOSING_PLAYERS);
@@ -162,10 +162,10 @@ public abstract class View {
                 setGameState(GameState.WAITING_PLAYERS);
 
             if (!otherConnectedPlayers.isEmpty()) {
-                otherConnectedPlayers.forEach(player -> getModel().addPlayer(player, false));
+                otherConnectedPlayers.forEach(player -> getModel().addPlayer(playerName, wizard, gameMode, false));
             }
         } else {
-            getModel().addPlayer(playerName, getPlayerWizard(), false);
+            MockPlayer localPlayer= getModel().addPlayer(playerName, wizard, gameMode, false);
         }
     }
 
