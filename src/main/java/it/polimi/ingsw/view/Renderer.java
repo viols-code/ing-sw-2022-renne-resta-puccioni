@@ -27,16 +27,16 @@ public abstract class Renderer {
 
     public abstract void showErrorMessage(String message);
 
-    public void printLocalPlayerSchoolBoard(String localPlayer) {
+    public void printLocalPlayerSchoolBoard() {
     }
 
-    public void printLocalPlayerCoins(String localPlayer){
+    public void printLocalPlayerCoins(){
     }
 
-    public void printLocalPlayerCurrentAssistantCard(String LocalPlayer){
+    public void printLocalPlayerCurrentAssistantCard(){
     }
 
-    public void printAvailableAssistantCards(String localPlayer){
+    public void printAvailableAssistantCards(){
     }
 
     public void printIslands() {
