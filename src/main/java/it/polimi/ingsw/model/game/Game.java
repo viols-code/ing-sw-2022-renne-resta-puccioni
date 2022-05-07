@@ -384,6 +384,16 @@ public abstract class Game extends Observable<IServerPacket> {
     }
 
     /**
+     * Get the index of the Character Card given
+     *
+     * @return the index of the characterCard given
+     * @throws IllegalAccessError if the mode is basic
+     */
+    public int getCharacterCardIndex(CharacterCard card) throws IllegalAccessError {
+        throw new IllegalAccessError("This is for the Expert Mode");
+    }
+
+    /**
      * Get the number of CharacterCard in the list
      *
      * @return the number of CharacterCard in the list

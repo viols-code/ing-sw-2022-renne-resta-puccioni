@@ -49,6 +49,16 @@ public class ExpertGame extends Game {
     }
 
     /**
+     * Get the index of the Character Card given
+     *
+     * @return the index of the characterCard given
+     */
+    @Override
+    public int getCharacterCardIndex(CharacterCard card) throws IllegalAccessError {
+        return characterCards.indexOf(card);
+    }
+
+    /**
      * Get the number of CharacterCard in the list
      *
      * @return the number of CharacterCard in the list
