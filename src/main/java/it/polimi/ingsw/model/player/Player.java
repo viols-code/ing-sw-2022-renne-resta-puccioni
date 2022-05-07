@@ -148,7 +148,7 @@ public abstract class Player extends Observable<IServerPacket> {
      */
     public void setCurrentAssistantCard(AssistantCard currentAssistantCard) {
         this.currentAssistantCard = currentAssistantCard;
-        notify(new CurrentAssistantCardUpdate(currentAssistantCard.getValue()));
+        notify(new CurrentAssistantCardUpdate(nickname, currentAssistantCard.getValue()));
     }
 
     /*

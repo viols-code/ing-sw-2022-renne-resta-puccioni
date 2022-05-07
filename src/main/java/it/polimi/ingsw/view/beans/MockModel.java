@@ -93,6 +93,15 @@ public class MockModel {
     }
 
     /**
+     * Gets the player by the given nickname
+     *
+     * @return the player with the given nickname
+     */
+    public MockPlayer getPlayerByNickname(String nickname) {
+        return players.get(nickname);
+    }
+
+    /**
      * Sets the MockPlayer that is playing with this instance of the client.
      *
      * @param localPlayer the local player to be set
@@ -172,7 +181,7 @@ public class MockModel {
      */
     public MockCard getCharacterCardByType(CharacterCardEnumeration type) {
         List<MockCard> card = characterCards.stream().filter(characterCard -> characterCard.getType().equals(type)).collect(Collectors.toList());
-        if(card != null){
+        if(card.size() > 0){
             return card.get(0);
         }
         else

@@ -49,4 +49,12 @@ public abstract class ModelUpdateHandler {
         getView().getModel().getTable().getCloudTileByIndex(cloudTile).setCloudTile(students);
     }
 
+    public void updateCoins(int coins){
+        getView().getModel().setCoins(coins);
+    }
+
+    public void updateCurrentAssistantCard(String player, int assistantCard){
+        getView().getModel().getPlayerByNickname(player).setCurrentAssistantCard(assistantCard);
+    }
+
 }

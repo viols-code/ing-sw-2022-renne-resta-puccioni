@@ -6,6 +6,7 @@ import it.polimi.ingsw.model.player.Wizard;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Class that contains a local copy of the player
@@ -147,8 +148,8 @@ public class MockPlayer {
      *
      * @param currentAssistantCard the assistant card played
      */
-    public void setCurrentAssistantCard(AssistantCard currentAssistantCard) {
-        this.currentAssistantCard = currentAssistantCard;
+    public void setCurrentAssistantCard(int currentAssistantCard) {
+        this.currentAssistantCard = cards.stream().filter(card -> card.getValue() == currentAssistantCard).collect(Collectors.toList()).get(0);
     }
 
     /**
