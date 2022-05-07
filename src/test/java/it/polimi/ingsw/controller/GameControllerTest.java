@@ -757,7 +757,7 @@ class GameControllerTest {
         gameControllerThree.moveMotherNature("Viola", 4);
         assertEquals(GamePhase.PLAYING, gameControllerThree.getGame().getGamePhase());
         assertEquals(TurnPhase.MOVE_MOTHER_NATURE, gameControllerThree.getGame().getTurnPhase());
-        gameControllerThree.moveMotherNature("viola", 3);
+        gameControllerThree.moveMotherNature("Viola", 3);
         assertEquals(GamePhase.PLAYING, gameControllerThree.getGame().getGamePhase());
         assertEquals(TurnPhase.CHOOSE_CLOUD_TILE, gameControllerThree.getGame().getTurnPhase());
 
@@ -1110,7 +1110,7 @@ class GameControllerTest {
         assertEquals(GamePhase.PLAYING, gameControllerTwo.getGame().getGamePhase());
         assertEquals(TurnPhase.CHOOSE_CLOUD_TILE, gameControllerTwo.getGame().getTurnPhase());
 
-        gameControllerTwo.chooseCloudTile("Viola", 1);
+        gameControllerTwo.chooseCloudTile("Laura", 1);
         assertEquals(7, gameControllerTwo.getGame().getPlayerByIndex(0).getSchoolBoard().getNumberStudentsEntrance());
 
         assertEquals(GamePhase.PLAYING, gameControllerTwo.getGame().getGamePhase());
