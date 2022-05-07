@@ -2,6 +2,7 @@ package it.polimi.ingsw.view;
 
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.GamePhase;
+import it.polimi.ingsw.model.player.TowerColour;
 import it.polimi.ingsw.model.player.Wizard;
 import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
 import it.polimi.ingsw.view.beans.MockCard;
@@ -75,7 +76,8 @@ public abstract class ModelUpdateHandler {
         getView().getModel().setGamePhase(gamePhase);
     }
 
-    public void updateIslandInfluence(String player, int groupIsland){
+    public void updateInfluencePlayerOnGroupIsland(String player, int groupIsland){
+        //to-do: sistemare la notify
         getView().getModel().getTable().getGroupIslandByIndex(groupIsland);
     }
 
@@ -96,6 +98,7 @@ public abstract class ModelUpdateHandler {
     }
 
     public void updateNoEntryTileOnGroupIsland(int groupIsland, int num){
+        //to-do: sistemare la notify
         getView().getModel().getTable().getGroupIslandByIndex(groupIsland).setNoEntryTile(num);
     }
 
@@ -111,6 +114,13 @@ public abstract class ModelUpdateHandler {
         getView().getModel().setRound(round);
     }
 
+    public void singleIslanUpdate(int groupIsland, int singleIsland, Colour student){
+        //to-do: sistemare la notify in SingleIsland
+        getView().getModel().getTable().getGroupIslandByIndex(groupIsland).getSingleIslandByIndex(singleIsland).setStudent(student);
+    }
 
+    public void towersUpdate(String player, TowerColour tower){
+        //to-do: sistemare il costruttore di MockPlayer
+    }
 
 }

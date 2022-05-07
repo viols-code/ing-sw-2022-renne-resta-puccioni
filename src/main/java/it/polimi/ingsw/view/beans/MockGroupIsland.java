@@ -43,6 +43,16 @@ public class MockGroupIsland {
     }
 
     /**
+     * Gets the single island at the given position
+     *
+     * @param index the position of the single island in the list
+     * @return the single island
+     */
+    public MockSingleIsland getSingleIslandByIndex(int index){
+        return islands.get(index);
+    }
+
+    /**
      * Adds a single island to this group island
      *
      * @param singleIsland the single island
