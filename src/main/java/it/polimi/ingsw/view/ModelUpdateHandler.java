@@ -221,7 +221,7 @@ public abstract class ModelUpdateHandler {
      * @param message a string representing the message written by the player
      */
     public void updateChat(String sender, String message) {
-        getView().getRenderer().printChatMessage(sender, message);
+        //getView().getRenderer().printChatMessage(sender, message);
     }
 
     /**
