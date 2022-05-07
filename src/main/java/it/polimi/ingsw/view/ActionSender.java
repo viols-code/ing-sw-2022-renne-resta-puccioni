@@ -8,7 +8,7 @@ import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.card.SpecialAbilityType;
 import it.polimi.ingsw.view.beans.MockDeposit;
-import it.polimi.ingsw.view.implementation.cli.utils.ViewString;
+import it.polimi.ingsw.view.implementation.cli.ViewString;
 import it.polimi.ingsw.view.messages.production.BaseProduction;
 import it.polimi.ingsw.view.messages.production.DevelopmentProduction;
 import it.polimi.ingsw.view.messages.production.LeaderProduction;

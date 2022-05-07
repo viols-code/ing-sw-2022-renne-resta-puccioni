@@ -1,4 +1,4 @@
-package it.polimi.ingsw.view.implementation;
+package it.polimi.ingsw.view.implementation.cli;
 
 import it.polimi.ingsw.view.Renderer;
 

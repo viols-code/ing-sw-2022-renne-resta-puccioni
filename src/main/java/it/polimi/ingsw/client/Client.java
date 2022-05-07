@@ -131,13 +131,31 @@ public class Client {
      * Starts the main client loop, reading and interpreting user commands.
      */
     public void run() {
-        if (startCli) {
-            // view = new CLI(this);
-        } //else view = new GUI(this, stage);
-
+       // if (startCli) {
+            //view = new CLI(this);
+        //} //else view = new GUI(this, stage);
+        /*
         try {
             view.run();
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+         */
+    }
+
+    /**
+     * Resets this Client instance to the initial state, closing the connection with the server.
+     */
+    public void reset() {
+        ip = "localhost";
+        port = 12345;
+
+        if (writeThread != null) writeThread.interrupt();
+        if (readThread != null) readThread.interrupt();
+        try {
+            if (socket != null) socket.close();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

@@ -1,5 +1,7 @@
 package it.polimi.ingsw.view;
 
+import it.polimi.ingsw.model.player.Wizard;
+import it.polimi.ingsw.view.implementation.cli.ViewString;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.messages.PlayerNameMessage;
 import it.polimi.ingsw.view.beans.MockModel;
@@ -9,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Class responsible of orchestrating all the functionalities of the game interface.
+ * Class responsible for orchestrating all the functionalities of the game interface.
  */
 public abstract class View {
     private final Client client;
@@ -21,7 +23,6 @@ public abstract class View {
 
     private String playerName;
     private boolean lobbyMaster;
-    private boolean usingProductions;
 
     /**
      * Constructs a new View.
@@ -30,7 +31,6 @@ public abstract class View {
      */
     public View(Client client) {
         this.client = client;
-        this.usingProductions = false;
         this.model = new MockModel();
     }
 
@@ -73,12 +73,8 @@ public abstract class View {
         return lobbyMaster;
     }
 
-    public boolean isUsingProductions() {
-        return usingProductions;
-    }
-
     public GameState getGameState() {
-        return gameState.get();
+        return gameState;
     }
 
     public MockModel getModel() {
@@ -95,6 +91,10 @@ public abstract class View {
 
     public void setActionSender(ActionSender actionSender) {
         this.actionSender = actionSender;
+    }
+
+    public void setGameState(GameState gameState) {
+        this.gameState = gameState;
     }
 
     /**
@@ -124,20 +124,18 @@ public abstract class View {
     }
 
     /**
-     * Handles the connection of an other player to the lobby.
+     * Handles the connection of another player to the lobby.
      *
      * @param playerName            the name of the player that connected
      * @param currentPlayers        the amount of players connected to the lobby
      * @param playersToStart        the number of players required to start the game
      * @param otherConnectedPlayers the list of the other connected player names
      */
-    public void handlePlayerConnect(String playerName, int currentPlayers, int playersToStart, List<String> otherConnectedPlayers) {
+    public void handlePlayerConnect(String playerName, Wizard wizard, int currentPlayers, int playersToStart, List<String> otherConnectedPlayers) {
         if (playerName.equals(getPlayerName())) {
             MockPlayer localPlayer = getModel().addPlayer(getPlayerName(), true);
             getModel().setLocalPlayer(localPlayer);
-            if (getClient().isNoServer()) {
-                setGameState(GameState.CHOOSING_GAME_CONFIG);
-            } else if (isLobbyMaster()) {
+            if (isLobbyMaster()) {
                 setGameState(GameState.CHOOSING_PLAYERS);
             } else
                 setGameState(GameState.WAITING_PLAYERS);
@@ -151,10 +149,10 @@ public abstract class View {
     }
 
     public void handleSetPlayersToStart(int playersToStart) {
-        setGameState(GameState.CHOOSING_GAME_CONFIG);
+        setGameState(GameState.CHOOSING_GAME_MODE);
     }
 
-    public void handleSetGameConfig() {
+    public void handleSetGameMode() {
         setGameState(GameState.WAITING_PLAYERS);
     }
 
@@ -168,19 +166,13 @@ public abstract class View {
     /**
      * Handles the game start.
      *
-     * @param gameConfig the game config used for this game
+     * @param gameMode the game config used for this game
      */
-    public void handleGameStart(GameMode gameConfig) {
-        getModel().setGameConfig(gameConfig);
+    public void handleGameStart(boolean gameMode) {
+        getModel().setGameMode(gameMode);
 
         setGameState(GameState.STARTING);
         getRenderer().showLobbyMessage(ViewString.GAME_STARTING);
-
-        // If it is a singleplayer game initializes Lorenzo in the mock model
-        if (getModel().currentPlayersProperty().get() == 1) {
-            MockPlayer lorenzo = getModel().addPlayer("Lorenzo", false);
-            lorenzo.setFaithPoints(0);
-        }
     }
 
     /**
@@ -197,9 +189,8 @@ public abstract class View {
      */
     public void handleInvalidAction(String errorMessage) {
         getRenderer().showErrorMessage(errorMessage);
-        if (isUsingProductions() && errorMessage.startsWith("Error during production")) {
-            getModel().getLocalPlayer().getDeposit().restoreSavedState();
-            setUsingProductions(false);
+        if (errorMessage.startsWith("Error during action")) {
+            //getModel().getLocalPlayer().getDeposit().restoreSavedState();
         }
     }
 
@@ -212,21 +203,10 @@ public abstract class View {
     public abstract void handleEndGame(Map<String, Integer> scores, String winnerName);
 
     /**
-     * Handles the ending of the singleplayer game.
-     *
-     * @param lorenzoWin  true if the opponent has won the game, false otherwise
-     * @param loseReason  the reason of the defeat, may be null
-     * @param playerScore the score of the player, valid only if lorenzoWin is false
-     */
-    public abstract void handleEndSingleplayerGame(boolean lorenzoWin, String loseReason, int playerScore);
-
-    /**
      * Resets the View to the pre game state.
      */
     protected void reset() {
-        this.gameState = new SimpleObjectProperty<>(GameState.CONNECTING);
-        this.ownTurn = new SimpleBooleanProperty(false);
-        this.usingProductions = false;
+        this.gameState = GameState.CONNECTING;
         this.model = new MockModel();
 
         getClient().reset();

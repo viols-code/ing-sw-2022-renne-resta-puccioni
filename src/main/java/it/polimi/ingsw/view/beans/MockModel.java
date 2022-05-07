@@ -116,6 +116,10 @@ public class MockModel {
         return isGameExpert;
     }
 
+    public void setGameMode(boolean isGameExpert){
+        this.isGameExpert = isGameExpert;
+    }
+
     /**
      * Gets the number of coins available
      *
