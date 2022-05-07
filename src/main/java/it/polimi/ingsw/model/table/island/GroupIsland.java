@@ -143,7 +143,6 @@ public abstract class GroupIsland extends Observable<IServerPacket> {
      */
     public void changeInfluence(Player newInfluencePlayer) {
         influencePlayer = newInfluencePlayer;
-        notify(new InfluencePlayerUpdate(influencePlayer.getNickname()));
     }
 
     /*

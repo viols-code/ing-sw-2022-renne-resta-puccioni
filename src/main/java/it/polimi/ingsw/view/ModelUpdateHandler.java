@@ -73,5 +73,8 @@ public abstract class ModelUpdateHandler {
         getView().getModel().setGamePhase(gamePhase);
     }
 
+    public void updateIslandInfluence(String player, int groupIsland){
+        getView().getModel().getTable().getGroupIslandByIndex(groupIsland);
+    }
 
 }
