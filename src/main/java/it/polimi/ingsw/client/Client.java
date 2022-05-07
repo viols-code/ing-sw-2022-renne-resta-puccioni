@@ -131,14 +131,16 @@ public class Client {
      * Starts the main client loop, reading and interpreting user commands.
      */
     public void run() {
-        if (startCli) {
-            // view = new CLI(this);
-        } //else view = new GUI(this, stage);
-
+       // if (startCli) {
+            //view = new CLI(this);
+        //} //else view = new GUI(this, stage);
+        /*
         try {
             view.run();
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+         */
     }
 }
