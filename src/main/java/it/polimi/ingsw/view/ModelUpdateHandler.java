@@ -63,6 +63,7 @@ public abstract class ModelUpdateHandler {
     }
 
     public void updateEmptyBag(){
+        //to-do: think how to show it
     }
 
     public void updateEntrance(String player, HashMap<Colour,Integer> entrance){
@@ -75,6 +76,14 @@ public abstract class ModelUpdateHandler {
 
     public void updateIslandInfluence(String player, int groupIsland){
         getView().getModel().getTable().getGroupIslandByIndex(groupIsland);
+    }
+
+    public void updateIslandInfluence(int groupIsland){
+        //to-do: think how to show it
+    }
+
+    public void updateMotherNaturePosition(int motherNaturePosition){
+        getView().getModel().getTable().setMotherNaturePosition(motherNaturePosition);
     }
 
 }
