@@ -8,6 +8,7 @@ import it.polimi.ingsw.model.messages.*;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.table.Table;
 import it.polimi.ingsw.observer.Observable;
+import it.polimi.ingsw.server.IServerPacket;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,7 +21,7 @@ import java.util.stream.Collectors;
  *
  * @version 1.0
  */
-public abstract class Game extends Observable<IProcessablePacket> {
+public abstract class Game extends Observable<IServerPacket> {
 
     /**
      * A List containing the players in the match
