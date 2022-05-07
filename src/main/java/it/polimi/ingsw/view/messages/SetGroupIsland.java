@@ -8,10 +8,10 @@ public class SetGroupIsland extends ChangeCharacterCardState {
 
     @Serial
     private static final long serialVersionUID = 9204228452747768886L;
-    private int player;
+    private String player;
     private final int groupIsland;
 
-    public SetGroupIsland(int player, int groupIsland) {
+    public SetGroupIsland(String player, int groupIsland) {
         this.player = player;
         this.groupIsland = groupIsland;
     }
