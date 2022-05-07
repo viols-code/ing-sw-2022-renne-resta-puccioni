@@ -30,6 +30,11 @@ public class MockModel {
     private MockTable table;
 
     /**
+     * The current round
+     */
+    private int round;
+
+    /**
      * A variable that states if the game mode is expert or not
      */
     private boolean isGameExpert;
@@ -130,6 +135,24 @@ public class MockModel {
      */
     public MockTable getTable() {
         return table;
+    }
+
+    /**
+     * Gets the current round
+     *
+     * @return the current round
+     */
+    public int getRound(){
+        return round;
+    }
+
+    /**
+     * Sets the round
+     *
+     * @param round the round to set
+     */
+    public void setRound(int round){
+        this.round = round;
     }
 
     /**

@@ -107,6 +107,10 @@ public abstract class ModelUpdateHandler {
         getView().getModel().getPlayerByNickname(player).getSchoolBoard().setProfessorTable(professorTable);
     }
 
+    public void updateRound(int round){
+        getView().getModel().setRound(round);
+    }
+
 
 
 }
