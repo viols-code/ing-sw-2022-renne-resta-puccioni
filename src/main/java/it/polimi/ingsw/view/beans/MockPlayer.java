@@ -33,7 +33,7 @@ public class MockPlayer {
     /**
      * The colour of the tower given to the player
      */
-    private final TowerColour towerColour;
+    private TowerColour towerColour;
 
     /**
      * A list representing the assistant card deck
