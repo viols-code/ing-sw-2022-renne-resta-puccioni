@@ -4,7 +4,7 @@ import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.view.messages.*;
 
 /**
- * Class responsible of sending user interactions to the server.
+ * Class responsible for sending user interactions to the server.
  */
 public abstract class ActionSender {
     private final View view;
@@ -12,7 +12,7 @@ public abstract class ActionSender {
     /**
      * Constructs a new ActionSender.
      *
-     * @param view the view responsible of this action sender
+     * @param view the view responsible for this action sender
      */
     public ActionSender(View view) {
         this.view = view;
