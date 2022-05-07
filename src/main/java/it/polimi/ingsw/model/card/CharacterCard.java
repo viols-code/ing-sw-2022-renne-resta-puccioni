@@ -79,7 +79,7 @@ public abstract class CharacterCard extends Observable<IServerPacket> {
      */
     public void incrementCost() {
         actualCost += 1;
-        notify(new CardCoinsUpdate(actualCost));
+        notify(new CardCoinsUpdate(game.getCharacterCardIndex(this), actualCost));
     }
 
     /*

@@ -186,7 +186,7 @@ public class Table extends Observable<IServerPacket> {
         for (Colour colour : Colour.values()) {
             students.put(colour, cloudTile.getTileStudents(colour));
         }
-        notify(new CloudTileUpdate(students));
+        notify(new CloudTileUpdate(cloudTiles.indexOf(cloudTile),students));
     }
 
     /**
@@ -195,12 +195,13 @@ public class Table extends Observable<IServerPacket> {
      * @param cloudTile the cloud tile chosen by one player
      */
     public void removeCLoudTile(CloudTile cloudTile) {
+        int index = cloudTiles.indexOf(cloudTile);
         cloudTiles.remove(cloudTile);
         HashMap<Colour, Integer> students = new HashMap<>();
         for (Colour colour : Colour.values()) {
             students.put(colour, 0);
         }
-        notify(new CloudTileUpdate(students));
+        notify(new CloudTileUpdate(index,students));
     }
 
 }
