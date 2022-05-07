@@ -2083,4 +2083,29 @@ class GameControllerTest {
 
     }
 
+    @RepeatedTest(20)
+    void characterCardSetting(){
+        GameController gameControllerExpert = new GameController(true, 2);
+        gameControllerExpert.addPlayer("Viola", Wizard.TYPE_1);
+        assertEquals(TowerColour.WHITE, gameControllerExpert.getGame().getPlayerByNickname("Viola").getTowerColour());
+        gameControllerExpert.addPlayer("Laura", Wizard.TYPE_2);
+        assertEquals(TowerColour.BLACK, gameControllerExpert.getGame().getPlayerByNickname("Laura").getTowerColour());
+        gameControllerExpert.addPlayer("Laura", Wizard.TYPE_3);
+        assertEquals(TowerColour.BLACK, gameControllerExpert.getGame().getPlayerByNickname("Laura").getTowerColour());
+        assertEquals(Wizard.TYPE_2, gameControllerExpert.getGame().getPlayerByNickname("Laura").getWizard());
+
+
+        gameControllerExpert.playAssistantCard("Viola", 0);
+        gameControllerExpert.playAssistantCard("Laura", 1);
+        assertEquals(GamePhase.PLAYING, gameControllerExpert.getGame().getGamePhase());
+        assertEquals(TurnPhase.MOVE_STUDENT, gameControllerExpert.getGame().getTurnPhase());
+
+
+        if(gameControllerExpert.getGame().getPlayerByNickname("Viola").getCoins() >= gameControllerExpert.getGame().getCharacterCardByIndex(0).getCost()){
+            gameControllerExpert.playCharacterCard("Viola", 0);
+            assertEquals(gameControllerExpert.getGame().getActiveCharacterCard(), gameControllerExpert.getGame().getCharacterCardByIndex(0));
+        }
+
+    }
+
 }
