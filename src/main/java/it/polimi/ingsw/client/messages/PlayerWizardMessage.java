@@ -25,7 +25,7 @@ public class PlayerWizardMessage extends ClientMessage{
 
     @Override
     public void process(LobbyController lobbyController) {
-        lobbyController.setWizard(getClientConnection(), wizard);
+        lobbyController.setPlayerWizard(getClientConnection(), wizard);
         System.out.println("Siamo sul server - settiamo il wizard " + wizard);
     }
 }
