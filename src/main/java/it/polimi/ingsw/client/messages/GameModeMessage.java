@@ -1,4 +1,4 @@
-package it.polimi.ingsw.client.message;
+package it.polimi.ingsw.client.messages;
 
 import it.polimi.ingsw.server.LobbyController;
 
@@ -11,7 +11,6 @@ public class GameModeMessage extends ClientMessage {
 
     @Serial
     private static final long serialVersionUID = -564375582074907221L;
-
     private final boolean gameMode;
 
     /**

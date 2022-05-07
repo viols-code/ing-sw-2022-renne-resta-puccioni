@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.card;
 
 import it.polimi.ingsw.model.game.Game;
+import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
 
 public class MotherNatureMovement extends CharacterCard {
 
@@ -12,6 +13,7 @@ public class MotherNatureMovement extends CharacterCard {
     public MotherNatureMovement(Game game) {
         super(game);
         actualCost = 1;
+        type = CharacterCardEnumeration.MOTHER_NATURE_MOVEMENT;
     }
 
     @Override

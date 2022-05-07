@@ -1,18 +1,19 @@
 package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.IProcessablePacket;
-import it.polimi.ingsw.client.message.ClientMessage;
+import it.polimi.ingsw.client.messages.ClientMessage;
 import it.polimi.ingsw.controller.GameController;
-import it.polimi.ingsw.model.player.Player;
+import it.polimi.ingsw.model.messages.InvalidActionUpdate;
 import it.polimi.ingsw.observer.Observer;
 import it.polimi.ingsw.server.messages.DirectServerMessage;
+import it.polimi.ingsw.view.messages.PlayerEvent;
 
 /**
- * Represents a client view on the server. It is responsible of handling incoming and outgoing messages and updates to
+ * Represents a client view on the server. It is responsible for handling incoming and outgoing messages and updates to
  * the associated client connection.
  */
 public class RemoteView implements Observer<IServerPacket> {
-    private Player player;
+    private String player;
     private final SocketClientConnection clientConnection;
     private final LobbyController lobbyController;
     private GameController gameController;
@@ -35,7 +36,7 @@ public class RemoteView implements Observer<IServerPacket> {
      *
      * @param player the player to be associated with the remote view
      */
-    public synchronized void setPlayer(Player player) {
+    public synchronized void setPlayer(String player) {
         this.player = player;
     }
 
@@ -66,13 +67,12 @@ public class RemoteView implements Observer<IServerPacket> {
         this.gameController = gameController;
     }
 
+
     /**
-     * Notifies the GameController of the given PlayerActionEvent, if the GameController is null (the game is not started)
+     * Notifies the GameController of the given PlayerEvent, if the GameController is null (the game is not started)
      * prints an error and does nothing.
-     *
-     * @param event the player action event that will be notified to the game controller
      */
-    /*private void notifyActionEvent(PlayerActionEvent event) {
+    private void notifyActionEvent(PlayerEvent event) {
         if (gameController != null) {
             event.setPlayer(player);
             try {
@@ -83,7 +83,7 @@ public class RemoteView implements Observer<IServerPacket> {
         } else
             System.err.println("Received PlayerActionEvent, but game is not started yet");
     }
-    */
+
 
     /**
      * Notifies the LobbyController of the given ClientMessage, if the game is already started (GameController is not null)
@@ -108,21 +108,18 @@ public class RemoteView implements Observer<IServerPacket> {
      *
      * @param packet the packet to be sent to the client
      */
-    /*
     @Override
     public synchronized void update(IServerPacket packet) {
-        if (packet instanceof DirectServerMessage) {
-            DirectServerMessage dm = (DirectServerMessage) packet;
+        if (packet instanceof DirectServerMessage dm) {
             if (dm.getRecipient() == clientConnection)
                 clientConnection.send(dm);
-        } else if (packet instanceof InvalidActionUpdate) {
-            InvalidActionUpdate update = (InvalidActionUpdate) packet;
-            if (update.getPlayer() == player)
+        } else if (packet instanceof InvalidActionUpdate update) {
+            if (update.getPlayer().equals(player))
                 clientConnection.send(update);
         } else
             clientConnection.send(packet);
     }
-*/
+
 
     /**
      * Handles an incoming packet, notifying it to the adequate controller.
@@ -131,24 +128,32 @@ public class RemoteView implements Observer<IServerPacket> {
      */
     void handlePacket(Object packet) {
         System.out.println("Received: " + packet);
-    /*
+        /*
         if (packet instanceof IProcessablePacket) {
-            if (packet instanceof ClientMessage) {
-                ClientMessage clientMessage = (ClientMessage) packet;
+            if (packet instanceof ClientMessage clientMessage) {
                 notifyClientMessage(clientMessage);
-            } else if (packet instanceof PlayerActionEvent) {
-                PlayerActionEvent actionEvent = (PlayerActionEvent) packet;
+            } else if (packet instanceof PlayerEvent actionEvent) {
                 notifyActionEvent(actionEvent);
+            } else {
+                System.err.println("Received object is of unknown type");
             }
-        } else {
-            System.err.println("Received object is of unknown type");
         }
-
-     */
+         */
     }
 
-    @Override
-    public void update(IServerPacket message) {
-
+    void handlePacket(IProcessablePacket packet){
+        System.out.println("Received: " + packet);
+        System.err.println("Received object is of unknown type");
     }
+
+    void handlePacket(ClientMessage packet){
+        System.out.println("Received: " + packet);
+        notifyClientMessage(packet);
+    }
+
+    void handlePacket(PlayerEvent packet){
+        System.out.println("Received: " + packet);
+        notifyActionEvent(packet);
+    }
+
 }

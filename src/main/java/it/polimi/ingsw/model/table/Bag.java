@@ -1,11 +1,14 @@
 package it.polimi.ingsw.model.table;
 
 import it.polimi.ingsw.model.Colour;
+import it.polimi.ingsw.model.messages.EmptyBagUpdate;
+import it.polimi.ingsw.observer.Observable;
+import it.polimi.ingsw.server.IServerPacket;
 
 import java.util.HashMap;
 import java.util.Random;
 
-public class Bag {
+public class Bag extends Observable<IServerPacket> {
     /**
      * A Map containing the number of students for each colour in the bag
      */
@@ -97,6 +100,7 @@ public class Bag {
             if (getBagStudent(colour) > 0)
                 return false;
         }
+        notify(new EmptyBagUpdate());
         return true;
     }
 
@@ -114,7 +118,7 @@ public class Bag {
      *
      * @return noStudent
      */
-    public boolean getNoStudent(){
+    public boolean getNoStudent() {
         return this.noStudent;
     }
 }

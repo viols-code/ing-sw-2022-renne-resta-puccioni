@@ -2,16 +2,21 @@ package it.polimi.ingsw.model.card;
 
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.Game;
+import it.polimi.ingsw.model.messages.CardCoinsUpdate;
+import it.polimi.ingsw.model.messages.UnifyIslandsUpdate;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.table.island.GroupIsland;
 import it.polimi.ingsw.model.table.island.SingleIsland;
+import it.polimi.ingsw.observer.Observable;
+import it.polimi.ingsw.server.IServerPacket;
+import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public abstract class CharacterCard {
+public abstract class CharacterCard extends Observable<IServerPacket> {
     /**
      * The Game
      */
@@ -20,6 +25,10 @@ public abstract class CharacterCard {
      * Cost of the card
      */
     protected int actualCost;
+    /**
+     * Type of the character card
+     */
+    protected CharacterCardEnumeration type;
 
     /**
      * Constructor: create a new CharacterCard
@@ -28,6 +37,18 @@ public abstract class CharacterCard {
      */
     public CharacterCard(Game game) {
         this.game = game;
+    }
+    /*
+    TYPE
+     */
+
+    /**
+     * Gets the type of the character card
+     *
+     * @return the type
+     */
+    public CharacterCardEnumeration getCharacterCardType() {
+        return type;
     }
 
     /*
@@ -58,6 +79,7 @@ public abstract class CharacterCard {
      */
     public void incrementCost() {
         actualCost += 1;
+        notify(new CardCoinsUpdate(actualCost));
     }
 
     /*
@@ -312,9 +334,11 @@ public abstract class CharacterCard {
             if (groupIsland == game.getTable().getNumberOfGroupIsland() - 1) {
                 game.getTable().setMotherNaturePosition(0);
                 unifyGroupIsland(game.getTable().getIslandAfter(groupIsland), game.getTable().getGroupIslandByIndex(groupIsland));
+                notify(new UnifyIslandsUpdate(0, groupIsland));
                 groupIsland = 0;
             } else {
                 unifyGroupIsland(game.getTable().getGroupIslandByIndex(groupIsland), game.getTable().getIslandAfter(groupIsland));
+                notify(new UnifyIslandsUpdate(groupIsland, (groupIsland + 1)));
             }
         }
 
@@ -322,9 +346,10 @@ public abstract class CharacterCard {
             if (groupIsland > 0) {
                 game.getTable().setMotherNaturePosition(groupIsland - 1);
                 unifyGroupIsland(game.getTable().getIslandBefore(groupIsland), game.getTable().getGroupIslandByIndex(groupIsland));
+                notify(new UnifyIslandsUpdate(groupIsland - 1, groupIsland));
             } else {
                 unifyGroupIsland(game.getTable().getGroupIslandByIndex(groupIsland), game.getTable().getIslandBefore(groupIsland));
-
+                notify(new UnifyIslandsUpdate(groupIsland, game.getTable().getNumberOfGroupIsland() - 1));
             }
 
         }

@@ -11,7 +11,6 @@ import java.io.Serial;
 public class PlayersToStartSetMessage extends DirectServerMessage {
     @Serial
     private static final long serialVersionUID = -4320604017996942648L;
-
     private final int playersToStart;
 
     /**
@@ -28,5 +27,6 @@ public class PlayersToStartSetMessage extends DirectServerMessage {
     @Override
     public void process(View view) {
         //view.handleSetPlayersToStart(playersToStart);
+        System.out.println("Ho settato il numero di giocatori");
     }
 }

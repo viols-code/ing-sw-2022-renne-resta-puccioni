@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.card;
 
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.Game;
+import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
 
 public class ExchangeEntranceDiningRoom extends CharacterCard {
     private Colour colourDiningRoom;
@@ -16,6 +17,7 @@ public class ExchangeEntranceDiningRoom extends CharacterCard {
     public ExchangeEntranceDiningRoom(Game game) {
         super(game);
         actualCost = 1;
+        type = CharacterCardEnumeration.EXCHANGE_ENTRANCE_DINING_ROOM;
     }
 
     /**
@@ -23,10 +25,11 @@ public class ExchangeEntranceDiningRoom extends CharacterCard {
      */
     @Override
     protected void effect() {
-        game.getCurrentPlayer().getSchoolBoard().addStudentToDiningRoom(colourEntrance);
         game.getCurrentPlayer().getSchoolBoard().removeStudentFromDiningRoom(colourDiningRoom);
-        game.getCurrentPlayer().getSchoolBoard().addStudentToEntrance(colourDiningRoom);
         game.getCurrentPlayer().getSchoolBoard().removeStudentFromEntrance(colourEntrance);
+        game.getCurrentPlayer().getSchoolBoard().addStudentToEntrance(colourDiningRoom);
+        game.getCurrentPlayer().getSchoolBoard().addStudentToDiningRoom(colourEntrance);
+
 
         if (((game.getCurrentPlayer().getSchoolBoard().getDiningRoom(colourDiningRoom) + 1) % 3) == 0) {
             game.getCurrentPlayer().addCoins(1);
@@ -54,6 +57,7 @@ public class ExchangeEntranceDiningRoom extends CharacterCard {
         this.colourDiningRoom = colourDiningRoom;
         this.colourEntrance = colourEntrance;
         this.effect();
+
     }
 
     /**

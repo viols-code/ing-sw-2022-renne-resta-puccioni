@@ -1,11 +1,17 @@
 package it.polimi.ingsw.model.table;
 
+import it.polimi.ingsw.model.Colour;
+import it.polimi.ingsw.model.messages.CloudTileUpdate;
+import it.polimi.ingsw.model.messages.MotherNaturePositionUpdate;
 import it.polimi.ingsw.model.table.island.GroupIsland;
+import it.polimi.ingsw.observer.Observable;
+import it.polimi.ingsw.server.IServerPacket;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
-public class Table {
+public class Table extends Observable<IServerPacket> {
     /**
      * the bag containing all the remaining students
      */
@@ -144,6 +150,7 @@ public class Table {
         getGroupIslandByIndex(this.motherNaturePosition).removeMotherNature();
         this.motherNaturePosition = motherNaturePosition;
         getGroupIslandByIndex(this.motherNaturePosition).placeMotherNature();
+        notify(new MotherNaturePositionUpdate(motherNaturePosition));
     }
 
      /*
@@ -175,6 +182,11 @@ public class Table {
      */
     public void addCLoudTile(CloudTile cloudTile) {
         cloudTiles.add(cloudTile);
+        HashMap<Colour, Integer> students = new HashMap<>();
+        for (Colour colour : Colour.values()) {
+            students.put(colour, cloudTile.getTileStudents(colour));
+        }
+        notify(new CloudTileUpdate(students));
     }
 
     /**
@@ -184,6 +196,11 @@ public class Table {
      */
     public void removeCLoudTile(CloudTile cloudTile) {
         cloudTiles.remove(cloudTile);
+        HashMap<Colour, Integer> students = new HashMap<>();
+        for (Colour colour : Colour.values()) {
+            students.put(colour, 0);
+        }
+        notify(new CloudTileUpdate(students));
     }
 
 }

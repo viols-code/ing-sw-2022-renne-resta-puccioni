@@ -33,10 +33,10 @@ public class Server {
                 Socket connection = serverSocket.accept();
 
                 System.out.println("Accepted new connection");
-
                 SocketClientConnection socketConnection = new SocketClientConnection(connection, lobbyController);
                 Thread t = new Thread(socketConnection);
                 t.start();
+                System.out.println("Ciao");
             } catch (IOException e) {
                 System.err.println("Connection Error!");
             } catch (Exception e) {

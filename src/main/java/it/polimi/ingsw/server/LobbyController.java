@@ -1,6 +1,7 @@
 package it.polimi.ingsw.server;
 
-import it.polimi.ingsw.client.message.ClientMessage;
+import it.polimi.ingsw.client.messages.ClientMessage;
+import it.polimi.ingsw.model.player.Wizard;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -48,9 +49,22 @@ public class LobbyController {
         if (connection.getPlayerName() != null) {
             return;
         }
+
         currentLobby.setPlayerName(connection, playerName);
 
         System.out.println("Player connected: " + connection.getPlayerName());
+
+    }
+
+    public synchronized void setPlayerWizard(SocketClientConnection connection, Wizard wizard) {
+
+        if (connection.getWizard() != null) {
+            return;
+        }
+
+        currentLobby.setPlayerWizard(connection, wizard);
+
+        System.out.println("Player connected: " + connection.getPlayerName() + ", with wizard: " + connection.getWizard());
 
         if (currentLobby.canStart())
             startGame();
@@ -70,14 +84,9 @@ public class LobbyController {
     }
 
     public synchronized void setGameMode(SocketClientConnection connection, boolean GameMode) {
-
         currentLobby.setGameMode(connection, GameMode);
-
         if (currentLobby.canStart())
             startGame();
-
-        return;
-
     }
 
     /**
@@ -88,8 +97,8 @@ public class LobbyController {
         Lobby lobbyToStart = currentLobby;
         playingLobbies.put(currentLobby.getUuid(), lobbyToStart);
 
-        //Thread t = new Thread(new GameInstance(lobbyToStart));
-        //t.start();
+        Thread t = new Thread(new GameInstance(lobbyToStart, lobbyToStart.getGameMode(), lobbyToStart.getPlayersToStart()));
+        t.start();
 
         currentLobby = new Lobby();
     }

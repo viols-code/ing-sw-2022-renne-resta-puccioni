@@ -1,10 +1,16 @@
 package it.polimi.ingsw.model.player;
 
 import it.polimi.ingsw.model.Colour;
+import it.polimi.ingsw.model.messages.DiningRoomUpdate;
+import it.polimi.ingsw.model.messages.EntranceUpdate;
+import it.polimi.ingsw.model.messages.ProfessorTableUpdate;
+import it.polimi.ingsw.model.messages.TowersUpdate;
+import it.polimi.ingsw.observer.Observable;
+import it.polimi.ingsw.server.IServerPacket;
 
 import java.util.HashMap;
 
-public class SchoolBoard {
+public class SchoolBoard extends Observable<IServerPacket> {
     /**
      * a Map containing the students in the diningRoom
      */
@@ -67,6 +73,7 @@ public class SchoolBoard {
     public void addStudentToDiningRoom(Colour colour) throws IllegalArgumentException {
         if (getDiningRoom(colour) == 10) throw new IllegalArgumentException("This table of the dining room is full");
         diningRoom.replace(colour, diningRoom.get(colour), diningRoom.get(colour) + 1);
+        notify(new DiningRoomUpdate(diningRoom));
     }
 
     /**
@@ -79,6 +86,7 @@ public class SchoolBoard {
         if (getDiningRoom(colour) == 0)
             throw new IllegalArgumentException("There are no students of that colour in the dining room");
         diningRoom.replace(colour, diningRoom.get(colour), diningRoom.get(colour) - 1);
+        notify(new DiningRoomUpdate(diningRoom));
     }
 
     /**
@@ -86,6 +94,7 @@ public class SchoolBoard {
      */
     public void removeAllStudentFromDiningRoom(Colour colour) {
         diningRoom.replace(colour, diningRoom.get(colour), 0);
+        notify(new DiningRoomUpdate(diningRoom));
     }
 
     /*
@@ -110,6 +119,7 @@ public class SchoolBoard {
      */
     public void addStudentToEntrance(Colour colour) throws IllegalArgumentException {
         entrance.replace(colour, entrance.get(colour), entrance.get(colour) + 1);
+        notify(new EntranceUpdate(entrance));
     }
 
     /**
@@ -119,6 +129,7 @@ public class SchoolBoard {
      */
     public void removeStudentFromEntrance(Colour colour) {
         entrance.replace(colour, entrance.get(colour), entrance.get(colour) - 1);
+        notify(new EntranceUpdate(entrance));
     }
 
      /*
@@ -133,6 +144,7 @@ public class SchoolBoard {
     public void addProfessor(Colour colour) {
         if (!hasProfessor(colour)) {
             professorTable.replace(colour, false, true);
+            notify(new ProfessorTableUpdate(professorTable));
         }
     }
 
@@ -144,6 +156,7 @@ public class SchoolBoard {
     public void removeProfessor(Colour colour) {
         if (hasProfessor(colour)) {
             professorTable.replace(colour, true, false);
+            notify(new ProfessorTableUpdate(professorTable));
         }
     }
 
@@ -209,6 +222,7 @@ public class SchoolBoard {
      */
     public void addTower(int num) {
         towers += num;
+        notify(new TowersUpdate(towers));
     }
 
     /**
@@ -216,5 +230,6 @@ public class SchoolBoard {
      */
     public void removeTower(int num) {
         towers -= num;
+        notify(new TowersUpdate(towers));
     }
 }

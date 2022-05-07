@@ -10,7 +10,6 @@ import java.io.Serial;
 public class PlayerLeaveMessage extends ServerMessage {
     @Serial
     private static final long serialVersionUID = 54329163086061406L;
-
     private final String playerName;
 
     /**
@@ -25,5 +24,6 @@ public class PlayerLeaveMessage extends ServerMessage {
     @Override
     public void process(View view) {
         //view.handlePlayerDisconnect(playerName);
+        System.out.println("Te ne stai andando");
     }
 }

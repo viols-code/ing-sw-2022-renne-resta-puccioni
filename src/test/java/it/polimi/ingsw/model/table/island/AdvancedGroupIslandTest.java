@@ -93,7 +93,7 @@ class AdvancedGroupIslandTest {
             gameController.getGame().setCurrentPlayer(gameController.getGame().getPlayerByIndex(0));
             assertEquals(0, gameController.getGame().getTable().getMotherNaturePosition());
             gameController.getGame().getPlayerByIndex(0).setCurrentAssistantCard(gameController.getGame().getAssistantCard(4));
-            gameController.moveMotherNature(0, 2);
+            gameController.moveMotherNature("Viola", 2);
             assertEquals(1, gameController.getGame().getTable().getGroupIslandByIndex(2).getNumberOfNoEntryTile());
             assertTrue(gameController.getGame().getTable().getGroupIslandByIndex(2).isNoEntryTile());
 

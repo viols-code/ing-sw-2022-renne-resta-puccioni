@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.card;
 
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.Game;
+import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
 
 public class TakeProfessor extends CharacterCard {
     /**
@@ -12,6 +13,7 @@ public class TakeProfessor extends CharacterCard {
     public TakeProfessor(Game game) {
         super(game);
         actualCost = 2;
+        type = CharacterCardEnumeration.TAKE_PROFESSOR;
     }
 
     /**

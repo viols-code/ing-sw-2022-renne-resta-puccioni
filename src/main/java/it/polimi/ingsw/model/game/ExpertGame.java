@@ -2,6 +2,10 @@ package it.polimi.ingsw.model.game;
 
 import it.polimi.ingsw.model.card.CharacterCard;
 import it.polimi.ingsw.model.card.ProtectIsland;
+import it.polimi.ingsw.model.messages.ActiveCharacterCardUpdate;
+import it.polimi.ingsw.model.messages.CharacterCardsAvailableUpdate;
+import it.polimi.ingsw.model.messages.TableCoinsUpdate;
+import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,6 +66,11 @@ public class ExpertGame extends Game {
     @Override
     public void addCharacterCard(CharacterCard card) {
         characterCards.add(card);
+        List<CharacterCardEnumeration> cardsAvailable = new ArrayList<>();
+        for (CharacterCard characterCard : characterCards) {
+            cardsAvailable.add(characterCard.getCharacterCardType());
+        }
+        notify(new CharacterCardsAvailableUpdate(cardsAvailable));
     }
 
     /**
@@ -72,9 +81,10 @@ public class ExpertGame extends Game {
     @Override
     public void setActiveCharacterCard(CharacterCard card) {
         super.activeCharacterCard = card;
+        notify(new ActiveCharacterCardUpdate(characterCards.indexOf(card)));
     }
 
-        /*
+    /*
     PROTECT ISLAND
      */
 
@@ -136,6 +146,7 @@ public class ExpertGame extends Game {
      */
     public void setCoins(int coins) {
         this.coins = coins;
+        notify(new TableCoinsUpdate(this.coins));
     }
 
 }

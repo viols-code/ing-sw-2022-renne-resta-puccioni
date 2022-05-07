@@ -10,23 +10,19 @@ import java.io.Serial;
 public class GameStartMessage extends ServerMessage {
     @Serial
     private static final long serialVersionUID = 6749380507234104334L;
-
-    //private final GameConfig gameConfig;
+    private final boolean gameMode;
 
     /**
      * Constructs a new GameStartMessage.
-     *
      */
-    /*
-    public GameStartMessage(GameConfig gameConfig) {
-        this.gameConfig = gameConfig;
+    public GameStartMessage(boolean gameMode) {
+        this.gameMode = gameMode;
     }
-
-     */
 
     @Override
     public void process(View view) {
-       // view.handleGameStart(gameConfig);
+        // view.handleGameStart(gameConfig);
+        System.out.println("Il gioco inizia");
     }
 
 }

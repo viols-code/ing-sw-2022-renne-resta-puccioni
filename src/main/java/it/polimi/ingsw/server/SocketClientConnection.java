@@ -8,7 +8,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.SocketException;
-import java.util.NoSuchElementException;
 import java.util.UUID;
 import java.util.concurrent.ArrayBlockingQueue;
 
@@ -17,26 +16,28 @@ import java.util.concurrent.ArrayBlockingQueue;
  */
 public class SocketClientConnection implements Runnable {
     private final Socket socket;
-    private WriteThread writeThread;
+    private boolean active = true;
     private String playerName;
     private Wizard wizard;
-    private final RemoteView remoteView;
     private UUID lobbyUUID;
 
-    private boolean active = true;
+    private static final int BUFFER_CAPACITY = 20;
+    private final ObjectOutputStream out;
+    private final ObjectInputStream in;
+    private final ArrayBlockingQueue<Object> bufferOut;
+    private final RemoteView remoteView;
 
     /**
      * Creates a new SocketClientConnection that manages the communication with the given Socket.
      *
-     * @param socket          the client socket
-     * @param lobbyController the main lobby controller
+     * @param socket the client socket
      */
-    SocketClientConnection(Socket socket, LobbyController lobbyController) {
+    SocketClientConnection(Socket socket, LobbyController lobbyController) throws IOException {
         this.socket = socket;
-        this.playerName = null;
-        this.wizard = null;
+        this.out = new ObjectOutputStream(socket.getOutputStream());
+        this.in = new ObjectInputStream(socket.getInputStream());
+        bufferOut = new ArrayBlockingQueue<>(BUFFER_CAPACITY);
         this.remoteView = new RemoteView(this, lobbyController);
-        this.lobbyUUID = null;
     }
 
     /**
@@ -74,30 +75,30 @@ public class SocketClientConnection implements Runnable {
     }
 
     /**
-     * Gets the wizard associated with this connection.
+     * Gets the player name associated with this connection.
      *
-     * @return the wizard, or <code>null</code> if it has not been set yet
+     * @return the player name, or <code>null</code> if it has not been set yet
      */
     public synchronized Wizard getWizard() {
         return wizard;
     }
 
     /**
-     * Sets the wizard associated with this connection.
+     * Sets the player name associated with this connection.
      *
-     * @param wizard the wizard to associate with this connection
+     * @param wizard the player name to associate with this connection
      */
     public synchronized void setWizard(Wizard wizard) {
         this.wizard = wizard;
     }
 
     /**
-     * Gets the RemoteView associated with this connection.
+     * Sets the lobby UUID.
      *
-     * @return the remote view associated with this connection
+     * @param lobbyUUID the UUID of the lobby
      */
-    public RemoteView getRemoteView() {
-        return remoteView;
+    public synchronized void setLobbyUUID(UUID lobbyUUID) {
+        this.lobbyUUID = lobbyUUID;
     }
 
     /**
@@ -110,21 +111,12 @@ public class SocketClientConnection implements Runnable {
     }
 
     /**
-     * Sets the UUID of the Lobby that this connection is part of.
+     * Gets the remote view asssociated with this connection
      *
-     * @param lobbyUUID the uuid of the lobby
+     * @return the remoteView of this connection
      */
-    public synchronized void setLobbyUUID(UUID lobbyUUID) {
-        this.lobbyUUID = lobbyUUID;
-    }
-
-    /**
-     * Sends a message to the client.
-     *
-     * @param message the message to be sent, should be a {@link IServerPacket}
-     */
-    synchronized void send(Object message) {
-        writeThread.send(message);
+    public RemoteView getRemoteView() {
+        return remoteView;
     }
 
     /**
@@ -144,9 +136,7 @@ public class SocketClientConnection implements Runnable {
      */
     private void close() {
         closeConnection();
-
         System.out.println("Deregistering client...");
-        remoteView.getLobbyController().deregisterConnection(this);
     }
 
     /**
@@ -154,14 +144,8 @@ public class SocketClientConnection implements Runnable {
      */
     @Override
     public void run() {
-        ObjectInputStream in;
         try {
-            writeThread = new WriteThread(this, socket);
-            writeThread.start();
-            in = new ObjectInputStream(socket.getInputStream());
-
             remoteView.getLobbyController().addToLobby(this);
-
             Object read;
             while (isActive()) {
                 read = in.readObject();
@@ -174,75 +158,52 @@ public class SocketClientConnection implements Runnable {
                 }
             }
 
-            writeThread.join();
-        } catch (EOFException | SocketException ignored) {
-        } catch (IOException | NoSuchElementException | ClassNotFoundException e) {
-            System.err.println("Error!" + e.getMessage());
-            e.printStackTrace();
-        } catch (Exception e) {
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         } finally {
-            close();
-        }
-    }
-}
-
-/**
- * Thread that queues and sends server messages to the client.
- */
-class WriteThread extends Thread {
-    private static final int BUFFER_CAPACITY = 20;
-
-    private final SocketClientConnection clientConnection;
-    private final ObjectOutputStream out;
-    private final ArrayBlockingQueue<Object> bufferOut;
-
-    /**
-     * Constructs a new WriteThread owned by the given SocketClientConnection, and that writes to the given Socket.
-     *
-     * @param clientConnection the parent socket client connection
-     * @param socket           the socket to write to
-     * @throws IOException if the ObjectOutputStream can't be created
-     */
-    WriteThread(SocketClientConnection clientConnection, Socket socket) throws IOException {
-        super();
-
-        this.clientConnection = clientConnection;
-        this.out = new ObjectOutputStream(socket.getOutputStream());
-        bufferOut = new ArrayBlockingQueue<>(BUFFER_CAPACITY);
-    }
-
-    /**
-     * Starts the write thread loop, waiting for objects to be added to the queue and sending them to the client.
-     */
-    @Override
-    public void run() {
-        try {
-            while (clientConnection.isActive()) {
-                Object object = bufferOut.take();
-
-                out.reset();
-                out.writeObject(object);
-                out.flush();
+            try {
+                socket.close();
+            } catch (IOException e) {
+                System.err.println("Error when closing socket!");
             }
-        } catch (EOFException | SocketException ignored) {
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.err.println("Error in SocketClientConnection WriteThread");
-            clientConnection.setInactive();
+            active = false;
+            close();
+
         }
     }
 
     /**
      * Sends a message to the client.
      *
-     * @param message the message to be sent, should be a {@link IServerPacket}
+     * @param message the message to be sent, should be a
      */
     public synchronized void send(Object message) {
         if (bufferOut.remainingCapacity() > 0) {
             bufferOut.add(message);
+            try {
+                while (this.isActive()) {
+                    Object object = bufferOut.take();
+
+                    out.reset();
+                    out.writeObject(object);
+                    out.flush();
+                }
+            } catch (EOFException | SocketException ignored) {
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.err.println("Error in SocketClientConnection WriteThread");
+                this.setInactive();
+            }
         } else {
             System.err.println("WRITE_THREAD: Trying to send too many messages at once!");
         }
     }
+
+
 }
+
+
+
+
+
+

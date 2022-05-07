@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model.player;
 
+import it.polimi.ingsw.model.messages.CoinsUpdate;
+
 import java.util.Objects;
 
 public class ExpertPlayer extends Player {
@@ -40,6 +42,7 @@ public class ExpertPlayer extends Player {
      */
     public void addCoins(int num) {
         coins += num;
+        notify(new CoinsUpdate(coins));
     }
 
     /**
@@ -49,6 +52,7 @@ public class ExpertPlayer extends Player {
      */
     public void removeCoins(int num) {
         coins -= num;
+        notify(new CoinsUpdate(coins));
     }
 
     @Override

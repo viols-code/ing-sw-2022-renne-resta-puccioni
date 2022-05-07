@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.card;
 import it.polimi.ingsw.model.game.Game;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.table.island.GroupIsland;
+import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
 
 public class TwoPoints extends CharacterCard {
     /**
@@ -13,6 +14,7 @@ public class TwoPoints extends CharacterCard {
     public TwoPoints(Game game) {
         super(game);
         actualCost = 2;
+        type = CharacterCardEnumeration.TWO_POINTS;
     }
 
     /**

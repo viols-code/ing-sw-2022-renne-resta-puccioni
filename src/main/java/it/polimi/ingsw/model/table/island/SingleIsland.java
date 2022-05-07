@@ -1,6 +1,9 @@
 package it.polimi.ingsw.model.table.island;
 
 import it.polimi.ingsw.model.Colour;
+import it.polimi.ingsw.model.messages.SingleIslandUpdate;
+import it.polimi.ingsw.observer.Observable;
+import it.polimi.ingsw.server.IServerPacket;
 
 import java.util.HashMap;
 
@@ -10,7 +13,7 @@ import java.util.HashMap;
  * @version 1.0
  */
 
-public class SingleIsland {
+public class SingleIsland extends Observable<IServerPacket> {
 
     /**
      * A HashMap containing al the students that are on the SingleIsland
@@ -48,6 +51,7 @@ public class SingleIsland {
      */
     public void addStudent(Colour colour) {
         students.replace(colour, students.get(colour), students.get(colour) + 1);
+        notify(new SingleIslandUpdate(colour));
     }
 
 

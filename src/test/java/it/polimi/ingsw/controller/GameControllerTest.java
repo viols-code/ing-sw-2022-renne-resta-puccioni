@@ -96,7 +96,7 @@ class GameControllerTest {
         gameControllerTwo.addPlayer("Viola", Wizard.TYPE_3);
         gameControllerTwo.addPlayer("Laura", Wizard.TYPE_4);
         Game game = gameControllerTwo.getGame();
-        gameControllerTwo.playCharacterCard(0, 0);
+        gameControllerTwo.playCharacterCard("Viola", 0);
         assertEquals(game, gameControllerTwo.getGame());
     }
 
@@ -104,11 +104,11 @@ class GameControllerTest {
     void playAssistantCard() {
         gameControllerTwo.addPlayer("Viola", Wizard.TYPE_1);
         gameControllerTwo.addPlayer("Laura", Wizard.TYPE_2);
-        gameControllerTwo.moveStudentToIsland(0, Colour.PINK, 0, 0);
+        gameControllerTwo.moveStudentToIsland("Viola", Colour.PINK, 0, 0);
         assertEquals(0, gameControllerTwo.getGame().getTable().getGroupIslandByIndex(0).getIslandByIndex(0).getStudents(Colour.PINK));
-        gameControllerTwo.playAssistantCard(1, 0);
+        gameControllerTwo.playAssistantCard("Laura", 0);
         assertNull(gameControllerTwo.getGame().getPlayerByIndex(1).getCurrentAssistantCard());
-        gameControllerTwo.playAssistantCard(0, 0);
+        gameControllerTwo.playAssistantCard("Viola", 0);
         assertEquals(gameControllerTwo.getGame().getAssistantCard(0), gameControllerTwo.getGame().getPlayerByIndex(0).getCurrentAssistantCard());
         assertFalse(gameControllerTwo.getGame().getPlayerByIndex(0).isAssistantCardPresent(gameControllerTwo.getGame().getAssistantCard(0)));
     }
@@ -119,14 +119,14 @@ class GameControllerTest {
         gameControllerTwo.addPlayer("Laura", Wizard.TYPE_2);
 
         for (int i = 0; i < 9; i++) {
-            gameControllerTwo.playAssistantCard(0, i);
+            gameControllerTwo.playAssistantCard("Viola", i);
             assertEquals(gameControllerTwo.getGame().getAssistantCard(i), gameControllerTwo.getGame().getPlayerByIndex(0).getCurrentAssistantCard());
-            gameControllerTwo.playAssistantCard(1, (i + 1) % 9);
+            gameControllerTwo.playAssistantCard("Laura", (i + 1) % 9);
             assertEquals(gameControllerTwo.getGame().getAssistantCard((i + 1) % 9), gameControllerTwo.getGame().getPlayerByIndex(1).getCurrentAssistantCard());
             gameControllerTwo.getGame().setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
         }
-        gameControllerTwo.playAssistantCard(1, 9);
-        gameControllerTwo.playAssistantCard(0, 9);
+        gameControllerTwo.playAssistantCard("Laura", 9);
+        gameControllerTwo.playAssistantCard("Viola", 9);
         assertEquals(gameControllerTwo.getGame().getAssistantCard(9), gameControllerTwo.getGame().getPlayerByIndex(1).getCurrentAssistantCard());
         assertEquals(gameControllerTwo.getGame().getAssistantCard(9), gameControllerTwo.getGame().getPlayerByIndex(0).getCurrentAssistantCard());
     }
@@ -135,22 +135,22 @@ class GameControllerTest {
     void moveStudentToIsland() {
         gameControllerTwo.addPlayer("Viola", Wizard.TYPE_1);
         assertNull(gameControllerTwo.getGame().getPlayerByIndex(0).getCurrentAssistantCard());
-        gameControllerTwo.moveStudentToIsland(0, Colour.PINK, 0, 0);
+        gameControllerTwo.moveStudentToIsland("Viola", Colour.PINK, 0, 0);
         assertEquals(0, gameControllerTwo.getGame().getTable().getGroupIslandByIndex(0).getIslandByIndex(0).getStudents(Colour.PINK));
         gameControllerTwo.addPlayer("Laura", Wizard.TYPE_2);
         assertNull(gameControllerTwo.getGame().getPlayerByIndex(1).getCurrentAssistantCard());
-        gameControllerTwo.moveStudentToIsland(0, Colour.PINK, 0, 0);
+        gameControllerTwo.moveStudentToIsland("Viola", Colour.PINK, 0, 0);
         assertEquals(0, gameControllerTwo.getGame().getTable().getGroupIslandByIndex(0).getIslandByIndex(0).getStudents(Colour.PINK));
-        gameControllerTwo.playAssistantCard(0, 0);
+        gameControllerTwo.playAssistantCard("Viola", 0);
         assertEquals(gameControllerTwo.getGame().getAssistantCard(0), gameControllerTwo.getGame().getPlayerByIndex(0).getCurrentAssistantCard());
         assertFalse(gameControllerTwo.getGame().getPlayerByIndex(0).isAssistantCardPresent(gameControllerTwo.getGame().getAssistantCard(0)));
-        gameControllerTwo.playAssistantCard(1, 0);
+        gameControllerTwo.playAssistantCard("Laura", 0);
         assertNull(gameControllerTwo.getGame().getPlayerByIndex(1).getCurrentAssistantCard());
-        gameControllerTwo.playAssistantCard(1, 1);
+        gameControllerTwo.playAssistantCard("Laura", 1);
         assertEquals(gameControllerTwo.getGame().getAssistantCard(1), gameControllerTwo.getGame().getPlayerByIndex(1).getCurrentAssistantCard());
         assertFalse(gameControllerTwo.getGame().getPlayerByIndex(1).isAssistantCardPresent(gameControllerTwo.getGame().getAssistantCard(1)));
         int num = gameControllerTwo.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(Colour.PINK);
-        gameControllerTwo.moveStudentToIsland(0, Colour.PINK, 0, 0);
+        gameControllerTwo.moveStudentToIsland("Viola", Colour.PINK, 0, 0);
         if (num > 0) {
             assertEquals(1, gameControllerTwo.getGame().getTable().getGroupIslandByIndex(0).getIslandByIndex(0).getStudents(Colour.PINK));
             assertEquals(6, gameControllerTwo.getGame().getPlayerByIndex(0).getSchoolBoard().getNumberStudentsEntrance());
@@ -164,12 +164,12 @@ class GameControllerTest {
     void moveStudentToDiningRoom() {
         gameControllerTwo.addPlayer("Viola", Wizard.TYPE_1);
         gameControllerTwo.addPlayer("Laura", Wizard.TYPE_2);
-        gameControllerTwo.playAssistantCard(0, 0);
-        gameControllerTwo.playAssistantCard(1, 1);
+        gameControllerTwo.playAssistantCard("Viola", 0);
+        gameControllerTwo.playAssistantCard("Laura", 1);
         for (int i = 0; i < 3; i++) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerTwo.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerTwo.moveStudentToDiningRoom(0, colour);
+                    gameControllerTwo.moveStudentToDiningRoom("Viola", colour);
                 }
             }
         }
@@ -180,16 +180,16 @@ class GameControllerTest {
     void moveMotherNature() {
         gameControllerTwo.addPlayer("Viola", Wizard.TYPE_1);
         gameControllerTwo.addPlayer("Laura", Wizard.TYPE_2);
-        gameControllerTwo.playAssistantCard(0, 0);
-        gameControllerTwo.playAssistantCard(1, 1);
+        gameControllerTwo.playAssistantCard("Viola", 0);
+        gameControllerTwo.playAssistantCard("Laura", 1);
         for (int i = 0; i < 3; i++) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerTwo.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerTwo.moveStudentToDiningRoom(0, colour);
+                    gameControllerTwo.moveStudentToDiningRoom("Viola", colour);
                 }
             }
         }
-        gameControllerTwo.moveMotherNature(0, 1);
+        gameControllerTwo.moveMotherNature("Viola", 1);
         assertEquals(1, gameControllerTwo.getGame().getTable().getMotherNaturePosition());
     }
 
@@ -228,18 +228,18 @@ class GameControllerTest {
         assertEquals(TowerColour.WHITE, gameControllerTwo.getGame().getPlayerByIndex(0).getTowerColour());
         gameControllerTwo.addPlayer("Laura", Wizard.TYPE_2);
         assertEquals(TowerColour.BLACK, gameControllerTwo.getGame().getPlayerByIndex(1).getTowerColour());
-        gameControllerTwo.playAssistantCard(0, 0);
-        gameControllerTwo.playAssistantCard(1, 1);
+        gameControllerTwo.playAssistantCard("Viola", 0);
+        gameControllerTwo.playAssistantCard("Laura", 1);
         for (int i = 0; i < 3; i++) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerTwo.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerTwo.moveStudentToDiningRoom(0, colour);
+                    gameControllerTwo.moveStudentToDiningRoom("Viola", colour);
                 }
             }
         }
-        gameControllerTwo.moveMotherNature(0, 1);
+        gameControllerTwo.moveMotherNature("Viola", 1);
         assertEquals(1, gameControllerTwo.getGame().getTable().getMotherNaturePosition());
-        gameControllerTwo.chooseCloudTile(0, 0);
+        gameControllerTwo.chooseCloudTile("Viola", 0);
         assertEquals(7, gameControllerTwo.getGame().getPlayerByIndex(0).getSchoolBoard().getNumberStudentsEntrance());
     }
 
@@ -247,20 +247,20 @@ class GameControllerTest {
     void setColour() {
         gameControllerTwo.addPlayer("Viola", Wizard.TYPE_1);
         gameControllerTwo.addPlayer("Laura", Wizard.TYPE_2);
-        gameControllerTwo.playAssistantCard(0, 0);
-        gameControllerTwo.playAssistantCard(1, 1);
+        gameControllerTwo.playAssistantCard("Viola", 0);
+        gameControllerTwo.playAssistantCard("Laura", 1);
         for (int i = 0; i < 3; i++) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerTwo.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerTwo.moveStudentToDiningRoom(0, colour);
+                    gameControllerTwo.moveStudentToDiningRoom("Viola", colour);
                 }
             }
         }
-        gameControllerTwo.moveMotherNature(0, 1);
+        gameControllerTwo.moveMotherNature("Viola", 1);
         assertEquals(1, gameControllerTwo.getGame().getTable().getMotherNaturePosition());
-        gameControllerTwo.chooseCloudTile(0, 0);
+        gameControllerTwo.chooseCloudTile("Viola", 0);
         assertEquals(7, gameControllerTwo.getGame().getPlayerByIndex(0).getSchoolBoard().getNumberStudentsEntrance());
-        gameControllerTwo.setColour(Colour.PINK);
+        gameControllerTwo.setColour("Viola", Colour.PINK);
         assertEquals(gameControllerTwo.getGame().getActiveCharacterCard(), gameControllerTwo.getGame().getBasicState());
     }
 
@@ -268,20 +268,20 @@ class GameControllerTest {
     void setColourAndIsland() {
         gameControllerTwo.addPlayer("Viola", Wizard.TYPE_1);
         gameControllerTwo.addPlayer("Laura", Wizard.TYPE_2);
-        gameControllerTwo.playAssistantCard(0, 0);
-        gameControllerTwo.playAssistantCard(1, 1);
+        gameControllerTwo.playAssistantCard("Viola", 0);
+        gameControllerTwo.playAssistantCard("Laura", 1);
         for (int i = 0; i < 3; i++) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerTwo.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerTwo.moveStudentToDiningRoom(0, colour);
+                    gameControllerTwo.moveStudentToDiningRoom("Viola", colour);
                 }
             }
         }
-        gameControllerTwo.moveMotherNature(0, 1);
+        gameControllerTwo.moveMotherNature("Viola", 1);
         assertEquals(1, gameControllerTwo.getGame().getTable().getMotherNaturePosition());
-        gameControllerTwo.chooseCloudTile(0, 0);
+        gameControllerTwo.chooseCloudTile("Viola", 0);
         assertEquals(7, gameControllerTwo.getGame().getPlayerByIndex(0).getSchoolBoard().getNumberStudentsEntrance());
-        gameControllerTwo.setColourAndIsland(Colour.PINK, 0, 0);
+        gameControllerTwo.setColourAndIsland("Viola", Colour.PINK, 0, 0);
         assertEquals(gameControllerTwo.getGame().getActiveCharacterCard(), gameControllerTwo.getGame().getBasicState());
     }
 
@@ -289,21 +289,21 @@ class GameControllerTest {
     void setGroupIsland() {
         gameControllerTwo.addPlayer("Viola", Wizard.TYPE_1);
         gameControllerTwo.addPlayer("Laura", Wizard.TYPE_2);
-        gameControllerTwo.playAssistantCard(0, 0);
-        gameControllerTwo.playAssistantCard(1, 1);
+        gameControllerTwo.playAssistantCard("Viola", 0);
+        gameControllerTwo.playAssistantCard("Laura", 1);
         for (int i = 0; i < 3; i++) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerTwo.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerTwo.moveStudentToDiningRoom(0, colour);
+                    gameControllerTwo.moveStudentToDiningRoom("Viola", colour);
                 }
             }
         }
-        gameControllerTwo.moveMotherNature(0, 1);
+        gameControllerTwo.moveMotherNature("Viola", 1);
         assertEquals(1, gameControllerTwo.getGame().getTable().getMotherNaturePosition());
-        gameControllerTwo.chooseCloudTile(0, 0);
+        gameControllerTwo.chooseCloudTile("Viola", 0);
         assertEquals(7, gameControllerTwo.getGame().getPlayerByIndex(0).getSchoolBoard().getNumberStudentsEntrance());
         assertEquals(gameControllerTwo.getGame().getActiveCharacterCard(), gameControllerTwo.getGame().getBasicState());
-        gameControllerTwo.setGroupIsland(0);
+        gameControllerTwo.setGroupIsland("Viola", 0);
         assertEquals(gameControllerTwo.getGame().getActiveCharacterCard(), gameControllerTwo.getGame().getBasicState());
     }
 
@@ -311,21 +311,21 @@ class GameControllerTest {
     void setColourDiningRoomEntrance() {
         gameControllerTwo.addPlayer("Viola", Wizard.TYPE_1);
         gameControllerTwo.addPlayer("Laura", Wizard.TYPE_2);
-        gameControllerTwo.playAssistantCard(0, 0);
-        gameControllerTwo.playAssistantCard(1, 1);
+        gameControllerTwo.playAssistantCard("Viola", 0);
+        gameControllerTwo.playAssistantCard("Laura", 1);
         for (int i = 0; i < 3; i++) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerTwo.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerTwo.moveStudentToDiningRoom(0, colour);
+                    gameControllerTwo.moveStudentToDiningRoom("Viola", colour);
                 }
             }
         }
-        gameControllerTwo.moveMotherNature(0, 1);
+        gameControllerTwo.moveMotherNature("Viola", 1);
         assertEquals(1, gameControllerTwo.getGame().getTable().getMotherNaturePosition());
-        gameControllerTwo.chooseCloudTile(0, 0);
+        gameControllerTwo.chooseCloudTile("Viola", 0);
         assertEquals(7, gameControllerTwo.getGame().getPlayerByIndex(0).getSchoolBoard().getNumberStudentsEntrance());
         assertEquals(gameControllerTwo.getGame().getActiveCharacterCard(), gameControllerTwo.getGame().getBasicState());
-        gameControllerTwo.setColourDiningRoomEntrance(Colour.RED, Colour.BLUE);
+        gameControllerTwo.setColourDiningRoomEntrance("Viola", Colour.RED, Colour.BLUE);
         assertEquals(gameControllerTwo.getGame().getActiveCharacterCard(), gameControllerTwo.getGame().getBasicState());
     }
 
@@ -333,21 +333,21 @@ class GameControllerTest {
     void setColourCardEntrance() {
         gameControllerTwo.addPlayer("Viola", Wizard.TYPE_1);
         gameControllerTwo.addPlayer("Laura", Wizard.TYPE_2);
-        gameControllerTwo.playAssistantCard(0, 0);
-        gameControllerTwo.playAssistantCard(1, 1);
+        gameControllerTwo.playAssistantCard("Viola", 0);
+        gameControllerTwo.playAssistantCard("Laura", 1);
         for (int i = 0; i < 3; i++) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerTwo.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerTwo.moveStudentToDiningRoom(0, colour);
+                    gameControllerTwo.moveStudentToDiningRoom("Viola", colour);
                 }
             }
         }
-        gameControllerTwo.moveMotherNature(0, 1);
+        gameControllerTwo.moveMotherNature("Viola", 1);
         assertEquals(1, gameControllerTwo.getGame().getTable().getMotherNaturePosition());
-        gameControllerTwo.chooseCloudTile(0, 0);
+        gameControllerTwo.chooseCloudTile("Viola", 0);
         assertEquals(7, gameControllerTwo.getGame().getPlayerByIndex(0).getSchoolBoard().getNumberStudentsEntrance());
         assertEquals(gameControllerTwo.getGame().getActiveCharacterCard(), gameControllerTwo.getGame().getBasicState());
-        gameControllerTwo.setColourCardEntrance(Colour.RED, Colour.BLUE);
+        gameControllerTwo.setColourCardEntrance("Viola", Colour.RED, Colour.BLUE);
         assertEquals(gameControllerTwo.getGame().getActiveCharacterCard(), gameControllerTwo.getGame().getBasicState());
     }
 
@@ -358,284 +358,284 @@ class GameControllerTest {
         gameControllerTwo.addPlayer("Laura", Wizard.TYPE_2);
         gameControllerTwo.addPlayer("Viola", Wizard.TYPE_3);
         // First turn
-        gameControllerTwo.playAssistantCard(0, 0);
-        gameControllerTwo.playAssistantCard(1, 9);
+        gameControllerTwo.playAssistantCard("Laura", 0);
+        gameControllerTwo.playAssistantCard("Viola", 9);
 
         int i = 0;
         while (i < 3) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerTwo.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerTwo.moveStudentToIsland(0, colour, 0, 0);
+                    gameControllerTwo.moveStudentToIsland("Laura", colour, 0, 0);
                     i++;
                 }
             }
         }
-        gameControllerTwo.moveMotherNature(0, 1);
-        gameControllerTwo.chooseCloudTile(0, 0);
+        gameControllerTwo.moveMotherNature("Laura", 1);
+        gameControllerTwo.chooseCloudTile("Laura", 0);
 
         i = 0;
         while (i < 3) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerTwo.getGame().getPlayerByIndex(1).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerTwo.moveStudentToIsland(1, colour, 0, 0);
+                    gameControllerTwo.moveStudentToIsland("Viola", colour, 0, 0);
                     i++;
                 }
             }
         }
-        gameControllerTwo.moveMotherNature(1, 1);
-        gameControllerTwo.chooseCloudTile(1, 0);
+        gameControllerTwo.moveMotherNature("Viola", 1);
+        gameControllerTwo.chooseCloudTile("Viola", 0);
 
         // Second turn
-        gameControllerTwo.playAssistantCard(0, 1);
-        gameControllerTwo.playAssistantCard(1, 8);
+        gameControllerTwo.playAssistantCard("Laura", 1);
+        gameControllerTwo.playAssistantCard("Viola", 8);
 
         i = 0;
         while (i < 3) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerTwo.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerTwo.moveStudentToIsland(0, colour, 0, 0);
+                    gameControllerTwo.moveStudentToIsland("Laura", colour, 0, 0);
                     i++;
                 }
             }
         }
-        gameControllerTwo.moveMotherNature(0, 1);
-        gameControllerTwo.chooseCloudTile(0, 0);
+        gameControllerTwo.moveMotherNature("Laura", 1);
+        gameControllerTwo.chooseCloudTile("Laura", 0);
 
         i = 0;
         while (i < 3) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerTwo.getGame().getPlayerByIndex(1).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerTwo.moveStudentToIsland(1, colour, 0, 0);
+                    gameControllerTwo.moveStudentToIsland("Viola", colour, 0, 0);
                     i++;
                 }
             }
         }
-        gameControllerTwo.moveMotherNature(1, 1);
-        gameControllerTwo.chooseCloudTile(1, 0);
+        gameControllerTwo.moveMotherNature("Viola", 1);
+        gameControllerTwo.chooseCloudTile("Viola", 0);
 
         //Third turn
-        gameControllerTwo.playAssistantCard(0, 2);
-        gameControllerTwo.playAssistantCard(1, 7);
+        gameControllerTwo.playAssistantCard("Laura", 2);
+        gameControllerTwo.playAssistantCard("Viola", 7);
 
         i = 0;
         while (i < 3) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerTwo.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerTwo.moveStudentToIsland(0, colour, 0, 0);
+                    gameControllerTwo.moveStudentToIsland("Laura", colour, 0, 0);
                     i++;
                 }
             }
         }
-        gameControllerTwo.moveMotherNature(0, 1);
-        gameControllerTwo.chooseCloudTile(0, 0);
+        gameControllerTwo.moveMotherNature("Laura", 1);
+        gameControllerTwo.chooseCloudTile("Laura", 0);
 
         i = 0;
         while (i < 3) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerTwo.getGame().getPlayerByIndex(1).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerTwo.moveStudentToIsland(1, colour, 0, 0);
+                    gameControllerTwo.moveStudentToIsland("Viola", colour, 0, 0);
                     i++;
                 }
             }
         }
-        gameControllerTwo.moveMotherNature(1, 1);
-        gameControllerTwo.chooseCloudTile(1, 0);
+        gameControllerTwo.moveMotherNature("Viola", 1);
+        gameControllerTwo.chooseCloudTile("Viola", 0);
 
         //Fourth turn
-        gameControllerTwo.playAssistantCard(0, 3);
-        gameControllerTwo.playAssistantCard(1, 6);
+        gameControllerTwo.playAssistantCard("Laura", 3);
+        gameControllerTwo.playAssistantCard("Viola", 6);
 
         i = 0;
         while (i < 3) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerTwo.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerTwo.moveStudentToIsland(0, colour, 0, 0);
+                    gameControllerTwo.moveStudentToIsland("Laura", colour, 0, 0);
                     i++;
                 }
             }
         }
-        gameControllerTwo.moveMotherNature(0, 1);
-        gameControllerTwo.chooseCloudTile(0, 0);
+        gameControllerTwo.moveMotherNature("Laura", 1);
+        gameControllerTwo.chooseCloudTile("Laura", 0);
 
         i = 0;
         while (i < 3) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerTwo.getGame().getPlayerByIndex(1).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerTwo.moveStudentToIsland(1, colour, 0, 0);
+                    gameControllerTwo.moveStudentToIsland("Viola", colour, 0, 0);
                     i++;
                 }
             }
         }
-        gameControllerTwo.moveMotherNature(1, 1);
-        gameControllerTwo.chooseCloudTile(1, 0);
+        gameControllerTwo.moveMotherNature("Viola", 1);
+        gameControllerTwo.chooseCloudTile("Viola", 0);
 
         //Fifth turn
-        gameControllerTwo.playAssistantCard(0, 4);
-        gameControllerTwo.playAssistantCard(1, 5);
+        gameControllerTwo.playAssistantCard("Laura", 4);
+        gameControllerTwo.playAssistantCard("Viola", 5);
 
         i = 0;
         while (i < 3) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerTwo.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerTwo.moveStudentToIsland(0, colour, 0, 0);
+                    gameControllerTwo.moveStudentToIsland("Laura", colour, 0, 0);
                     i++;
                 }
             }
         }
-        gameControllerTwo.moveMotherNature(0, 1);
-        gameControllerTwo.chooseCloudTile(0, 0);
+        gameControllerTwo.moveMotherNature("Laura", 1);
+        gameControllerTwo.chooseCloudTile("Laura", 0);
 
         i = 0;
         while (i < 3) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerTwo.getGame().getPlayerByIndex(1).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerTwo.moveStudentToIsland(1, colour, 0, 0);
+                    gameControllerTwo.moveStudentToIsland("Viola", colour, 0, 0);
                     i++;
                 }
             }
         }
-        gameControllerTwo.moveMotherNature(1, 1);
-        gameControllerTwo.chooseCloudTile(1, 0);
+        gameControllerTwo.moveMotherNature("Viola", 1);
+        gameControllerTwo.chooseCloudTile("Viola", 0);
 
         //Sixth turn
-        gameControllerTwo.playAssistantCard(0, 5);
-        gameControllerTwo.playAssistantCard(1, 4);
+        gameControllerTwo.playAssistantCard("Laura", 5);
+        gameControllerTwo.playAssistantCard("Viola", 4);
 
         i = 0;
         while (i < 3) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerTwo.getGame().getPlayerByIndex(1).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerTwo.moveStudentToIsland(1, colour, 0, 0);
+                    gameControllerTwo.moveStudentToIsland("Viola", colour, 0, 0);
                     i++;
                 }
             }
         }
-        gameControllerTwo.moveMotherNature(1, 1);
-        gameControllerTwo.chooseCloudTile(1, 0);
+        gameControllerTwo.moveMotherNature("Viola", 1);
+        gameControllerTwo.chooseCloudTile("Viola", 0);
 
         i = 0;
         while (i < 3) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerTwo.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerTwo.moveStudentToIsland(0, colour, 0, 0);
+                    gameControllerTwo.moveStudentToIsland("Laura", colour, 0, 0);
                     i++;
                 }
             }
         }
-        gameControllerTwo.moveMotherNature(0, 1);
-        gameControllerTwo.chooseCloudTile(0, 0);
+        gameControllerTwo.moveMotherNature("Laura", 1);
+        gameControllerTwo.chooseCloudTile("Laura", 0);
 
         //Seventh turn
-        gameControllerTwo.playAssistantCard(1, 3);
-        gameControllerTwo.playAssistantCard(0, 6);
+        gameControllerTwo.playAssistantCard("Viola", 3);
+        gameControllerTwo.playAssistantCard("Laura", 6);
 
         i = 0;
         while (i < 3) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerTwo.getGame().getPlayerByIndex(1).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerTwo.moveStudentToIsland(1, colour, 0, 0);
+                    gameControllerTwo.moveStudentToIsland("Viola", colour, 0, 0);
                     i++;
                 }
             }
         }
-        gameControllerTwo.moveMotherNature(1, 1);
-        gameControllerTwo.chooseCloudTile(1, 0);
+        gameControllerTwo.moveMotherNature("Viola", 1);
+        gameControllerTwo.chooseCloudTile("Viola", 0);
 
         i = 0;
         while (i < 3) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerTwo.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerTwo.moveStudentToIsland(0, colour, 0, 0);
+                    gameControllerTwo.moveStudentToIsland("Laura", colour, 0, 0);
                     i++;
                 }
             }
         }
-        gameControllerTwo.moveMotherNature(0, 1);
-        gameControllerTwo.chooseCloudTile(0, 0);
+        gameControllerTwo.moveMotherNature("Laura", 1);
+        gameControllerTwo.chooseCloudTile("Laura", 0);
 
         // Eighth turn
-        gameControllerTwo.playAssistantCard(1, 2);
-        gameControllerTwo.playAssistantCard(0, 7);
+        gameControllerTwo.playAssistantCard("Viola", 2);
+        gameControllerTwo.playAssistantCard("Laura", 7);
 
         i = 0;
         while (i < 3) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerTwo.getGame().getPlayerByIndex(1).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerTwo.moveStudentToIsland(1, colour, 0, 0);
+                    gameControllerTwo.moveStudentToIsland("Viola", colour, 0, 0);
                     i++;
                 }
             }
         }
-        gameControllerTwo.moveMotherNature(1, 1);
-        gameControllerTwo.chooseCloudTile(1, 0);
+        gameControllerTwo.moveMotherNature("Viola", 1);
+        gameControllerTwo.chooseCloudTile("Viola", 0);
 
         i = 0;
         while (i < 3) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerTwo.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerTwo.moveStudentToIsland(0, colour, 0, 0);
+                    gameControllerTwo.moveStudentToIsland("Laura", colour, 0, 0);
                     i++;
                 }
             }
         }
-        gameControllerTwo.moveMotherNature(0, 1);
-        gameControllerTwo.chooseCloudTile(0, 0);
+        gameControllerTwo.moveMotherNature("Laura", 1);
+        gameControllerTwo.chooseCloudTile("Laura", 0);
 
         // Ninth turn
-        gameControllerTwo.playAssistantCard(1, 1);
-        gameControllerTwo.playAssistantCard(0, 8);
+        gameControllerTwo.playAssistantCard("Viola", 1);
+        gameControllerTwo.playAssistantCard("Laura", 8);
 
         i = 0;
         while (i < 3) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerTwo.getGame().getPlayerByIndex(1).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerTwo.moveStudentToIsland(1, colour, 0, 0);
+                    gameControllerTwo.moveStudentToIsland("Viola", colour, 0, 0);
                     i++;
                 }
             }
         }
-        gameControllerTwo.moveMotherNature(1, 1);
-        gameControllerTwo.chooseCloudTile(1, 0);
+        gameControllerTwo.moveMotherNature("Viola", 1);
+        gameControllerTwo.chooseCloudTile("Viola", 0);
 
         i = 0;
         while (i < 3) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerTwo.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerTwo.moveStudentToIsland(0, colour, 0, 0);
+                    gameControllerTwo.moveStudentToIsland("Laura", colour, 0, 0);
                     i++;
                 }
             }
         }
-        gameControllerTwo.moveMotherNature(0, 1);
-        gameControllerTwo.chooseCloudTile(0, 0);
+        gameControllerTwo.moveMotherNature("Laura", 1);
+        gameControllerTwo.chooseCloudTile("Laura", 0);
 
         // Tenth turn
-        gameControllerTwo.playAssistantCard(1, 0);
-        gameControllerTwo.playAssistantCard(0, 9);
+        gameControllerTwo.playAssistantCard("Viola", 0);
+        gameControllerTwo.playAssistantCard("Laura", 9);
 
         i = 0;
         while (i < 3) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerTwo.getGame().getPlayerByIndex(1).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerTwo.moveStudentToIsland(1, colour, 0, 0);
+                    gameControllerTwo.moveStudentToIsland("Viola", colour, 0, 0);
                     i++;
                 }
             }
         }
-        gameControllerTwo.moveMotherNature(1, 1);
-        gameControllerTwo.chooseCloudTile(1, 0);
+        gameControllerTwo.moveMotherNature("Viola", 1);
+        gameControllerTwo.chooseCloudTile("Viola", 0);
 
         i = 0;
         while (i < 3) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerTwo.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerTwo.moveStudentToIsland(0, colour, 0, 0);
+                    gameControllerTwo.moveStudentToIsland("Laura", colour, 0, 0);
                     i++;
                 }
             }
         }
-        gameControllerTwo.moveMotherNature(0, 1);
-        gameControllerTwo.chooseCloudTile(0, 0);
+        gameControllerTwo.moveMotherNature("Laura", 1);
+        gameControllerTwo.chooseCloudTile("Laura", 0);
 
         assertEquals(GamePhase.END_GAME, gameControllerTwo.getGame().getGamePhase());
         assertEquals(11, gameControllerTwo.getGame().getRound());
@@ -648,7 +648,7 @@ class GameControllerTest {
     }
 
     // A simple test with three players
-    @RepeatedTest(10)
+    @RepeatedTest(10000)
     void threePlayerGame() {
         // start of the game
         assertEquals(GamePhase.SETTING, gameControllerThree.getGame().getGamePhase());
@@ -688,14 +688,14 @@ class GameControllerTest {
         }
 
         // playing AssistantCard first turn
-        gameControllerThree.playAssistantCard(1, 0);
+        gameControllerThree.playAssistantCard("Laura", 0);
         assertNull(gameControllerThree.getGame().getPlayerByIndex(1).getCurrentAssistantCard());
-        gameControllerThree.playAssistantCard(0, 4);
+        gameControllerThree.playAssistantCard("Viola", 4);
         assertEquals(gameControllerThree.getGame().getAssistantCard(4), gameControllerThree.getGame().getPlayerByIndex(0).getCurrentAssistantCard());
         assertFalse(gameControllerThree.getGame().getPlayerByIndex(0).isAssistantCardPresent(gameControllerThree.getGame().getAssistantCard(4)));
         assertEquals(gameControllerThree.getGame().getCurrentPlayer(), gameControllerThree.getGame().getPlayerByIndex(1));
-        gameControllerThree.playAssistantCard(1, 7);
-        gameControllerThree.playAssistantCard(2, 2);
+        gameControllerThree.playAssistantCard("Laura", 7);
+        gameControllerThree.playAssistantCard("Sara", 2);
         assertEquals(gameControllerThree.getGame().getCurrentPlayer(), gameControllerThree.getGame().getPlayerByIndex(2));
         assertEquals(GamePhase.PLAYING, gameControllerThree.getGame().getGamePhase());
         assertEquals(TurnPhase.MOVE_STUDENT, gameControllerThree.getGame().getTurnPhase());
@@ -705,7 +705,7 @@ class GameControllerTest {
         while (i < 4) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerThree.getGame().getPlayerByIndex(2).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerThree.moveStudentToIsland(2, colour, 1, 0);
+                    gameControllerThree.moveStudentToIsland("Sara", colour, 1, 0);
                     i++;
                 }
             }
@@ -723,14 +723,14 @@ class GameControllerTest {
         assertEquals(GamePhase.PLAYING, gameControllerThree.getGame().getGamePhase());
         assertEquals(TurnPhase.MOVE_MOTHER_NATURE, gameControllerThree.getGame().getTurnPhase());
 
-        gameControllerThree.moveMotherNature(2, 1);
+        gameControllerThree.moveMotherNature("Sara", 1);
         assertEquals(1, gameControllerThree.getGame().getTable().getMotherNaturePosition());
         assertNull(gameControllerThree.getGame().getTable().getGroupIslandByIndex(1).getInfluence());
 
         assertEquals(GamePhase.PLAYING, gameControllerThree.getGame().getGamePhase());
         assertEquals(TurnPhase.CHOOSE_CLOUD_TILE, gameControllerThree.getGame().getTurnPhase());
 
-        gameControllerThree.chooseCloudTile(2, 2);
+        gameControllerThree.chooseCloudTile("Sara", 2);
         assertEquals(9, gameControllerThree.getGame().getPlayerByIndex(2).getSchoolBoard().getNumberStudentsEntrance());
         assertEquals(GamePhase.PLAYING, gameControllerThree.getGame().getGamePhase());
         assertEquals(TurnPhase.MOVE_STUDENT, gameControllerThree.getGame().getTurnPhase());
@@ -742,7 +742,7 @@ class GameControllerTest {
         while (i < 4) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerThree.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerThree.moveStudentToDiningRoom(0, colour);
+                    gameControllerThree.moveStudentToDiningRoom("Viola", colour);
                     i++;
                 }
             }
@@ -754,18 +754,18 @@ class GameControllerTest {
         assertEquals(9, gameControllerThree.getGame().getPlayerByIndex(1).getSchoolBoard().getNumberStudentsEntrance());
         assertEquals(9, gameControllerThree.getGame().getPlayerByIndex(2).getSchoolBoard().getNumberStudentsEntrance());
 
-        gameControllerThree.moveMotherNature(0, 4);
+        gameControllerThree.moveMotherNature("Viola", 4);
         assertEquals(GamePhase.PLAYING, gameControllerThree.getGame().getGamePhase());
         assertEquals(TurnPhase.MOVE_MOTHER_NATURE, gameControllerThree.getGame().getTurnPhase());
-        gameControllerThree.moveMotherNature(0, 3);
+        gameControllerThree.moveMotherNature("viola", 3);
         assertEquals(GamePhase.PLAYING, gameControllerThree.getGame().getGamePhase());
         assertEquals(TurnPhase.CHOOSE_CLOUD_TILE, gameControllerThree.getGame().getTurnPhase());
 
-        gameControllerThree.chooseCloudTile(0, 2);
+        gameControllerThree.chooseCloudTile("Viola", 2);
         assertEquals(GamePhase.PLAYING, gameControllerThree.getGame().getGamePhase());
         assertEquals(TurnPhase.CHOOSE_CLOUD_TILE, gameControllerThree.getGame().getTurnPhase());
 
-        gameControllerThree.chooseCloudTile(0, 1);
+        gameControllerThree.chooseCloudTile("Viola", 1);
         assertEquals(1, gameControllerThree.getGame().getTable().getNumberOfCloudTile());
         assertEquals(GamePhase.PLAYING, gameControllerThree.getGame().getGamePhase());
         assertEquals(TurnPhase.MOVE_STUDENT, gameControllerThree.getGame().getTurnPhase());
@@ -776,7 +776,7 @@ class GameControllerTest {
         while (i < 4) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerThree.getGame().getPlayerByIndex(1).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerThree.moveStudentToDiningRoom(1, colour);
+                    gameControllerThree.moveStudentToIsland("Laura", colour, 0, 0);
                     i++;
                 }
             }
@@ -788,19 +788,19 @@ class GameControllerTest {
         assertEquals(9, gameControllerThree.getGame().getPlayerByIndex(0).getSchoolBoard().getNumberStudentsEntrance());
         assertEquals(9, gameControllerThree.getGame().getPlayerByIndex(2).getSchoolBoard().getNumberStudentsEntrance());
 
-        gameControllerThree.moveMotherNature(1, 4);
+        gameControllerThree.moveMotherNature("Laura", 4);
         assertEquals(GamePhase.PLAYING, gameControllerThree.getGame().getGamePhase());
         assertEquals(TurnPhase.CHOOSE_CLOUD_TILE, gameControllerThree.getGame().getTurnPhase());
-        gameControllerThree.chooseCloudTile(1, 0);
+        gameControllerThree.chooseCloudTile("Laura", 0);
 
         assertEquals(GamePhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getGamePhase());
         assertEquals(TurnPhase.WAITING, gameControllerThree.getGame().getTurnPhase());
         assertEquals(3, gameControllerThree.getGame().getTable().getNumberOfCloudTile());
 
         // second turn
-        gameControllerThree.playAssistantCard(2, 7);
-        gameControllerThree.playAssistantCard(0, 2);
-        gameControllerThree.playAssistantCard(1, 4);
+        gameControllerThree.playAssistantCard("Sara", 7);
+        gameControllerThree.playAssistantCard("Viola", 2);
+        gameControllerThree.playAssistantCard("Laura", 4);
 
         assertEquals(GamePhase.PLAYING, gameControllerThree.getGame().getGamePhase());
         assertEquals(TurnPhase.MOVE_STUDENT, gameControllerThree.getGame().getTurnPhase());
@@ -809,45 +809,45 @@ class GameControllerTest {
         while (i < 4) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerThree.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerThree.moveStudentToIsland(0, colour, 7, 0);
+                    gameControllerThree.moveStudentToIsland("Viola", colour, 7, 0);
                     i++;
                 }
             }
         }
-        gameControllerThree.moveMotherNature(0, 2);
-        gameControllerThree.chooseCloudTile(0, 0);
+        gameControllerThree.moveMotherNature("Viola", 2);
+        gameControllerThree.chooseCloudTile("Viola", 0);
 
         i = 0;
         while (i < 4) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerThree.getGame().getPlayerByIndex(1).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerThree.moveStudentToIsland(1, colour, 10, 0);
+                    gameControllerThree.moveStudentToIsland("Laura", colour, 10, 0);
                     i++;
                 }
             }
         }
-        gameControllerThree.moveMotherNature(1, 3);
-        gameControllerThree.chooseCloudTile(1, 0);
+        gameControllerThree.moveMotherNature("Laura", 3);
+        gameControllerThree.chooseCloudTile("Laura", 0);
 
         i = 0;
         while (i < 4) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerThree.getGame().getPlayerByIndex(2).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerThree.moveStudentToIsland(2, colour, 7, 0);
+                    gameControllerThree.moveStudentToIsland("Sara", colour, 7, 0);
                     i++;
                 }
             }
         }
-        gameControllerThree.moveMotherNature(2, 4);
-        gameControllerThree.chooseCloudTile(2, 0);
+        gameControllerThree.moveMotherNature("Sara", 4);
+        gameControllerThree.chooseCloudTile("Sara", 0);
 
         assertEquals(GamePhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getGamePhase());
         assertEquals(TurnPhase.WAITING, gameControllerThree.getGame().getTurnPhase());
 
         // third turn
-        gameControllerThree.playAssistantCard(0, 5);
-        gameControllerThree.playAssistantCard(1, 1);
-        gameControllerThree.playAssistantCard(2, 8);
+        gameControllerThree.playAssistantCard("Viola", 5);
+        gameControllerThree.playAssistantCard("Laura", 1);
+        gameControllerThree.playAssistantCard("Sara", 8);
 
         assertEquals(GamePhase.PLAYING, gameControllerThree.getGame().getGamePhase());
         assertEquals(TurnPhase.MOVE_STUDENT, gameControllerThree.getGame().getTurnPhase());
@@ -856,38 +856,38 @@ class GameControllerTest {
         while (i < 4) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerThree.getGame().getPlayerByIndex(1).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerThree.moveStudentToIsland(1, colour, 10, 0);
+                    gameControllerThree.moveStudentToIsland("Laura", colour, 10, 0);
                     i++;
                 }
             }
         }
-        gameControllerThree.moveMotherNature(1, 1);
-        gameControllerThree.chooseCloudTile(1, 0);
+        gameControllerThree.moveMotherNature("Laura", 1);
+        gameControllerThree.chooseCloudTile("Laura", 0);
 
 
         i = 0;
         while (i < 4) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerThree.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerThree.moveStudentToIsland(0, colour, 7, 0);
+                    gameControllerThree.moveStudentToIsland("Viola", colour, 7, 0);
                     i++;
                 }
             }
         }
-        gameControllerThree.moveMotherNature(0, 3);
-        gameControllerThree.chooseCloudTile(0, 0);
+        gameControllerThree.moveMotherNature("Viola", 3);
+        gameControllerThree.chooseCloudTile("Viola", 0);
 
         i = 0;
         while (i < 4) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerThree.getGame().getPlayerByIndex(2).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerThree.moveStudentToIsland(2, colour, 7, 0);
+                    gameControllerThree.moveStudentToIsland("Sara", colour, 7, 0);
                     i++;
                 }
             }
         }
-        gameControllerThree.moveMotherNature(2, 4);
-        gameControllerThree.chooseCloudTile(2, 0);
+        gameControllerThree.moveMotherNature("Sara", 4);
+        gameControllerThree.chooseCloudTile("Sara", 0);
 
         if (gameControllerThree.getGame().getPlayerByIndex(0).getSchoolBoard().getTowers() == 0) {
             assertEquals(GamePhase.END_GAME, gameControllerThree.getGame().getGamePhase());
@@ -898,12 +898,17 @@ class GameControllerTest {
         }
 
         // fourth turn
-        gameControllerThree.playAssistantCard(1, 5);
-        gameControllerThree.playAssistantCard(2, 1);
-        gameControllerThree.playAssistantCard(0, 8);
-
+        gameControllerThree.playAssistantCard("Laura", 5);
+        gameControllerThree.playAssistantCard("Sara", 1);
+        gameControllerThree.playAssistantCard("Viola", 8);
 
         if (gameControllerThree.getGame().getPlayerByIndex(0).getSchoolBoard().getTowers() == 0) {
+            assertEquals(GamePhase.END_GAME, gameControllerThree.getGame().getGamePhase());
+            assertEquals("Viola", gameControllerThree.getGame().getWinner().getNickname());
+        } else if (gameControllerThree.getGame().getTable().getBag().isBagEmpty()) {
+            assertEquals(GamePhase.END_GAME, gameControllerThree.getGame().getGamePhase());
+            assertEquals("Viola", gameControllerThree.getGame().getWinner().getNickname());
+        } else if (gameControllerThree.getGame().getTable().getNumberOfGroupIsland() <= 3) {
             assertEquals(GamePhase.END_GAME, gameControllerThree.getGame().getGamePhase());
             assertEquals("Viola", gameControllerThree.getGame().getWinner().getNickname());
         } else {
@@ -915,40 +920,47 @@ class GameControllerTest {
         while (i < 4) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerThree.getGame().getPlayerByIndex(2).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerThree.moveStudentToIsland(2, colour, 3, 0);
+                    gameControllerThree.moveStudentToIsland("Sara", colour, 3, 0);
                     i++;
                 }
             }
         }
-        gameControllerThree.moveMotherNature(2, 1);
-        gameControllerThree.chooseCloudTile(2, 0);
+        gameControllerThree.moveMotherNature("Sara", 1);
+        gameControllerThree.chooseCloudTile("Sara", 0);
 
         i = 0;
         while (i < 4) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerThree.getGame().getPlayerByIndex(1).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerThree.moveStudentToIsland(1, colour, 4, 0);
+                    gameControllerThree.moveStudentToIsland("Laura", colour, 4, 0);
                     i++;
                 }
             }
         }
-        gameControllerThree.moveMotherNature(1, 1);
-        gameControllerThree.chooseCloudTile(1, 0);
+        gameControllerThree.moveMotherNature("Laura", 1);
+        gameControllerThree.chooseCloudTile("Laura", 0);
 
 
         i = 0;
         while (i < 4) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerThree.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerThree.moveStudentToIsland(0, colour, 5, 0);
+                    gameControllerThree.moveStudentToIsland("Viola", colour, 5, 0);
                     i++;
                 }
             }
         }
-        gameControllerThree.moveMotherNature(0, 1);
-        gameControllerThree.chooseCloudTile(0, 0);
+
+        gameControllerThree.moveMotherNature("Viola", 1);
+        gameControllerThree.chooseCloudTile("Viola", 0);
 
         if (gameControllerThree.getGame().getPlayerByIndex(0).getSchoolBoard().getTowers() == 0) {
+            assertEquals(GamePhase.END_GAME, gameControllerThree.getGame().getGamePhase());
+            assertEquals("Viola", gameControllerThree.getGame().getWinner().getNickname());
+        } else if (gameControllerThree.getGame().getTable().getBag().isBagEmpty()) {
+            assertEquals(GamePhase.END_GAME, gameControllerThree.getGame().getGamePhase());
+            assertEquals("Viola", gameControllerThree.getGame().getWinner().getNickname());
+        } else if (gameControllerThree.getGame().getTable().getNumberOfGroupIsland() <= 3) {
             assertEquals(GamePhase.END_GAME, gameControllerThree.getGame().getGamePhase());
             assertEquals("Viola", gameControllerThree.getGame().getWinner().getNickname());
         } else {
@@ -957,11 +969,17 @@ class GameControllerTest {
         }
 
         // fifth turn
-        gameControllerThree.playAssistantCard(2, 6);
-        gameControllerThree.playAssistantCard(0, 3);
-        gameControllerThree.playAssistantCard(1, 9);
+        gameControllerThree.playAssistantCard("Sara", 6);
+        gameControllerThree.playAssistantCard("Viola", 3);
+        gameControllerThree.playAssistantCard("Laura", 9);
 
         if (gameControllerThree.getGame().getPlayerByIndex(0).getSchoolBoard().getTowers() == 0) {
+            assertEquals(GamePhase.END_GAME, gameControllerThree.getGame().getGamePhase());
+            assertEquals("Viola", gameControllerThree.getGame().getWinner().getNickname());
+        } else if (gameControllerThree.getGame().getTable().getBag().isBagEmpty()) {
+            assertEquals(GamePhase.END_GAME, gameControllerThree.getGame().getGamePhase());
+            assertEquals("Viola", gameControllerThree.getGame().getWinner().getNickname());
+        } else if (gameControllerThree.getGame().getTable().getNumberOfGroupIsland() <= 3) {
             assertEquals(GamePhase.END_GAME, gameControllerThree.getGame().getGamePhase());
             assertEquals("Viola", gameControllerThree.getGame().getWinner().getNickname());
         } else {
@@ -973,39 +991,48 @@ class GameControllerTest {
         while (i < 4) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerThree.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerThree.moveStudentToIsland(0, colour, 1, 0);
+                    gameControllerThree.moveStudentToIsland("Viola", colour, 1, 0);
                     i++;
                 }
             }
         }
-        gameControllerThree.moveMotherNature(0, 1);
-        gameControllerThree.chooseCloudTile(0, 0);
+        gameControllerThree.moveMotherNature("Viola", 1);
+        gameControllerThree.chooseCloudTile("Viola", 0);
 
         i = 0;
         while (i < 4) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerThree.getGame().getPlayerByIndex(2).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerThree.moveStudentToIsland(2, colour, 2, 0);
+                    gameControllerThree.moveStudentToIsland("Sara", colour, 2, 0);
                     i++;
                 }
             }
         }
-        gameControllerThree.moveMotherNature(2, 1);
-        gameControllerThree.chooseCloudTile(2, 0);
+        gameControllerThree.moveMotherNature("Sara", 1);
+        gameControllerThree.chooseCloudTile("Sara", 0);
 
         i = 0;
         while (i < 4) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerThree.getGame().getPlayerByIndex(1).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerThree.moveStudentToIsland(1, colour, 3, 0);
+                    gameControllerThree.moveStudentToIsland("Laura", colour, 3, 0);
                     i++;
                 }
             }
         }
-        gameControllerThree.moveMotherNature(1, 1);
-        gameControllerThree.chooseCloudTile(1, 0);
+        gameControllerThree.moveMotherNature("Laura", 1);
+        gameControllerThree.chooseCloudTile("Laura", 0);
 
         if (gameControllerThree.getGame().getPlayerByIndex(0).getSchoolBoard().getTowers() == 0) {
+            assertEquals(GamePhase.END_GAME, gameControllerThree.getGame().getGamePhase());
+            assertEquals("Viola", gameControllerThree.getGame().getWinner().getNickname());
+        } else if (gameControllerThree.getGame().getTable().getBag().isBagEmpty()) {
+            assertEquals(GamePhase.END_GAME, gameControllerThree.getGame().getGamePhase());
+            assertEquals("Viola", gameControllerThree.getGame().getWinner().getNickname());
+        } else if (gameControllerThree.getGame().getTable().getNumberOfGroupIsland() <= 3) {
+            assertEquals(GamePhase.END_GAME, gameControllerThree.getGame().getGamePhase());
+            assertEquals("Viola", gameControllerThree.getGame().getWinner().getNickname());
+        } else if (10 - gameControllerThree.getGame().getRound() == 0) {
             assertEquals(GamePhase.END_GAME, gameControllerThree.getGame().getGamePhase());
             assertEquals("Viola", gameControllerThree.getGame().getWinner().getNickname());
         } else {
@@ -1014,7 +1041,7 @@ class GameControllerTest {
         }
     }
 
-    @RepeatedTest(10)
+    @RepeatedTest(10000)
     void gameTest2Players() {
         assertEquals(GamePhase.SETTING, gameControllerTwo.getGame().getGamePhase());
         assertEquals(TurnPhase.WAITING, gameControllerTwo.getGame().getTurnPhase());
@@ -1034,13 +1061,13 @@ class GameControllerTest {
         assertEquals(TurnPhase.WAITING, gameControllerTwo.getGame().getTurnPhase());
         assertEquals(gameControllerTwo.getGame().getPlayerByIndex(0), gameControllerTwo.getGame().getCurrentPlayer());
 
-        gameControllerTwo.playAssistantCard(1, 0);
+        gameControllerTwo.playAssistantCard("Viola", 0);
 
         assertNull(gameControllerTwo.getGame().getPlayerByIndex(0).getCurrentAssistantCard());
 
         //First turn
 
-        gameControllerTwo.playAssistantCard(0, 4);
+        gameControllerTwo.playAssistantCard("Laura", 4);
         assertEquals(gameControllerTwo.getGame().getAssistantCard(4), gameControllerTwo.getGame().getPlayerByIndex(0).getCurrentAssistantCard());
         assertFalse(gameControllerTwo.getGame().getPlayerByIndex(0).isAssistantCardPresent(gameControllerTwo.getGame().getAssistantCard(4)));
         assertEquals(gameControllerTwo.getGame().getCurrentPlayer(), gameControllerTwo.getGame().getPlayerByIndex(1));
@@ -1049,7 +1076,7 @@ class GameControllerTest {
             assertEquals(gameControllerTwo.getGame().getNumberStudentsEntrance(), gameControllerTwo.getGame().getPlayerByIndex(i).getSchoolBoard().getNumberStudentsEntrance());
             assertEquals(gameControllerTwo.getGame().getNumberOfTowersPerPlayer(), gameControllerTwo.getGame().getPlayerByIndex(i).getSchoolBoard().getTowers());
         }
-        gameControllerTwo.playAssistantCard(1, 8);
+        gameControllerTwo.playAssistantCard("Viola", 8);
 
         assertEquals(gameControllerTwo.getGame().getCurrentPlayer(), gameControllerTwo.getGame().getPlayerByIndex(0));
 
@@ -1057,7 +1084,7 @@ class GameControllerTest {
         while (i < 3) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerTwo.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerTwo.moveStudentToIsland(0, colour, 2, 0);
+                    gameControllerTwo.moveStudentToIsland("Laura", colour, 2, 0);
                     i++;
                 }
             }
@@ -1075,7 +1102,7 @@ class GameControllerTest {
         assertEquals(GamePhase.PLAYING, gameControllerTwo.getGame().getGamePhase());
         assertEquals(TurnPhase.MOVE_MOTHER_NATURE, gameControllerTwo.getGame().getTurnPhase());
 
-        gameControllerTwo.moveMotherNature(0, 2);
+        gameControllerTwo.moveMotherNature("Laura", 2);
 
         assertEquals(2, gameControllerTwo.getGame().getTable().getMotherNaturePosition());
         assertNull(gameControllerTwo.getGame().getTable().getGroupIslandByIndex(2).getInfluence());
@@ -1083,7 +1110,7 @@ class GameControllerTest {
         assertEquals(GamePhase.PLAYING, gameControllerTwo.getGame().getGamePhase());
         assertEquals(TurnPhase.CHOOSE_CLOUD_TILE, gameControllerTwo.getGame().getTurnPhase());
 
-        gameControllerTwo.chooseCloudTile(0, 1);
+        gameControllerTwo.chooseCloudTile("Viola", 1);
         assertEquals(7, gameControllerTwo.getGame().getPlayerByIndex(0).getSchoolBoard().getNumberStudentsEntrance());
 
         assertEquals(GamePhase.PLAYING, gameControllerTwo.getGame().getGamePhase());
@@ -1095,7 +1122,7 @@ class GameControllerTest {
         while (j < 3) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerTwo.getGame().getPlayerByIndex(1).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerTwo.moveStudentToDiningRoom(1, colour);
+                    gameControllerTwo.moveStudentToDiningRoom("Viola", colour);
                     j++;
                 }
             }
@@ -1107,18 +1134,18 @@ class GameControllerTest {
         assertEquals(4, gameControllerTwo.getGame().getPlayerByIndex(1).getSchoolBoard().getNumberStudentsEntrance());
         assertEquals(7, gameControllerTwo.getGame().getPlayerByIndex(0).getSchoolBoard().getNumberStudentsEntrance());
 
-        gameControllerTwo.moveMotherNature(1, 3);
+        gameControllerTwo.moveMotherNature("Viola", 3);
 
         assertEquals(5, gameControllerTwo.getGame().getTable().getMotherNaturePosition());
 
         assertEquals(GamePhase.PLAYING, gameControllerTwo.getGame().getGamePhase());
         assertEquals(TurnPhase.CHOOSE_CLOUD_TILE, gameControllerTwo.getGame().getTurnPhase());
 
-        gameControllerTwo.chooseCloudTile(1, 1);
+        gameControllerTwo.chooseCloudTile("Viola", 1);
         assertEquals(GamePhase.PLAYING, gameControllerTwo.getGame().getGamePhase());
         assertEquals(TurnPhase.CHOOSE_CLOUD_TILE, gameControllerTwo.getGame().getTurnPhase());
 
-        gameControllerTwo.chooseCloudTile(1, 0);
+        gameControllerTwo.chooseCloudTile("Viola", 0);
         assertEquals(7, gameControllerTwo.getGame().getPlayerByIndex(1).getSchoolBoard().getNumberStudentsEntrance());
         assertEquals(2, gameControllerTwo.getGame().getTable().getNumberOfCloudTile());
         assertEquals(GamePhase.PLAY_ASSISTANT_CARD, gameControllerTwo.getGame().getGamePhase());
@@ -1129,155 +1156,155 @@ class GameControllerTest {
 
         //Second turn
 
-        gameControllerTwo.playAssistantCard(0, 9);
-        gameControllerTwo.playAssistantCard(1, 6);
+        gameControllerTwo.playAssistantCard("Laura", 9);
+        gameControllerTwo.playAssistantCard("Viola", 6);
 
         i = 0;
         while (i < 3) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerTwo.getGame().getPlayerByIndex(1).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerTwo.moveStudentToIsland(1, colour, 9, 0);
+                    gameControllerTwo.moveStudentToIsland("Viola", colour, 9, 0);
                     i++;
                 }
             }
         }
 
-        gameControllerTwo.moveMotherNature(1, 1);
+        gameControllerTwo.moveMotherNature("Viola", 1);
 
         assertEquals(GamePhase.PLAYING, gameControllerTwo.getGame().getGamePhase());
         assertEquals(TurnPhase.CHOOSE_CLOUD_TILE, gameControllerTwo.getGame().getTurnPhase());
 
-        gameControllerTwo.chooseCloudTile(1, 1);
+        gameControllerTwo.chooseCloudTile("Viola", 1);
 
         i = 0;
         while (i < 3) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerTwo.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerTwo.moveStudentToIsland(0, colour, 4, 0);
+                    gameControllerTwo.moveStudentToIsland("Laura", colour, 4, 0);
                     i++;
                 }
             }
         }
 
-        gameControllerTwo.moveMotherNature(0, 2);
+        gameControllerTwo.moveMotherNature("Laura", 2);
 
         assertEquals(GamePhase.PLAYING, gameControllerTwo.getGame().getGamePhase());
         assertEquals(TurnPhase.CHOOSE_CLOUD_TILE, gameControllerTwo.getGame().getTurnPhase());
 
 
-        gameControllerTwo.chooseCloudTile(0, 0);
+        gameControllerTwo.chooseCloudTile("Laura", 0);
 
         //Third turn
 
-        gameControllerTwo.playAssistantCard(1, 3);
-        gameControllerTwo.playAssistantCard(0, 5);
+        gameControllerTwo.playAssistantCard("Viola", 3);
+        gameControllerTwo.playAssistantCard("Laura", 5);
 
         i = 0;
         while (i < 3) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerTwo.getGame().getPlayerByIndex(1).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerTwo.moveStudentToIsland(1, colour, 0, 0);
+                    gameControllerTwo.moveStudentToIsland("Viola", colour, 0, 0);
                     i++;
                 }
             }
         }
 
-        gameControllerTwo.moveMotherNature(1, 2);
+        gameControllerTwo.moveMotherNature("Viola", 2);
 
         assertEquals(GamePhase.PLAYING, gameControllerTwo.getGame().getGamePhase());
         assertEquals(TurnPhase.CHOOSE_CLOUD_TILE, gameControllerTwo.getGame().getTurnPhase());
 
-        gameControllerTwo.chooseCloudTile(1, 1);
+        gameControllerTwo.chooseCloudTile("Viola", 1);
 
         i = 0;
         while (i < 3) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerTwo.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerTwo.moveStudentToIsland(0, colour, 2, 0);
+                    gameControllerTwo.moveStudentToIsland("Laura", colour, 2, 0);
                     i++;
                 }
             }
         }
 
-        gameControllerTwo.moveMotherNature(0, 1);
+        gameControllerTwo.moveMotherNature("Laura", 1);
 
         assertEquals(GamePhase.PLAYING, gameControllerTwo.getGame().getGamePhase());
         assertEquals(TurnPhase.CHOOSE_CLOUD_TILE, gameControllerTwo.getGame().getTurnPhase());
 
 
-        gameControllerTwo.chooseCloudTile(0, 0);
+        gameControllerTwo.chooseCloudTile("Viola", 0);
 
         //Fourth turn
-        gameControllerTwo.playAssistantCard(1, 7);
-        gameControllerTwo.playAssistantCard(0, 1);
+        gameControllerTwo.playAssistantCard("Viola", 7);
+        gameControllerTwo.playAssistantCard("Laura", 1);
 
         i = 0;
         while (i < 3) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerTwo.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerTwo.moveStudentToIsland(0, colour, 2, 0);
+                    gameControllerTwo.moveStudentToIsland("Laura", colour, 2, 0);
                     i++;
                 }
             }
         }
 
-        gameControllerTwo.moveMotherNature(0, 1);
+        gameControllerTwo.moveMotherNature("Laura", 1);
 
         assertEquals(GamePhase.PLAYING, gameControllerTwo.getGame().getGamePhase());
         assertEquals(TurnPhase.CHOOSE_CLOUD_TILE, gameControllerTwo.getGame().getTurnPhase());
 
-        gameControllerTwo.chooseCloudTile(0, 1);
+        gameControllerTwo.chooseCloudTile("Laura", 1);
 
         i = 0;
         while (i < 3) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerTwo.getGame().getPlayerByIndex(1).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerTwo.moveStudentToIsland(1, colour, 3, 0);
+                    gameControllerTwo.moveStudentToIsland("Viola", colour, 3, 0);
                     i++;
                 }
             }
         }
 
-        gameControllerTwo.moveMotherNature(1, 1);
+        gameControllerTwo.moveMotherNature("Viola", 1);
 
         assertEquals(GamePhase.PLAYING, gameControllerTwo.getGame().getGamePhase());
         assertEquals(TurnPhase.CHOOSE_CLOUD_TILE, gameControllerTwo.getGame().getTurnPhase());
 
 
-        gameControllerTwo.chooseCloudTile(1, 0);
+        gameControllerTwo.chooseCloudTile("Viola", 0);
 
         //Fifth turn
-        gameControllerTwo.playAssistantCard(0, 8);
-        gameControllerTwo.playAssistantCard(1, 2);
+        gameControllerTwo.playAssistantCard("Laura", 8);
+        gameControllerTwo.playAssistantCard("Viola", 2);
 
         i = 0;
         while (i < 3) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerTwo.getGame().getPlayerByIndex(1).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerTwo.moveStudentToIsland(1, colour, 4, 0);
+                    gameControllerTwo.moveStudentToIsland("Viola", colour, 4, 0);
                     i++;
                 }
             }
         }
 
-        gameControllerTwo.moveMotherNature(1, 2);
+        gameControllerTwo.moveMotherNature("Viola", 2);
 
         assertEquals(GamePhase.PLAYING, gameControllerTwo.getGame().getGamePhase());
         assertEquals(TurnPhase.CHOOSE_CLOUD_TILE, gameControllerTwo.getGame().getTurnPhase());
 
-        gameControllerTwo.chooseCloudTile(1, 1);
+        gameControllerTwo.chooseCloudTile("Viola", 1);
 
         i = 0;
         while (i < 3) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerTwo.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerTwo.moveStudentToIsland(0, colour, 6, 0);
+                    gameControllerTwo.moveStudentToIsland("Laura", colour, 6, 0);
                     i++;
                 }
             }
         }
 
-        gameControllerTwo.moveMotherNature(0, 1);
+        gameControllerTwo.moveMotherNature("Laura", 1);
 
         if (gameControllerTwo.getGame().getPlayerByIndex(1).getSchoolBoard().getTowers() == 0) {
             assertEquals(GamePhase.END_GAME, gameControllerTwo.getGame().getGamePhase());
@@ -1287,23 +1314,23 @@ class GameControllerTest {
         }
 
 
-        gameControllerTwo.chooseCloudTile(0, 0);
+        gameControllerTwo.chooseCloudTile("Laura", 0);
 
         //Sixth turn
-        gameControllerTwo.playAssistantCard(1, 5);
-        gameControllerTwo.playAssistantCard(0, 3);
+        gameControllerTwo.playAssistantCard("Viola", 5);
+        gameControllerTwo.playAssistantCard("Laura", 3);
 
         i = 0;
         while (i < 3) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerTwo.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerTwo.moveStudentToIsland(0, colour, 4, 0);
+                    gameControllerTwo.moveStudentToIsland("Laura", colour, 4, 0);
                     i++;
                 }
             }
         }
 
-        gameControllerTwo.moveMotherNature(0, 1);
+        gameControllerTwo.moveMotherNature("Laura", 1);
 
         if (gameControllerTwo.getGame().getPlayerByIndex(1).getSchoolBoard().getTowers() == 0) {
             assertEquals(GamePhase.END_GAME, gameControllerTwo.getGame().getGamePhase());
@@ -1312,19 +1339,19 @@ class GameControllerTest {
             assertEquals(GamePhase.PLAYING, gameControllerTwo.getGame().getGamePhase());
         }
 
-        gameControllerTwo.chooseCloudTile(0, 1);
+        gameControllerTwo.chooseCloudTile("Laura", 1);
 
         i = 0;
         while (i < 3) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerTwo.getGame().getPlayerByIndex(1).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerTwo.moveStudentToIsland(1, colour, 6, 0);
+                    gameControllerTwo.moveStudentToIsland("Viola", colour, 6, 0);
                     i++;
                 }
             }
         }
 
-        gameControllerTwo.moveMotherNature(1, 1);
+        gameControllerTwo.moveMotherNature("Viola", 1);
 
         if (gameControllerTwo.getGame().getPlayerByIndex(1).getSchoolBoard().getTowers() == 0) {
             assertEquals(GamePhase.END_GAME, gameControllerTwo.getGame().getGamePhase());
@@ -1339,8 +1366,8 @@ class GameControllerTest {
         gameControllerTwo.addPlayer("Viola", Wizard.TYPE_3);
         gameControllerTwo.addPlayer("Laura", Wizard.TYPE_1);
 
-        gameControllerTwo.playAssistantCard(0, 0);
-        gameControllerTwo.playAssistantCard(1, 1);
+        gameControllerTwo.playAssistantCard("Viola", 0);
+        gameControllerTwo.playAssistantCard("Laura", 1);
 
         Colour colour1 = Colour.RED;
         for (Colour colour : Colour.values()) {
@@ -1350,7 +1377,7 @@ class GameControllerTest {
             }
         }
 
-        gameControllerTwo.moveStudentToDiningRoom(0, colour1);
+        gameControllerTwo.moveStudentToDiningRoom("Viola", colour1);
         assertTrue(gameControllerTwo.getGame().getPlayerByIndex(0).getSchoolBoard().hasProfessor(colour1));
 
         for (Colour colour : Colour.values()) {
@@ -1360,7 +1387,7 @@ class GameControllerTest {
             }
         }
 
-        gameControllerTwo.moveStudentToDiningRoom(0, colour1);
+        gameControllerTwo.moveStudentToDiningRoom("Viola", colour1);
         assertTrue(gameControllerTwo.getGame().getPlayerByIndex(0).getSchoolBoard().hasProfessor(colour1));
 
     }
@@ -1373,95 +1400,95 @@ class GameControllerTest {
         gameController.addPlayer("Laura", Wizard.TYPE_3);
 
         // First Round
-        gameController.playAssistantCard(0, 0);
-        gameController.playAssistantCard(1, 1);
+        gameController.playAssistantCard("Viola", 0);
+        gameController.playAssistantCard("Laura", 1);
 
         int j = 0;
         while (j <= 3) {
             for (Colour colour : Colour.values()) {
                 if (gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameController.moveStudentToDiningRoom(0, colour);
+                    gameController.moveStudentToDiningRoom("Viola", colour);
                     j++;
                 }
             }
         }
 
-        gameController.moveMotherNature(0, 1);
-        gameController.chooseCloudTile(0, 0);
+        gameController.moveMotherNature("Viola", 1);
+        gameController.chooseCloudTile("Viola", 0);
 
         j = 0;
         while (j <= 3) {
             for (Colour colour : Colour.values()) {
                 if (gameController.getGame().getPlayerByIndex(1).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameController.moveStudentToIsland(1, colour, 2, 0);
+                    gameController.moveStudentToIsland("Laura", colour, 2, 0);
                     j++;
                 }
             }
         }
 
-        gameController.moveMotherNature(1, 1);
-        gameController.chooseCloudTile(1, 0);
+        gameController.moveMotherNature("Laura", 1);
+        gameController.chooseCloudTile("Laura", 0);
 
 
         // Second Round
-        gameController.playAssistantCard(0, 1);
-        gameController.playAssistantCard(1, 2);
+        gameController.playAssistantCard("Viola", 1);
+        gameController.playAssistantCard("Laura", 2);
 
         j = 0;
         while (j <= 3) {
             for (Colour colour : Colour.values()) {
                 if (gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameController.moveStudentToDiningRoom(0, colour);
+                    gameController.moveStudentToDiningRoom("Viola", colour);
                     j++;
                 }
             }
         }
 
-        gameController.moveMotherNature(0, 1);
-        gameController.chooseCloudTile(0, 0);
+        gameController.moveMotherNature("Viola", 1);
+        gameController.chooseCloudTile("Viola", 0);
 
         j = 0;
         while (j <= 3) {
             for (Colour colour : Colour.values()) {
                 if (gameController.getGame().getPlayerByIndex(1).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameController.moveStudentToIsland(1, colour, 2, 0);
+                    gameController.moveStudentToIsland("Laura", colour, 2, 0);
                     j++;
                 }
             }
         }
 
-        gameController.moveMotherNature(1, 2);
-        gameController.chooseCloudTile(1, 0);
+        gameController.moveMotherNature("Laura", 2);
+        gameController.chooseCloudTile("Laura", 0);
 
         // Third turn
-        gameController.playAssistantCard(0, 2);
-        gameController.playAssistantCard(1, 3);
+        gameController.playAssistantCard("Viola", 2);
+        gameController.playAssistantCard("Laura", 3);
 
         j = 0;
         while (j <= 3) {
             for (Colour colour : Colour.values()) {
                 if (gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameController.moveStudentToDiningRoom(0, colour);
+                    gameController.moveStudentToDiningRoom("Viola", colour);
                     j++;
                 }
             }
         }
 
-        gameController.moveMotherNature(0, 1);
-        gameController.chooseCloudTile(0, 0);
+        gameController.moveMotherNature("Viola", 1);
+        gameController.chooseCloudTile("Viola", 0);
 
         j = 0;
         while (j <= 3) {
             for (Colour colour : Colour.values()) {
                 if (gameController.getGame().getPlayerByIndex(1).getSchoolBoard().getEntrance(colour) > 0) {
-                    gameController.moveStudentToIsland(1, colour, 2, 0);
+                    gameController.moveStudentToIsland("Laura", colour, 2, 0);
                     j++;
                 }
             }
         }
 
-        gameController.moveMotherNature(1, 2);
-        gameController.chooseCloudTile(1, 0);
+        gameController.moveMotherNature("Laura", 2);
+        gameController.chooseCloudTile("Laura", 0);
 
     }
 
@@ -1470,68 +1497,68 @@ class GameControllerTest {
         gameControllerTwo.addPlayer("Viola", Wizard.TYPE_3);
         gameControllerTwo.addPlayer("Laura", Wizard.TYPE_4);
 
-        gameControllerTwo.playAssistantCard(0, 0);
-        gameControllerTwo.playAssistantCard(1, 0);
+        gameControllerTwo.playAssistantCard("Viola", 0);
+        gameControllerTwo.playAssistantCard("Laura", 0);
         assertEquals(gameControllerTwo.getGame().getGamePhase(), GamePhase.PLAY_ASSISTANT_CARD);
-        gameControllerTwo.playAssistantCard(1, 1);
+        gameControllerTwo.playAssistantCard("Laura", 1);
         assertEquals(gameControllerTwo.getGame().getGamePhase(), GamePhase.PLAYING);
         gameControllerTwo.getGame().setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
         gameControllerTwo.getGame().setTurnPhase(TurnPhase.WAITING);
 
-        gameControllerTwo.playAssistantCard(0, 1);
-        gameControllerTwo.playAssistantCard(1, 2);
+        gameControllerTwo.playAssistantCard("Viola", 1);
+        gameControllerTwo.playAssistantCard("Laura", 2);
         assertEquals(gameControllerTwo.getGame().getGamePhase(), GamePhase.PLAYING);
         gameControllerTwo.getGame().setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
         gameControllerTwo.getGame().setTurnPhase(TurnPhase.WAITING);
 
-        gameControllerTwo.playAssistantCard(0, 2);
-        gameControllerTwo.playAssistantCard(1, 0);
+        gameControllerTwo.playAssistantCard("Viola", 2);
+        gameControllerTwo.playAssistantCard("Laura", 0);
         assertEquals(gameControllerTwo.getGame().getGamePhase(), GamePhase.PLAYING);
         gameControllerTwo.getGame().setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
         gameControllerTwo.getGame().setTurnPhase(TurnPhase.WAITING);
 
-        gameControllerTwo.playAssistantCard(1, 4);
-        gameControllerTwo.playAssistantCard(0, 3);
+        gameControllerTwo.playAssistantCard("Laura", 4);
+        gameControllerTwo.playAssistantCard("Viola", 3);
         assertEquals(gameControllerTwo.getGame().getGamePhase(), GamePhase.PLAYING);
         gameControllerTwo.getGame().setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
         gameControllerTwo.getGame().setTurnPhase(TurnPhase.WAITING);
 
-        gameControllerTwo.playAssistantCard(0, 4);
-        gameControllerTwo.playAssistantCard(1, 5);
+        gameControllerTwo.playAssistantCard("Viola", 4);
+        gameControllerTwo.playAssistantCard("Laura", 5);
         assertEquals(gameControllerTwo.getGame().getGamePhase(), GamePhase.PLAYING);
         gameControllerTwo.getGame().setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
         gameControllerTwo.getGame().setTurnPhase(TurnPhase.WAITING);
 
-        gameControllerTwo.playAssistantCard(0, 5);
-        gameControllerTwo.playAssistantCard(1, 3);
+        gameControllerTwo.playAssistantCard("Viola", 5);
+        gameControllerTwo.playAssistantCard("Laura", 3);
         assertEquals(gameControllerTwo.getGame().getGamePhase(), GamePhase.PLAYING);
         gameControllerTwo.getGame().setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
         gameControllerTwo.getGame().setTurnPhase(TurnPhase.WAITING);
 
-        gameControllerTwo.playAssistantCard(1, 7);
-        gameControllerTwo.playAssistantCard(0, 6);
+        gameControllerTwo.playAssistantCard("Laura", 7);
+        gameControllerTwo.playAssistantCard("Viola", 6);
         assertEquals(gameControllerTwo.getGame().getGamePhase(), GamePhase.PLAYING);
         gameControllerTwo.getGame().setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
         gameControllerTwo.getGame().setTurnPhase(TurnPhase.WAITING);
 
-        gameControllerTwo.playAssistantCard(0, 7);
-        gameControllerTwo.playAssistantCard(1, 7);
+        gameControllerTwo.playAssistantCard("Viola", 7);
+        gameControllerTwo.playAssistantCard("Laura", 7);
         assertEquals(gameControllerTwo.getGame().getGamePhase(), GamePhase.PLAY_ASSISTANT_CARD);
-        gameControllerTwo.playAssistantCard(1, 8);
+        gameControllerTwo.playAssistantCard("Laura", 8);
         assertEquals(gameControllerTwo.getGame().getGamePhase(), GamePhase.PLAYING);
         gameControllerTwo.getGame().setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
         gameControllerTwo.getGame().setTurnPhase(TurnPhase.WAITING);
 
-        gameControllerTwo.playAssistantCard(0, 8);
-        gameControllerTwo.playAssistantCard(1, 8);
+        gameControllerTwo.playAssistantCard("Viola", 8);
+        gameControllerTwo.playAssistantCard("Laura", 8);
         assertEquals(gameControllerTwo.getGame().getGamePhase(), GamePhase.PLAY_ASSISTANT_CARD);
-        gameControllerTwo.playAssistantCard(1, 6);
+        gameControllerTwo.playAssistantCard("Laura", 6);
         assertEquals(gameControllerTwo.getGame().getGamePhase(), GamePhase.PLAYING);
         gameControllerTwo.getGame().setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
         gameControllerTwo.getGame().setTurnPhase(TurnPhase.WAITING);
 
-        gameControllerTwo.playAssistantCard(1, 9);
-        gameControllerTwo.playAssistantCard(0, 9);
+        gameControllerTwo.playAssistantCard("Laura", 9);
+        gameControllerTwo.playAssistantCard("Viola", 9);
         assertEquals(gameControllerTwo.getGame().getPlayerByIndex(1), gameControllerTwo.getGame().getCurrentPlayer());
         assertEquals(gameControllerTwo.getGame().getGamePhase(), GamePhase.PLAYING);
         for (int i = 0; i < 10; i++) {
@@ -1546,102 +1573,102 @@ class GameControllerTest {
         gameControllerThree.addPlayer("Laura", Wizard.TYPE_4);
         gameControllerThree.addPlayer("Sara", Wizard.TYPE_2);
 
-        gameControllerThree.playAssistantCard(0, 0);
-        gameControllerThree.playAssistantCard(1, 1);
-        gameControllerThree.playAssistantCard(2, 2);
+        gameControllerThree.playAssistantCard("Viola", 0);
+        gameControllerThree.playAssistantCard("Laura", 1);
+        gameControllerThree.playAssistantCard("Sara", 2);
         assertEquals(gameControllerThree.getGame().getGamePhase(), GamePhase.PLAYING);
         gameControllerThree.getGame().setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
         gameControllerThree.getGame().setTurnPhase(TurnPhase.WAITING);
 
-        gameControllerThree.playAssistantCard(0, 2);
-        gameControllerThree.playAssistantCard(1, 0);
-        gameControllerThree.playAssistantCard(2, 1);
+        gameControllerThree.playAssistantCard("Viola", 2);
+        gameControllerThree.playAssistantCard("Laura", 0);
+        gameControllerThree.playAssistantCard("Sara", 1);
         assertEquals(gameControllerThree.getGame().getGamePhase(), GamePhase.PLAYING);
         gameControllerThree.getGame().setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
         gameControllerThree.getGame().setTurnPhase(TurnPhase.WAITING);
 
-        gameControllerThree.playAssistantCard(1, 2);
-        gameControllerThree.playAssistantCard(2, 0);
-        gameControllerThree.playAssistantCard(0, 1);
+        gameControllerThree.playAssistantCard("Laura", 2);
+        gameControllerThree.playAssistantCard("Sara", 0);
+        gameControllerThree.playAssistantCard("Viola", 1);
         assertEquals(gameControllerThree.getGame().getGamePhase(), GamePhase.PLAYING);
         gameControllerThree.getGame().setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
         gameControllerThree.getGame().setTurnPhase(TurnPhase.WAITING);
 
-        gameControllerThree.playAssistantCard(2, 5);
-        gameControllerThree.playAssistantCard(0, 3);
-        gameControllerThree.playAssistantCard(1, 4);
+        gameControllerThree.playAssistantCard("Sara", 5);
+        gameControllerThree.playAssistantCard("Viola", 3);
+        gameControllerThree.playAssistantCard("Laura", 4);
         assertEquals(gameControllerThree.getGame().getGamePhase(), GamePhase.PLAYING);
         gameControllerThree.getGame().setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
         gameControllerThree.getGame().setTurnPhase(TurnPhase.WAITING);
 
-        gameControllerThree.playAssistantCard(0, 4);
-        gameControllerThree.playAssistantCard(1, 5);
-        gameControllerThree.playAssistantCard(2, 3);
+        gameControllerThree.playAssistantCard("Viola", 4);
+        gameControllerThree.playAssistantCard("Laura", 5);
+        gameControllerThree.playAssistantCard("Sara", 3);
         assertEquals(gameControllerThree.getGame().getGamePhase(), GamePhase.PLAYING);
         gameControllerThree.getGame().setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
         gameControllerThree.getGame().setTurnPhase(TurnPhase.WAITING);
 
-        gameControllerThree.playAssistantCard(2, 4);
-        gameControllerThree.playAssistantCard(0, 5);
-        gameControllerThree.playAssistantCard(1, 3);
+        gameControllerThree.playAssistantCard("Sara", 4);
+        gameControllerThree.playAssistantCard("Viola", 5);
+        gameControllerThree.playAssistantCard("Laura", 3);
         assertEquals(gameControllerThree.getGame().getGamePhase(), GamePhase.PLAYING);
         gameControllerThree.getGame().setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
         gameControllerThree.getGame().setTurnPhase(TurnPhase.WAITING);
 
-        gameControllerThree.playAssistantCard(1, 7);
-        gameControllerThree.playAssistantCard(2, 8);
-        gameControllerThree.playAssistantCard(0, 6);
+        gameControllerThree.playAssistantCard("Laura", 7);
+        gameControllerThree.playAssistantCard("Sara", 8);
+        gameControllerThree.playAssistantCard("Viola", 6);
         assertEquals(gameControllerThree.getGame().getGamePhase(), GamePhase.PLAYING);
         gameControllerThree.getGame().setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
         gameControllerThree.getGame().setTurnPhase(TurnPhase.WAITING);
 
-        gameControllerThree.playAssistantCard(0, 7);
-        gameControllerThree.playAssistantCard(1, 8);
-        gameControllerThree.playAssistantCard(2, 6);
+        gameControllerThree.playAssistantCard("Viola", 7);
+        gameControllerThree.playAssistantCard("Laura", 8);
+        gameControllerThree.playAssistantCard("Sara", 6);
         assertEquals(gameControllerThree.getGame().getGamePhase(), GamePhase.PLAYING);
         gameControllerThree.getGame().setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
         gameControllerThree.getGame().setTurnPhase(TurnPhase.WAITING);
 
-        gameControllerThree.playAssistantCard(2, 7);
-        gameControllerThree.playAssistantCard(0, 8);
-        gameControllerThree.playAssistantCard(1, 6);
+        gameControllerThree.playAssistantCard("Sara", 7);
+        gameControllerThree.playAssistantCard("Viola", 8);
+        gameControllerThree.playAssistantCard("Laura", 6);
         assertEquals(gameControllerThree.getGame().getGamePhase(), GamePhase.PLAYING);
         gameControllerThree.getGame().setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
         gameControllerThree.getGame().setTurnPhase(TurnPhase.WAITING);
 
-        gameControllerThree.playAssistantCard(1, 9);
-        gameControllerThree.playAssistantCard(2, 9);
-        gameControllerThree.playAssistantCard(0, 9);
+        gameControllerThree.playAssistantCard("Laura", 9);
+        gameControllerThree.playAssistantCard("Sara", 9);
+        gameControllerThree.playAssistantCard("Viola", 9);
         assertEquals(gameControllerThree.getGame().getPlayerByIndex(1), gameControllerThree.getGame().getCurrentPlayer());
         assertEquals(gameControllerThree.getGame().getGamePhase(), GamePhase.PLAYING);
         int j = 0;
         while (j < 4) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerThree.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerThree.moveStudentToIsland(1, colour, 0, 0);
+                    gameControllerThree.moveStudentToIsland("Laura", colour, 0, 0);
                     j++;
                 }
             }
         }
-        gameControllerThree.moveMotherNature(1, 0);
-        gameControllerThree.moveMotherNature(1, 1);
+        gameControllerThree.moveMotherNature("Laura", 0);
+        gameControllerThree.moveMotherNature("Laura", 1);
         assertEquals(1, gameControllerThree.getGame().getTable().getMotherNaturePosition());
-        gameControllerThree.chooseCloudTile(1, 0);
+        gameControllerThree.chooseCloudTile("Laura", 0);
         assertEquals(gameControllerThree.getGame().getPlayerByIndex(2), gameControllerThree.getGame().getCurrentPlayer());
         assertEquals(gameControllerThree.getGame().getGamePhase(), GamePhase.PLAYING);
         j = 0;
         while (j < 4) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerThree.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerThree.moveStudentToIsland(2, colour, 0, 0);
+                    gameControllerThree.moveStudentToIsland("Sara", colour, 0, 0);
                     j++;
                 }
             }
         }
-        gameControllerThree.moveMotherNature(2, 0);
-        gameControllerThree.moveMotherNature(2, 1);
+        gameControllerThree.moveMotherNature("Sara", 0);
+        gameControllerThree.moveMotherNature("Sara", 1);
         assertEquals(2, gameControllerThree.getGame().getTable().getMotherNaturePosition());
-        gameControllerThree.chooseCloudTile(2, 0);
+        gameControllerThree.chooseCloudTile("Sara", 0);
         assertEquals(gameControllerThree.getGame().getPlayerByIndex(0), gameControllerThree.getGame().getCurrentPlayer());
         assertEquals(gameControllerThree.getGame().getGamePhase(), GamePhase.PLAYING);
 
@@ -1659,16 +1686,16 @@ class GameControllerTest {
         gameControllerThree.addPlayer("Sara", Wizard.TYPE_2);
 
         int num = 0;
-        for(Colour colour : Colour.values()){
+        for (Colour colour : Colour.values()) {
             num += gameControllerThree.getGame().getTable().getBag().getBagStudent(colour);
         }
 
         assertEquals(81, num);
 
         // FIRST TURN
-        gameControllerThree.playAssistantCard(0, 0);
-        gameControllerThree.playAssistantCard(1, 1);
-        gameControllerThree.playAssistantCard(2, 2);
+        gameControllerThree.playAssistantCard("Viola", 0);
+        gameControllerThree.playAssistantCard("Laura", 1);
+        gameControllerThree.playAssistantCard("Sara", 2);
 
         // Player 0
         assertEquals(gameControllerThree.getGame().getPlayerByIndex(0), gameControllerThree.getGame().getCurrentPlayer());
@@ -1676,13 +1703,13 @@ class GameControllerTest {
         while (j < 4) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerThree.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerThree.moveStudentToIsland(0, colour, 0, 0);
+                    gameControllerThree.moveStudentToIsland("Viola", colour, 0, 0);
                     j++;
                 }
             }
         }
-        gameControllerThree.moveMotherNature(0, 1);
-        gameControllerThree.chooseCloudTile(0, 0);
+        gameControllerThree.moveMotherNature("Viola", 1);
+        gameControllerThree.chooseCloudTile("Viola", 0);
 
         // Player 1
         assertEquals(gameControllerThree.getGame().getPlayerByIndex(1), gameControllerThree.getGame().getCurrentPlayer());
@@ -1690,13 +1717,13 @@ class GameControllerTest {
         while (j < 4) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerThree.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerThree.moveStudentToIsland(1, colour, 0, 0);
+                    gameControllerThree.moveStudentToIsland("Laura", colour, 0, 0);
                     j++;
                 }
             }
         }
-        gameControllerThree.moveMotherNature(1, 1);
-        gameControllerThree.chooseCloudTile(1, 0);
+        gameControllerThree.moveMotherNature("Laura", 1);
+        gameControllerThree.chooseCloudTile("Laura", 0);
 
         // Player 2
         assertEquals(gameControllerThree.getGame().getPlayerByIndex(2), gameControllerThree.getGame().getCurrentPlayer());
@@ -1704,19 +1731,19 @@ class GameControllerTest {
         while (j < 4) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerThree.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerThree.moveStudentToIsland(2, colour, 0, 0);
+                    gameControllerThree.moveStudentToIsland("Sara", colour, 0, 0);
                     j++;
                 }
             }
         }
-        gameControllerThree.moveMotherNature(2, 1);
-        gameControllerThree.chooseCloudTile(2, 0);
+        gameControllerThree.moveMotherNature("Sara", 1);
+        gameControllerThree.chooseCloudTile("Sara", 0);
 
         // SECOND TURN
         assertEquals(GamePhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getGamePhase());
-        gameControllerThree.playAssistantCard(0, 2);
-        gameControllerThree.playAssistantCard(1, 0);
-        gameControllerThree.playAssistantCard(2, 1);
+        gameControllerThree.playAssistantCard("Viola", 2);
+        gameControllerThree.playAssistantCard("Laura", 0);
+        gameControllerThree.playAssistantCard("Sara", 1);
 
         // Player 1
         assertEquals(gameControllerThree.getGame().getPlayerByIndex(1), gameControllerThree.getGame().getCurrentPlayer());
@@ -1724,13 +1751,13 @@ class GameControllerTest {
         while (j < 4) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerThree.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerThree.moveStudentToIsland(1, colour, 0, 0);
+                    gameControllerThree.moveStudentToIsland("Laura", colour, 0, 0);
                     j++;
                 }
             }
         }
-        gameControllerThree.moveMotherNature(1, 1);
-        gameControllerThree.chooseCloudTile(1, 0);
+        gameControllerThree.moveMotherNature("Laura", 1);
+        gameControllerThree.chooseCloudTile("Laura", 0);
 
         // Player 2
         assertEquals(gameControllerThree.getGame().getPlayerByIndex(2), gameControllerThree.getGame().getCurrentPlayer());
@@ -1738,13 +1765,13 @@ class GameControllerTest {
         while (j < 4) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerThree.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerThree.moveStudentToIsland(2, colour, 0, 0);
+                    gameControllerThree.moveStudentToIsland("Sara", colour, 0, 0);
                     j++;
                 }
             }
         }
-        gameControllerThree.moveMotherNature(2, 1);
-        gameControllerThree.chooseCloudTile(2, 0);
+        gameControllerThree.moveMotherNature("Sara", 1);
+        gameControllerThree.chooseCloudTile("Sara", 0);
 
         // Player 0
         assertEquals(gameControllerThree.getGame().getPlayerByIndex(0), gameControllerThree.getGame().getCurrentPlayer());
@@ -1752,18 +1779,18 @@ class GameControllerTest {
         while (j < 4) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerThree.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerThree.moveStudentToIsland(0, colour, 0, 0);
+                    gameControllerThree.moveStudentToIsland("Viola", colour, 0, 0);
                     j++;
                 }
             }
         }
-        gameControllerThree.moveMotherNature(0, 1);
-        gameControllerThree.chooseCloudTile(0, 0);
+        gameControllerThree.moveMotherNature("Viola", 1);
+        gameControllerThree.chooseCloudTile("Viola", 0);
 
         // THIRD TURN
-        gameControllerThree.playAssistantCard(1, 2);
-        gameControllerThree.playAssistantCard(2, 0);
-        gameControllerThree.playAssistantCard(0, 1);
+        gameControllerThree.playAssistantCard("Laura", 2);
+        gameControllerThree.playAssistantCard("Sara", 0);
+        gameControllerThree.playAssistantCard("Viola", 1);
 
         // Player 2
         assertEquals(gameControllerThree.getGame().getPlayerByIndex(2), gameControllerThree.getGame().getCurrentPlayer());
@@ -1771,13 +1798,13 @@ class GameControllerTest {
         while (j < 4) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerThree.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerThree.moveStudentToIsland(2, colour, 0, 0);
+                    gameControllerThree.moveStudentToIsland("Sara", colour, 0, 0);
                     j++;
                 }
             }
         }
-        gameControllerThree.moveMotherNature(2, 1);
-        gameControllerThree.chooseCloudTile(2, 0);
+        gameControllerThree.moveMotherNature("Sara", 1);
+        gameControllerThree.chooseCloudTile("Sara", 0);
 
         // Player 0
         assertEquals(gameControllerThree.getGame().getPlayerByIndex(0), gameControllerThree.getGame().getCurrentPlayer());
@@ -1785,13 +1812,13 @@ class GameControllerTest {
         while (j < 4) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerThree.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerThree.moveStudentToIsland(0, colour, 0, 0);
+                    gameControllerThree.moveStudentToIsland("Viola", colour, 0, 0);
                     j++;
                 }
             }
         }
-        gameControllerThree.moveMotherNature(0, 1);
-        gameControllerThree.chooseCloudTile(0, 0);
+        gameControllerThree.moveMotherNature("Viola", 1);
+        gameControllerThree.chooseCloudTile("Viola", 0);
 
         // Player 1
         assertEquals(gameControllerThree.getGame().getPlayerByIndex(1), gameControllerThree.getGame().getCurrentPlayer());
@@ -1799,18 +1826,18 @@ class GameControllerTest {
         while (j < 4) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerThree.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerThree.moveStudentToIsland(1, colour, 0, 0);
+                    gameControllerThree.moveStudentToIsland("Laura", colour, 0, 0);
                     j++;
                 }
             }
         }
-        gameControllerThree.moveMotherNature(1, 1);
-        gameControllerThree.chooseCloudTile(1, 0);
+        gameControllerThree.moveMotherNature("Laura", 1);
+        gameControllerThree.chooseCloudTile("Laura", 0);
 
         // FOURTH TURN
-        gameControllerThree.playAssistantCard(2, 5);
-        gameControllerThree.playAssistantCard(0, 3);
-        gameControllerThree.playAssistantCard(1, 4);
+        gameControllerThree.playAssistantCard("Sara", 5);
+        gameControllerThree.playAssistantCard("Viola", 3);
+        gameControllerThree.playAssistantCard("Laura", 4);
         assertEquals(gameControllerThree.getGame().getGamePhase(), GamePhase.PLAYING);
 
         // Player 0
@@ -1819,13 +1846,13 @@ class GameControllerTest {
         while (j < 4) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerThree.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerThree.moveStudentToIsland(0, colour, 0, 0);
+                    gameControllerThree.moveStudentToIsland("Viola", colour, 0, 0);
                     j++;
                 }
             }
         }
-        gameControllerThree.moveMotherNature(0, 1);
-        gameControllerThree.chooseCloudTile(0, 0);
+        gameControllerThree.moveMotherNature("Viola", 1);
+        gameControllerThree.chooseCloudTile("Viola", 0);
 
         // Player 1
         assertEquals(gameControllerThree.getGame().getPlayerByIndex(1), gameControllerThree.getGame().getCurrentPlayer());
@@ -1833,13 +1860,13 @@ class GameControllerTest {
         while (j < 4) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerThree.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerThree.moveStudentToIsland(1, colour, 0, 0);
+                    gameControllerThree.moveStudentToIsland("Laura", colour, 0, 0);
                     j++;
                 }
             }
         }
-        gameControllerThree.moveMotherNature(1, 1);
-        gameControllerThree.chooseCloudTile(1, 0);
+        gameControllerThree.moveMotherNature("Laura", 1);
+        gameControllerThree.chooseCloudTile("Laura", 0);
 
         // Player 2
         assertEquals(gameControllerThree.getGame().getPlayerByIndex(2), gameControllerThree.getGame().getCurrentPlayer());
@@ -1847,18 +1874,18 @@ class GameControllerTest {
         while (j < 4) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerThree.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerThree.moveStudentToIsland(2, colour, 0, 0);
+                    gameControllerThree.moveStudentToIsland("Sara", colour, 0, 0);
                     j++;
                 }
             }
         }
-        gameControllerThree.moveMotherNature(2, 1);
-        gameControllerThree.chooseCloudTile(2, 0);
+        gameControllerThree.moveMotherNature("Sara", 1);
+        gameControllerThree.chooseCloudTile("Sara", 0);
 
         // FIFTH TURN
-        gameControllerThree.playAssistantCard(0, 4);
-        gameControllerThree.playAssistantCard(1, 5);
-        gameControllerThree.playAssistantCard(2, 3);
+        gameControllerThree.playAssistantCard("Viola", 4);
+        gameControllerThree.playAssistantCard("Laura", 5);
+        gameControllerThree.playAssistantCard("Sara", 3);
         assertEquals(gameControllerThree.getGame().getGamePhase(), GamePhase.PLAYING);
 
         // Player 2
@@ -1867,13 +1894,13 @@ class GameControllerTest {
         while (j < 4) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerThree.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerThree.moveStudentToIsland(2, colour, 0, 0);
+                    gameControllerThree.moveStudentToIsland("Sara", colour, 0, 0);
                     j++;
                 }
             }
         }
-        gameControllerThree.moveMotherNature(2, 1);
-        gameControllerThree.chooseCloudTile(2, 0);
+        gameControllerThree.moveMotherNature("Sara", 1);
+        gameControllerThree.chooseCloudTile("Sara", 0);
 
         // Player 0
         assertEquals(gameControllerThree.getGame().getPlayerByIndex(0), gameControllerThree.getGame().getCurrentPlayer());
@@ -1881,13 +1908,13 @@ class GameControllerTest {
         while (j < 4) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerThree.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerThree.moveStudentToIsland(0, colour, 0, 0);
+                    gameControllerThree.moveStudentToIsland("Viola", colour, 0, 0);
                     j++;
                 }
             }
         }
-        gameControllerThree.moveMotherNature(0, 1);
-        gameControllerThree.chooseCloudTile(0, 0);
+        gameControllerThree.moveMotherNature("Viola", 1);
+        gameControllerThree.chooseCloudTile("Viola", 0);
 
         // Player 1
         assertEquals(gameControllerThree.getGame().getPlayerByIndex(1), gameControllerThree.getGame().getCurrentPlayer());
@@ -1895,18 +1922,18 @@ class GameControllerTest {
         while (j < 4) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerThree.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerThree.moveStudentToIsland(1, colour, 0, 0);
+                    gameControllerThree.moveStudentToIsland("Laura", colour, 0, 0);
                     j++;
                 }
             }
         }
-        gameControllerThree.moveMotherNature(1, 1);
-        gameControllerThree.chooseCloudTile(1, 0);
+        gameControllerThree.moveMotherNature("Laura", 1);
+        gameControllerThree.chooseCloudTile("Laura", 0);
 
         // SIXTH TURN
-        gameControllerThree.playAssistantCard(2, 4);
-        gameControllerThree.playAssistantCard(0, 5);
-        gameControllerThree.playAssistantCard(1, 3);
+        gameControllerThree.playAssistantCard("Sara", 4);
+        gameControllerThree.playAssistantCard("Viola", 5);
+        gameControllerThree.playAssistantCard("Laura", 3);
         assertEquals(gameControllerThree.getGame().getGamePhase(), GamePhase.PLAYING);
 
         // Player 1
@@ -1915,13 +1942,13 @@ class GameControllerTest {
         while (j < 4) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerThree.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerThree.moveStudentToIsland(1, colour, 0, 0);
+                    gameControllerThree.moveStudentToIsland("Laura", colour, 0, 0);
                     j++;
                 }
             }
         }
-        gameControllerThree.moveMotherNature(1, 1);
-        gameControllerThree.chooseCloudTile(1, 0);
+        gameControllerThree.moveMotherNature("Laura", 1);
+        gameControllerThree.chooseCloudTile("Laura", 0);
 
         // Player 2
         assertEquals(gameControllerThree.getGame().getPlayerByIndex(2), gameControllerThree.getGame().getCurrentPlayer());
@@ -1929,13 +1956,13 @@ class GameControllerTest {
         while (j < 4) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerThree.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerThree.moveStudentToIsland(2, colour, 0, 0);
+                    gameControllerThree.moveStudentToIsland("Sara", colour, 0, 0);
                     j++;
                 }
             }
         }
-        gameControllerThree.moveMotherNature(2, 1);
-        gameControllerThree.chooseCloudTile(2, 0);
+        gameControllerThree.moveMotherNature("Sara", 1);
+        gameControllerThree.chooseCloudTile("Sara", 0);
 
         // Player 0
         assertEquals(gameControllerThree.getGame().getPlayerByIndex(0), gameControllerThree.getGame().getCurrentPlayer());
@@ -1943,19 +1970,19 @@ class GameControllerTest {
         while (j < 4) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerThree.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerThree.moveStudentToIsland(0, colour, 0, 0);
+                    gameControllerThree.moveStudentToIsland("Viola", colour, 0, 0);
                     j++;
                 }
             }
         }
-        gameControllerThree.moveMotherNature(0, 1);
-        gameControllerThree.chooseCloudTile(0, 0);
+        gameControllerThree.moveMotherNature("Viola", 1);
+        gameControllerThree.chooseCloudTile("Viola", 0);
 
         // SEVENTH TURN
         assertEquals(gameControllerThree.getGame().getGamePhase(), GamePhase.PLAY_ASSISTANT_CARD);
-        gameControllerThree.playAssistantCard(1, 7);
-        gameControllerThree.playAssistantCard(2, 8);
-        gameControllerThree.playAssistantCard(0, 6);
+        gameControllerThree.playAssistantCard("Laura", 7);
+        gameControllerThree.playAssistantCard("Sara", 8);
+        gameControllerThree.playAssistantCard("Viola", 6);
         assertEquals(gameControllerThree.getGame().getGamePhase(), GamePhase.PLAYING);
 
         // Player 0
@@ -1964,13 +1991,13 @@ class GameControllerTest {
         while (j < 4) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerThree.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerThree.moveStudentToIsland(0, colour, 0, 0);
+                    gameControllerThree.moveStudentToIsland("Viola", colour, 0, 0);
                     j++;
                 }
             }
         }
-        gameControllerThree.moveMotherNature(0, 1);
-        gameControllerThree.chooseCloudTile(0, 0);
+        gameControllerThree.moveMotherNature("Viola", 1);
+        gameControllerThree.chooseCloudTile("Viola", 0);
 
         // Player 1
         assertEquals(gameControllerThree.getGame().getPlayerByIndex(1), gameControllerThree.getGame().getCurrentPlayer());
@@ -1978,13 +2005,13 @@ class GameControllerTest {
         while (j < 4) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerThree.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerThree.moveStudentToIsland(1, colour, 0, 0);
+                    gameControllerThree.moveStudentToIsland("Laura", colour, 0, 0);
                     j++;
                 }
             }
         }
-        gameControllerThree.moveMotherNature(1, 1);
-        gameControllerThree.chooseCloudTile(1, 0);
+        gameControllerThree.moveMotherNature("Laura", 1);
+        gameControllerThree.chooseCloudTile("Laura", 0);
 
         // Player 2
         assertEquals(gameControllerThree.getGame().getPlayerByIndex(2), gameControllerThree.getGame().getCurrentPlayer());
@@ -1992,19 +2019,19 @@ class GameControllerTest {
         while (j < 4) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerThree.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerThree.moveStudentToIsland(2, colour, 0, 0);
+                    gameControllerThree.moveStudentToIsland("Sara", colour, 0, 0);
                     j++;
                 }
             }
         }
-        gameControllerThree.moveMotherNature(2, 1);
-        gameControllerThree.chooseCloudTile(2, 0);
+        gameControllerThree.moveMotherNature("Sara", 1);
+        gameControllerThree.chooseCloudTile("Sara", 0);
 
         // EIGHTH TURN
         assertEquals(gameControllerThree.getGame().getGamePhase(), GamePhase.PLAY_ASSISTANT_CARD);
-        gameControllerThree.playAssistantCard(0, 7);
-        gameControllerThree.playAssistantCard(1, 8);
-        gameControllerThree.playAssistantCard(2, 6);
+        gameControllerThree.playAssistantCard("Viola", 7);
+        gameControllerThree.playAssistantCard("Laura", 8);
+        gameControllerThree.playAssistantCard("Sara", 6);
         assertEquals(gameControllerThree.getGame().getGamePhase(), GamePhase.PLAYING);
         assertEquals(gameControllerThree.getGame().getTurnPhase(), TurnPhase.MOVE_STUDENT);
 
@@ -2014,16 +2041,16 @@ class GameControllerTest {
         while (j < 4) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerThree.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerThree.moveStudentToIsland(2, colour, 0, 0);
+                    gameControllerThree.moveStudentToIsland("Sara", colour, 0, 0);
                     j++;
                 }
             }
         }
         assertEquals(gameControllerThree.getGame().getGamePhase(), GamePhase.PLAYING);
         assertEquals(gameControllerThree.getGame().getTurnPhase(), TurnPhase.MOVE_MOTHER_NATURE);
-        gameControllerThree.moveMotherNature(2, 1);
+        gameControllerThree.moveMotherNature("Sara", 1);
         assertEquals(gameControllerThree.getGame().getGamePhase(), GamePhase.PLAYING);
-        assertTrue( gameControllerThree.getGame().getTable().getBag().isBagEmpty());
+        assertTrue(gameControllerThree.getGame().getTable().getBag().isBagEmpty());
 
         // Player 0
         assertEquals(gameControllerThree.getGame().getPlayerByIndex(0), gameControllerThree.getGame().getCurrentPlayer());
@@ -2031,12 +2058,12 @@ class GameControllerTest {
         while (j < 4) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerThree.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerThree.moveStudentToIsland(0, colour, 0, 0);
+                    gameControllerThree.moveStudentToIsland("Viola", colour, 0, 0);
                     j++;
                 }
             }
         }
-        gameControllerThree.moveMotherNature(0, 1);
+        gameControllerThree.moveMotherNature("Viola", 1);
 
         // Player 1
         assertEquals(gameControllerThree.getGame().getPlayerByIndex(1), gameControllerThree.getGame().getCurrentPlayer());
@@ -2044,12 +2071,12 @@ class GameControllerTest {
         while (j < 4) {
             for (Colour colour : Colour.values()) {
                 if (gameControllerThree.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) > 0) {
-                    gameControllerThree.moveStudentToIsland(1, colour, 0, 0);
+                    gameControllerThree.moveStudentToIsland("Laura", colour, 0, 0);
                     j++;
                 }
             }
         }
-        gameControllerThree.moveMotherNature(1, 1);
+        gameControllerThree.moveMotherNature("Laura", 1);
 
         assertEquals(gameControllerThree.getGame().getGamePhase(), GamePhase.END_GAME);
         assertEquals(gameControllerThree.getGame().getTurnPhase(), TurnPhase.WAITING);

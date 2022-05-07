@@ -2,6 +2,8 @@ package it.polimi.ingsw.model.card;
 
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.Game;
+import it.polimi.ingsw.model.messages.StudentToDiningRoomUpdate;
+import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
 
 import java.util.HashMap;
 
@@ -18,6 +20,7 @@ public class StudentToDiningRoom extends CharacterCard {
         super(game);
         actualCost = 2;
         students = new HashMap<>();
+        type = CharacterCardEnumeration.STUDENT_TO_DINING_ROOM;
     }
 
     public void setting() {
@@ -29,10 +32,12 @@ public class StudentToDiningRoom extends CharacterCard {
             try {
                 Colour colour1 = game.getTable().getBag().bagDrawStudent();
                 students.replace(colour1, students.get(colour1), students.get(colour1) + 1);
-            } catch(IllegalAccessError ex){
+
+            } catch (IllegalAccessError ex) {
                 ex.printStackTrace();
             }
         }
+        notify(new StudentToDiningRoomUpdate(students));
     }
 
     /**
@@ -54,9 +59,10 @@ public class StudentToDiningRoom extends CharacterCard {
         try {
             Colour colour1 = game.getTable().getBag().bagDrawStudent();
             students.replace(colour1, students.get(colour1), students.get(colour1) + 1);
-        }catch(IllegalAccessError ex){
+        } catch (IllegalAccessError ex) {
             ex.printStackTrace();
         }
+        notify(new StudentToDiningRoomUpdate(students));
         game.setActiveCharacterCard(game.getBasicState());
     }
 

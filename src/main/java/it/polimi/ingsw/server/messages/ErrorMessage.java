@@ -11,7 +11,6 @@ import java.io.Serial;
 public class ErrorMessage extends DirectServerMessage {
     @Serial
     private static final long serialVersionUID = -4465346706546640223L;
-
     private final String message;
 
     /**
@@ -28,5 +27,6 @@ public class ErrorMessage extends DirectServerMessage {
     @Override
     public void process(View view) {
         //view.getRenderer().showErrorMessage(message);
+        System.out.println("Errore di qualche tipo da segnalare all'utente");
     }
 }
