@@ -1,7 +1,6 @@
 package it.polimi.ingsw;
 
 import it.polimi.ingsw.client.Client;
-import it.polimi.ingsw.client.Client2;
 
 import java.util.concurrent.TimeUnit;
 
@@ -18,8 +17,6 @@ public class App {
         } catch (InterruptedException e) {
 
         }
-        Client2 client2 = new Client2();
-        client2.connect();
 
     }
 }
