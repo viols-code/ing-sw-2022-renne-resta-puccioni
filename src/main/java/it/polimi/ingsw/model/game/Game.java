@@ -639,4 +639,15 @@ public abstract class Game extends Observable<IServerPacket> {
     public void setCoins(int coins) throws IllegalAccessError {
         throw new IllegalAccessError("This is for the Expert Mode");
     }
+
+
+    /**
+     * Notifies the Player that one of the action that he has tried to perform is invalid.
+     *
+     * @param player the player that should be notified
+     * @param message the error message
+     */
+    public void notifyInvalidAction(String player, String message) {
+        notify(new InvalidActionUpdate(player, message));
+    }
 }
