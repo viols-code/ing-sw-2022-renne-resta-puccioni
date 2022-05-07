@@ -2,6 +2,7 @@ package it.polimi.ingsw.view;
 
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.GamePhase;
+import it.polimi.ingsw.model.player.Wizard;
 import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
 import it.polimi.ingsw.view.beans.MockCard;
 
@@ -92,6 +93,18 @@ public abstract class ModelUpdateHandler {
 
     public void updateNoEntryTilesOnCard(int num){
         getView().getModel().getCharacterCardByType(CharacterCardEnumeration.PROTECT_ISLAND).setNumberOfNoEntryTile(num);
+    }
+
+    public void updateNoEntryTileOnGroupIsland(int groupIsland, int num){
+        getView().getModel().getTable().getGroupIslandByIndex(groupIsland).setNoEntryTile(num);
+    }
+
+    public void updatePlayers(String nickname, Wizard wizard){
+        //to-do: capire se l'aggiunta dei player nel mock model avviene prima o dopo la creazione di game
+    }
+
+    public void updateProfessorTable(String player, HashMap<Colour,Boolean> professorTable){
+        getView().getModel().getPlayerByNickname(player).getSchoolBoard().setProfessorTable(professorTable);
     }
 
 
