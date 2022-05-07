@@ -4,6 +4,7 @@ import it.polimi.ingsw.IProcessablePacket;
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.messages.SingleIslandUpdate;
 import it.polimi.ingsw.observer.Observable;
+import it.polimi.ingsw.server.IServerPacket;
 
 import java.util.HashMap;
 
@@ -13,7 +14,7 @@ import java.util.HashMap;
  * @version 1.0
  */
 
-public class SingleIsland extends Observable<IProcessablePacket> {
+public class SingleIsland extends Observable<IServerPacket> {
 
     /**
      * A HashMap containing al the students that are on the SingleIsland

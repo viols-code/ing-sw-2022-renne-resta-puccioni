@@ -6,12 +6,13 @@ import it.polimi.ingsw.model.messages.CloudTileUpdate;
 import it.polimi.ingsw.model.messages.MotherNaturePositionUpdate;
 import it.polimi.ingsw.model.table.island.GroupIsland;
 import it.polimi.ingsw.observer.Observable;
+import it.polimi.ingsw.server.IServerPacket;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class Table extends Observable<IProcessablePacket> {
+public class Table extends Observable<IServerPacket> {
     /**
      * the bag containing all the remaining students
      */
