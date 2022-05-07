@@ -57,4 +57,11 @@ public abstract class ModelUpdateHandler {
         getView().getModel().getPlayerByNickname(player).setCurrentAssistantCard(assistantCard);
     }
 
+    public void updateDiningRoom(String player, HashMap<Colour,Integer> diningRoom){
+        getView().getModel().getPlayerByNickname(player).getSchoolBoard().setDiningRoom(diningRoom);
+    }
+
+    public void updateEntrance(String player, HashMap<Colour,Integer> entrance){
+        getView().getModel().getPlayerByNickname(player).getSchoolBoard().setEntrance(entrance);
+    }
 }
