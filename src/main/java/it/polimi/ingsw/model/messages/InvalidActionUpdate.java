@@ -30,7 +30,7 @@ public class InvalidActionUpdate extends ModelUpdate {
      *
      * @return the player that performed the invalid action
      */
-    public String getPlayerIndex() {
+    public String getPlayer() {
         return player;
     }
 

@@ -117,7 +117,7 @@ public class RemoteView implements Observer<IProcessablePacket> {
                 clientConnection.send(dm);
         } else if (packet instanceof InvalidActionUpdate) {
             InvalidActionUpdate update = (InvalidActionUpdate) packet;
-            if (update.getPlayerIndex() == player)
+            if (update.getPlayer().equals(player))
                 clientConnection.send(update);
         }
          else
