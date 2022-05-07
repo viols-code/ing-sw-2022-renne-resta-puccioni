@@ -8,6 +8,9 @@ public class CLIRenderer extends Renderer {
         super(view);
     }
 
+    public void printLocalPlayerSchoolBoard() {
+    }
+
     @Override
     public void showErrorMessage(String message) {
 
