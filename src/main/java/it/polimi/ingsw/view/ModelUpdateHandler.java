@@ -1,5 +1,7 @@
 package it.polimi.ingsw.view;
 
+import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
+
 /**
  * Class responsible for handling the updates that are received from the server.
  */
@@ -26,6 +28,10 @@ public abstract class ModelUpdateHandler {
 
     public void updateActiveCharacterCard(int characterCard){
         getView().getModel().setCurrentCharacterCard(getView().getModel().getCharacterCardByIndex(characterCard));
+    }
+
+    public void updateCardCoins(int characterCard, int coins){
+        getView().getModel().getCharacterCardByIndex(characterCard).setCost(coins);
     }
 
 }
