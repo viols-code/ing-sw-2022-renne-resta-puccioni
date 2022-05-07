@@ -65,6 +65,11 @@ public class MockModel {
     private TurnPhase turnPhase;
 
     /**
+     * The winner
+     */
+    private MockPlayer winner;
+
+    /**
      * Constructs the local copy of the game
      */
     public MockModel() {
@@ -273,5 +278,13 @@ public class MockModel {
      */
     public void setTurnPhase(TurnPhase turnPhase) {
         this.turnPhase = turnPhase;
+    }
+
+    public MockPlayer getWinner() {
+        return winner;
+    }
+
+    public void setWinner(MockPlayer winner) {
+        this.winner = winner;
     }
 }

@@ -58,6 +58,7 @@ public class MockPlayer {
      */
     private AssistantCard currentAssistantCard;
 
+
     /**
      * Constructs the mock player
      *
@@ -134,6 +135,10 @@ public class MockPlayer {
         return towerColour;
     }
 
+    public void setTowerColour(TowerColour colour){
+        this.towerColour = colour;
+    }
+
     /**
      * Gets the assistant card in the player's deck
      *
@@ -160,4 +165,6 @@ public class MockPlayer {
     public AssistantCard getCurrentAssistantCard() {
         return currentAssistantCard;
     }
+
+
 }

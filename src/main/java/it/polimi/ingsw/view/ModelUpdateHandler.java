@@ -2,6 +2,7 @@ package it.polimi.ingsw.view;
 
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.GamePhase;
+import it.polimi.ingsw.model.game.TurnPhase;
 import it.polimi.ingsw.model.player.TowerColour;
 import it.polimi.ingsw.model.player.Wizard;
 import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
@@ -114,13 +115,31 @@ public abstract class ModelUpdateHandler {
         getView().getModel().setRound(round);
     }
 
-    public void singleIslanUpdate(int groupIsland, int singleIsland, Colour student){
+    public void updateSingleIsland(int groupIsland, int singleIsland, Colour student){
         //to-do: sistemare la notify in SingleIsland
         getView().getModel().getTable().getGroupIslandByIndex(groupIsland).getSingleIslandByIndex(singleIsland).setStudent(student);
     }
 
-    public void towersUpdate(String player, TowerColour tower){
-        //to-do: sistemare il costruttore di MockPlayer
+    public void updateTowers(String player, int towers){
+        getView().getModel().getPlayerByNickname(player).getSchoolBoard().setTowers(towers);
     }
+
+    public void updateTowerColour(String player, TowerColour towerColour){
+        //to-do: message TowerColourUpdate
+        getView().getModel().getPlayerByNickname(player).setTowerColour(towerColour);
+    }
+
+    public void updateTurnPhase(TurnPhase turnPhase){
+        getView().getModel().setTurnPhase(turnPhase);
+    }
+
+    public void updateUnifyIsland(int groupIsland1, int groupIsland2){
+        getView().getModel().getTable().unify(groupIsland1,groupIsland2);
+    }
+
+    public void winnerUpdate(String player){
+        getView().getModel().setWinner(getView().getModel().getPlayerByNickname(player));
+    }
+
 
 }
