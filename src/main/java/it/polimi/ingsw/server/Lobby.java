@@ -11,7 +11,7 @@ import java.util.*;
  * Models a lobby, holding the list of connected clients, the first connected client and the number of players needed to
  * start the game in the current lobby.
  */
-public class Lobby extends Observable<IProcessablePacket> {
+public class Lobby extends Observable<IServerPacket> {
     private final UUID uuid;
 
     private SocketClientConnection firstConnection;
