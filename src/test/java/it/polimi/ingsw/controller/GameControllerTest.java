@@ -4,8 +4,11 @@ import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.Game;
 import it.polimi.ingsw.model.game.GamePhase;
 import it.polimi.ingsw.model.game.TurnPhase;
+import it.polimi.ingsw.model.player.ExpertPlayer;
 import it.polimi.ingsw.model.player.TowerColour;
 import it.polimi.ingsw.model.player.Wizard;
+import it.polimi.ingsw.view.messages.MoveMotherNature;
+import it.polimi.ingsw.view.messages.PlayerEvent;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
@@ -352,7 +355,7 @@ class GameControllerTest {
     }
 
     // Tests that after 10 rounds the game ends
-    @RepeatedTest(10)
+    @RepeatedTest(100)
     void testGameEndAfter10Rounds() {
         // adding player to the game
         gameControllerTwo.addPlayer("Laura", Wizard.TYPE_2);
@@ -648,7 +651,7 @@ class GameControllerTest {
     }
 
     // A simple test with three players
-    @RepeatedTest(10000)
+    @RepeatedTest(100)
     void threePlayerGame() {
         // start of the game
         assertEquals(GamePhase.SETTING, gameControllerThree.getGame().getGamePhase());
@@ -1041,7 +1044,7 @@ class GameControllerTest {
         }
     }
 
-    @RepeatedTest(10000)
+    @RepeatedTest(100)
     void gameTest2Players() {
         assertEquals(GamePhase.SETTING, gameControllerTwo.getGame().getGamePhase());
         assertEquals(TurnPhase.WAITING, gameControllerTwo.getGame().getTurnPhase());
@@ -2106,6 +2109,306 @@ class GameControllerTest {
             assertEquals(gameControllerExpert.getGame().getActiveCharacterCard(), gameControllerExpert.getGame().getCharacterCardByIndex(0));
         }
 
+    }
+
+    @RepeatedTest(100)
+    void exceptionSetting(){
+        gameControllerTwo.addPlayer("Viola", Wizard.TYPE_2);
+        assertEquals(1, gameControllerTwo.getGame().getNumberOfPlayer());
+        gameControllerTwo.addPlayer("Viola", Wizard.TYPE_1);
+        assertEquals(1, gameControllerTwo.getGame().getNumberOfPlayer());
+        gameControllerTwo.addPlayer("Laura", Wizard.TYPE_2);
+        assertEquals(1, gameControllerTwo.getGame().getNumberOfPlayer());
+        gameControllerTwo.addPlayer("Sara", Wizard.TYPE_3);
+        gameControllerTwo.addPlayer("Laura", Wizard.TYPE_1);
+
+        // exception with the Character Card
+        gameControllerTwo.moveStudentToDiningRoom("Sara", Colour.GREEN);
+        gameControllerTwo.chooseCloudTile("Viola", 4);
+        gameControllerTwo.playCharacterCard("Viola", 0);
+        assertEquals(gameControllerTwo.getGame().getActiveCharacterCard(), gameControllerTwo.getGame().getBasicState());
+        gameControllerTwo.playCharacterCard("Laura", 1);
+        assertEquals(gameControllerTwo.getGame().getActiveCharacterCard(), gameControllerTwo.getGame().getBasicState());
+        gameControllerTwo.playCharacterCard("Sara", 1);
+        assertEquals(gameControllerTwo.getGame().getActiveCharacterCard(), gameControllerTwo.getGame().getBasicState());
+
+        // exception with the AssistantCard
+        gameControllerTwo.moveStudentToDiningRoom("Sara", Colour.GREEN);
+        gameControllerTwo.chooseCloudTile("Viola", 4);
+        gameControllerTwo.playAssistantCard("Viola", 11);
+        assertEquals(GamePhase.PLAY_ASSISTANT_CARD, gameControllerTwo.getGame().getGamePhase());
+        gameControllerTwo.playAssistantCard("Viola", -1);
+        assertEquals(GamePhase.PLAY_ASSISTANT_CARD, gameControllerTwo.getGame().getGamePhase());
+        gameControllerTwo.playAssistantCard("Sara", 0);
+        assertEquals(GamePhase.PLAY_ASSISTANT_CARD, gameControllerTwo.getGame().getGamePhase());
+        gameControllerTwo.playAssistantCard("Laura", 1);
+        gameControllerTwo.moveStudentToIsland("Laura", Colour.GREEN, 0, 0);
+        gameControllerTwo.moveStudentToDiningRoom("Laura", Colour.GREEN);
+        gameControllerTwo.moveMotherNature("Laura", 1);
+        gameControllerTwo.chooseCloudTile("Laura", 0);
+
+        //playing the AssistantCard
+        gameControllerTwo.playAssistantCard("Viola", 0);
+        assertEquals(GamePhase.PLAY_ASSISTANT_CARD, gameControllerTwo.getGame().getGamePhase());
+        assertEquals(gameControllerTwo.getGame().getAssistantCard(0), gameControllerTwo.getGame().getPlayerByNickname("Viola").getCurrentAssistantCard());
+        gameControllerTwo.playAssistantCard("Viola", 1);
+        assertEquals(gameControllerTwo.getGame().getAssistantCard(0), gameControllerTwo.getGame().getPlayerByNickname("Viola").getCurrentAssistantCard());
+        assertEquals(GamePhase.PLAY_ASSISTANT_CARD, gameControllerTwo.getGame().getGamePhase());
+        gameControllerTwo.playAssistantCard("Sara", 1);
+        assertEquals(gameControllerTwo.getGame().getAssistantCard(0), gameControllerTwo.getGame().getPlayerByNickname("Viola").getCurrentAssistantCard());
+        assertEquals(gameControllerTwo.getGame().getAssistantCard(1), gameControllerTwo.getGame().getPlayerByNickname("Sara").getCurrentAssistantCard());
+        assertEquals(GamePhase.PLAYING, gameControllerTwo.getGame().getGamePhase());
+        gameControllerTwo.playAssistantCard("Viola", 0);
+        assertEquals(gameControllerTwo.getGame().getAssistantCard(0), gameControllerTwo.getGame().getPlayerByNickname("Viola").getCurrentAssistantCard());
+        assertEquals(gameControllerTwo.getGame().getAssistantCard(1), gameControllerTwo.getGame().getPlayerByNickname("Sara").getCurrentAssistantCard());
+        assertEquals(GamePhase.PLAYING, gameControllerTwo.getGame().getGamePhase());
+        assertEquals(TurnPhase.MOVE_STUDENT, gameControllerTwo.getGame().getTurnPhase());
+
+        // exception with movement of students
+        gameControllerTwo.moveStudentToDiningRoom("Sara", Colour.GREEN);
+        gameControllerTwo.moveStudentToDiningRoom("Sara", Colour.PINK);
+        gameControllerTwo.moveStudentToDiningRoom("Sara", Colour.BLUE);
+        gameControllerTwo.moveStudentToDiningRoom("Sara", Colour.YELLOW);
+        gameControllerTwo.moveStudentToDiningRoom("Sara", Colour.RED);
+
+        gameControllerTwo.playAssistantCard("Laura", 1);
+        gameControllerTwo.moveStudentToIsland("Laura", Colour.GREEN, 0, 0);
+        gameControllerTwo.moveStudentToDiningRoom("Laura", Colour.GREEN);
+        gameControllerTwo.moveMotherNature("Laura", 1);
+        gameControllerTwo.chooseCloudTile("Laura", 0);
+
+        assertEquals(GamePhase.PLAYING, gameControllerTwo.getGame().getGamePhase());
+        assertEquals(TurnPhase.MOVE_STUDENT, gameControllerTwo.getGame().getTurnPhase());
+
+        gameControllerTwo.chooseCloudTile("Viola", 4);
+
+        gameControllerTwo.moveStudentToDiningRoom("Viola", Colour.GREEN);
+        gameControllerTwo.moveStudentToDiningRoom("Viola", Colour.GREEN);
+        gameControllerTwo.moveStudentToDiningRoom("Viola", Colour.GREEN);
+        gameControllerTwo.moveStudentToDiningRoom("Viola", Colour.GREEN);
+        gameControllerTwo.moveStudentToDiningRoom("Viola", Colour.PINK);
+        gameControllerTwo.moveStudentToDiningRoom("Viola", Colour.PINK);
+        gameControllerTwo.moveStudentToDiningRoom("Viola", Colour.PINK);
+        gameControllerTwo.moveStudentToDiningRoom("Viola", Colour.PINK);
+        gameControllerTwo.moveStudentToDiningRoom("Viola", Colour.BLUE);
+        gameControllerTwo.moveStudentToDiningRoom("Viola", Colour.BLUE);
+        gameControllerTwo.moveStudentToDiningRoom("Viola", Colour.BLUE);
+        gameControllerTwo.moveStudentToDiningRoom("Viola", Colour.RED);
+        gameControllerTwo.moveStudentToDiningRoom("Viola", Colour.RED);
+        gameControllerTwo.moveStudentToDiningRoom("Viola", Colour.RED);
+        gameControllerTwo.moveStudentToDiningRoom("Viola", Colour.RED);
+        gameControllerTwo.moveStudentToDiningRoom("Viola", Colour.YELLOW);
+        gameControllerTwo.moveStudentToDiningRoom("Viola", Colour.YELLOW);
+        gameControllerTwo.moveStudentToDiningRoom("Viola", Colour.YELLOW);
+        gameControllerTwo.moveStudentToDiningRoom("Viola", Colour.YELLOW);
+
+        assertEquals(GamePhase.PLAYING, gameControllerTwo.getGame().getGamePhase());
+        assertEquals(TurnPhase.MOVE_MOTHER_NATURE, gameControllerTwo.getGame().getTurnPhase());
+
+
+        gameControllerTwo.chooseCloudTile("Viola", 4);
+        gameControllerTwo.moveStudentToDiningRoom("Viola", Colour.YELLOW);
+        gameControllerTwo.playAssistantCard("Viola", 0);
+        gameControllerTwo.chooseCloudTile("Sara", 4);
+        gameControllerTwo.moveStudentToDiningRoom("Sara", Colour.YELLOW);
+        gameControllerTwo.playAssistantCard("Sara", 0);
+
+
+        assertEquals(GamePhase.PLAYING, gameControllerTwo.getGame().getGamePhase());
+        assertEquals(TurnPhase.MOVE_MOTHER_NATURE, gameControllerTwo.getGame().getTurnPhase());
+
+        gameControllerTwo.moveMotherNature("Sara", 1);
+        gameControllerTwo.moveMotherNature("Viola", -1);
+        gameControllerTwo.moveMotherNature("Viola", 29200);
+        gameControllerTwo.moveMotherNature("Viola", 1);
+
+        assertEquals(GamePhase.PLAYING, gameControllerTwo.getGame().getGamePhase());
+        assertEquals(TurnPhase.CHOOSE_CLOUD_TILE, gameControllerTwo.getGame().getTurnPhase());
+
+        // exception with the cloud tile
+        gameControllerTwo.chooseCloudTile("Sara", -1);
+        gameControllerTwo.chooseCloudTile("Sara", 4);
+        gameControllerTwo.chooseCloudTile("Viola", -1);
+        gameControllerTwo.chooseCloudTile("Viola", 4);
+
+        assertEquals(GamePhase.PLAYING, gameControllerTwo.getGame().getGamePhase());
+        assertEquals(TurnPhase.CHOOSE_CLOUD_TILE, gameControllerTwo.getGame().getTurnPhase());
+
+        gameControllerTwo.chooseCloudTile("Viola", 0);
+
+        // Sara's turn
+
+        assertEquals(GamePhase.PLAYING, gameControllerTwo.getGame().getGamePhase());
+        assertEquals(TurnPhase.MOVE_STUDENT, gameControllerTwo.getGame().getTurnPhase());
+
+        gameControllerTwo.chooseCloudTile("Viola", 4);
+        gameControllerTwo.moveStudentToDiningRoom("Viola", Colour.YELLOW);
+        gameControllerTwo.playAssistantCard("Viola", 0);
+
+        assertEquals(GamePhase.PLAYING, gameControllerTwo.getGame().getGamePhase());
+        assertEquals(TurnPhase.MOVE_STUDENT, gameControllerTwo.getGame().getTurnPhase());
+
+        gameControllerTwo.moveStudentToDiningRoom("Sara", Colour.GREEN);
+        gameControllerTwo.moveStudentToDiningRoom("Sara", Colour.PINK);
+        gameControllerTwo.moveStudentToDiningRoom("Sara", Colour.BLUE);
+        gameControllerTwo.moveStudentToDiningRoom("Sara", Colour.YELLOW);
+        gameControllerTwo.moveStudentToDiningRoom("Sara", Colour.RED);
+        gameControllerTwo.moveStudentToDiningRoom("Sara", Colour.GREEN);
+        gameControllerTwo.moveStudentToDiningRoom("Sara", Colour.PINK);
+        gameControllerTwo.moveStudentToDiningRoom("Sara", Colour.BLUE);
+        gameControllerTwo.moveStudentToDiningRoom("Sara", Colour.YELLOW);
+        gameControllerTwo.moveStudentToDiningRoom("Sara", Colour.RED);
+        gameControllerTwo.moveStudentToDiningRoom("Sara", Colour.GREEN);
+        gameControllerTwo.moveStudentToDiningRoom("Sara", Colour.PINK);
+        gameControllerTwo.moveStudentToDiningRoom("Sara", Colour.BLUE);
+        gameControllerTwo.moveStudentToDiningRoom("Sara", Colour.YELLOW);
+        gameControllerTwo.moveStudentToDiningRoom("Sara", Colour.RED);
+
+        assertEquals(GamePhase.PLAYING, gameControllerTwo.getGame().getGamePhase());
+        assertEquals(TurnPhase.MOVE_MOTHER_NATURE, gameControllerTwo.getGame().getTurnPhase());
+
+        gameControllerTwo.chooseCloudTile("Viola", 0);
+        gameControllerTwo.chooseCloudTile("Sara", 0);
+        gameControllerTwo.moveMotherNature("Viola", -1);
+        assertEquals(GamePhase.PLAYING, gameControllerTwo.getGame().getGamePhase());
+        assertEquals(TurnPhase.MOVE_MOTHER_NATURE, gameControllerTwo.getGame().getTurnPhase());
+
+        gameControllerTwo.moveMotherNature("Sara", 1);
+        assertEquals(GamePhase.PLAYING, gameControllerTwo.getGame().getGamePhase());
+        assertEquals(TurnPhase.CHOOSE_CLOUD_TILE, gameControllerTwo.getGame().getTurnPhase());
+
+        gameControllerTwo.chooseCloudTile("Viola", 0);
+        gameControllerTwo.chooseCloudTile("Sara", 4);
+        gameControllerTwo.moveMotherNature("Viola", -1);
+        gameControllerTwo.chooseCloudTile("Viola", 30);
+        gameControllerTwo.chooseCloudTile("Sara", 30);
+        gameControllerTwo.moveMotherNature("Viola", -1);
+
+        assertEquals(GamePhase.PLAYING, gameControllerTwo.getGame().getGamePhase());
+        assertEquals(TurnPhase.CHOOSE_CLOUD_TILE, gameControllerTwo.getGame().getTurnPhase());
+
+        gameControllerTwo.chooseCloudTile("Sara", 0);
+
+        assertEquals(GamePhase.PLAY_ASSISTANT_CARD, gameControllerTwo.getGame().getGamePhase());
+        assertEquals(TurnPhase.WAITING, gameControllerTwo.getGame().getTurnPhase());
+
+        //exception with the Assistant Card
+        gameControllerTwo.playAssistantCard("Viola", 0);
+        gameControllerTwo.playAssistantCard("Sara", 0);
+        assertEquals(GamePhase.PLAY_ASSISTANT_CARD, gameControllerTwo.getGame().getGamePhase());
+        assertEquals(TurnPhase.WAITING, gameControllerTwo.getGame().getTurnPhase());
+        gameControllerTwo.playAssistantCard("Viola", 1);
+        gameControllerTwo.playAssistantCard("Viola", 0);
+        assertEquals(GamePhase.PLAY_ASSISTANT_CARD, gameControllerTwo.getGame().getGamePhase());
+        assertEquals(TurnPhase.WAITING, gameControllerTwo.getGame().getTurnPhase());
+        gameControllerTwo.playAssistantCard("Sara", 2);
+
+        assertEquals(GamePhase.PLAYING, gameControllerTwo.getGame().getGamePhase());
+        assertEquals(TurnPhase.MOVE_STUDENT, gameControllerTwo.getGame().getTurnPhase());
+
+        gameControllerTwo.chooseCloudTile("Viola", 0);
+        gameControllerTwo.chooseCloudTile("Sara", 4);
+        gameControllerTwo.moveMotherNature("Viola", -1);
+        gameControllerTwo.chooseCloudTile("Viola", 30);
+        gameControllerTwo.chooseCloudTile("Sara", 30);
+        gameControllerTwo.moveMotherNature("Viola", -1);
+
+        assertEquals(GamePhase.PLAYING, gameControllerTwo.getGame().getGamePhase());
+        assertEquals(TurnPhase.MOVE_STUDENT, gameControllerTwo.getGame().getTurnPhase());
+
+        gameControllerTwo.moveStudentToIsland("Sara", Colour.GREEN, 0, 0);
+        gameControllerTwo.moveStudentToIsland("Sara", Colour.RED, 0, 0);
+        gameControllerTwo.moveStudentToIsland("Sara", Colour.BLUE, 0, 0);
+        gameControllerTwo.moveStudentToIsland("Sara", Colour.YELLOW, 0, 0);
+        gameControllerTwo.moveStudentToIsland("Sara", Colour.PINK, 0, 0);
+        gameControllerTwo.moveStudentToIsland("Sara", Colour.GREEN, -1, 0);
+        gameControllerTwo.moveStudentToIsland("Sara", Colour.RED, 0, -30);
+        gameControllerTwo.moveStudentToIsland("Sara", Colour.BLUE, 13, 0);
+        gameControllerTwo.moveStudentToIsland("Sara", Colour.YELLOW, 0, 14);
+        gameControllerTwo.moveStudentToIsland("Sara", Colour.PINK, -1, -30);
+        gameControllerTwo.moveStudentToIsland("Sara", Colour.GREEN, 0, 0);
+        gameControllerTwo.moveStudentToIsland("Sara", Colour.RED, 0, 0);
+        gameControllerTwo.moveStudentToIsland("Sara", Colour.BLUE, 0, 0);
+        gameControllerTwo.moveStudentToIsland("Sara", Colour.YELLOW, 0, 0);
+        gameControllerTwo.moveStudentToIsland("Sara", Colour.PINK, 0, 0);
+
+        assertEquals(GamePhase.PLAYING, gameControllerTwo.getGame().getGamePhase());
+        assertEquals(TurnPhase.MOVE_STUDENT, gameControllerTwo.getGame().getTurnPhase());
+
+
+        gameControllerTwo.moveStudentToIsland("Viola", Colour.GREEN, -1, 0);
+        gameControllerTwo.moveStudentToIsland("Viola", Colour.RED, 0, -30);
+        gameControllerTwo.moveStudentToIsland("Viola", Colour.BLUE, 13, 0);
+        gameControllerTwo.moveStudentToIsland("Viola", Colour.YELLOW, 0, 14);
+        gameControllerTwo.moveStudentToIsland("Viola", Colour.PINK, -1, -30);
+
+        assertEquals(GamePhase.PLAYING, gameControllerTwo.getGame().getGamePhase());
+        assertEquals(TurnPhase.MOVE_STUDENT, gameControllerTwo.getGame().getTurnPhase());
+
+        gameControllerTwo.moveStudentToIsland("Viola", Colour.GREEN, 0, 0);
+        gameControllerTwo.moveStudentToIsland("Viola", Colour.RED, 0, 0);
+        gameControllerTwo.moveStudentToIsland("Viola", Colour.BLUE, 0, 0);
+        gameControllerTwo.moveStudentToIsland("Viola", Colour.YELLOW, 0, 0);
+        gameControllerTwo.moveStudentToIsland("Viola", Colour.PINK, 0, 0);
+        gameControllerTwo.moveStudentToIsland("Viola", Colour.GREEN, 0, 0);
+        gameControllerTwo.moveStudentToIsland("Viola", Colour.RED, 0, 0);
+        gameControllerTwo.moveStudentToIsland("Viola", Colour.BLUE, 0, 0);
+        gameControllerTwo.moveStudentToIsland("Viola", Colour.YELLOW, 0, 0);
+        gameControllerTwo.moveStudentToIsland("Viola", Colour.PINK, 0, 0);
+        gameControllerTwo.moveStudentToIsland("Viola", Colour.GREEN, 0, 0);
+        gameControllerTwo.moveStudentToIsland("Viola", Colour.RED, 0, 0);
+        gameControllerTwo.moveStudentToIsland("Viola", Colour.BLUE, 0, 0);
+        gameControllerTwo.moveStudentToIsland("Viola", Colour.YELLOW, 0, 0);
+        gameControllerTwo.moveStudentToIsland("Viola", Colour.PINK, 0, 0);
+
+        assertEquals(GamePhase.PLAYING, gameControllerTwo.getGame().getGamePhase());
+        assertEquals(TurnPhase.MOVE_MOTHER_NATURE, gameControllerTwo.getGame().getTurnPhase());
+
+
+
+        gameControllerTwo.chooseCloudTile("Viola", 0);
+        gameControllerTwo.chooseCloudTile("Sara", 4);
+        gameControllerTwo.moveMotherNature("Viola", -1);
+        gameControllerTwo.chooseCloudTile("Viola", 30);
+        gameControllerTwo.chooseCloudTile("Sara", 30);
+        gameControllerTwo.moveMotherNature("Viola", -1);
+
+        assertEquals(GamePhase.PLAYING, gameControllerTwo.getGame().getGamePhase());
+        assertEquals(TurnPhase.MOVE_MOTHER_NATURE, gameControllerTwo.getGame().getTurnPhase());
+
+        gameControllerTwo.moveMotherNature("Viola", 1);
+
+        assertEquals(GamePhase.PLAYING, gameControllerTwo.getGame().getGamePhase());
+        assertEquals(TurnPhase.CHOOSE_CLOUD_TILE, gameControllerTwo.getGame().getTurnPhase());
+
+        gameControllerTwo.moveStudentToIsland("Viola", Colour.PINK, 0, 0);
+        gameControllerTwo.moveStudentToIsland("Viola", Colour.GREEN, -1, 0);
+        gameControllerTwo.moveStudentToIsland("Viola", Colour.RED, 0, -30);
+        gameControllerTwo.moveStudentToIsland("Viola", Colour.BLUE, 13, 0);
+        gameControllerTwo.moveStudentToIsland("Viola", Colour.YELLOW, 0, 14);
+        gameControllerTwo.moveStudentToIsland("Viola", Colour.PINK, -1, -30);
+
+        assertEquals(GamePhase.PLAYING, gameControllerTwo.getGame().getGamePhase());
+        assertEquals(TurnPhase.CHOOSE_CLOUD_TILE, gameControllerTwo.getGame().getTurnPhase());
+
+        gameControllerTwo.chooseCloudTile("Viola", 1);
+
+        assertEquals(GamePhase.PLAYING, gameControllerTwo.getGame().getGamePhase());
+        assertEquals(TurnPhase.MOVE_STUDENT, gameControllerTwo.getGame().getTurnPhase());
+    }
+
+    @Test
+    void update(){
+        gameControllerTwo.update(new MoveMotherNature("Viola", 1));
+
+        gameControllerTwo.addPlayer("Viola", Wizard.TYPE_3);
+        gameControllerTwo.update(new MoveMotherNature("Viola", 1));
+
+
+        gameControllerTwo.getGame().getIndexOfPlayer(gameControllerTwo.getGame().getPlayerByIndex(0));
+       assertThrows(IllegalArgumentException.class, () -> {
+           gameControllerTwo.getGame().getIndexOfPlayer(new ExpertPlayer("Laura", Wizard.TYPE_4, TowerColour.WHITE));
+       });
     }
 
 }
