@@ -90,12 +90,12 @@ public class MockModel {
     }
 
     /**
-     * Adds all the players to the list
+     * Adds the player in the list
      *
-     * @param players the list of player in the game
+     * @param player the new player
      */
-    public void setPlayers(List<MockPlayer> players) {
-        this.players = players;
+    public void addPlayer(MockPlayer player) {
+        this.players.add(player);
     }
 
     /**
