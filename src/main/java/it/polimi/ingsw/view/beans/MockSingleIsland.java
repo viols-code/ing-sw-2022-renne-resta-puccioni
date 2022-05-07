@@ -30,7 +30,7 @@ public class MockSingleIsland {
     }
 
     /**
-     * Gest the number of the students of the selected colour
+     * Gets the number of the students of the selected colour
      *
      * @param colour the colour
      * @return the number of students of the colour selected
