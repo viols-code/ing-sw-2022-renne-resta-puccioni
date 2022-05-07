@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.Game;
 import it.polimi.ingsw.model.messages.CardCoinsUpdate;
 import it.polimi.ingsw.model.messages.InfluencePlayerUpdate;
+import it.polimi.ingsw.model.messages.NoEntryTileUpdate;
 import it.polimi.ingsw.model.messages.UnifyIslandsUpdate;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.table.island.GroupIsland;
@@ -151,6 +152,7 @@ public abstract class CharacterCard extends Observable<IServerPacket> {
             }
         } else {
             game.getTable().getGroupIslandByIndex(groupIsland).removeNoEntryTile();
+            notify(new NoEntryTileUpdate(groupIsland,game.getTable().getGroupIslandByIndex(groupIsland).getNumberOfNoEntryTile()));
         }
     }
 
