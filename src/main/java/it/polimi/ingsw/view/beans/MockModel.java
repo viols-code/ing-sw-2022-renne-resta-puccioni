@@ -171,7 +171,12 @@ public class MockModel {
      * @return the mock card
      */
     public MockCard getCharacterCardByType(CharacterCardEnumeration type) {
-        return characterCards.stream().filter(characterCard -> characterCard.getType().equals(type)).collect(Collectors.toList()).get(0);
+        List<MockCard> card = characterCards.stream().filter(characterCard -> characterCard.getType().equals(type)).collect(Collectors.toList());
+        if(card != null){
+            return card.get(0);
+        }
+        else
+            return null;
     }
 
 
