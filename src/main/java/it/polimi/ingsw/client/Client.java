@@ -143,4 +143,20 @@ public class Client {
 
          */
     }
+
+    /**
+     * Resets this Client instance to the initial state, closing the connection with the server.
+     */
+    public void reset() {
+        ip = "localhost";
+        port = 12345;
+
+        if (writeThread != null) writeThread.interrupt();
+        if (readThread != null) readThread.interrupt();
+        try {
+            if (socket != null) socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
