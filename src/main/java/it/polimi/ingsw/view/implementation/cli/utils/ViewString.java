@@ -46,11 +46,12 @@ public class ViewString {
     Command format
      */
 
-    public static final String VIEW_CHARACTER_CARDS = "\"view character cards\"";
-    public static final String VIEW_ASSISTANT_CARDS = "\"view assistant cards\"";
+    public static final String VIEW_CHARACTER_CARDS = "\"view characterCards\"";
+    public static final String VIEW_ASSISTANT_CARDS = "\"view assistantCards\"";
+    public static final String VIEW_CURRENT_ASSISTANT_CARDS = "\"view currentAssistantCard\"";
     public static final String VIEW_ISLAND = "\"view islands\"";
-    public static final String VIEW_SCHOOL_BOARD = "\"view school board\"";
-    public static final String VIEW_CLOUD_TILE = "\"view cloud tile\"";
+    public static final String VIEW_SCHOOL_BOARD = "\"view schoolBoard\"";
+    public static final String VIEW_CLOUD_TILE = "\"view cloudTile\"";
     public static final String VIEW_RESULT = "\"view winner\"";
 
     public static final String SPY = "\"spy <player name> <schoolBoard|currentAssistantCard>\"";
@@ -65,7 +66,7 @@ public class ViewString {
 
     public static List<String> getCommands() {
         List<String> commands = new ArrayList<>();
-        addMultipleToList(commands, VIEW_CHARACTER_CARDS, VIEW_ASSISTANT_CARDS, VIEW_ISLAND, VIEW_SCHOOL_BOARD,
+        addMultipleToList(commands, VIEW_CHARACTER_CARDS, VIEW_ASSISTANT_CARDS, VIEW_CURRENT_ASSISTANT_CARDS, VIEW_ISLAND, VIEW_SCHOOL_BOARD,
                 VIEW_CLOUD_TILE, VIEW_RESULT, SPY, PLAY_ASSISTANT_CARD, PLAY_CHARACTER_CARD, MOVE_STUDENT_TO_ISLAND,
                 MOVE_STUDENT_TO_DINING_ROOM, CHOOSE_MOTHER_NATURE_STEPS, CHOOSE_CLOUD_TILE, HELP);
 
