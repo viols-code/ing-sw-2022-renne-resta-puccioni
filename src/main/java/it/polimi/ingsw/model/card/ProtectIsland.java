@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.card;
 
 import it.polimi.ingsw.model.game.Game;
+import it.polimi.ingsw.model.messages.NoEntryTileUpdate;
 import it.polimi.ingsw.model.messages.NoEntryTilesOnCardUpdate;
 import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
 
@@ -33,6 +34,7 @@ public class ProtectIsland extends CharacterCard {
     protected void effect() throws IllegalAccessError {
         if (getNumberOfNoEntryTiles() == 0) throw new IllegalAccessError("There are no more no entry tiles");
         game.getTable().getGroupIslandByIndex(groupIslandToProtect).addNoEntryTile();
+        notify(new NoEntryTileUpdate(groupIslandToProtect, game.getTable().getGroupIslandByIndex(groupIslandToProtect).getNumberOfNoEntryTile()+1));
         setNumberOfNoEntryTiles(numberOfNoEntryTiles - 1);
         game.setActiveCharacterCard(game.getBasicState());
     }

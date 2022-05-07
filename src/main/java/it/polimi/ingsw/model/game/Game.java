@@ -206,7 +206,8 @@ public abstract class Game extends Observable<IServerPacket> {
         for (int i = 0; i < 10; i++) {
             player.addAssistantCard(this.getAssistantCard(i));
         }
-        notify(new PlayersUpdate(this.players));
+
+        //notify(new PlayersUpdate(player.getNickname(),player.getWizard()));
     }
 
     /**
@@ -220,7 +221,7 @@ public abstract class Game extends Observable<IServerPacket> {
             throw new IllegalArgumentException("This player is not in the game");
         }
         this.players.remove(player);
-        notify(new PlayersUpdate(this.players));
+        //to-do : notify the client that a player has been removed
     }
 
     /**

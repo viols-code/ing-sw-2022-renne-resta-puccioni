@@ -75,6 +75,16 @@ public class MockTable {
     }
 
     /**
+     * Gets the group island with the given index
+     *
+     * @param index the given index
+     * @return the group island
+     */
+    public MockGroupIsland getGroupIslandByIndex(int index){
+        return groupIslands.get(index);
+    }
+
+    /**
      * Removes a group island from the list
      *
      * @param groupIsland the position of the group island to remove

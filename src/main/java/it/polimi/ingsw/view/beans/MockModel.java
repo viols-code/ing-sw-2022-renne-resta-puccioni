@@ -30,6 +30,11 @@ public class MockModel {
     private MockTable table;
 
     /**
+     * The current round
+     */
+    private int round;
+
+    /**
      * A variable that states if the game mode is expert or not
      */
     private boolean isGameExpert;
@@ -58,6 +63,11 @@ public class MockModel {
      * A variable that indicates the current turn phase
      */
     private TurnPhase turnPhase;
+
+    /**
+     * The winner
+     */
+    private MockPlayer winner;
 
     /**
      * Constructs the local copy of the game
@@ -93,6 +103,15 @@ public class MockModel {
     }
 
     /**
+     * Gets the player by the given nickname
+     *
+     * @return the player with the given nickname
+     */
+    public MockPlayer getPlayerByNickname(String nickname) {
+        return players.get(nickname);
+    }
+
+    /**
      * Sets the MockPlayer that is playing with this instance of the client.
      *
      * @param localPlayer the local player to be set
@@ -121,6 +140,24 @@ public class MockModel {
      */
     public MockTable getTable() {
         return table;
+    }
+
+    /**
+     * Gets the current round
+     *
+     * @return the current round
+     */
+    public int getRound(){
+        return round;
+    }
+
+    /**
+     * Sets the round
+     *
+     * @param round the round to set
+     */
+    public void setRound(int round){
+        this.round = round;
     }
 
     /**
@@ -172,7 +209,7 @@ public class MockModel {
      */
     public MockCard getCharacterCardByType(CharacterCardEnumeration type) {
         List<MockCard> card = characterCards.stream().filter(characterCard -> characterCard.getType().equals(type)).collect(Collectors.toList());
-        if(card != null){
+        if(card.size() > 0){
             return card.get(0);
         }
         else
@@ -241,5 +278,13 @@ public class MockModel {
      */
     public void setTurnPhase(TurnPhase turnPhase) {
         this.turnPhase = turnPhase;
+    }
+
+    public MockPlayer getWinner() {
+        return winner;
+    }
+
+    public void setWinner(MockPlayer winner) {
+        this.winner = winner;
     }
 }

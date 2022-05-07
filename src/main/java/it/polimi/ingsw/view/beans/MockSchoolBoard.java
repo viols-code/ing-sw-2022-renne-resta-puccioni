@@ -11,6 +11,7 @@ public class MockSchoolBoard {
     private HashMap<Colour, Integer> entrance;
     private HashMap<Colour, Integer> diningRoom;
     private HashMap<Colour, Boolean> professorTable;
+    private int towers;
 
     public MockSchoolBoard() {
         entrance = new HashMap<>();
@@ -76,5 +77,13 @@ public class MockSchoolBoard {
      */
     public void setProfessorTable(HashMap<Colour, Boolean> professorTable) {
         this.professorTable = professorTable;
+    }
+
+    public int getTowers(){
+        return towers;
+    }
+
+    public void setTowers(int towers){
+        this.towers = towers;
     }
 }

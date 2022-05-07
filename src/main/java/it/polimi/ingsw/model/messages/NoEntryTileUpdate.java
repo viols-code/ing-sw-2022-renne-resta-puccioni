@@ -7,9 +7,11 @@ import java.io.Serial;
 public class NoEntryTileUpdate extends GroupIslandUpdate {
     @Serial
     private static final long serialVersionUID = 8811455658820901831L;
-    private int numberOfNoEntryTiles;
+    private final int groupIsland;
+    private final int numberOfNoEntryTiles;
 
-    public NoEntryTileUpdate(int numberOfNoEntryTiles) {
+    public NoEntryTileUpdate(int groupIsland, int numberOfNoEntryTiles) {
+        this.groupIsland = groupIsland;
         this.numberOfNoEntryTiles = numberOfNoEntryTiles;
     }
 
