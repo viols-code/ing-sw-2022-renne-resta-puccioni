@@ -76,26 +76,15 @@ public class Lobby extends Observable<IServerPacket> {
      * @param connection the connection that will have its player name set
      * @param playerName the player name to be set, if it's null or empty sends an error message to the client
      */
-    public void setPlayerNameAndWizard(SocketClientConnection connection, String playerName, Wizard wizard) {
+    public void setPlayerName(SocketClientConnection connection, String playerName) {
         if (playerName == null || playerName.trim().equals("")) {
             notify(new ErrorMessage(connection, "Your username can't be empty"));
-            return;
-        }
-        if (wizard == null) {
-            notify(new ErrorMessage(connection, "Your wizard can't be empty"));
             return;
         }
 
         for (SocketClientConnection clientConnection : connections) {
             if (playerName.equalsIgnoreCase(clientConnection.getPlayerName())) {
                 notify(new ErrorMessage(connection, "This username is already taken"));
-                return;
-            }
-        }
-
-        for (SocketClientConnection clientConnection : connections) {
-            if (wizard.equals(clientConnection.getWizard())) {
-                notify(new ErrorMessage(connection, "This wizard is already taken"));
                 return;
             }
         }
@@ -107,6 +96,22 @@ public class Lobby extends Observable<IServerPacket> {
                 otherNames.add(con.getPlayerName());
         });
 
+        notify(new CorrectNicknameMessage(playerName, otherNames));
+    }
+
+    public void setPlayerWizard(SocketClientConnection connection, Wizard wizard){
+        if (wizard == null) {
+            notify(new ErrorMessage(connection, "Your wizard can't be empty"));
+            return;
+        }
+
+        for (SocketClientConnection clientConnection : connections) {
+            if (wizard.equals(clientConnection.getWizard())) {
+                notify(new ErrorMessage(connection, "This wizard is already taken"));
+                return;
+            }
+        }
+
         connection.setWizard(wizard);
         List<Wizard> otherWizard = new ArrayList<>();
         connections.forEach(con -> {
@@ -114,7 +119,9 @@ public class Lobby extends Observable<IServerPacket> {
                 otherWizard.add(con.getWizard());
         });
 
-        notify(new PlayerConnectMessage(playerName, wizard, connections.size(), playersToStart, otherNames, otherWizard));
+        if(connection.getPlayerName() != null) {
+            notify(new PlayerConnectMessage(connection.getPlayerName(), wizard, connections.size(), playersToStart, otherWizard));
+        }
     }
 
     /**
