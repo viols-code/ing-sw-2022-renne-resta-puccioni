@@ -7,10 +7,11 @@ import it.polimi.ingsw.model.messages.EntranceUpdate;
 import it.polimi.ingsw.model.messages.ProfessorTableUpdate;
 import it.polimi.ingsw.model.messages.TowersUpdate;
 import it.polimi.ingsw.observer.Observable;
+import it.polimi.ingsw.server.IServerPacket;
 
 import java.util.HashMap;
 
-public class SchoolBoard extends Observable<IProcessablePacket> {
+public class SchoolBoard extends Observable<IServerPacket> {
     /**
      * a Map containing the students in the diningRoom
      */

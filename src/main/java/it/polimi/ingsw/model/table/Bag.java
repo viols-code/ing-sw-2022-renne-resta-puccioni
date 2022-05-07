@@ -4,11 +4,12 @@ import it.polimi.ingsw.IProcessablePacket;
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.messages.EmptyBagUpdate;
 import it.polimi.ingsw.observer.Observable;
+import it.polimi.ingsw.server.IServerPacket;
 
 import java.util.HashMap;
 import java.util.Random;
 
-public class Bag extends Observable<IProcessablePacket> {
+public class Bag extends Observable<IServerPacket> {
     /**
      * A Map containing the number of students for each colour in the bag
      */

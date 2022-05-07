@@ -4,6 +4,7 @@ import it.polimi.ingsw.IProcessablePacket;
 import it.polimi.ingsw.model.AssistantCard;
 import it.polimi.ingsw.model.messages.CurrentAssistantCardUpdate;
 import it.polimi.ingsw.observer.Observable;
+import it.polimi.ingsw.server.IServerPacket;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -14,7 +15,7 @@ import java.util.Set;
  *
  * @version 1.0
  */
-public abstract class Player extends Observable<IProcessablePacket> {
+public abstract class Player extends Observable<IServerPacket> {
     /**
      * the nickname of the player
      */
