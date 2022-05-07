@@ -9,9 +9,11 @@ import java.util.HashMap;
 public class CloudTileUpdate extends TableUpdate {
     @Serial
     private static final long serialVersionUID = 7611479959820901831L;
-    private HashMap<Colour, Integer> students;
+    private final int cloudTile;
+    private final HashMap<Colour, Integer> students;
 
-    public CloudTileUpdate(HashMap<Colour, Integer> students) {
+    public CloudTileUpdate(int cloudTile, HashMap<Colour, Integer> students) {
+        this.cloudTile = cloudTile;
         this.students = students;
     }
 

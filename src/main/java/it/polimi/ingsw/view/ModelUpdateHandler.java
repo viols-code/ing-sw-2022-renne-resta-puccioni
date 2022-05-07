@@ -1,8 +1,10 @@
 package it.polimi.ingsw.view;
 
+import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
 import it.polimi.ingsw.view.beans.MockCard;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -41,6 +43,10 @@ public abstract class ModelUpdateHandler {
         characterCards.stream()
                 .filter(characterCard -> getView().getModel().getCharacterCardByType(characterCard) == null)
                 .forEach(characterCard -> getView().getModel().addCharacterCard(new MockCard(characterCard)));
+    }
+
+    public void updateCloudTile(int cloudTile, HashMap<Colour,Integer> students){
+        getView().getModel().getTable().getCloudTileByIndex(cloudTile).setCloudTile(students);
     }
 
 }
