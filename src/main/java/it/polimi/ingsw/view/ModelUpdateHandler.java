@@ -1,6 +1,7 @@
 package it.polimi.ingsw.view;
 
 import it.polimi.ingsw.model.Colour;
+import it.polimi.ingsw.model.game.GamePhase;
 import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
 import it.polimi.ingsw.view.beans.MockCard;
 
@@ -61,7 +62,16 @@ public abstract class ModelUpdateHandler {
         getView().getModel().getPlayerByNickname(player).getSchoolBoard().setDiningRoom(diningRoom);
     }
 
+    public void updateEmptyBag(){
+    }
+
     public void updateEntrance(String player, HashMap<Colour,Integer> entrance){
         getView().getModel().getPlayerByNickname(player).getSchoolBoard().setEntrance(entrance);
     }
+
+    public void updateGamePhase(GamePhase gamePhase){
+        getView().getModel().setGamePhase(gamePhase);
+    }
+
+
 }
