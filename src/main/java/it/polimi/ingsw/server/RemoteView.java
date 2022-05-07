@@ -128,6 +128,7 @@ public class RemoteView implements Observer<IServerPacket> {
      */
     void handlePacket(Object packet) {
         System.out.println("Received: " + packet);
+        /*
         if (packet instanceof IProcessablePacket) {
             if (packet instanceof ClientMessage clientMessage) {
                 notifyClientMessage(clientMessage);
@@ -137,6 +138,22 @@ public class RemoteView implements Observer<IServerPacket> {
                 System.err.println("Received object is of unknown type");
             }
         }
-
+         */
     }
+
+    void handlePacket(IProcessablePacket packet){
+        System.out.println("Received: " + packet);
+        System.err.println("Received object is of unknown type");
+    }
+
+    void handlePacket(ClientMessage packet){
+        System.out.println("Received: " + packet);
+        notifyClientMessage(packet);
+    }
+
+    void handlePacket(PlayerEvent packet){
+        System.out.println("Received: " + packet);
+        notifyActionEvent(packet);
+    }
+
 }
