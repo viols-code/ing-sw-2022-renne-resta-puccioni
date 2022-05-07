@@ -56,7 +56,7 @@ public abstract class Player extends Observable<IServerPacket> {
         this.towerColour = towerColour;
         assistantCardSet = new HashSet<>();
         currentAssistantCard = null;
-        schoolBoard = new SchoolBoard();
+        schoolBoard = new SchoolBoard(nickname);
         hasAlreadyPlayed = false;
     }
 
@@ -223,8 +223,7 @@ public abstract class Player extends Observable<IServerPacket> {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Player)) return false;
-        Player player = (Player) o;
+        if (!(o instanceof Player player)) return false;
         return getNickname().equals(player.getNickname()) && getWizard() == player.getWizard() && assistantCardSet.equals(player.assistantCardSet) && Objects.equals(getCurrentAssistantCard(), player.getCurrentAssistantCard()) && getSchoolBoard().equals(player.getSchoolBoard());
     }
 

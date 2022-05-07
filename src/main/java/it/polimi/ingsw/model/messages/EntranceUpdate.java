@@ -9,9 +9,11 @@ import java.util.HashMap;
 public class EntranceUpdate extends PlayerUpdate {
     @Serial
     private static final long serialVersionUID = 4422435658892342341L;
+    private final String playerName;
     private final HashMap<Colour, Integer> students;
 
-    public EntranceUpdate(HashMap<Colour, Integer> students) {
+    public EntranceUpdate(String playerName, HashMap<Colour, Integer> students) {
+        this.playerName = playerName;
         this.students = students;
     }
 

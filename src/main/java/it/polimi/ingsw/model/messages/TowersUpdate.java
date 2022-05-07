@@ -7,10 +7,11 @@ import java.io.Serial;
 public class TowersUpdate extends PlayerUpdate {
     @Serial
     private static final long serialVersionUID = 7600545658820901831L;
-    private String playerName;
+    private final String playerName;
     private final int towers;
 
-    public TowersUpdate(int towers) {
+    public TowersUpdate(String playerName, int towers) {
+        this.playerName = playerName;
         this.towers = towers;
     }
 

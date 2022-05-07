@@ -9,9 +9,11 @@ import java.util.HashMap;
 public class DiningRoomUpdate extends PlayerUpdate {
     @Serial
     private static final long serialVersionUID = 5500455658898702341L;
+    private final String playerName;
     private final HashMap<Colour, Integer> students;
 
-    public DiningRoomUpdate(HashMap<Colour, Integer> students) {
+    public DiningRoomUpdate(String playerName, HashMap<Colour, Integer> students) {
+        this.playerName = playerName;
         this.students = students;
     }
 

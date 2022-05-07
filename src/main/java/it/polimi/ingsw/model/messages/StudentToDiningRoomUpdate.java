@@ -9,7 +9,6 @@ import java.util.HashMap;
 public class StudentToDiningRoomUpdate extends CardUpdate {
     @Serial
     private static final long serialVersionUID = -7699975659820901831L;
-
     private final HashMap<Colour, Integer> students;
 
     public StudentToDiningRoomUpdate(HashMap<Colour, Integer> students) {

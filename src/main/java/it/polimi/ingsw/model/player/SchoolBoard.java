@@ -14,6 +14,11 @@ public class SchoolBoard extends Observable<IServerPacket> {
     /**
      * a Map containing the students in the diningRoom
      */
+    private final String nickname;
+
+    /**
+     * a Map containing the students in the diningRoom
+     */
     private final HashMap<Colour, Integer> diningRoom;
 
     /**
@@ -31,7 +36,9 @@ public class SchoolBoard extends Observable<IServerPacket> {
      */
     private int towers;
 
-    public SchoolBoard() {
+    public SchoolBoard(String nickname) {
+        this.nickname = nickname;
+
         diningRoom = new HashMap<>();
         for (Colour colour : Colour.values()) {
             diningRoom.put(colour, 0);
@@ -73,7 +80,7 @@ public class SchoolBoard extends Observable<IServerPacket> {
     public void addStudentToDiningRoom(Colour colour) throws IllegalArgumentException {
         if (getDiningRoom(colour) == 10) throw new IllegalArgumentException("This table of the dining room is full");
         diningRoom.replace(colour, diningRoom.get(colour), diningRoom.get(colour) + 1);
-        notify(new DiningRoomUpdate(diningRoom));
+        notify(new DiningRoomUpdate(nickname, diningRoom));
     }
 
     /**
@@ -86,7 +93,7 @@ public class SchoolBoard extends Observable<IServerPacket> {
         if (getDiningRoom(colour) == 0)
             throw new IllegalArgumentException("There are no students of that colour in the dining room");
         diningRoom.replace(colour, diningRoom.get(colour), diningRoom.get(colour) - 1);
-        notify(new DiningRoomUpdate(diningRoom));
+        notify(new DiningRoomUpdate(nickname, diningRoom));
     }
 
     /**
@@ -94,7 +101,7 @@ public class SchoolBoard extends Observable<IServerPacket> {
      */
     public void removeAllStudentFromDiningRoom(Colour colour) {
         diningRoom.replace(colour, diningRoom.get(colour), 0);
-        notify(new DiningRoomUpdate(diningRoom));
+        notify(new DiningRoomUpdate(nickname, diningRoom));
     }
 
     /*
@@ -119,7 +126,7 @@ public class SchoolBoard extends Observable<IServerPacket> {
      */
     public void addStudentToEntrance(Colour colour) throws IllegalArgumentException {
         entrance.replace(colour, entrance.get(colour), entrance.get(colour) + 1);
-        notify(new EntranceUpdate(entrance));
+        notify(new EntranceUpdate(nickname, entrance));
     }
 
     /**
@@ -129,7 +136,7 @@ public class SchoolBoard extends Observable<IServerPacket> {
      */
     public void removeStudentFromEntrance(Colour colour) {
         entrance.replace(colour, entrance.get(colour), entrance.get(colour) - 1);
-        notify(new EntranceUpdate(entrance));
+        notify(new EntranceUpdate(nickname, entrance));
     }
 
      /*
@@ -144,7 +151,7 @@ public class SchoolBoard extends Observable<IServerPacket> {
     public void addProfessor(Colour colour) {
         if (!hasProfessor(colour)) {
             professorTable.replace(colour, false, true);
-            notify(new ProfessorTableUpdate(professorTable));
+            notify(new ProfessorTableUpdate(nickname, professorTable));
         }
     }
 
@@ -156,7 +163,7 @@ public class SchoolBoard extends Observable<IServerPacket> {
     public void removeProfessor(Colour colour) {
         if (hasProfessor(colour)) {
             professorTable.replace(colour, true, false);
-            notify(new ProfessorTableUpdate(professorTable));
+            notify(new ProfessorTableUpdate(nickname, professorTable));
         }
     }
 
@@ -222,7 +229,7 @@ public class SchoolBoard extends Observable<IServerPacket> {
      */
     public void addTower(int num) {
         towers += num;
-        notify(new TowersUpdate(towers));
+        notify(new TowersUpdate(nickname, towers));
     }
 
     /**
@@ -230,6 +237,6 @@ public class SchoolBoard extends Observable<IServerPacket> {
      */
     public void removeTower(int num) {
         towers -= num;
-        notify(new TowersUpdate(towers));
+        notify(new TowersUpdate(nickname, towers));
     }
 }
