@@ -86,4 +86,13 @@ public abstract class ModelUpdateHandler {
         getView().getModel().getTable().setMotherNaturePosition(motherNaturePosition);
     }
 
+    public void noColourUpdate(Colour colour){
+        //to-do think how to show it
+    }
+
+    public void updateNoEntryTilesOnCard(int num){
+        getView().getModel().getCharacterCardByType(CharacterCardEnumeration.PROTECT_ISLAND).setNumberOfNoEntryTile(num);
+    }
+
+
 }
