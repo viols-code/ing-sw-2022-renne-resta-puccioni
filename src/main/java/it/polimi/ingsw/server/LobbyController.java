@@ -45,16 +45,24 @@ public class LobbyController {
      * @param connection the connection that will have its player name set
      * @param playerName the name to be set
      */
-    public synchronized void setPlayerNameAndWizard(SocketClientConnection connection, String playerName, Wizard wizard) {
+    public synchronized void setPlayerName(SocketClientConnection connection, String playerName) {
         if (connection.getPlayerName() != null) {
             return;
         }
+
+        currentLobby.setPlayerName(connection, playerName);
+
+        System.out.println("Player connected: " + connection.getPlayerName());
+
+    }
+
+    public synchronized void setPlayerWizard(SocketClientConnection connection, Wizard wizard) {
 
         if (connection.getWizard() != null) {
             return;
         }
 
-        currentLobby.setPlayerNameAndWizard(connection, playerName, wizard);
+        currentLobby.setPlayerWizard(connection, wizard);
 
         System.out.println("Player connected: " + connection.getPlayerName() + ", with wizard: " + connection.getWizard());
 
