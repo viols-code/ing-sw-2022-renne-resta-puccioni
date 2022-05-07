@@ -17,7 +17,6 @@ public class PlayerConnectMessage extends ServerMessage {
     private final Wizard wizard;
     private final int currentPlayers;
     private final int playersToStart;
-    private final List<String> otherConnectedPlayers;
     private final List<Wizard> takenWizards;
 
     /**
@@ -27,12 +26,11 @@ public class PlayerConnectMessage extends ServerMessage {
      * @param currentPlayers the current number of players in the lobby
      * @param playersToStart the number of players required to start the game in the lobby
      */
-    public PlayerConnectMessage(String playerName, Wizard wizard, int currentPlayers, int playersToStart, List<String> otherConnectedPlayers, List<Wizard> takenWizards) {
+    public PlayerConnectMessage(String playerName, Wizard wizard, int currentPlayers, int playersToStart, List<Wizard> takenWizards) {
         this.playerName = playerName;
         this.wizard = wizard;
         this.currentPlayers = currentPlayers;
         this.playersToStart = playersToStart;
-        this.otherConnectedPlayers = otherConnectedPlayers;
         this.takenWizards = takenWizards;
     }
 
