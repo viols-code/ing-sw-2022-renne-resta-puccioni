@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.card;
 import it.polimi.ingsw.IProcessablePacket;
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.Game;
+import it.polimi.ingsw.model.messages.CardCoinsUpdate;
 import it.polimi.ingsw.model.messages.UnifyIslandsUpdate;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.table.island.GroupIsland;
@@ -78,6 +79,7 @@ public abstract class CharacterCard extends Observable<IProcessablePacket> {
      */
     public void incrementCost() {
         actualCost += 1;
+        notify(new CardCoinsUpdate(actualCost));
     }
 
     /*
