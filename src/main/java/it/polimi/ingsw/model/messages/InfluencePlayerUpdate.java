@@ -7,9 +7,9 @@ import java.io.Serial;
 public class InfluencePlayerUpdate extends GroupIslandUpdate {
     @Serial
     private static final long serialVersionUID = 8611475659820921831L;
-    private int player;
+    private String player;
 
-    public InfluencePlayerUpdate(int player) {
+    public InfluencePlayerUpdate(String player) {
         this.player = player;
     }
 
