@@ -1,5 +1,6 @@
 package it.polimi.ingsw.view;
 
+import it.polimi.ingsw.client.messages.PlayerWizardMessage;
 import it.polimi.ingsw.model.player.Wizard;
 import it.polimi.ingsw.view.implementation.cli.ViewString;
 import it.polimi.ingsw.client.Client;
@@ -22,6 +23,8 @@ public abstract class View {
     private GameState gameState;
 
     private String playerName;
+    private Wizard wizard;
+    private boolean gameMode;
     private boolean lobbyMaster;
 
     /**
@@ -62,6 +65,14 @@ public abstract class View {
 
     public String getPlayerName() {
         return playerName;
+    }
+
+    public Wizard getPlayerWizard() {
+        return wizard;
+    }
+
+    public boolean getGameMode() {
+        return gameMode;
     }
 
     /**
@@ -107,6 +118,16 @@ public abstract class View {
         getClient().send(new PlayerNameMessage(playerName));
     }
 
+    /**
+     * Sets the local player wizard.
+     *
+     * @param wizard the local player wizard
+     */
+    public void setPlayerName(Wizard wizard) {
+        this.wizard = wizard;
+        getClient().send(new PlayerWizardMessage(wizard));
+    }
+
 
     /*
         Handle ServerMessages
@@ -132,8 +153,8 @@ public abstract class View {
      * @param otherConnectedPlayers the list of the other connected player names
      */
     public void handlePlayerConnect(String playerName, Wizard wizard, int currentPlayers, int playersToStart, List<String> otherConnectedPlayers) {
-        if (playerName.equals(getPlayerName())) {
-            MockPlayer localPlayer = getModel().addPlayer(getPlayerName(), true);
+        if (playerName.equals(getPlayerName()) || wizard.equals(getPlayerWizard())) {
+            MockPlayer localPlayer = getModel().addPlayer(getPlayerName(), getPlayerWizard(), true);
             getModel().setLocalPlayer(localPlayer);
             if (isLobbyMaster()) {
                 setGameState(GameState.CHOOSING_PLAYERS);
@@ -144,7 +165,7 @@ public abstract class View {
                 otherConnectedPlayers.forEach(player -> getModel().addPlayer(player, false));
             }
         } else {
-            getModel().addPlayer(playerName, false);
+            getModel().addPlayer(playerName, getPlayerWizard(), false);
         }
     }
 
