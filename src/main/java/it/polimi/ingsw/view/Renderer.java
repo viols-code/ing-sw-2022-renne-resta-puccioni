@@ -6,7 +6,7 @@ import it.polimi.ingsw.view.beans.MockPlayer;
 import java.util.Map;
 
 /**
- * Class responsible for game components rendering, mainly used for the CLI.
+ * Class responsible of game components rendering, mainly used for the CLI.
  */
 public abstract class Renderer {
     private final View view;
@@ -27,55 +27,41 @@ public abstract class Renderer {
 
     public abstract void showErrorMessage(String message);
 
-    public void printMarket() {
+    public void printLocalPlayerSchoolBoard(String localPlayer) {
     }
 
-    public void printOwnLeaders() {
+    public void printLocalPlayerCoins(String localPlayer){
     }
 
-    public void printOwnDevelopmentCards() {
+    public void printLocalPlayerCurrentAssistantCard(String LocalPlayer){
     }
 
-    public void printOwnDeposit() {
+    public void printAvailableAssistantCards(String localPlayer){
     }
 
-    public void printOwnStrongbox() {
+    public void printIslands() {
     }
 
-    public void printOthersLeaderCards(String playerName) {
+    public void printCloudTiles() {
     }
 
-    public void printOthersDevelopmentCards(String playerName) {
+    public void printActiveCharacterCards() {
     }
 
-    public void printOthersDeposit(String playerName) {
+    public void printTableCoins() {
     }
 
-    public void printOthersFaith(String playerName) {
+    public void printTableProfessors(){
     }
 
-    public void printOthersFavours(String playerName) {
+    public void printOthersCoins(String playerName){
     }
 
-    public void printDevelopmentDeck() {
+    public void printOthersSchoolBoard(String playerName) {
     }
 
-    public void printFaith(int faith) {
+    public void printOthersCurrentAssistantCard(String playerName) {
     }
-
-    public void printFavours(int popeFavours) {
-    }
-
-    public void printMarketResult() {
-    }
-
-    public void printChatMessage(String sender, String message) {
-    }
-
-    public void printFinalScores(Map<String, Integer> scores, String winnerName) {
-    }
-
-
 
     public void help() {
     }
