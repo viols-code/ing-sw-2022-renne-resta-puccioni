@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.player.Wizard;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Local copy of the game model
@@ -154,13 +155,25 @@ public class MockModel {
     }
 
     /**
-     * The list containing the character cards drawn for this game
+     * Gets the mock card with the given index
      *
-     * @return the character cards
+     * @param index the index
+     * @return the mock card
      */
     public MockCard getCharacterCardByIndex(int index) {
         return characterCards.get(index);
     }
+
+    /**
+     * Gets the mock card with the given type
+     *
+     * @param type the type
+     * @return the mock card
+     */
+    public MockCard getCharacterCardByType(CharacterCardEnumeration type) {
+        return characterCards.stream().filter(characterCard -> characterCard.getType().equals(type)).collect(Collectors.toList()).get(0);
+    }
+
 
     /**
      * Adds a character card to the list
