@@ -33,7 +33,7 @@ public class StudentToDiningRoom extends CharacterCard {
                 Colour colour1 = game.getTable().getBag().bagDrawStudent();
                 students.replace(colour1, students.get(colour1), students.get(colour1) + 1);
 
-            } catch(IllegalAccessError ex){
+            } catch (IllegalAccessError ex) {
                 ex.printStackTrace();
             }
         }
@@ -59,7 +59,7 @@ public class StudentToDiningRoom extends CharacterCard {
         try {
             Colour colour1 = game.getTable().getBag().bagDrawStudent();
             students.replace(colour1, students.get(colour1), students.get(colour1) + 1);
-        }catch(IllegalAccessError ex){
+        } catch (IllegalAccessError ex) {
             ex.printStackTrace();
         }
         notify(new StudentToDiningRoomUpdate(students));

@@ -1,21 +1,19 @@
 package it.polimi.ingsw.client;
 
-import it.polimi.ingsw.client.messages.GameModeMessage;
 import it.polimi.ingsw.client.messages.PlayerNameMessage;
 import it.polimi.ingsw.client.messages.PlayerWizardMessage;
-import it.polimi.ingsw.client.messages.PlayersToStartMessage;
 import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.model.player.Wizard;
-import it.polimi.ingsw.server.*;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.ConnectException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.NoSuchElementException;
-import java.util.Scanner;
 
-public class Client2 extends Client{
+public class Client2 extends Client {
     private String ip = "localhost";
     private int port = 54321;
 
@@ -55,11 +53,11 @@ public class Client2 extends Client{
     }
 
     @Override
-    public boolean connect(){
+    public boolean connect() {
         ObjectOutputStream out;
         ObjectInputStream in;
-        try{
-            socket = new Socket(ip,port);
+        try {
+            socket = new Socket(ip, port);
             out = new ObjectOutputStream(socket.getOutputStream());
             in = new ObjectInputStream(socket.getInputStream());
 
@@ -72,9 +70,9 @@ public class Client2 extends Client{
             send(new PlayerNameMessage("Laura"));
             send(new PlayerWizardMessage(Wizard.TYPE_2));
 
-        }catch(UnknownHostException | ConnectException e){
+        } catch (UnknownHostException | ConnectException e) {
             return false;
-        }catch(NoSuchElementException | IOException e){
+        } catch (NoSuchElementException | IOException e) {
             System.out.println("Connection closed from the client side");
             e.printStackTrace();
         }

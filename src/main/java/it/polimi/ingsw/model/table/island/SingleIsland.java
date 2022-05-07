@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model.table.island;
 
-import it.polimi.ingsw.IProcessablePacket;
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.messages.SingleIslandUpdate;
 import it.polimi.ingsw.observer.Observable;

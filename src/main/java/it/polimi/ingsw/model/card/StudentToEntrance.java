@@ -2,7 +2,6 @@ package it.polimi.ingsw.model.card;
 
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.Game;
-import it.polimi.ingsw.model.messages.StudentToDiningRoomUpdate;
 import it.polimi.ingsw.model.messages.StudentToEntranceUpdate;
 import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
 
@@ -33,7 +32,7 @@ public class StudentToEntrance extends CharacterCard {
         }
 
         for (int i = 0; i < 6; i++) {
-            try{
+            try {
                 Colour colour1 = game.getTable().getBag().bagDrawStudent();
                 students.replace(colour1, students.get(colour1), students.get(colour1) + 1);
             } catch (IllegalAccessError ex) {

@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model.table;
 
-import it.polimi.ingsw.IProcessablePacket;
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.messages.CloudTileUpdate;
 import it.polimi.ingsw.model.messages.MotherNaturePositionUpdate;
@@ -183,9 +182,9 @@ public class Table extends Observable<IServerPacket> {
      */
     public void addCLoudTile(CloudTile cloudTile) {
         cloudTiles.add(cloudTile);
-        HashMap<Colour,Integer> students = new HashMap<>();
-        for(Colour colour: Colour.values()){
-            students.put(colour,cloudTile.getTileStudents(colour));
+        HashMap<Colour, Integer> students = new HashMap<>();
+        for (Colour colour : Colour.values()) {
+            students.put(colour, cloudTile.getTileStudents(colour));
         }
         notify(new CloudTileUpdate(students));
     }
@@ -197,9 +196,9 @@ public class Table extends Observable<IServerPacket> {
      */
     public void removeCLoudTile(CloudTile cloudTile) {
         cloudTiles.remove(cloudTile);
-        HashMap<Colour,Integer> students = new HashMap<>();
-        for(Colour colour: Colour.values()){
-            students.put(colour,0);
+        HashMap<Colour, Integer> students = new HashMap<>();
+        for (Colour colour : Colour.values()) {
+            students.put(colour, 0);
         }
         notify(new CloudTileUpdate(students));
     }

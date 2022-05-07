@@ -2,7 +2,6 @@ package it.polimi.ingsw.model.card;
 
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.Game;
-import it.polimi.ingsw.model.messages.ExchangeEntranceDiningRoomUpdate;
 import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
 
 public class ExchangeEntranceDiningRoom extends CharacterCard {

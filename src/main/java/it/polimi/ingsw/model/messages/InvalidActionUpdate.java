@@ -1,11 +1,11 @@
 package it.polimi.ingsw.model.messages;
 
-import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.view.View;
 
 import java.io.Serial;
 
-/** * Update sent when a Player performs an invalid action.
+/**
+ * Update sent when a Player performs an invalid action.
  */
 public class InvalidActionUpdate extends ModelUpdate {
     @Serial

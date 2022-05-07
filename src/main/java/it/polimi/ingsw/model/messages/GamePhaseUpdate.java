@@ -10,7 +10,7 @@ public class GamePhaseUpdate extends GameUpdate {
     private static final long serialVersionUID = 7187510051232342083L;
     private final GamePhase gamePhase;
 
-    public GamePhaseUpdate(GamePhase gamePhase){
+    public GamePhaseUpdate(GamePhase gamePhase) {
         this.gamePhase = gamePhase;
     }
 

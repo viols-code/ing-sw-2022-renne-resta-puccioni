@@ -1,10 +1,5 @@
 package it.polimi.ingsw.view;
 
-import it.polimi.ingsw.view.beans.MockPlayer;
-
-import java.util.List;
-import java.util.Map;
-
 /**
  * Class responsible of handling the updates that are received from the server.
  */

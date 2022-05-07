@@ -11,7 +11,7 @@ public class MockSingleIsland {
     /**
      * An HashMap containing the number of students for each colour on the single islands
      */
-    private final HashMap<Colour,Integer> students;
+    private final HashMap<Colour, Integer> students;
 
     /**
      * Constructs the single island
@@ -25,8 +25,8 @@ public class MockSingleIsland {
      *
      * @param colour the colour of the student to add
      */
-    public void setStudent(Colour colour){
-        students.replace(colour,students.get(colour),students.get(colour) + 1);
+    public void setStudent(Colour colour) {
+        students.replace(colour, students.get(colour), students.get(colour) + 1);
     }
 
     /**
@@ -35,7 +35,7 @@ public class MockSingleIsland {
      * @param colour the colour
      * @return the number of students of the colour selected
      */
-    public int getStudents(Colour colour){
+    public int getStudents(Colour colour) {
         return students.get(colour);
     }
 }

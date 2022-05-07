@@ -47,7 +47,7 @@ public class MockGroupIsland {
      *
      * @param singleIsland the single island
      */
-    public void addMockSingleIsland(MockSingleIsland singleIsland){
+    public void addMockSingleIsland(MockSingleIsland singleIsland) {
         islands.add(singleIsland);
     }
 

@@ -15,7 +15,7 @@ public abstract class PlayerEvent implements Serializable, IProcessablePacket<Ga
         return player;
     }
 
-    public void setPlayer(String player){
+    public void setPlayer(String player) {
         this.player = player;
     }
 }

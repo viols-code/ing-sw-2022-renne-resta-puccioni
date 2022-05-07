@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model.card;
 
-import it.polimi.ingsw.IProcessablePacket;
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.Game;
 import it.polimi.ingsw.model.messages.UnifyIslandsUpdate;
@@ -47,7 +46,7 @@ public abstract class CharacterCard extends Observable<IServerPacket> {
      *
      * @return the type
      */
-    public CharacterCardEnumeration getCharacterCardType(){
+    public CharacterCardEnumeration getCharacterCardType() {
         return type;
     }
 
@@ -333,11 +332,11 @@ public abstract class CharacterCard extends Observable<IServerPacket> {
             if (groupIsland == game.getTable().getNumberOfGroupIsland() - 1) {
                 game.getTable().setMotherNaturePosition(0);
                 unifyGroupIsland(game.getTable().getIslandAfter(groupIsland), game.getTable().getGroupIslandByIndex(groupIsland));
-                notify(new UnifyIslandsUpdate(0,groupIsland));
+                notify(new UnifyIslandsUpdate(0, groupIsland));
                 groupIsland = 0;
             } else {
                 unifyGroupIsland(game.getTable().getGroupIslandByIndex(groupIsland), game.getTable().getIslandAfter(groupIsland));
-                notify(new UnifyIslandsUpdate(groupIsland,(groupIsland + 1)));
+                notify(new UnifyIslandsUpdate(groupIsland, (groupIsland + 1)));
             }
         }
 

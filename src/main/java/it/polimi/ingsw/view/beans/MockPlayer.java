@@ -33,7 +33,7 @@ public class MockPlayer {
     /**
      * The colour of the tower given to the player
      */
-    private final TowerColour towerColour ;
+    private final TowerColour towerColour;
 
     /**
      * A list representing the assistant card deck
@@ -48,8 +48,8 @@ public class MockPlayer {
     /**
      * Constructs the mock player
      *
-     * @param nickname the string containing the nickname
-     * @param hasCoins true for expert game mode, false for basic game mode
+     * @param nickname    the string containing the nickname
+     * @param hasCoins    true for expert game mode, false for basic game mode
      * @param towerColour the colour of the tower
      */
     public MockPlayer(String nickname, boolean hasCoins, TowerColour towerColour) {
@@ -59,10 +59,9 @@ public class MockPlayer {
         schoolBoard = new MockSchoolBoard();
         cards = new ArrayList<>();
         currentAssistantCard = null;
-        if(hasCoins){
+        if (hasCoins) {
             coins = 1;
-        }
-        else{
+        } else {
             coins = 0;
         }
     }

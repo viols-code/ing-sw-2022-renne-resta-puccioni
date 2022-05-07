@@ -5,17 +5,17 @@ import it.polimi.ingsw.view.View;
 
 import java.io.Serial;
 
-public class NoColourUpdate extends CardUpdate{
+public class NoColourUpdate extends CardUpdate {
     @Serial
     private static final long serialVersionUID = 9111746659820901831L;
     private final Colour colour;
 
-    public NoColourUpdate(Colour colour){
+    public NoColourUpdate(Colour colour) {
         this.colour = colour;
     }
 
     @Override
-    public void process(View view){
+    public void process(View view) {
 
     }
 }

@@ -1,7 +1,5 @@
 package it.polimi.ingsw.client;
 
-import it.polimi.ingsw.IProcessablePacket;
-
 import java.io.ObjectInputStream;
 import java.net.SocketException;
 

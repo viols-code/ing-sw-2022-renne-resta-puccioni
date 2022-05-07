@@ -1,4 +1,5 @@
 package it.polimi.ingsw;
+
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.Client2;
 
@@ -14,7 +15,7 @@ public class App {
         client.connect();
         try {
             TimeUnit.SECONDS.sleep(20);
-        } catch(InterruptedException e){
+        } catch (InterruptedException e) {
 
         }
         Client2 client2 = new Client2();

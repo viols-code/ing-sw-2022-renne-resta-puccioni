@@ -42,7 +42,7 @@ public class MockTable {
      *
      * @param cloudTile the cloud tile
      */
-    public void addCloudTile(MockCloudTile cloudTile){
+    public void addCloudTile(MockCloudTile cloudTile) {
         cloudTiles.add(cloudTile);
     }
 
@@ -51,7 +51,7 @@ public class MockTable {
      *
      * @param cloudTile the index of the cloud tile in the list
      */
-    public void removeCloudTileByIndex(int cloudTile){
+    public void removeCloudTileByIndex(int cloudTile) {
         cloudTiles.remove(cloudTile);
     }
 
@@ -61,7 +61,7 @@ public class MockTable {
      * @param cloudTile the index of the cloud tile selected
      * @return the cloud tile
      */
-    public MockCloudTile getCloudTileByIndex(int cloudTile){
+    public MockCloudTile getCloudTileByIndex(int cloudTile) {
         return cloudTiles.get(cloudTile);
     }
 
@@ -70,7 +70,7 @@ public class MockTable {
      *
      * @param groupIsland the group island
      */
-    public void addGroupIsland(MockGroupIsland groupIsland){
+    public void addGroupIsland(MockGroupIsland groupIsland) {
         groupIslands.add(groupIsland);
     }
 
@@ -79,7 +79,7 @@ public class MockTable {
      *
      * @param groupIsland the position of the group island to remove
      */
-    public void removeGroupIslandByIndex(int groupIsland){
+    public void removeGroupIslandByIndex(int groupIsland) {
         groupIslands.remove(groupIsland);
     }
 
@@ -89,8 +89,8 @@ public class MockTable {
      * @param groupIsland1 the first group island
      * @param groupIsland2 the second group island (it will be removed after unification)
      */
-    public void unify(int groupIsland1, int groupIsland2){
-        for(MockSingleIsland singleIsland: groupIslands.get(groupIsland2).getIslands()){
+    public void unify(int groupIsland1, int groupIsland2) {
+        for (MockSingleIsland singleIsland : groupIslands.get(groupIsland2).getIslands()) {
             groupIslands.get(groupIsland1).addMockSingleIsland(singleIsland);
         }
         groupIslands.remove(groupIsland2);

@@ -9,12 +9,12 @@ public class InfluencePlayerUpdate extends GroupIslandUpdate {
     private static final long serialVersionUID = 8611475659820921831L;
     private int player;
 
-    public InfluencePlayerUpdate(int player){
+    public InfluencePlayerUpdate(int player) {
         this.player = player;
     }
 
     @Override
-    public void process(View view){
+    public void process(View view) {
 
     }
 }

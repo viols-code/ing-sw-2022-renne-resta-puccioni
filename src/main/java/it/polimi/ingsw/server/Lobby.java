@@ -1,6 +1,5 @@
 package it.polimi.ingsw.server;
 
-import it.polimi.ingsw.IProcessablePacket;
 import it.polimi.ingsw.model.player.Wizard;
 import it.polimi.ingsw.observer.Observable;
 import it.polimi.ingsw.server.messages.*;
@@ -166,11 +165,11 @@ public class Lobby extends Observable<IServerPacket> {
         notify(new GameModeSetMessage(connection));
     }
 
-    public boolean getGameMode(){
+    public boolean getGameMode() {
         return gameMode;
     }
 
-    public int getPlayersToStart(){
+    public int getPlayersToStart() {
         return playersToStart;
     }
 

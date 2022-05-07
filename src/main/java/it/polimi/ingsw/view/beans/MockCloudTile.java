@@ -12,7 +12,7 @@ public class MockCloudTile {
     /**
      * A hash map with the students on the cloud tile
      */
-    private HashMap<Colour,Integer> tileStudents;
+    private HashMap<Colour, Integer> tileStudents;
 
 
     /**
@@ -27,7 +27,7 @@ public class MockCloudTile {
      *
      * @return the students on the cloud tile
      */
-    public HashMap<Colour,Integer> getMockCloudTile(){
+    public HashMap<Colour, Integer> getMockCloudTile() {
         return tileStudents;
     }
 
@@ -36,7 +36,7 @@ public class MockCloudTile {
      *
      * @param tileStudents hashmap with the students
      */
-    public void setCloudTile(HashMap<Colour, Integer> tileStudents){
+    public void setCloudTile(HashMap<Colour, Integer> tileStudents) {
         this.tileStudents = tileStudents;
     }
 }

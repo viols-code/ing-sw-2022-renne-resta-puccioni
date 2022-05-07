@@ -179,7 +179,7 @@ public class GameController implements Observer<PlayerEvent> {
     /**
      * Playing CharacterCard
      *
-     * @param nickname        the nickname of the player
+     * @param nickname      the nickname of the player
      * @param characterCard the index of the CharacterCard
      */
     public void playCharacterCard(String nickname, int characterCard) {
@@ -213,7 +213,7 @@ public class GameController implements Observer<PlayerEvent> {
     /**
      * Playing AssistantCard
      *
-     * @param nickname        the nickname of the player
+     * @param nickname      the nickname of the player
      * @param assistantCard the index of the AssistantCard
      */
     public void playAssistantCard(String nickname, int assistantCard) {
@@ -246,7 +246,7 @@ public class GameController implements Observer<PlayerEvent> {
     /**
      * Check if the player can play an AssistantCard
      *
-     * @param nickname        the nickname of the player
+     * @param nickname      the nickname of the player
      * @param assistantCard the index of the AssistantCard
      * @return true if the Player can play the AssistantCard, false otherwise
      */
@@ -300,7 +300,7 @@ public class GameController implements Observer<PlayerEvent> {
     /**
      * Move student from entrance to a SingleIsland
      *
-     * @param nickname       the nickname of the player
+     * @param nickname     the nickname of the player
      * @param colour       the colour of the student to be moved
      * @param groupIsland  the index of the GroupIsland
      * @param singleIsland the index of the SingleIsland
@@ -329,7 +329,7 @@ public class GameController implements Observer<PlayerEvent> {
      * Move student from entrance to a diningRoom
      *
      * @param nickname the nickname of the player
-     * @param colour the colour of the student to be moved
+     * @param colour   the colour of the student to be moved
      */
     public void moveStudentToDiningRoom(String nickname, Colour colour) {
         int player = game.getIndexOfPlayer(game.getPlayerByNickname(nickname));
@@ -391,7 +391,7 @@ public class GameController implements Observer<PlayerEvent> {
     /**
      * Move mother nature
      *
-     * @param nickname   the nickname of the Player
+     * @param nickname the nickname of the Player
      * @param movement the number of moves
      */
     public void moveMotherNature(String nickname, int movement) {
@@ -404,10 +404,10 @@ public class GameController implements Observer<PlayerEvent> {
                         game.getTable().setMotherNaturePosition((game.getTable().getMotherNaturePosition() + movement) % game.getTable().getNumberOfGroupIsland());
                         game.getActiveCharacterCard().calculateInfluence(game.getTable().getMotherNaturePosition());
                         if (game.getWinner() != null) endGame();
-                        else if (game.getTable().getNumberOfGroupIsland() <= 3){
+                        else if (game.getTable().getNumberOfGroupIsland() <= 3) {
                             calculateWinner();
                             endGame();
-                        } else{
+                        } else {
                             if (game.getTable().getBag().getNoStudent()) {
                                 endTurn();
                             } else {
@@ -559,7 +559,7 @@ public class GameController implements Observer<PlayerEvent> {
     /**
      * Choose a cloudTile
      *
-     * @param nickname    nickname of the player
+     * @param nickname  nickname of the player
      * @param cloudTile index of the cloudTile
      */
     public void chooseCloudTile(String nickname, int cloudTile) {
@@ -622,7 +622,7 @@ public class GameController implements Observer<PlayerEvent> {
      * Sets the colour of the student
      *
      * @param nickname the nickname of the player
-     * @param colour the colour
+     * @param colour   the colour
      */
     public void setColour(String nickname, Colour colour) {
         int player = game.getIndexOfPlayer(game.getPlayerByNickname(nickname));
@@ -639,7 +639,7 @@ public class GameController implements Observer<PlayerEvent> {
     /**
      * Sets the parameters needed for the character card StudentToIsland
      *
-     * @param nickname       the nickname of the player
+     * @param nickname     the nickname of the player
      * @param colour       colour of the student on the card
      * @param groupIsland  the group island chosen
      * @param singleIsland the single island chosen
@@ -661,7 +661,7 @@ public class GameController implements Observer<PlayerEvent> {
     /**
      * Sets the group island in the character card IslandInfluence
      *
-     * @param nickname      the nickname of the player
+     * @param nickname    the nickname of the player
      * @param groupIsland the group island
      */
     public void setGroupIsland(String nickname, int groupIsland) {
@@ -680,7 +680,7 @@ public class GameController implements Observer<PlayerEvent> {
     /**
      * Sets the parameters for the character card ExchangeDiningRoomEntrance
      *
-     * @param nickname           the nickname of the player
+     * @param nickname         the nickname of the player
      * @param colourDiningRoom the student of the dining room
      * @param colourEntrance   the student of the entrance
      */
@@ -700,7 +700,7 @@ public class GameController implements Observer<PlayerEvent> {
     /**
      * Sets the parameter for the character card StudentToEntrance
      *
-     * @param nickname         the nickname of the player
+     * @param nickname       the nickname of the player
      * @param colourCard     the student of the card
      * @param colourEntrance the student of the entrance
      */

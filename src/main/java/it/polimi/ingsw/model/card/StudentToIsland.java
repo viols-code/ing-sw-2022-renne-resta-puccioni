@@ -2,7 +2,6 @@ package it.polimi.ingsw.model.card;
 
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.Game;
-import it.polimi.ingsw.model.messages.StudentToEntranceUpdate;
 import it.polimi.ingsw.model.messages.StudentToIslandUpdate;
 import it.polimi.ingsw.model.table.island.SingleIsland;
 import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
@@ -44,7 +43,7 @@ public class StudentToIsland extends CharacterCard {
 
     public void setting() {
         for (int i = 0; i < 4; i++) {
-            try{
+            try {
                 Colour colour = game.getTable().getBag().bagDrawStudent();
                 studentsOnCard.replace(colour, studentsOnCard.get(colour), studentsOnCard.get(colour) + 1);
             } catch (IllegalAccessError ex) {
@@ -79,10 +78,10 @@ public class StudentToIsland extends CharacterCard {
     protected void effect() {
         islandChosen.addStudent(colour);
         studentsOnCard.replace(colour, studentsOnCard.get(colour), studentsOnCard.get(colour) - 1);
-        try{
+        try {
             Colour newColour = game.getTable().getBag().bagDrawStudent();
             studentsOnCard.replace(newColour, studentsOnCard.get(newColour), studentsOnCard.get(newColour) + 1);
-        }catch(IllegalAccessError ex){
+        } catch (IllegalAccessError ex) {
             ex.printStackTrace();
         }
         notify(new StudentToIslandUpdate(studentsOnCard));

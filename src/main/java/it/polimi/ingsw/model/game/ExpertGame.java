@@ -1,8 +1,6 @@
 package it.polimi.ingsw.model.game;
 
 import it.polimi.ingsw.model.card.CharacterCard;
-import it.polimi.ingsw.model.card.ExchangeEntranceDiningRoom;
-import it.polimi.ingsw.model.card.IslandInfluence;
 import it.polimi.ingsw.model.card.ProtectIsland;
 import it.polimi.ingsw.model.messages.ActiveCharacterCardUpdate;
 import it.polimi.ingsw.model.messages.CharacterCardsAvailableUpdate;

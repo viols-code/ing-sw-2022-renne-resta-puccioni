@@ -96,6 +96,7 @@ public abstract class View {
     public void setActionSender(ActionSender actionSender) {
         this.actionSender = actionSender;
     }
+
     /**
      * Sets the local player username.
      *
@@ -125,9 +126,9 @@ public abstract class View {
     /**
      * Handles the connection of an other player to the lobby.
      *
-     * @param playerName the name of the player that connected
-     * @param currentPlayers the amount of players connected to the lobby
-     * @param playersToStart the number of players required to start the game
+     * @param playerName            the name of the player that connected
+     * @param currentPlayers        the amount of players connected to the lobby
+     * @param playersToStart        the number of players required to start the game
      * @param otherConnectedPlayers the list of the other connected player names
      */
     public void handlePlayerConnect(String playerName, int currentPlayers, int playersToStart, List<String> otherConnectedPlayers) {
@@ -176,7 +177,7 @@ public abstract class View {
         getRenderer().showLobbyMessage(ViewString.GAME_STARTING);
 
         // If it is a singleplayer game initializes Lorenzo in the mock model
-        if(getModel().currentPlayersProperty().get() == 1) {
+        if (getModel().currentPlayersProperty().get() == 1) {
             MockPlayer lorenzo = getModel().addPlayer("Lorenzo", false);
             lorenzo.setFaithPoints(0);
         }
@@ -205,7 +206,7 @@ public abstract class View {
     /**
      * Handles the ending of the game.
      *
-     * @param scores a map associating usernames with their scores
+     * @param scores     a map associating usernames with their scores
      * @param winnerName the username of the winner
      */
     public abstract void handleEndGame(Map<String, Integer> scores, String winnerName);
@@ -213,8 +214,8 @@ public abstract class View {
     /**
      * Handles the ending of the singleplayer game.
      *
-     * @param lorenzoWin true if the opponent has won the game, false otherwise
-     * @param loseReason the reason of the defeat, may be null
+     * @param lorenzoWin  true if the opponent has won the game, false otherwise
+     * @param loseReason  the reason of the defeat, may be null
      * @param playerScore the score of the player, valid only if lorenzoWin is false
      */
     public abstract void handleEndSingleplayerGame(boolean lorenzoWin, String loseReason, int playerScore);

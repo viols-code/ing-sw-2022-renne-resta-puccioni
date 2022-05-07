@@ -6,12 +6,12 @@ import it.polimi.ingsw.view.View;
 import java.io.Serial;
 import java.util.HashMap;
 
-public class DiningRoomUpdate extends PlayerUpdate{
+public class DiningRoomUpdate extends PlayerUpdate {
     @Serial
     private static final long serialVersionUID = 5500455658898702341L;
     private final HashMap<Colour, Integer> students;
 
-    public DiningRoomUpdate(HashMap<Colour, Integer> students){
+    public DiningRoomUpdate(HashMap<Colour, Integer> students) {
         this.students = students;
     }
 

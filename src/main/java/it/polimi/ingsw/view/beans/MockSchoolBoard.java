@@ -8,19 +8,19 @@ import java.util.HashMap;
  * Class that contains a local copy of the player's school board
  */
 public class MockSchoolBoard {
-    private HashMap<Colour,Integer> entrance;
-    private HashMap<Colour,Integer> diningRoom;
-    private HashMap<Colour,Boolean> professorTable;
+    private HashMap<Colour, Integer> entrance;
+    private HashMap<Colour, Integer> diningRoom;
+    private HashMap<Colour, Boolean> professorTable;
 
-    public MockSchoolBoard(){
+    public MockSchoolBoard() {
         entrance = new HashMap<>();
         diningRoom = new HashMap<>();
         professorTable = new HashMap<>();
 
-        for(Colour colour: Colour.values()){
-            entrance.put(colour,0);
-            diningRoom.put(colour,0);
-            professorTable.put(colour,false);
+        for (Colour colour : Colour.values()) {
+            entrance.put(colour, 0);
+            diningRoom.put(colour, 0);
+            professorTable.put(colour, false);
         }
     }
 

@@ -1,9 +1,6 @@
 package it.polimi.ingsw.model.table;
 
-import it.polimi.ingsw.IProcessablePacket;
 import it.polimi.ingsw.model.Colour;
-import it.polimi.ingsw.model.messages.CloudTileUpdate;
-import it.polimi.ingsw.observer.Observable;
 
 import java.util.HashMap;
 

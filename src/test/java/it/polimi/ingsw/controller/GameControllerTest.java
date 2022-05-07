@@ -303,7 +303,7 @@ class GameControllerTest {
         gameControllerTwo.chooseCloudTile("Viola", 0);
         assertEquals(7, gameControllerTwo.getGame().getPlayerByIndex(0).getSchoolBoard().getNumberStudentsEntrance());
         assertEquals(gameControllerTwo.getGame().getActiveCharacterCard(), gameControllerTwo.getGame().getBasicState());
-        gameControllerTwo.setGroupIsland("Viola",0);
+        gameControllerTwo.setGroupIsland("Viola", 0);
         assertEquals(gameControllerTwo.getGame().getActiveCharacterCard(), gameControllerTwo.getGame().getBasicState());
     }
 
@@ -905,10 +905,10 @@ class GameControllerTest {
         if (gameControllerThree.getGame().getPlayerByIndex(0).getSchoolBoard().getTowers() == 0) {
             assertEquals(GamePhase.END_GAME, gameControllerThree.getGame().getGamePhase());
             assertEquals("Viola", gameControllerThree.getGame().getWinner().getNickname());
-        } else if(gameControllerThree.getGame().getTable().getBag().isBagEmpty()){
+        } else if (gameControllerThree.getGame().getTable().getBag().isBagEmpty()) {
             assertEquals(GamePhase.END_GAME, gameControllerThree.getGame().getGamePhase());
             assertEquals("Viola", gameControllerThree.getGame().getWinner().getNickname());
-        } else if(gameControllerThree.getGame().getTable().getNumberOfGroupIsland() <= 3){
+        } else if (gameControllerThree.getGame().getTable().getNumberOfGroupIsland() <= 3) {
             assertEquals(GamePhase.END_GAME, gameControllerThree.getGame().getGamePhase());
             assertEquals("Viola", gameControllerThree.getGame().getWinner().getNickname());
         } else {
@@ -957,10 +957,10 @@ class GameControllerTest {
         if (gameControllerThree.getGame().getPlayerByIndex(0).getSchoolBoard().getTowers() == 0) {
             assertEquals(GamePhase.END_GAME, gameControllerThree.getGame().getGamePhase());
             assertEquals("Viola", gameControllerThree.getGame().getWinner().getNickname());
-        } else if(gameControllerThree.getGame().getTable().getBag().isBagEmpty()){
+        } else if (gameControllerThree.getGame().getTable().getBag().isBagEmpty()) {
             assertEquals(GamePhase.END_GAME, gameControllerThree.getGame().getGamePhase());
             assertEquals("Viola", gameControllerThree.getGame().getWinner().getNickname());
-        } else if(gameControllerThree.getGame().getTable().getNumberOfGroupIsland() <= 3){
+        } else if (gameControllerThree.getGame().getTable().getNumberOfGroupIsland() <= 3) {
             assertEquals(GamePhase.END_GAME, gameControllerThree.getGame().getGamePhase());
             assertEquals("Viola", gameControllerThree.getGame().getWinner().getNickname());
         } else {
@@ -976,10 +976,10 @@ class GameControllerTest {
         if (gameControllerThree.getGame().getPlayerByIndex(0).getSchoolBoard().getTowers() == 0) {
             assertEquals(GamePhase.END_GAME, gameControllerThree.getGame().getGamePhase());
             assertEquals("Viola", gameControllerThree.getGame().getWinner().getNickname());
-        } else if(gameControllerThree.getGame().getTable().getBag().isBagEmpty()){
+        } else if (gameControllerThree.getGame().getTable().getBag().isBagEmpty()) {
             assertEquals(GamePhase.END_GAME, gameControllerThree.getGame().getGamePhase());
             assertEquals("Viola", gameControllerThree.getGame().getWinner().getNickname());
-        } else if(gameControllerThree.getGame().getTable().getNumberOfGroupIsland() <= 3){
+        } else if (gameControllerThree.getGame().getTable().getNumberOfGroupIsland() <= 3) {
             assertEquals(GamePhase.END_GAME, gameControllerThree.getGame().getGamePhase());
             assertEquals("Viola", gameControllerThree.getGame().getWinner().getNickname());
         } else {
@@ -1026,13 +1026,13 @@ class GameControllerTest {
         if (gameControllerThree.getGame().getPlayerByIndex(0).getSchoolBoard().getTowers() == 0) {
             assertEquals(GamePhase.END_GAME, gameControllerThree.getGame().getGamePhase());
             assertEquals("Viola", gameControllerThree.getGame().getWinner().getNickname());
-        } else if(gameControllerThree.getGame().getTable().getBag().isBagEmpty()){
+        } else if (gameControllerThree.getGame().getTable().getBag().isBagEmpty()) {
             assertEquals(GamePhase.END_GAME, gameControllerThree.getGame().getGamePhase());
             assertEquals("Viola", gameControllerThree.getGame().getWinner().getNickname());
-        } else if(gameControllerThree.getGame().getTable().getNumberOfGroupIsland() <= 3){
+        } else if (gameControllerThree.getGame().getTable().getNumberOfGroupIsland() <= 3) {
             assertEquals(GamePhase.END_GAME, gameControllerThree.getGame().getGamePhase());
             assertEquals("Viola", gameControllerThree.getGame().getWinner().getNickname());
-        } else if(10 - gameControllerThree.getGame().getRound() == 0){
+        } else if (10 - gameControllerThree.getGame().getRound() == 0) {
             assertEquals(GamePhase.END_GAME, gameControllerThree.getGame().getGamePhase());
             assertEquals("Viola", gameControllerThree.getGame().getWinner().getNickname());
         } else {
@@ -1686,7 +1686,7 @@ class GameControllerTest {
         gameControllerThree.addPlayer("Sara", Wizard.TYPE_2);
 
         int num = 0;
-        for(Colour colour : Colour.values()){
+        for (Colour colour : Colour.values()) {
             num += gameControllerThree.getGame().getTable().getBag().getBagStudent(colour);
         }
 
@@ -2050,7 +2050,7 @@ class GameControllerTest {
         assertEquals(gameControllerThree.getGame().getTurnPhase(), TurnPhase.MOVE_MOTHER_NATURE);
         gameControllerThree.moveMotherNature("Sara", 1);
         assertEquals(gameControllerThree.getGame().getGamePhase(), GamePhase.PLAYING);
-        assertTrue( gameControllerThree.getGame().getTable().getBag().isBagEmpty());
+        assertTrue(gameControllerThree.getGame().getTable().getBag().isBagEmpty());
 
         // Player 0
         assertEquals(gameControllerThree.getGame().getPlayerByIndex(0), gameControllerThree.getGame().getCurrentPlayer());

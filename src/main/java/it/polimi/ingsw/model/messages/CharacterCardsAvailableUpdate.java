@@ -1,7 +1,6 @@
 package it.polimi.ingsw.model.messages;
 
 
-import it.polimi.ingsw.model.card.CharacterCard;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
 
@@ -13,7 +12,7 @@ public class CharacterCardsAvailableUpdate extends GameUpdate {
     private static final long serialVersionUID = 1922435028352342341L;
     private final List<CharacterCardEnumeration> characterCards;
 
-    public CharacterCardsAvailableUpdate(List<CharacterCardEnumeration> characterCards){
+    public CharacterCardsAvailableUpdate(List<CharacterCardEnumeration> characterCards) {
         this.characterCards = characterCards;
     }
 

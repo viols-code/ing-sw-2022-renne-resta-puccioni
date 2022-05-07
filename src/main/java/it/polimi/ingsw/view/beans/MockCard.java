@@ -36,7 +36,7 @@ public class MockCard {
     /**
      * The students on the card
      */
-    private final HashMap<Colour,Integer> students;
+    private final HashMap<Colour, Integer> students;
 
     /**
      * Constructs the character card
@@ -59,16 +59,15 @@ public class MockCard {
                 numberOfStudentToChoose = 0;
             }
         }
-        if(type.equals(CharacterCardEnumeration.PROTECT_ISLAND)){
+        if (type.equals(CharacterCardEnumeration.PROTECT_ISLAND)) {
             numberOfNoEntryTile = 4;
-        }
-        else{
+        } else {
             numberOfNoEntryTile = 0;
         }
 
         students = new HashMap<>();
 
-        switch (type){
+        switch (type) {
             case STUDENT_TO_ISLAND, MOTHER_NATURE_MOVEMENT, STUDENT_TO_ENTRANCE, EXCHANGE_ENTRANCE_DINING_ROOM -> cost = 1;
             case TAKE_PROFESSOR, PROTECT_ISLAND, TWO_POINTS, STUDENT_TO_DINING_ROOM -> cost = 2;
             case ISLAND_INFLUENCE, NO_TOWER, NO_COLOUR, THREE_STUDENT -> cost = 3;
@@ -143,9 +142,9 @@ public class MockCard {
      *
      * @param colour the selected student
      */
-    public void addStudent(Colour colour){
-        if(type == CharacterCardEnumeration.STUDENT_TO_DINING_ROOM || type == CharacterCardEnumeration.STUDENT_TO_ENTRANCE || type == CharacterCardEnumeration.STUDENT_TO_ISLAND)
-            students.replace(colour,students.get(colour),students.get(colour)+1);
+    public void addStudent(Colour colour) {
+        if (type == CharacterCardEnumeration.STUDENT_TO_DINING_ROOM || type == CharacterCardEnumeration.STUDENT_TO_ENTRANCE || type == CharacterCardEnumeration.STUDENT_TO_ISLAND)
+            students.replace(colour, students.get(colour), students.get(colour) + 1);
     }
 
     /**
@@ -153,8 +152,8 @@ public class MockCard {
      *
      * @param colour the student to remove
      */
-    public void removeStudent(Colour colour){
-        if(type == CharacterCardEnumeration.STUDENT_TO_DINING_ROOM || type == CharacterCardEnumeration.STUDENT_TO_ENTRANCE || type == CharacterCardEnumeration.STUDENT_TO_ISLAND)
-            students.replace(colour,students.get(colour),students.get(colour)-1);
+    public void removeStudent(Colour colour) {
+        if (type == CharacterCardEnumeration.STUDENT_TO_DINING_ROOM || type == CharacterCardEnumeration.STUDENT_TO_ENTRANCE || type == CharacterCardEnumeration.STUDENT_TO_ISLAND)
+            students.replace(colour, students.get(colour), students.get(colour) - 1);
     }
 }

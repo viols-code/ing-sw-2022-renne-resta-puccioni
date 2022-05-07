@@ -1,8 +1,6 @@
 package it.polimi.ingsw.model.player;
 
-import it.polimi.ingsw.IProcessablePacket;
 import it.polimi.ingsw.model.messages.CoinsUpdate;
-import it.polimi.ingsw.observer.Observable;
 
 import java.util.Objects;
 

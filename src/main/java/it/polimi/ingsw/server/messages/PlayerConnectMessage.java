@@ -38,7 +38,7 @@ public class PlayerConnectMessage extends ServerMessage {
 
     @Override
     public void process(View view) {
-       // view.handlePlayerConnect(playerName, wizard, currentPlayers, playersToStart, otherConnectedPlayers, takenWizards);
+        // view.handlePlayerConnect(playerName, wizard, currentPlayers, playersToStart, otherConnectedPlayers, takenWizards);
         System.out.println("Ti sei connesso correttamente");
     }
 }

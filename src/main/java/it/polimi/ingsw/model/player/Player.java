@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model.player;
 
-import it.polimi.ingsw.IProcessablePacket;
 import it.polimi.ingsw.model.AssistantCard;
 import it.polimi.ingsw.model.messages.CurrentAssistantCardUpdate;
 import it.polimi.ingsw.observer.Observable;

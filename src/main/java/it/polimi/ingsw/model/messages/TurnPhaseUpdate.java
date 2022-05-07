@@ -5,12 +5,12 @@ import it.polimi.ingsw.view.View;
 
 import java.io.Serial;
 
-public class TurnPhaseUpdate extends GameUpdate{
+public class TurnPhaseUpdate extends GameUpdate {
     @Serial
     private static final long serialVersionUID = 1437513789242382023L;
     private final TurnPhase turnPhase;
 
-    public TurnPhaseUpdate(TurnPhase turnPhase){
+    public TurnPhaseUpdate(TurnPhase turnPhase) {
         this.turnPhase = turnPhase;
     }
 

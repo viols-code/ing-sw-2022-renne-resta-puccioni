@@ -14,7 +14,6 @@ public class GameStartMessage extends ServerMessage {
 
     /**
      * Constructs a new GameStartMessage.
-     *
      */
     public GameStartMessage(boolean gameMode) {
         this.gameMode = gameMode;
@@ -22,7 +21,7 @@ public class GameStartMessage extends ServerMessage {
 
     @Override
     public void process(View view) {
-       // view.handleGameStart(gameConfig);
+        // view.handleGameStart(gameConfig);
         System.out.println("Il gioco inizia");
     }
 

@@ -42,9 +42,9 @@ public class GameInstance implements Runnable {
             remoteView.setGameController(controller);
 
             controller.getGame().addObserver(remoteView);
-            for(int i = 0; i < controller.getGame().getTable().getNumberOfGroupIsland(); i++) {
+            for (int i = 0; i < controller.getGame().getTable().getNumberOfGroupIsland(); i++) {
                 controller.getGame().getTable().getGroupIslandByIndex(i).addObserver(remoteView);
-                for(int j = 0; j < controller.getGame().getTable().getGroupIslandByIndex(i).getNumberOfSingleIsland(); j++){
+                for (int j = 0; j < controller.getGame().getTable().getGroupIslandByIndex(i).getNumberOfSingleIsland(); j++) {
                     controller.getGame().getTable().getGroupIslandByIndex(i).getIslandByIndex(j).addObserver(remoteView);
                 }
             }
@@ -52,8 +52,8 @@ public class GameInstance implements Runnable {
             controller.getGame().getTable().addObserver(remoteView);
             controller.getGame().getTable().getBag().addObserver(remoteView);
 
-            if(isExpertGame){
-                for(int i = 0; i < 3; i++){
+            if (isExpertGame) {
+                for (int i = 0; i < 3; i++) {
                     controller.getGame().getCharacterCardByIndex(i).addObserver(remoteView);
                 }
             }

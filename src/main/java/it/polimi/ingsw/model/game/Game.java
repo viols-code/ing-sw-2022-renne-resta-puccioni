@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model.game;
 
-import it.polimi.ingsw.IProcessablePacket;
 import it.polimi.ingsw.model.AssistantCard;
 import it.polimi.ingsw.model.card.BasicState;
 import it.polimi.ingsw.model.card.CharacterCard;
@@ -153,10 +152,10 @@ public abstract class Game extends Observable<IServerPacket> {
      * @param player of whom the index is wanted
      * @return the index of the given player
      */
-    public int getIndexOfPlayer(Player player) throws IllegalArgumentException{
+    public int getIndexOfPlayer(Player player) throws IllegalArgumentException {
 
-        for(int i = 0 ; i < players.size(); i++){
-            if(players.get(i).equals(player)){
+        for (int i = 0; i < players.size(); i++) {
+            if (players.get(i).equals(player)) {
                 return i;
             }
         }
@@ -169,9 +168,9 @@ public abstract class Game extends Observable<IServerPacket> {
      * @param nickname the nickname of the player to return
      * @return the player with the given nickname
      */
-    public Player getPlayerByNickname(String nickname) throws IllegalArgumentException{
-        for(int i = 0; i < getNumberOfPlayer(); i++){
-            if(nickname.equals(getPlayerByIndex(i).getNickname())){
+    public Player getPlayerByNickname(String nickname) throws IllegalArgumentException {
+        for (int i = 0; i < getNumberOfPlayer(); i++) {
+            if (nickname.equals(getPlayerByIndex(i).getNickname())) {
                 return getPlayerByIndex(i);
             }
         }
@@ -199,7 +198,7 @@ public abstract class Game extends Observable<IServerPacket> {
         for (int i = 0; i < this.numberStudentsEntrance; i++) {
             try {
                 player.getSchoolBoard().addStudentToEntrance(this.getTable().getBag().bagDrawStudent());
-            }catch(IllegalAccessError ex){
+            } catch (IllegalAccessError ex) {
                 ex.printStackTrace();
             }
         }

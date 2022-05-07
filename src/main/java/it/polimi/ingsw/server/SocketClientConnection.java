@@ -1,8 +1,5 @@
 package it.polimi.ingsw.server;
 
-import it.polimi.ingsw.IProcessablePacket;
-import it.polimi.ingsw.client.messages.ClientMessage;
-import it.polimi.ingsw.client.messages.PlayerNameMessage;
 import it.polimi.ingsw.model.player.Wizard;
 
 import java.io.EOFException;
@@ -11,8 +8,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.SocketException;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
 import java.util.UUID;
 import java.util.concurrent.ArrayBlockingQueue;
 
@@ -35,9 +30,9 @@ public class SocketClientConnection implements Runnable {
     /**
      * Creates a new SocketClientConnection that manages the communication with the given Socket.
      *
-     * @param socket          the client socket
+     * @param socket the client socket
      */
-    SocketClientConnection(Socket socket, LobbyController lobbyController) throws IOException{
+    SocketClientConnection(Socket socket, LobbyController lobbyController) throws IOException {
         this.socket = socket;
         this.out = new ObjectOutputStream(socket.getOutputStream());
         this.in = new ObjectInputStream(socket.getInputStream());
@@ -102,7 +97,7 @@ public class SocketClientConnection implements Runnable {
      *
      * @param lobbyUUID the UUID of the lobby
      */
-    public synchronized void setLobbyUUID(UUID lobbyUUID){
+    public synchronized void setLobbyUUID(UUID lobbyUUID) {
         this.lobbyUUID = lobbyUUID;
     }
 
@@ -111,15 +106,16 @@ public class SocketClientConnection implements Runnable {
      *
      * @return the uuid of the lobby
      */
-    public synchronized UUID getLobbyUUID(){
+    public synchronized UUID getLobbyUUID() {
         return lobbyUUID;
     }
 
     /**
      * Gets the remote view asssociated with this connection
+     *
      * @return the remoteView of this connection
      */
-    public RemoteView getRemoteView(){
+    public RemoteView getRemoteView() {
         return remoteView;
     }
 
@@ -148,7 +144,7 @@ public class SocketClientConnection implements Runnable {
      */
     @Override
     public void run() {
-        try{
+        try {
             remoteView.getLobbyController().addToLobby(this);
             Object read;
             while (isActive()) {
@@ -162,9 +158,9 @@ public class SocketClientConnection implements Runnable {
                 }
             }
 
-        }catch(IOException | ClassNotFoundException e){
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
-        }finally{
+        } finally {
             try {
                 socket.close();
             } catch (IOException e) {

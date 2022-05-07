@@ -8,7 +8,9 @@ import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.model.player.Wizard;
 import it.polimi.ingsw.view.View;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.ConnectException;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -56,11 +58,11 @@ public class Client {
         this.port = port;
     }
 
-    public boolean connect(){
+    public boolean connect() {
         ObjectOutputStream out;
         ObjectInputStream in;
-        try{
-            socket = new Socket(ip,port);
+        try {
+            socket = new Socket(ip, port);
             out = new ObjectOutputStream(socket.getOutputStream());
             in = new ObjectInputStream(socket.getInputStream());
 
@@ -75,9 +77,9 @@ public class Client {
             send(new GameModeMessage(false));
             send(new PlayersToStartMessage(2));
 
-        }catch(UnknownHostException | ConnectException e){
+        } catch (UnknownHostException | ConnectException e) {
             return false;
-        }catch(NoSuchElementException | IOException e){
+        } catch (NoSuchElementException | IOException e) {
             System.out.println("Connection closed from the client side");
             e.printStackTrace();
         }
@@ -130,7 +132,7 @@ public class Client {
      */
     public void run() {
         if (startCli) {
-           // view = new CLI(this);
+            // view = new CLI(this);
         } //else view = new GUI(this, stage);
 
         try {

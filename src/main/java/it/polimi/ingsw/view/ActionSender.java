@@ -2,14 +2,13 @@ package it.polimi.ingsw.view;
 
 import it.polimi.ingsw.client.messages.GameConfigMessage;
 import it.polimi.ingsw.client.messages.PlayersToStartMessage;
-import it.polimi.ingsw.view.implementation.cli.utils.ViewString;
 import it.polimi.ingsw.model.Resource;
 import it.polimi.ingsw.model.card.CardColor;
 import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.card.SpecialAbilityType;
 import it.polimi.ingsw.view.beans.MockDeposit;
-import it.polimi.ingsw.view.messages.*;
+import it.polimi.ingsw.view.implementation.cli.utils.ViewString;
 import it.polimi.ingsw.view.messages.production.BaseProduction;
 import it.polimi.ingsw.view.messages.production.DevelopmentProduction;
 import it.polimi.ingsw.view.messages.production.LeaderProduction;
@@ -116,7 +115,7 @@ public abstract class ActionSender {
     /**
      * Selects the leader cards that will be kept and the initial resources to pick.
      *
-     * @param leaderCards a list of the uuids of the leader cards that will be kept
+     * @param leaderCards       a list of the uuids of the leader cards that will be kept
      * @param selectedResources a map containing the deposit rows associated to the chosen resources for that row
      */
     public void selectLeaders(List<UUID> leaderCards, Map<Integer, List<Resource>> selectedResources) {

@@ -1,17 +1,15 @@
 package it.polimi.ingsw.model.messages;
 
-import it.polimi.ingsw.model.card.CharacterCard;
 import it.polimi.ingsw.view.View;
 
 import java.io.Serial;
-import java.util.List;
 
-public class TableCoinsUpdate extends GameUpdate{
+public class TableCoinsUpdate extends GameUpdate {
     @Serial
     private static final long serialVersionUID = 8378015021532342071L;
     private final int tableCoins;
 
-    public TableCoinsUpdate(int tableCoins){
+    public TableCoinsUpdate(int tableCoins) {
         this.tableCoins = tableCoins;
     }
 

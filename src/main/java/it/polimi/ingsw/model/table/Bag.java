@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model.table;
 
-import it.polimi.ingsw.IProcessablePacket;
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.messages.EmptyBagUpdate;
 import it.polimi.ingsw.observer.Observable;
@@ -119,7 +118,7 @@ public class Bag extends Observable<IServerPacket> {
      *
      * @return noStudent
      */
-    public boolean getNoStudent(){
+    public boolean getNoStudent() {
         return this.noStudent;
     }
 }
