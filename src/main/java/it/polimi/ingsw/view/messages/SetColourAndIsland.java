@@ -8,12 +8,12 @@ import java.io.Serial;
 public class SetColourAndIsland extends ChangeCharacterCardState {
     @Serial
     private static final long serialVersionUID = -695696551349539585L;
-    private int player;
+    private String player;
     private final Colour colour;
     private final int groupIsland;
     private final int singleIsland;
 
-    public SetColourAndIsland(int player, Colour colour, int groupIsland, int singleIsland) {
+    public SetColourAndIsland(String player, Colour colour, int groupIsland, int singleIsland) {
         this.player = player;
         this.colour = colour;
         this.groupIsland = groupIsland;

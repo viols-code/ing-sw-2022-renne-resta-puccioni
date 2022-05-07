@@ -8,11 +8,11 @@ import java.io.Serial;
 public class SetColourDiningRoomEntrance extends ChangeCharacterCardState {
     @Serial
     private static final long serialVersionUID = -695696551399539585L;
-    private int player;
+    private String player;
     private final Colour colourDiningRoom;
     private final Colour colourEntrance;
 
-    public SetColourDiningRoomEntrance(int player, Colour colourDiningRoom, Colour colourEntrance) {
+    public SetColourDiningRoomEntrance(String player, Colour colourDiningRoom, Colour colourEntrance) {
         this.player = player;
         this.colourDiningRoom = colourDiningRoom;
         this.colourEntrance = colourEntrance;
