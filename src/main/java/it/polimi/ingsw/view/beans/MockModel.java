@@ -158,8 +158,8 @@ public class MockModel {
      *
      * @return the character cards
      */
-    public List<MockCard> getCharacterCards() {
-        return characterCards;
+    public MockCard getCharacterCardByIndex(int index) {
+        return characterCards.get(index);
     }
 
     /**
