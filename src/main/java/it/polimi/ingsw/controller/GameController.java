@@ -405,6 +405,9 @@ public class GameController implements Observer<PlayerEvent> {
                             }
                             if (!game.getCurrentPlayer().getSchoolBoard().hasProfessor(colour)) {
                                 game.getActiveCharacterCard().checkProfessor(colour);
+                                if(game.getCurrentPlayer().getSchoolBoard().hasProfessor(colour)){
+                                    game.getTable().setNoProfessorOnTable(colour);
+                                }
                             }
                             if (checkEndMovementPhase(player)) {
                                 game.setTurnPhase(TurnPhase.MOVE_MOTHER_NATURE);
