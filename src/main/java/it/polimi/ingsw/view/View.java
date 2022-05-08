@@ -210,9 +210,6 @@ public abstract class View {
      */
     public void handleInvalidAction(String errorMessage) {
         getRenderer().showErrorMessage(errorMessage);
-        if (errorMessage.startsWith("Error during action")) {
-            //getModel().getLocalPlayer().getDeposit().restoreSavedState();
-        }
     }
 
     /**
