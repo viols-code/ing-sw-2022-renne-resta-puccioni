@@ -21,7 +21,6 @@ public enum TowerColour {
         }
     }
 
-
     public static TowerColour valueOf(int towerColour) {
         return map.get(towerColour);
     }
