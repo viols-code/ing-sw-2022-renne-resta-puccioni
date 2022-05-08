@@ -31,6 +31,7 @@ public class ViewString {
     public static final String PLAYER_CRASH = "Someone crashed, terminating the game";
     public static final String PLAYER_CRASH_WITH_NAME = "Player %s crashed, terminating the game";
 
+
     /*
     Game messages
      */
