@@ -45,7 +45,10 @@ public abstract class Renderer {
     public void printCloudTiles() {
     }
 
-    public void printActiveCharacterCards() {
+    public void printActiveCharacterCard() {
+    }
+
+    public void printCharacterCards() {
     }
 
     public void printTableCoins() {
@@ -61,6 +64,10 @@ public abstract class Renderer {
     }
 
     public void printOthersCurrentAssistantCard(String playerName) {
+    }
+
+
+    public void printResult(){
     }
 
     public void help() {
