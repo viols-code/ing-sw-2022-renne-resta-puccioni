@@ -54,7 +54,7 @@ public class Lobby extends Observable<IServerPacket> {
      * Adds the given connection to this lobby.
      *
      * @param connection the connection to be added
-     * @throws IllegalStateException if 4 clients are already connected to this lobby
+     * @throws IllegalStateException if 3 clients are already connected to this lobby
      */
     public void addConnection(SocketClientConnection connection) throws IllegalStateException {
         if (connections.size() > 3)
@@ -98,6 +98,13 @@ public class Lobby extends Observable<IServerPacket> {
         notify(new CorrectNicknameMessage(playerName, otherNames));
     }
 
+    /**
+     * Sets the wizard for the given connection. If there is another player with this wizard already connected sends
+     * an error message to the client.
+     *
+     * @param connection the connection that will have its player name set
+     * @param wizard the wizard to be set, if it's null or empty sends an error message to the client
+     */
     public void setPlayerWizard(SocketClientConnection connection, Wizard wizard){
         if (wizard == null) {
             notify(new ErrorMessage(connection, "Your wizard can't be empty"));
@@ -129,7 +136,7 @@ public class Lobby extends Observable<IServerPacket> {
      * sends an error message to the client.
      *
      * @param connection     the connection that wants to set the number of players needed to start
-     * @param playersToStart the number of players needed to start the game, should be between 1 and 4, otherwise an
+     * @param playersToStart the number of players needed to start the game, should be between 2 and 3, otherwise an
      *                       error message will be sent to the client
      */
     public void setPlayersToStart(SocketClientConnection connection, int playersToStart) {
@@ -150,6 +157,12 @@ public class Lobby extends Observable<IServerPacket> {
         notify(new PlayersToStartSetMessage(connection, playersToStart));
     }
 
+    /**
+     * Sets the gameMode (expert or basic), if the given connection is not the first connection to the lobby
+     * sends an error message to the client. If the game mode chosen is not one of the available ones sends an error to the client.
+     * @param connection
+     * @param gameMode
+     */
     public void setGameMode(SocketClientConnection connection, Boolean gameMode) {
         if (connections.indexOf(connection) != 0) {
             notify(new ErrorMessage(connection, "Only the first player that connected to the lobby can set game mode"));
@@ -172,10 +185,18 @@ public class Lobby extends Observable<IServerPacket> {
         notify(new GameModeSetMessage(connection));
     }
 
+    /**
+     * gets the gaemMode chosen
+     * @return true if the gameMode is Expert
+     */
     public boolean getGameMode() {
         return gameMode;
     }
 
+    /**
+     * Gets the number of players for the game
+     * @return the number of players participating in the game
+     */
     public int getPlayersToStart() {
         return playersToStart;
     }
