@@ -191,9 +191,9 @@ public class GameController implements Observer<PlayerEvent> {
             return;
         }
 
-        if (isGameExpert && player >= 0 && player < numberOfPlayer && characterCard >= 0 && characterCard < 3) {
-            if (game.getGamePhase() == GamePhase.PLAYING) {
-                if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
+        if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
+            if (isGameExpert && player >= 0 && player < numberOfPlayer && characterCard >= 0 && characterCard < 3) {
+                if (game.getGamePhase() == GamePhase.PLAYING) {
                     try {
                         if (!game.getHasPlayedCharacterCard() &&
                                 game.getCurrentPlayer().getCoins() >= game.getCharacterCardByIndex(characterCard).getCost()) {
@@ -209,12 +209,14 @@ public class GameController implements Observer<PlayerEvent> {
                     } catch (IllegalAccessError ex) {
                         ex.printStackTrace();
                     }
+                } else{
+                    game.notifyInvalidAction(nickname, "It is not the right phase of the game");
                 }
             } else{
-                game.notifyInvalidAction(nickname, "It is not the right phase of the game");
+                game.notifyInvalidAction(nickname, "For the Character Card choose a number between 0 and 2");
             }
         } else{
-            game.notifyInvalidAction(nickname, "For the Character Card choose a number between 0 and 2");
+            game.notifyInvalidAction(nickname, "It is not your turn");
         }
     }
 
@@ -237,9 +239,9 @@ public class GameController implements Observer<PlayerEvent> {
            return;
         }
 
-        if (player >= 0 && player < numberOfPlayer && assistantCard >= 0 && assistantCard < 10) {
-            if (game.getGamePhase() == GamePhase.PLAY_ASSISTANT_CARD) {
-                if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
+        if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
+            if (player >= 0 && player < numberOfPlayer && assistantCard >= 0 && assistantCard < 10) {
+                if (game.getGamePhase() == GamePhase.PLAY_ASSISTANT_CARD) {
                     try {
                         if (game.getPlayerByIndex(player).isAssistantCardPresent(game.getAssistantCard(assistantCard))) {
                             if (canPlayAssistantCard(nickname, assistantCard)) {
@@ -262,13 +264,13 @@ public class GameController implements Observer<PlayerEvent> {
                         ex.printStackTrace();
                     }
                 } else{
-                    game.notifyInvalidAction(nickname, "It is not your turn");
+                    game.notifyInvalidAction(nickname, "It is not the right phase to play an assistant card");
                 }
             } else{
-                game.notifyInvalidAction(nickname, "It is not the right phase to play an assistant card");
+                game.notifyInvalidAction(nickname, "For the Assistant Card choose a number between 0 and 9");
             }
         } else{
-            game.notifyInvalidAction(nickname, "For the Assistant Card choose a number between 0 and 9");
+            game.notifyInvalidAction(nickname, "It is not your turn");
         }
     }
 
@@ -343,9 +345,9 @@ public class GameController implements Observer<PlayerEvent> {
             return;
         }
 
-        if (player >= 0 && player < numberOfPlayer && groupIsland >= 0 && groupIsland < game.getTable().getNumberOfGroupIsland() && singleIsland >= 0 && singleIsland < game.getTable().getGroupIslandByIndex(groupIsland).getNumberOfSingleIsland()) {
-            if (game.getGamePhase() == GamePhase.PLAYING && game.getTurnPhase() == TurnPhase.MOVE_STUDENT) {
-                if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
+        if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
+            if (player >= 0 && player < numberOfPlayer && groupIsland >= 0 && groupIsland < game.getTable().getNumberOfGroupIsland() && singleIsland >= 0 && singleIsland < game.getTable().getGroupIslandByIndex(groupIsland).getNumberOfSingleIsland()) {
+                if (game.getGamePhase() == GamePhase.PLAYING && game.getTurnPhase() == TurnPhase.MOVE_STUDENT) {
                     if (game.getPlayerByIndex(player).getSchoolBoard().getEntrance(colour) > 0) {
                         if (checkStudentsMovement(player)) {
                             game.getTable().getGroupIslandByIndex(groupIsland).getIslandByIndex(singleIsland).addStudent(colour);
@@ -360,13 +362,13 @@ public class GameController implements Observer<PlayerEvent> {
                         game.notifyInvalidAction(nickname, "You have not enough student of the given colour");
                     }
                 } else{
-                    game.notifyInvalidAction(nickname, "This is not your turn");
+                    game.notifyInvalidAction(nickname, "This is not the right phase of the game");
                 }
             } else{
-                game.notifyInvalidAction(nickname, "This is not the right phase of the game");
+                game.notifyInvalidAction(nickname, "You have chosen an island out of range");
             }
         } else{
-            game.notifyInvalidAction(nickname, "You have chosen an island out of range");
+            game.notifyInvalidAction(nickname, "This is not your turn");
         }
     }
 
@@ -385,9 +387,9 @@ public class GameController implements Observer<PlayerEvent> {
             return;
         }
 
-        if (player >= 0 && player < numberOfPlayer) {
+        if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
             if (game.getGamePhase() == GamePhase.PLAYING && game.getTurnPhase() == TurnPhase.MOVE_STUDENT) {
-                if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
+                if (player >= 0 && player < numberOfPlayer) {
                     if (game.getPlayerByIndex(player).getSchoolBoard().getEntrance(colour) > 0) {
                         if (checkStudentsMovement(player) && game.getPlayerByIndex(player).getSchoolBoard().getDiningRoom(colour) < 10) {
                             try {
@@ -413,12 +415,12 @@ public class GameController implements Observer<PlayerEvent> {
                     } else{
                         game.notifyInvalidAction(nickname, "You have not enough student of the given colour");
                     }
-                } else{
-                    game.notifyInvalidAction(nickname, "You are not the current player, wait your turn");
                 }
             } else{
                 game.notifyInvalidAction(nickname, "It is not the right phase of the game");
             }
+        } else{
+            game.notifyInvalidAction(nickname, "You are not the current player, wait your turn");
         }
     }
 
@@ -462,9 +464,9 @@ public class GameController implements Observer<PlayerEvent> {
             return;
         }
 
-        if (movement > 0) {
+        if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
             if (game.getGamePhase() == GamePhase.PLAYING && game.getTurnPhase() == TurnPhase.MOVE_MOTHER_NATURE) {
-                if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
+                if (movement > 0) {
                     if (game.getActiveCharacterCard().checkMotherNatureMovement(player, movement)) {
                         game.getTable().setMotherNaturePosition((game.getTable().getMotherNaturePosition() + movement) % game.getTable().getNumberOfGroupIsland());
                         game.getActiveCharacterCard().calculateInfluence(game.getTable().getMotherNaturePosition());
@@ -483,13 +485,13 @@ public class GameController implements Observer<PlayerEvent> {
                         game.notifyInvalidAction(nickname,"The number of movement is too high");
                     }
                 } else {
-                    game.notifyInvalidAction(nickname,"It is not your turn");
+                    game.notifyInvalidAction(nickname,"The number of movement must be positive");
                 }
             } else {
                 game.notifyInvalidAction(nickname,"It is not the right game phase");
             }
         } else {
-            game.notifyInvalidAction(nickname,"The number of movement must be positive");
+            game.notifyInvalidAction(nickname,"It is not your turn");
         }
     }
 
