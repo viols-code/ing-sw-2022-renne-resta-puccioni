@@ -4,13 +4,13 @@ import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.view.messages.*;
 
 /**
- * Class responsible for sending user interactions to the server.
+ * Implementation of ActionSender for the CLI
  */
 public abstract class ActionSender {
     private final View view;
 
     /**
-     * Constructs a new ActionSender.
+     * Constructs a new CLIActionSender.
      *
      * @param view the view responsible for this action sender
      */
