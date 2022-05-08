@@ -4,7 +4,7 @@ import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.view.messages.*;
 
 /**
- * Implementation of ActionSender for the CLI
+ * Class responsible for sending message to the server according to the player actions
  */
 public abstract class ActionSender {
     private final View view;

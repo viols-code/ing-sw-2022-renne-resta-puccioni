@@ -5,6 +5,9 @@ import it.polimi.ingsw.view.ActionSender;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.messages.*;
 
+/**
+ * Implementation of ActionSender for the CLI
+ */
 public class CLIActionSender extends ActionSender{
 
     /**
@@ -24,6 +27,7 @@ public class CLIActionSender extends ActionSender{
      * @throws IllegalArgumentException if the local player is not the current player or
      * the index chosen for the cloud tile is not valid
      */
+    @Override
     public void chooseCloudTile(String localPlayer, int cloudTile) throws IllegalArgumentException{
         try{
             super.chooseCloudTile(localPlayer, cloudTile);
@@ -40,6 +44,7 @@ public class CLIActionSender extends ActionSender{
      * @throws IllegalArgumentException if the local player is not the current player or
      * the number of steps chosen for mother nature is not valid
      */
+    @Override
     public void moveMotherNature(String localPlayer, int steps) throws IllegalArgumentException{
         try{
             super.moveMotherNature(localPlayer, steps);
@@ -56,6 +61,7 @@ public class CLIActionSender extends ActionSender{
      * @throws IllegalArgumentException if the local player isn't the current player, the player doesn't have the
      * selected student in their entrance or the dining room table of the selected student is full
      */
+    @Override
     public void moveStudentToDiningRoom(String localPlayer, Colour student)throws IllegalArgumentException{
         try{
             super.moveStudentToDiningRoom(localPlayer, student);
@@ -76,6 +82,7 @@ public class CLIActionSender extends ActionSender{
      * the group island index is out of range
      * the single island index is out of range
      */
+    @Override
     public void moveStudentToIsland(String localPlayer, Colour student, int groupIsland, int singleIsland) throws IllegalArgumentException{
         try{
             super.moveStudentToIsland(localPlayer, student, groupIsland, singleIsland);
@@ -92,6 +99,7 @@ public class CLIActionSender extends ActionSender{
      * @throws IllegalArgumentException if the local player isn't the current player
      * or the value of the assistant card is out of range
      */
+    @Override
     public void playAssistantCard(String localPlayer, int assistantCard)throws IllegalArgumentException{
         try{
             super.playAssistantCard(localPlayer, assistantCard);
@@ -110,6 +118,7 @@ public class CLIActionSender extends ActionSender{
      * the character card index is out of range,
      * the player hasn't enough money to pay the card
      */
+    @Override
     public void playCharacterCard(String localPlayer, int characterCard)throws IllegalArgumentException{
         try{
             super.playCharacterCard(localPlayer, characterCard);
@@ -125,6 +134,7 @@ public class CLIActionSender extends ActionSender{
      * @param colour the colour chosen
      * @throws IllegalArgumentException the game mode isn't expert or the local player isn't the current player
      */
+    @Override
     public void setColour(String localPlayer, Colour colour)throws IllegalArgumentException{
         try{
             super.setColour(localPlayer, colour);
@@ -145,6 +155,7 @@ public class CLIActionSender extends ActionSender{
      * the group island index is out of range
      * the single island index is out of range
      */
+    @Override
     public void setColourAndIsland(String localPlayer, Colour colour, int groupIsland, int singleIsland)throws IllegalArgumentException{
         try{
             super.setColourAndIsland(localPlayer, colour, groupIsland, singleIsland);
@@ -164,6 +175,7 @@ public class CLIActionSender extends ActionSender{
      * the selected student for the card isn't present
      * the selected student for the entrance isn't present
      */
+    @Override
     public void setColourCardEntrance(String localPlayer, Colour colourCard, Colour colourEntrance)throws IllegalArgumentException{
         try{
             super.setColourCardEntrance(localPlayer, colourCard, colourEntrance);
@@ -183,6 +195,7 @@ public class CLIActionSender extends ActionSender{
      * the selected student for the dining room isn't present
      * the selected student for the entrance isn't present
      */
+    @Override
     public void setColourDiningRoomEntrance(String localPlayer, Colour colourDiningRoom, Colour colourEntrance)throws IllegalArgumentException{
         try{
             super.setColourDiningRoomEntrance(localPlayer, colourDiningRoom, colourEntrance);
@@ -200,6 +213,7 @@ public class CLIActionSender extends ActionSender{
      * the local player isn't the current player
      * the group island index is out of range
      */
+    @Override
     public void setGroupIsland(String localPlayer, int groupIsland)throws IllegalArgumentException{
         try{
             super.setGroupIsland(localPlayer, groupIsland);
