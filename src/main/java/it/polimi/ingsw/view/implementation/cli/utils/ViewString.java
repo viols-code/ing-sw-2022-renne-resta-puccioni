@@ -36,25 +36,26 @@ public class ViewString {
      */
     public static final String OWN_TURN = "It's your turn";
     public static final String OTHER_TURN = "It's %s turn";
-    public static final String SELECT_ASSISTANT_CARD = "Select the Assistant Card you want to play:";
+    public static final String SELECT_ASSISTANT_CARD = "Select the assistant card you want to play:";
     public static final String MOVE_STUDENT_FROM_ENTRANCE = "Move the students from your entrance:";
     public static final String MOVE_MOTHER_NATURE = "Select the number of steps of mother nature:";
     public static final String SELECT_CLOUD_TILE = "Select the cloud tile:";
     public static final String INCORRECT_FORMAT = "Incorrect format: please input ";
+    // mettiamo anche i mex delle character card?
 
     /*
     Command format
      */
-
     public static final String VIEW_CHARACTER_CARDS = "\"view characterCards\"";
     public static final String VIEW_ASSISTANT_CARDS = "\"view assistantCards\"";
     public static final String VIEW_CURRENT_ASSISTANT_CARDS = "\"view currentAssistantCard\"";
-    public static final String VIEW_ISLAND = "\"view islands\"";
+    public static final String VIEW_ISLANDS = "\"view islands\"";
     public static final String VIEW_SCHOOL_BOARD = "\"view schoolBoard\"";
     public static final String VIEW_CLOUD_TILE = "\"view cloudTile\"";
-    public static final String VIEW_RESULT = "\"view winner\"";
+    public static final String VIEW_COINS = "\"view coins\"";
+    public static final String VIEW_RESULT = "\"view result\"";
 
-    public static final String SPY = "\"spy <player name> <schoolBoard|currentAssistantCard>\"";
+    public static final String SPY = "\"spy <player name> <schoolBoard|currentAssistantCard|coins>\"";
     public static final String PLAY_ASSISTANT_CARD = "\"play <assistantCard num>\"";
     public static final String PLAY_CHARACTER_CARD = "\"play <characterCard num>\"";
     public static final String MOVE_STUDENT_TO_ISLAND = "\"move student <student colour> to <groupIsland num> <singleIsland num>\"";
@@ -66,7 +67,7 @@ public class ViewString {
 
     public static List<String> getCommands() {
         List<String> commands = new ArrayList<>();
-        addMultipleToList(commands, VIEW_CHARACTER_CARDS, VIEW_ASSISTANT_CARDS, VIEW_CURRENT_ASSISTANT_CARDS, VIEW_ISLAND, VIEW_SCHOOL_BOARD,
+        addMultipleToList(commands, VIEW_CHARACTER_CARDS, VIEW_ASSISTANT_CARDS, VIEW_CURRENT_ASSISTANT_CARDS, VIEW_ISLANDS, VIEW_SCHOOL_BOARD,
                 VIEW_CLOUD_TILE, VIEW_RESULT, SPY, PLAY_ASSISTANT_CARD, PLAY_CHARACTER_CARD, MOVE_STUDENT_TO_ISLAND,
                 MOVE_STUDENT_TO_DINING_ROOM, CHOOSE_MOTHER_NATURE_STEPS, CHOOSE_CLOUD_TILE, HELP);
 

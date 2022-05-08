@@ -70,4 +70,6 @@ public abstract class ActionSender {
     public void setGroupIsland(String localPlayer, int groupIsland){
         getView().getClient().send(new SetGroupIsland(localPlayer,groupIsland));
     }
+
+
 }

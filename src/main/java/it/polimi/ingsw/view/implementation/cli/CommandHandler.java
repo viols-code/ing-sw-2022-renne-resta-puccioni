@@ -107,10 +107,48 @@ public class CommandHandler {
         // cli.getRenderer().print();
     }
 
+    /**
+     * Checks if the arguments are correct and then calls for the methods to spy other players' boards.
+     * @param args the decomposed user command
+     */
+    public void spy(String[] args) {
+        if (args.length < 2) {
+            System.out.println(ViewString.INCORRECT_FORMAT + ViewString.SPY);
+        }
+        String playerName = args[0];
+        String object = args[1];
+
+        switch (object) {
+            case "schoolBoard" -> cli.getRenderer().printOthersSchoolBoard(playerName);
+            case "currentAssistantCard" -> cli.getRenderer().printOthersCurrentAssistantCard(playerName);
+        }
+    }
+
+
+    /**
+     * Checks if the arguments are correct and then calls for the action sender to send a "move" action event.
+     * @param args the decomposed user command
+     */
+    public void move(String[] args) {
+
+    }
+
+    /**
+     * Checks if the arguments are correct and then calls for the action sender to send a "draw" action event.
+     * @param args the decomposed user command
+     */
+    public void play(String[] args) {
+
+    }
 
 
 
-    public void help() {
+
+    /**
+     * Calls the method to make the player see all the possible commands.
+     */
+    public void help(String[] args) {
+        cli.getRenderer().help();
     }
 
 
