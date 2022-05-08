@@ -74,6 +74,10 @@ public class MockTable {
         groupIslands.add(groupIsland);
     }
 
+    public List<MockGroupIsland> getGroupIslands() {
+        return groupIslands;
+    }
+
     /**
      * Gets the group island with the given index
      *

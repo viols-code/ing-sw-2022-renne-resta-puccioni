@@ -24,6 +24,8 @@ public class MockModel {
      */
     private HashMap<String, MockPlayer> players;
 
+    private MockPlayer currentPlayer;
+
     /**
      * A local copy of the game table
      */
@@ -131,6 +133,14 @@ public class MockModel {
             return newPlayer;
         } else
             return players.get(nickname.toLowerCase());
+    }
+
+    public MockPlayer getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public void setCurrentPlayer(MockPlayer currentPlayer) {
+        this.currentPlayer = currentPlayer;
     }
 
     /**
