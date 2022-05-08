@@ -31,6 +31,11 @@ public class Table extends Observable<IServerPacket> {
     private int motherNaturePosition;
 
     /**
+     * The professors
+     */
+    private HashMap<Colour, Boolean> professors;
+
+    /**
      * Constructor: creates a new game
      */
     public Table() {
@@ -38,6 +43,12 @@ public class Table extends Observable<IServerPacket> {
         islands = new ArrayList<>();
         motherNaturePosition = 0;
         cloudTiles = new ArrayList<>();
+        professors = new HashMap<>();
+        professors.put(Colour.GREEN, true);
+        professors.put(Colour.RED, true);
+        professors.put(Colour.YELLOW, true);
+        professors.put(Colour.PINK, true);
+        professors.put(Colour.BLUE, true);
     }
 
       /*
@@ -51,6 +62,14 @@ public class Table extends Observable<IServerPacket> {
      */
     public Bag getBag() {
         return bag;
+    }
+
+    public boolean isProfessorOnTable(Colour colour){
+        return professors.get(colour);
+    }
+
+    public void setNoProfessorOnTable(Colour colour){
+        professors.replace(colour, professors.get(colour), false);
     }
 
      /*
