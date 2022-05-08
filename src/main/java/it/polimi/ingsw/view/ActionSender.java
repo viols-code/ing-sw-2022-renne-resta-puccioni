@@ -59,9 +59,9 @@ public abstract class ActionSender {
         if(!getView().getModel().getCurrentPlayer().getNickname().equals(localPlayer)){
             throw new IllegalArgumentException("it's not your turn");
         }
-        else if(steps <= 0 || steps > getView().getModel().getPlayerByNickname(localPlayer).getCurrentAssistantCard().getMotherNatureMovement()){
+        /*else if(steps <= 0 || steps > getView().getModel().getPlayerByNickname(localPlayer).getCurrentAssistantCard().getMotherNatureMovement()){
             throw new IllegalArgumentException("mother nature steps out of range");
-        }
+        }*/
         else{
             getView().getClient().send(new MoveMotherNature(localPlayer,steps));
         }
