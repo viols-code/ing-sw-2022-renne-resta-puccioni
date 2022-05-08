@@ -1,5 +1,6 @@
 package it.polimi.ingsw.view.implementation.cli;
 
+import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.view.implementation.cli.utils.ViewString;
 
 import java.lang.reflect.InvocationTargetException;
@@ -20,6 +21,10 @@ public class CommandHandler {
         this.cli = cli;
     }
 
+    public String extractCommand(String str){
+        return str.substring(0, 1).toUpperCase(Locale.ROOT) + str.substring(1);
+    }
+
 
     /**
      * The main method. It parses the input, checking if it corresponds to a possible move, and in this case it calls it.
@@ -36,7 +41,10 @@ public class CommandHandler {
         String cmd = split[0];
         String[] args = new String[0];
         if (cmd.equals("view")) {
-            split[1] = split[1].substring(0, 1).toUpperCase(Locale.ROOT) + split[1].substring(1);
+            split[1] = extractCommand(split[1]);
+            for (int i = 2; i < split.length; i++) {
+                split[1] += extractCommand(split[i]);
+            }
             cmd = cmd.concat(split[1]);
             args = null;
         } else if (split.length > 1)
@@ -61,7 +69,7 @@ public class CommandHandler {
      * Calls the method to make the player see the character cards.
      */
     public void viewCharacterCards() {
-        // cli.getRenderer().print();
+        cli.getRenderer().printCharacterCards();
     }
 
     /**
@@ -78,6 +86,12 @@ public class CommandHandler {
         cli.getRenderer().printLocalPlayerCurrentAssistantCard();
     }
 
+    /**
+     * Calls the method to make the player see their assistant cards.
+     */
+    public void setViewCurrentCharacterCard() {
+        cli.getRenderer().printActiveCharacterCard();
+    }
 
     /**
      * Calls the method to make the player see the islands.
@@ -101,10 +115,31 @@ public class CommandHandler {
     }
 
     /**
+     * Calls the method to make the player see the professors on the table.
+     */
+    public void ViewProfessors(){
+        cli.getRenderer().printTableProfessors();
+    }
+
+    /**
+     * Calls the method to make the player see the local player coins.
+     */
+    public void ViewCoins() {
+        cli.getRenderer().printLocalPlayerCoins();
+    }
+
+    /**
+     * Calls the method to make the player see coins on the table.
+     */
+    public void ViewBank() {
+        cli.getRenderer().printTableCoins();
+    }
+
+    /**
      * Calls the method to make the player see the winner.
      */
-    public void ViewWinner() {
-        // cli.getRenderer().print();
+    public void ViewResult() {
+        cli.getRenderer().printResult();
     }
 
     /**
@@ -117,10 +152,14 @@ public class CommandHandler {
         }
         String playerName = args[0];
         String object = args[1];
+        for(int i = 2; i < args.length; i++){
+            object += extractCommand(args[i]);
+        }
 
         switch (object) {
             case "schoolBoard" -> cli.getRenderer().printOthersSchoolBoard(playerName);
             case "currentAssistantCard" -> cli.getRenderer().printOthersCurrentAssistantCard(playerName);
+            case "coins" -> cli.getRenderer().printOthersCoins(playerName);
         }
     }
 
@@ -130,7 +169,28 @@ public class CommandHandler {
      * @param args the decomposed user command
      */
     public void move(String[] args) {
+        if (args.length < 2) {
+            System.out.println(ViewString.INCORRECT_FORMAT);
+        }
 
+        switch (args[0]) {
+            case "mother" -> {
+                try {
+                    int steps;
+                    steps = Integer.parseInt(args[3]);
+                    cli.getActionSender().moveMotherNature(cli.getPlayerName(), steps);
+                } catch (NumberFormatException e) {
+                    System.out.println(ViewString.INCORRECT_FORMAT + ViewString.MOVE_MOTHER_NATURE_STEPS);
+                    return;
+                }
+            }
+            case "student" -> {
+                Colour colour;
+                colour = Colour.valueOf(args[1]);
+
+
+            }
+        }
     }
 
     /**
