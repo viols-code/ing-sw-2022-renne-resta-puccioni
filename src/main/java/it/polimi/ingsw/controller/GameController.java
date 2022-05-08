@@ -649,9 +649,9 @@ public class GameController implements Observer<PlayerEvent> {
             return;
         }
 
-        if (cloudTile >= 0 && cloudTile < game.getTable().getNumberOfCloudTile()) {
+        if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
             if (game.getGamePhase() == GamePhase.PLAYING && game.getTurnPhase() == TurnPhase.CHOOSE_CLOUD_TILE) {
-                if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
+                if (cloudTile >= 0 && cloudTile < game.getTable().getNumberOfCloudTile()) {
                     for (Colour colour : Colour.values()) {
                         for (int i = 0; i < game.getTable().getCloudTilesByIndex(cloudTile).getTileStudents(colour); i++) {
                             game.getCurrentPlayer().getSchoolBoard().addStudentToEntrance(colour);
@@ -660,13 +660,13 @@ public class GameController implements Observer<PlayerEvent> {
                     game.getTable().removeCLoudTile(game.getTable().getCloudTilesByIndex(cloudTile));
                     endTurn();
                 } else{
-                    game.notifyInvalidAction(nickname, "It is not your turn");
+                    game.notifyInvalidAction(nickname, "The number of cloud tile given is out of range");
                 }
             } else{
                 game.notifyInvalidAction(nickname, "It is not the right game phase");
             }
         } else{
-            game.notifyInvalidAction(nickname, "The number of cloud tile given is out of range");
+            game.notifyInvalidAction(nickname, "It is not your turn");
         }
     }
 
@@ -728,6 +728,7 @@ public class GameController implements Observer<PlayerEvent> {
                 game.getActiveCharacterCard().setColour(colour);
             } catch (IllegalAccessError ex) {
                 ex.printStackTrace();
+                game.notifyInvalidAction(nickname, ex.getMessage());
             }
         } else{
             game.notifyInvalidAction(nickname, "You are not the current player, wait your turn");
@@ -757,6 +758,7 @@ public class GameController implements Observer<PlayerEvent> {
                     game.getActiveCharacterCard().setColourAndIsland(colour, game.getTable().getGroupIslandByIndex(groupIsland).getIslandByIndex(singleIsland));
             } catch (IllegalAccessError | IllegalArgumentException ex) {
                 ex.printStackTrace();
+                game.notifyInvalidAction(nickname, ex.getMessage());
             }
         } else{
             game.notifyInvalidAction(nickname, "You are not the current player, wait your turn");
@@ -785,6 +787,7 @@ public class GameController implements Observer<PlayerEvent> {
                     game.getActiveCharacterCard().setGroupIsland(groupIsland);
             } catch (IllegalAccessError ex) {
                 ex.printStackTrace();
+                game.notifyInvalidAction(nickname, ex.getMessage());
             }
         } else{
             game.notifyInvalidAction(nickname, "You are not the current player, wait your turn");
@@ -812,6 +815,7 @@ public class GameController implements Observer<PlayerEvent> {
                 game.getActiveCharacterCard().setColourDiningRoomEntrance(colourDiningRoom, colourEntrance);
             } catch (IllegalAccessError ex) {
                 ex.printStackTrace();
+                game.notifyInvalidAction(nickname, ex.getMessage());
             }
         } else{
             game.notifyInvalidAction(nickname, "You are not the current player, wait your turn");
@@ -839,6 +843,7 @@ public class GameController implements Observer<PlayerEvent> {
                 game.getActiveCharacterCard().setColourCardEntrance(colourCard, colourEntrance);
             } catch (IllegalAccessError ex) {
                 ex.printStackTrace();
+                game.notifyInvalidAction(nickname, ex.getMessage());
             }
         } else{
             game.notifyInvalidAction(nickname, "You are not the current player, wait your turn");
