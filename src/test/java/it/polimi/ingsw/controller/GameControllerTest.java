@@ -163,7 +163,7 @@ class GameControllerTest {
         }
     }
 
-    @Test
+    @RepeatedTest(100)
     void moveStudentToDiningRoom() {
         gameControllerTwo.addPlayer("Viola", Wizard.TYPE_1);
         gameControllerTwo.addPlayer("Laura", Wizard.TYPE_2);
@@ -173,11 +173,17 @@ class GameControllerTest {
             for (Colour colour : Colour.values()) {
                 if (gameControllerTwo.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
                     gameControllerTwo.moveStudentToDiningRoom("Viola", colour);
-                    assertFalse(gameControllerTwo.getGame().getTable().isProfessorOnTable(colour));
                 }
             }
         }
         assertEquals(4, gameControllerTwo.getGame().getPlayerByIndex(0).getSchoolBoard().getNumberStudentsEntrance());
+
+        for (Colour colour : Colour.values()) {
+            if (gameControllerTwo.getGame().getPlayerByIndex(0).getSchoolBoard().getDiningRoom(colour) > 0) {
+                assertTrue(gameControllerTwo.getGame().getPlayerByIndex(0).getSchoolBoard().hasProfessor(colour));
+                assertFalse(gameControllerTwo.getGame().getTable().isProfessorOnTable(colour));
+            }
+        }
     }
 
     @Test
