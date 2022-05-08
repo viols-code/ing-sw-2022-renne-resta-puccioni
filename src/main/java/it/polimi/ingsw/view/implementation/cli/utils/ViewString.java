@@ -47,30 +47,33 @@ public class ViewString {
     /*
     Command format
      */
-    public static final String VIEW_CHARACTER_CARDS = "\"view characterCards\"";
-    public static final String VIEW_ASSISTANT_CARDS = "\"view assistantCards\"";
-    public static final String VIEW_CURRENT_ASSISTANT_CARDS = "\"view currentAssistantCard\"";
+    public static final String VIEW_CHARACTER_CARDS = "\"view character cards\"";
+    public static final String VIEW_ASSISTANT_CARDS = "\"view assistant cards\"";
+    public static final String VIEW_CURRENT_ASSISTANT_CARDS = "\"view current assistant card\"";
+    public static final String VIEW_ACTIVE_CHARACTER_CARDS = "\"view active character card\"";
     public static final String VIEW_ISLANDS = "\"view islands\"";
-    public static final String VIEW_SCHOOL_BOARD = "\"view schoolBoard\"";
+    public static final String VIEW_PROFESSORS = "\"view professors\"";
+    public static final String VIEW_SCHOOL_BOARD = "\"view school board\"";
     public static final String VIEW_CLOUD_TILE = "\"view cloudTile\"";
     public static final String VIEW_COINS = "\"view coins\"";
+    public static final String VIEW_BANK = "\"view bank\"";
     public static final String VIEW_RESULT = "\"view result\"";
 
-    public static final String SPY = "\"spy <player name> <schoolBoard|currentAssistantCard|coins>\"";
-    public static final String PLAY_ASSISTANT_CARD = "\"play <assistantCard num>\"";
-    public static final String PLAY_CHARACTER_CARD = "\"play <characterCard num>\"";
+    public static final String SPY = "\"spy <player name> <school board|current assistant card|coins>\"";
+    public static final String PLAY_ASSISTANT_CARD = "\"play assistant card <assistantCard num>\"";
+    public static final String PLAY_CHARACTER_CARD = "\"play character card <characterCard num>\"";
     public static final String MOVE_STUDENT_TO_ISLAND = "\"move student <student colour> to <groupIsland num> <singleIsland num>\"";
     public static final String MOVE_STUDENT_TO_DINING_ROOM = "\"move student <student colour> to dining room\"";
-    public static final String CHOOSE_MOTHER_NATURE_STEPS = "\"move mother nature by <movement num> \"";
-    public static final String CHOOSE_CLOUD_TILE = "\"choose <cloudTile num> \"";
+    public static final String MOVE_MOTHER_NATURE_STEPS = "\"move mother nature by <movement num> \"";
+    public static final String CHOOSE_CLOUD_TILE = "\"choose cloud tile <cloudTile num> \"";
 
     public static final String HELP = "\"help\"";
 
     public static List<String> getCommands() {
         List<String> commands = new ArrayList<>();
-        addMultipleToList(commands, VIEW_CHARACTER_CARDS, VIEW_ASSISTANT_CARDS, VIEW_CURRENT_ASSISTANT_CARDS, VIEW_ISLANDS, VIEW_SCHOOL_BOARD,
-                VIEW_CLOUD_TILE, VIEW_RESULT, SPY, PLAY_ASSISTANT_CARD, PLAY_CHARACTER_CARD, MOVE_STUDENT_TO_ISLAND,
-                MOVE_STUDENT_TO_DINING_ROOM, CHOOSE_MOTHER_NATURE_STEPS, CHOOSE_CLOUD_TILE, HELP);
+        addMultipleToList(commands, VIEW_CHARACTER_CARDS, VIEW_ASSISTANT_CARDS, VIEW_ACTIVE_CHARACTER_CARDS, VIEW_CURRENT_ASSISTANT_CARDS, VIEW_ISLANDS, VIEW_SCHOOL_BOARD,
+                VIEW_CLOUD_TILE, VIEW_COINS, VIEW_PROFESSORS, VIEW_BANK, VIEW_RESULT, SPY, PLAY_ASSISTANT_CARD, PLAY_CHARACTER_CARD, MOVE_STUDENT_TO_ISLAND,
+                MOVE_STUDENT_TO_DINING_ROOM, MOVE_MOTHER_NATURE_STEPS, CHOOSE_CLOUD_TILE, HELP);
 
         return commands;
     }
