@@ -130,8 +130,8 @@ public abstract class View {
 
 
     /*
-        Handle ServerMessages
-         */
+     Handle ServerMessages
+     */
 
     /**
      * Handles the successful connection to a server lobby.
