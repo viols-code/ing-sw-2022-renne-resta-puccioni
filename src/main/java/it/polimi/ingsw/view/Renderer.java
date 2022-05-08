@@ -6,7 +6,7 @@ import it.polimi.ingsw.view.beans.MockPlayer;
 import java.util.Map;
 
 /**
- * Class responsible of game components rendering, mainly used for the CLI.
+ * Class responsible for game components rendering, mainly used for the CLI.
  */
 public abstract class Renderer {
     private final View view;
