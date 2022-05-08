@@ -173,6 +173,7 @@ class GameControllerTest {
             for (Colour colour : Colour.values()) {
                 if (gameControllerTwo.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
                     gameControllerTwo.moveStudentToDiningRoom("Viola", colour);
+                    assertFalse(gameControllerTwo.getGame().getTable().isProfessorOnTable(colour));
                 }
             }
         }
