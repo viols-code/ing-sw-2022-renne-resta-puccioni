@@ -290,6 +290,4 @@ public abstract class ActionSender {
             getView().getClient().send(new SetGroupIsland(localPlayer,groupIsland));
         }
     }
-
-
 }
