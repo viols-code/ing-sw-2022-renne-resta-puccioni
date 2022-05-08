@@ -156,4 +156,8 @@ public class MockCard {
         if (type == CharacterCardEnumeration.STUDENT_TO_DINING_ROOM || type == CharacterCardEnumeration.STUDENT_TO_ENTRANCE || type == CharacterCardEnumeration.STUDENT_TO_ISLAND)
             students.replace(colour, students.get(colour), students.get(colour) - 1);
     }
+
+    public HashMap<Colour, Integer> getStudents() {
+        return students;
+    }
 }
