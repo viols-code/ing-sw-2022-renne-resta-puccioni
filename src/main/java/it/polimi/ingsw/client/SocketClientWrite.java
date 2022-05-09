@@ -28,7 +28,7 @@ public class SocketClientWrite extends Thread {
     }
 
     /**
-     * Starts the write thread loop, waiting for objects to be added to the queue and sending them to the server.
+     * Starts writing thread loop, waiting for objects to be added to the queue and sending them to the server.
      */
     @Override
     public void run() {
