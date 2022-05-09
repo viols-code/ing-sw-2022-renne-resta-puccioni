@@ -124,6 +124,7 @@ public class CLI extends View {
                     if (!getClient().connect())
                         getRenderer().showErrorMessage("Unknown host or port, please try again!");
                 }
+
                 case CHOOSING_NAME -> setPlayerName(command);
 
                 case CHOOSING_WIZARD -> {

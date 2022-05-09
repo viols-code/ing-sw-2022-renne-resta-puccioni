@@ -111,7 +111,7 @@ public class SocketClientConnection implements Runnable {
     }
 
     /**
-     * Gets the remote view asssociated with this connection
+     * Gets the remote view associated with this connection
      *
      * @return the remoteView of this connection
      */
@@ -136,7 +136,7 @@ public class SocketClientConnection implements Runnable {
      */
     private void close() {
         closeConnection();
-        System.out.println("Deregistering client...");
+        System.out.println("Unregistering client...");
     }
 
     /**
