@@ -1,5 +1,6 @@
 package it.polimi.ingsw.view;
 
+import it.polimi.ingsw.client.messages.GameModeMessage;
 import it.polimi.ingsw.client.messages.PlayersToStartMessage;
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.view.messages.*;
@@ -299,5 +300,14 @@ public abstract class ActionSender {
      */
     public void setPlayersToStart(int playersToStart) {
         getView().getClient().send(new PlayersToStartMessage(playersToStart));
+    }
+
+    /**
+     * Sets the number of players required to start this game.
+     *
+     * @param playersToStart the number of players required to start the game
+     */
+    public void setGameMode(boolean gameMode) {
+        getView().getClient().send(new GameModeMessage(gameMode));
     }
 }
