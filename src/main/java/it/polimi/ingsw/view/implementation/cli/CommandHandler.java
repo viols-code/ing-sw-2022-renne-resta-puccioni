@@ -5,9 +5,7 @@ import it.polimi.ingsw.view.implementation.cli.utils.ViewString;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Locale;
 
 public class CommandHandler {
