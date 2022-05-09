@@ -36,9 +36,9 @@ public class SocketClientWrite extends Thread {
             while (client.isActive()) {
                 Object object = bufferOut.take();
 
-                socketOut.reset();
                 socketOut.writeObject(object);
                 socketOut.flush();
+                socketOut.reset();
             }
         } catch (InterruptedException ignored) {
         } catch (Exception e) {
