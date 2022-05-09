@@ -47,11 +47,11 @@ class IslandInfluenceTest {
         player2.getSchoolBoard().addStudentToDiningRoom(Colour.RED);
         player2.getSchoolBoard().addProfessor(Colour.RED);
 
-        gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0).addStudent(Colour.BLUE);
-        gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0).addStudent(Colour.BLUE);
-        gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0).addStudent(Colour.BLUE);
-        gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0).addStudent(Colour.RED);
-        gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0).addStudent(Colour.RED);
+        gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0).addStudent(0,0,Colour.BLUE);
+        gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0).addStudent(0,0,Colour.BLUE);
+        gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0).addStudent(0,0,Colour.BLUE);
+        gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0).addStudent(0,0,Colour.RED);
+        gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0).addStudent(0,0,Colour.RED);
     }
 
     @Test
@@ -65,19 +65,19 @@ class IslandInfluenceTest {
         cardTest.setGroupIsland(0);
         assertEquals(player1, gameTest.getTable().getGroupIslandByIndex(0).getInfluence());
         assertEquals(7, player1.getSchoolBoard().getTowers());
-        gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0).addStudent(Colour.RED);
-        gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0).addStudent(Colour.RED);
-        gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0).addStudent(Colour.RED);
-        gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0).addStudent(Colour.RED);
+        gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0).addStudent(0,0,Colour.RED);
+        gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0).addStudent(0,0,Colour.RED);
+        gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0).addStudent(0,0,Colour.RED);
+        gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0).addStudent(0,0,Colour.RED);
         cardTest.setGroupIsland(0);
         assertEquals(player2, gameTest.getTable().getGroupIslandByIndex(0).getInfluence());
         assertEquals(8, player1.getSchoolBoard().getTowers());
         assertEquals(7, player2.getSchoolBoard().getTowers());
 
-        gameTest.getTable().getGroupIslandByIndex(1).getIslandByIndex(0).addStudent(Colour.BLUE);
-        gameTest.getTable().getGroupIslandByIndex(1).getIslandByIndex(0).addStudent(Colour.RED);
-        gameTest.getTable().getGroupIslandByIndex(1).getIslandByIndex(0).addStudent(Colour.RED);
-        gameTest.getTable().getGroupIslandByIndex(1).getIslandByIndex(0).addStudent(Colour.RED);
+        gameTest.getTable().getGroupIslandByIndex(1).getIslandByIndex(0).addStudent(1,0,Colour.BLUE);
+        gameTest.getTable().getGroupIslandByIndex(1).getIslandByIndex(0).addStudent(1,0,Colour.RED);
+        gameTest.getTable().getGroupIslandByIndex(1).getIslandByIndex(0).addStudent(1,0,Colour.RED);
+        gameTest.getTable().getGroupIslandByIndex(1).getIslandByIndex(0).addStudent(1,0,Colour.RED);
         assertEquals(12, gameTest.getTable().getNumberOfGroupIsland());
         cardTest.setGroupIsland(1);
         assertEquals(11, gameTest.getTable().getNumberOfGroupIsland());
@@ -129,7 +129,7 @@ class IslandInfluenceTest {
 
         for (int i = 1; i < 12; i++) {
             if (i == 5) i++;
-            gameTest.getTable().getGroupIslandByIndex(i).getIslandByIndex(0).addStudent(gameTest.getTable().getBag().bagDrawStudent());
+            gameTest.getTable().getGroupIslandByIndex(i).getIslandByIndex(0).addStudent(i,0,gameTest.getTable().getBag().bagDrawStudent());
         }
 
         for (Colour colour : Colour.values()) {
