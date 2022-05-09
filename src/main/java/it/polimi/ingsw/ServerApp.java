@@ -16,19 +16,7 @@ public class ServerApp {
      */
     public static void main(String[] args) {
         Server server;
-        String command = "view ciao bella";
 
-        String[] split = command.split(" ");
-        String cmd = split[0];
-        String[] ciao = new String[0];
-        if (cmd.equals("view")) {
-            split[1] = split[1].substring(0, 1).toUpperCase(Locale.ROOT) + split[1].substring(1);
-            for (int i = 2; i < split.length; i++) {
-                split[1] += split[i].substring(0, 1).toUpperCase(Locale.ROOT) + split[i].substring(1);
-            }
-        }
-
-        System.out.println(split[1]);
         try {
             server = new Server();
             server.run();
