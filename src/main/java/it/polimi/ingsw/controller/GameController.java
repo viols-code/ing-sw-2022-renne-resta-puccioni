@@ -104,7 +104,7 @@ public class GameController implements Observer<PlayerEvent> {
         for (int i = 1; i < 12; i++) {
             if (i == 6) i++;
             try {
-                game.getTable().getGroupIslandByIndex(i).getIslandByIndex(0).addStudent(game.getTable().getBag().bagDrawStudent());
+                game.getTable().getGroupIslandByIndex(i).getIslandByIndex(0).addStudent(i,0,game.getTable().getBag().bagDrawStudent());
             } catch (IllegalAccessError ex) {
                 ex.printStackTrace();
             }
@@ -350,7 +350,7 @@ public class GameController implements Observer<PlayerEvent> {
                 if (game.getGamePhase() == GamePhase.PLAYING && game.getTurnPhase() == TurnPhase.MOVE_STUDENT) {
                     if (game.getPlayerByIndex(player).getSchoolBoard().getEntrance(colour) > 0) {
                         if (checkStudentsMovement(player)) {
-                            game.getTable().getGroupIslandByIndex(groupIsland).getIslandByIndex(singleIsland).addStudent(colour);
+                            game.getTable().getGroupIslandByIndex(groupIsland).getIslandByIndex(singleIsland).addStudent(groupIsland, singleIsland, colour);
                             game.getPlayerByIndex(player).getSchoolBoard().removeStudentFromEntrance(colour);
                             if (checkEndMovementPhase(player)) {
                                 game.setTurnPhase(TurnPhase.MOVE_MOTHER_NATURE);
