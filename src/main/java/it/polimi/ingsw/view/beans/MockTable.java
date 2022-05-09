@@ -1,5 +1,7 @@
 package it.polimi.ingsw.view.beans;
 
+import it.polimi.ingsw.model.table.CloudTile;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,6 +68,14 @@ public class MockTable {
     }
 
     /**
+     * Gets the list of CloudTiled
+     * @return the list of cloudTiles
+     */
+    public List<MockCloudTile> getCloudTile(){
+        return cloudTiles;
+    }
+
+    /**
      * Adds a group island to the list
      *
      * @param groupIsland the group island
@@ -74,6 +84,10 @@ public class MockTable {
         groupIslands.add(groupIsland);
     }
 
+    /**
+     * Gets the list of GroupIslands
+     * @return the list of groupIslands
+     */
     public List<MockGroupIsland> getGroupIslands() {
         return groupIslands;
     }
