@@ -83,11 +83,6 @@ public class Client {
             writeThread.start();
             System.out.println("Connection established");
 
-            send(new PlayerNameMessage("Viola"));
-            send(new PlayerWizardMessage(Wizard.TYPE_1));
-            send(new GameModeMessage(false));
-            send(new PlayersToStartMessage(2));
-
         } catch (UnknownHostException | ConnectException e) {
             return false;
         } catch (NoSuchElementException | IOException e) {

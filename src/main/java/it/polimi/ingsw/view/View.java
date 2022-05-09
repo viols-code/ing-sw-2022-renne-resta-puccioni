@@ -1,6 +1,7 @@
 package it.polimi.ingsw.view;
 
 import it.polimi.ingsw.client.messages.PlayerWizardMessage;
+import it.polimi.ingsw.model.game.Game;
 import it.polimi.ingsw.model.player.Wizard;
 import it.polimi.ingsw.view.implementation.cli.utils.ViewString;
 import it.polimi.ingsw.client.Client;
@@ -35,6 +36,7 @@ public abstract class View {
     public View(Client client) {
         this.client = client;
         this.model = new MockModel();
+        this.gameState = GameState.CONNECTING;
     }
 
     /**

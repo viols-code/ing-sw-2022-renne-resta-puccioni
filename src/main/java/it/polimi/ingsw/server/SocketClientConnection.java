@@ -145,7 +145,7 @@ public class SocketClientConnection implements Runnable {
     @Override
     public void run() {
         try {
-            remoteView.getLobbyController().addToLobby(this);
+            //remoteView.getLobbyController().addToLobby(this);
             Object read;
             while (isActive()) {
                 read = in.readObject();
