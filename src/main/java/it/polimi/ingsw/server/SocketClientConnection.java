@@ -17,9 +17,9 @@ import java.util.concurrent.ArrayBlockingQueue;
 public class SocketClientConnection implements Runnable {
     private final Socket socket;
     private boolean active = true;
-    private String playerName;
-    private Wizard wizard;
-    private UUID lobbyUUID;
+    private String playerName = null;
+    private Wizard wizard = null;
+    private UUID lobbyUUID = null;
 
     private static final int BUFFER_CAPACITY = 20;
     private final ObjectOutputStream out;
