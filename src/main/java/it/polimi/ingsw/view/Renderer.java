@@ -9,7 +9,7 @@ import java.util.Map;
  * Class responsible for game components rendering, mainly used for the CLI.
  */
 public abstract class Renderer {
-    private final View view;
+    protected final View view;
 
     protected Renderer(View view) {
         this.view = view;
