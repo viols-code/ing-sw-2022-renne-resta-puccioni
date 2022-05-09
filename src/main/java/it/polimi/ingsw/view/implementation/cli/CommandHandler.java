@@ -47,6 +47,13 @@ public class CommandHandler {
             }
             cmd = cmd.concat(split[1]);
             args = null;
+        } else if(cmd.equals("play")){
+            split[1] = extractCommand(split[1]);
+            for (int i = 2; i < 3; i++) {
+                split[1] += extractCommand(split[i]);
+            }
+            cmd = cmd.concat(split[1]);
+            args = Arrays.copyOfRange(split, 3, split.length);
         } else if (split.length > 1)
             args = Arrays.copyOfRange(split, 1, split.length);
 
@@ -89,7 +96,7 @@ public class CommandHandler {
     /**
      * Calls the method to make the player see their assistant cards.
      */
-    public void setViewCurrentCharacterCard() {
+    public void viewCurrentCharacterCard() {
         cli.getRenderer().printActiveCharacterCard();
     }
 
@@ -110,35 +117,35 @@ public class CommandHandler {
     /**
      * Calls the method to make the player see the cloud tiles.
      */
-    public void ViewCloudTile() {
+    public void viewCloudTile() {
         cli.getRenderer().printCloudTiles();
     }
 
     /**
      * Calls the method to make the player see the professors on the table.
      */
-    public void ViewProfessors(){
+    public void viewProfessors(){
         cli.getRenderer().printTableProfessors();
     }
 
     /**
      * Calls the method to make the player see the local player coins.
      */
-    public void ViewCoins() {
+    public void viewCoins() {
         cli.getRenderer().printLocalPlayerCoins();
     }
 
     /**
      * Calls the method to make the player see coins on the table.
      */
-    public void ViewBank() {
+    public void viewBank() {
         cli.getRenderer().printTableCoins();
     }
 
     /**
      * Calls the method to make the player see the winner.
      */
-    public void ViewResult() {
+    public void viewResult() {
         cli.getRenderer().printResult();
     }
 
@@ -173,23 +180,104 @@ public class CommandHandler {
             System.out.println(ViewString.INCORRECT_FORMAT);
         }
 
+        String command = "move";
+        String[] arguments = null;
+
         switch (args[0]) {
             case "mother" -> {
-                try {
-                    int steps;
-                    steps = Integer.parseInt(args[3]);
-                    cli.getActionSender().moveMotherNature(cli.getPlayerName(), steps);
-                } catch (NumberFormatException e) {
+                if (args.length != 3) {
                     System.out.println(ViewString.INCORRECT_FORMAT + ViewString.MOVE_MOTHER_NATURE_STEPS);
-                    return;
                 }
+                command += extractCommand(args[0]);
+                command += extractCommand(args[1]);
+                arguments = Arrays.copyOfRange(args, 2, args.length);
             }
             case "student" -> {
-                Colour colour;
-                colour = Colour.valueOf(args[1]);
+                if (args.length < 4) {
+                    System.out.println(ViewString.INCORRECT_FORMAT + ViewString.MOVE_MOTHER_NATURE_STEPS);
+                }
 
+                for (int i = 0; i < 4; i++) {
+                    command += extractCommand(args[i]);
+                }
 
+                arguments = Arrays.copyOfRange(args, 4, args.length);
             }
+        }
+
+        try {
+            Method cmdHandler;
+            if (arguments != null) {
+                cmdHandler = getClass().getMethod(command, arguments.getClass());
+                cmdHandler.invoke(this, (Object) arguments);
+            }
+        } catch (NoSuchMethodException | SecurityException |
+                IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+            throw new IllegalArgumentException("Command does not exists.");
+        }
+    }
+
+    /**
+     * Checks if the arguments are correct and then calls for the action sender to send a "move mother nature" action event.
+     * @param args the decomposed user command
+     */
+    public void moveMotherNature(String[] args){
+        try {
+            int steps = Integer.parseInt(args[0]);
+            cli.getActionSender().moveMotherNature(cli.getPlayerName(), steps);
+        } catch (NumberFormatException e) {
+            System.out.println(ViewString.INCORRECT_FORMAT + ViewString.MOVE_MOTHER_NATURE_STEPS);
+        }
+    }
+
+    /**
+     * Checks if the arguments are correct and then calls for the action sender to send a "move student to single island" action event.
+     * @param args the decomposed user command
+     */
+    public void moveStudentToSingleIsland(String[] args){
+        if (args.length != 3) {
+            System.out.println(ViewString.INCORRECT_FORMAT + ViewString.MOVE_STUDENT_TO_ISLAND);
+        }
+
+        try {
+            Colour colour = Colour.valueOf(args[0]);
+            int groupIsland = Integer.parseInt(args[1]);
+            int singleIsland = Integer.parseInt(args[2]);
+            cli.getActionSender().moveStudentToIsland(cli.getPlayerName(), colour, groupIsland, singleIsland);
+        } catch (NumberFormatException e) {
+            System.out.println(ViewString.INCORRECT_FORMAT + ViewString.MOVE_MOTHER_NATURE_STEPS);
+        }
+
+    }
+
+    /**
+     * Checks if the arguments are correct and then calls for the action sender to send a "move student to dining room" action event.
+     * @param args the decomposed user command
+     */
+    public void moveStudentToDiningRoom(String[] args){
+        if (args.length != 1) {
+            System.out.println(ViewString.INCORRECT_FORMAT + ViewString.MOVE_STUDENT_TO_DINING_ROOM);
+        }
+
+        Colour colour = Colour.valueOf(args[0]);
+        cli.getActionSender().moveStudentToDiningRoom(cli.getPlayerName(), colour);
+
+    }
+
+    /**
+     * Checks if the arguments are correct and then calls for the action sender to send a "draw" action event.
+     * @param args the decomposed user command
+     */
+    public void playAssistantCard(String[] args) {
+        if (args.length != 1) {
+            System.out.println(ViewString.INCORRECT_FORMAT + ViewString.PLAY_ASSISTANT_CARD);
+        }
+
+        try {
+            int card = Integer.parseInt(args[3]);
+            cli.getActionSender().playAssistantCard(cli.getPlayerName(), card);
+        } catch (NumberFormatException e) {
+            System.out.println(ViewString.INCORRECT_FORMAT + ViewString.PLAY_ASSISTANT_CARD);
         }
     }
 
@@ -197,12 +285,154 @@ public class CommandHandler {
      * Checks if the arguments are correct and then calls for the action sender to send a "draw" action event.
      * @param args the decomposed user command
      */
-    public void play(String[] args) {
+    public void playCharacterCard(String[] args) {
+        if (args.length != 1) {
+            System.out.println(ViewString.INCORRECT_FORMAT + ViewString.PLAY_CHARACTER_CARD);
+            return;
+        }
+
+        try {
+            int card = Integer.parseInt(args[3]);
+            cli.getActionSender().playCharacterCard(cli.getPlayerName(), card);
+        } catch (NumberFormatException e) {
+            System.out.println(ViewString.INCORRECT_FORMAT + ViewString.PLAY_CHARACTER_CARD);
+        }
+    }
+
+    /**
+     * Checks if the arguments are correct and then calls for the action sender to send a "choose cloud tile" action event.
+     * @param args the decomposed user command
+     */
+    public void choose(String[] args){
+        if (args.length != 1) {
+            System.out.println(ViewString.INCORRECT_FORMAT + ViewString.CHOOSE_CLOUD_TILE);
+            return;
+        }
+
+        try {
+            int cloudTile = Integer.parseInt(args[3]);
+            cli.getActionSender().chooseCloudTile(cli.getPlayerName(), cloudTile);
+        } catch (NumberFormatException e) {
+            System.out.println(ViewString.INCORRECT_FORMAT + ViewString.PLAY_CHARACTER_CARD);
+        }
+    }
+
+    /**
+     * Checks if the arguments are correct and then calls for the action sender to send a "select" action event.
+     * @param args the decomposed user command
+     */
+    public void select(String[] args){
+        if (args.length < 1) {
+            System.out.println(ViewString.INCORRECT_FORMAT);
+            return;
+        }
+
+        switch (args[0]) {
+            case "student" -> {
+                if (args.length != 2) {
+                    System.out.println(ViewString.INCORRECT_FORMAT + ViewString.SELECT_STUDENT_COLOUR);
+                    return;
+                }
+                Colour colour = Colour.valueOf(args[1]);
+                cli.getActionSender().setColour(cli.getPlayerName(), colour);
+
+            }
+
+            case "group" -> {
+                if (args.length != 3) {
+                    System.out.println(ViewString.INCORRECT_FORMAT + ViewString.SELECT_GROUP_ISLAND);
+                    return;
+                }
+                if (args[1] != "island") {
+                    System.out.println(ViewString.INCORRECT_FORMAT + ViewString.SELECT_GROUP_ISLAND);
+                    return;
+                }
+
+                try {
+                    int groupIsland = Integer.parseInt(args[2]);
+                    cli.getActionSender().setGroupIsland(cli.getPlayerName(), groupIsland);
+                } catch (NumberFormatException e) {
+                    System.out.println(ViewString.INCORRECT_FORMAT + ViewString.PLAY_CHARACTER_CARD);
+                }
+
+            }
+        }
 
     }
 
+    /**
+     * Checks if the arguments are correct and then calls for the action sender to send a "set colour and island" action event.
+     * @param args the decomposed user command
+     */
+    public void put(String[] args){
+        if (args.length != 4) {
+            System.out.println(ViewString.INCORRECT_FORMAT + ViewString.STUDENT_TO_ISLAND);
+        }
+        try {
+            Colour colour = Colour.valueOf(args[0]);
+            if(args[1] != "on"){
+                System.out.println(ViewString.INCORRECT_FORMAT + ViewString.STUDENT_TO_ISLAND);
+                return;
+            }
+            int groupIsland = Integer.parseInt(args[2]);
+            int singleIsland = Integer.parseInt(args[3]);
+            cli.getActionSender().setColourAndIsland(cli.getPlayerName(), colour, groupIsland, singleIsland);
+        } catch (NumberFormatException e) {
+            System.out.println(ViewString.INCORRECT_FORMAT + ViewString.STUDENT_TO_ISLAND);
+        }
+    }
+
+    /**
+     * Checks if the arguments are correct and then calls for the action sender to send "exchange" action event.
+     * @param args the decomposed user command
+     */
+    public void exchange(String[] args){
+        if (args.length < 1) {
+            System.out.println(ViewString.INCORRECT_FORMAT);
+            return;
+        }
+
+        switch (args[0]) {
+            case "dining" -> {
+                if (args.length != 5) {
+                    System.out.println(ViewString.INCORRECT_FORMAT + ViewString.EXCHANGE_DINING_ROOM_ENTRANCE);
+                    return;
+                }
+
+                if (args[1] != "room") {
+                    System.out.println(ViewString.INCORRECT_FORMAT + ViewString.EXCHANGE_DINING_ROOM_ENTRANCE);
+                    return;
+                }
+
+                if (args[3] != "entrance") {
+                    System.out.println(ViewString.INCORRECT_FORMAT + ViewString.EXCHANGE_DINING_ROOM_ENTRANCE);
+                    return;
+                }
+
+                Colour colourDiningRoom = Colour.valueOf(args[2]);
+                Colour colourEntrance = Colour.valueOf(args[4]);
+                cli.getActionSender().setColourDiningRoomEntrance(cli.getPlayerName(), colourDiningRoom, colourEntrance);
+
+            }
+
+            case "entrance" -> {
+                if (args.length != 4) {
+                    System.out.println(ViewString.INCORRECT_FORMAT + ViewString.STUDENT_TO_ENTRANCE);
+                    return;
+                }
+                if (args[2] != "card") {
+                    System.out.println(ViewString.INCORRECT_FORMAT + ViewString.STUDENT_TO_ENTRANCE);
+                    return;
+                }
+
+                Colour entranceColour = Colour.valueOf(args[1]);
+                Colour cardColour = Colour.valueOf(args[3]);
+                cli.getActionSender().setColourCardEntrance(cli.getPlayerName(), cardColour, entranceColour);
+            }
+        }
 
 
+    }
 
     /**
      * Calls the method to make the player see all the possible commands.

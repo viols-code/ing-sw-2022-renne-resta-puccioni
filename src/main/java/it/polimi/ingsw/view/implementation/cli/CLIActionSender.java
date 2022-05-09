@@ -28,7 +28,7 @@ public class CLIActionSender extends ActionSender{
      * the index chosen for the cloud tile is not valid
      */
     @Override
-    public void chooseCloudTile(String localPlayer, int cloudTile) throws IllegalArgumentException{
+    public void chooseCloudTile(String localPlayer, int cloudTile){
         try{
             super.chooseCloudTile(localPlayer, cloudTile);
         }catch(IllegalAccessError e){
@@ -45,7 +45,7 @@ public class CLIActionSender extends ActionSender{
      * the number of steps chosen for mother nature is not valid
      */
     @Override
-    public void moveMotherNature(String localPlayer, int steps) throws IllegalArgumentException{
+    public void moveMotherNature(String localPlayer, int steps){
         try{
             super.moveMotherNature(localPlayer, steps);
         }catch(IllegalAccessError e){
@@ -62,7 +62,7 @@ public class CLIActionSender extends ActionSender{
      * selected student in their entrance or the dining room table of the selected student is full
      */
     @Override
-    public void moveStudentToDiningRoom(String localPlayer, Colour student)throws IllegalArgumentException{
+    public void moveStudentToDiningRoom(String localPlayer, Colour student){
         try{
             super.moveStudentToDiningRoom(localPlayer, student);
         }catch(IllegalAccessError e){
@@ -83,7 +83,7 @@ public class CLIActionSender extends ActionSender{
      * the single island index is out of range
      */
     @Override
-    public void moveStudentToIsland(String localPlayer, Colour student, int groupIsland, int singleIsland) throws IllegalArgumentException{
+    public void moveStudentToIsland(String localPlayer, Colour student, int groupIsland, int singleIsland){
         try{
             super.moveStudentToIsland(localPlayer, student, groupIsland, singleIsland);
         }catch(IllegalAccessError e){
@@ -100,7 +100,7 @@ public class CLIActionSender extends ActionSender{
      * or the value of the assistant card is out of range
      */
     @Override
-    public void playAssistantCard(String localPlayer, int assistantCard)throws IllegalArgumentException{
+    public void playAssistantCard(String localPlayer, int assistantCard){
         try{
             super.playAssistantCard(localPlayer, assistantCard);
         }catch(IllegalAccessError e){
@@ -119,7 +119,7 @@ public class CLIActionSender extends ActionSender{
      * the player hasn't enough money to pay the card
      */
     @Override
-    public void playCharacterCard(String localPlayer, int characterCard)throws IllegalArgumentException{
+    public void playCharacterCard(String localPlayer, int characterCard){
         try{
             super.playCharacterCard(localPlayer, characterCard);
         }catch(IllegalAccessError e){
@@ -135,7 +135,7 @@ public class CLIActionSender extends ActionSender{
      * @throws IllegalArgumentException the game mode isn't expert or the local player isn't the current player
      */
     @Override
-    public void setColour(String localPlayer, Colour colour)throws IllegalArgumentException{
+    public void setColour(String localPlayer, Colour colour){
         try{
             super.setColour(localPlayer, colour);
         }catch(IllegalAccessError e){
@@ -156,7 +156,7 @@ public class CLIActionSender extends ActionSender{
      * the single island index is out of range
      */
     @Override
-    public void setColourAndIsland(String localPlayer, Colour colour, int groupIsland, int singleIsland)throws IllegalArgumentException{
+    public void setColourAndIsland(String localPlayer, Colour colour, int groupIsland, int singleIsland){
         try{
             super.setColourAndIsland(localPlayer, colour, groupIsland, singleIsland);
         }catch(IllegalAccessError e){
@@ -176,7 +176,7 @@ public class CLIActionSender extends ActionSender{
      * the selected student for the entrance isn't present
      */
     @Override
-    public void setColourCardEntrance(String localPlayer, Colour colourCard, Colour colourEntrance)throws IllegalArgumentException{
+    public void setColourCardEntrance(String localPlayer, Colour colourCard, Colour colourEntrance){
         try{
             super.setColourCardEntrance(localPlayer, colourCard, colourEntrance);
         }catch(IllegalAccessError e){
@@ -196,7 +196,7 @@ public class CLIActionSender extends ActionSender{
      * the selected student for the entrance isn't present
      */
     @Override
-    public void setColourDiningRoomEntrance(String localPlayer, Colour colourDiningRoom, Colour colourEntrance)throws IllegalArgumentException{
+    public void setColourDiningRoomEntrance(String localPlayer, Colour colourDiningRoom, Colour colourEntrance){
         try{
             super.setColourDiningRoomEntrance(localPlayer, colourDiningRoom, colourEntrance);
         }catch(IllegalAccessError e){
@@ -214,7 +214,7 @@ public class CLIActionSender extends ActionSender{
      * the group island index is out of range
      */
     @Override
-    public void setGroupIsland(String localPlayer, int groupIsland)throws IllegalArgumentException{
+    public void setGroupIsland(String localPlayer, int groupIsland){
         try{
             super.setGroupIsland(localPlayer, groupIsland);
         }catch(IllegalAccessError e){
