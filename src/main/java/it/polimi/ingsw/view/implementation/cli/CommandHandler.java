@@ -76,7 +76,11 @@ public class CommandHandler {
      * Calls the method to make the player see the character cards.
      */
     public void viewCharacterCards() {
-        cli.getRenderer().printCharacterCards();
+        if(cli.getGameMode()){
+            cli.getRenderer().printCharacterCards();
+        } else {
+            System.out.println(ViewString.GAME_MODE);
+        }
     }
 
     /**
@@ -97,7 +101,11 @@ public class CommandHandler {
      * Calls the method to make the player see their assistant cards.
      */
     public void viewCurrentCharacterCard() {
-        cli.getRenderer().printActiveCharacterCard();
+        if(cli.getGameMode()){
+            cli.getRenderer().printActiveCharacterCard();
+        } else {
+            System.out.println(ViewString.GAME_MODE);
+        }
     }
 
     /**
@@ -300,16 +308,20 @@ public class CommandHandler {
      * @param args the decomposed user command
      */
     public void playCharacterCard(String[] args) {
-        if (args.length != 1) {
-            System.out.println(ViewString.INCORRECT_FORMAT + ViewString.PLAY_CHARACTER_CARD);
-            return;
-        }
+        if(cli.getGameMode()){
+            if (args.length != 1) {
+                System.out.println(ViewString.INCORRECT_FORMAT + ViewString.PLAY_CHARACTER_CARD);
+                return;
+            }
 
-        try {
-            int card = Integer.parseInt(args[3]);
-            cli.getActionSender().playCharacterCard(cli.getPlayerName(), card);
-        } catch (NumberFormatException e) {
-            System.out.println(ViewString.INCORRECT_FORMAT + ViewString.PLAY_CHARACTER_CARD);
+            try {
+                int card = Integer.parseInt(args[3]);
+                cli.getActionSender().playCharacterCard(cli.getPlayerName(), card);
+            } catch (NumberFormatException e) {
+                System.out.println(ViewString.INCORRECT_FORMAT + ViewString.PLAY_CHARACTER_CARD);
+            }
+        } else {
+            System.out.println(ViewString.GAME_MODE);
         }
     }
 
@@ -454,7 +466,5 @@ public class CommandHandler {
     public void help(String[] args) {
         cli.getRenderer().help();
     }
-
-
 
 }
