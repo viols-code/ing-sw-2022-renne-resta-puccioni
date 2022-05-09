@@ -84,7 +84,7 @@ public class CLI extends View {
         //System.out.println(AnsiColour.BLUE + ASCIIArt.MASTER + AnsiColour.RESET);
 
         getRenderer().showGameMessage("Enter the server ip and port (leave blank for localhost):");
-        addToLobby(false);
+        //addToLobby(false);
 
         String command;
         while (getClient().isActive()) {
