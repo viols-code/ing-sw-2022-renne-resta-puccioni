@@ -152,6 +152,7 @@ public abstract class View {
      * @param playersToStart        the number of players required to start the game
      * @param otherConnectedPlayers the list of the other connected player names
      */
+    //Devono essere divisi i metodi handleSetPlayerName e handleSetWizard
     public void handlePlayerConnect(String playerName, Wizard wizard, boolean gameMode, int currentPlayers, int playersToStart, List<String> otherConnectedPlayers) {
         if (playerName.equals(getPlayerName()) || wizard.equals(getPlayerWizard())) {
             MockPlayer localPlayer = getModel().addPlayer(getPlayerName(), getPlayerWizard(), gameMode, true);
@@ -214,11 +215,8 @@ public abstract class View {
 
     /**
      * Handles the ending of the game.
-     *
-     * @param scores     a map associating usernames with their scores
-     * @param winnerName the username of the winner
      */
-    public abstract void handleEndGame(Map<String, Integer> scores, String winnerName);
+    public abstract void handleEndGame();
 
     /**
      * Resets the View to the pre game state.
