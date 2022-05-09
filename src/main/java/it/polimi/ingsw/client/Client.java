@@ -7,6 +7,7 @@ import it.polimi.ingsw.client.messages.PlayersToStartMessage;
 import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.model.player.Wizard;
 import it.polimi.ingsw.view.View;
+import it.polimi.ingsw.view.implementation.cli.CLI;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -24,12 +25,22 @@ public class Client {
     private GameController localGameController;
     private String localPlayerName;
     private Boolean isGameExpert = null;
-    //private final boolean startCli;
+    private final boolean startCli;
     private boolean active = true;
     private SocketClientWrite writeThread;
     private SocketClientRead readThread;
 
     private View view;
+
+
+    /**
+     * Constructs a new Client with the given arguments.
+     *
+     * @param startCli a boolean indicating if the client should be started in CLI mode
+     */
+    public Client(boolean startCli) {
+        this.startCli = startCli;
+    }
 
     /**
      * Checks if this client is still active.
@@ -131,17 +142,14 @@ public class Client {
      * Starts the main client loop, reading and interpreting user commands.
      */
     public void run() {
-       // if (startCli) {
-            //view = new CLI(this);
-        //} //else view = new GUI(this, stage);
-        /*
+       if (startCli) {
+            view = new CLI(this);
+        } //else view = new GUI(this, stage);
         try {
             view.run();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-         */
     }
 
     /**
