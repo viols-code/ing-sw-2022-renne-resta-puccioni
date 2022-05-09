@@ -78,6 +78,8 @@ public class CLI extends View {
         getClient().terminate();
     }
 
+    public void run() {}
+
     /*
     @Override
     public void run() {
