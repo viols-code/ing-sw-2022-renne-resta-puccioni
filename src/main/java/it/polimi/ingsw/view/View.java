@@ -144,6 +144,10 @@ public abstract class View {
             lobbyMaster = true;
     }
 
+    public void handleCorrectNickname(String nickname, List<String> takenNicknames){
+
+    }
+
     /**
      * Handles the connection of another player to the lobby.
      *
