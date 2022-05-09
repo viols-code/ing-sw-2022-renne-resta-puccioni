@@ -29,6 +29,6 @@ public class CorrectNicknameMessage extends ServerMessage {
 
     @Override
     public void process(View view) {
-        //view.handleCorrectNickname(playerName, takenNicknames);
+        view.handleCorrectNickname(playerName, takenNicknames);
     }
 }
