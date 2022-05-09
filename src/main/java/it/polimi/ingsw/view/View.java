@@ -23,7 +23,7 @@ public abstract class View {
     private GameState gameState;
 
     private String playerName;
-    private Wizard wizard;
+    protected Wizard wizard;
     private boolean gameMode;
     private boolean lobbyMaster;
 
@@ -123,7 +123,7 @@ public abstract class View {
      *
      * @param wizard the local player wizard
      */
-    public void setPlayerName(Wizard wizard) {
+    public void setWizard(Wizard wizard) {
         this.wizard = wizard;
         getClient().send(new PlayerWizardMessage(wizard));
     }
