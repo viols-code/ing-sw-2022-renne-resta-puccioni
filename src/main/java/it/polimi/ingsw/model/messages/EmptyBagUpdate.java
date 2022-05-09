@@ -11,6 +11,6 @@ public class EmptyBagUpdate extends TableUpdate {
 
     @Override
     public void process(View view) {
-
+        view.getModelUpdateHandler().updateEmptyBag();
     }
 }

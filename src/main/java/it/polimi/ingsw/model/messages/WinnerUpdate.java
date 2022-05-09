@@ -16,6 +16,6 @@ public class WinnerUpdate extends GameUpdate {
 
     @Override
     public void process(View view) {
-
+        view.getModelUpdateHandler().updateWinner(winner);
     }
 }

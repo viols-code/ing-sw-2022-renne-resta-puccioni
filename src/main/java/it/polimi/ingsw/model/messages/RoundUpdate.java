@@ -16,6 +16,6 @@ public class RoundUpdate extends GameUpdate {
 
     @Override
     public void process(View view) {
-
+        view.getModelUpdateHandler().updateRound(round);
     }
 }

@@ -20,6 +20,6 @@ public class TowersUpdate extends PlayerUpdate {
     }
 
     public void process(View view) {
-
+        view.getModelUpdateHandler().updateTowers(playerName,towers);
     }
 }

@@ -15,6 +15,5 @@ public class IslandInfluenceUpdate extends CardUpdate {
 
     @Override
     public void process(View view) {
-
     }
 }

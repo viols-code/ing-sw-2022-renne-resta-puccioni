@@ -17,6 +17,6 @@ public class NoEntryTileUpdate extends GroupIslandUpdate {
 
     @Override
     public void process(View view) {
-
+        view.getModelUpdateHandler().updateNoEntryTileOnGroupIsland(groupIsland,numberOfNoEntryTiles);
     }
 }

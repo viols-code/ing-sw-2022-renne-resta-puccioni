@@ -137,7 +137,7 @@ public abstract class ModelUpdateHandler {
         getView().getModel().getTable().unify(groupIsland1,groupIsland2);
     }
 
-    public void winnerUpdate(String player){
+    public void updateWinner(String player){
         getView().getModel().setWinner(getView().getModel().getPlayerByNickname(player));
     }
 

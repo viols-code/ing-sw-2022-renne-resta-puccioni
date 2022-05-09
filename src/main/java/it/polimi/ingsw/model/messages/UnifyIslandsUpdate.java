@@ -17,6 +17,6 @@ public class UnifyIslandsUpdate extends GroupIslandUpdate {
 
     @Override
     public void process(View view) {
-
+        view.getModelUpdateHandler().updateUnifyIsland(firstGroupIsland,secondGroupIsland);
     }
 }

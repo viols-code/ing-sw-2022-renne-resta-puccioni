@@ -20,6 +20,6 @@ public class ProfessorTableUpdate extends PlayerUpdate {
 
     @Override
     public void process(View view) {
-
+        view.getModelUpdateHandler().updateProfessorTable(playerName,professors);
     }
 }
