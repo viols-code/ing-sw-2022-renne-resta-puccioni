@@ -6,11 +6,10 @@ package it.polimi.ingsw.view;
 public enum GameState {
     CONNECTING,
     CHOOSING_NAME,
+    CHOOSING_WIZARD,
     CHOOSING_PLAYERS,
     CHOOSING_GAME_MODE,
     WAITING_PLAYERS,
     STARTING,
-    SELECT_ASSISTANT_CARD,
-    WAIT_SELECT_ASSISTANT_CARD,
     PLAYING
 }
