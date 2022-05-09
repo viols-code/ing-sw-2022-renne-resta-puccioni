@@ -1,8 +1,10 @@
 package it.polimi.ingsw.view.beans;
 
+import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.table.CloudTile;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -30,6 +32,11 @@ public class MockTable {
     private int motherNaturePosition;
 
     /**
+     * The professors available on the table
+     */
+    private HashMap<Colour, Boolean> professorsAvailable;
+
+    /**
      * Constructs the table
      */
     public MockTable() {
@@ -37,6 +44,30 @@ public class MockTable {
         groupIslands = new ArrayList<>();
         isBagEmpty = false;
         motherNaturePosition = 0;
+        professorsAvailable = new HashMap<>();
+        professorsAvailable.put(Colour.GREEN, true);
+        professorsAvailable.put(Colour.RED, true);
+        professorsAvailable.put(Colour.YELLOW, true);
+        professorsAvailable.put(Colour.PINK, true);
+        professorsAvailable.put(Colour.BLUE, true);
+    }
+
+    /**
+     * Gets the professors available on the table
+     *
+     * @return professorAvailable the HashMap of professors available on the table
+     */
+    public HashMap<Colour, Boolean> getProfessorsAvailable(){
+        return professorsAvailable;
+    }
+
+    /**
+     * Removes a professor from the ones available (sets that colour to false)
+     *
+     * @param colour the colour of the professor to remove
+     */
+    public void removeProfessorFromTable(Colour colour){
+        professorsAvailable.replace(colour, professorsAvailable.get(colour), false);
     }
 
     /**
