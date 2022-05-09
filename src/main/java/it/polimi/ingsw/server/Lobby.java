@@ -126,7 +126,7 @@ public class Lobby extends Observable<IServerPacket> {
         });
 
         if(connection.getPlayerName() != null) {
-            notify(new PlayerConnectMessage(connection.getPlayerName(), wizard, connections.size(), playersToStart, otherWizard));
+            notify(new PlayerConnectMessage(connection.getPlayerName(), wizard, gameMode, connections.size(), playersToStart));
         }
     }
 
