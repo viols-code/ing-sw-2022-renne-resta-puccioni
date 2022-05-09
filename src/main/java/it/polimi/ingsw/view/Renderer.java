@@ -19,57 +19,39 @@ public abstract class Renderer {
         return view;
     }
 
-    public void showGameMessage(String message) {
-    }
+    public abstract void showGameMessage(String message);
 
-    public void showLobbyMessage(String message) {
-    }
+    public abstract void showLobbyMessage(String message);
 
     public abstract void showErrorMessage(String message);
 
-    public void printLocalPlayerSchoolBoard() {
-    }
+    public abstract void printLocalPlayerSchoolBoard();
 
-    public void printLocalPlayerCoins(){
-    }
+    public abstract void printLocalPlayerCoins();
 
-    public void printLocalPlayerCurrentAssistantCard(){
-    }
+    public abstract void printLocalPlayerCurrentAssistantCard();
 
-    public void printAvailableAssistantCards(){
-    }
+    public abstract void printAvailableAssistantCards();
 
-    public void printIslands() {
-    }
+    public abstract void printIslands();
 
-    public void printCloudTiles() {
-    }
+    public abstract void printCloudTiles();
 
-    public void printActiveCharacterCard() {
-    }
+    public abstract void printActiveCharacterCard();
 
-    public void printCharacterCards() {
-    }
+    public abstract void printCharacterCards();
 
-    public void printTableCoins() {
-    }
+    public abstract void printTableCoins();
 
-    public void printTableProfessors(){
-    }
+    public abstract void printTableProfessors();
 
-    public void printOthersCoins(String playerName){
-    }
+    public abstract void printOthersCoins(String playerName);
 
-    public void printOthersSchoolBoard(String playerName) {
-    }
+    public abstract void printOthersSchoolBoard(String playerName);
 
-    public void printOthersCurrentAssistantCard(String playerName) {
-    }
+    public abstract void printOthersCurrentAssistantCard(String playerName);
 
+    public abstract void printResult();
 
-    public void printResult(){
-    }
-
-    public void help() {
-    }
+    public abstract void help();
 }
