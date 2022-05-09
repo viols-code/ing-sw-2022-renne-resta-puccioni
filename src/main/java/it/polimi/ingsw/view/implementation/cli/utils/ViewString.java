@@ -25,6 +25,7 @@ public class ViewString {
     Error messages
      */
     public static final String NOT_YOUR_TURN = "It's not your turn";
+    public static final String GAME_MODE = "The game is in the basic mode";
     public static final String COMMAND_NOT_FOUND = "This command does not exists";
     public static final String NOT_A_NUMBER = "Please input a number";
     public static final String NOT_IN_RANGE = "This is not a number between 1 and 3";

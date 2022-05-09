@@ -132,14 +132,22 @@ public class CommandHandler {
      * Calls the method to make the player see the local player coins.
      */
     public void viewCoins() {
-        cli.getRenderer().printLocalPlayerCoins();
+        if(cli.getGameMode()){
+            cli.getRenderer().printLocalPlayerCoins();
+        } else {
+            System.out.println(ViewString.GAME_MODE);
+        }
     }
 
     /**
      * Calls the method to make the player see coins on the table.
      */
     public void viewBank() {
-        cli.getRenderer().printTableCoins();
+        if(cli.getGameMode()){
+            cli.getRenderer().printTableCoins();
+        } else {
+            System.out.println(ViewString.GAME_MODE);
+        }
     }
 
     /**
@@ -166,7 +174,13 @@ public class CommandHandler {
         switch (object) {
             case "schoolBoard" -> cli.getRenderer().printOthersSchoolBoard(playerName);
             case "currentAssistantCard" -> cli.getRenderer().printOthersCurrentAssistantCard(playerName);
-            case "coins" -> cli.getRenderer().printOthersCoins(playerName);
+            case "coins" -> {
+                if(cli.getGameMode()){
+                    cli.getRenderer().printOthersCoins(playerName);
+                } else {
+                    System.out.println(ViewString.GAME_MODE);
+                }
+            }
         }
     }
 
