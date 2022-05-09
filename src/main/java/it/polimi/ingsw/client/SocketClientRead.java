@@ -1,5 +1,8 @@
 package it.polimi.ingsw.client;
 
+import it.polimi.ingsw.IProcessablePacket;
+import it.polimi.ingsw.server.IServerPacket;
+
 import java.io.ObjectInputStream;
 import java.net.SocketException;
 
@@ -31,17 +34,13 @@ public class SocketClientRead extends Thread {
         try {
             while (client.isActive()) {
                 Object packet = socketIn.readObject();
-                System.out.println("Ho ricevuto un messaggio");
 
-                /*
                 if (packet instanceof IProcessablePacket) {
-                    if (packet instanceof IServerPacket) {
-                        IServerPacket serverPacket = (IServerPacket) packet;
-
-                        // System.out.println("Received: " + packet);
+                    if (packet instanceof IServerPacket serverPacket) {
+                        System.out.println("Received: " + packet);
 
                         try {
-                            //serverPacket.process(client.getView());
+                            serverPacket.process(client.getView());
                         } catch (Exception e) {
                             System.err.println("Uncaught exception while processing server packet");
                             e.printStackTrace();
@@ -51,8 +50,9 @@ public class SocketClientRead extends Thread {
                     }
                 } else {
                     System.err.println("Received object of unknown type");
-                }*/
+                }
             }
+
         } catch (SocketException ignored) {
 
         } catch (Exception e) {

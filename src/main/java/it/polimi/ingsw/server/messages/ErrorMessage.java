@@ -26,7 +26,6 @@ public class ErrorMessage extends DirectServerMessage {
 
     @Override
     public void process(View view) {
-        //view.getRenderer().showErrorMessage(message);
-        System.out.println("Errore di qualche tipo da segnalare all'utente");
+        view.getRenderer().showErrorMessage(message);
     }
 }

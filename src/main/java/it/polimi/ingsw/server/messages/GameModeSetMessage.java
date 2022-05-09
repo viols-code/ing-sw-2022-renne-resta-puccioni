@@ -20,7 +20,6 @@ public class GameModeSetMessage extends DirectServerMessage {
 
     @Override
     public void process(View view) {
-        //view.handleSetGameConfig();
-        System.out.println("Ho settato il game mode");
+        view.handleSetGameMode();
     }
 }

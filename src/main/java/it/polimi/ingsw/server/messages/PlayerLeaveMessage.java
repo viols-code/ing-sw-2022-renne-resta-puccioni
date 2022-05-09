@@ -23,7 +23,6 @@ public class PlayerLeaveMessage extends ServerMessage {
 
     @Override
     public void process(View view) {
-        //view.handlePlayerDisconnect(playerName);
-        System.out.println("Te ne stai andando");
+        view.handlePlayerDisconnect(playerName);
     }
 }

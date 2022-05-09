@@ -29,7 +29,6 @@ public class CorrectNicknameMessage extends ServerMessage {
 
     @Override
     public void process(View view) {
-        // view.handleCorrectNickname(playerName, takenNicknames);
-        System.out.println("Ti sei connesso correttamente");
+        //view.handleCorrectNickname(playerName, takenNicknames);
     }
 }
