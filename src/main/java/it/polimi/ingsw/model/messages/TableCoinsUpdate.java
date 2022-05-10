@@ -16,6 +16,6 @@ public class TableCoinsUpdate extends GameUpdate {
 
     @Override
     public void process(View view) {
-
+        view.getModelUpdateHandler().updateCoins(tableCoins);
     }
 }
