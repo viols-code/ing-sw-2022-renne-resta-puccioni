@@ -20,6 +20,6 @@ public class AllPlayersConnectedMessage extends ServerMessage{
     }
 
     public void process(View view){
-
+        view.handleAllPlayersConnected(players,gameMode,numPlayers);
     }
 }
