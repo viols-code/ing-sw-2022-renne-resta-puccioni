@@ -197,19 +197,6 @@ public abstract class Game extends Observable<IServerPacket> {
      */
     public void addPlayer(Player player) {
         this.players.add(player);
-        player.getSchoolBoard().addTower(this.numberOfTowersPerPlayer);
-        for (int i = 0; i < this.numberStudentsEntrance; i++) {
-            try {
-                player.getSchoolBoard().addStudentToEntrance(this.getTable().getBag().bagDrawStudent());
-            } catch (IllegalAccessError ex) {
-                ex.printStackTrace();
-            }
-        }
-
-        for (int i = 0; i < 10; i++) {
-            player.addAssistantCard(this.getAssistantCard(i));
-        }
-
         //notify(new PlayersUpdate(player.getNickname(),player.getWizard()));
     }
 
