@@ -28,6 +28,6 @@ public class CorrectWizardMessage extends DirectServerMessage{
 
     @Override
     public void process(View view) {
-        view.handleCorrentWizard(wizard, takenWizard);
+        view.handleCorrectWizard(wizard, takenWizard);
     }
 }
