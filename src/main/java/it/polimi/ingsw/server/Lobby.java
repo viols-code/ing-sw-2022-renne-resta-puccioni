@@ -173,7 +173,7 @@ public class Lobby extends Observable<IServerPacket> {
      * @param gameMode
      */
     public void setGameMode(SocketClientConnection connection, Boolean gameMode) {
-        if (connections.indexOf(connection) != 0) {
+        if (connections.indexOf(connection) != indexOfFirstConnection) {
             notify(new ErrorMessage(connection, "Only the first player that connected to the lobby can set game mode"));
             return;
         }
