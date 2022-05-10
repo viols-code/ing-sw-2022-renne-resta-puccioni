@@ -17,7 +17,8 @@ public class ViewString {
     public static final String PLAYER_CONNECTED = "Player %s connected";
     public static final String PLAYER_DISCONNECT = "Someone disconnected";
     public static final String PLAYER_DISCONNECT_WITH_NAME = "Player %s disconnected";
-    public static final String PLAYER_CONNECTED_WITH_COUNT = "Player %s connected (%d/%d)";
+    public static final String PLAYER_CONNECTED_WITH_COUNT = "Player %s connected with count %d. The number of players is not set yet";
+    public static final String PLAYER_CONNECTED_WITH_COUNT_ON_TOTAL = "Player %s connected with count (%d/%d)";
     public static final String WAITING_PLAYERS = "Waiting for other players to join";
     public static final String GAME_STARTING = "The game is starting";
 
