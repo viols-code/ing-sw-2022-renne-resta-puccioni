@@ -218,8 +218,8 @@ public class Lobby extends Observable<IServerPacket> {
         HashMap<String,Wizard> players = new HashMap<>();
         connections.forEach(connection ->  players.put(connection.getPlayerName(),connection.getWizard()));
         notify(new AllPlayersConnectedMessage(players,gameMode,playersToStart));
-        notify(new GameCanStartMessage());
         notify(new GameStartMessage(gameMode));
+        notify(new GameCanStartMessage());
     }
 
     /**
