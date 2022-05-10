@@ -95,7 +95,7 @@ public class Lobby extends Observable<IServerPacket> {
                 otherNames.add(con.getPlayerName());
         });
 
-        notify(new CorrectNicknameMessage(playerName, otherNames));
+        notify(new CorrectNicknameMessage(connection, playerName, otherNames));
     }
 
     /**

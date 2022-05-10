@@ -1,6 +1,7 @@
 package it.polimi.ingsw.server.messages;
 
 import it.polimi.ingsw.model.player.Wizard;
+import it.polimi.ingsw.server.SocketClientConnection;
 import it.polimi.ingsw.view.View;
 
 import java.io.Serial;
@@ -9,7 +10,7 @@ import java.util.List;
 /**
  * ServerMessage notifying all clients of a new client connection.
  */
-public class CorrectNicknameMessage extends ServerMessage {
+public class CorrectNicknameMessage extends DirectServerMessage {
     @Serial
     private static final long serialVersionUID = -8678594154824429984L;
 
@@ -22,7 +23,8 @@ public class CorrectNicknameMessage extends ServerMessage {
      * @param playerName     the name of the player that just connected
      * @param takenNicknames the list of nicknames already taken
      */
-    public CorrectNicknameMessage(String playerName, List<String> takenNicknames) {
+    public CorrectNicknameMessage(SocketClientConnection recipient, String playerName, List<String> takenNicknames) {
+        super(recipient);
         this.playerName = playerName;
         this.takenNicknames = takenNicknames;
     }
