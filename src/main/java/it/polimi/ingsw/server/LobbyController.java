@@ -97,6 +97,8 @@ public class LobbyController {
         Lobby lobbyToStart = currentLobby;
         playingLobbies.put(currentLobby.getUuid(), lobbyToStart);
 
+        currentLobby.startGame();
+
         Thread t = new Thread(new GameInstance(lobbyToStart, lobbyToStart.getGameMode(), lobbyToStart.getPlayersToStart()));
         t.start();
 
