@@ -14,7 +14,6 @@ public class ViewString {
     public static final String PLAYERS_TO_START_SET = "Successfully set the number of players, wait for other players";
     public static final String CHOOSE_GAME_MODE = "Choose the game mode writing 'basic' or 'expert'";
     public static final String GAME_MODE_SET = "Successfully set the game mode, wait for other players";
-    public static final String PLAYER_CONNECTED = "Player %s connected";
     public static final String PLAYER_DISCONNECT = "Someone disconnected";
     public static final String PLAYER_DISCONNECT_WITH_NAME = "Player %s disconnected";
     public static final String PLAYER_CONNECTED_WITH_COUNT = "Player %s connected with count %d. The number of players is not set yet";
@@ -27,9 +26,9 @@ public class ViewString {
      */
     public static final String NOT_YOUR_TURN = "It's not your turn";
     public static final String GAME_MODE = "The game is in the basic mode";
-    public static final String COMMAND_NOT_FOUND = "This command does not exists";
+    public static final String COMMAND_NOT_FOUND = "This command does not exist";
     public static final String NOT_A_NUMBER = "Please input a number";
-    public static final String NOT_IN_RANGE = "This is not a number between 1 and 3";
+    public static final String NOT_IN_RANGE = "This is not a number between 2 and 3";
     public static final String PLAYER_CRASH = "Someone crashed, terminating the game";
     public static final String PLAYER_CRASH_WITH_NAME = "Player %s crashed, terminating the game";
 
@@ -37,8 +36,8 @@ public class ViewString {
     /*
     Game messages
      */
-    public static final String GAME_MODE_MESSAGE_EXPERT = "The game mode is been set to expert";
-    public static final String GAME_MODE_MESSAGE_BASIC = "The game mode is been set to basic";
+    public static final String GAME_MODE_MESSAGE_EXPERT = "The game mode has been set to expert";
+    public static final String GAME_MODE_MESSAGE_BASIC = "The game mode has been set to basic";
     public static final String OWN_TURN = "It's your turn";
     public static final String OTHER_TURN = "It's %s turn";
     public static final String SELECT_ASSISTANT_CARD = "Select the assistant card you want to play:";
