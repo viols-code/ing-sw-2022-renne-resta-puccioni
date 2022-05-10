@@ -77,6 +77,10 @@ public abstract class ModelUpdateHandler {
         getView().getModel().setGamePhase(gamePhase);
     }
 
+    public void updateCurrentPlayer(String currentPlayer){
+        getView().getModel().setCurrentPlayer(getView().getModel().getPlayerByNickname(currentPlayer));
+    }
+
     public void updateInfluencePlayerOnGroupIsland(String player, int groupIsland){
         //to-do: sistemare la notify
         getView().getModel().getTable().getGroupIslandByIndex(groupIsland);
