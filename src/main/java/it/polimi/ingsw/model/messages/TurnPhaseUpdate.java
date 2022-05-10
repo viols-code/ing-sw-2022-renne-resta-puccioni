@@ -17,6 +17,6 @@ public class TurnPhaseUpdate extends GameUpdate {
 
     @Override
     public void process(View view) {
-
+        view.getModelUpdateHandler().updateTurnPhase(turnPhase);
     }
 }
