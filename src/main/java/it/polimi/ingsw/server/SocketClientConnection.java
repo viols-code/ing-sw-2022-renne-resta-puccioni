@@ -134,6 +134,7 @@ public class SocketClientConnection implements Runnable {
     private void close() {
         closeConnection();
         System.out.println("Unregistering client...");
+        remoteView.getLobbyController().deregisterConnection(this);
     }
 
     /**
