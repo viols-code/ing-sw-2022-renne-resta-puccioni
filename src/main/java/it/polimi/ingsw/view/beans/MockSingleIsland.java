@@ -18,6 +18,9 @@ public class MockSingleIsland {
      */
     public MockSingleIsland() {
         students = new HashMap<>();
+        for(Colour colour : Colour.values()){
+            students.put(colour, 0);
+        }
     }
 
     /**
