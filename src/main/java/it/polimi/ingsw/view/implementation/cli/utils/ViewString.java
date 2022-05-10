@@ -12,7 +12,7 @@ public class ViewString {
     public static final String CHOOSE_WIZARD = "Enter your wizard:";
     public static final String CHOOSE_PLAYERS_TO_START = "Choose the number of players required to start the game:";
     public static final String PLAYERS_TO_START_SET = "Successfully set the number of players, wait for other players";
-    public static final String CHOOSE_GAME_MODE = "Choose the number of players required to start the game:";
+    public static final String CHOOSE_GAME_MODE = "Choose the game mode writing 'basic' or 'expert'";
     public static final String GAME_MODE_SET = "Successfully set the game mode, wait for other players";
     public static final String PLAYER_CONNECTED = "Player %s connected";
     public static final String PLAYER_DISCONNECT = "Someone disconnected";
@@ -37,6 +37,8 @@ public class ViewString {
     /*
     Game messages
      */
+    public static final String GAME_MODE_MESSAGE_EXPERT = "The game mode is been set to expert";
+    public static final String GAME_MODE_MESSAGE_BASIC = "The game mode is been set to basic";
     public static final String OWN_TURN = "It's your turn";
     public static final String OTHER_TURN = "It's %s turn";
     public static final String SELECT_ASSISTANT_CARD = "Select the assistant card you want to play:";
