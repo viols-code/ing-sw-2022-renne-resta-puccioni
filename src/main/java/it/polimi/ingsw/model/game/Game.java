@@ -298,6 +298,7 @@ public abstract class Game extends Observable<IServerPacket> {
      */
     public void setCurrentPlayer(Player player) {
         this.currentPlayer = player;
+        notify(new CurrentPlayerUpdate(player.getNickname()));
     }
 
     /**
