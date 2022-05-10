@@ -61,12 +61,25 @@ public class CLI extends View {
         }
     }
 
+
+    @Override
+    public void handleGameStart(boolean gameMode) {
+        super.handleGameStart(gameMode);
+        getRenderer().showLobbyMessage(ViewString.GAME_STARTING);
+    }
+
+    @Override
     public void handleGameMode(boolean gameMode){
         if(gameMode){
             getRenderer().showGameMessage(ViewString.GAME_MODE_MESSAGE_EXPERT);
         } else{
             getRenderer().showGameMessage(ViewString.GAME_MODE_MESSAGE_BASIC);
         }
+    }
+
+        @Override
+    public void handleGameCanStartMessage(){
+        super.handleGameCanStartMessage();
     }
 
     @Override
