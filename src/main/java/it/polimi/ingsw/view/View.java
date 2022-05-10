@@ -150,7 +150,7 @@ public abstract class View {
         setGameState(GameState.CHOOSING_WIZARD);
     }
 
-    public void handleCorrentWizard(Wizard wizard, List<Wizard> takenWizard){
+    public void handleCorrectWizard(Wizard wizard, List<Wizard> takenWizard){
         if(isLobbyMaster()){
             setGameState(GameState.CHOOSING_GAME_MODE);
         } else {
@@ -158,16 +158,24 @@ public abstract class View {
         }
     }
 
+    public void handleGameMode(boolean gameMode){
+
+    }
+
     /**
      * Handles the connection of another player to the lobby.
      *
      * @param playerName            the name of the player that connected
+     * @param wizard            the name of the player that connected
      * @param currentPlayers        the amount of players connected to the lobby
      * @param playersToStart        the number of players required to start the game
-     * @param otherConnectedPlayers the list of the other connected player names
      */
-    //Devono essere divisi i metodi handleSetPlayerName e handleSetWizard
-    public void handlePlayerConnect(String playerName, Wizard wizard, boolean gameMode, int currentPlayers, int playersToStart, List<String> otherConnectedPlayers) {
+    public void handlePlayerConnect(String playerName, Wizard wizard, int currentPlayers, Integer playersToStart){
+
+    }
+
+    /*
+    public void daSistemare(playerName, wizard, gameMode, currentPlayers, playersToStart, othe){
         if (playerName.equals(getPlayerName()) || wizard.equals(getPlayerWizard())) {
             MockPlayer localPlayer = getModel().addPlayer(getPlayerName(), getPlayerWizard(), gameMode, true);
             getModel().setLocalPlayer(localPlayer);
@@ -184,12 +192,14 @@ public abstract class View {
         }
     }
 
+     */
+
     public void handleSetPlayersToStart(int playersToStart) {
         setGameState(GameState.CHOOSING_GAME_MODE);
     }
 
     public void handleSetGameMode() {
-        setGameState(GameState.WAITING_PLAYERS);
+        setGameState(GameState.CHOOSING_PLAYERS);
     }
 
     /**
