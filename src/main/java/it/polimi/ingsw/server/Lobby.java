@@ -18,6 +18,7 @@ public class Lobby extends Observable<IServerPacket> {
     private int playersToStart;
     private Boolean gameMode;
     private boolean isGameModeSet;
+    private int indexOfFirstConnection = 0;
 
     /**
      * Constructs a new Lobby with a random UUID, an empty connection list and the players needed to start set to -1.
@@ -64,6 +65,7 @@ public class Lobby extends Observable<IServerPacket> {
 
         if (firstConnection == null)
             firstConnection = connection;
+            indexOfFirstConnection = connections.indexOf(firstConnection);
 
         notify(new AddToLobbyMessage(connection, firstConnection == connection));
     }
@@ -147,7 +149,7 @@ public class Lobby extends Observable<IServerPacket> {
      *                       error message will be sent to the client
      */
     public void setPlayersToStart(SocketClientConnection connection, int playersToStart) {
-        if (connections.indexOf(connection) != 0) {
+        if (connections.indexOf(connection) != indexOfFirstConnection) {
             notify(new ErrorMessage(connection, "Only the first player that connected to the lobby can set the number of players needed to start the game"));
             return;
         }
