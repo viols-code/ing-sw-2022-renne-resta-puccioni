@@ -77,7 +77,7 @@ public class CLI extends View {
         }
     }
 
-        @Override
+    @Override
     public void handleGameCanStartMessage(){
         super.handleGameCanStartMessage();
     }

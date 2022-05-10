@@ -211,6 +211,7 @@ public abstract class View {
 
     public void handleGameCanStartMessage(){
         setGameState(GameState.PLAYING);
+        System.out.println("ciao");
     }
 
     /**
