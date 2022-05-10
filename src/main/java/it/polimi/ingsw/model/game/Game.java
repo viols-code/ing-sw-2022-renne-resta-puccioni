@@ -127,8 +127,8 @@ public abstract class Game extends Observable<IServerPacket> {
         studentNumberMovement = 0;
         numberOfTowersPerPlayer = 0;
         numberStudentsEntrance = 0;
-        gamePhase = GamePhase.SETTING;
-        turnPhase = TurnPhase.WAITING;
+        setGamePhase(GamePhase.SETTING);
+        setTurnPhase(TurnPhase.WAITING);
         winner = null;
     }
 
