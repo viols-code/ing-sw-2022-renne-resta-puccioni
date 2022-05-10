@@ -210,7 +210,7 @@ public abstract class View {
     }
 
     public void handleGameCanStartMessage(){
-        setGameState(GameState.STARTING);
+        setGameState(GameState.PLAYING);
     }
 
     /**
