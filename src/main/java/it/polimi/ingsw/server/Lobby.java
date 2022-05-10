@@ -215,6 +215,9 @@ public class Lobby extends Observable<IServerPacket> {
      * Notifies all connected clients that the game is starting.
      */
     public synchronized void startGame() {
+        HashMap<String,Wizard> players = new HashMap<>();
+        connections.forEach(connection ->  players.put(connection.getPlayerName(),connection.getWizard()));
+        notify(new AllPlayersConnectedMessage(players,gameMode,playersToStart));
         notify(new GameStartMessage(gameMode));
     }
 

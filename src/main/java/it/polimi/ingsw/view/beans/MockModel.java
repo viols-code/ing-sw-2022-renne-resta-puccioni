@@ -130,9 +130,13 @@ public class MockModel {
         if (!players.containsKey(nickname.toLowerCase())) {
             MockPlayer newPlayer = new MockPlayer(nickname, wizard, gameMode, localPlayer);
             players.put(nickname.toLowerCase(), newPlayer);
+            if(localPlayer){
+                setLocalPlayer(newPlayer);
+            }
             return newPlayer;
         } else
             return players.get(nickname.toLowerCase());
+
     }
 
     public MockPlayer getCurrentPlayer() {

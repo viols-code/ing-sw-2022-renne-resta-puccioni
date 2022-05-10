@@ -9,6 +9,7 @@ import it.polimi.ingsw.client.messages.PlayerNameMessage;
 import it.polimi.ingsw.view.beans.MockModel;
 import it.polimi.ingsw.view.beans.MockPlayer;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,6 +27,7 @@ public abstract class View {
     private String playerName;
     protected Wizard wizard;
     private boolean gameMode;
+    private int numPlayers;
     private boolean lobbyMaster;
 
     /**
@@ -162,6 +164,13 @@ public abstract class View {
 
     }
 
+    public void handleAllPlayersConnected(HashMap<String,Wizard>players, boolean gameMode, int numPlayers){
+        this.gameMode = gameMode;
+        this.numPlayers = numPlayers;
+        players.entrySet()
+                .stream()
+                .forEach(player -> getModel().addPlayer(player.getKey(),player.getValue(),gameMode,player.getKey().equals(this.playerName)));
+    }
     /**
      * Handles the connection of another player to the lobby.
      *
