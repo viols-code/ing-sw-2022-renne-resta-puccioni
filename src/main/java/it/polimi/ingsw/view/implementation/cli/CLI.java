@@ -2,6 +2,7 @@ package it.polimi.ingsw.view.implementation.cli;
 
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.model.player.Wizard;
+import it.polimi.ingsw.view.GameState;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.implementation.cli.utils.AnsiColour;
 import it.polimi.ingsw.view.implementation.cli.utils.ViewString;
@@ -36,14 +37,36 @@ public class CLI extends View {
     }
 
     @Override
-    public void handlePlayerConnect(String playerName, Wizard wizard, boolean gameMode, int currentPlayers, int playersToStart, List<String> otherConnectedPlayers) {
-        super.handlePlayerConnect(playerName, wizard, gameMode, currentPlayers, playersToStart, otherConnectedPlayers);
-        boolean playersToStartSet = playersToStart != -1;
-        getRenderer().showLobbyMessage(playersToStartSet ? ViewString.PLAYER_CONNECTED_WITH_COUNT.formatted(playerName, currentPlayers, playersToStart) :
-                ViewString.PLAYER_CONNECTED.formatted(playerName));
+    public void handleCorrectNickname(String nickname, List<String> takenNicknames){
+        super.handleCorrectNickname(nickname, takenNicknames);
+        getRenderer().showGameMessage(ViewString.CHOOSE_WIZARD);
+    }
 
-        if (playerName.equals(getPlayerName()) && isLobbyMaster())
-            getRenderer().showGameMessage(ViewString.CHOOSE_PLAYERS_TO_START);
+    @Override
+    public void handleCorrectWizard(Wizard wizard, List<Wizard> takenWizard){
+        super.handleCorrectWizard(wizard, takenWizard);
+        if(isLobbyMaster()){
+            getRenderer().showGameMessage(ViewString.CHOOSE_GAME_MODE);
+        } else {
+            getRenderer().showGameMessage(ViewString.WAITING_PLAYERS);
+        }
+    }
+
+    @Override
+    public void handlePlayerConnect(String playerName, Wizard wizard, int currentPlayers, Integer playersToStart){
+        if(playersToStart == null){
+            getRenderer().showGameMessage(ViewString.PLAYER_CONNECTED_WITH_COUNT.formatted(playerName, currentPlayers));
+        } else {
+            getRenderer().showGameMessage(ViewString.PLAYER_CONNECTED_WITH_COUNT_ON_TOTAL.formatted(playerName, currentPlayers, playersToStart));
+        }
+    }
+
+    public void handleGameMode(boolean gameMode){
+        if(gameMode){
+            getRenderer().showGameMessage(ViewString.GAME_MODE_MESSAGE_EXPERT);
+        } else{
+            getRenderer().showGameMessage(ViewString.GAME_MODE_MESSAGE_BASIC);
+        }
     }
 
     @Override
@@ -56,6 +79,7 @@ public class CLI extends View {
     public void handleSetGameMode() {
         super.handleSetGameMode();
         getRenderer().showGameMessage(ViewString.GAME_MODE_SET);
+        getRenderer().showGameMessage(ViewString.CHOOSE_PLAYERS_TO_START);
     }
 
     @Override
@@ -138,6 +162,22 @@ public class CLI extends View {
                         setWizard(Wizard.valueOf(wizardNumber));
                 }
 
+                case CHOOSING_GAME_MODE -> {
+                    if (command.equalsIgnoreCase("expert")) {
+                        getActionSender().setGameMode(true);
+                        getRenderer().showGameMessage("Playing using the expert game rules!");
+                        break;
+                    }
+                    else if(command.equalsIgnoreCase("basic")){
+                        getActionSender().setGameMode(false);
+                        getRenderer().showGameMessage("Playing using the basic game rules!");
+                        break;
+                    }
+                    else{
+                        getRenderer().showGameMessage("Write 'expert' or 'basic'");
+                    }
+                }
+
                 case CHOOSING_PLAYERS -> {
                     int playersToStart;
                     try {
@@ -153,22 +193,6 @@ public class CLI extends View {
                     }
 
                     getActionSender().setPlayersToStart(playersToStart);
-                }
-
-                case CHOOSING_GAME_MODE -> {
-                    if (command.equalsIgnoreCase("expert")) {
-                        getActionSender().setGameMode(true);
-                        getRenderer().showGameMessage("Playing using the expert game rules!");
-                        break;
-                    }
-                    else if(command.equalsIgnoreCase("basic")){
-                        getActionSender().setGameMode(false);
-                        getRenderer().showGameMessage("Playing using the basic game rules!");
-                        break;
-                    }
-                    else{
-                        getRenderer().showGameMessage("Write 'expert' or 'basic'");
-                    }
                 }
 
                 case WAITING_PLAYERS -> getRenderer().showGameMessage(ViewString.WAITING_PLAYERS);
