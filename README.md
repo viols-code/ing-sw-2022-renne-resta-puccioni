@@ -16,7 +16,8 @@ Software Engineering Project A.A. 2021/2022
 | GUI | [![RED](https://via.placeholder.com//15/f03c15/f03c15)](#) |
 | Socket | [![YELLOW](https://via.placeholder.com//15/ffdd00/ffdd00)](#) |
 | Character Cards | [![GREEN](https://via.placeholder.com//15/44bb44/44bb44)](#) |
-| Multiple games | [![GREEN](https://via.placeholder.com//15/44bb44/44bb44)](#) |
+| Multiple games | [![GREEN](https://via.placeholder.com//15/44bb44/44bb44)](#) |ù
+| Third | [![RED](https://via.placeholder.com//15/f03c15/f03c15)](#) |
 <!--
 [![RED](https://via.placeholder.com//15/f03c15/f03c15)](#)
 [![YELLOW](https://via.placeholder.com//15/ffdd00/ffdd00)](#)
