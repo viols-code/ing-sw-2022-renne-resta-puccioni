@@ -183,26 +183,6 @@ public abstract class View {
 
     }
 
-    /*
-    public void daSistemare(String playerName, Wizard wizard, boolean gameMode, int currentPlayers, int playersToStart, others){
-        if (playerName.equals(getPlayerName()) || wizard.equals(getPlayerWizard())) {
-            MockPlayer localPlayer = getModel().addPlayer(getPlayerName(), getPlayerWizard(), gameMode, true);
-            getModel().setLocalPlayer(localPlayer);
-            if (isLobbyMaster()) {
-                setGameState(GameState.CHOOSING_PLAYERS);
-            } else
-                setGameState(GameState.WAITING_PLAYERS);
-
-            if (!otherConnectedPlayers.isEmpty()) {
-                otherConnectedPlayers.forEach(player -> getModel().addPlayer(playerName, wizard, gameMode, false));
-            }
-        } else {
-            MockPlayer localPlayer= getModel().addPlayer(playerName, wizard, gameMode, false);
-        }
-    }
-
-     */
-
     public void handleSetPlayersToStart(int playersToStart) {
         setGameState(GameState.CHOOSING_GAME_MODE);
     }
