@@ -291,10 +291,11 @@ public class CommandHandler {
     public void playAssistantCard(String[] args) {
         if (args.length != 1) {
             System.out.println(ViewString.INCORRECT_FORMAT + ViewString.PLAY_ASSISTANT_CARD);
+            return;
         }
 
         try {
-            int card = Integer.parseInt(args[3]);
+            int card = Integer.parseInt(args[0]);
             cli.getActionSender().playAssistantCard(cli.getPlayerName(), card);
         } catch (NumberFormatException e) {
             System.out.println(ViewString.INCORRECT_FORMAT + ViewString.PLAY_ASSISTANT_CARD);
@@ -313,7 +314,7 @@ public class CommandHandler {
             }
 
             try {
-                int card = Integer.parseInt(args[3]);
+                int card = Integer.parseInt(args[0]);
                 cli.getActionSender().playCharacterCard(cli.getPlayerName(), card);
             } catch (NumberFormatException e) {
                 System.out.println(ViewString.INCORRECT_FORMAT + ViewString.PLAY_CHARACTER_CARD);
