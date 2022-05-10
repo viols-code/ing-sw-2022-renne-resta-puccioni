@@ -24,7 +24,7 @@ public class CLI extends View {
      */
     public CLI(Client client) {
         super(client);
-        //this.setModelUpdateHandler(new CLIModelUpdateHandler(this));
+        this.setModelUpdateHandler(new CLIModelUpdateHandler(this));
         this.setRenderer(new CLIRenderer(this));
         this.setActionSender(new CLIActionSender(this));
         this.commandHandler = new CommandHandler(this);
