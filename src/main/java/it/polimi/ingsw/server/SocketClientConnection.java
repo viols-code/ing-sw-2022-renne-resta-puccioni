@@ -21,10 +21,8 @@ public class SocketClientConnection implements Runnable {
     private Wizard wizard;
     private UUID lobbyUUID;
 
-    private static final int BUFFER_CAPACITY = 20;
     private final ObjectOutputStream out;
     private final ObjectInputStream in;
-    private final ArrayBlockingQueue<Object> bufferOut;
     private final RemoteView remoteView;
 
     /**
@@ -36,7 +34,6 @@ public class SocketClientConnection implements Runnable {
         this.socket = socket;
         this.out = new ObjectOutputStream(socket.getOutputStream());
         this.in = new ObjectInputStream(socket.getInputStream());
-        bufferOut = new ArrayBlockingQueue<>(BUFFER_CAPACITY);
         this.remoteView = new RemoteView(this, lobbyController);
     }
 
@@ -178,14 +175,10 @@ public class SocketClientConnection implements Runnable {
      * @param message the message to be sent, should be a
      */
     public synchronized void send(Object message) {
-        if (bufferOut.remainingCapacity() > 0) {
-            bufferOut.add(message);
             try {
-                while (this.isActive()) {
-                    Object object = bufferOut.take();
-
+                if (this.isActive()) {
                     out.reset();
-                    out.writeObject(object);
+                    out.writeObject(message);
                     out.flush();
                 }
             } catch (EOFException | SocketException ignored) {
@@ -194,9 +187,6 @@ public class SocketClientConnection implements Runnable {
                 System.err.println("Error in SocketClientConnection WriteThread");
                 this.setInactive();
             }
-        } else {
-            System.err.println("WRITE_THREAD: Trying to send too many messages at once!");
-        }
     }
 
 
