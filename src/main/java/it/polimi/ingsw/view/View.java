@@ -147,7 +147,15 @@ public abstract class View {
     }
 
     public void handleCorrectNickname(String nickname, List<String> takenNicknames){
+        setGameState(GameState.CHOOSING_WIZARD);
+    }
 
+    public void handleCorrentWizard(Wizard wizard, List<Wizard> takenWizard){
+        if(isLobbyMaster()){
+            setGameState(GameState.CHOOSING_GAME_MODE);
+        } else {
+            setGameState(GameState.WAITING_PLAYERS);
+        }
     }
 
     /**
