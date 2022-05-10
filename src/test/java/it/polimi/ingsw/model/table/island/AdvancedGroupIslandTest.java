@@ -20,6 +20,7 @@ class AdvancedGroupIslandTest {
     @BeforeEach
     void setUp() {
         gameController = new GameController(true, 2);
+        gameController.setUp();
     }
 
     @RepeatedTest(12)

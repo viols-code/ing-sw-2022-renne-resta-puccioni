@@ -18,6 +18,7 @@ class ExpertGameTest {
     @BeforeEach
     void setup() {
         gameController = new GameController(true, 3);
+        gameController.setUp();
     }
 
     @Test

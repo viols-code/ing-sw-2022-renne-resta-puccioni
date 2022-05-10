@@ -8,6 +8,10 @@ public class BasicGame extends Game {
      */
     public BasicGame() {
         super();
+    }
+
+    public void setUp(){
+        super.setUp();
         for (int i = 0; i < 12; i++) {
             getTable().addGroupIsland(new BasicGroupIsland());
         }

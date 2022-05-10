@@ -19,6 +19,7 @@ class GameTest {
     @BeforeEach
     void setUp() {
         gameController = new GameController(false, 3);
+        gameController.setUp();
     }
 
     @Test

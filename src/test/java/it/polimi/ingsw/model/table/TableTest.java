@@ -17,6 +17,7 @@ class TableTest {
     @BeforeEach
     void setUp() {
         gameController = new GameController(false, 2);
+        gameController.setUp();
     }
 
     @Test

@@ -17,7 +17,7 @@ public class GameController implements Observer<PlayerEvent> {
     /**
      * The Game
      */
-    private final Game game;
+    private Game game;
 
     /**
      * Indicates if the game is in the expert mode
@@ -39,9 +39,21 @@ public class GameController implements Observer<PlayerEvent> {
     public GameController(boolean isGameExpert, int numberOfPlayer) {
         this.isGameExpert = isGameExpert;
         this.numberOfPlayer = numberOfPlayer;
+        if (isGameExpert) {
+            this.game = new ExpertGame();
+        } else {
+            this.game = new BasicGame();
+        }
+    }
+
+    /*
+    SETTING PHASE
+    */
+
+    public void setUp(){
+        game.setUp();
 
         if (isGameExpert) {
-            game = new ExpertGame();
             List<Class<? extends CharacterCard>> cardTypes = new ArrayList<>(
                     Arrays.asList(StudentToIsland.class, TakeProfessor.class, IslandInfluence.class,
                             MotherNatureMovement.class, ProtectIsland.class, NoTower.class, StudentToEntrance.class,
@@ -74,8 +86,6 @@ public class GameController implements Observer<PlayerEvent> {
                 ex.printStackTrace();
             }
 
-        } else {
-            game = new BasicGame();
         }
         settingBag();
         settingInteger();
@@ -86,10 +96,6 @@ public class GameController implements Observer<PlayerEvent> {
         }
 
     }
-
-    /*
-    SETTING PHASE
-    */
 
     /**
      * Setting the bag and the students on the SingleIsland

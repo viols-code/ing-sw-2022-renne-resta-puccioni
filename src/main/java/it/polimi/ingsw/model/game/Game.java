@@ -103,6 +103,13 @@ public abstract class Game extends Observable<IServerPacket> {
         basicState = activeCharacterCard;
         assistantCard = new ArrayList<>();
 
+        studentNumberMovement = 0;
+        numberOfTowersPerPlayer = 0;
+        numberStudentsEntrance = 0;
+        winner = null;
+    }
+
+    public void setUp(){
         AssistantCard card1 = new AssistantCard(1, 1);
         assistantCard.add(card1);
         AssistantCard card2 = new AssistantCard(2, 1);
@@ -124,12 +131,8 @@ public abstract class Game extends Observable<IServerPacket> {
         AssistantCard card10 = new AssistantCard(10, 5);
         assistantCard.add(card10);
 
-        studentNumberMovement = 0;
-        numberOfTowersPerPlayer = 0;
-        numberStudentsEntrance = 0;
         setGamePhase(GamePhase.SETTING);
         setTurnPhase(TurnPhase.WAITING);
-        winner = null;
     }
 
     /*

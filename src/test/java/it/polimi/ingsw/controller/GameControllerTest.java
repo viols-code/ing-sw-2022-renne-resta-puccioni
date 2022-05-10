@@ -22,7 +22,9 @@ class GameControllerTest {
     @BeforeEach
     void setUp() {
         gameControllerTwo = new GameController(false, 2);
+        gameControllerTwo.setUp();
         gameControllerThree = new GameController(false, 3);
+        gameControllerThree.setUp();
     }
 
     @Test
@@ -1406,6 +1408,7 @@ class GameControllerTest {
     void unify() {
         GameController gameController;
         gameController = new GameController(true, 2);
+        gameController.setUp();
         gameController.addPlayer("Viola", Wizard.TYPE_1);
         gameController.addPlayer("Laura", Wizard.TYPE_3);
 
@@ -2096,6 +2099,7 @@ class GameControllerTest {
     @RepeatedTest(20)
     void characterCardSetting(){
         GameController gameControllerExpert = new GameController(true, 2);
+        gameControllerExpert.setUp();
         gameControllerExpert.addPlayer("Viola", Wizard.TYPE_1);
         assertEquals(TowerColour.WHITE, gameControllerExpert.getGame().getPlayerByNickname("Viola").getTowerColour());
         gameControllerExpert.addPlayer("Laura", Wizard.TYPE_2);

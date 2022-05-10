@@ -14,6 +14,7 @@ class PlayerTest {
     @BeforeEach
     void setUp() {
         gameController = new GameController(false, 2);
+        gameController.setUp();
         gameController.getGame().addPlayer(new BasicPlayer("sara", Wizard.TYPE_1, TowerColour.WHITE));
         gameController.getGame().addPlayer(new BasicPlayer("laura", Wizard.TYPE_2, TowerColour.BLACK));
     }
