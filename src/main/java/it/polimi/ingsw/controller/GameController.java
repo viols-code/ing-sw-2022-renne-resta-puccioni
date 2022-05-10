@@ -87,14 +87,31 @@ public class GameController implements Observer<PlayerEvent> {
             }
 
         }
-        settingBag();
         settingInteger();
-        settingCloudTile();
+    }
 
+    public void setUpCharactersAndIslands(){
+        settingBag();
         if (isGameExpert) {
             settingCard();
         }
+        settingCloudTile();
 
+        for(int i = 0; i < numberOfPlayer; i++){
+            Player player = game.getPlayerByIndex(i);
+            player.getSchoolBoard().addTower(game.getNumberOfTowersPerPlayer());
+            for (int j = 0; j < game.getNumberStudentsEntrance(); j++) {
+                try {
+                    player.getSchoolBoard().addStudentToEntrance(game.getTable().getBag().bagDrawStudent());
+                } catch (IllegalAccessError ex) {
+                    ex.printStackTrace();
+                }
+            }
+
+            for (int j = 0; j < 10; j++) {
+                player.addAssistantCard(game.getAssistantCard(j));
+            }
+        }
     }
 
     /**
