@@ -126,7 +126,14 @@ public class Lobby extends Observable<IServerPacket> {
         });
 
         if(connection.getPlayerName() != null) {
-            notify(new PlayerConnectMessage(connection.getPlayerName(), wizard, gameMode, connections.size(), playersToStart));
+            Integer players;
+            if(playersToStart == -1){
+                players = null;
+            } else {
+                players = playersToStart;
+            }
+            notify(new PlayerConnectMessage(connection.getPlayerName(), wizard, connections.size(), players));
+            notify(new CorrectWizardMessage(connection, wizard, otherWizard));
         }
     }
 
@@ -183,6 +190,7 @@ public class Lobby extends Observable<IServerPacket> {
     public void setGameMode(SocketClientConnection connection) {
         isGameModeSet = true;
         notify(new GameModeSetMessage(connection));
+        notify(new GameModeMessage(gameMode));
     }
 
     /**
