@@ -16,6 +16,6 @@ public class ActiveCharacterCardUpdate extends GameUpdate {
 
     @Override
     public void process(View view) {
-
+        view.getModelUpdateHandler().updateActiveCharacterCard(characterCard);
     }
 }

@@ -83,7 +83,7 @@ class AdvancedGroupIslandTest {
             gameController.addPlayer("Laura", Wizard.TYPE_2);
             gameController.getGame().getTable().getGroupIslandByIndex(3).addNoEntryTile();
             gameController.getGame().getTable().getGroupIslandByIndex(3).changeInfluence(gameController.getGame().getPlayerByIndex(0));
-            gameController.getGame().getTable().getGroupIslandByIndex(2).getIslandByIndex(0).addStudent(Colour.PINK);
+            gameController.getGame().getTable().getGroupIslandByIndex(2).getIslandByIndex(0).addStudent(2,0,Colour.PINK);
             gameController.getGame().getPlayerByIndex(0).getSchoolBoard().addProfessor(Colour.PINK);
             assertEquals(1, gameController.getGame().getTable().getGroupIslandByIndex(3).getNumberOfNoEntryTile());
             assertTrue(gameController.getGame().getTable().getGroupIslandByIndex(3).isNoEntryTile());

@@ -9,13 +9,13 @@ public class InfluencePlayerUpdate extends GroupIslandUpdate {
     private static final long serialVersionUID = 8611475659820921831L;
     private final String player;
     private final int groupIsland;
-    public InfluencePlayerUpdate(String player, int grouIsland) {
+    public InfluencePlayerUpdate(String player, int groupIsland) {
         this.player = player;
-        this.groupIsland = grouIsland;
+        this.groupIsland = groupIsland;
     }
 
     @Override
     public void process(View view) {
-
+        view.getModelUpdateHandler().updateInfluencePlayerOnGroupIsland(player,groupIsland);
     }
 }

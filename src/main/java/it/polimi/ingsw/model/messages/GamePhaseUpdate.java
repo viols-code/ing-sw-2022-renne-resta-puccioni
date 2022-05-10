@@ -17,6 +17,6 @@ public class GamePhaseUpdate extends GameUpdate {
 
     @Override
     public void process(View view) {
-
+        view.getModelUpdateHandler().updateGamePhase(gamePhase);
     }
 }

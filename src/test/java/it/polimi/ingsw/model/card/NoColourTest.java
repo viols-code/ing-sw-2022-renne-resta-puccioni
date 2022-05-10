@@ -39,10 +39,10 @@ class NoColourTest {
 
     @Test
     void calculateInfluencePlayer() {
-        gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0).addStudent(Colour.PINK);
+        gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0).addStudent(0,0,Colour.PINK);
         gameTest.getTable().getGroupIslandByIndex(0).changeInfluence(gameTest.getPlayerByIndex(0));
-        gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0).addStudent(Colour.RED);
-        gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0).addStudent(Colour.YELLOW);
+        gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0).addStudent(0,0,Colour.RED);
+        gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0).addStudent(0,0,Colour.YELLOW);
         gameTest.getPlayerByIndex(0).getSchoolBoard().addProfessor(Colour.PINK);
         gameTest.getPlayerByIndex(1).getSchoolBoard().addProfessor(Colour.RED);
         gameTest.getPlayerByIndex(1).getSchoolBoard().addProfessor(Colour.YELLOW);

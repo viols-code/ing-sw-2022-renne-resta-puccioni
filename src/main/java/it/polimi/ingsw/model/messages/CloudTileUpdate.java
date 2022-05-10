@@ -19,6 +19,6 @@ public class CloudTileUpdate extends TableUpdate {
 
     @Override
     public void process(View view) {
-
+        view.getModelUpdateHandler().updateCloudTile(cloudTile,students);
     }
 }

@@ -16,6 +16,6 @@ public class CoinsUpdate extends PlayerUpdate {
 
     @Override
     public void process(View view) {
-
+        view.getModelUpdateHandler().updateCoins(coins);
     }
 }

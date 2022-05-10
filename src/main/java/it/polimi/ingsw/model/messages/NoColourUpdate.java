@@ -16,6 +16,5 @@ public class NoColourUpdate extends CardUpdate {
 
     @Override
     public void process(View view) {
-
     }
 }

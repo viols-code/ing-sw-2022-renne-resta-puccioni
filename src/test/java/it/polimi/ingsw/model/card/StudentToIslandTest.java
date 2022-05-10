@@ -130,7 +130,7 @@ class StudentToIslandTest {
 
         for (int i = 1; i < 12; i++) {
             if (i == 5) i++;
-            gameTest.getTable().getGroupIslandByIndex(i).getIslandByIndex(0).addStudent(gameTest.getTable().getBag().bagDrawStudent());
+            gameTest.getTable().getGroupIslandByIndex(i).getIslandByIndex(0).addStudent(i,0,gameTest.getTable().getBag().bagDrawStudent());
         }
 
         for (Colour colour : Colour.values()) {

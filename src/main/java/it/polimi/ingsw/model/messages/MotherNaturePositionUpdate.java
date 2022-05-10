@@ -16,7 +16,7 @@ public class MotherNaturePositionUpdate extends TableUpdate {
 
     @Override
     public void process(View view) {
-
+        view.getModelUpdateHandler().updateMotherNaturePosition(movement);
     }
 
 }

@@ -23,6 +23,11 @@ public class MockGroupIsland {
     private int noEntryTile;
 
     /**
+     * A boolean that states if mother nature is on this island
+     */
+    private boolean motherNature;
+
+    /**
      * Constructs the group island
      *
      * @param isBasic true if the group island is basic, false if the group island is advanced
@@ -86,5 +91,13 @@ public class MockGroupIsland {
      */
     public void setNoEntryTile(int noEntryTile) {
         this.noEntryTile = noEntryTile;
+    }
+
+    public boolean isMotherNature() {
+        return motherNature;
+    }
+
+    public void setMotherNature(boolean motherNature) {
+        this.motherNature = motherNature;
     }
 }
