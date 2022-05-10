@@ -69,6 +69,10 @@ public abstract class ModelUpdateHandler {
         //to-do: think how to show it
     }
 
+    public void updateProfessors(Colour colour){
+        getView().getModel().getTable().removeProfessorFromTable(colour);
+    }
+
     public void updateEntrance(String player, HashMap<Colour,Integer> entrance){
         getView().getModel().getPlayerByNickname(player).getSchoolBoard().setEntrance(entrance);
     }

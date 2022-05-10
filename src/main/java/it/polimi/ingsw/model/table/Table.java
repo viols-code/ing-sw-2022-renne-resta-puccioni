@@ -2,7 +2,9 @@ package it.polimi.ingsw.model.table;
 
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.messages.CloudTileUpdate;
+import it.polimi.ingsw.model.messages.DiningRoomUpdate;
 import it.polimi.ingsw.model.messages.MotherNaturePositionUpdate;
+import it.polimi.ingsw.model.messages.ProfessorsUpdate;
 import it.polimi.ingsw.model.table.island.GroupIsland;
 import it.polimi.ingsw.observer.Observable;
 import it.polimi.ingsw.server.IServerPacket;
@@ -70,6 +72,7 @@ public class Table extends Observable<IServerPacket> {
 
     public void setNoProfessorOnTable(Colour colour){
         professors.replace(colour, professors.get(colour), false);
+        notify(new ProfessorsUpdate(colour));
     }
 
      /*
