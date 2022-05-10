@@ -69,7 +69,5 @@ public class GameInstance implements Runnable {
             }
         }
 
-        lobby.startGame();
-
     }
 }
