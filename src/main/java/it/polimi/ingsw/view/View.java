@@ -227,7 +227,10 @@ public abstract class View {
         getModel().setGameMode(gameMode);
 
         setGameState(GameState.STARTING);
-        getRenderer().showLobbyMessage(ViewString.GAME_STARTING);
+    }
+
+    public void handleGameCanStartMessage(){
+        setGameState(GameState.STARTING);
     }
 
     /**
