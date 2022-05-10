@@ -76,11 +76,13 @@ public class ExpertGame extends Game {
     @Override
     public void addCharacterCard(CharacterCard card) {
         characterCards.add(card);
-        List<CharacterCardEnumeration> cardsAvailable = new ArrayList<>();
-        for (CharacterCard characterCard : characterCards) {
-            cardsAvailable.add(characterCard.getCharacterCardType());
+        if(characterCards.size() == 3){
+            List<CharacterCardEnumeration> cardsAvailable = new ArrayList<>();
+            for (CharacterCard characterCard : characterCards) {
+                cardsAvailable.add(characterCard.getCharacterCardType());
+            }
+            notify(new CharacterCardsAvailableUpdate(cardsAvailable));
         }
-        notify(new CharacterCardsAvailableUpdate(cardsAvailable));
     }
 
     /**
