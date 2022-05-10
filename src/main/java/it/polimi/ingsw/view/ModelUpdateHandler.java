@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.player.TowerColour;
 import it.polimi.ingsw.model.player.Wizard;
 import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
 import it.polimi.ingsw.view.beans.MockCard;
+import it.polimi.ingsw.view.beans.MockGroupIsland;
 
 import java.util.HashMap;
 import java.util.List;
@@ -47,6 +48,12 @@ public abstract class ModelUpdateHandler {
         characterCards.stream()
                 .filter(characterCard -> getView().getModel().getCharacterCardByType(characterCard) == null)
                 .forEach(characterCard -> getView().getModel().addCharacterCard(new MockCard(characterCard)));
+
+        if(characterCards.contains(CharacterCardEnumeration.PROTECT_ISLAND)){
+            for(MockGroupIsland groupIsland : getView().getModel().getTable().getGroupIslands()){
+                groupIsland.setIsBasic(false);
+            }
+        }
     }
 
     public void updateCloudTile(int cloudTile, HashMap<Colour,Integer> students){
