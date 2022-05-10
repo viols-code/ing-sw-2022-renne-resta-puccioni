@@ -305,7 +305,7 @@ public abstract class ActionSender {
     /**
      * Sets the number of players required to start this game.
      *
-     * @param playersToStart the number of players required to start the game
+     * @param gameMode the number of players required to start the game
      */
     public void setGameMode(boolean gameMode) {
         getView().getClient().send(new GameModeMessage(gameMode));
