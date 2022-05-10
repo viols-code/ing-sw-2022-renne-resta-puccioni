@@ -172,6 +172,7 @@ public class CommandHandler {
             System.out.println(ViewString.INCORRECT_FORMAT + ViewString.SPY);
         }
         String playerName = args[0];
+        playerName = playerName.toLowerCase(Locale.ROOT);
         String object = args[1];
         for(int i = 2; i < args.length; i++){
             object += extractCommand(args[i]);
