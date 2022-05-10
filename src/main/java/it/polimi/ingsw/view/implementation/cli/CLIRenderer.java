@@ -143,15 +143,15 @@ public class CLIRenderer extends Renderer {
         System.out.println(coins);
     }
 
-    // TBD
     public void printTableProfessors(){
         String professors = "";
         professors = professors.concat("Available professors: ");
+        HashMap<Colour, Boolean> prof =  view.getModel().getTable().getProfessorsAvailable();
 
 
         for(Colour colour : Colour.values()){
             professors = professors.concat("\n\t" +
-                    AnsiColour.getStudentColour(colour) + colour.name() +": "  + AnsiColour.RESET);
+                    AnsiColour.getStudentColour(colour) + colour.name() +": "  + prof.get(colour) + AnsiColour.RESET);
         }
         System.out.println(professors);
     }
@@ -228,7 +228,7 @@ public class CLIRenderer extends Renderer {
     }
 
     private void renderAssistantCard(int value, int steps,  String assistantCard){
-        assistantCard = assistantCard.concat("Value: " + value + "\n" + "Steps: " + steps);
+        assistantCard = assistantCard.concat("Assistant Card number: " + (value - 1) + "\n\tValue: " + value + "\n\t" + "Steps: " + steps);
         System.out.println(assistantCard);
     }
 }
