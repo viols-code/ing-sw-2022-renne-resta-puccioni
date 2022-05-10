@@ -135,7 +135,7 @@ public abstract class ActionSender {
         if(!getView().getModel().getCurrentPlayer().getNickname().equals(localPlayer)){
             throw new IllegalArgumentException("it's not your turn");
         }
-        else if(assistantCard < 1 || assistantCard > 10){
+        else if(assistantCard < 0 || assistantCard > 9){
             throw new IllegalArgumentException("assistant card value out of range");
         }
         else{
