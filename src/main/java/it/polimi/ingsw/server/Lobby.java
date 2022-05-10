@@ -214,9 +214,7 @@ public class Lobby extends Observable<IServerPacket> {
      */
     public synchronized void startGame() {
         HashMap<String,Wizard> players = new HashMap<>();
-        for(SocketClientConnection connection: connections){
-            players.put(connection.getPlayerName(),connection.getWizard());
-        }
+        connections.forEach(connection ->  players.put(connection.getPlayerName(),connection.getWizard()));
         notify(new AllPlayersConnectedMessage(players,gameMode,playersToStart));
         notify(new GameStartMessage(gameMode));
     }
