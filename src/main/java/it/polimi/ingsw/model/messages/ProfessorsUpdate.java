@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 public class ProfessorsUpdate extends TableUpdate {
     @Serial
-    private static final long serialVersionUID = 3311215655398702341L;
+    private static final long serialVersionUID = 3311215655332702341L;
     Colour colour;
 
     public ProfessorsUpdate(Colour colour) {
