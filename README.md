@@ -12,7 +12,7 @@ Software Engineering Project A.A. 2021/2022
 |:-----------------------|:------------------------------------:|
 | Basic rules | [![GREEN](https://via.placeholder.com//15/44bb44/44bb44)](#) |
 | Complete rules | [![GREEN](https://via.placeholder.com//15/44bb44/44bb44)](#) |
-| CLI | [![RED](https://via.placeholder.com//15/f03c15/f03c15)](#) |
+| CLI | [![YELLOW](https://via.placeholder.com//15/ffdd00/ffdd00)](#) |
 | GUI | [![RED](https://via.placeholder.com//15/f03c15/f03c15)](#) |
 | Socket | [![YELLOW](https://via.placeholder.com//15/ffdd00/ffdd00)](#) |
 | Character Cards | [![GREEN](https://via.placeholder.com//15/44bb44/44bb44)](#) |
