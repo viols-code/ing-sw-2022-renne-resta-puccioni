@@ -15,7 +15,7 @@ public class MockGroupIsland {
     /**
      * A boolean that states if the group island is basic or advanced
      */
-    private final boolean isBasic;
+    private boolean isBasic;
 
     /**
      * An integer that indicates the number of no entry tiles on this group island
@@ -35,6 +35,7 @@ public class MockGroupIsland {
     public MockGroupIsland(boolean isBasic) {
         this.isBasic = isBasic;
         islands = new ArrayList<>();
+        islands.add(new MockSingleIsland());
         noEntryTile = 0;
     }
 
@@ -73,6 +74,16 @@ public class MockGroupIsland {
      */
     public boolean getIsBasic() {
         return isBasic;
+    }
+
+
+    /**
+     * Sets the value of the attribute is basic
+     *
+     * @return true if the group island is basic, false if the group island is advanced
+     */
+    public void setIsBasic(boolean isBasic) {
+        this.isBasic = isBasic;
     }
 
     /**
