@@ -175,7 +175,7 @@ public abstract class View {
     }
 
     /*
-    public void daSistemare(playerName, wizard, gameMode, currentPlayers, playersToStart, othe){
+    public void daSistemare(String playerName, Wizard wizard, boolean gameMode, int currentPlayers, int playersToStart, others){
         if (playerName.equals(getPlayerName()) || wizard.equals(getPlayerWizard())) {
             MockPlayer localPlayer = getModel().addPlayer(getPlayerName(), getPlayerWizard(), gameMode, true);
             getModel().setLocalPlayer(localPlayer);

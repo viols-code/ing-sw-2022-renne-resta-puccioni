@@ -81,12 +81,12 @@ public class LobbyController {
             return;
         }
         currentLobby.setPlayersToStart(connection, playersToStart);
+        if (currentLobby.canStart())
+            startGame();
     }
 
     public synchronized void setGameMode(SocketClientConnection connection, boolean GameMode) {
         currentLobby.setGameMode(connection, GameMode);
-        if (currentLobby.canStart())
-            startGame();
     }
 
     /**
