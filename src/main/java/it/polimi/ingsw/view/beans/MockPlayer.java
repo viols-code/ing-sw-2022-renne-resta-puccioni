@@ -79,6 +79,27 @@ public class MockPlayer {
         } else {
             coins = 0;
         }
+
+        AssistantCard card1 = new AssistantCard(1, 1);
+        cards.add(card1);
+        AssistantCard card2 = new AssistantCard(2, 1);
+        cards.add(card2);
+        AssistantCard card3 = new AssistantCard(3, 2);
+        cards.add(card3);
+        AssistantCard card4 = new AssistantCard(4, 2);
+        cards.add(card4);
+        AssistantCard card5 = new AssistantCard(5, 3);
+        cards.add(card5);
+        AssistantCard card6 = new AssistantCard(6, 3);
+        cards.add(card6);
+        AssistantCard card7 = new AssistantCard(7, 4);
+        cards.add(card7);
+        AssistantCard card8 = new AssistantCard(8, 4);
+        cards.add(card8);
+        AssistantCard card9 = new AssistantCard(9, 5);
+        cards.add(card9);
+        AssistantCard card10 = new AssistantCard(10, 5);
+        cards.add(card10);
     }
 
     /**
