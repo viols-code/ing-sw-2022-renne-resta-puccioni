@@ -50,6 +50,10 @@ public class MockTable {
         professorsAvailable.put(Colour.YELLOW, true);
         professorsAvailable.put(Colour.PINK, true);
         professorsAvailable.put(Colour.BLUE, true);
+
+        for(int i = 0; i < 12; i++){
+            groupIslands.add(new MockGroupIsland(true));
+        }
     }
 
     /**
