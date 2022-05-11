@@ -94,7 +94,7 @@ public abstract class ModelUpdateHandler {
 
     public void updateInfluencePlayerOnGroupIsland(String player, int groupIsland){
         //to-do: sistemare la notify
-        getView().getModel().getTable().getGroupIslandByIndex(groupIsland);
+        getView().getModel().getTable().getGroupIslandByIndex(groupIsland).setInfluentPlayer(player);
     }
 
     public void updateIslandInfluence(int groupIsland){
