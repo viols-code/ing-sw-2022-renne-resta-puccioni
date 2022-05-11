@@ -169,7 +169,7 @@ public abstract class View {
         this.numPlayers = numPlayers;
         players.entrySet()
                 .stream()
-                .forEach(player -> getModel().addPlayer(player.getKey(),player.getValue(),gameMode,player.getKey().equals(this.playerName)));
+                .forEach(player -> getModel().addPlayer(player.getKey(),player.getValue(),gameMode,player.getKey().equalsIgnoreCase(this.playerName)));
         for(int i=0; i<numPlayers; i++){
             getModel().getTable().addCloudTile();
         }
