@@ -222,7 +222,7 @@ public class CLIRenderer extends Renderer {
                     AnsiColour.getStudentColour(colour) + colour.name() +": " + professor.get(colour) + AnsiColour.RESET);
         }
 
-        schoolBoard = schoolBoard.concat("\n" + AnsiColour.bold("Towers: ") + view.getModel().getLocalPlayer().getSchoolBoard().getTowers());
+        schoolBoard = schoolBoard.concat("\n" + AnsiColour.bold("Towers: ") + mockSchoolBoard.getTowers());
 
 
         System.out.println(schoolBoard);
