@@ -203,8 +203,8 @@ public class MockTable {
      * @param motherNaturePosition the new position
      */
     public void setMotherNaturePosition(int motherNaturePosition) {
-        this.motherNaturePosition = motherNaturePosition;
         getGroupIslandByIndex(this.motherNaturePosition).setMotherNature(false);
+        this.motherNaturePosition = motherNaturePosition;
         getGroupIslandByIndex(motherNaturePosition).setMotherNature(true);
     }
 }
