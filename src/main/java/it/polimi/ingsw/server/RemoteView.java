@@ -81,7 +81,7 @@ public class RemoteView implements Observer<IServerPacket> {
                 e.printStackTrace();
             }
         } else
-            System.err.println("Received PlayerActionEvent, but game is not started yet");
+            System.err.println("Received PlayerEvent, but game is not started yet");
     }
 
 
