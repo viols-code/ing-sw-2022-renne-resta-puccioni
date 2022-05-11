@@ -63,6 +63,7 @@ public class GameInstance implements Runnable {
                 }
             }
 
+            controller.getGame().getBasicState().addObserver(remoteView);
 
             if (isExpertGame) {
                 for (int i = 0; i < 3; i++) {
