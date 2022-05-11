@@ -68,9 +68,11 @@ public class CLIRenderer extends Renderer {
 
         for (MockGroupIsland groupIsland: view.getModel().getTable().getGroupIslands()) {
             island = island.concat("Group island " + i);
-
+            if(groupIsland.isMotherNature()){
+                island = island.concat(AnsiColour.GOLD + "\nMother Nature is here!" + AnsiColour.RESET);
+            }
+            int j = 0;
             for(MockSingleIsland singleIsland: groupIsland.getIslands()){
-                int j = 0;
                 island = island.concat("\n" + "Single island " + j);
                 for(Colour colour : Colour.values()){
                     island = island.concat("\n\t" +

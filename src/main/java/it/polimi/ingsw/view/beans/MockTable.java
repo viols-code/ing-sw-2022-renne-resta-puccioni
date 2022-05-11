@@ -191,5 +191,6 @@ public class MockTable {
      */
     public void setMotherNaturePosition(int motherNaturePosition) {
         this.motherNaturePosition = motherNaturePosition;
+        getGroupIslandByIndex(motherNaturePosition).setMotherNature(true);
     }
 }
