@@ -110,7 +110,12 @@ public class MockModel {
      * @return the player with the given nickname
      */
     public MockPlayer getPlayerByNickname(String nickname) {
-        return players.get(nickname);
+        List<String> matches = this.players.entrySet()
+                .stream()
+                .map(player -> player.getKey())
+                .filter(player -> player.equalsIgnoreCase(nickname))
+                .collect(Collectors.toList());
+        return players.get(matches.get(0));
     }
 
     /**
@@ -126,17 +131,19 @@ public class MockModel {
      * Adds the player in the list
      *
      */
-    public MockPlayer addPlayer(String nickname, Wizard wizard, boolean gameMode,boolean localPlayer) {
-        if (!players.containsKey(nickname.toLowerCase())) {
+    public void addPlayer(String nickname, Wizard wizard, boolean gameMode,boolean localPlayer) {
+        List<String> matches = this.players.entrySet()
+                .stream()
+                .map(player -> player.getKey())
+                .filter(player -> player.equalsIgnoreCase(nickname))
+                .collect(Collectors.toList());
+        if(matches.size() == 0){
             MockPlayer newPlayer = new MockPlayer(nickname, wizard, gameMode, localPlayer);
-            players.put(nickname.toLowerCase(), newPlayer);
+            players.put(nickname, newPlayer);
             if(localPlayer){
-                setLocalPlayer(newPlayer);
+                this.localPlayer = newPlayer;
             }
-            return newPlayer;
-        } else
-            return players.get(nickname.toLowerCase());
-
+        }
     }
 
     public MockPlayer getCurrentPlayer() {
