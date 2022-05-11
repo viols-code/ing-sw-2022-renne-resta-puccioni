@@ -196,7 +196,7 @@ public class Lobby extends Observable<IServerPacket> {
     }
 
     /**
-     * gets the gaemMode chosen
+     * gets the gameMode chosen
      * @return true if the gameMode is Expert
      */
     public boolean getGameMode() {
