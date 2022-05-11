@@ -98,6 +98,9 @@ public class CLIRenderer extends Renderer {
                 cloudTile = cloudTile.concat("\n\t" +
                         AnsiColour.getStudentColour(colour) + colour.name() +": " + students.get(colour) + AnsiColour.RESET);
             }
+
+            cloudTile = cloudTile.concat("\n");
+            i++;
         }
 
         System.out.println(cloudTile);
