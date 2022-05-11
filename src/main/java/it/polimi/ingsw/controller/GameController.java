@@ -17,7 +17,7 @@ public class GameController implements Observer<PlayerEvent> {
     /**
      * The Game
      */
-    private Game game;
+    private final Game game;
 
     /**
      * Indicates if the game is in the expert mode
@@ -274,6 +274,7 @@ public class GameController implements Observer<PlayerEvent> {
 
                                 if (!endPhasePlay()) {
                                     game.setCurrentPlayer(game.nextPlayerClockwise());
+                                    game.setTurnPhase(TurnPhase.PLAY_ASSISTANT_CARD);
                                 } else {
                                     endPlayAssistantCard();
                                 }
@@ -526,7 +527,7 @@ public class GameController implements Observer<PlayerEvent> {
      */
     private void endGame() {
         game.setGamePhase(GamePhase.END_GAME);
-        game.setTurnPhase(TurnPhase.WAITING);
+        game.setTurnPhase(TurnPhase.ENDGAME);
     }
 
     /**
@@ -550,11 +551,11 @@ public class GameController implements Observer<PlayerEvent> {
      * Sets the end of the playAssistantCardPhase
      */
     private void endPlayAssistantCard() {
-        game.setGamePhase(GamePhase.PLAYING);
         nobodyPlayed();
         game.setFirstPlayerLastTurn(game.getFirstPlayerTurn());
         game.setFirstPlayerTurn(game.nextPlayerTurn());
         game.setCurrentPlayer(game.nextPlayerTurn());
+        game.setGamePhase(GamePhase.PLAYING);
         game.setTurnPhase(TurnPhase.MOVE_STUDENT);
     }
 
@@ -598,6 +599,7 @@ public class GameController implements Observer<PlayerEvent> {
             if (numberOfPlayer == game.getNumberOfPlayer()) {
                 game.setCurrentPlayer(game.getPlayerByIndex(0));
                 game.setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
+                game.setTurnPhase(TurnPhase.PLAY_ASSISTANT_CARD);
             }
         }
     }
@@ -710,7 +712,7 @@ public class GameController implements Observer<PlayerEvent> {
                 settingCloudTile();
                 game.setCurrentPlayer(game.getFirstPlayerTurn());
                 game.setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
-                game.setTurnPhase(TurnPhase.WAITING);
+                game.setTurnPhase(TurnPhase.PLAY_ASSISTANT_CARD);
                 game.incrementRound();
                 nobodyPlayed();
                 if (game.getRound() >= 11) {
