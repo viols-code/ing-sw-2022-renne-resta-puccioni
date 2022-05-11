@@ -28,6 +28,11 @@ public class MockGroupIsland {
     private boolean motherNature;
 
     /**
+     * The Player influence
+     */
+    private String influentPlayer;
+
+    /**
      * Constructs the group island
      *
      * @param isBasic true if the group island is basic, false if the group island is advanced
@@ -37,6 +42,7 @@ public class MockGroupIsland {
         islands = new ArrayList<>();
         islands.add(new MockSingleIsland());
         noEntryTile = 0;
+        influentPlayer = null;
     }
 
     /**
@@ -110,5 +116,13 @@ public class MockGroupIsland {
 
     public void setMotherNature(boolean motherNature) {
         this.motherNature = motherNature;
+    }
+
+    public String getInfluentPlayer(){
+        return influentPlayer;
+    }
+
+    public void setInfluentPlayer(String influentPlayer){
+        this.influentPlayer = influentPlayer;
     }
 }
