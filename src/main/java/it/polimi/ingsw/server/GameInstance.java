@@ -70,8 +70,6 @@ public class GameInstance implements Runnable {
                 }
             }
 
-            registeredViews.add(remoteView);
-
         }
 
         for (int i = 0; i < controller.getGame().getNumberOfPlayer(); i++) {
