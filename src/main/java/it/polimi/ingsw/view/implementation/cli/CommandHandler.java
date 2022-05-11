@@ -261,7 +261,7 @@ public class CommandHandler {
         }
 
         try {
-            Colour colour = Colour.valueOf(args[0]);
+            Colour colour = Colour.valueOf(args[0].toUpperCase(Locale.ROOT));
             int groupIsland = Integer.parseInt(args[1]);
             int singleIsland = Integer.parseInt(args[2]);
             cli.getActionSender().moveStudentToIsland(cli.getPlayerName(), colour, groupIsland, singleIsland);
@@ -280,7 +280,7 @@ public class CommandHandler {
             System.out.println(ViewString.INCORRECT_FORMAT + ViewString.MOVE_STUDENT_TO_DINING_ROOM);
         }
 
-        Colour colour = Colour.valueOf(args[0]);
+        Colour colour = Colour.valueOf(args[0].toUpperCase());
         cli.getActionSender().moveStudentToDiningRoom(cli.getPlayerName(), colour);
 
     }
@@ -359,7 +359,7 @@ public class CommandHandler {
                     System.out.println(ViewString.INCORRECT_FORMAT + ViewString.SELECT_STUDENT_COLOUR);
                     return;
                 }
-                Colour colour = Colour.valueOf(args[1]);
+                Colour colour = Colour.valueOf(args[1].toUpperCase(Locale.ROOT));
                 cli.getActionSender().setColour(cli.getPlayerName(), colour);
 
             }
@@ -395,7 +395,7 @@ public class CommandHandler {
             System.out.println(ViewString.INCORRECT_FORMAT + ViewString.STUDENT_TO_ISLAND);
         }
         try {
-            Colour colour = Colour.valueOf(args[0]);
+            Colour colour = Colour.valueOf(args[0].toUpperCase(Locale.ROOT));
             if(args[1] != "on"){
                 System.out.println(ViewString.INCORRECT_FORMAT + ViewString.STUDENT_TO_ISLAND);
                 return;
@@ -435,8 +435,8 @@ public class CommandHandler {
                     return;
                 }
 
-                Colour colourDiningRoom = Colour.valueOf(args[2]);
-                Colour colourEntrance = Colour.valueOf(args[4]);
+                Colour colourDiningRoom = Colour.valueOf(args[2].toUpperCase(Locale.ROOT));
+                Colour colourEntrance = Colour.valueOf(args[4].toUpperCase(Locale.ROOT));
                 cli.getActionSender().setColourDiningRoomEntrance(cli.getPlayerName(), colourDiningRoom, colourEntrance);
 
             }
@@ -451,8 +451,8 @@ public class CommandHandler {
                     return;
                 }
 
-                Colour entranceColour = Colour.valueOf(args[1]);
-                Colour cardColour = Colour.valueOf(args[3]);
+                Colour entranceColour = Colour.valueOf(args[1].toUpperCase(Locale.ROOT));
+                Colour cardColour = Colour.valueOf(args[3].toUpperCase(Locale.ROOT));
                 cli.getActionSender().setColourCardEntrance(cli.getPlayerName(), cardColour, entranceColour);
             }
         }
