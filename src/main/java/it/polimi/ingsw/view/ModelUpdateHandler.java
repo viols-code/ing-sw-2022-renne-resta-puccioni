@@ -11,6 +11,7 @@ import it.polimi.ingsw.view.beans.MockGroupIsland;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Class responsible for handling the updates that are received from the server.
@@ -58,6 +59,22 @@ public abstract class ModelUpdateHandler {
 
     public void updateCloudTile(int cloudTile, HashMap<Colour,Integer> students){
         getView().getModel().getTable().getCloudTileByIndex(cloudTile).setCloudTile(students);
+        if(isCLoudTileEmpty(students)){
+            getView().getModel().getTable().removeShownCloudTileByIndex(cloudTile);
+        }
+        else{
+            getView().getModel().getTable().addShownCLoudTile();
+            getView().getModel().getTable().setShownCloudTile(cloudTile,students);
+        }
+
+    }
+    private boolean isCLoudTileEmpty(HashMap<Colour,Integer> students){
+        List<Integer> res = students.entrySet()
+                .stream()
+                .map(stud -> stud.getValue())
+                .filter(num -> num > 0)
+                .collect(Collectors.toList());
+        return res.size() == 0;
     }
 
     public void updateCoins(int coins){

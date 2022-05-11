@@ -94,7 +94,7 @@ public class CLIRenderer extends Renderer {
         String cloudTile = "";
         int i = 0;
 
-        for (MockCloudTile cloud : view.getModel().getTable().getCloudTile()) {
+        for (MockCloudTile cloud : view.getModel().getTable().getShownCloudTiles()) {
             cloudTile = cloudTile.concat("Cloud tile: " + i);
             HashMap<Colour, Integer> students = cloud.getMockCloudTile();
 

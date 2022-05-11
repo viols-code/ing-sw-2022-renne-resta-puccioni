@@ -16,6 +16,8 @@ public class MockTable {
      */
     private final List<MockCloudTile> cloudTiles;
 
+    private final List<MockCloudTile> shownCloudTiles;
+
     /**
      * A list containing the group islands
      */
@@ -41,6 +43,7 @@ public class MockTable {
      */
     public MockTable() {
         cloudTiles = new ArrayList<>();
+        shownCloudTiles = new ArrayList<>();
         groupIslands = new ArrayList<>();
         isBagEmpty = false;
         motherNaturePosition = 0;
@@ -86,10 +89,20 @@ public class MockTable {
      *
      * @param cloudTile the index of the cloud tile in the list
      */
-    public void removeCloudTileByIndex(int cloudTile) {
-        cloudTiles.remove(cloudTile);
+    public void removeShownCloudTileByIndex(int cloudTile) {
+        shownCloudTiles.remove(cloudTile);
     }
 
+    public void addShownCLoudTile(){
+        shownCloudTiles.add(new MockCloudTile());
+    }
+
+    public void setShownCloudTile(int cloudTile, HashMap<Colour,Integer> students){
+        shownCloudTiles.get(cloudTile).setCloudTile(students);
+    }
+    public List<MockCloudTile> getShownCloudTiles(){
+        return shownCloudTiles;
+    }
     /**
      * Gets the cloud tile with a given index
      *
