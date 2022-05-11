@@ -228,7 +228,7 @@ public class CLIRenderer extends Renderer {
     }
 
     private void renderCoins(int coins,  String numberCoins){
-        numberCoins = numberCoins.concat(AnsiColour.GOLD + "Coins: " + coins);
+        numberCoins = numberCoins.concat(AnsiColour.GOLD + "Coins: " + coins + AnsiColour.RESET);
         System.out.println(numberCoins);
     }
 
