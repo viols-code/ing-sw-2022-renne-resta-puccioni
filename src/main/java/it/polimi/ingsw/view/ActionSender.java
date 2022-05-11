@@ -39,10 +39,10 @@ public abstract class ActionSender {
      */
     public void chooseCloudTile(String localPlayer, int cloudTile) throws IllegalArgumentException{
         if(!getView().getModel().getCurrentPlayer().getNickname().equalsIgnoreCase(localPlayer)){
-            throw new IllegalArgumentException("it's not your turn");
+            throw new IllegalArgumentException("It's not your turn");
         }
         else if(cloudTile < 0 || cloudTile >= getView().getModel().getPlayers().size()){
-            throw new IllegalArgumentException("cloud tile index out of range");
+            throw new IllegalArgumentException("Cloud tile index out of range");
         }
         else{
             getView().getClient().send(new ChooseCloudTile(localPlayer,cloudTile));
@@ -59,12 +59,8 @@ public abstract class ActionSender {
      */
     public void moveMotherNature(String localPlayer, int steps) throws IllegalArgumentException{
         if(!getView().getModel().getCurrentPlayer().getNickname().equalsIgnoreCase(localPlayer)){
-            throw new IllegalArgumentException("it's not your turn");
-        }
-        /*else if(steps <= 0 || steps > getView().getModel().getPlayerByNickname(localPlayer).getCurrentAssistantCard().getMotherNatureMovement()){
-            throw new IllegalArgumentException("mother nature steps out of range");
-        }*/
-        else{
+            throw new IllegalArgumentException("It's not your turn");
+        } else{
             getView().getClient().send(new MoveMotherNature(localPlayer,steps));
         }
     }
@@ -79,13 +75,13 @@ public abstract class ActionSender {
      */
     public void moveStudentToDiningRoom(String localPlayer, Colour student)throws IllegalArgumentException{
         if(!getView().getModel().getCurrentPlayer().getNickname().equalsIgnoreCase(localPlayer)){
-            throw new IllegalArgumentException("it's not your turn");
+            throw new IllegalArgumentException("It's not your turn");
         }
         else if(getView().getModel().getPlayerByNickname(localPlayer).getSchoolBoard().getEntrance().get(student) <= 0){
-            throw new IllegalArgumentException("you don't have this student in your entrance");
+            throw new IllegalArgumentException("You don't have this student in your entrance");
         }
         else if(getView().getModel().getPlayerByNickname(localPlayer).getSchoolBoard().getDiningRoom().get(student) == 10){
-            throw new IllegalArgumentException("this dining room table is full");
+            throw new IllegalArgumentException("This dining room table is full");
         }
         else{
             getView().getClient().send(new MoveStudentToDiningRoom(localPlayer,student));
@@ -107,16 +103,16 @@ public abstract class ActionSender {
      */
     public void moveStudentToIsland(String localPlayer, Colour student, int groupIsland, int singleIsland) throws IllegalArgumentException{
         if(!getView().getModel().getCurrentPlayer().getNickname().equalsIgnoreCase(localPlayer)){
-            throw new IllegalArgumentException("it's not your turn");
+            throw new IllegalArgumentException("It's not your turn");
         }
         else if(getView().getModel().getPlayerByNickname(localPlayer).getSchoolBoard().getEntrance().get(student) <= 0){
-            throw new IllegalArgumentException("you don't have this student in your entrance");
+            throw new IllegalArgumentException("You don't have this student in your entrance");
         }
         else if(groupIsland < 0 || groupIsland >= getView().getModel().getTable().getGroupIslands().size()){
-            throw new IllegalArgumentException("group island index out of range");
+            throw new IllegalArgumentException("Group island index out of range");
         }
         else if(singleIsland < 0 || singleIsland >= getView().getModel().getTable().getGroupIslandByIndex(groupIsland).getIslands().size()){
-            throw new IllegalArgumentException("single island index out of range");
+            throw new IllegalArgumentException("Single island index out of range");
         }
         else{
             getView().getClient().send(new MoveStudentToIsland(localPlayer,student,groupIsland,singleIsland));
@@ -133,10 +129,10 @@ public abstract class ActionSender {
      */
     public void playAssistantCard(String localPlayer, int assistantCard)throws IllegalArgumentException{
         if(!getView().getModel().getCurrentPlayer().getNickname().equalsIgnoreCase(localPlayer)){
-            throw new IllegalArgumentException("it's not your turn");
+            throw new IllegalArgumentException("It's not your turn");
         }
         else if(assistantCard < 0 || assistantCard > 9){
-            throw new IllegalArgumentException("assistant card value out of range");
+            throw new IllegalArgumentException("Assistant card value out of range");
         }
         else{
             getView().getClient().send(new PlayAssistantCard(localPlayer,assistantCard));
@@ -155,16 +151,16 @@ public abstract class ActionSender {
      */
     public void playCharacterCard(String localPlayer, int characterCard)throws IllegalArgumentException{
         if(!getView().getModel().isGameExpert()){
-            throw new IllegalArgumentException("the game mode is not expert: you can't play character card");
+            throw new IllegalArgumentException("The game mode is not expert: you can't play character card");
         }
         else if(!getView().getModel().getCurrentPlayer().getNickname().equalsIgnoreCase(localPlayer)){
-            throw new IllegalArgumentException("it's not your turn");
+            throw new IllegalArgumentException("It's not your turn");
         }
         else if(characterCard < 0 || characterCard > 2){
-            throw new IllegalArgumentException("character card index out of range");
+            throw new IllegalArgumentException("Character card index out of range");
         }
         else if(getView().getModel().getPlayerByNickname(localPlayer).getCoins() < getView().getModel().getCharacterCardByIndex(characterCard).getCost()){
-            throw new IllegalArgumentException("you can't pay this card");
+            throw new IllegalArgumentException("You can't pay this card");
         }
         else{
             getView().getClient().send(new PlayCharacterCard(localPlayer,characterCard));
@@ -180,10 +176,10 @@ public abstract class ActionSender {
      */
     public void setColour(String localPlayer, Colour colour)throws IllegalArgumentException{
         if(!getView().getModel().isGameExpert()){
-            throw new IllegalArgumentException("the game mode is not expert: you can't play character card");
+            throw new IllegalArgumentException("The game mode is not expert: you can't play character card");
         }
         else if(!getView().getModel().getCurrentPlayer().getNickname().equalsIgnoreCase(localPlayer)){
-            throw new IllegalArgumentException("it's not your turn");
+            throw new IllegalArgumentException("It's not your turn");
         }
         else{
             getView().getClient().send(new SetColour(localPlayer,colour));
@@ -204,16 +200,16 @@ public abstract class ActionSender {
      */
     public void setColourAndIsland(String localPlayer, Colour colour, int groupIsland, int singleIsland)throws IllegalArgumentException{
         if(!getView().getModel().isGameExpert()){
-            throw new IllegalArgumentException("the game mode is not expert: you can't play character card");
+            throw new IllegalArgumentException("The game mode is not expert: you can't play character card");
         }
         else if(!getView().getModel().getCurrentPlayer().getNickname().equalsIgnoreCase(localPlayer)){
-            throw new IllegalArgumentException("it's not your turn");
+            throw new IllegalArgumentException("It's not your turn");
         }
         else if(groupIsland < 0 || groupIsland >= getView().getModel().getTable().getGroupIslands().size()){
-            throw new IllegalArgumentException("group island index out of range");
+            throw new IllegalArgumentException("Group island index out of range");
         }
         else if(singleIsland < 0 || singleIsland >= getView().getModel().getTable().getGroupIslandByIndex(groupIsland).getIslands().size()){
-            throw new IllegalArgumentException("single island index out of range");
+            throw new IllegalArgumentException("Single island index out of range");
         }
         else{
             getView().getClient().send(new SetColourAndIsland(localPlayer,colour,groupIsland,singleIsland));
@@ -233,13 +229,13 @@ public abstract class ActionSender {
      */
     public void setColourCardEntrance(String localPlayer, Colour colourCard, Colour colourEntrance)throws IllegalArgumentException{
         if(!getView().getModel().getCurrentPlayer().getNickname().equalsIgnoreCase(localPlayer)){
-            throw new IllegalArgumentException("it's not your turn");
+            throw new IllegalArgumentException("It's not your turn");
         }
         else if(getView().getModel().getCurrentCharacterCard().getStudents().get(colourCard) <= 0){
-            throw new IllegalArgumentException("the card doesn't have this student");
+            throw new IllegalArgumentException("The card doesn't have this student");
         }
         else if(getView().getModel().getPlayerByNickname(localPlayer).getSchoolBoard().getEntrance().get(colourEntrance) <= 0){
-            throw new IllegalArgumentException("you don't have this student in your entrance");
+            throw new IllegalArgumentException("You don't have this student in your entrance");
         }
         else{
             getView().getClient().send(new SetColourCardEntrance(localPlayer,colourCard,colourEntrance));
@@ -259,13 +255,13 @@ public abstract class ActionSender {
      */
     public void setColourDiningRoomEntrance(String localPlayer, Colour colourDiningRoom, Colour colourEntrance)throws IllegalArgumentException{
         if(!getView().getModel().getCurrentPlayer().getNickname().equalsIgnoreCase(localPlayer)){
-            throw new IllegalArgumentException("it's not your turn");
+            throw new IllegalArgumentException("It's not your turn");
         }
         else if(getView().getModel().getPlayerByNickname(localPlayer).getSchoolBoard().getDiningRoom().get(colourDiningRoom) <=0){
-            throw new IllegalArgumentException("you don't have this student in your dining room");
+            throw new IllegalArgumentException("You don't have this student in your dining room");
         }
         else if(getView().getModel().getPlayerByNickname(localPlayer).getSchoolBoard().getEntrance().get(colourEntrance) <= 0){
-            throw new IllegalArgumentException("you don't have this student in your entrance");
+            throw new IllegalArgumentException("You don't have this student in your entrance");
         }
         else{
             getView().getClient().send(new SetColourDiningRoomEntrance(localPlayer,colourDiningRoom,colourEntrance));
@@ -283,10 +279,10 @@ public abstract class ActionSender {
      */
     public void setGroupIsland(String localPlayer, int groupIsland)throws IllegalArgumentException{
         if(!getView().getModel().getCurrentPlayer().getNickname().equalsIgnoreCase(localPlayer)){
-            throw new IllegalArgumentException("it's not your turn");
+            throw new IllegalArgumentException("It's not your turn");
         }
         else if(groupIsland < 0 || groupIsland >= getView().getModel().getTable().getGroupIslands().size()){
-            throw new IllegalArgumentException("group island index out of range");
+            throw new IllegalArgumentException("Group island index out of range");
         }
         else{
             getView().getClient().send(new SetGroupIsland(localPlayer,groupIsland));
