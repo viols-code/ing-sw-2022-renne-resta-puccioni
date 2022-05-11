@@ -339,7 +339,7 @@ public class CommandHandler {
             int cloudTile = Integer.parseInt(args[0]);
             cli.getActionSender().chooseCloudTile(cli.getPlayerName(), cloudTile);
         } catch (NumberFormatException e) {
-            System.out.println(ViewString.INCORRECT_FORMAT + ViewString.PLAY_CHARACTER_CARD);
+            System.out.println(ViewString.INCORRECT_FORMAT + ViewString.CHOOSE_CLOUD_TILE);
         }
     }
 
