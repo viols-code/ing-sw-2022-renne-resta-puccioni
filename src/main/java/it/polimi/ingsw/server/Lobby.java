@@ -78,7 +78,7 @@ public class Lobby extends Observable<IServerPacket> {
      * @param playerName the player name to be set, if it's null or empty sends an error message to the client
      */
     public void setPlayerName(SocketClientConnection connection, String playerName) {
-        if (playerName == null || playerName.trim().equals("")) {
+        if (playerName == null || playerName.trim().equalsIgnoreCase("")) {
             notify(new ErrorMessage(connection, "Your username can't be empty"));
             return;
         }
