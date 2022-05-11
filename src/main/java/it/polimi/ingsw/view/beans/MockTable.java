@@ -76,11 +76,9 @@ public class MockTable {
 
     /**
      * Adds a cloud tile to the list
-     *
-     * @param cloudTile the cloud tile
      */
-    public void addCloudTile(MockCloudTile cloudTile) {
-        cloudTiles.add(cloudTile);
+    public void addCloudTile() {
+        cloudTiles.add(new MockCloudTile());
     }
 
     /**

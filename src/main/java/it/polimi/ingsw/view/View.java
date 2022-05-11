@@ -170,6 +170,9 @@ public abstract class View {
         players.entrySet()
                 .stream()
                 .forEach(player -> getModel().addPlayer(player.getKey(),player.getValue(),gameMode,player.getKey().equals(this.playerName)));
+        for(int i=0; i<numPlayers; i++){
+            getModel().getTable().addCloudTile();
+        }
     }
     /**
      * Handles the connection of another player to the lobby.

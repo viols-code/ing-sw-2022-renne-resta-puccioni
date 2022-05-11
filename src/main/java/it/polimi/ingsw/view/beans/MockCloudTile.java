@@ -18,8 +18,8 @@ public class MockCloudTile {
     /**
      * Constructor: creates a new MockCloudTile
      */
-    public MockCloudTile(HashMap<Colour, Integer> cloudTile) {
-        tileStudents = cloudTile;
+    public MockCloudTile() {
+
     }
 
     /**
