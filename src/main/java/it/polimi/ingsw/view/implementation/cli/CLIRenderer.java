@@ -1,7 +1,6 @@
 package it.polimi.ingsw.view.implementation.cli;
 import it.polimi.ingsw.model.AssistantCard;
 import it.polimi.ingsw.model.Colour;
-import it.polimi.ingsw.model.player.SchoolBoard;
 import it.polimi.ingsw.view.beans.*;
 import it.polimi.ingsw.view.implementation.cli.utils.AnsiColour;
 
@@ -70,6 +69,9 @@ public class CLIRenderer extends Renderer {
             island = island.concat("Group island " + i);
             if(groupIsland.isMotherNature()){
                 island = island.concat(AnsiColour.GOLD + "\nMother Nature is here!" + AnsiColour.RESET);
+            }
+            if(groupIsland.getInfluentPlayer() != null){
+                island = island.concat("\n" + "The influent player is: " + groupIsland.getInfluentPlayer());
             }
             int j = 0;
             for(MockSingleIsland singleIsland: groupIsland.getIslands()){
