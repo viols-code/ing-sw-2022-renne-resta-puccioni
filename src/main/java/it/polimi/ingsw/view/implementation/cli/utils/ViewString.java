@@ -39,7 +39,7 @@ public class ViewString {
     public static final String GAME_MODE_MESSAGE_EXPERT = "The game mode has been set to expert";
     public static final String GAME_MODE_MESSAGE_BASIC = "The game mode has been set to basic";
     public static final String OWN_TURN = "It's your turn";
-    public static final String OTHER_TURN = "It's %s turn";
+    public static final String OTHER_TURN = "It's %s's turn";
     public static final String SELECT_ASSISTANT_CARD = "Select the assistant card you want to play:";
     public static final String MOVE_STUDENT_FROM_ENTRANCE = "Move the students from your entrance:";
     public static final String MOVE_MOTHER_NATURE = "Select the number of steps of mother nature:";
