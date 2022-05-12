@@ -3,6 +3,8 @@ package it.polimi.ingsw.view.implementation.cli;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.model.player.Wizard;
 import it.polimi.ingsw.view.View;
+import it.polimi.ingsw.view.implementation.cli.utils.ASCIIArt;
+import it.polimi.ingsw.view.implementation.cli.utils.AnsiColour;
 import it.polimi.ingsw.view.implementation.cli.utils.ViewString;
 
 import java.util.List;
@@ -41,6 +43,12 @@ public class CLI extends View {
     @Override
     public void handleCorrectWizard(Wizard wizard, List<Wizard> takenWizard){
         super.handleCorrectWizard(wizard, takenWizard);
+        switch (wizard) {
+            case TYPE_1 -> System.out.println(AnsiColour.GOLD + ASCIIArt.WIZARD_ONE + AnsiColour.RESET);
+            case TYPE_2 -> System.out.println(AnsiColour.GOLD + ASCIIArt.WIZARD_TWO + AnsiColour.RESET);
+            case TYPE_3 -> System.out.println(AnsiColour.GOLD + ASCIIArt.WIZARD_THREE + AnsiColour.RESET);
+            case TYPE_4 -> System.out.println(AnsiColour.GOLD + ASCIIArt.WIZARD_FOUR + AnsiColour.RESET);
+        }
         if(isLobbyMaster()){
             getRenderer().showLobbyMessage(ViewString.CHOOSE_GAME_MODE);
         } else {
@@ -66,10 +74,12 @@ public class CLI extends View {
 
     @Override
     public void handleGameMode(boolean gameMode){
-        if(gameMode){
-            getRenderer().showLobbyMessage(ViewString.GAME_MODE_MESSAGE_EXPERT);
-        } else{
-            getRenderer().showLobbyMessage(ViewString.GAME_MODE_MESSAGE_BASIC);
+        if(!isLobbyMaster()){
+            if(gameMode){
+                getRenderer().showLobbyMessage(ViewString.GAME_MODE_MESSAGE_EXPERT);
+            } else{
+                getRenderer().showLobbyMessage(ViewString.GAME_MODE_MESSAGE_BASIC);
+            }
         }
     }
 
@@ -87,7 +97,6 @@ public class CLI extends View {
     @Override
     public void handleSetGameMode() {
         super.handleSetGameMode();
-        getRenderer().showLobbyMessage(ViewString.GAME_MODE_SET);
         getRenderer().showLobbyMessage(ViewString.CHOOSE_PLAYERS_TO_START);
     }
 
@@ -113,8 +122,7 @@ public class CLI extends View {
     @Override
     public void run() {
         Scanner scanner = new Scanner(System.in);
-        //Logo
-        //System.out.println(AnsiColour.BLUE + ASCIIArt.MASTER + AnsiColour.RESET);
+        System.out.println(AnsiColour.BLUE + ASCIIArt.ERIANTYS + AnsiColour.RESET);
 
         getRenderer().showLobbyMessage("Enter the server ip and port (leave blank for localhost):");
         //addToLobby(false);
@@ -126,7 +134,6 @@ public class CLI extends View {
             if (!getClient().isActive())
                 break;
 
-            cmdSwitch:
             switch (getGameState()) {
                 case CONNECTING -> {
                     if (command.isBlank()) {
@@ -175,12 +182,10 @@ public class CLI extends View {
                     if (command.equalsIgnoreCase("expert")) {
                         getActionSender().setGameMode(true);
                         getRenderer().showLobbyMessage("Playing using the expert game rules!");
-                        break;
                     }
                     else if(command.equalsIgnoreCase("basic")){
                         getActionSender().setGameMode(false);
                         getRenderer().showLobbyMessage("Playing using the basic game rules!");
-                        break;
                     }
                     else{
                         getRenderer().showErrorMessage("Write 'expert' or 'basic'");
