@@ -109,7 +109,7 @@ public class Lobby extends Observable<IServerPacket> {
      */
     public void setPlayerWizard(SocketClientConnection connection, Wizard wizard){
         if (wizard == null) {
-            notify(new ErrorMessage(connection, "Your wizard can't be empty"));
+            notify(new ErrorMessage(connection, "Choose a number between 1 and 4"));
             return;
         }
 
@@ -169,8 +169,8 @@ public class Lobby extends Observable<IServerPacket> {
     /**
      * Sets the gameMode (expert or basic), if the given connection is not the first connection to the lobby
      * sends an error message to the client. If the game mode chosen is not one of the available ones sends an error to the client.
-     * @param connection
-     * @param gameMode
+     * @param connection the connection
+     * @param gameMode the game mode chosen
      */
     public void setGameMode(SocketClientConnection connection, Boolean gameMode) {
         if (connections.indexOf(connection) != indexOfFirstConnection) {
