@@ -66,8 +66,8 @@ public abstract class ModelUpdateHandler {
             getView().getModel().getTable().addShownCLoudTile();
             getView().getModel().getTable().setShownCloudTile(cloudTile,students);
         }
-
     }
+
     private boolean isCLoudTileEmpty(HashMap<Colour,Integer> students){
         List<Integer> res = students.entrySet()
                 .stream()
@@ -83,8 +83,6 @@ public abstract class ModelUpdateHandler {
 
     public void updateCurrentAssistantCard(String player, int assistantCard){
         getView().getModel().getPlayerByNickname(player).setCurrentAssistantCard(assistantCard);
-        // we need to add all the assistant cards in the mock model
-        //getView().getModel().getPlayerByNickname(player).getCards().remove()
     }
 
     public void updateDiningRoom(String player, HashMap<Colour,Integer> diningRoom){
