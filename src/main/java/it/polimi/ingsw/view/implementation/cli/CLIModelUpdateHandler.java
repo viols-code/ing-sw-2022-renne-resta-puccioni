@@ -40,5 +40,11 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
         }
     }
 
+    @Override
+    public void updateWinner(String player){
+        super.updateWinner(player);
+        getView().getRenderer().showGameMessage(ViewString.WINNER.formatted(getView().getModel().getWinner().getNickname()));
+    }
+
 
 }
