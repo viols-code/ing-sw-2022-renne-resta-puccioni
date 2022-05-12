@@ -164,7 +164,7 @@ public class CLIRenderer extends Renderer {
     }
 
     public void printOthersCoins(String playerName){
-        String numberCoins = playerName + "\n";
+        String numberCoins = view.getModel().getPlayerByNickname(playerName).getNickname() + "\n";
         renderCoins(view.getModel().getPlayerByNickname(playerName).getCoins(), numberCoins);
     }
 
@@ -174,7 +174,7 @@ public class CLIRenderer extends Renderer {
     }
 
     public void printOthersCurrentAssistantCard(String playerName){
-        String assistantCard = playerName + "\n";
+        String assistantCard = view.getModel().getPlayerByNickname(playerName).getNickname() + "\n";
         renderAssistantCard(view.getModel().getPlayerByNickname(playerName).getCurrentAssistantCard().getValue(),
                 view.getModel().getPlayerByNickname(playerName).getCurrentAssistantCard().getMotherNatureMovement(), assistantCard);
     }
