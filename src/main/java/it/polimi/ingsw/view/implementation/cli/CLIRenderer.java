@@ -169,7 +169,7 @@ public class CLIRenderer extends Renderer {
     }
 
     public void printOthersSchoolBoard(String playerName){
-        String schoolBoard = playerName + "\n";
+        String schoolBoard = view.getModel().getPlayerByNickname(playerName).getNickname() + "\n";
         renderSchoolBoard(view.getModel().getPlayerByNickname(playerName).getSchoolBoard(), schoolBoard);
     }
 
