@@ -1,5 +1,6 @@
 package it.polimi.ingsw.view.implementation.cli;
 
+import it.polimi.ingsw.model.game.GamePhase;
 import it.polimi.ingsw.model.game.TurnPhase;
 import it.polimi.ingsw.view.ModelUpdateHandler;
 import it.polimi.ingsw.view.View;
@@ -43,19 +44,55 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
     @Override
     public void updateWinner(String player){
         super.updateWinner(player);
-        getView().getRenderer().showGameMessage(ViewString.WINNER.formatted(getView().getModel().getWinner().getNickname()));
+        if(getView().getModel().getLocalPlayer().getNickname().equalsIgnoreCase(player)){
+            getView().getRenderer().showGameMessage(ViewString.YOU_WINNER);
+        } else {
+            getView().getRenderer().showGameMessage(ViewString.OTHER_WINNER.formatted(getView().getModel().getWinner().getNickname()));
+        }
     }
 
     @Override
     public void updateInfluencePlayerOnGroupIsland(String player, int groupIsland){
         super.updateInfluencePlayerOnGroupIsland(player, groupIsland);
-        getView().getRenderer().showGameMessage(ViewString.INFLUENCE_PLAYER.formatted(player, groupIsland));
+        if(getView().getModel().getLocalPlayer().getNickname().equalsIgnoreCase(player)){
+            getView().getRenderer().showGameMessage(ViewString.YOU_INFLUENCE_PLAYER.formatted(groupIsland));
+        } else {
+            getView().getRenderer().showGameMessage(ViewString.OTHER_INFLUENCE_PLAYER.formatted(player, groupIsland));
+        }
     }
 
     @Override
     public void updateUnifyIsland(int groupIsland1, int groupIsland2){
         super.updateUnifyIsland(groupIsland1, groupIsland2);
         getView().getRenderer().showGameMessage(ViewString.UNIFY_ISLANDS.formatted(groupIsland1, groupIsland2));
+    }
+
+    @Override
+    public void updateCurrentAssistantCard(String player, int assistantCard){
+        super.updateCurrentAssistantCard(player, assistantCard);
+        if(getView().getModel().getLocalPlayer().getNickname().equalsIgnoreCase(player)){
+            getView().getRenderer().showGameMessage(ViewString.YOU_SELECTED_ASSISTANT_CARD.formatted(assistantCard - 1));
+        } else {
+            getView().getRenderer().showGameMessage(ViewString.OTHER_SELECTED_ASSISTANT_CARD.formatted(player, assistantCard - 1));
+        }
+    }
+
+    @Override
+    public void updateMotherNaturePosition(int motherNaturePosition){
+        super.updateMotherNaturePosition(motherNaturePosition);
+        if(getView().getModel().getGamePhase() != GamePhase.SETTING){
+            if(getView().getModel().getLocalPlayer().getNickname().equalsIgnoreCase(getView().getModel().getCurrentPlayer().getNickname())){
+                getView().getRenderer().showGameMessage(ViewString.YOU_SELECTED_MOTHER_NATURE_MOVEMENT.formatted(motherNaturePosition));
+            } else {
+                getView().getRenderer().showGameMessage(ViewString.OTHER_SELECTED_MOTHER_NATURE_MOVEMENT.formatted(getView().getModel().getCurrentPlayer().getNickname(), motherNaturePosition));
+            }
+        }
+    }
+
+    @Override
+    public void updateRound(int round){
+        super.updateRound(round);
+        getView().getRenderer().showGameMessage(ViewString.ROUND.formatted(round));
     }
 
 
