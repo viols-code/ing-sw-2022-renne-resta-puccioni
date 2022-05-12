@@ -353,7 +353,7 @@ public abstract class CharacterCard extends Observable<IServerPacket> {
                 notify(new UnifyIslandsUpdate(groupIsland - 1, groupIsland));
             } else {
                 unifyGroupIsland(game.getTable().getGroupIslandByIndex(groupIsland), game.getTable().getIslandBefore(groupIsland));
-                notify(new UnifyIslandsUpdate(groupIsland, game.getTable().getNumberOfGroupIsland() - 1));
+                notify(new UnifyIslandsUpdate(groupIsland, game.getTable().getNumberOfGroupIsland()));
             }
 
         }
