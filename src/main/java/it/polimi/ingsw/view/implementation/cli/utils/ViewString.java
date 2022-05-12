@@ -13,7 +13,6 @@ public class ViewString {
     public static final String CHOOSE_PLAYERS_TO_START = "Choose the number of players required to start the game:";
     public static final String PLAYERS_TO_START_SET = "Successfully set the number of players, wait for other players";
     public static final String CHOOSE_GAME_MODE = "Choose the game mode writing 'basic' or 'expert'";
-    public static final String GAME_MODE_SET = "Successfully set the game mode, wait for other players";
     public static final String PLAYER_DISCONNECT = "Someone disconnected";
     public static final String PLAYER_DISCONNECT_WITH_NAME = "Player %s disconnected";
     public static final String PLAYER_CONNECTED_WITH_COUNT = "Player %s connected with count %d. The number of players is not set yet";
@@ -24,7 +23,6 @@ public class ViewString {
     /*
     Error messages
      */
-    public static final String NOT_YOUR_TURN = "It's not your turn";
     public static final String GAME_MODE = "The game is in the basic mode";
     public static final String COMMAND_NOT_FOUND = "This command does not exist";
     public static final String NOT_A_NUMBER = "Please input a number";
@@ -41,13 +39,20 @@ public class ViewString {
     public static final String OWN_TURN = "It's your turn";
     public static final String OTHER_TURN = "It's %s's turn";
     public static final String SELECT_ASSISTANT_CARD = "Select the assistant card you want to play:";
+    public static final String YOU_SELECTED_ASSISTANT_CARD = "You played the assistant card number %d";
+    public static final String OTHER_SELECTED_ASSISTANT_CARD = "%s played the assistant card number %d";
     public static final String MOVE_STUDENT_FROM_ENTRANCE = "Move the students from your entrance:";
     public static final String MOVE_MOTHER_NATURE = "Select the number of steps of mother nature:";
+    public static final String YOU_SELECTED_MOTHER_NATURE_MOVEMENT = "You have moved mother nature of %d steps";
+    public static final String OTHER_SELECTED_MOTHER_NATURE_MOVEMENT = "%s has moved mother nature of %d steps";
     public static final String SELECT_CLOUD_TILE = "Select the cloud tile:";
+    public static final String ROUND = "The round %d is starting";
     public static final String INCORRECT_FORMAT = "Incorrect format: please input ";
     public static final String UNIFY_ISLANDS = "Group island %d and group island %d have been unified";
-    public static final String INFLUENCE_PLAYER = "%s has now the influence on the group island %d";
-    public static final String WINNER = "The game has ended. The winner is %s";
+    public static final String YOU_INFLUENCE_PLAYER = "You have now the influence on the group island %d";
+    public static final String OTHER_INFLUENCE_PLAYER = "%s has now the influence on the group island %d";
+    public static final String YOU_WINNER = "The game has ended. You have won!";
+    public static final String OTHER_WINNER = "The game has ended. The winner is %s";
     // mettiamo anche i mex delle character card?
 
     /*
