@@ -1,17 +1,13 @@
 package it.polimi.ingsw.view;
 
 import it.polimi.ingsw.client.messages.PlayerWizardMessage;
-import it.polimi.ingsw.model.game.Game;
 import it.polimi.ingsw.model.player.Wizard;
-import it.polimi.ingsw.view.implementation.cli.utils.ViewString;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.messages.PlayerNameMessage;
 import it.polimi.ingsw.view.beans.MockModel;
-import it.polimi.ingsw.view.beans.MockPlayer;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Class responsible for orchestrating all the functionalities of the game interface.
@@ -39,6 +35,7 @@ public abstract class View {
         this.client = client;
         this.model = new MockModel();
         this.gameState = GameState.CONNECTING;
+        this.wizard = null;
     }
 
     /**
