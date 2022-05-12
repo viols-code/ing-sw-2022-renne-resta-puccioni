@@ -2,15 +2,11 @@ package it.polimi.ingsw.view.implementation.cli;
 
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.model.player.Wizard;
-import it.polimi.ingsw.view.GameState;
 import it.polimi.ingsw.view.View;
-import it.polimi.ingsw.view.implementation.cli.utils.AnsiColour;
 import it.polimi.ingsw.view.implementation.cli.utils.ViewString;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
-import java.util.UUID;
 
 /**
  * Command line interface main class
@@ -33,31 +29,31 @@ public class CLI extends View {
     @Override
     public void addToLobby(boolean isFirstConnection) {
         super.addToLobby(isFirstConnection);
-        getRenderer().showGameMessage(ViewString.CHOOSE_NAME);
+        getRenderer().showLobbyMessage(ViewString.CHOOSE_NAME);
     }
 
     @Override
     public void handleCorrectNickname(String nickname, List<String> takenNicknames){
         super.handleCorrectNickname(nickname, takenNicknames);
-        getRenderer().showGameMessage(ViewString.CHOOSE_WIZARD);
+        getRenderer().showLobbyMessage(ViewString.CHOOSE_WIZARD);
     }
 
     @Override
     public void handleCorrectWizard(Wizard wizard, List<Wizard> takenWizard){
         super.handleCorrectWizard(wizard, takenWizard);
         if(isLobbyMaster()){
-            getRenderer().showGameMessage(ViewString.CHOOSE_GAME_MODE);
+            getRenderer().showLobbyMessage(ViewString.CHOOSE_GAME_MODE);
         } else {
-            getRenderer().showGameMessage(ViewString.WAITING_PLAYERS);
+            getRenderer().showLobbyMessage(ViewString.WAITING_PLAYERS);
         }
     }
 
     @Override
     public void handlePlayerConnect(String playerName, Wizard wizard, int currentPlayers, Integer playersToStart){
         if(playersToStart == null){
-            getRenderer().showGameMessage(ViewString.PLAYER_CONNECTED_WITH_COUNT.formatted(playerName, currentPlayers));
+            getRenderer().showLobbyMessage(ViewString.PLAYER_CONNECTED_WITH_COUNT.formatted(playerName, currentPlayers));
         } else {
-            getRenderer().showGameMessage(ViewString.PLAYER_CONNECTED_WITH_COUNT_ON_TOTAL.formatted(playerName, currentPlayers, playersToStart));
+            getRenderer().showLobbyMessage(ViewString.PLAYER_CONNECTED_WITH_COUNT_ON_TOTAL.formatted(playerName, currentPlayers, playersToStart));
         }
     }
 
@@ -71,9 +67,9 @@ public class CLI extends View {
     @Override
     public void handleGameMode(boolean gameMode){
         if(gameMode){
-            getRenderer().showGameMessage(ViewString.GAME_MODE_MESSAGE_EXPERT);
+            getRenderer().showLobbyMessage(ViewString.GAME_MODE_MESSAGE_EXPERT);
         } else{
-            getRenderer().showGameMessage(ViewString.GAME_MODE_MESSAGE_BASIC);
+            getRenderer().showLobbyMessage(ViewString.GAME_MODE_MESSAGE_BASIC);
         }
     }
 
@@ -85,14 +81,14 @@ public class CLI extends View {
     @Override
     public void handleSetPlayersToStart(int playersToStart) {
         super.handleSetPlayersToStart(playersToStart);
-        getRenderer().showGameMessage(ViewString.PLAYERS_TO_START_SET);
+        getRenderer().showLobbyMessage(ViewString.PLAYERS_TO_START_SET);
     }
 
     @Override
     public void handleSetGameMode() {
         super.handleSetGameMode();
-        getRenderer().showGameMessage(ViewString.GAME_MODE_SET);
-        getRenderer().showGameMessage(ViewString.CHOOSE_PLAYERS_TO_START);
+        getRenderer().showLobbyMessage(ViewString.GAME_MODE_SET);
+        getRenderer().showLobbyMessage(ViewString.CHOOSE_PLAYERS_TO_START);
     }
 
     @Override
@@ -120,7 +116,7 @@ public class CLI extends View {
         //Logo
         //System.out.println(AnsiColour.BLUE + ASCIIArt.MASTER + AnsiColour.RESET);
 
-        getRenderer().showGameMessage("Enter the server ip and port (leave blank for localhost):");
+        getRenderer().showLobbyMessage("Enter the server ip and port (leave blank for localhost):");
         //addToLobby(false);
 
         String command;
@@ -178,16 +174,16 @@ public class CLI extends View {
                 case CHOOSING_GAME_MODE -> {
                     if (command.equalsIgnoreCase("expert")) {
                         getActionSender().setGameMode(true);
-                        getRenderer().showGameMessage("Playing using the expert game rules!");
+                        getRenderer().showLobbyMessage("Playing using the expert game rules!");
                         break;
                     }
                     else if(command.equalsIgnoreCase("basic")){
                         getActionSender().setGameMode(false);
-                        getRenderer().showGameMessage("Playing using the basic game rules!");
+                        getRenderer().showLobbyMessage("Playing using the basic game rules!");
                         break;
                     }
                     else{
-                        getRenderer().showGameMessage("Write 'expert' or 'basic'");
+                        getRenderer().showErrorMessage("Write 'expert' or 'basic'");
                     }
                 }
 
@@ -208,7 +204,7 @@ public class CLI extends View {
                     getActionSender().setPlayersToStart(playersToStart);
                 }
 
-                case WAITING_PLAYERS -> getRenderer().showGameMessage(ViewString.WAITING_PLAYERS);
+                case WAITING_PLAYERS -> getRenderer().showLobbyMessage(ViewString.WAITING_PLAYERS);
 
                 case PLAYING -> {
                     try {
