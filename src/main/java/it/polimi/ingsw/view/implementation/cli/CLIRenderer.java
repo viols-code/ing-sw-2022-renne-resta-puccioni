@@ -68,16 +68,16 @@ public class CLIRenderer extends Renderer {
         for (MockGroupIsland groupIsland: view.getModel().getTable().getGroupIslands()) {
             island = island.concat("Group island " + i);
             if(groupIsland.isMotherNature()){
-                island = island.concat(AnsiColour.GOLD + "\nMother Nature is here!" + AnsiColour.RESET);
+                island = island.concat(AnsiColour.GOLD + "\n\tMother Nature is here!" + AnsiColour.RESET);
             }
             if(groupIsland.getInfluentPlayer() != null){
-                island = island.concat("\n" + "The influent player is: " + groupIsland.getInfluentPlayer());
+                island = island.concat("\n\t" + "The influent player is: " + groupIsland.getInfluentPlayer());
             }
             int j = 0;
             for(MockSingleIsland singleIsland: groupIsland.getIslands()){
-                island = island.concat("\n" + "Single island " + j);
+                island = island.concat("\n\t" + "Single island " + j);
                 for(Colour colour : Colour.values()){
-                    island = island.concat("\n\t" +
+                    island = island.concat("\n\t\t" +
                             AnsiColour.getStudentColour(colour) + colour.name() +": " + singleIsland.getStudents(colour) + AnsiColour.RESET);
                 }
                 j++;
