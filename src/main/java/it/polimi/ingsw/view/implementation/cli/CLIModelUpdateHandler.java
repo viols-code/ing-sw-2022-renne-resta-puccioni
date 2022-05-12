@@ -46,5 +46,17 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
         getView().getRenderer().showGameMessage(ViewString.WINNER.formatted(getView().getModel().getWinner().getNickname()));
     }
 
+    @Override
+    public void updateInfluencePlayerOnGroupIsland(String player, int groupIsland){
+        super.updateInfluencePlayerOnGroupIsland(player, groupIsland);
+        getView().getRenderer().showGameMessage(ViewString.INFLUENCE_PLAYER.formatted(player, groupIsland));
+    }
+
+    @Override
+    public void updateUnifyIsland(int groupIsland1, int groupIsland2){
+        super.updateUnifyIsland(groupIsland1, groupIsland2);
+        getView().getRenderer().showGameMessage(ViewString.UNIFY_ISLANDS.formatted(groupIsland1, groupIsland2));
+    }
+
 
 }

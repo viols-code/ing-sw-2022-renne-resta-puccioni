@@ -45,6 +45,8 @@ public class ViewString {
     public static final String MOVE_MOTHER_NATURE = "Select the number of steps of mother nature:";
     public static final String SELECT_CLOUD_TILE = "Select the cloud tile:";
     public static final String INCORRECT_FORMAT = "Incorrect format: please input ";
+    public static final String UNIFY_ISLANDS = "Group island %d and group island %d have been unified";
+    public static final String INFLUENCE_PLAYER = "%s has now the influence on the group island %d";
     public static final String WINNER = "The game has ended. The winner is %s";
     // mettiamo anche i mex delle character card?
 
