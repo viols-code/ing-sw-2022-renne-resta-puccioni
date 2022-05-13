@@ -148,10 +148,17 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
             if(getView().getModel().getLocalPlayer().getNickname().equalsIgnoreCase(getView().getModel().getCurrentPlayer().getNickname())){
                 getView().getRenderer().showGameMessage(ViewString.YOU_SET_ACTIVE_CHARACTER_CARD.formatted(characterCard.name().toLowerCase(Locale.ROOT)));
 
+                switch(characterCard){
+
+                    case EXCHANGE_ENTRANCE_DINING_ROOM -> getView().getRenderer().showGameMessage(ViewString.ADVICE_EXCHANGE_DINING_ROOM_ENTRANCE.formatted(characterCard.name().toLowerCase(Locale.ROOT)));
+                    case STUDENT_TO_ENTRANCE -> getView().getRenderer().showGameMessage(ViewString.ADVICE_STUDENT_TO_ENTRANCE.formatted(characterCard.name().toLowerCase(Locale.ROOT)));
+                    case STUDENT_TO_DINING_ROOM, THREE_STUDENT, NO_COLOUR -> getView().getRenderer().showGameMessage(ViewString.ADVICE_SELECT_STUDENT_COLOUR.formatted(characterCard.name().toLowerCase(Locale.ROOT)));
+                    case PROTECT_ISLAND, ISLAND_INFLUENCE -> getView().getRenderer().showGameMessage(ViewString.ADVICE_SELECT_GROUP_ISLAND.formatted(characterCard.name().toLowerCase(Locale.ROOT)));
+                    case STUDENT_TO_ISLAND -> getView().getRenderer().showGameMessage(ViewString.ADVICE_STUDENT_TO_ISLAND.formatted(characterCard.name().toLowerCase(Locale.ROOT)));
+                }
             } else{
                 getView().getRenderer().showGameMessage(ViewString.OTHER_SET_ACTIVE_CHARACTER_CARD.formatted(getView().getModel().getCurrentPlayer().getNickname(), characterCard.name().toLowerCase(Locale.ROOT)));
             }
         }
     }
-
 }
