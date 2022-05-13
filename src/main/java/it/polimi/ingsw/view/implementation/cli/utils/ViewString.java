@@ -56,6 +56,7 @@ public class ViewString {
     public static final String MOTHER_NATURE_POSITION_UNIFY = "Due to the unification of group islands mother nature is now at position %d";
     public static final String YOU_WINNER = "The game has ended. You have won!";
     public static final String OTHER_WINNER = "The game has ended. The winner is %s";
+    public static final String CARD_NOT_PLAYED = "%s hasn't played the assistant card yet";
 
     /*
     Input errors
