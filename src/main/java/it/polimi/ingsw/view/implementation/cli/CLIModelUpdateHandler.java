@@ -160,4 +160,19 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
             }
         }
     }
+
+    @Override
+    public void updateNoEntryTileOnGroupIsland(int groupIsland, int num){
+        if(getView().getModel().getTable().getGroupIslandByIndex(groupIsland).getNoEntryTile() < num){
+            if(!getView().getModel().getLocalPlayer().getNickname().equalsIgnoreCase(getView().getModel().getCurrentPlayer().getNickname())){
+                getView().getRenderer().showGameMessage(ViewString.OTHER_PROTECT.formatted(getView().getModel().getCurrentPlayer().getNickname(), groupIsland));
+            } else{
+                getView().getRenderer().showGameMessage(ViewString.YOU_PROTECT.formatted(groupIsland));
+
+            }
+        } else{
+            getView().getRenderer().showGameMessage(ViewString.NO_INFLUENCE.formatted(groupIsland));
+        }
+        super.updateNoEntryTileOnGroupIsland(groupIsland, num);
+    }
 }

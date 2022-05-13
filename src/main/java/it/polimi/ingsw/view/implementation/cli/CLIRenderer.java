@@ -73,6 +73,9 @@ public class CLIRenderer extends Renderer {
             if(groupIsland.getInfluentPlayer() != null){
                 island = island.concat("\n\t" + "The influent player is: " + groupIsland.getInfluentPlayer());
             }
+            if(!groupIsland.getIsBasic() && groupIsland.getNoEntryTile() > 0){
+                island = island.concat("\n\t" + "The island is protected with " + groupIsland.getNoEntryTile() + " no entry tile");
+            }
             int j = 0;
             for(MockSingleIsland singleIsland: groupIsland.getIslands()){
                 island = island.concat("\n\t" + "Single island " + j);

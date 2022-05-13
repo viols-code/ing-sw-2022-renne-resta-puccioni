@@ -2,10 +2,7 @@ package it.polimi.ingsw.model.card;
 
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.Game;
-import it.polimi.ingsw.model.messages.CardCoinsUpdate;
-import it.polimi.ingsw.model.messages.InfluencePlayerUpdate;
-import it.polimi.ingsw.model.messages.NoEntryTileUpdate;
-import it.polimi.ingsw.model.messages.UnifyIslandsUpdate;
+import it.polimi.ingsw.model.messages.*;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.table.island.GroupIsland;
 import it.polimi.ingsw.model.table.island.SingleIsland;
@@ -152,7 +149,15 @@ public abstract class CharacterCard extends Observable<IServerPacket> {
             }
         } else {
             game.getTable().getGroupIslandByIndex(groupIsland).removeNoEntryTile();
-            notify(new NoEntryTileUpdate(groupIsland,game.getTable().getGroupIslandByIndex(groupIsland).getNumberOfNoEntryTile()));
+            notify(new NoEntryTileUpdate(groupIsland, game.getTable().getGroupIslandByIndex(groupIsland).getNumberOfNoEntryTile()));
+            // questo for è stato aggiunto per riportare il numero di noentry tile sulla carta
+            // per fare questo ho dovuto spostare due metodi di protectisland qua sotto come protected
+            // non penso sia molto elegante, ma non mi è venuto in mente nient'altro
+            for(int i = 0; i < 3; i++){
+                if(game.getCharacterCardByIndex(i).getCharacterCardType() == CharacterCardEnumeration.PROTECT_ISLAND){
+                    game.getCharacterCardByIndex(i).setNumberOfNoEntryTiles(game.getCharacterCardByIndex(i).getNumberOfNoEntryTiles() + 1);
+                }
+            }
         }
     }
 
@@ -357,6 +362,14 @@ public abstract class CharacterCard extends Observable<IServerPacket> {
             }
 
         }
+    }
+
+    protected void setNumberOfNoEntryTiles(int numberOfNoEntryTiles) {
+
+    }
+
+    protected int getNumberOfNoEntryTiles() {
+        return 0;
     }
 
 }

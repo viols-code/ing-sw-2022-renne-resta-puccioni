@@ -77,6 +77,10 @@ public class ViewString {
     public static final String ADVICE_SELECT_STUDENT_COLOUR = " For %s select a colour";
     public static final String ADVICE_STUDENT_TO_ENTRANCE = "For %s you have to select the colour in the entrance and the colour on the card";
     public static final String ADVICE_STUDENT_TO_ISLAND = "For %s you have to select a student colour and a single island";
+    public static final String NO_INFLUENCE = "The influence has not been calculated on group island %d because it was protected";
+    public static final String OTHER_PROTECT = "%s has chosen to protect group island %d";
+    public static final String YOU_PROTECT = "You have chosen to protect group island %d";
+
 
     public static final String NO_ACTIVE_CHARACTER_CARD = "There is no active character card";
     public static final String YOU_SET_ACTIVE_CHARACTER_CARD = "You have set the character card %s";
