@@ -92,7 +92,7 @@ public class ViewString {
     public static final String CHOOSE_CLOUD_TILE = "\"choose <cloud tile num> \"";
     public static final String EXCHANGE_DINING_ROOM_ENTRANCE = "\"exchange dining room <student colour> entrance <student colour> \"";
     public static final String SELECT_GROUP_ISLAND = "\"select group island <group island num>\"";
-    public static final String SELECT_STUDENT_COLOUR = "\"select student <student colour>\"";
+    public static final String SELECT_STUDENT_COLOUR = "\"select colour <student colour>\"";
     public static final String STUDENT_TO_ENTRANCE = "\"exchange entrance <student colour> card <student colour>\"";
     public static final String STUDENT_TO_ISLAND = "\"put <student colour> on <group island num> <single island num>\"";
 

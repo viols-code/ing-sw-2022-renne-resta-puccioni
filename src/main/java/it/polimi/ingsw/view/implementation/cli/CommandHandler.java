@@ -209,7 +209,7 @@ public class CommandHandler {
      * @param args the decomposed user command
      */
     public void move(String[] args) {
-        if (args.length < 2) {
+        if (args.length < 1) {
             System.out.println(ViewString.INCORRECT_COMMAND);
             return;
         }
@@ -221,6 +221,7 @@ public class CommandHandler {
             case "mother" -> {
                 if (args.length != 3) {
                     System.out.println(ViewString.INCORRECT_FORMAT + ViewString.MOVE_MOTHER_NATURE_STEPS);
+                    return;
                 }
                 command = command.concat(extractCommand(args[0]));
                 command = command.concat(extractCommand(args[1]));
@@ -228,7 +229,8 @@ public class CommandHandler {
             }
             case "student" -> {
                 if (args.length < 4) {
-                    System.out.println(ViewString.INCORRECT_FORMAT + ViewString.MOVE_MOTHER_NATURE_STEPS);
+                    System.out.println(ViewString.INCORRECT_COMMAND);
+                    return;
                 }
 
                 for (int i = 0; i < 4; i++) {
@@ -287,7 +289,7 @@ public class CommandHandler {
             int singleIsland = Integer.parseInt(args[2]);
             cli.getActionSender().moveStudentToIsland(cli.getPlayerName(), colour, groupIsland, singleIsland);
         } catch (NumberFormatException e) {
-            System.out.println(ViewString.INCORRECT_FORMAT + ViewString.MOVE_MOTHER_NATURE_STEPS);
+            System.out.println(ViewString.INCORRECT_FORMAT + ViewString.MOVE_STUDENT_TO_ISLAND);
         }
 
     }
@@ -369,6 +371,7 @@ public class CommandHandler {
      * Checks if the arguments are correct and then calls for the action sender to send a "select" action event.
      * @param args the decomposed user command
      */
+
     public void select(String[] args){
         if (args.length < 1) {
             System.out.println(ViewString.INCORRECT_COMMAND);
@@ -376,7 +379,7 @@ public class CommandHandler {
         }
 
         switch (args[0]) {
-            case "student" -> {
+            case "colour" -> {
                 if (args.length != 2) {
                     System.out.println(ViewString.INCORRECT_FORMAT + ViewString.SELECT_STUDENT_COLOUR);
                     return;
