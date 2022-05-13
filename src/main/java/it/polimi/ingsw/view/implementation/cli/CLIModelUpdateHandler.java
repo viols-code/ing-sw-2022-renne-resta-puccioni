@@ -138,5 +138,15 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
         getView().getRenderer().showGameMessage(ViewString.MOTHER_NATURE_POSITION_UNIFY.formatted(motherNaturePosition));
     }
 
+    @Override
+    public void updateActiveCharacterCard(int characterCard){
+        super.updateActiveCharacterCard(characterCard);
+        if(getView().getModel().getLocalPlayer().getNickname().equalsIgnoreCase(getView().getModel().getCurrentPlayer().getNickname())){
+            getView().getRenderer().showGameMessage(ViewString.YOU_SET_ACTIVE_CHARACTER_CARD.formatted(getView().getModel().getCharacterCardByIndex(characterCard).getType().name().toLowerCase(Locale.ROOT)));
+
+        } else{
+            getView().getRenderer().showGameMessage(ViewString.OTHER_SET_ACTIVE_CHARACTER_CARD.formatted(getView().getModel().getCurrentPlayer().getNickname(), getView().getModel().getCharacterCardByIndex(characterCard).getType().name().toLowerCase(Locale.ROOT)));
+        }
+    }
 
 }

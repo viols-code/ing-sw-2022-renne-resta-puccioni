@@ -63,6 +63,8 @@ public class ViewString {
 
     // mettiamo anche i mex delle character card?
     public static final String NO_ACTIVE_CHARACTER_CARD = "There is no active character card";
+    public static final String YOU_SET_ACTIVE_CHARACTER_CARD = "You have set the character card %s";
+    public static final String OTHER_SET_ACTIVE_CHARACTER_CARD = "%s have set the character card %s";
 
     /*
     Input errors
@@ -71,6 +73,12 @@ public class ViewString {
     public static final String INCORRECT_COMMAND = "Incorrect format: please type 'help' to see all possible commands";
     public static final String PLAY = ViewString.PLAY_ASSISTANT_CARD + " or " + ViewString.PLAY_CHARACTER_CARD;
 
+
+    public static final String ADVICE_EXCHANGE_DINING_ROOM_ENTRANCE = "For this character card you have to select the colour in the dining room and the colour in the entrance\"";
+    public static final String ADVICE_SELECT_GROUP_ISLAND = "For this character card you have to select a group island";
+    public static final String ADVICE_SELECT_STUDENT_COLOUR = "\"select colour <student colour>\"";
+    public static final String ADVICE_STUDENT_TO_ENTRANCE = "\"exchange entrance <student colour> card <student colour>\"";
+    public static final String ADVICE_STUDENT_TO_ISLAND = "\"put <student colour> on <group island num> <single island num>\"";
 
 
     /*
