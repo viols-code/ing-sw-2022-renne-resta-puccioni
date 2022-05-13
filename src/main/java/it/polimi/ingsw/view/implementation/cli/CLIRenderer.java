@@ -194,9 +194,16 @@ public class CLIRenderer extends Renderer {
     @Override
     public void help() {
         int index = 1;
-        for (String command : ViewString.getCommands()) {
-            System.out.println(index + ") " + AnsiColour.GREEN + command + AnsiColour.RESET);
-            index++;
+        if(getView().getGameMode()){
+            for (String command : ViewString.getCommandsExpert()) {
+                System.out.println(index + ") " + AnsiColour.GREEN + command + AnsiColour.RESET);
+                index++;
+            }
+        } else{
+            for (String command : ViewString.getCommandsBasic()) {
+                System.out.println(index + ") " + AnsiColour.GREEN + command + AnsiColour.RESET);
+                index++;
+            }
         }
     }
 

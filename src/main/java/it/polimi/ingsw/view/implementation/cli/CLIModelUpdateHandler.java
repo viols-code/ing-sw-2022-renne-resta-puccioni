@@ -149,7 +149,6 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
                 getView().getRenderer().showGameMessage(ViewString.YOU_SET_ACTIVE_CHARACTER_CARD.formatted(characterCard.name().toLowerCase(Locale.ROOT)));
 
                 switch(characterCard){
-
                     case EXCHANGE_ENTRANCE_DINING_ROOM -> getView().getRenderer().showGameMessage(ViewString.ADVICE_EXCHANGE_DINING_ROOM_ENTRANCE.formatted(characterCard.name().toLowerCase(Locale.ROOT)));
                     case STUDENT_TO_ENTRANCE -> getView().getRenderer().showGameMessage(ViewString.ADVICE_STUDENT_TO_ENTRANCE.formatted(characterCard.name().toLowerCase(Locale.ROOT)));
                     case STUDENT_TO_DINING_ROOM, THREE_STUDENT, NO_COLOUR -> getView().getRenderer().showGameMessage(ViewString.ADVICE_SELECT_STUDENT_COLOUR.formatted(characterCard.name().toLowerCase(Locale.ROOT)));

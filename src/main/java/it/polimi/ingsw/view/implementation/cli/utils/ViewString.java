@@ -80,7 +80,7 @@ public class ViewString {
 
     public static final String NO_ACTIVE_CHARACTER_CARD = "There is no active character card";
     public static final String YOU_SET_ACTIVE_CHARACTER_CARD = "You have set the character card %s";
-    public static final String OTHER_SET_ACTIVE_CHARACTER_CARD = "%s have set the character card %s";
+    public static final String OTHER_SET_ACTIVE_CHARACTER_CARD = "%s has set the character card %s";
 
 
     /*
@@ -99,6 +99,7 @@ public class ViewString {
     public static final String VIEW_RESULT = "\"view result\"";
 
     public static final String SPY = "\"spy <player name> <school board|current assistant card|coins>\"";
+    public static final String SPY_BASIC = "\"spy <player name> <school board|current assistant card>\"";
     public static final String PLAY_ASSISTANT_CARD = "\"play assistant card <assistantCard num>\"";
     public static final String PLAY_CHARACTER_CARD = "\"play character card <characterCard num>\"";
     public static final String MOVE_STUDENT_TO_ISLAND = "\"move student to single island <student colour> <group island num> <single island num>\"";
@@ -113,12 +114,21 @@ public class ViewString {
 
     public static final String HELP = "\"help\"";
 
-    public static List<String> getCommands() {
+    public static List<String> getCommandsExpert() {
         List<String> commands = new ArrayList<>();
         addMultipleToList(commands, VIEW_CHARACTER_CARDS, VIEW_ASSISTANT_CARDS, VIEW_ACTIVE_CHARACTER_CARDS, VIEW_CURRENT_ASSISTANT_CARDS, VIEW_ISLANDS, VIEW_SCHOOL_BOARD,
                 VIEW_CLOUD_TILE, VIEW_COINS, VIEW_PROFESSORS, VIEW_BANK, VIEW_RESULT, SPY, PLAY_ASSISTANT_CARD, PLAY_CHARACTER_CARD, MOVE_STUDENT_TO_ISLAND,
                 MOVE_STUDENT_TO_DINING_ROOM, MOVE_MOTHER_NATURE_STEPS, CHOOSE_CLOUD_TILE, EXCHANGE_DINING_ROOM_ENTRANCE, SELECT_GROUP_ISLAND, SELECT_STUDENT_COLOUR,
                 STUDENT_TO_ENTRANCE, STUDENT_TO_ISLAND, HELP);
+
+        return commands;
+    }
+
+    public static List<String> getCommandsBasic() {
+        List<String> commands = new ArrayList<>();
+        addMultipleToList(commands, VIEW_ASSISTANT_CARDS, VIEW_CURRENT_ASSISTANT_CARDS, VIEW_ISLANDS, VIEW_SCHOOL_BOARD,
+                VIEW_CLOUD_TILE, VIEW_PROFESSORS, VIEW_RESULT, SPY_BASIC, PLAY_ASSISTANT_CARD, MOVE_STUDENT_TO_ISLAND,
+                MOVE_STUDENT_TO_DINING_ROOM, MOVE_MOTHER_NATURE_STEPS, CHOOSE_CLOUD_TILE, HELP);
 
         return commands;
     }
