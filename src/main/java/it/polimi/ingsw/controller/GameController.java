@@ -223,8 +223,8 @@ public class GameController implements Observer<PlayerEvent> {
                             game.setActiveCharacterCard(game.getCharacterCardByIndex(characterCard));
                             game.setHasPlayedCharacterCard(true);
                             game.getCurrentPlayer().removeCoins(game.getCharacterCardByIndex(characterCard).getCost());
-                            game.getCharacterCardByIndex(characterCard).incrementCost();
                             game.setCoins(game.getCoins() + game.getCharacterCardByIndex(characterCard).getCost() - 1);
+                            game.getCharacterCardByIndex(characterCard).incrementCost();
                             game.getCharacterCardByIndex(characterCard).professor();
                         } else {
                             game.notifyInvalidAction(nickname, "You cannot play this card");
