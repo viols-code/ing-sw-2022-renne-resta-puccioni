@@ -169,14 +169,23 @@ public class Table extends Observable<IServerPacket> {
      * @param motherNaturePosition the position to be set
      */
     public void setMotherNaturePosition(int motherNaturePosition) {
-        getGroupIslandByIndex(this.motherNaturePosition).removeMotherNature();
+        if(this.motherNaturePosition < getNumberOfGroupIsland()){
+            getGroupIslandByIndex(this.motherNaturePosition).removeMotherNature();
+        }
         this.motherNaturePosition = motherNaturePosition;
         getGroupIslandByIndex(this.motherNaturePosition).placeMotherNature();
         notify(new MotherNaturePositionUpdate(motherNaturePosition));
     }
 
+    /**
+     * Set the position of mother nature
+     *
+     * @param motherNaturePosition the position to be set
+     */
     public void setMotherNaturePositionUnify(int motherNaturePosition) {
-        getGroupIslandByIndex(this.motherNaturePosition).removeMotherNature();
+        if(this.motherNaturePosition < getNumberOfGroupIsland()){
+            getGroupIslandByIndex(this.motherNaturePosition).removeMotherNature();
+        }
         this.motherNaturePosition = motherNaturePosition;
         getGroupIslandByIndex(this.motherNaturePosition).placeMotherNature();
         notify(new MotherNaturePositionUnifyUpdate(motherNaturePosition));
