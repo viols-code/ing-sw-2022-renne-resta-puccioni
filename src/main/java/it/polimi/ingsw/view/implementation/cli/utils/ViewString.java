@@ -58,6 +58,9 @@ public class ViewString {
     public static final String OTHER_WINNER = "The game has ended. The winner is %s";
     public static final String CARD_NOT_PLAYED = "%s hasn't played the assistant card yet";
 
+    // mettiamo anche i mex delle character card?
+    public static final String NO_ACTIVE_CHARACTER_CARD = "There is no active character card";
+
     /*
     Input errors
      */
@@ -66,7 +69,6 @@ public class ViewString {
     public static final String PLAY = ViewString.PLAY_ASSISTANT_CARD + " or " + ViewString.PLAY_CHARACTER_CARD;
 
 
-    // mettiamo anche i mex delle character card?
 
     /*
     Command format
