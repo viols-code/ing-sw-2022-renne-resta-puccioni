@@ -112,7 +112,11 @@ public class CLIRenderer extends Renderer {
 
     public void printActiveCharacterCard(){
         String character = "The active character card is: ";
-        renderCharacter(view.getModel().getCurrentCharacterCard(), character);
+        if(view.getModel().getCurrentCharacterCard() != null){
+            renderCharacter(view.getModel().getCurrentCharacterCard(), character);
+        } else{
+            showGameMessage(ViewString.NO_ACTIVE_CHARACTER_CARD);
+        }
     }
 
     public void printCharacterCards(){
