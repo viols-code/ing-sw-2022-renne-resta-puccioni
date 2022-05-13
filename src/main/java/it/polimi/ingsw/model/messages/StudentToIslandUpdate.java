@@ -17,6 +17,6 @@ public class StudentToIslandUpdate extends CardUpdate {
 
     @Override
     public void process(View view) {
-
+        view.getModelUpdateHandler().updateStudentToIslandCard(students);
     }
 }
