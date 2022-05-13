@@ -1,10 +1,14 @@
 package it.polimi.ingsw.view.implementation.cli;
 
+import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.GamePhase;
 import it.polimi.ingsw.model.game.TurnPhase;
 import it.polimi.ingsw.view.ModelUpdateHandler;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.implementation.cli.utils.ViewString;
+
+import java.util.HashMap;
+import java.util.Locale;
 
 public class CLIModelUpdateHandler extends ModelUpdateHandler {
     /**
@@ -95,6 +99,29 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
         if(round < 11){
             getView().getRenderer().showGameMessage(ViewString.ROUND.formatted(round));
         }
+    }
+
+    public void updateProfessorTable(String player, HashMap<Colour,Boolean> professorTable){
+        for(Colour colour : Colour.values()){
+            if(!professorTable.get(colour).equals(getView().getModel().getPlayerByNickname(player).getSchoolBoard().getProfessorTable().get(colour))){
+                if(getView().getModel().getLocalPlayer().getNickname().equalsIgnoreCase(player)){
+                    if(professorTable.get(colour)){
+                        getView().getRenderer().showGameMessage(ViewString.YOU_GOT_PROFESSORS.formatted(colour.name().toLowerCase(Locale.ROOT)));
+                    } else {
+                        getView().getRenderer().showGameMessage(ViewString.YOU_LOST_PROFESSORS.formatted(colour.name().toLowerCase(Locale.ROOT)));
+                    }
+                } else {
+                    if(professorTable.get(colour)){
+                        getView().getRenderer().showGameMessage(ViewString.OTHER_GOT_PROFESSORS.formatted(player, colour.name().toLowerCase(Locale.ROOT)));
+                    } else {
+                        getView().getRenderer().showGameMessage(ViewString.OTHER_LOST_PROFESSORS.formatted(player, colour.name().toLowerCase(Locale.ROOT)));
+                    }
+                }
+            }
+        }
+
+        //getView().getModel().getPlayerByNickname(player).getSchoolBoard().setProfessorTable(professorTable);
+        super.updateProfessorTable(player, professorTable);
     }
 
 
