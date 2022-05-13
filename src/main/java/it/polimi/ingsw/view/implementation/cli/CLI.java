@@ -173,7 +173,7 @@ public class CLI extends View {
                         wizardNumber = Integer.parseInt(command);
                         } catch (NumberFormatException e) {
                             getRenderer().showErrorMessage("Choose a number between 1 and 4");
-                            return;
+                            break;
                         }
                         setWizard(Wizard.valueOf(wizardNumber));
                 }
@@ -215,7 +215,7 @@ public class CLI extends View {
                     try {
                         commandHandler.handle(command);
                     } catch (IllegalArgumentException e) {
-                        getRenderer().showErrorMessage(ViewString.COMMAND_NOT_FOUND);
+                        getRenderer().showErrorMessage(e.getMessage());
                     }
                 }
             }

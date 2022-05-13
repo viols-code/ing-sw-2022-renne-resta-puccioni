@@ -51,13 +51,21 @@ public class ViewString {
     public static final String OTHER_SELECTED_MOTHER_NATURE_MOVEMENT = "%s has moved mother nature to the group island %d";
     public static final String SELECT_CLOUD_TILE = "Select the cloud tile:";
     public static final String ROUND = "The round %d is starting";
-    public static final String INCORRECT_FORMAT = "Incorrect format: please input ";
     public static final String UNIFY_ISLANDS = "Group island %d and group island %d have been unified";
     public static final String YOU_INFLUENCE_PLAYER = "You have now the influence on the group island %d";
     public static final String OTHER_INFLUENCE_PLAYER = "%s has now the influence on the group island %d";
     public static final String MOTHER_NATURE_POSITION_UNIFY = "Due to the unification of group islands mother nature is now at position %d";
     public static final String YOU_WINNER = "The game has ended. You have won!";
     public static final String OTHER_WINNER = "The game has ended. The winner is %s";
+
+    /*
+    Input errors
+     */
+    public static final String INCORRECT_FORMAT = "Incorrect format: please input ";
+    public static final String INCORRECT_COMMAND = "Incorrect format: please type 'help' to see all possible commands";
+    public static final String PLAY = ViewString.PLAY_ASSISTANT_CARD + " or " + ViewString.PLAY_CHARACTER_CARD;
+
+
     // mettiamo anche i mex delle character card?
 
     /*

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.view.implementation.cli;
 
 import it.polimi.ingsw.model.Colour;
+import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.implementation.cli.utils.ViewString;
 
 import java.lang.reflect.InvocationTargetException;
@@ -41,7 +42,8 @@ public class CommandHandler {
         String[] args = new String[0];
         if (cmd.equals("view")) {
             if(split.length == 1){
-                throw new IllegalArgumentException("Command not found");
+                System.out.println(ViewString.INCORRECT_COMMAND);
+                return;
             }
 
             split[1] = extractCommand(split[1]);
@@ -51,14 +53,13 @@ public class CommandHandler {
             cmd = cmd.concat(split[1]);
             args = null;
         } else if(cmd.equals("play")){
-            if(split.length == 1){
-                throw new IllegalArgumentException("Command not found");
+            if(split.length < 3){
+                System.out.println(ViewString.INCORRECT_FORMAT + ViewString.PLAY);
+                return;
             }
 
             split[1] = extractCommand(split[1]);
-            for (int i = 2; i < 3; i++) {
-                split[1] += extractCommand(split[i]);
-            }
+            split[1] += extractCommand(split[2]);
             cmd = cmd.concat(split[1]);
             args = Arrays.copyOfRange(split, 3, split.length);
         } else if (split.length > 1)
@@ -75,7 +76,7 @@ public class CommandHandler {
             }
         } catch (NoSuchMethodException | SecurityException |
                 IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-            throw new IllegalArgumentException("Command does not exists.");
+            throw new IllegalArgumentException(ViewString.INCORRECT_COMMAND);
         }
     }
 
@@ -209,7 +210,7 @@ public class CommandHandler {
      */
     public void move(String[] args) {
         if (args.length < 2) {
-            System.out.println(ViewString.INCORRECT_FORMAT);
+            System.out.println(ViewString.INCORRECT_COMMAND);
             return;
         }
 
@@ -244,7 +245,7 @@ public class CommandHandler {
                 cmdHandler = getClass().getMethod(command, arguments.getClass());
                 cmdHandler.invoke(this, (Object) arguments);
             } else {
-                throw new IllegalArgumentException("Command does not exists.");
+                System.out.println(ViewString.INCORRECT_COMMAND);
             }
         } catch (NoSuchMethodException | SecurityException |
                 IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
@@ -329,20 +330,20 @@ public class CommandHandler {
      * @param args the decomposed user command
      */
     public void playCharacterCard(String[] args) {
-        if(cli.getGameMode()){
-            if (args.length != 1) {
-                System.out.println(ViewString.INCORRECT_FORMAT + ViewString.PLAY_CHARACTER_CARD);
-                return;
-            }
+        if (args.length != 1) {
+            System.out.println(ViewString.INCORRECT_FORMAT + ViewString.PLAY_CHARACTER_CARD);
+            return;
+        }
 
-            try {
-                int card = Integer.parseInt(args[0]);
+        try {
+            int card = Integer.parseInt(args[0]);
+            if(cli.getGameMode()) {
                 cli.getActionSender().playCharacterCard(cli.getPlayerName(), card);
-            } catch (NumberFormatException e) {
-                System.out.println(ViewString.INCORRECT_FORMAT + ViewString.PLAY_CHARACTER_CARD);
+            }  else {
+                System.out.println(ViewString.GAME_MODE);
             }
-        } else {
-            System.out.println(ViewString.GAME_MODE);
+        } catch (NumberFormatException e) {
+            System.out.println(ViewString.INCORRECT_FORMAT + ViewString.PLAY_CHARACTER_CARD);
         }
     }
 
@@ -370,7 +371,7 @@ public class CommandHandler {
      */
     public void select(String[] args){
         if (args.length < 1) {
-            System.out.println(ViewString.INCORRECT_FORMAT);
+            System.out.println(ViewString.INCORRECT_COMMAND);
             return;
         }
 
@@ -404,7 +405,7 @@ public class CommandHandler {
 
             }
 
-            default -> System.out.println(ViewString.INCORRECT_FORMAT);
+            default -> System.out.println(ViewString.INCORRECT_COMMAND);
         }
 
     }
