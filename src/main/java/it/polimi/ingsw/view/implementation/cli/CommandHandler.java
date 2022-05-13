@@ -102,7 +102,12 @@ public class CommandHandler {
      * Calls the method to make the player see their assistant cards.
      */
     public void viewCurrentAssistantCard() {
-        cli.getRenderer().printLocalPlayerCurrentAssistantCard();
+
+        if(cli.getModel().getLocalPlayer().getCurrentAssistantCard() != null) {
+            cli.getRenderer().printLocalPlayerCurrentAssistantCard();
+        }else{
+            cli.getRenderer().showGameMessage(ViewString.YOUR_CARD_NOT_PLAYED);
+        }
     }
 
     /**
