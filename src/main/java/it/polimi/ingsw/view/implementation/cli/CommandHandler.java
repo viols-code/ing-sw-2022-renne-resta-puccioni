@@ -35,10 +35,15 @@ public class CommandHandler {
         if (command.trim().equals(""))
             throw new IllegalArgumentException("Command can't be empty");
 
+        command = command.trim();
         String[] split = command.split(" ");
         String cmd = split[0];
         String[] args = new String[0];
         if (cmd.equals("view")) {
+            if(split.length == 1){
+                throw new IllegalArgumentException("Command not found");
+            }
+
             split[1] = extractCommand(split[1]);
             for (int i = 2; i < split.length; i++) {
                 split[1] += extractCommand(split[i]);
@@ -46,6 +51,10 @@ public class CommandHandler {
             cmd = cmd.concat(split[1]);
             args = null;
         } else if(cmd.equals("play")){
+            if(split.length == 1){
+                throw new IllegalArgumentException("Command not found");
+            }
+
             split[1] = extractCommand(split[1]);
             for (int i = 2; i < 3; i++) {
                 split[1] += extractCommand(split[i]);
@@ -170,12 +179,13 @@ public class CommandHandler {
     public void spy(String[] args) {
         if (args.length < 2) {
             System.out.println(ViewString.INCORRECT_FORMAT + ViewString.SPY);
+            return;
         }
         String playerName = args[0];
         playerName = playerName.toLowerCase(Locale.ROOT);
         String object = args[1];
         for(int i = 2; i < args.length; i++){
-            object += extractCommand(args[i]);
+            object = object.concat(extractCommand(args[i]));
         }
 
         switch (object) {
@@ -188,6 +198,7 @@ public class CommandHandler {
                     System.out.println(ViewString.GAME_MODE);
                 }
             }
+            default -> System.out.println(ViewString.INCORRECT_FORMAT + ViewString.SPY);
         }
     }
 
@@ -199,6 +210,7 @@ public class CommandHandler {
     public void move(String[] args) {
         if (args.length < 2) {
             System.out.println(ViewString.INCORRECT_FORMAT);
+            return;
         }
 
         String command = "move";
@@ -209,8 +221,8 @@ public class CommandHandler {
                 if (args.length != 3) {
                     System.out.println(ViewString.INCORRECT_FORMAT + ViewString.MOVE_MOTHER_NATURE_STEPS);
                 }
-                command += extractCommand(args[0]);
-                command += extractCommand(args[1]);
+                command = command.concat(extractCommand(args[0]));
+                command = command.concat(extractCommand(args[1]));
                 arguments = Arrays.copyOfRange(args, 2, args.length);
             }
             case "student" -> {
@@ -219,7 +231,7 @@ public class CommandHandler {
                 }
 
                 for (int i = 0; i < 4; i++) {
-                    command += extractCommand(args[i]);
+                    command = command.concat(extractCommand(args[i]));
                 }
 
                 arguments = Arrays.copyOfRange(args, 4, args.length);
@@ -231,6 +243,8 @@ public class CommandHandler {
             if (arguments != null) {
                 cmdHandler = getClass().getMethod(command, arguments.getClass());
                 cmdHandler.invoke(this, (Object) arguments);
+            } else {
+                throw new IllegalArgumentException("Command does not exists.");
             }
         } catch (NoSuchMethodException | SecurityException |
                 IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
@@ -243,6 +257,11 @@ public class CommandHandler {
      * @param args the decomposed user command
      */
     public void moveMotherNature(String[] args){
+        if (args.length != 1) {
+            System.out.println(ViewString.INCORRECT_FORMAT + ViewString.MOVE_MOTHER_NATURE_STEPS);
+            return;
+        }
+
         try {
             int steps = Integer.parseInt(args[0]);
             cli.getActionSender().moveMotherNature(cli.getPlayerName(), steps);
@@ -258,6 +277,7 @@ public class CommandHandler {
     public void moveStudentToSingleIsland(String[] args){
         if (args.length != 3) {
             System.out.println(ViewString.INCORRECT_FORMAT + ViewString.MOVE_STUDENT_TO_ISLAND);
+            return;
         }
 
         try {
@@ -278,6 +298,7 @@ public class CommandHandler {
     public void moveStudentToDiningRoom(String[] args){
         if (args.length != 1) {
             System.out.println(ViewString.INCORRECT_FORMAT + ViewString.MOVE_STUDENT_TO_DINING_ROOM);
+            return;
         }
 
         Colour colour = Colour.valueOf(args[0].toUpperCase());
@@ -369,7 +390,7 @@ public class CommandHandler {
                     System.out.println(ViewString.INCORRECT_FORMAT + ViewString.SELECT_GROUP_ISLAND);
                     return;
                 }
-                if (args[1] != "island") {
+                if (!args[1].equals("island")){
                     System.out.println(ViewString.INCORRECT_FORMAT + ViewString.SELECT_GROUP_ISLAND);
                     return;
                 }
@@ -382,6 +403,8 @@ public class CommandHandler {
                 }
 
             }
+
+            default -> System.out.println(ViewString.INCORRECT_FORMAT);
         }
 
     }
@@ -393,10 +416,11 @@ public class CommandHandler {
     public void put(String[] args){
         if (args.length != 4) {
             System.out.println(ViewString.INCORRECT_FORMAT + ViewString.STUDENT_TO_ISLAND);
+            return;
         }
         try {
             Colour colour = Colour.valueOf(args[0].toUpperCase(Locale.ROOT));
-            if(args[1] != "on"){
+            if(!args[1].equals("on")){
                 System.out.println(ViewString.INCORRECT_FORMAT + ViewString.STUDENT_TO_ISLAND);
                 return;
             }
@@ -420,17 +444,17 @@ public class CommandHandler {
 
         switch (args[0]) {
             case "dining" -> {
-                if (args.length != 5) {
+                if (args.length != 5){
                     System.out.println(ViewString.INCORRECT_FORMAT + ViewString.EXCHANGE_DINING_ROOM_ENTRANCE);
                     return;
                 }
 
-                if (args[1] != "room") {
+                if (!args[1].equals("room")){
                     System.out.println(ViewString.INCORRECT_FORMAT + ViewString.EXCHANGE_DINING_ROOM_ENTRANCE);
                     return;
                 }
 
-                if (args[3] != "entrance") {
+                if (!args[3].equals("entrance")){
                     System.out.println(ViewString.INCORRECT_FORMAT + ViewString.EXCHANGE_DINING_ROOM_ENTRANCE);
                     return;
                 }
@@ -446,7 +470,7 @@ public class CommandHandler {
                     System.out.println(ViewString.INCORRECT_FORMAT + ViewString.STUDENT_TO_ENTRANCE);
                     return;
                 }
-                if (args[2] != "card") {
+                if (!args[2].equals("card")){
                     System.out.println(ViewString.INCORRECT_FORMAT + ViewString.STUDENT_TO_ENTRANCE);
                     return;
                 }
@@ -455,6 +479,8 @@ public class CommandHandler {
                 Colour cardColour = Colour.valueOf(args[3].toUpperCase(Locale.ROOT));
                 cli.getActionSender().setColourCardEntrance(cli.getPlayerName(), cardColour, entranceColour);
             }
+
+            default -> System.out.println(ViewString.INCORRECT_FORMAT);
         }
 
 
