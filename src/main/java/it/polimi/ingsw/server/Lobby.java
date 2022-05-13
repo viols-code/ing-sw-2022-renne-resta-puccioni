@@ -134,7 +134,7 @@ public class Lobby extends Observable<IServerPacket> {
             } else {
                 players = playersToStart;
             }
-            notify(new PlayerConnectMessage(connection.getPlayerName(), wizard, connections.size(), players));
+            notify(new PlayerConnectMessage(connection.getPlayerName(), wizard, connections.indexOf(connection) + 1, players));
             notify(new CorrectWizardMessage(connection, wizard, otherWizard));
         }
     }
