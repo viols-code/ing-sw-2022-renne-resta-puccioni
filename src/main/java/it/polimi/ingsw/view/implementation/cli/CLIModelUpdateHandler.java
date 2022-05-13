@@ -92,7 +92,9 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
     @Override
     public void updateRound(int round){
         super.updateRound(round);
-        getView().getRenderer().showGameMessage(ViewString.ROUND.formatted(round));
+        if(round < 11){
+            getView().getRenderer().showGameMessage(ViewString.ROUND.formatted(round));
+        }
     }
 
 

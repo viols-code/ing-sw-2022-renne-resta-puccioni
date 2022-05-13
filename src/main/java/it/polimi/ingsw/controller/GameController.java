@@ -710,10 +710,10 @@ public class GameController implements Observer<PlayerEvent> {
         } else {
             if (!game.getTable().getBag().getNoStudent()) {
                 settingCloudTile();
+                game.incrementRound();
                 game.setCurrentPlayer(game.getFirstPlayerTurn());
                 game.setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
                 game.setTurnPhase(TurnPhase.PLAY_ASSISTANT_CARD);
-                game.incrementRound();
                 nobodyPlayed();
                 if (game.getRound() >= 11) {
                     calculateWinner();
