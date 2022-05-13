@@ -97,7 +97,7 @@ public class ExpertGame extends Game {
     @Override
     public void setActiveCharacterCard(CharacterCard card) {
         super.activeCharacterCard = card;
-        notify(new ActiveCharacterCardUpdate(characterCards.indexOf(card)));
+        notify(new ActiveCharacterCardUpdate(CharacterCardEnumeration.BASIC_STATE));
     }
 
     /*

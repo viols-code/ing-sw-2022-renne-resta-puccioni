@@ -37,8 +37,13 @@ public abstract class ModelUpdateHandler {
         return view;
     }
 
-    public void updateActiveCharacterCard(int characterCard){
-        getView().getModel().setCurrentCharacterCard(getView().getModel().getCharacterCardByIndex(characterCard));
+    public void updateActiveCharacterCard(CharacterCardEnumeration characterCard){
+        if(characterCard == CharacterCardEnumeration.BASIC_STATE){
+            getView().getModel().setCurrentCharacterCard(null);
+        }
+        else {
+            getView().getModel().setCurrentCharacterCard(getView().getModel().getCharacterCardByType(characterCard));
+        }
     }
 
     public void updateCardCoins(int characterCard, int coins){
