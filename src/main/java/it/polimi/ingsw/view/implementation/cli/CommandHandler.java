@@ -179,7 +179,7 @@ public class CommandHandler {
      */
     public void spy(String[] args) {
         if (args.length < 2) {
-            System.out.println(ViewString.INCORRECT_FORMAT + ViewString.SPY);
+            cli.getRenderer().showErrorMessage(ViewString.INCORRECT_FORMAT + ViewString.SPY);
             return;
         }
         String playerName = args[0];
@@ -205,7 +205,7 @@ public class CommandHandler {
                     System.out.println(ViewString.GAME_MODE);
                 }
             }
-            default -> System.out.println(ViewString.INCORRECT_FORMAT + ViewString.SPY);
+            default -> cli.getRenderer().showErrorMessage(ViewString.INCORRECT_FORMAT + ViewString.SPY);
         }
     }
 
@@ -216,7 +216,7 @@ public class CommandHandler {
      */
     public void move(String[] args) {
         if (args.length < 1) {
-            System.out.println(ViewString.INCORRECT_COMMAND);
+            cli.getRenderer().showErrorMessage(ViewString.INCORRECT_COMMAND);
             return;
         }
 
@@ -226,7 +226,7 @@ public class CommandHandler {
         switch (args[0]) {
             case "mother" -> {
                 if (args.length != 3) {
-                    System.out.println(ViewString.INCORRECT_FORMAT + ViewString.MOVE_MOTHER_NATURE_STEPS);
+                    cli.getRenderer().showErrorMessage(ViewString.INCORRECT_FORMAT + ViewString.MOVE_MOTHER_NATURE_STEPS);
                     return;
                 }
                 command = command.concat(extractCommand(args[0]));
@@ -235,7 +235,7 @@ public class CommandHandler {
             }
             case "student" -> {
                 if (args.length < 4) {
-                    System.out.println(ViewString.INCORRECT_COMMAND);
+                    cli.getRenderer().showErrorMessage(ViewString.INCORRECT_COMMAND);
                     return;
                 }
 
@@ -253,7 +253,7 @@ public class CommandHandler {
                 cmdHandler = getClass().getMethod(command, arguments.getClass());
                 cmdHandler.invoke(this, (Object) arguments);
             } else {
-                System.out.println(ViewString.INCORRECT_COMMAND);
+                cli.getRenderer().showErrorMessage(ViewString.INCORRECT_COMMAND);
             }
         } catch (NoSuchMethodException | SecurityException |
                 IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
@@ -267,7 +267,7 @@ public class CommandHandler {
      */
     public void moveMotherNature(String[] args){
         if (args.length != 1) {
-            System.out.println(ViewString.INCORRECT_FORMAT + ViewString.MOVE_MOTHER_NATURE_STEPS);
+            cli.getRenderer().showErrorMessage(ViewString.INCORRECT_FORMAT + ViewString.MOVE_MOTHER_NATURE_STEPS);
             return;
         }
 
@@ -275,7 +275,7 @@ public class CommandHandler {
             int steps = Integer.parseInt(args[0]);
             cli.getActionSender().moveMotherNature(cli.getPlayerName(), steps);
         } catch (NumberFormatException e) {
-            System.out.println(ViewString.INCORRECT_FORMAT + ViewString.MOVE_MOTHER_NATURE_STEPS);
+            cli.getRenderer().showErrorMessage(ViewString.INCORRECT_FORMAT + ViewString.MOVE_MOTHER_NATURE_STEPS);
         }
     }
 
@@ -285,7 +285,7 @@ public class CommandHandler {
      */
     public void moveStudentToSingleIsland(String[] args){
         if (args.length != 3) {
-            System.out.println(ViewString.INCORRECT_FORMAT + ViewString.MOVE_STUDENT_TO_ISLAND);
+            cli.getRenderer().showErrorMessage(ViewString.INCORRECT_FORMAT + ViewString.MOVE_STUDENT_TO_ISLAND);
             return;
         }
 
@@ -295,7 +295,7 @@ public class CommandHandler {
             int singleIsland = Integer.parseInt(args[2]);
             cli.getActionSender().moveStudentToIsland(cli.getPlayerName(), colour, groupIsland, singleIsland);
         } catch (NumberFormatException e) {
-            System.out.println(ViewString.INCORRECT_FORMAT + ViewString.MOVE_STUDENT_TO_ISLAND);
+            cli.getRenderer().showErrorMessage(ViewString.INCORRECT_FORMAT + ViewString.MOVE_STUDENT_TO_ISLAND);
         }
 
     }
@@ -306,7 +306,7 @@ public class CommandHandler {
      */
     public void moveStudentToDiningRoom(String[] args){
         if (args.length != 1) {
-            System.out.println(ViewString.INCORRECT_FORMAT + ViewString.MOVE_STUDENT_TO_DINING_ROOM);
+            cli.getRenderer().showErrorMessage(ViewString.INCORRECT_FORMAT + ViewString.MOVE_STUDENT_TO_DINING_ROOM);
             return;
         }
 
@@ -321,7 +321,7 @@ public class CommandHandler {
      */
     public void playAssistantCard(String[] args) {
         if (args.length != 1) {
-            System.out.println(ViewString.INCORRECT_FORMAT + ViewString.PLAY_ASSISTANT_CARD);
+            cli.getRenderer().showErrorMessage(ViewString.INCORRECT_FORMAT + ViewString.PLAY_ASSISTANT_CARD);
             return;
         }
 
@@ -329,7 +329,7 @@ public class CommandHandler {
             int card = Integer.parseInt(args[0]);
             cli.getActionSender().playAssistantCard(cli.getPlayerName(), card);
         } catch (NumberFormatException e) {
-            System.out.println(ViewString.INCORRECT_FORMAT + ViewString.PLAY_ASSISTANT_CARD);
+            cli.getRenderer().showErrorMessage(ViewString.INCORRECT_FORMAT + ViewString.PLAY_ASSISTANT_CARD);
         }
     }
 
@@ -339,7 +339,7 @@ public class CommandHandler {
      */
     public void playCharacterCard(String[] args) {
         if (args.length != 1) {
-            System.out.println(ViewString.INCORRECT_FORMAT + ViewString.PLAY_CHARACTER_CARD);
+            cli.getRenderer().showErrorMessage(ViewString.INCORRECT_FORMAT + ViewString.PLAY_CHARACTER_CARD);
             return;
         }
 
@@ -348,10 +348,10 @@ public class CommandHandler {
             if(cli.getGameMode()) {
                 cli.getActionSender().playCharacterCard(cli.getPlayerName(), card);
             }  else {
-                System.out.println(ViewString.GAME_MODE);
+                cli.getRenderer().showErrorMessage(ViewString.GAME_MODE);
             }
         } catch (NumberFormatException e) {
-            System.out.println(ViewString.INCORRECT_FORMAT + ViewString.PLAY_CHARACTER_CARD);
+            cli.getRenderer().showErrorMessage(ViewString.INCORRECT_FORMAT + ViewString.PLAY_CHARACTER_CARD);
         }
     }
 
@@ -361,7 +361,7 @@ public class CommandHandler {
      */
     public void choose(String[] args){
         if (args.length != 1) {
-            System.out.println(ViewString.INCORRECT_FORMAT + ViewString.CHOOSE_CLOUD_TILE);
+            cli.getRenderer().showErrorMessage(ViewString.INCORRECT_FORMAT + ViewString.CHOOSE_CLOUD_TILE);
             return;
         }
 
@@ -369,7 +369,7 @@ public class CommandHandler {
             int cloudTile = Integer.parseInt(args[0]);
             cli.getActionSender().chooseCloudTile(cli.getPlayerName(), cloudTile);
         } catch (NumberFormatException e) {
-            System.out.println(ViewString.INCORRECT_FORMAT + ViewString.CHOOSE_CLOUD_TILE);
+            cli.getRenderer().showErrorMessage(ViewString.INCORRECT_FORMAT + ViewString.CHOOSE_CLOUD_TILE);
         }
     }
 
@@ -380,14 +380,14 @@ public class CommandHandler {
 
     public void select(String[] args){
         if (args.length < 1) {
-            System.out.println(ViewString.INCORRECT_COMMAND);
+            cli.getRenderer().showErrorMessage(ViewString.INCORRECT_COMMAND);
             return;
         }
 
         switch (args[0]) {
             case "colour" -> {
                 if (args.length != 2) {
-                    System.out.println(ViewString.INCORRECT_FORMAT + ViewString.SELECT_STUDENT_COLOUR);
+                    cli.getRenderer().showErrorMessage(ViewString.INCORRECT_FORMAT + ViewString.SELECT_STUDENT_COLOUR);
                     return;
                 }
                 Colour colour = Colour.valueOf(args[1].toUpperCase(Locale.ROOT));
@@ -397,11 +397,11 @@ public class CommandHandler {
 
             case "group" -> {
                 if (args.length != 3) {
-                    System.out.println(ViewString.INCORRECT_FORMAT + ViewString.SELECT_GROUP_ISLAND);
+                    cli.getRenderer().showErrorMessage(ViewString.INCORRECT_FORMAT + ViewString.SELECT_GROUP_ISLAND);
                     return;
                 }
                 if (!args[1].equals("island")){
-                    System.out.println(ViewString.INCORRECT_FORMAT + ViewString.SELECT_GROUP_ISLAND);
+                    cli.getRenderer().showErrorMessage(ViewString.INCORRECT_FORMAT + ViewString.SELECT_GROUP_ISLAND);
                     return;
                 }
 
@@ -409,12 +409,12 @@ public class CommandHandler {
                     int groupIsland = Integer.parseInt(args[2]);
                     cli.getActionSender().setGroupIsland(cli.getPlayerName(), groupIsland);
                 } catch (NumberFormatException e) {
-                    System.out.println(ViewString.INCORRECT_FORMAT + ViewString.PLAY_CHARACTER_CARD);
+                    cli.getRenderer().showErrorMessage(ViewString.INCORRECT_FORMAT + ViewString.PLAY_CHARACTER_CARD);
                 }
 
             }
 
-            default -> System.out.println(ViewString.INCORRECT_COMMAND);
+            default -> cli.getRenderer().showErrorMessage(ViewString.INCORRECT_COMMAND);
         }
 
     }
@@ -425,20 +425,20 @@ public class CommandHandler {
      */
     public void put(String[] args){
         if (args.length != 4) {
-            System.out.println(ViewString.INCORRECT_FORMAT + ViewString.STUDENT_TO_ISLAND);
+            cli.getRenderer().showErrorMessage(ViewString.INCORRECT_FORMAT + ViewString.STUDENT_TO_ISLAND);
             return;
         }
         try {
             Colour colour = Colour.valueOf(args[0].toUpperCase(Locale.ROOT));
             if(!args[1].equals("on")){
-                System.out.println(ViewString.INCORRECT_FORMAT + ViewString.STUDENT_TO_ISLAND);
+                cli.getRenderer().showErrorMessage(ViewString.INCORRECT_FORMAT + ViewString.STUDENT_TO_ISLAND);
                 return;
             }
             int groupIsland = Integer.parseInt(args[2]);
             int singleIsland = Integer.parseInt(args[3]);
             cli.getActionSender().setColourAndIsland(cli.getPlayerName(), colour, groupIsland, singleIsland);
         } catch (NumberFormatException e) {
-            System.out.println(ViewString.INCORRECT_FORMAT + ViewString.STUDENT_TO_ISLAND);
+            cli.getRenderer().showErrorMessage(ViewString.INCORRECT_FORMAT + ViewString.STUDENT_TO_ISLAND);
         }
     }
 
@@ -448,24 +448,24 @@ public class CommandHandler {
      */
     public void exchange(String[] args){
         if (args.length < 1) {
-            System.out.println(ViewString.INCORRECT_FORMAT);
+            cli.getRenderer().showErrorMessage(ViewString.INCORRECT_FORMAT);
             return;
         }
 
         switch (args[0]) {
             case "dining" -> {
                 if (args.length != 5){
-                    System.out.println(ViewString.INCORRECT_FORMAT + ViewString.EXCHANGE_DINING_ROOM_ENTRANCE);
+                    cli.getRenderer().showErrorMessage(ViewString.INCORRECT_FORMAT + ViewString.EXCHANGE_DINING_ROOM_ENTRANCE);
                     return;
                 }
 
                 if (!args[1].equals("room")){
-                    System.out.println(ViewString.INCORRECT_FORMAT + ViewString.EXCHANGE_DINING_ROOM_ENTRANCE);
+                    cli.getRenderer().showErrorMessage(ViewString.INCORRECT_FORMAT + ViewString.EXCHANGE_DINING_ROOM_ENTRANCE);
                     return;
                 }
 
                 if (!args[3].equals("entrance")){
-                    System.out.println(ViewString.INCORRECT_FORMAT + ViewString.EXCHANGE_DINING_ROOM_ENTRANCE);
+                    cli.getRenderer().showErrorMessage(ViewString.INCORRECT_FORMAT + ViewString.EXCHANGE_DINING_ROOM_ENTRANCE);
                     return;
                 }
 
@@ -477,11 +477,11 @@ public class CommandHandler {
 
             case "entrance" -> {
                 if (args.length != 4) {
-                    System.out.println(ViewString.INCORRECT_FORMAT + ViewString.STUDENT_TO_ENTRANCE);
+                    cli.getRenderer().showErrorMessage(ViewString.INCORRECT_FORMAT + ViewString.STUDENT_TO_ENTRANCE);
                     return;
                 }
                 if (!args[2].equals("card")){
-                    System.out.println(ViewString.INCORRECT_FORMAT + ViewString.STUDENT_TO_ENTRANCE);
+                    cli.getRenderer().showErrorMessage(ViewString.INCORRECT_FORMAT + ViewString.STUDENT_TO_ENTRANCE);
                     return;
                 }
 
@@ -490,7 +490,7 @@ public class CommandHandler {
                 cli.getActionSender().setColourCardEntrance(cli.getPlayerName(), cardColour, entranceColour);
             }
 
-            default -> System.out.println(ViewString.INCORRECT_FORMAT);
+            default -> cli.getRenderer().showErrorMessage(ViewString.INCORRECT_FORMAT);
         }
 
 
