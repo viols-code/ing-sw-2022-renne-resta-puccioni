@@ -173,5 +173,20 @@ public abstract class ModelUpdateHandler {
         getView().getModel().setWinner(getView().getModel().getPlayerByNickname(player));
     }
 
+    /*
+    character cards
+     */
+    public void updateStudentToIslandCard(HashMap<Colour,Integer> students){
+        getView().getModel().getCharacterCardByType(CharacterCardEnumeration.STUDENT_TO_ISLAND).setStudents(students);
+    }
+
+    public void updateStudentToDiningRoomCard(HashMap<Colour,Integer> students){
+        getView().getModel().getCharacterCardByType(CharacterCardEnumeration.STUDENT_TO_DINING_ROOM).setStudents(students);
+    }
+
+    public void updateStudentToDEntranceCard(HashMap<Colour,Integer> students){
+        getView().getModel().getCharacterCardByType(CharacterCardEnumeration.STUDENT_TO_ENTRANCE).setStudents(students);
+    }
+
 
 }
