@@ -336,9 +336,9 @@ public abstract class CharacterCard extends Observable<IServerPacket> {
     protected void checkUnifyIsland(int groupIsland) {
         if (game.getTable().getGroupIslandByIndex(groupIsland).getInfluence().equals(game.getTable().getIslandAfter(groupIsland).getInfluence())) {
             if (groupIsland == game.getTable().getNumberOfGroupIsland() - 1) {
-                game.getTable().setMotherNaturePosition(0);
                 unifyGroupIsland(game.getTable().getIslandAfter(groupIsland), game.getTable().getGroupIslandByIndex(groupIsland));
                 notify(new UnifyIslandsUpdate(0, groupIsland));
+                game.getTable().setMotherNaturePositionUnify(0);
                 groupIsland = 0;
             } else {
                 unifyGroupIsland(game.getTable().getGroupIslandByIndex(groupIsland), game.getTable().getIslandAfter(groupIsland));
@@ -348,9 +348,9 @@ public abstract class CharacterCard extends Observable<IServerPacket> {
 
         if (game.getTable().getGroupIslandByIndex(groupIsland).getInfluence().equals(game.getTable().getIslandBefore(groupIsland).getInfluence())) {
             if (groupIsland > 0) {
-                game.getTable().setMotherNaturePosition(groupIsland - 1);
                 unifyGroupIsland(game.getTable().getIslandBefore(groupIsland), game.getTable().getGroupIslandByIndex(groupIsland));
                 notify(new UnifyIslandsUpdate(groupIsland - 1, groupIsland));
+                game.getTable().setMotherNaturePositionUnify(groupIsland - 1);
             } else {
                 unifyGroupIsland(game.getTable().getGroupIslandByIndex(groupIsland), game.getTable().getIslandBefore(groupIsland));
                 notify(new UnifyIslandsUpdate(groupIsland, game.getTable().getNumberOfGroupIsland()));

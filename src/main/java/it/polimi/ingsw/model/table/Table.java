@@ -2,7 +2,7 @@ package it.polimi.ingsw.model.table;
 
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.messages.CloudTileUpdate;
-import it.polimi.ingsw.model.messages.DiningRoomUpdate;
+import it.polimi.ingsw.model.messages.MotherNaturePositionUnifyUpdate;
 import it.polimi.ingsw.model.messages.MotherNaturePositionUpdate;
 import it.polimi.ingsw.model.messages.ProfessorsUpdate;
 import it.polimi.ingsw.model.table.island.GroupIsland;
@@ -35,7 +35,7 @@ public class Table extends Observable<IServerPacket> {
     /**
      * The professors
      */
-    private HashMap<Colour, Boolean> professors;
+    private final HashMap<Colour, Boolean> professors;
 
     /**
      * Constructor: creates a new game
@@ -173,6 +173,13 @@ public class Table extends Observable<IServerPacket> {
         this.motherNaturePosition = motherNaturePosition;
         getGroupIslandByIndex(this.motherNaturePosition).placeMotherNature();
         notify(new MotherNaturePositionUpdate(motherNaturePosition));
+    }
+
+    public void setMotherNaturePositionUnify(int motherNaturePosition) {
+        getGroupIslandByIndex(this.motherNaturePosition).removeMotherNature();
+        this.motherNaturePosition = motherNaturePosition;
+        getGroupIslandByIndex(this.motherNaturePosition).placeMotherNature();
+        notify(new MotherNaturePositionUnifyUpdate(motherNaturePosition));
     }
 
      /*

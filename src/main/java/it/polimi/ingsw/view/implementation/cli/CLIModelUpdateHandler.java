@@ -101,6 +101,7 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
         }
     }
 
+    @Override
     public void updateProfessorTable(String player, HashMap<Colour,Boolean> professorTable){
         for(Colour colour : Colour.values()){
             if(!professorTable.get(colour).equals(getView().getModel().getPlayerByNickname(player).getSchoolBoard().getProfessorTable().get(colour))){
@@ -122,6 +123,12 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
 
         //getView().getModel().getPlayerByNickname(player).getSchoolBoard().setProfessorTable(professorTable);
         super.updateProfessorTable(player, professorTable);
+    }
+
+    @Override
+    public void updateMotherNaturePositionUnify(int motherNaturePosition){
+        super.updateMotherNaturePositionUnify(motherNaturePosition);
+        getView().getRenderer().showGameMessage(ViewString.MOTHER_NATURE_POSITION_UNIFY.formatted(motherNaturePosition));
     }
 
 

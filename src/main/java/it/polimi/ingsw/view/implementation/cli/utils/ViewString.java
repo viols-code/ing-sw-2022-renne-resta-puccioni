@@ -55,6 +55,7 @@ public class ViewString {
     public static final String UNIFY_ISLANDS = "Group island %d and group island %d have been unified";
     public static final String YOU_INFLUENCE_PLAYER = "You have now the influence on the group island %d";
     public static final String OTHER_INFLUENCE_PLAYER = "%s has now the influence on the group island %d";
+    public static final String MOTHER_NATURE_POSITION_UNIFY = "Due to the unification of group islands mother nature is now at position %d";
     public static final String YOU_WINNER = "The game has ended. You have won!";
     public static final String OTHER_WINNER = "The game has ended. The winner is %s";
     // mettiamo anche i mex delle character card?

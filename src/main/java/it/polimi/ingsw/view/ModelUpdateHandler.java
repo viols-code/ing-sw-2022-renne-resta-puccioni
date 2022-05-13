@@ -173,5 +173,9 @@ public abstract class ModelUpdateHandler {
         getView().getModel().setWinner(getView().getModel().getPlayerByNickname(player));
     }
 
+    public void updateMotherNaturePositionUnify(int motherNaturePosition){
+        getView().getModel().getTable().setMotherNaturePosition(motherNaturePosition);
+    }
+
 
 }
