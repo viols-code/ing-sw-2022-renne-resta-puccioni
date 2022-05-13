@@ -704,6 +704,17 @@ public class GameController implements Observer<PlayerEvent> {
     private void endTurn() {
         game.getCurrentPlayer().setHasAlreadyPlayed(true);
 
+        if (isGameExpert) {
+            try {
+                game.setHasPlayedCharacterCard(false);
+                if(!game.getActiveCharacterCard().equals(game.getBasicState())){
+                    game.setActiveCharacterCard(game.getBasicState());
+                }
+            } catch (IllegalAccessError ex) {
+                ex.printStackTrace();
+            }
+        }
+
         if (!(endPhasePlay())) {
             game.setCurrentPlayer(game.nextPlayerTurn());
             game.setTurnPhase(TurnPhase.MOVE_STUDENT);
@@ -724,15 +735,6 @@ public class GameController implements Observer<PlayerEvent> {
                 endGame();
             }
 
-        }
-
-        if (isGameExpert) {
-            try {
-                game.setHasPlayedCharacterCard(false);
-                game.setActiveCharacterCard(game.getBasicState());
-            } catch (IllegalAccessError ex) {
-                ex.printStackTrace();
-            }
         }
     }
 
