@@ -24,7 +24,6 @@ public class ViewString {
     Error messages
      */
     public static final String GAME_MODE = "The game is in the basic mode";
-    public static final String COMMAND_NOT_FOUND = "This command does not exist";
     public static final String NOT_A_NUMBER = "Please input a number";
     public static final String NOT_IN_RANGE = "This is not a number between 2 and 3";
     public static final String PLAYER_CRASH = "Someone crashed, terminating the game";
