@@ -61,7 +61,6 @@ public class ViewString {
     public static final String CARD_NOT_PLAYED = "%s hasn't played the assistant card yet";
     public static final String YOUR_CARD_NOT_PLAYED = "You haven't played the assistant card yet";
 
-    // mettiamo anche i mex delle character card?
     public static final String NO_ACTIVE_CHARACTER_CARD = "There is no active character card";
     public static final String YOU_SET_ACTIVE_CHARACTER_CARD = "You have set the character card %s";
     public static final String OTHER_SET_ACTIVE_CHARACTER_CARD = "%s have set the character card %s";
