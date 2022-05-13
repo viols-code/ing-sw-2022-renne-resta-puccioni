@@ -43,8 +43,8 @@ public class ViewString {
     public static final String OTHER_SELECTED_ASSISTANT_CARD = "%s played the assistant card number %d";
     public static final String MOVE_STUDENT_FROM_ENTRANCE = "Move the students from your entrance:";
     public static final String MOVE_MOTHER_NATURE = "Select the number of steps of mother nature:";
-    public static final String YOU_SELECTED_MOTHER_NATURE_MOVEMENT = "You have moved mother nature of %d steps";
-    public static final String OTHER_SELECTED_MOTHER_NATURE_MOVEMENT = "%s has moved mother nature of %d steps";
+    public static final String YOU_SELECTED_MOTHER_NATURE_MOVEMENT = "You have moved mother nature to the group island %d";
+    public static final String OTHER_SELECTED_MOTHER_NATURE_MOVEMENT = "%s has moved mother nature to the group island %d";
     public static final String SELECT_CLOUD_TILE = "Select the cloud tile:";
     public static final String ROUND = "The round %d is starting";
     public static final String INCORRECT_FORMAT = "Incorrect format: please input ";
