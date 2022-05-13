@@ -108,7 +108,7 @@ public class CommandHandler {
     /**
      * Calls the method to make the player see their assistant cards.
      */
-    public void viewCurrentCharacterCard() {
+    public void viewActiveCharacterCard() {
         if(cli.getGameMode()){
             cli.getRenderer().printActiveCharacterCard();
         } else {
