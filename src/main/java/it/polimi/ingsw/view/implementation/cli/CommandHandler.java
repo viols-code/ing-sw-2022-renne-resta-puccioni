@@ -191,7 +191,13 @@ public class CommandHandler {
 
         switch (object) {
             case "schoolBoard" -> cli.getRenderer().printOthersSchoolBoard(playerName);
-            case "currentAssistantCard" -> cli.getRenderer().printOthersCurrentAssistantCard(playerName);
+            case "currentAssistantCard" -> {
+                if(cli.getModel().getPlayerByNickname(playerName).getCurrentAssistantCard() != null) {
+                    cli.getRenderer().printOthersCurrentAssistantCard(playerName);
+                }else{
+                    cli.getRenderer().showGameMessage(ViewString.CARD_NOT_PLAYED.formatted(playerName));
+                }
+            }
             case "coins" -> {
                 if(cli.getGameMode()){
                     cli.getRenderer().printOthersCoins(playerName);
