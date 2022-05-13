@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.game.GamePhase;
 import it.polimi.ingsw.model.game.TurnPhase;
 import it.polimi.ingsw.view.ModelUpdateHandler;
 import it.polimi.ingsw.view.View;
+import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
 import it.polimi.ingsw.view.implementation.cli.utils.ViewString;
 
 import java.util.HashMap;
@@ -139,13 +140,17 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
     }
 
     @Override
-    public void updateActiveCharacterCard(int characterCard){
+    public void updateActiveCharacterCard(CharacterCardEnumeration characterCard){
         super.updateActiveCharacterCard(characterCard);
-        if(getView().getModel().getLocalPlayer().getNickname().equalsIgnoreCase(getView().getModel().getCurrentPlayer().getNickname())){
-            getView().getRenderer().showGameMessage(ViewString.YOU_SET_ACTIVE_CHARACTER_CARD.formatted(getView().getModel().getCharacterCardByIndex(characterCard).getType().name().toLowerCase(Locale.ROOT)));
-
+        if(characterCard == CharacterCardEnumeration.BASIC_STATE){
+            getView().getRenderer().showGameMessage(ViewString.BASIC_STATE);
         } else{
-            getView().getRenderer().showGameMessage(ViewString.OTHER_SET_ACTIVE_CHARACTER_CARD.formatted(getView().getModel().getCurrentPlayer().getNickname(), getView().getModel().getCharacterCardByIndex(characterCard).getType().name().toLowerCase(Locale.ROOT)));
+            if(getView().getModel().getLocalPlayer().getNickname().equalsIgnoreCase(getView().getModel().getCurrentPlayer().getNickname())){
+                getView().getRenderer().showGameMessage(ViewString.YOU_SET_ACTIVE_CHARACTER_CARD.formatted(characterCard.name().toLowerCase(Locale.ROOT)));
+
+            } else{
+                getView().getRenderer().showGameMessage(ViewString.OTHER_SET_ACTIVE_CHARACTER_CARD.formatted(getView().getModel().getCurrentPlayer().getNickname(), characterCard.name().toLowerCase(Locale.ROOT)));
+            }
         }
     }
 
