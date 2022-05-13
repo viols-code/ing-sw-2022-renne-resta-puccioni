@@ -61,10 +61,6 @@ public class ViewString {
     public static final String CARD_NOT_PLAYED = "%s hasn't played the assistant card yet";
     public static final String YOUR_CARD_NOT_PLAYED = "You haven't played the assistant card yet";
 
-    public static final String NO_ACTIVE_CHARACTER_CARD = "There is no active character card";
-    public static final String YOU_SET_ACTIVE_CHARACTER_CARD = "You have set the character card %s";
-    public static final String OTHER_SET_ACTIVE_CHARACTER_CARD = "%s have set the character card %s";
-
     /*
     Input errors
      */
@@ -72,12 +68,19 @@ public class ViewString {
     public static final String INCORRECT_COMMAND = "Incorrect format: please type 'help' to see all possible commands";
     public static final String PLAY = ViewString.PLAY_ASSISTANT_CARD + " or " + ViewString.PLAY_CHARACTER_CARD;
 
+    /*
+    Character Card
+     */
     public static final String BASIC_STATE = "The character card have been used so the state have been restored to the basic one";
     public static final String ADVICE_EXCHANGE_DINING_ROOM_ENTRANCE = "For %s you have to select the colour in the dining room and the colour in the entrance";
     public static final String ADVICE_SELECT_GROUP_ISLAND = "For %s you have to select a group island";
     public static final String ADVICE_SELECT_STUDENT_COLOUR = " For %s select a colour";
     public static final String ADVICE_STUDENT_TO_ENTRANCE = "For %s you have to select the colour in the entrance and the colour on the card";
     public static final String ADVICE_STUDENT_TO_ISLAND = "For %s you have to select a student colour and a single island";
+
+    public static final String NO_ACTIVE_CHARACTER_CARD = "There is no active character card";
+    public static final String YOU_SET_ACTIVE_CHARACTER_CARD = "You have set the character card %s";
+    public static final String OTHER_SET_ACTIVE_CHARACTER_CARD = "%s have set the character card %s";
 
 
     /*
