@@ -77,7 +77,11 @@ public abstract class ModelUpdateHandler {
         return res.size() == 0;
     }
 
-    public void updateCoins(int coins){
+    public void updatePlayerCoins(String player, int coins){
+        getView().getModel().getPlayerByNickname(player).setCoins(coins);
+    }
+
+    public void updateTableCoins(int coins){
         getView().getModel().setCoins(coins);
     }
 
