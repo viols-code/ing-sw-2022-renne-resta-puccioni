@@ -36,7 +36,7 @@ public class MockCard {
     /**
      * The students on the card
      */
-    private final HashMap<Colour, Integer> students;
+    private HashMap<Colour, Integer> students;
 
     /**
      * Constructs the character card
@@ -159,5 +159,10 @@ public class MockCard {
 
     public HashMap<Colour, Integer> getStudents() {
         return students;
+    }
+
+    public void setStudents(HashMap<Colour, Integer> students) {
+        if (type == CharacterCardEnumeration.STUDENT_TO_DINING_ROOM || type == CharacterCardEnumeration.STUDENT_TO_ENTRANCE || type == CharacterCardEnumeration.STUDENT_TO_ISLAND)
+            this.students = students;
     }
 }
