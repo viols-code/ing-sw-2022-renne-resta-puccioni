@@ -165,7 +165,15 @@ public class CLI extends View {
                         getRenderer().showErrorMessage("Unknown host or port, please try again!");
                 }
 
-                case CHOOSING_NAME -> setPlayerName(command);
+                case CHOOSING_NAME -> {
+                    if(command.length() != command.trim().length()){
+                        getRenderer().showErrorMessage("The nickname must be without empty spaces");
+                    } else if(command.split(" ").length > 1){
+                        getRenderer().showErrorMessage("The nickname must be without empty spaces");
+                    } else{
+                        setPlayerName(command);
+                    }
+                }
 
                 case CHOOSING_WIZARD -> {
                         int wizardNumber;
