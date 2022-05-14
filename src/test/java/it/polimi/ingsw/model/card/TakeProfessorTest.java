@@ -1,14 +1,18 @@
 package it.polimi.ingsw.model.card;
 
+import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.ExpertGame;
 import it.polimi.ingsw.model.game.Game;
+import it.polimi.ingsw.model.game.TurnPhase;
 import it.polimi.ingsw.model.player.BasicPlayer;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.TowerColour;
 import it.polimi.ingsw.model.player.Wizard;
 import it.polimi.ingsw.model.table.island.BasicGroupIsland;
+import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -16,8 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class TakeProfessorTest {
     private TakeProfessor cardTest;
     private Game gameTest;
-    private Player player1;
-    private Player player2;
+    private GameController gameController;
 
     @BeforeEach
     void setUp() {
@@ -32,8 +35,8 @@ class TakeProfessorTest {
         settingBag();
         settingCard();
 
-        player1 = new BasicPlayer("Viola", Wizard.TYPE_4, TowerColour.WHITE);
-        player2 = new BasicPlayer("Laura", Wizard.TYPE_1, TowerColour.BLACK);
+        Player player1 = new BasicPlayer("Viola", Wizard.TYPE_4, TowerColour.WHITE);
+        Player player2 = new BasicPlayer("Laura", Wizard.TYPE_1, TowerColour.BLACK);
 
         gameTest.addPlayer(player1);
         gameTest.addPlayer(player2);
@@ -45,52 +48,106 @@ class TakeProfessorTest {
         assertEquals(2, gameTest.getNumberOfPlayer());
     }
 
-    @Test
+    @RepeatedTest(100)
     void professor() {
-        player1.getSchoolBoard().addStudentToDiningRoom(Colour.BLUE);
-        player2.getSchoolBoard().addStudentToDiningRoom(Colour.RED);
+        gameController = new GameController(true, 2);
+        gameController.setUp();
+        gameController.addPlayer("Viola", Wizard.TYPE_1);
+        gameController.addPlayer("Laura", Wizard.TYPE_2);
+        gameController.setUpCharactersAndIslands();
 
-        assertFalse(player1.getSchoolBoard().hasProfessor(Colour.BLUE));
-        assertFalse(player1.getSchoolBoard().hasProfessor(Colour.GREEN));
-        assertFalse(player1.getSchoolBoard().hasProfessor(Colour.YELLOW));
-        assertFalse(player1.getSchoolBoard().hasProfessor(Colour.PINK));
-        assertFalse(player1.getSchoolBoard().hasProfessor(Colour.RED));
+        gameController.playAssistantCard("Viola", 0);
+        gameController.playAssistantCard("Laura", 1);
 
-        assertFalse(player2.getSchoolBoard().hasProfessor(Colour.RED));
-        assertFalse(player2.getSchoolBoard().hasProfessor(Colour.GREEN));
-        assertFalse(player2.getSchoolBoard().hasProfessor(Colour.YELLOW));
-        assertFalse(player2.getSchoolBoard().hasProfessor(Colour.PINK));
-        assertFalse(player2.getSchoolBoard().hasProfessor(Colour.BLUE));
+        boolean flag = false;
+        int i;
+        for (i = 0; i < 3; i++) {
+            if (gameController.getGame().getCharacterCardByIndex(i).getCharacterCardType() == CharacterCardEnumeration.TAKE_PROFESSOR) {
+                flag = true;
+                break;
+            }
+        }
 
-        gameTest.setCurrentPlayer(player1);
-        cardTest.professor();
+        if(flag){
+            for(Colour colour: Colour.values()){
+                if(gameController.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) >= 3){
+                    gameController.moveStudentToDiningRoom("Viola", colour);
+                    gameController.moveStudentToDiningRoom("Viola", colour);
+                    gameController.moveStudentToDiningRoom("Viola", colour);
+                }
+            }
 
-        assertTrue(player1.getSchoolBoard().hasProfessor(Colour.BLUE));
-        assertTrue(player1.getSchoolBoard().hasProfessor(Colour.GREEN));
-        assertTrue(player1.getSchoolBoard().hasProfessor(Colour.YELLOW));
-        assertTrue(player1.getSchoolBoard().hasProfessor(Colour.PINK));
-        assertFalse(player1.getSchoolBoard().hasProfessor(Colour.RED));
+            if(gameController.getGame().getCurrentPlayer().getCoins() == 2){
+                gameController.playCharacterCard("Viola", i);
 
-        assertFalse(player2.getSchoolBoard().hasProfessor(Colour.RED));
-        assertFalse(player2.getSchoolBoard().hasProfessor(Colour.GREEN));
-        assertFalse(player2.getSchoolBoard().hasProfessor(Colour.YELLOW));
-        assertFalse(player2.getSchoolBoard().hasProfessor(Colour.PINK));
-        assertFalse(player2.getSchoolBoard().hasProfessor(Colour.BLUE));
+                for(Colour colour: Colour.values()){
+                    if(gameController.getGame().getCurrentPlayer().getSchoolBoard().getDiningRoom(colour) > 0){
+                        assertTrue(gameController.getGame().getCurrentPlayer().getSchoolBoard().hasProfessor(colour));
+                        assertEquals(3, gameController.getGame().getCurrentPlayer().getSchoolBoard().getDiningRoom(colour));
+                    } else {
+                        assertFalse(gameController.getGame().getCurrentPlayer().getSchoolBoard().hasProfessor(colour));
+                    }
+                }
 
-        gameTest.setCurrentPlayer(player2);
-        cardTest.professor();
+            }
+        }
 
-        assertTrue(player2.getSchoolBoard().hasProfessor(Colour.RED));
-        assertTrue(player2.getSchoolBoard().hasProfessor(Colour.GREEN));
-        assertTrue(player2.getSchoolBoard().hasProfessor(Colour.YELLOW));
-        assertTrue(player2.getSchoolBoard().hasProfessor(Colour.PINK));
-        assertFalse(player2.getSchoolBoard().hasProfessor(Colour.BLUE));
+    }
 
-        assertTrue(player1.getSchoolBoard().hasProfessor(Colour.BLUE));
-        assertFalse(player1.getSchoolBoard().hasProfessor(Colour.GREEN));
-        assertFalse(player1.getSchoolBoard().hasProfessor(Colour.YELLOW));
-        assertFalse(player1.getSchoolBoard().hasProfessor(Colour.PINK));
-        assertFalse(player1.getSchoolBoard().hasProfessor(Colour.RED));
+    @RepeatedTest(10000)
+    void takeProfessor(){
+        gameController = new GameController(true, 2);
+        gameController.setUp();
+        gameController.addPlayer("Viola", Wizard.TYPE_1);
+        gameController.addPlayer("Laura", Wizard.TYPE_2);
+        gameController.setUpCharactersAndIslands();
+
+        gameController.playAssistantCard("Viola", 0);
+        gameController.playAssistantCard("Laura", 1);
+
+        boolean flag = false;
+        int i;
+        for (i = 0; i < 3; i++) {
+            if (gameController.getGame().getCharacterCardByIndex(i).getCharacterCardType() == CharacterCardEnumeration.TAKE_PROFESSOR) {
+                flag = true;
+                break;
+            }
+        }
+
+        if(flag){
+
+            for(Colour colour: Colour.values()){
+                if(gameController.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) >= 3){
+                    gameController.moveStudentToDiningRoom("Viola", colour);
+                    gameController.moveStudentToDiningRoom("Viola", colour);
+                    gameController.moveStudentToDiningRoom("Viola", colour);
+                    assertTrue(gameController.getGame().getCurrentPlayer().getSchoolBoard().hasProfessor(colour));
+                    assertEquals(3, gameController.getGame().getCurrentPlayer().getSchoolBoard().getDiningRoom(colour));
+
+                    gameController.moveMotherNature("Viola", 1);
+                    gameController.chooseCloudTile("Viola", 0);
+
+                    if(gameController.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) >= 3){
+                        gameController.moveStudentToDiningRoom("Laura", colour);
+                        gameController.moveStudentToDiningRoom("Laura", colour);
+                        gameController.moveStudentToDiningRoom("Laura", colour);
+                        assertFalse(gameController.getGame().getCurrentPlayer().getSchoolBoard().hasProfessor(colour));
+                        assertEquals(3, gameController.getGame().getCurrentPlayer().getSchoolBoard().getDiningRoom(colour));
+
+                        gameController.playCharacterCard("Laura", i);
+                        assertTrue(gameController.getGame().getCurrentPlayer().getSchoolBoard().hasProfessor(colour));
+                        assertEquals(3, gameController.getGame().getCurrentPlayer().getSchoolBoard().getDiningRoom(colour));
+
+                    }
+
+                    break;
+                }
+            }
+
+
+
+        }
+
     }
 
     @Test

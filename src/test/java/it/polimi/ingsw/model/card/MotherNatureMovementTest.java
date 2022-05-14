@@ -1,114 +1,61 @@
 package it.polimi.ingsw.model.card;
 
+import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.model.Colour;
-import it.polimi.ingsw.model.game.ExpertGame;
-import it.polimi.ingsw.model.game.Game;
-import it.polimi.ingsw.model.player.ExpertPlayer;
-import it.polimi.ingsw.model.player.Player;
-import it.polimi.ingsw.model.player.TowerColour;
 import it.polimi.ingsw.model.player.Wizard;
-import it.polimi.ingsw.model.table.island.BasicGroupIsland;
+import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.RepeatedTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class MotherNatureMovementTest {
-    private MotherNatureMovement cardTest;
-    private Game gameTest;
-    private Player player1;
+    private GameController gameController;
 
     @BeforeEach
     void setUp() {
-        gameTest = new ExpertGame();
-        cardTest = new MotherNatureMovement(gameTest);
-        player1 = new ExpertPlayer("Viola", Wizard.TYPE_4, TowerColour.WHITE);
-
-        gameTest.addPlayer(player1);
-        player1.setCurrentAssistantCard(gameTest.getAssistantCard(0));
-
-        gameTest.addCharacterCard(cardTest);
-        for (int i = 0; i < 12; i++) {
-            gameTest.getTable().addGroupIsland(new BasicGroupIsland());
-        }
-
-        settingBag();
-        settingCard();
+        gameController = new GameController(true, 2);
+        gameController.setUp();
+        gameController.addPlayer("Viola", Wizard.TYPE_2);
+        gameController.addPlayer("Laura", Wizard.TYPE_3);
+        gameController.setUpCharactersAndIslands();
     }
 
-    @Test
-    void checkMotherNatureMovement() {
-        assertEquals(1, gameTest.getAssistantCard(0).getMotherNatureMovement());
-        assertEquals(gameTest.getAssistantCard(0), player1.getCurrentAssistantCard());
-        assertTrue(cardTest.checkMotherNatureMovement(0, 3));
-    }
+    @RepeatedTest(100)
+    void motherNatureMovement() {
+        gameController.playAssistantCard("Viola", 0);
+        gameController.playAssistantCard("Laura", 1);
 
-    @Test
-    void incrementCost() {
-        int cost = cardTest.getCost();
-        assertEquals(cost, cardTest.getCost());
-        cardTest.incrementCost();
-        assertEquals(cost + 1, cardTest.getCost());
-    }
-
-    @Test
-    void setColour() {
-        for (Colour colour : Colour.values()) {
-            assertThrows(IllegalAccessError.class, () -> cardTest.setColour(colour));
-        }
-    }
-
-    @Test
-    void setColourAndIsland() {
-        for (Colour colour : Colour.values()) {
-            assertThrows(IllegalAccessError.class, () -> cardTest.setColourAndIsland(colour, gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0)));
-        }
-    }
-
-    @Test
-    public void setColourDiningRoomEntrance() {
-        for (Colour colour : Colour.values()) {
-            assertThrows(IllegalAccessError.class, () -> cardTest.setColourDiningRoomEntrance(colour, colour));
-        }
-    }
-
-    @Test
-    public void setColourCardEntrance() {
-        for (Colour colour : Colour.values()) {
-            assertThrows(IllegalAccessError.class, () -> cardTest.setColourCardEntrance(colour, colour));
-        }
-    }
-
-    @Test
-    void setGroupIsland() {
-        for (int i = 0; i < gameTest.getTable().getNumberOfGroupIsland(); i++) {
-            int finalI = i;
-            assertThrows(IllegalAccessError.class, () -> cardTest.setGroupIsland(finalI));
-        }
-    }
-
-    private void settingBag() {
-        for (Colour colour : Colour.values()) {
-            for (int i = 0; i < 2; i++) {
-                gameTest.getTable().getBag().addStudentBag(colour);
+        boolean flag = false;
+        int i;
+        for (i = 0; i < 3; i++) {
+            if (gameController.getGame().getCharacterCardByIndex(i).getCharacterCardType() == CharacterCardEnumeration.MOTHER_NATURE_MOVEMENT) {
+                flag = true;
+                break;
             }
         }
 
-        for (int i = 1; i < 12; i++) {
-            if (i == 5) i++;
-            gameTest.getTable().getGroupIslandByIndex(i).getIslandByIndex(0).addStudent(i,0,gameTest.getTable().getBag().bagDrawStudent());
-        }
+        if (flag) {
+            gameController.playCharacterCard("Viola", i);
+            assertEquals(gameController.getGame().getCharacterCardByIndex(i), gameController.getGame().getActiveCharacterCard());
 
-        for (Colour colour : Colour.values()) {
-            for (int i = 0; i < 24; i++) {
-                gameTest.getTable().getBag().addStudentBag(colour);
+            int j = 0;
+            while(j < 3){
+                for(Colour colour: Colour.values()){
+                    if(gameController.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) > 0){
+                        gameController.moveStudentToDiningRoom("Viola", colour);
+                        j++;
+                    }
+                }
             }
+            gameController.moveMotherNature("Viola", 4);
+            gameController.moveMotherNature("Viola", 5);
+            gameController.moveMotherNature("Viola", 6);
+            assertEquals(0, gameController.getGame().getTable().getMotherNaturePosition());
+
+            gameController.moveMotherNature("Viola", 3);
+            assertEquals(3, gameController.getGame().getTable().getMotherNaturePosition());
         }
     }
 
-    private void settingCard() {
-        for (int i = 0; i < gameTest.getNumberOfCharacterCard(); i++) {
-            gameTest.getCharacterCardByIndex(i).setting();
-        }
-    }
 }
