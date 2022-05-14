@@ -62,24 +62,16 @@ public abstract class ModelUpdateHandler {
         }
     }
 
-    public void updateCloudTile(int cloudTile, HashMap<Colour,Integer> students){
+    public void updateCloudTileAdded(int cloudTile, HashMap<Colour,Integer> students){
         getView().getModel().getTable().getCloudTileByIndex(cloudTile).setCloudTile(students);
-        if(isCLoudTileEmpty(students)){
-            getView().getModel().getTable().removeShownCloudTileByIndex(cloudTile);
-        }
-        else{
-            getView().getModel().getTable().addShownCLoudTile();
-            getView().getModel().getTable().setShownCloudTile(cloudTile,students);
-        }
+        getView().getModel().getTable().addShownCLoudTile();
+        getView().getModel().getTable().setShownCloudTile(cloudTile,students);
+
     }
 
-    private boolean isCLoudTileEmpty(HashMap<Colour,Integer> students){
-        List<Integer> res = students.entrySet()
-                .stream()
-                .map(stud -> stud.getValue())
-                .filter(num -> num > 0)
-                .collect(Collectors.toList());
-        return res.size() == 0;
+    public void updateCloudTileRemoved(int cloudTile,HashMap<Colour,Integer> students){
+        getView().getModel().getTable().getCloudTileByIndex(cloudTile).setCloudTile(students);
+        getView().getModel().getTable().removeShownCloudTileByIndex(cloudTile);
     }
 
     public void updatePlayerCoins(String player, int coins){

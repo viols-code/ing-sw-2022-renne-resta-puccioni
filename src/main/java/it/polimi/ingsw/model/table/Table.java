@@ -1,10 +1,7 @@
 package it.polimi.ingsw.model.table;
 
 import it.polimi.ingsw.model.Colour;
-import it.polimi.ingsw.model.messages.CloudTileUpdate;
-import it.polimi.ingsw.model.messages.MotherNaturePositionUnifyUpdate;
-import it.polimi.ingsw.model.messages.MotherNaturePositionUpdate;
-import it.polimi.ingsw.model.messages.ProfessorsUpdate;
+import it.polimi.ingsw.model.messages.*;
 import it.polimi.ingsw.model.table.island.GroupIsland;
 import it.polimi.ingsw.observer.Observable;
 import it.polimi.ingsw.server.IServerPacket;
@@ -224,7 +221,7 @@ public class Table extends Observable<IServerPacket> {
         for (Colour colour : Colour.values()) {
             students.put(colour, cloudTile.getTileStudents(colour));
         }
-        notify(new CloudTileUpdate(cloudTiles.indexOf(cloudTile),students));
+        notify(new NewCloudTileUpdate(cloudTiles.indexOf(cloudTile),students));
     }
 
     /**
@@ -239,7 +236,7 @@ public class Table extends Observable<IServerPacket> {
         for (Colour colour : Colour.values()) {
             students.put(colour, 0);
         }
-        notify(new CloudTileUpdate(index,students));
+        notify(new RemoveCloudTileUpdate(index,students));
     }
 
 }

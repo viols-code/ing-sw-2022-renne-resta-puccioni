@@ -15,5 +15,6 @@ public class IslandInfluenceUpdate extends CardUpdate {
 
     @Override
     public void process(View view) {
+        view.getRenderer().showGameMessage("Island chosen for an extra influence computation: " + groupIsland);
     }
 }

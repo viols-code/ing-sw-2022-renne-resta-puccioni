@@ -16,5 +16,6 @@ public class NoColourUpdate extends CardUpdate {
 
     @Override
     public void process(View view) {
+        view.getRenderer().showGameMessage("In this turn colour " + colour + " will not be considered in influence computation");
     }
 }
