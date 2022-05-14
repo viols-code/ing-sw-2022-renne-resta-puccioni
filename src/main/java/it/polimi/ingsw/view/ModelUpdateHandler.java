@@ -74,15 +74,6 @@ public abstract class ModelUpdateHandler {
         getView().getModel().getTable().removeShownCloudTileByIndex(cloudTile);
     }
 
-    private boolean isCLoudTileEmpty(HashMap<Colour,Integer> students){
-        List<Integer> res = students.entrySet()
-                .stream()
-                .map(stud -> stud.getValue())
-                .filter(num -> num > 0)
-                .collect(Collectors.toList());
-        return res.size() == 0;
-    }
-
     public void updatePlayerCoins(String player, int coins){
         getView().getModel().getPlayerByNickname(player).setCoins(coins);
     }
