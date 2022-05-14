@@ -148,7 +148,7 @@ class IslandInfluenceTest {
         }
     }
 
-    @RepeatedTest(1000)
+    @RepeatedTest(10000)
     void islandInfluent(){
         GameController gameController = new GameController(true, 2);
         gameController.setUp();
@@ -312,21 +312,39 @@ class IslandInfluenceTest {
 
             if(gameController.getGame().getCurrentPlayer().getCoins() >= 3){
                 gameController.playCharacterCard("Viola", i);
-                boolean flag1 = true;
-                if(gameController.getGame().getTable().getGroupIslandByIndex(4).getInfluence() == null){
-                    flag1 = false;
-                } else {
-                    String name1 = gameController.getGame().getTable().getGroupIslandByIndex(4).getInfluence().getNickname();
-                }
 
+                String name2 = "";
                 boolean flag2 = true;
                 if(gameController.getGame().getTable().getGroupIslandByIndex(3).getInfluence() == null){
                     flag2 = false;
                 } else {
-                    String name2 = gameController.getGame().getTable().getGroupIslandByIndex(3).getInfluence().getNickname();
+                    name2 = gameController.getGame().getTable().getGroupIslandByIndex(3).getInfluence().getNickname();
                 }
 
+                String name3 = "";
+                boolean flag3 = true;
+                if(gameController.getGame().getTable().getGroupIslandByIndex(5).getInfluence() == null){
+                    flag3 = false;
+                } else {
+                    name3 = gameController.getGame().getTable().getGroupIslandByIndex(5).getInfluence().getNickname();
+                }
+
+                int numberOfIsland = gameController.getGame().getTable().getNumberOfGroupIsland();
                 gameController.setGroupIsland("Viola", 4);
+
+                if(!flag3 && !flag2){
+                    assertEquals(numberOfIsland, gameController.getGame().getTable().getNumberOfGroupIsland());
+                }
+
+                if(name2.equals(name3)){
+                    if(gameController.getGame().getTable().getNumberOfGroupIsland() < numberOfIsland){
+                        assertEquals(numberOfIsland - 2, gameController.getGame().getTable().getNumberOfGroupIsland());
+                    }
+                } else{
+                    if(gameController.getGame().getTable().getNumberOfGroupIsland() < numberOfIsland){
+                        assertEquals(numberOfIsland - 1, gameController.getGame().getTable().getNumberOfGroupIsland());
+                    }
+                }
 
             }
 
