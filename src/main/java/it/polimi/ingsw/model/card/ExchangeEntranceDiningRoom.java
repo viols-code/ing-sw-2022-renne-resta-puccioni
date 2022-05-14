@@ -31,7 +31,7 @@ public class ExchangeEntranceDiningRoom extends CharacterCard {
         game.getCurrentPlayer().getSchoolBoard().addStudentToDiningRoom(colourEntrance);
 
 
-        if (((game.getCurrentPlayer().getSchoolBoard().getDiningRoom(colourDiningRoom) + 1) % 3) == 0) {
+        if (((game.getCurrentPlayer().getSchoolBoard().getDiningRoom(colourEntrance) + 1) % 3) == 0) {
             game.getCurrentPlayer().addCoins(1);
             game.setCoins(game.getCoins() - 1);
         }
