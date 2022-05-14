@@ -59,7 +59,7 @@ class ExchangeEntranceDiningRoomTest {
         assertFalse(gameTest.getPlayerByIndex(1).getSchoolBoard().hasProfessor(Colour.GREEN));
     }
 
-    @RepeatedTest(1000)
+    @RepeatedTest(2000)
     void exchangeEntranceDiningRoom(){
         GameController gameController;
         gameController = new GameController(true, 2);
