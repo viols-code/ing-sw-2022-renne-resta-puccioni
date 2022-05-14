@@ -175,4 +175,9 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
         }
         super.updateNoEntryTileOnGroupIsland(groupIsland, num);
     }
+
+    @Override
+    public void updateEmptyBag(){
+        getView().getRenderer().showGameMessage("The students are finished. This is the last round");
+    }
 }

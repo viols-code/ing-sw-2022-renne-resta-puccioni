@@ -98,9 +98,7 @@ public abstract class ModelUpdateHandler {
         getView().getModel().getPlayerByNickname(player).getSchoolBoard().setDiningRoom(diningRoom);
     }
 
-    public void updateEmptyBag(){
-        //to-do: think how to show it
-    }
+    public void updateEmptyBag(){}
 
     public void updateProfessors(Colour colour){
         getView().getModel().getTable().removeProfessorFromTable(colour);
