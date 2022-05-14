@@ -71,7 +71,7 @@ public class ViewString {
     /*
     Character Card
      */
-    public static final String BASIC_STATE = "The character card have been used so the state have been restored to the basic one";
+    public static final String BASIC_STATE = "The character card has been used so the state has been restored to the basic one";
     public static final String ADVICE_EXCHANGE_DINING_ROOM_ENTRANCE = "For %s you have to select the colour in the dining room and the colour in the entrance";
     public static final String ADVICE_SELECT_GROUP_ISLAND = "For %s you have to select a group island";
     public static final String ADVICE_SELECT_STUDENT_COLOUR = " For %s select a colour";
