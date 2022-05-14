@@ -364,6 +364,9 @@ public abstract class CharacterCard extends Observable<IServerPacket> {
         }
     }
 
+    /*
+    Su queste ultime tre si deve fare un'eccezione e controllarla nel test
+     */
     protected void setNumberOfNoEntryTiles(int numberOfNoEntryTiles) {
 
     }
