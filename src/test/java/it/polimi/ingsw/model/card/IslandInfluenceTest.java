@@ -1,18 +1,21 @@
 package it.polimi.ingsw.model.card;
 
+import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.ExpertGame;
 import it.polimi.ingsw.model.game.Game;
+import it.polimi.ingsw.model.game.TurnPhase;
 import it.polimi.ingsw.model.player.BasicPlayer;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.TowerColour;
 import it.polimi.ingsw.model.player.Wizard;
 import it.polimi.ingsw.model.table.island.BasicGroupIsland;
+import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class IslandInfluenceTest {
     private IslandInfluence cardTest;
@@ -142,6 +145,193 @@ class IslandInfluenceTest {
     private void settingCard() {
         for (int i = 0; i < gameTest.getNumberOfCharacterCard(); i++) {
             gameTest.getCharacterCardByIndex(i).setting();
+        }
+    }
+
+    @RepeatedTest(1000)
+    void islandInfluent(){
+        GameController gameController = new GameController(true, 2);
+        gameController.setUp();
+        gameController.addPlayer("Viola", Wizard.TYPE_1);
+        gameController.addPlayer("Laura", Wizard.TYPE_2);
+        gameController.setUpCharactersAndIslands();
+
+        boolean flag = false;
+        int i;
+        for(i = 0; i < 3; i++){
+            if(gameController.getGame().getCharacterCardByIndex(i).getCharacterCardType() == CharacterCardEnumeration.ISLAND_INFLUENCE){
+                flag = true;
+                break;
+            }
+        }
+
+        if(flag){
+
+            // FIRST TURN
+            gameController.playAssistantCard("Viola", 0);
+            gameController.playAssistantCard("Laura", 1);
+            assertTrue(gameController.getGame().getTable().getGroupIslandByIndex(0).getMotherNature());
+            assertEquals(TurnPhase.MOVE_STUDENT, gameController.getGame().getTurnPhase());
+
+            // VIOLA
+            for(Colour colour : Colour.values()){
+                if(gameController.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) >= 3){
+                    gameController.moveStudentToDiningRoom("Viola", colour);
+                    gameController.moveStudentToDiningRoom("Viola", colour);
+                    gameController.moveStudentToDiningRoom("Viola", colour);
+                }
+            }
+
+            for(Colour colour : Colour.values()){
+                if(gameController.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) >= 2){
+                    gameController.moveStudentToDiningRoom("Viola", colour);
+                    gameController.moveStudentToDiningRoom("Viola", colour);
+                }
+            }
+
+            for(Colour colour : Colour.values()){
+                if(gameController.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) >= 1){
+                    gameController.moveStudentToDiningRoom("Viola", colour);
+                }
+            }
+
+            assertEquals(TurnPhase.MOVE_MOTHER_NATURE, gameController.getGame().getTurnPhase());
+            gameController.moveMotherNature("Viola", 1);
+            assertEquals(TurnPhase.CHOOSE_CLOUD_TILE, gameController.getGame().getTurnPhase());
+            gameController.chooseCloudTile("Viola", 0);
+            assertTrue(gameController.getGame().getTable().getGroupIslandByIndex(1).getMotherNature());
+
+            // LAURA
+            assertEquals(TurnPhase.MOVE_STUDENT, gameController.getGame().getTurnPhase());
+
+            for(Colour colour : Colour.values()){
+                if(gameController.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) >= 3){
+                    gameController.moveStudentToDiningRoom("Laura", colour);
+                    gameController.moveStudentToDiningRoom("Laura", colour);
+                    gameController.moveStudentToDiningRoom("Laura", colour);
+                }
+            }
+
+            for(Colour colour : Colour.values()){
+                if(gameController.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) >= 2){
+                    gameController.moveStudentToDiningRoom("Laura", colour);
+                    gameController.moveStudentToDiningRoom("Laura", colour);
+                }
+            }
+
+            for(Colour colour : Colour.values()){
+                if(gameController.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) >= 1){
+                    gameController.moveStudentToDiningRoom("Laura", colour);
+                }
+            }
+
+            assertEquals(TurnPhase.MOVE_MOTHER_NATURE, gameController.getGame().getTurnPhase());
+            gameController.moveMotherNature("Laura", 1);
+            assertEquals(TurnPhase.CHOOSE_CLOUD_TILE, gameController.getGame().getTurnPhase());
+            gameController.chooseCloudTile("Laura", 0);
+
+            // SECOND TURN
+            gameController.playAssistantCard("Viola", 1);
+            gameController.playAssistantCard("Laura", 2);
+
+            // VIOLA
+            for(Colour colour : Colour.values()){
+                if(gameController.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) >= 3){
+                    gameController.moveStudentToDiningRoom("Viola", colour);
+                    gameController.moveStudentToDiningRoom("Viola", colour);
+                    gameController.moveStudentToDiningRoom("Viola", colour);
+                }
+            }
+
+            for(Colour colour : Colour.values()){
+                if(gameController.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) >= 2){
+                    gameController.moveStudentToDiningRoom("Viola", colour);
+                    gameController.moveStudentToDiningRoom("Viola", colour);
+                }
+            }
+
+            for(Colour colour : Colour.values()){
+                if(gameController.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) >= 1){
+                    gameController.moveStudentToDiningRoom("Viola", colour);
+                }
+            }
+
+            gameController.moveMotherNature("Viola", 1);
+            gameController.chooseCloudTile("Viola", 0);
+
+            // LAURA
+            for(Colour colour : Colour.values()){
+                if(gameController.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) >= 3){
+                    gameController.moveStudentToDiningRoom("Laura", colour);
+                    gameController.moveStudentToDiningRoom("Laura", colour);
+                    gameController.moveStudentToDiningRoom("Laura", colour);
+                }
+            }
+
+            for(Colour colour : Colour.values()){
+                if(gameController.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) >= 2){
+                    gameController.moveStudentToDiningRoom("Laura", colour);
+                    gameController.moveStudentToDiningRoom("Laura", colour);
+                }
+            }
+
+            for(Colour colour : Colour.values()){
+                if(gameController.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) >= 1){
+                    gameController.moveStudentToDiningRoom("Laura", colour);
+                }
+            }
+
+            gameController.moveMotherNature("Laura", 1);
+            gameController.chooseCloudTile("Laura", 0);
+
+            // THIRD TURN
+            gameController.playAssistantCard("Viola", 2);
+            gameController.playAssistantCard("Laura", 3);
+
+            for(Colour colour : Colour.values()){
+                if(gameController.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) >= 3){
+                    gameController.moveStudentToDiningRoom("Viola", colour);
+                    gameController.moveStudentToDiningRoom("Viola", colour);
+                    gameController.moveStudentToDiningRoom("Viola", colour);
+                }
+            }
+
+            for(Colour colour : Colour.values()){
+                if(gameController.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) >= 2){
+                    gameController.moveStudentToDiningRoom("Viola", colour);
+                    gameController.moveStudentToDiningRoom("Viola", colour);
+                }
+            }
+
+            for(Colour colour : Colour.values()){
+                if(gameController.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) >= 1){
+                    gameController.moveStudentToDiningRoom("Viola", colour);
+                }
+            }
+
+
+            if(gameController.getGame().getCurrentPlayer().getCoins() >= 3){
+                gameController.playCharacterCard("Viola", i);
+                boolean flag1 = true;
+                if(gameController.getGame().getTable().getGroupIslandByIndex(4).getInfluence() == null){
+                    flag1 = false;
+                } else {
+                    String name1 = gameController.getGame().getTable().getGroupIslandByIndex(4).getInfluence().getNickname();
+                }
+
+                boolean flag2 = true;
+                if(gameController.getGame().getTable().getGroupIslandByIndex(3).getInfluence() == null){
+                    flag2 = false;
+                } else {
+                    String name2 = gameController.getGame().getTable().getGroupIslandByIndex(3).getInfluence().getNickname();
+                }
+
+                gameController.setGroupIsland("Viola", 4);
+
+            }
+
+            gameController.moveMotherNature("Viola", 1);
+            gameController.chooseCloudTile("Viola", 0);
         }
     }
 }

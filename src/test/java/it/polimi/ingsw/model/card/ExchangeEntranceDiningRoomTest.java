@@ -197,16 +197,9 @@ class ExchangeEntranceDiningRoomTest {
                 assertEquals(3, gameController.getGame().getCurrentPlayer().getSchoolBoard().getDiningRoom(Colour.GREEN));
                 assertEquals(0, gameController.getGame().getCurrentPlayer().getSchoolBoard().getDiningRoom(Colour.RED));
                 assertEquals(1, gameController.getGame().getCurrentPlayer().getCoins());
-
-
-
             }
 
-
-
         }
-
-
 
     }
 }
