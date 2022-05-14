@@ -756,7 +756,7 @@ public class GameController implements Observer<PlayerEvent> {
         if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
             try {
                 game.getActiveCharacterCard().setColour(colour);
-            } catch (IllegalAccessError ex) {
+            } catch (IllegalAccessError | IllegalArgumentException ex) {
                 game.notifyInvalidAction(nickname, ex.getMessage());
             }
         } else{
@@ -813,7 +813,7 @@ public class GameController implements Observer<PlayerEvent> {
             try {
                 if (groupIsland >= 0 && groupIsland < game.getTable().getNumberOfGroupIsland())
                     game.getActiveCharacterCard().setGroupIsland(groupIsland);
-            } catch (IllegalAccessError ex) {
+            } catch (IllegalAccessError | IllegalArgumentException ex) {
                 game.notifyInvalidAction(nickname, ex.getMessage());
             }
         } else{
@@ -840,7 +840,7 @@ public class GameController implements Observer<PlayerEvent> {
         if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
             try {
                 game.getActiveCharacterCard().setColourDiningRoomEntrance(colourDiningRoom, colourEntrance);
-            } catch (IllegalAccessError ex) {
+            } catch (IllegalAccessError | IllegalArgumentException ex) {
                 game.notifyInvalidAction(nickname, ex.getMessage());
             }
         } else{
@@ -867,7 +867,7 @@ public class GameController implements Observer<PlayerEvent> {
         if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
             try {
                 game.getActiveCharacterCard().setColourCardEntrance(colourCard, colourEntrance);
-            } catch (IllegalAccessError ex) {
+            } catch (IllegalAccessError | IllegalArgumentException ex) {
                 game.notifyInvalidAction(nickname, ex.getMessage());
             }
         } else{
