@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.table;
 
 import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.model.Colour;
+import it.polimi.ingsw.model.player.Wizard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,6 +16,9 @@ class BagTest {
     void setUp() {
         gameController = new GameController(false, 2);
         gameController.setUp();
+        gameController.addPlayer("Viola", Wizard.TYPE_3);
+        gameController.addPlayer("Laura", Wizard.TYPE_4);
+        gameController.setUpCharactersAndIslands();
     }
 
     @Test
@@ -24,7 +28,7 @@ class BagTest {
             size += gameController.getGame().getTable().getBag().getBagStudent(colour);
         }
 
-        assertEquals(114, size);
+        assertEquals(100, size);
     }
 
     @Test

@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.table;
 
 import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.model.Colour;
+import it.polimi.ingsw.model.player.Wizard;
 import it.polimi.ingsw.model.table.island.BasicGroupIsland;
 import it.polimi.ingsw.model.table.island.GroupIsland;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,6 +19,9 @@ class TableTest {
     void setUp() {
         gameController = new GameController(false, 2);
         gameController.setUp();
+        gameController.addPlayer("Viola", Wizard.TYPE_4);
+        gameController.addPlayer("Laura", Wizard.TYPE_3);
+        gameController.setUpCharactersAndIslands();
     }
 
     @Test
