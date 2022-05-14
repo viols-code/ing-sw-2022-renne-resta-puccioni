@@ -30,8 +30,8 @@ public class IslandInfluence extends CharacterCard {
     @Override
     public void setGroupIsland(int groupIsland) {
         this.islandChosen = groupIsland;
-        this.effect();
         notify(new IslandInfluenceUpdate(groupIsland));
+        this.effect();
     }
 
     /**
