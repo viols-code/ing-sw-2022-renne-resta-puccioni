@@ -202,7 +202,7 @@ public class MockTable {
      * @param motherNaturePosition the new position
      */
     public void setMotherNaturePosition(int motherNaturePosition) {
-        if(this.motherNaturePosition >= getGroupIslands().size()){
+        if(this.motherNaturePosition < getGroupIslands().size()){
             getGroupIslandByIndex(this.motherNaturePosition).setMotherNature(false);
         }
         this.motherNaturePosition = motherNaturePosition;
