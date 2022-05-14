@@ -47,7 +47,7 @@ public class StudentToDiningRoom extends CharacterCard {
     protected void effect() throws IllegalArgumentException{
         game.getCurrentPlayer().getSchoolBoard().addStudentToDiningRoom(colour);
 
-        if (((game.getCurrentPlayer().getSchoolBoard().getDiningRoom(colour) + 1) % 3) == 0) {
+        if (((game.getCurrentPlayer().getSchoolBoard().getDiningRoom(colour)) % 3) == 0) {
             game.getCurrentPlayer().addCoins(1);
             game.setCoins(game.getCoins() - 1);
         }
