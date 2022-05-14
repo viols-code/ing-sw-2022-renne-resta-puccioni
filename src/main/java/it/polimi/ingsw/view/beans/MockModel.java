@@ -84,6 +84,7 @@ public class MockModel {
         currentCharacterCard = null;
         gamePhase = null;
         turnPhase = null;
+        winner = null;
     }
 
     /**

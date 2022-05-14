@@ -186,8 +186,13 @@ public class CLIRenderer extends Renderer {
                 view.getModel().getPlayerByNickname(playerName).getCurrentAssistantCard().getMotherNatureMovement(), assistantCard);
     }
 
+    @Override
     public void printResult(){
-        System.out.println("The winner is: " + view.getModel().getWinner().getNickname());
+        if(view.getModel().getWinner() == null){
+            showGameMessage("The game is not ended yet, so there is no winner");
+        } else{
+            showGameMessage("The winner is: " + view.getModel().getWinner().getNickname());
+        }
     }
 
 
