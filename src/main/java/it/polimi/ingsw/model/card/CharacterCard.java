@@ -339,11 +339,15 @@ public abstract class CharacterCard extends Observable<IServerPacket> {
      * @param groupIsland the group island selected
      */
     protected void checkUnifyIsland(int groupIsland) {
+        boolean flag = true;
         if (game.getTable().getGroupIslandByIndex(groupIsland).getInfluence().equals(game.getTable().getIslandAfter(groupIsland).getInfluence())) {
             if (groupIsland == game.getTable().getNumberOfGroupIsland() - 1) {
+                flag = game.getTable().getGroupIslandByIndex(groupIsland).getMotherNature();
                 unifyGroupIsland(game.getTable().getIslandAfter(groupIsland), game.getTable().getGroupIslandByIndex(groupIsland));
                 notify(new UnifyIslandsUpdate(0, groupIsland));
-                game.getTable().setMotherNaturePositionUnify(0);
+                if(flag){
+                    game.getTable().setMotherNaturePositionUnify(0);
+                }
                 groupIsland = 0;
             } else {
                 unifyGroupIsland(game.getTable().getGroupIslandByIndex(groupIsland), game.getTable().getIslandAfter(groupIsland));
@@ -351,11 +355,15 @@ public abstract class CharacterCard extends Observable<IServerPacket> {
             }
         }
 
+        flag = true;
         if (game.getTable().getGroupIslandByIndex(groupIsland).getInfluence().equals(game.getTable().getIslandBefore(groupIsland).getInfluence())) {
             if (groupIsland > 0) {
+                flag = game.getTable().getGroupIslandByIndex(groupIsland).getMotherNature();
                 unifyGroupIsland(game.getTable().getIslandBefore(groupIsland), game.getTable().getGroupIslandByIndex(groupIsland));
                 notify(new UnifyIslandsUpdate(groupIsland - 1, groupIsland));
-                game.getTable().setMotherNaturePositionUnify(groupIsland - 1);
+                if(flag){
+                    game.getTable().setMotherNaturePositionUnify(groupIsland - 1);
+                }
             } else {
                 unifyGroupIsland(game.getTable().getGroupIslandByIndex(groupIsland), game.getTable().getIslandBefore(groupIsland));
                 notify(new UnifyIslandsUpdate(groupIsland, game.getTable().getNumberOfGroupIsland()));
