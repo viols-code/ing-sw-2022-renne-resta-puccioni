@@ -372,4 +372,8 @@ public abstract class CharacterCard extends Observable<IServerPacket> {
         return 0;
     }
 
+    protected int getStudent(Colour colour) {
+        return 0;
+    }
+
 }
