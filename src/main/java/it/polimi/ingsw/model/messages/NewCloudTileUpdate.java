@@ -6,19 +6,19 @@ import it.polimi.ingsw.view.View;
 import java.io.Serial;
 import java.util.HashMap;
 
-public class CloudTileUpdate extends TableUpdate {
+public class NewCloudTileUpdate extends TableUpdate {
     @Serial
     private static final long serialVersionUID = 7611479959820901831L;
     private final int cloudTile;
     private final HashMap<Colour, Integer> students;
 
-    public CloudTileUpdate(int cloudTile, HashMap<Colour, Integer> students) {
+    public NewCloudTileUpdate(int cloudTile, HashMap<Colour, Integer> students) {
         this.cloudTile = cloudTile;
         this.students = students;
     }
 
     @Override
     public void process(View view) {
-        view.getModelUpdateHandler().updateCloudTile(cloudTile,students);
+        view.getModelUpdateHandler().updateCloudTileAdded(cloudTile,students);
     }
 }
