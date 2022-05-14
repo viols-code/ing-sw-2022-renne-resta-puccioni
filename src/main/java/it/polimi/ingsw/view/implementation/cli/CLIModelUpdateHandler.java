@@ -59,7 +59,7 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
     @Override
     public void updateInfluencePlayerOnGroupIsland(String player, int groupIsland){
         if(getView().getModel().getTable().getGroupIslandByIndex(groupIsland).getInfluentPlayer() != null){
-            if(getView().getModel().getLocalPlayer().getNickname().equalsIgnoreCase(player)){
+            if(getView().getModel().getLocalPlayer().getNickname().equalsIgnoreCase(getView().getModel().getTable().getGroupIslandByIndex(groupIsland).getInfluentPlayer())){
                 getView().getRenderer().showGameMessage(ViewString.YOU_LOST_INFLUENCE.formatted(groupIsland));
             } else {
                 getView().getRenderer().showGameMessage(ViewString.OTHER_LOST_INFLUENCE.formatted(getView().getModel().getTable().getGroupIslandByIndex(groupIsland).getInfluentPlayer(), groupIsland));
