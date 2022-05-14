@@ -1,7 +1,6 @@
 package it.polimi.ingsw.view.beans;
 
 import it.polimi.ingsw.model.Colour;
-import it.polimi.ingsw.model.table.CloudTile;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,7 +35,7 @@ public class MockTable {
     /**
      * The professors available on the table
      */
-    private HashMap<Colour, Boolean> professorsAvailable;
+    private final HashMap<Colour, Boolean> professorsAvailable;
 
     /**
      * Constructs the table
@@ -203,7 +202,9 @@ public class MockTable {
      * @param motherNaturePosition the new position
      */
     public void setMotherNaturePosition(int motherNaturePosition) {
-        getGroupIslandByIndex(this.motherNaturePosition).setMotherNature(false);
+        if(this.motherNaturePosition >= getGroupIslands().size()){
+            getGroupIslandByIndex(this.motherNaturePosition).setMotherNature(false);
+        }
         this.motherNaturePosition = motherNaturePosition;
         getGroupIslandByIndex(motherNaturePosition).setMotherNature(true);
     }

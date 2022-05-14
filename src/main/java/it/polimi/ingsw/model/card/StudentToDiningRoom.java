@@ -44,7 +44,7 @@ public class StudentToDiningRoom extends CharacterCard {
      * Activates the effect of the CharacterCard
      */
     @Override
-    protected void effect() {
+    protected void effect() throws IllegalArgumentException{
         game.getCurrentPlayer().getSchoolBoard().addStudentToDiningRoom(colour);
 
         if (((game.getCurrentPlayer().getSchoolBoard().getDiningRoom(colour) + 1) % 3) == 0) {
@@ -72,9 +72,13 @@ public class StudentToDiningRoom extends CharacterCard {
      * @param colour the colour to be set
      */
     @Override
-    public void setColour(Colour colour) {
+    public void setColour(Colour colour) throws IllegalArgumentException{
         this.colour = colour;
-        this.effect();
+        if(students.get(colour) > 0){
+            this.effect();
+        } else {
+            throw new IllegalArgumentException("The colour is not on the card");
+        }
     }
 
     protected int getStudents(Colour colour) {

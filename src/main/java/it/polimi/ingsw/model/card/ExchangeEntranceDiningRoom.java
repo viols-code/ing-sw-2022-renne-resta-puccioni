@@ -24,7 +24,7 @@ public class ExchangeEntranceDiningRoom extends CharacterCard {
      * Activates the effect of the CharacterCard
      */
     @Override
-    protected void effect() {
+    protected void effect() throws IllegalArgumentException{
         game.getCurrentPlayer().getSchoolBoard().removeStudentFromDiningRoom(colourDiningRoom);
         game.getCurrentPlayer().getSchoolBoard().removeStudentFromEntrance(colourEntrance);
         game.getCurrentPlayer().getSchoolBoard().addStudentToEntrance(colourDiningRoom);
@@ -53,10 +53,22 @@ public class ExchangeEntranceDiningRoom extends CharacterCard {
      * @param colourEntrance   the colour of the student in the entrance
      */
     @Override
-    public void setColourDiningRoomEntrance(Colour colourDiningRoom, Colour colourEntrance) {
+    public void setColourDiningRoomEntrance(Colour colourDiningRoom, Colour colourEntrance) throws IllegalArgumentException{
         this.colourDiningRoom = colourDiningRoom;
         this.colourEntrance = colourEntrance;
-        this.effect();
+        if(game.getCurrentPlayer().getSchoolBoard().getDiningRoom(colourDiningRoom) > 0){
+            if(game.getCurrentPlayer().getSchoolBoard().getEntrance(colourEntrance) > 0){
+                if(game.getCurrentPlayer().getSchoolBoard().getDiningRoom(colourEntrance) < 10){
+                    this.effect();
+                } else {
+                    throw new IllegalArgumentException("The dining room is full for this colour");
+                }
+            } else{
+                throw new IllegalArgumentException("There is no this colour in the entrance");
+            }
+        } else{
+            throw new IllegalArgumentException("There is no this colour in the dining room");
+        }
 
     }
 

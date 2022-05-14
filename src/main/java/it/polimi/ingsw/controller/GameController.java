@@ -757,7 +757,6 @@ public class GameController implements Observer<PlayerEvent> {
             try {
                 game.getActiveCharacterCard().setColour(colour);
             } catch (IllegalAccessError ex) {
-                ex.printStackTrace();
                 game.notifyInvalidAction(nickname, ex.getMessage());
             }
         } else{
@@ -787,7 +786,6 @@ public class GameController implements Observer<PlayerEvent> {
                 if (groupIsland >= 0 && groupIsland < game.getTable().getNumberOfGroupIsland() && singleIsland >= 0 && singleIsland < game.getTable().getGroupIslandByIndex(groupIsland).getNumberOfSingleIsland())
                     game.getActiveCharacterCard().setColourAndIsland(colour, game.getTable().getGroupIslandByIndex(groupIsland).getIslandByIndex(singleIsland));
             } catch (IllegalAccessError | IllegalArgumentException ex) {
-                ex.printStackTrace();
                 game.notifyInvalidAction(nickname, ex.getMessage());
             }
         } else{
@@ -816,7 +814,6 @@ public class GameController implements Observer<PlayerEvent> {
                 if (groupIsland >= 0 && groupIsland < game.getTable().getNumberOfGroupIsland())
                     game.getActiveCharacterCard().setGroupIsland(groupIsland);
             } catch (IllegalAccessError ex) {
-                ex.printStackTrace();
                 game.notifyInvalidAction(nickname, ex.getMessage());
             }
         } else{
@@ -844,7 +841,6 @@ public class GameController implements Observer<PlayerEvent> {
             try {
                 game.getActiveCharacterCard().setColourDiningRoomEntrance(colourDiningRoom, colourEntrance);
             } catch (IllegalAccessError ex) {
-                ex.printStackTrace();
                 game.notifyInvalidAction(nickname, ex.getMessage());
             }
         } else{
@@ -872,7 +868,6 @@ public class GameController implements Observer<PlayerEvent> {
             try {
                 game.getActiveCharacterCard().setColourCardEntrance(colourCard, colourEntrance);
             } catch (IllegalAccessError ex) {
-                ex.printStackTrace();
                 game.notifyInvalidAction(nickname, ex.getMessage());
             }
         } else{
