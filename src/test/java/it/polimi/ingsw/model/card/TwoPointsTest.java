@@ -124,4 +124,22 @@ class TwoPointsTest {
             gameTest.getCharacterCardByIndex(i).setting();
         }
     }
+
+    @Test
+    void setNumberOfNoEntryTiles(){
+        CharacterCard card = new TwoPoints(gameTest);
+        assertThrows(IllegalAccessError.class, ()->card.setNumberOfNoEntryTiles(1));
+    }
+
+    @Test
+    void getNumberOfNoEntryTiles(){
+        CharacterCard card = new TwoPoints(gameTest);
+        assertThrows(IllegalAccessError.class, card::getNumberOfNoEntryTiles);
+    }
+
+    @Test
+    void getStudent(){
+        CharacterCard card = new TwoPoints(gameTest);
+        assertThrows(IllegalAccessError.class, ()->card.getStudent(Colour.GREEN));
+    }
 }

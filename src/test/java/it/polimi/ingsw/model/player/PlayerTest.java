@@ -30,6 +30,8 @@ class PlayerTest {
     void getWizard() {
         assertEquals(Wizard.TYPE_1, gameController.getGame().getPlayerByIndex(0).getWizard());
         assertEquals(Wizard.TYPE_2, gameController.getGame().getPlayerByIndex(1).getWizard());
+        assertEquals(Wizard.valueOf(1), gameController.getGame().getPlayerByIndex(0).getWizard());
+        assertEquals(Wizard.valueOf(2), gameController.getGame().getPlayerByIndex(1).getWizard());
     }
 
     @Test

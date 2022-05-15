@@ -72,7 +72,9 @@ class ExchangeEntranceDiningRoomTest {
         int i;
         for(i = 0; i < 3; i++){
             if(gameController.getGame().getCharacterCardByIndex(i).getCharacterCardType() == CharacterCardEnumeration.EXCHANGE_ENTRANCE_DINING_ROOM){
+                CharacterCard card = gameController.getGame().getCharacterCardByIndex(i);
                 flag = true;
+                assertEquals(i, gameController.getGame().getCharacterCardIndex(card));
                 break;
             }
         }
@@ -199,7 +201,27 @@ class ExchangeEntranceDiningRoomTest {
                 assertEquals(1, gameController.getGame().getCurrentPlayer().getCoins());
             }
 
+
         }
 
     }
+
+    @Test
+    void setNumberOfNoEntryTiles(){
+        CharacterCard card = new ExchangeEntranceDiningRoom(gameTest);
+        assertThrows(IllegalAccessError.class, ()->card.setNumberOfNoEntryTiles(1));
+    }
+
+    @Test
+    void getNumberOfNoEntryTiles(){
+        CharacterCard card = new ExchangeEntranceDiningRoom(gameTest);
+        assertThrows(IllegalAccessError.class, card::getNumberOfNoEntryTiles);
+    }
+
+    @Test
+    void getStudent(){
+        CharacterCard card = new ExchangeEntranceDiningRoom(gameTest);
+        assertThrows(IllegalAccessError.class, ()->card.getStudent(Colour.GREEN));
+    }
+
 }
