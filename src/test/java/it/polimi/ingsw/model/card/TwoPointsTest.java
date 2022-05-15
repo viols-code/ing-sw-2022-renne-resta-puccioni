@@ -59,8 +59,10 @@ class TwoPointsTest {
 
         gameTest.setCurrentPlayer(player1);
         assertEquals(4, cardTest.calculateInfluencePlayer(player1, gameTest.getTable().getGroupIslandByIndex(0)));
+        assertEquals(3, cardTest.calculateInfluencePlayer(player2, gameTest.getTable().getGroupIslandByIndex(0)));
         gameTest.setCurrentPlayer(player2);
         assertEquals(5, cardTest.calculateInfluencePlayer(player2, gameTest.getTable().getGroupIslandByIndex(0)));
+        assertEquals(2, cardTest.calculateInfluencePlayer(player1, gameTest.getTable().getGroupIslandByIndex(0)));
 
     }
 

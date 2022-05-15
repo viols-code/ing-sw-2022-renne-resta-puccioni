@@ -20,7 +20,6 @@ class StudentToEntranceTest {
 
     private StudentToEntrance cardTest;
     private Game gameTest;
-    private Player player1;
 
     @BeforeEach
     void setUp() {
@@ -36,7 +35,7 @@ class StudentToEntranceTest {
         settingBag();
         settingCard();
 
-        player1 = new ExpertPlayer("Viola", Wizard.TYPE_3, TowerColour.WHITE);
+        Player player1 = new ExpertPlayer("Viola", Wizard.TYPE_3, TowerColour.WHITE);
         player2 = new ExpertPlayer("Laura", Wizard.TYPE_1, TowerColour.BLACK);
 
         gameTest.addPlayer(player1);
@@ -49,7 +48,6 @@ class StudentToEntranceTest {
 
     @Test
     void setting() {
-
         assertEquals(1, cardTest.getCost());
 
         int numStudentsOnCard = 0;
@@ -84,14 +82,23 @@ class StudentToEntranceTest {
     }
 
     @Test
-    public void setColourDiningRoomEntrance() {
+    void setColourDiningRoomEntrance() {
         for (Colour colour : Colour.values()) {
             assertThrows(IllegalAccessError.class, () -> cardTest.setColourDiningRoomEntrance(colour, colour));
         }
     }
 
+    @RepeatedTest(3)
+    void exceptionNoColourOnCard(){
+        for(Colour colour : Colour.values()){
+            if(cardTest.getStudent(colour) == 0){
+                assertThrows(IllegalArgumentException.class, () -> cardTest.setColourCardEntrance(colour, colour));
+            }
+        }
+    }
+
     @RepeatedTest(1000)
-    public void setColourCardEntrance() {
+    void setColourCardEntrance() {
         GameController gameController = new GameController(true, 2);
         gameController.setUp();
         gameController.addPlayer("Viola", Wizard.TYPE_2);

@@ -7,10 +7,8 @@ import it.polimi.ingsw.model.player.ExpertPlayer;
 import it.polimi.ingsw.model.player.TowerColour;
 import it.polimi.ingsw.model.player.Wizard;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -40,18 +38,36 @@ class StudentToDiningRoomTest {
     void effect() {
     }
 
-    @Test
+    @RepeatedTest(100)
     void setColour() {
-        List<Colour> colourList = new ArrayList<>();
+        int coins = 1;
         for (Colour colour : Colour.values()) {
-            if (cardTest.getStudents(colour) > 0) {
-                colourList.add(colour);
+            if (cardTest.getStudents(colour) >= 3) {
+                cardTest.setColour(colour);
+                assertEquals(2, gameTest.getPlayerByIndex(0).getSchoolBoard().getDiningRoom(colour));
+                assertEquals(coins, gameTest.getPlayerByIndex(0).getCoins());
+                assertTrue(gameTest.getPlayerByIndex(0).getSchoolBoard().hasProfessor(colour));
+                assertFalse(gameTest.getPlayerByIndex(1).getSchoolBoard().hasProfessor(colour));
+                cardTest.setColour(colour);
+                coins++;
+                assertEquals(3, gameTest.getPlayerByIndex(0).getSchoolBoard().getDiningRoom(colour));
+                assertEquals(coins, gameTest.getPlayerByIndex(0).getCoins());
+                cardTest.setColour(colour);
+                assertEquals(4, gameTest.getPlayerByIndex(0).getSchoolBoard().getDiningRoom(colour));
+                assertEquals(coins, gameTest.getPlayerByIndex(0).getCoins());
             }
         }
-        cardTest.setColour(colourList.get(0));
-        assertEquals(2, gameTest.getPlayerByIndex(0).getSchoolBoard().getDiningRoom(colourList.get(0)));
-        assertTrue(gameTest.getPlayerByIndex(0).getSchoolBoard().hasProfessor(colourList.get(0)));
-        assertFalse(gameTest.getPlayerByIndex(1).getSchoolBoard().hasProfessor(colourList.get(0)));
+
+
+
+
+
+        for (Colour colour : Colour.values()) {
+            if (cardTest.getStudents(colour) == 0) {
+                assertThrows(IllegalArgumentException.class, () -> cardTest.setColour(colour));
+            }
+        }
+
     }
 
     private void settingBag() {

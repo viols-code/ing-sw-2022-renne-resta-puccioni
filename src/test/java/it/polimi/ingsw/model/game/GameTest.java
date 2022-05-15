@@ -41,6 +41,8 @@ class GameTest {
         assertEquals(3, gameController.getGame().getNumberOfPlayer());
         assertEquals("Viola", gameController.getGame().getPlayerByIndex(2).getNickname());
         assertEquals(Wizard.TYPE_2, gameController.getGame().getPlayerByIndex(2).getWizard());
+
+        assertThrows(IllegalArgumentException.class, ()->gameController.getGame().getIndexOfPlayer(new BasicPlayer("Gio", Wizard.TYPE_2, TowerColour.WHITE)));
     }
 
     @Test

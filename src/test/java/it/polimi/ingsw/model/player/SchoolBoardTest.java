@@ -38,6 +38,14 @@ class SchoolBoardTest {
     void removeStudentFromDiningRoom() {
         for (int i = 1; i <= 10; i++) {
             for (Colour colour : Colour.values()) {
+                assertEquals(0, gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getDiningRoom(colour));
+                assertThrows(IllegalArgumentException.class, () -> gameController.getGame().getPlayerByIndex(0).getSchoolBoard().removeStudentFromDiningRoom(colour));
+                assertEquals(0, gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getDiningRoom(colour));
+            }
+        }
+
+        for (int i = 1; i <= 10; i++) {
+            for (Colour colour : Colour.values()) {
                 gameController.getGame().getPlayerByIndex(0).getSchoolBoard().addStudentToDiningRoom(colour);
             }
         }
