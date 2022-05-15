@@ -153,6 +153,7 @@ public abstract class CharacterCard extends Observable<IServerPacket> {
             // questo for è stato aggiunto per riportare il numero di noentry tile sulla carta
             // per fare questo ho dovuto spostare due metodi di protectisland qua sotto come protected
             // non penso sia molto elegante, ma non mi è venuto in mente nient'altro
+            //Sara ha detto che farà il funzionale
             for(int i = 0; i < 3; i++){
                 if(game.getCharacterCardByIndex(i).getCharacterCardType() == CharacterCardEnumeration.PROTECT_ISLAND){
                     game.getCharacterCardByIndex(i).setNumberOfNoEntryTiles(game.getCharacterCardByIndex(i).getNumberOfNoEntryTiles() + 1);
@@ -339,7 +340,7 @@ public abstract class CharacterCard extends Observable<IServerPacket> {
      * @param groupIsland the group island selected
      */
     protected void checkUnifyIsland(int groupIsland) {
-        boolean flag = true;
+        boolean flag;
         if (game.getTable().getGroupIslandByIndex(groupIsland).getInfluence().equals(game.getTable().getIslandAfter(groupIsland).getInfluence())) {
             if (groupIsland == game.getTable().getNumberOfGroupIsland() - 1) {
                 flag = game.getTable().getGroupIslandByIndex(groupIsland).getMotherNature();
@@ -355,7 +356,6 @@ public abstract class CharacterCard extends Observable<IServerPacket> {
             }
         }
 
-        flag = true;
         if (game.getTable().getGroupIslandByIndex(groupIsland).getInfluence().equals(game.getTable().getIslandBefore(groupIsland).getInfluence())) {
             if (groupIsland > 0) {
                 flag = game.getTable().getGroupIslandByIndex(groupIsland).getMotherNature();
@@ -372,19 +372,21 @@ public abstract class CharacterCard extends Observable<IServerPacket> {
         }
     }
 
+
     /*
     Su queste ultime tre si deve fare un'eccezione e controllarla nel test
      */
-    protected void setNumberOfNoEntryTiles(int numberOfNoEntryTiles) {
 
+    protected void setNumberOfNoEntryTiles(int numberOfNoEntryTiles) throws IllegalAccessError{
+        throw new IllegalAccessError("The card doesn't have this method");
     }
 
-    protected int getNumberOfNoEntryTiles() {
-        return 0;
+    protected int getNumberOfNoEntryTiles() throws IllegalAccessError {
+        throw new IllegalAccessError("The card doesn't have this method");
     }
 
-    protected int getStudent(Colour colour) {
-        return 0;
+    protected int getStudent(Colour colour) throws IllegalAccessError {
+        throw new IllegalAccessError("The card doesn't have this method");
     }
 
 }
