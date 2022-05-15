@@ -23,7 +23,7 @@ public class ProtectIslandTest {
         gameController.setUpCharactersAndIslands();
     }
 
-    @RepeatedTest(10000)
+    @RepeatedTest(1000)
     void protectIslandTest(){
         gameController.playAssistantCard("Viola", 0);
         gameController.playAssistantCard("Laura", 1);
