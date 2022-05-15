@@ -208,7 +208,28 @@ class IslandInfluenceTest {
         assertFalse(gameTest.getTable().getGroupIslandByIndex(7).getMotherNature());
         assertFalse(gameTest.getTable().getGroupIslandByIndex(8).getMotherNature());
         assertFalse(gameTest.getTable().getGroupIslandByIndex(9).getMotherNature());
+        assertEquals(0, gameTest.getTable().getMotherNaturePosition());
 
+        gameTest.getTable().setMotherNaturePosition(9);
+        assertTrue(gameTest.getTable().getGroupIslandByIndex(9).getMotherNature());
+        assertEquals(9, gameTest.getTable().getMotherNaturePosition());
+        gameTest.getTable().getGroupIslandByIndex(9).getIslandByIndex(0).addStudent(1,0,Colour.BLUE);
+        gameTest.getTable().getGroupIslandByIndex(9).getIslandByIndex(0).addStudent(1,0,Colour.RED);
+        gameTest.getTable().getGroupIslandByIndex(9).getIslandByIndex(0).addStudent(1,0,Colour.RED);
+        gameTest.getTable().getGroupIslandByIndex(9).getIslandByIndex(0).addStudent(1,0,Colour.RED);
+        assertEquals(10, gameTest.getTable().getNumberOfGroupIsland());
+        cardTest.setGroupIsland(9);
+        assertEquals(9, gameTest.getTable().getNumberOfGroupIsland());
+        assertEquals(4, gameTest.getTable().getGroupIslandByIndex(0).getNumberOfSingleIsland());
+        assertTrue(gameTest.getTable().getGroupIslandByIndex(0).getMotherNature());
+        assertFalse(gameTest.getTable().getGroupIslandByIndex(1).getMotherNature());
+        assertFalse(gameTest.getTable().getGroupIslandByIndex(2).getMotherNature());
+        assertFalse(gameTest.getTable().getGroupIslandByIndex(3).getMotherNature());
+        assertFalse(gameTest.getTable().getGroupIslandByIndex(4).getMotherNature());
+        assertFalse(gameTest.getTable().getGroupIslandByIndex(5).getMotherNature());
+        assertFalse(gameTest.getTable().getGroupIslandByIndex(6).getMotherNature());
+        assertFalse(gameTest.getTable().getGroupIslandByIndex(7).getMotherNature());
+        assertFalse(gameTest.getTable().getGroupIslandByIndex(8).getMotherNature());
         assertEquals(0, gameTest.getTable().getMotherNaturePosition());
     }
 
