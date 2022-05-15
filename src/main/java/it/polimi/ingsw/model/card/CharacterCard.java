@@ -355,14 +355,15 @@ public abstract class CharacterCard extends Observable<IServerPacket> {
                 unifyGroupIsland(game.getTable().getGroupIslandByIndex(groupIsland), game.getTable().getIslandAfter(groupIsland));
                 notify(new UnifyIslandsUpdate(groupIsland, (groupIsland + 1)));
             }
+
             if(!flag){
                 int i;
                 for(i = 0; i < game.getTable().getNumberOfGroupIsland(); i++){
                     if(game.getTable().getGroupIslandByIndex(i).getMotherNature()){
+                        game.getTable().setMotherNaturePositionUnify(i);
                         break;
                     }
                 }
-                game.getTable().setMotherNaturePositionUnify(i);
             }
         }
 
@@ -392,11 +393,6 @@ public abstract class CharacterCard extends Observable<IServerPacket> {
 
         }
     }
-
-
-    /*
-    Su queste ultime tre si deve fare un'eccezione e controllarla nel test
-     */
 
     protected void setNumberOfNoEntryTiles(int numberOfNoEntryTiles) throws IllegalAccessError{
         throw new IllegalAccessError("The card doesn't have this method");
