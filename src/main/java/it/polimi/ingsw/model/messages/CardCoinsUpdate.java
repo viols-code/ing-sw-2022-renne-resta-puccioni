@@ -1,7 +1,6 @@
 package it.polimi.ingsw.model.messages;
 
 import it.polimi.ingsw.view.View;
-import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
 
 import java.io.Serial;
 

@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model.messages;
 
-import it.polimi.ingsw.model.game.TurnPhase;
 import it.polimi.ingsw.view.View;
 
 import java.io.Serial;
