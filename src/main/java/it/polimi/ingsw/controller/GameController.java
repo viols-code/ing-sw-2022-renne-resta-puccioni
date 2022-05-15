@@ -267,7 +267,7 @@ public class GameController implements Observer<PlayerEvent> {
                 if (game.getGamePhase() == GamePhase.PLAY_ASSISTANT_CARD) {
                     try {
                         if (game.getPlayerByIndex(player).isAssistantCardPresent(game.getAssistantCard(assistantCard))) {
-                            if (canPlayAssistantCard(nickname, assistantCard)) {
+                            if (canPlayAssistantCard(assistantCard)) {
                                 game.getPlayerByIndex(player).setCurrentAssistantCard(game.getAssistantCard(assistantCard));
                                 game.getPlayerByIndex(player).removeAssistantCard(game.getAssistantCard(assistantCard));
                                 game.getPlayerByIndex(player).setHasAlreadyPlayed(true);
@@ -301,11 +301,10 @@ public class GameController implements Observer<PlayerEvent> {
     /**
      * Check if the player can play an AssistantCard
      *
-     * @param nickname      the nickname of the player
      * @param assistantCard the index of the AssistantCard
      * @return true if the Player can play the AssistantCard, false otherwise
      */
-    private boolean canPlayAssistantCard(String nickname, int assistantCard) {
+    private boolean canPlayAssistantCard(int assistantCard) {
         boolean check = true;
         for (int i = 0; i < game.getNumberOfPlayer(); i++) {
             if (game.getPlayerByIndex(i).getHasAlreadyPlayed() && !game.getCurrentPlayer().equals(game.getPlayerByIndex(i))) {
