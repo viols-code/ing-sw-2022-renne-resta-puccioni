@@ -199,6 +199,16 @@ class IslandInfluenceTest {
         assertEquals(10, gameTest.getTable().getNumberOfGroupIsland());
         assertEquals(3, gameTest.getTable().getGroupIslandByIndex(0).getNumberOfSingleIsland());
         assertTrue(gameTest.getTable().getGroupIslandByIndex(0).getMotherNature());
+        assertFalse(gameTest.getTable().getGroupIslandByIndex(1).getMotherNature());
+        assertFalse(gameTest.getTable().getGroupIslandByIndex(2).getMotherNature());
+        assertFalse(gameTest.getTable().getGroupIslandByIndex(3).getMotherNature());
+        assertFalse(gameTest.getTable().getGroupIslandByIndex(4).getMotherNature());
+        assertFalse(gameTest.getTable().getGroupIslandByIndex(5).getMotherNature());
+        assertFalse(gameTest.getTable().getGroupIslandByIndex(6).getMotherNature());
+        assertFalse(gameTest.getTable().getGroupIslandByIndex(7).getMotherNature());
+        assertFalse(gameTest.getTable().getGroupIslandByIndex(8).getMotherNature());
+        assertFalse(gameTest.getTable().getGroupIslandByIndex(9).getMotherNature());
+
         assertEquals(0, gameTest.getTable().getMotherNaturePosition());
     }
 
