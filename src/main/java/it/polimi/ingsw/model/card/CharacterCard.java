@@ -351,8 +351,18 @@ public abstract class CharacterCard extends Observable<IServerPacket> {
                 }
                 groupIsland = 0;
             } else {
+                flag = game.getTable().getGroupIslandByIndex(groupIsland).getMotherNature();
                 unifyGroupIsland(game.getTable().getGroupIslandByIndex(groupIsland), game.getTable().getIslandAfter(groupIsland));
                 notify(new UnifyIslandsUpdate(groupIsland, (groupIsland + 1)));
+            }
+            if(!flag){
+                int i;
+                for(i = 0; i < game.getTable().getNumberOfGroupIsland(); i++){
+                    if(game.getTable().getGroupIslandByIndex(i).getMotherNature()){
+                        break;
+                    }
+                }
+                game.getTable().setMotherNaturePositionUnify(i);
             }
         }
 
@@ -365,8 +375,19 @@ public abstract class CharacterCard extends Observable<IServerPacket> {
                     game.getTable().setMotherNaturePositionUnify(groupIsland - 1);
                 }
             } else {
+                flag = game.getTable().getGroupIslandByIndex(groupIsland).getMotherNature();
                 unifyGroupIsland(game.getTable().getGroupIslandByIndex(groupIsland), game.getTable().getIslandBefore(groupIsland));
                 notify(new UnifyIslandsUpdate(groupIsland, game.getTable().getNumberOfGroupIsland()));
+            }
+
+            if(!flag){
+                int i;
+                for(i = 0; i < game.getTable().getNumberOfGroupIsland(); i++){
+                    if(game.getTable().getGroupIslandByIndex(i).getMotherNature()){
+                        game.getTable().setMotherNaturePositionUnify(i);
+                        break;
+                    }
+                }
             }
 
         }
