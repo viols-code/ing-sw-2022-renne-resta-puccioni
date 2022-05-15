@@ -63,8 +63,11 @@ class IslandInfluenceTest {
         assertEquals(2, gameTest.getNumberOfPlayer());
     }
 
-    @Test
+    @RepeatedTest(100)
     void setGroupIsland() {
+        gameTest.getTable().setMotherNaturePosition(4);
+        assertTrue(gameTest.getTable().getGroupIslandByIndex(4).getMotherNature());
+        assertEquals(4, gameTest.getTable().getMotherNaturePosition());
         cardTest.setGroupIsland(0);
         assertEquals(player1, gameTest.getTable().getGroupIslandByIndex(0).getInfluence());
         assertEquals(7, player1.getSchoolBoard().getTowers());
@@ -73,6 +76,8 @@ class IslandInfluenceTest {
         gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0).addStudent(0,0,Colour.RED);
         gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0).addStudent(0,0,Colour.RED);
         cardTest.setGroupIsland(0);
+        assertTrue(gameTest.getTable().getGroupIslandByIndex(4).getMotherNature());
+        assertEquals(4, gameTest.getTable().getMotherNaturePosition());
         assertEquals(player2, gameTest.getTable().getGroupIslandByIndex(0).getInfluence());
         assertEquals(8, player1.getSchoolBoard().getTowers());
         assertEquals(7, player2.getSchoolBoard().getTowers());
@@ -85,6 +90,8 @@ class IslandInfluenceTest {
         cardTest.setGroupIsland(1);
         assertEquals(11, gameTest.getTable().getNumberOfGroupIsland());
         assertEquals(player2, gameTest.getTable().getGroupIslandByIndex(0).getInfluence());
+        assertTrue(gameTest.getTable().getGroupIslandByIndex(3).getMotherNature());
+        assertEquals(3, gameTest.getTable().getMotherNaturePosition());
     }
 
     @Test
@@ -148,7 +155,7 @@ class IslandInfluenceTest {
         }
     }
 
-    @RepeatedTest(10000)
+    @RepeatedTest(1000)
     void islandInfluent(){
         GameController gameController = new GameController(true, 2);
         gameController.setUp();
