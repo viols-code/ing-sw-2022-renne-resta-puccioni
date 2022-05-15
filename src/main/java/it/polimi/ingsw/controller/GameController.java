@@ -306,10 +306,9 @@ public class GameController implements Observer<PlayerEvent> {
      * @return true if the Player can play the AssistantCard, false otherwise
      */
     private boolean canPlayAssistantCard(String nickname, int assistantCard) {
-        int player = game.getIndexOfPlayer(game.getPlayerByNickname(nickname));
         boolean check = true;
-        for (int i = 0; i < player; i++) {
-            if (game.getPlayerByIndex(i).getHasAlreadyPlayed()) {
+        for (int i = 0; i < game.getNumberOfPlayer(); i++) {
+            if (game.getPlayerByIndex(i).getHasAlreadyPlayed() && !game.getCurrentPlayer().equals(game.getPlayerByIndex(i))) {
                 try {
                     if (game.getPlayerByIndex(i).getCurrentAssistantCard().equals(game.getAssistantCard(assistantCard))) {
                         check = false;
@@ -323,6 +322,7 @@ public class GameController implements Observer<PlayerEvent> {
         if (check) {
             return true;
         }
+
 
         for (int j = 0; j < 10; j++) {
             if (game.getCurrentPlayer().isAssistantCardPresent(game.getAssistantCard(j))) {
@@ -344,7 +344,6 @@ public class GameController implements Observer<PlayerEvent> {
         }
 
         return true;
-
 
     }
 
@@ -722,14 +721,16 @@ public class GameController implements Observer<PlayerEvent> {
             if (!game.getTable().getBag().getNoStudent()) {
                 settingCloudTile();
                 game.incrementRound();
-                game.setCurrentPlayer(game.getFirstPlayerTurn());
-                game.setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
-                game.setTurnPhase(TurnPhase.PLAY_ASSISTANT_CARD);
-                nobodyPlayed();
                 if (game.getRound() >= 11) {
                     calculateWinner();
                     endGame();
+                } else{
+                    game.setCurrentPlayer(game.getFirstPlayerTurn());
+                    game.setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
+                    game.setTurnPhase(TurnPhase.PLAY_ASSISTANT_CARD);
                 }
+                nobodyPlayed();
+
             } else {
                 calculateWinner();
                 endGame();
