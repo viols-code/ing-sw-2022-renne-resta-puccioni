@@ -198,6 +198,7 @@ public abstract class Game extends Observable<IServerPacket> {
     public void addPlayer(Player player) {
         this.players.add(player);
         //notify(new PlayersUpdate(player.getNickname(),player.getWizard()));
+        notify(new TowerColourUpdate(player.getNickname(),player.getTowerColour()));
     }
 
     /**

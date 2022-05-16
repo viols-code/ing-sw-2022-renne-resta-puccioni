@@ -154,8 +154,7 @@ public abstract class ModelUpdateHandler {
         getView().getModel().getPlayerByNickname(player).getSchoolBoard().setTowers(towers);
     }
 
-    public void updateTowerColour(String player, TowerColour towerColour) {
-        //to-do: message TowerColourUpdate
+    public void updateTowerColour(String player, TowerColour towerColour){
         getView().getModel().getPlayerByNickname(player).setTowerColour(towerColour);
     }
 
