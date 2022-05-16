@@ -83,6 +83,7 @@ public class ViewString {
 
 
     public static final String NO_ACTIVE_CHARACTER_CARD = "There is no active character card";
+    public static final String NO_METHOD = "There active character card doesn't have this method";
     public static final String YOU_SET_ACTIVE_CHARACTER_CARD = "You have set the character card %s";
     public static final String OTHER_SET_ACTIVE_CHARACTER_CARD = "%s has set the character card %s";
 

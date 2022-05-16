@@ -1,6 +1,7 @@
 package it.polimi.ingsw.view.implementation.cli;
 
 import it.polimi.ingsw.model.Colour;
+import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
 import it.polimi.ingsw.view.implementation.cli.utils.ViewString;
 
 import java.lang.reflect.InvocationTargetException;
@@ -405,8 +406,22 @@ public class CommandHandler {
                     cli.getRenderer().showErrorMessage(ViewString.INCORRECT_FORMAT + ViewString.SELECT_STUDENT_COLOUR);
                     return;
                 }
-                Colour colour = Colour.valueOf(args[1].toUpperCase(Locale.ROOT));
-                cli.getActionSender().setColour(cli.getPlayerName(), colour);
+
+                if(cli.getGameMode()){
+                    if(cli.getModel().getCurrentCharacterCard() != null && (cli.getModel().getCurrentCharacterCard().getType() == CharacterCardEnumeration.NO_COLOUR ||
+                            cli.getModel().getCurrentCharacterCard().getType() == CharacterCardEnumeration.THREE_STUDENT)){
+                        Colour colour = Colour.valueOf(args[1].toUpperCase(Locale.ROOT));
+                        cli.getActionSender().setColour(cli.getPlayerName(), colour);
+                    } else{
+                        if(cli.getModel().getCurrentCharacterCard() == null || cli.getModel().getCurrentCharacterCard().getType() == CharacterCardEnumeration.BASIC_STATE){
+                            cli.getRenderer().showErrorMessage(ViewString.NO_ACTIVE_CHARACTER_CARD);
+                        } else{
+                            cli.getRenderer().showErrorMessage(ViewString.NO_METHOD);
+                        }
+                    }
+                } else {
+                    cli.getRenderer().showErrorMessage(ViewString.GAME_MODE);
+                }
 
             }
 
@@ -420,11 +435,25 @@ public class CommandHandler {
                     return;
                 }
 
-                try {
-                    int groupIsland = Integer.parseInt(args[2]);
-                    cli.getActionSender().setGroupIsland(cli.getPlayerName(), groupIsland);
-                } catch (NumberFormatException e) {
-                    cli.getRenderer().showErrorMessage(ViewString.INCORRECT_FORMAT + ViewString.PLAY_CHARACTER_CARD);
+
+                if(cli.getGameMode()){
+                    if(cli.getModel().getCurrentCharacterCard() != null && (cli.getModel().getCurrentCharacterCard().getType() == CharacterCardEnumeration.ISLAND_INFLUENCE ||
+                            cli.getModel().getCurrentCharacterCard().getType() == CharacterCardEnumeration.PROTECT_ISLAND)){
+                        try {
+                            int groupIsland = Integer.parseInt(args[2]);
+                            cli.getActionSender().setGroupIsland(cli.getPlayerName(), groupIsland);
+                        } catch (NumberFormatException e) {
+                            cli.getRenderer().showErrorMessage(ViewString.INCORRECT_FORMAT + ViewString.PLAY_CHARACTER_CARD);
+                        }
+                    } else{
+                        if(cli.getModel().getCurrentCharacterCard() == null || cli.getModel().getCurrentCharacterCard().getType() == CharacterCardEnumeration.BASIC_STATE){
+                            cli.getRenderer().showErrorMessage(ViewString.NO_ACTIVE_CHARACTER_CARD);
+                        } else{
+                            cli.getRenderer().showErrorMessage(ViewString.NO_METHOD);
+                        }
+                    }
+                } else {
+                    cli.getRenderer().showErrorMessage(ViewString.GAME_MODE);
                 }
 
             }
@@ -450,9 +479,24 @@ public class CommandHandler {
                 cli.getRenderer().showErrorMessage(ViewString.INCORRECT_FORMAT + ViewString.STUDENT_TO_ISLAND);
                 return;
             }
-            int groupIsland = Integer.parseInt(args[2]);
-            int singleIsland = Integer.parseInt(args[3]);
-            cli.getActionSender().setColourAndIsland(cli.getPlayerName(), colour, groupIsland, singleIsland);
+
+            if(cli.getGameMode()){
+                if(cli.getModel().getCurrentCharacterCard() != null && cli.getModel().getCurrentCharacterCard().getType() == CharacterCardEnumeration.STUDENT_TO_ISLAND){
+                    int groupIsland = Integer.parseInt(args[2]);
+                    int singleIsland = Integer.parseInt(args[3]);
+                    cli.getActionSender().setColourAndIsland(cli.getPlayerName(), colour, groupIsland, singleIsland);
+                } else{
+                    if(cli.getModel().getCurrentCharacterCard() == null || cli.getModel().getCurrentCharacterCard().getType() == CharacterCardEnumeration.BASIC_STATE){
+                        cli.getRenderer().showErrorMessage(ViewString.NO_ACTIVE_CHARACTER_CARD);
+                    } else{
+                        cli.getRenderer().showErrorMessage(ViewString.NO_METHOD);
+                    }
+                }
+            } else {
+                cli.getRenderer().showErrorMessage(ViewString.GAME_MODE);
+            }
+
+
         } catch (NumberFormatException e) {
             cli.getRenderer().showErrorMessage(ViewString.INCORRECT_FORMAT + ViewString.STUDENT_TO_ISLAND);
         }
@@ -486,9 +530,21 @@ public class CommandHandler {
                     return;
                 }
 
-                Colour colourDiningRoom = Colour.valueOf(args[2].toUpperCase(Locale.ROOT));
-                Colour colourEntrance = Colour.valueOf(args[4].toUpperCase(Locale.ROOT));
-                cli.getActionSender().setColourDiningRoomEntrance(cli.getPlayerName(), colourDiningRoom, colourEntrance);
+                if(cli.getGameMode()){
+                    if(cli.getModel().getCurrentCharacterCard() != null && cli.getModel().getCurrentCharacterCard().getType() == CharacterCardEnumeration.EXCHANGE_ENTRANCE_DINING_ROOM){
+                        Colour colourDiningRoom = Colour.valueOf(args[2].toUpperCase(Locale.ROOT));
+                        Colour colourEntrance = Colour.valueOf(args[4].toUpperCase(Locale.ROOT));
+                        cli.getActionSender().setColourDiningRoomEntrance(cli.getPlayerName(), colourDiningRoom, colourEntrance);
+                    } else{
+                        if(cli.getModel().getCurrentCharacterCard() == null || cli.getModel().getCurrentCharacterCard().getType() == CharacterCardEnumeration.BASIC_STATE){
+                            cli.getRenderer().showErrorMessage(ViewString.NO_ACTIVE_CHARACTER_CARD);
+                        } else{
+                            cli.getRenderer().showErrorMessage(ViewString.NO_METHOD);
+                        }
+                    }
+                } else {
+                    cli.getRenderer().showErrorMessage(ViewString.GAME_MODE);
+                }
 
             }
 
@@ -502,12 +558,24 @@ public class CommandHandler {
                     return;
                 }
 
-                Colour entranceColour = Colour.valueOf(args[1].toUpperCase(Locale.ROOT));
-                Colour cardColour = Colour.valueOf(args[3].toUpperCase(Locale.ROOT));
-                cli.getActionSender().setColourCardEntrance(cli.getPlayerName(), cardColour, entranceColour);
+                if(cli.getGameMode()){
+                    if(cli.getModel().getCurrentCharacterCard() != null && cli.getModel().getCurrentCharacterCard().getType() == CharacterCardEnumeration.STUDENT_TO_ENTRANCE){
+                        Colour entranceColour = Colour.valueOf(args[1].toUpperCase(Locale.ROOT));
+                        Colour cardColour = Colour.valueOf(args[3].toUpperCase(Locale.ROOT));
+                        cli.getActionSender().setColourCardEntrance(cli.getPlayerName(), cardColour, entranceColour);
+                    } else{
+                        if(cli.getModel().getCurrentCharacterCard() == null || cli.getModel().getCurrentCharacterCard().getType() == CharacterCardEnumeration.BASIC_STATE){
+                            cli.getRenderer().showErrorMessage(ViewString.NO_ACTIVE_CHARACTER_CARD);
+                        } else{
+                            cli.getRenderer().showErrorMessage(ViewString.NO_METHOD);
+                        }
+                    }
+                } else {
+                    cli.getRenderer().showErrorMessage(ViewString.GAME_MODE);
+                }
             }
 
-            default -> cli.getRenderer().showErrorMessage(ViewString.INCORRECT_FORMAT);
+            default -> cli.getRenderer().showErrorMessage(ViewString.INCORRECT_COMMAND);
         }
 
 
