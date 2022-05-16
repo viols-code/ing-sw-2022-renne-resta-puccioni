@@ -13,11 +13,11 @@ Software Engineering Project A.A. 2021/2022
 | Basic rules | [![GREEN](https://via.placeholder.com//15/44bb44/44bb44)](#) |
 | Complete rules | [![GREEN](https://via.placeholder.com//15/44bb44/44bb44)](#) |
 | CLI | [![YELLOW](https://via.placeholder.com//15/ffdd00/ffdd00)](#) |
-| GUI |  ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) `#f03c15` |
+| GUI |  ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) |
 | Socket | [![YELLOW](https://via.placeholder.com//15/ffdd00/ffdd00)](#) |
 | Character Cards | [![GREEN](https://via.placeholder.com//15/44bb44/44bb44)](#) |
 | Multiple games | [![GREEN](https://via.placeholder.com//15/44bb44/44bb44)](#) |ù
-| Third | [![RED](https://via.placeholder.com//15/f03c15/f03c15)](#) |
+| Third | ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+)|
 <!--
 [![RED](https://via.placeholder.com//15/f03c15/f03c15)](#)
 [![YELLOW](https://via.placeholder.com//15/ffdd00/ffdd00)](#)
