@@ -47,13 +47,13 @@ public class SingleIsland extends Observable<IServerPacket> {
     /**
      * Adds a student of the specified colour to the SingleIsland
      *
-     * @param colour the colour of the student to be added
-     * @param groupIslandIndex the index of the group island -> useful to notify the change to the client
+     * @param colour            the colour of the student to be added
+     * @param groupIslandIndex  the index of the group island -> useful to notify the change to the client
      * @param singleIslandIndex the index of the single island -> useful to notify the change to the client
      */
     public void addStudent(int groupIslandIndex, int singleIslandIndex, Colour colour) {
         students.replace(colour, students.get(colour), students.get(colour) + 1);
-        notify(new SingleIslandUpdate(groupIslandIndex,singleIslandIndex, colour));
+        notify(new SingleIslandUpdate(groupIslandIndex, singleIslandIndex, colour));
     }
 
 

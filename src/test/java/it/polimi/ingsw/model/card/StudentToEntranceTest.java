@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.card;
 
+import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.ExpertGame;
 import it.polimi.ingsw.model.game.Game;
@@ -8,17 +9,17 @@ import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.TowerColour;
 import it.polimi.ingsw.model.player.Wizard;
 import it.polimi.ingsw.model.table.island.BasicGroupIsland;
+import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class StudentToEntranceTest {
 
     private StudentToEntrance cardTest;
     private Game gameTest;
-    private Player player1;
 
     @BeforeEach
     void setUp() {
@@ -34,7 +35,7 @@ class StudentToEntranceTest {
         settingBag();
         settingCard();
 
-        player1 = new ExpertPlayer("Viola", Wizard.TYPE_3, TowerColour.WHITE);
+        Player player1 = new ExpertPlayer("Viola", Wizard.TYPE_3, TowerColour.WHITE);
         player2 = new ExpertPlayer("Laura", Wizard.TYPE_1, TowerColour.BLACK);
 
         gameTest.addPlayer(player1);
@@ -47,7 +48,6 @@ class StudentToEntranceTest {
 
     @Test
     void setting() {
-
         assertEquals(1, cardTest.getCost());
 
         int numStudentsOnCard = 0;
@@ -82,95 +82,162 @@ class StudentToEntranceTest {
     }
 
     @Test
-    public void setColourDiningRoomEntrance() {
+    void setColourDiningRoomEntrance() {
         for (Colour colour : Colour.values()) {
             assertThrows(IllegalAccessError.class, () -> cardTest.setColourDiningRoomEntrance(colour, colour));
         }
     }
 
-    @Test
-    public void setColourCardEntrance() {
+    @RepeatedTest(3)
+    void exceptionNoColourOnCard(){
+        for(Colour colour : Colour.values()){
+            if(cardTest.getStudent(colour) == 0){
+                assertThrows(IllegalArgumentException.class, () -> cardTest.setColourCardEntrance(colour, colour));
+            }
+        }
+    }
 
-        Colour colourCard;
-        colourCard = Colour.RED;
-        Colour colourEntrance;
-        colourEntrance = Colour.BLUE;
+    @RepeatedTest(1000)
+    void setColourCardEntrance() {
+        GameController gameController = new GameController(true, 2);
+        gameController.setUp();
+        gameController.addPlayer("Viola", Wizard.TYPE_2);
+        gameController.addPlayer("Laura", Wizard.TYPE_1);
+        gameController.setUpCharactersAndIslands();
 
-        gameTest.setCurrentPlayer(player1);
-
-        for (Colour colour : Colour.values()) {
-            if (cardTest.getStudent(colourCard) > 0) {
-                colourCard = colour;
+        boolean flag = false;
+        int i;
+        for (i = 0; i < 3; i++) {
+            if (gameController.getGame().getCharacterCardByIndex(i).getCharacterCardType() == CharacterCardEnumeration.STUDENT_TO_ENTRANCE) {
+                flag = true;
                 break;
             }
         }
 
-        for (Colour colour : Colour.values()) {
-            if (gameTest.getPlayerByIndex(0).getSchoolBoard().getEntrance(colourEntrance) > 0) {
-                colourEntrance = colour;
-                break;
+        if(flag){
+            gameController.playAssistantCard("Viola", 0);
+            gameController.playAssistantCard("Laura", 1);
+            gameController.playCharacterCard("Viola", i);
+            assertEquals(0, gameController.getGame().getCurrentPlayer().getCoins());
+
+            Colour colourCard;
+            colourCard = Colour.RED;
+            Colour colourEntrance;
+            colourEntrance = Colour.BLUE;
+            boolean flag1 = false;
+            boolean flag2 = false;
+
+            for (Colour colour : Colour.values()) {
+                if (gameController.getGame().getCharacterCardByIndex(i).getStudent(colour) > 0) {
+                    colourCard = colour;
+                    flag1 = true;
+                    break;
+                }
             }
+
+            for (Colour colour : Colour.values()) {
+                if (gameController.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) > 0) {
+                    colourEntrance = colour;
+                    flag2 = true;
+                    break;
+                }
+            }
+
+            if(flag1 && flag2){
+                int studentsInEntrance;
+                int studentsOnCard;
+                studentsOnCard = gameController.getGame().getCharacterCardByIndex(i).getStudent(colourEntrance);
+                studentsInEntrance = gameController.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colourCard);
+
+
+                gameController.setColourCardEntrance("Viola", colourCard, colourEntrance);
+                if(colourCard != colourEntrance){
+                    assertEquals(studentsInEntrance + 1, gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colourCard));
+                    assertEquals(studentsOnCard + 1, gameController.getGame().getCharacterCardByIndex(i).getStudent(colourEntrance));
+                } else {
+                    assertEquals(studentsInEntrance, gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colourCard));
+                    assertEquals(studentsOnCard, gameController.getGame().getCharacterCardByIndex(i).getStudent(colourEntrance));
+                }
+            }
+
+            colourCard = Colour.RED;
+            colourEntrance = Colour.BLUE;
+            flag1 = false;
+            flag2 = false;
+
+            for (Colour colour : Colour.values()) {
+                if (gameController.getGame().getCharacterCardByIndex(i).getStudent(colour) > 0) {
+                    colourCard = colour;
+                    flag1 = true;
+                    break;
+                }
+            }
+
+            for (Colour colour : Colour.values()) {
+                if (gameController.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) > 0) {
+                    colourEntrance = colour;
+                    flag2 = true;
+                    break;
+                }
+            }
+
+            if(flag1 && flag2){
+                int studentsInEntrance;
+                int studentsOnCard;
+                studentsOnCard = gameController.getGame().getCharacterCardByIndex(i).getStudent(colourEntrance);
+                studentsInEntrance = gameController.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colourCard);
+
+
+                gameController.setColourCardEntrance("Viola", colourCard, colourEntrance);
+                if(colourCard != colourEntrance){
+                    assertEquals(studentsInEntrance + 1, gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colourCard));
+                    assertEquals(studentsOnCard + 1, gameController.getGame().getCharacterCardByIndex(i).getStudent(colourEntrance));
+                } else {
+                    assertEquals(studentsInEntrance, gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colourCard));
+                    assertEquals(studentsOnCard, gameController.getGame().getCharacterCardByIndex(i).getStudent(colourEntrance));
+                }
+            }
+
+            colourCard = Colour.RED;
+            colourEntrance = Colour.BLUE;
+            flag1 = false;
+            flag2 = false;
+
+            for (Colour colour : Colour.values()) {
+                if (gameController.getGame().getCharacterCardByIndex(i).getStudent(colour) > 0) {
+                    colourCard = colour;
+                    flag1 = true;
+                    break;
+                }
+            }
+
+            for (Colour colour : Colour.values()) {
+                if (gameController.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) > 0) {
+                    colourEntrance = colour;
+                    flag2 = true;
+                    break;
+                }
+            }
+
+            if(flag1 && flag2){
+                int studentsInEntrance;
+                int studentsOnCard;
+                studentsOnCard = gameController.getGame().getCharacterCardByIndex(i).getStudent(colourEntrance);
+                studentsInEntrance = gameController.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colourCard);
+
+
+                gameController.setColourCardEntrance("Viola", colourCard, colourEntrance);
+                if(colourCard != colourEntrance){
+                    assertEquals(studentsInEntrance + 1, gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colourCard));
+                    assertEquals(studentsOnCard + 1, gameController.getGame().getCharacterCardByIndex(i).getStudent(colourEntrance));
+                } else {
+                    assertEquals(studentsInEntrance, gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colourCard));
+                    assertEquals(studentsOnCard, gameController.getGame().getCharacterCardByIndex(i).getStudent(colourEntrance));
+                }
+            }
+
         }
 
-        int studentsInEntrance;
-        int studentsOnCard;
-        studentsInEntrance = gameTest.getPlayerByIndex(0).getSchoolBoard().getEntrance(colourCard);
-        studentsOnCard = cardTest.getStudent(colourEntrance);
-
-        cardTest.setColourCardEntrance(colourCard, colourEntrance);
-
-        assertEquals(studentsInEntrance + 1, gameTest.getPlayerByIndex(0).getSchoolBoard().getEntrance(colourCard));
-        assertEquals(studentsOnCard + 1, cardTest.getStudent(colourEntrance));
-
-        colourCard = Colour.RED;
-        colourEntrance = Colour.BLUE;
-
-        for (Colour colour : Colour.values()) {
-            if (cardTest.getStudent(colourCard) > 0) {
-                colourCard = colour;
-                break;
-            }
-        }
-
-        for (Colour colour : Colour.values()) {
-            if (gameTest.getPlayerByIndex(0).getSchoolBoard().getEntrance(colourEntrance) > 0) {
-                colourEntrance = colour;
-                break;
-            }
-        }
-
-        studentsInEntrance = gameTest.getPlayerByIndex(0).getSchoolBoard().getEntrance(colourCard);
-        studentsOnCard = cardTest.getStudent(colourEntrance);
-
-        cardTest.setColourCardEntrance(colourCard, colourEntrance);
-
-        assertEquals(studentsInEntrance + 1, gameTest.getPlayerByIndex(0).getSchoolBoard().getEntrance(colourCard));
-        assertEquals(studentsOnCard + 1, cardTest.getStudent(colourEntrance));
-
-        colourCard = Colour.RED;
-        colourEntrance = Colour.BLUE;
-
-        for (Colour colour : Colour.values()) {
-            if (cardTest.getStudent(colourCard) > 0) {
-                colourCard = colour;
-                break;
-            }
-        }
-
-        for (Colour colour : Colour.values()) {
-            if (gameTest.getPlayerByIndex(0).getSchoolBoard().getEntrance(colourEntrance) > 0) {
-                colourEntrance = colour;
-                break;
-            }
-        }
-
-        studentsInEntrance = gameTest.getPlayerByIndex(0).getSchoolBoard().getEntrance(colourCard);
-        studentsOnCard = cardTest.getStudent(colourEntrance);
-
-        cardTest.setColourCardEntrance(colourCard, colourEntrance);
-
-        assertEquals(studentsInEntrance + 1, gameTest.getPlayerByIndex(0).getSchoolBoard().getEntrance(colourCard));
-        assertEquals(studentsOnCard + 1, cardTest.getStudent(colourEntrance));
 
     }
 

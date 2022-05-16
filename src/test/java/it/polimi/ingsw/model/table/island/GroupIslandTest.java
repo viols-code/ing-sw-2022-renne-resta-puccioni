@@ -17,6 +17,10 @@ class GroupIslandTest {
     @BeforeEach
     void setUp() {
         gameController = new GameController(false, 2);
+        gameController.setUp();
+        gameController.addPlayer("Viola", Wizard.TYPE_4);
+        gameController.addPlayer("Sara", Wizard.TYPE_3);
+        gameController.setUpCharactersAndIslands();
     }
 
     @Test

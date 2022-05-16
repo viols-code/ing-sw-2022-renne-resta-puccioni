@@ -7,7 +7,7 @@ import it.polimi.ingsw.view.View;
 import java.io.Serial;
 import java.util.List;
 
-public class CorrectWizardMessage extends DirectServerMessage{
+public class CorrectWizardMessage extends DirectServerMessage {
     @Serial
     private static final long serialVersionUID = -7978594154814429984L;
 
@@ -17,7 +17,7 @@ public class CorrectWizardMessage extends DirectServerMessage{
     /**
      * Constructs a new PlayerConnectMessage for the player with the given name.
      *
-     * @param wizard     the wizard chosen by the player
+     * @param wizard      the wizard chosen by the player
      * @param takenWizard the list of wizards already taken
      */
     public CorrectWizardMessage(SocketClientConnection recipient, Wizard wizard, List<Wizard> takenWizard) {

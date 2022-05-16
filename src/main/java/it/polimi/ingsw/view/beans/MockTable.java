@@ -1,7 +1,6 @@
 package it.polimi.ingsw.view.beans;
 
 import it.polimi.ingsw.model.Colour;
-import it.polimi.ingsw.model.table.CloudTile;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,6 +14,8 @@ public class MockTable {
      * A list containing the cloud tiles
      */
     private final List<MockCloudTile> cloudTiles;
+
+    private final List<MockCloudTile> shownCloudTiles;
 
     /**
      * A list containing the group islands
@@ -34,13 +35,14 @@ public class MockTable {
     /**
      * The professors available on the table
      */
-    private HashMap<Colour, Boolean> professorsAvailable;
+    private final HashMap<Colour, Boolean> professorsAvailable;
 
     /**
      * Constructs the table
      */
     public MockTable() {
         cloudTiles = new ArrayList<>();
+        shownCloudTiles = new ArrayList<>();
         groupIslands = new ArrayList<>();
         isBagEmpty = false;
         motherNaturePosition = 0;
@@ -51,7 +53,7 @@ public class MockTable {
         professorsAvailable.put(Colour.PINK, true);
         professorsAvailable.put(Colour.BLUE, true);
 
-        for(int i = 0; i < 12; i++){
+        for (int i = 0; i < 12; i++) {
             groupIslands.add(new MockGroupIsland(true));
         }
     }
@@ -61,7 +63,7 @@ public class MockTable {
      *
      * @return professorAvailable the HashMap of professors available on the table
      */
-    public HashMap<Colour, Boolean> getProfessorsAvailable(){
+    public HashMap<Colour, Boolean> getProfessorsAvailable() {
         return professorsAvailable;
     }
 
@@ -70,17 +72,15 @@ public class MockTable {
      *
      * @param colour the colour of the professor to remove
      */
-    public void removeProfessorFromTable(Colour colour){
+    public void removeProfessorFromTable(Colour colour) {
         professorsAvailable.replace(colour, professorsAvailable.get(colour), false);
     }
 
     /**
      * Adds a cloud tile to the list
-     *
-     * @param cloudTile the cloud tile
      */
-    public void addCloudTile(MockCloudTile cloudTile) {
-        cloudTiles.add(cloudTile);
+    public void addCloudTile() {
+        cloudTiles.add(new MockCloudTile());
     }
 
     /**
@@ -88,8 +88,20 @@ public class MockTable {
      *
      * @param cloudTile the index of the cloud tile in the list
      */
-    public void removeCloudTileByIndex(int cloudTile) {
-        cloudTiles.remove(cloudTile);
+    public void removeShownCloudTileByIndex(int cloudTile) {
+        shownCloudTiles.remove(cloudTile);
+    }
+
+    public void addShownCLoudTile() {
+        shownCloudTiles.add(new MockCloudTile());
+    }
+
+    public void setShownCloudTile(int cloudTile, HashMap<Colour, Integer> students) {
+        shownCloudTiles.get(cloudTile).setCloudTile(students);
+    }
+
+    public List<MockCloudTile> getShownCloudTiles() {
+        return shownCloudTiles;
     }
 
     /**
@@ -104,9 +116,10 @@ public class MockTable {
 
     /**
      * Gets the list of CloudTiled
+     *
      * @return the list of cloudTiles
      */
-    public List<MockCloudTile> getCloudTile(){
+    public List<MockCloudTile> getCloudTile() {
         return cloudTiles;
     }
 
@@ -121,6 +134,7 @@ public class MockTable {
 
     /**
      * Gets the list of GroupIslands
+     *
      * @return the list of groupIslands
      */
     public List<MockGroupIsland> getGroupIslands() {
@@ -133,7 +147,7 @@ public class MockTable {
      * @param index the given index
      * @return the group island
      */
-    public MockGroupIsland getGroupIslandByIndex(int index){
+    public MockGroupIsland getGroupIslandByIndex(int index) {
         return groupIslands.get(index);
     }
 
@@ -192,6 +206,10 @@ public class MockTable {
      * @param motherNaturePosition the new position
      */
     public void setMotherNaturePosition(int motherNaturePosition) {
+        if (this.motherNaturePosition < getGroupIslands().size()) {
+            getGroupIslandByIndex(this.motherNaturePosition).setMotherNature(false);
+        }
         this.motherNaturePosition = motherNaturePosition;
+        getGroupIslandByIndex(motherNaturePosition).setMotherNature(true);
     }
 }

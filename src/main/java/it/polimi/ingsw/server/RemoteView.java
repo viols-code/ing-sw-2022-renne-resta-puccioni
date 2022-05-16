@@ -81,7 +81,7 @@ public class RemoteView implements Observer<IServerPacket> {
                 e.printStackTrace();
             }
         } else
-            System.err.println("Received PlayerActionEvent, but game is not started yet");
+            System.err.println("Received PlayerEvent, but game is not started yet");
     }
 
 
@@ -114,7 +114,7 @@ public class RemoteView implements Observer<IServerPacket> {
             if (dm.getRecipient() == clientConnection)
                 clientConnection.send(dm);
         } else if (packet instanceof InvalidActionUpdate update) {
-            if (update.getPlayer().equals(player))
+            if (update.getPlayer().equalsIgnoreCase(player))
                 clientConnection.send(update);
         } else
             clientConnection.send(packet);
@@ -139,17 +139,17 @@ public class RemoteView implements Observer<IServerPacket> {
         }
     }
 
-    void handlePacket(IProcessablePacket packet){
+    void handlePacket(IProcessablePacket packet) {
         System.out.println("Received: " + packet);
         System.err.println("Received object is of unknown type");
     }
 
-    void handlePacket(ClientMessage packet){
+    void handlePacket(ClientMessage packet) {
         System.out.println("Received: " + packet);
         notifyClientMessage(packet);
     }
 
-    void handlePacket(PlayerEvent packet){
+    void handlePacket(PlayerEvent packet) {
         System.out.println("Received: " + packet);
         notifyActionEvent(packet);
     }

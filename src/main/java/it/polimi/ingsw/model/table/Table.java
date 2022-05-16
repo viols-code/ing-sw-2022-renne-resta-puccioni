@@ -1,10 +1,7 @@
 package it.polimi.ingsw.model.table;
 
 import it.polimi.ingsw.model.Colour;
-import it.polimi.ingsw.model.messages.CloudTileUpdate;
-import it.polimi.ingsw.model.messages.DiningRoomUpdate;
-import it.polimi.ingsw.model.messages.MotherNaturePositionUpdate;
-import it.polimi.ingsw.model.messages.ProfessorsUpdate;
+import it.polimi.ingsw.model.messages.*;
 import it.polimi.ingsw.model.table.island.GroupIsland;
 import it.polimi.ingsw.observer.Observable;
 import it.polimi.ingsw.server.IServerPacket;
@@ -35,7 +32,7 @@ public class Table extends Observable<IServerPacket> {
     /**
      * The professors
      */
-    private HashMap<Colour, Boolean> professors;
+    private final HashMap<Colour, Boolean> professors;
 
     /**
      * Constructor: creates a new game
@@ -66,11 +63,11 @@ public class Table extends Observable<IServerPacket> {
         return bag;
     }
 
-    public boolean isProfessorOnTable(Colour colour){
+    public boolean isProfessorOnTable(Colour colour) {
         return professors.get(colour);
     }
 
-    public void setNoProfessorOnTable(Colour colour){
+    public void setNoProfessorOnTable(Colour colour) {
         professors.replace(colour, professors.get(colour), false);
         notify(new ProfessorsUpdate(colour));
     }
@@ -169,10 +166,26 @@ public class Table extends Observable<IServerPacket> {
      * @param motherNaturePosition the position to be set
      */
     public void setMotherNaturePosition(int motherNaturePosition) {
-        getGroupIslandByIndex(this.motherNaturePosition).removeMotherNature();
+        if (this.motherNaturePosition < getNumberOfGroupIsland()) {
+            getGroupIslandByIndex(this.motherNaturePosition).removeMotherNature();
+        }
         this.motherNaturePosition = motherNaturePosition;
         getGroupIslandByIndex(this.motherNaturePosition).placeMotherNature();
         notify(new MotherNaturePositionUpdate(motherNaturePosition));
+    }
+
+    /**
+     * Set the position of mother nature
+     *
+     * @param motherNaturePosition the position to be set
+     */
+    public void setMotherNaturePositionUnify(int motherNaturePosition) {
+        if (this.motherNaturePosition < getNumberOfGroupIsland()) {
+            getGroupIslandByIndex(this.motherNaturePosition).removeMotherNature();
+        }
+        this.motherNaturePosition = motherNaturePosition;
+        getGroupIslandByIndex(this.motherNaturePosition).placeMotherNature();
+        notify(new MotherNaturePositionUnifyUpdate(motherNaturePosition));
     }
 
      /*
@@ -208,7 +221,7 @@ public class Table extends Observable<IServerPacket> {
         for (Colour colour : Colour.values()) {
             students.put(colour, cloudTile.getTileStudents(colour));
         }
-        notify(new CloudTileUpdate(cloudTiles.indexOf(cloudTile),students));
+        notify(new NewCloudTileUpdate(cloudTiles.indexOf(cloudTile), students));
     }
 
     /**
@@ -223,7 +236,7 @@ public class Table extends Observable<IServerPacket> {
         for (Colour colour : Colour.values()) {
             students.put(colour, 0);
         }
-        notify(new CloudTileUpdate(index,students));
+        notify(new RemoveCloudTileUpdate(index, students));
     }
 
 }

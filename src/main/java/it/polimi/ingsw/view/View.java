@@ -1,17 +1,13 @@
 package it.polimi.ingsw.view;
 
-import it.polimi.ingsw.client.messages.PlayerWizardMessage;
-import it.polimi.ingsw.model.game.Game;
-import it.polimi.ingsw.model.player.Wizard;
-import it.polimi.ingsw.view.implementation.cli.utils.ViewString;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.messages.PlayerNameMessage;
+import it.polimi.ingsw.client.messages.PlayerWizardMessage;
+import it.polimi.ingsw.model.player.Wizard;
 import it.polimi.ingsw.view.beans.MockModel;
-import it.polimi.ingsw.view.beans.MockPlayer;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Class responsible for orchestrating all the functionalities of the game interface.
@@ -39,6 +35,7 @@ public abstract class View {
         this.client = client;
         this.model = new MockModel();
         this.gameState = GameState.CONNECTING;
+        this.wizard = null;
     }
 
     /**
@@ -148,38 +145,42 @@ public abstract class View {
             lobbyMaster = true;
     }
 
-    public void handleCorrectNickname(String nickname, List<String> takenNicknames){
+    public void handleCorrectNickname(String nickname, List<String> takenNicknames) {
         setGameState(GameState.CHOOSING_WIZARD);
     }
 
-    public void handleCorrectWizard(Wizard wizard, List<Wizard> takenWizard){
-        if(isLobbyMaster()){
+    public void handleCorrectWizard(Wizard wizard, List<Wizard> takenWizard) {
+        if (isLobbyMaster()) {
             setGameState(GameState.CHOOSING_GAME_MODE);
         } else {
             setGameState(GameState.WAITING_PLAYERS);
         }
     }
 
-    public void handleGameMode(boolean gameMode){
+    public void handleGameMode(boolean gameMode) {
 
     }
 
-    public void handleAllPlayersConnected(HashMap<String,Wizard>players, boolean gameMode, int numPlayers){
+    public void handleAllPlayersConnected(HashMap<String, Wizard> players, boolean gameMode, int numPlayers) {
         this.gameMode = gameMode;
         this.numPlayers = numPlayers;
         players.entrySet()
                 .stream()
-                .forEach(player -> getModel().addPlayer(player.getKey(),player.getValue(),gameMode,player.getKey().equals(this.playerName)));
+                .forEach(player -> getModel().addPlayer(player.getKey(), player.getValue(), gameMode, player.getKey().equalsIgnoreCase(this.playerName)));
+        for (int i = 0; i < numPlayers; i++) {
+            getModel().getTable().addCloudTile();
+        }
     }
+
     /**
      * Handles the connection of another player to the lobby.
      *
-     * @param playerName            the name of the player that connected
-     * @param wizard            the name of the player that connected
-     * @param currentPlayers        the amount of players connected to the lobby
-     * @param playersToStart        the number of players required to start the game
+     * @param playerName     the name of the player that connected
+     * @param wizard         the name of the player that connected
+     * @param currentPlayers the amount of players connected to the lobby
+     * @param playersToStart the number of players required to start the game
      */
-    public void handlePlayerConnect(String playerName, Wizard wizard, int currentPlayers, Integer playersToStart){
+    public void handlePlayerConnect(String playerName, Wizard wizard, int currentPlayers, Integer playersToStart) {
 
     }
 
@@ -209,7 +210,7 @@ public abstract class View {
         setGameState(GameState.STARTING);
     }
 
-    public void handleGameCanStartMessage(){
+    public void handleGameCanStartMessage() {
         setGameState(GameState.PLAYING);
     }
 

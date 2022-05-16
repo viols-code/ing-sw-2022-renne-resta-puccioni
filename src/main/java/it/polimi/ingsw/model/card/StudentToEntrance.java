@@ -45,7 +45,7 @@ public class StudentToEntrance extends CharacterCard {
     /**
      * Activates the effect of the card
      */
-    protected void effect() {
+    protected void effect() throws IllegalArgumentException {
         game.getCurrentPlayer().getSchoolBoard().removeStudentFromEntrance(colourEntrance);
         game.getCurrentPlayer().getSchoolBoard().addStudentToEntrance(colourCard);
         students.replace(colourCard, students.get(colourCard), students.get(colourCard) - 1);
@@ -66,10 +66,14 @@ public class StudentToEntrance extends CharacterCard {
      * @param colourEntrance the colour of the student in the entrance
      */
     @Override
-    public void setColourCardEntrance(Colour colourCard, Colour colourEntrance) {
+    public void setColourCardEntrance(Colour colourCard, Colour colourEntrance) throws IllegalAccessError {
         this.colourCard = colourCard;
         this.colourEntrance = colourEntrance;
-        this.effect();
+        if (students.get(colourCard) > 0) {
+            this.effect();
+        } else {
+            throw new IllegalArgumentException("There is no student of such colour on the card");
+        }
     }
 
     /**

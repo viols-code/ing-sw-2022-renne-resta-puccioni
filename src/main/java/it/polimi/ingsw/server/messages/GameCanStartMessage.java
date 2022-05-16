@@ -4,7 +4,7 @@ import it.polimi.ingsw.view.View;
 
 import java.io.Serial;
 
-public class GameCanStartMessage extends ServerMessage{
+public class GameCanStartMessage extends ServerMessage {
     @Serial
     private static final long serialVersionUID = 4690775844763528403L;
 

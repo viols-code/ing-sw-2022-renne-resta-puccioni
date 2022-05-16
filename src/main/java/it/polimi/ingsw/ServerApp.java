@@ -3,7 +3,6 @@ package it.polimi.ingsw;
 import it.polimi.ingsw.server.Server;
 
 import java.io.IOException;
-import java.util.Locale;
 
 /**
  * Launcher class for the game server.

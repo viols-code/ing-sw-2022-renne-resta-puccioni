@@ -42,7 +42,7 @@ public class ExpertPlayer extends Player {
      */
     public void addCoins(int num) {
         coins += num;
-        notify(new CoinsUpdate(coins));
+        notify(new CoinsUpdate(nickname, coins));
     }
 
     /**
@@ -52,7 +52,7 @@ public class ExpertPlayer extends Player {
      */
     public void removeCoins(int num) {
         coins -= num;
-        notify(new CoinsUpdate(coins));
+        notify(new CoinsUpdate(nickname, coins));
     }
 
     @Override

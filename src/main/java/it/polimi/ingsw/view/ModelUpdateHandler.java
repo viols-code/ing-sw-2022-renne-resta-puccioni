@@ -36,124 +36,157 @@ public abstract class ModelUpdateHandler {
         return view;
     }
 
-    public void updateActiveCharacterCard(int characterCard){
-        getView().getModel().setCurrentCharacterCard(getView().getModel().getCharacterCardByIndex(characterCard));
+    public void updateActiveCharacterCard(CharacterCardEnumeration characterCard) {
+        if (characterCard == CharacterCardEnumeration.BASIC_STATE) {
+            getView().getModel().setCurrentCharacterCard(null);
+        } else {
+            getView().getModel().setCurrentCharacterCard(getView().getModel().getCharacterCardByType(characterCard));
+        }
     }
 
-    public void updateCardCoins(int characterCard, int coins){
+    public void updateCardCoins(int characterCard, int coins) {
         getView().getModel().getCharacterCardByIndex(characterCard).setCost(coins);
     }
 
-    public void updateCharacterCardsAvailable(List<CharacterCardEnumeration> characterCards){
+    public void updateCharacterCardsAvailable(List<CharacterCardEnumeration> characterCards) {
         characterCards.stream()
                 .filter(characterCard -> getView().getModel().getCharacterCardByType(characterCard) == null)
                 .forEach(characterCard -> getView().getModel().addCharacterCard(new MockCard(characterCard)));
 
-        if(characterCards.contains(CharacterCardEnumeration.PROTECT_ISLAND)){
-            for(MockGroupIsland groupIsland : getView().getModel().getTable().getGroupIslands()){
+        if (characterCards.contains(CharacterCardEnumeration.PROTECT_ISLAND)) {
+            for (MockGroupIsland groupIsland : getView().getModel().getTable().getGroupIslands()) {
                 groupIsland.setIsBasic(false);
             }
         }
     }
 
-    public void updateCloudTile(int cloudTile, HashMap<Colour,Integer> students){
+    public void updateCloudTileAdded(int cloudTile, HashMap<Colour, Integer> students) {
         getView().getModel().getTable().getCloudTileByIndex(cloudTile).setCloudTile(students);
+        getView().getModel().getTable().addShownCLoudTile();
+        getView().getModel().getTable().setShownCloudTile(cloudTile, students);
+
     }
 
-    public void updateCoins(int coins){
+    public void updateCloudTileRemoved(int cloudTile, HashMap<Colour, Integer> students) {
+        getView().getModel().getTable().getCloudTileByIndex(cloudTile).setCloudTile(students);
+        getView().getModel().getTable().removeShownCloudTileByIndex(cloudTile);
+    }
+
+    public void updatePlayerCoins(String player, int coins) {
+        getView().getModel().getPlayerByNickname(player).setCoins(coins);
+    }
+
+    public void updateTableCoins(int coins) {
         getView().getModel().setCoins(coins);
     }
 
-    public void updateCurrentAssistantCard(String player, int assistantCard){
+    public void updateCurrentAssistantCard(String player, int assistantCard) {
         getView().getModel().getPlayerByNickname(player).setCurrentAssistantCard(assistantCard);
     }
 
-    public void updateDiningRoom(String player, HashMap<Colour,Integer> diningRoom){
+    public void updateDiningRoom(String player, HashMap<Colour, Integer> diningRoom) {
         getView().getModel().getPlayerByNickname(player).getSchoolBoard().setDiningRoom(diningRoom);
     }
 
-    public void updateEmptyBag(){
-        //to-do: think how to show it
+    public void updateEmptyBag() {
     }
 
-    public void updateProfessors(Colour colour){
+    public void updateProfessors(Colour colour) {
         getView().getModel().getTable().removeProfessorFromTable(colour);
     }
 
-    public void updateEntrance(String player, HashMap<Colour,Integer> entrance){
+    public void updateEntrance(String player, HashMap<Colour, Integer> entrance) {
         getView().getModel().getPlayerByNickname(player).getSchoolBoard().setEntrance(entrance);
     }
 
-    public void updateGamePhase(GamePhase gamePhase){
+    public void updateGamePhase(GamePhase gamePhase) {
         getView().getModel().setGamePhase(gamePhase);
     }
 
-    public void updateCurrentPlayer(String currentPlayer){
+    public void updateCurrentPlayer(String currentPlayer) {
         getView().getModel().setCurrentPlayer(getView().getModel().getPlayerByNickname(currentPlayer));
     }
 
-    public void updateInfluencePlayerOnGroupIsland(String player, int groupIsland){
+    public void updateInfluencePlayerOnGroupIsland(String player, int groupIsland) {
         //to-do: sistemare la notify
-        getView().getModel().getTable().getGroupIslandByIndex(groupIsland);
+        getView().getModel().getTable().getGroupIslandByIndex(groupIsland).setInfluentPlayer(player);
     }
 
-    public void updateIslandInfluence(int groupIsland){
+    public void updateIslandInfluence(int groupIsland) {
         //to-do: think how to show it
     }
 
-    public void updateMotherNaturePosition(int motherNaturePosition){
+    public void updateMotherNaturePosition(int motherNaturePosition) {
         getView().getModel().getTable().setMotherNaturePosition(motherNaturePosition);
     }
 
-    public void noColourUpdate(Colour colour){
+    public void noColourUpdate(Colour colour) {
         //to-do think how to show it
     }
 
-    public void updateNoEntryTilesOnCard(int num){
+    public void updateNoEntryTilesOnCard(int num) {
         getView().getModel().getCharacterCardByType(CharacterCardEnumeration.PROTECT_ISLAND).setNumberOfNoEntryTile(num);
     }
 
-    public void updateNoEntryTileOnGroupIsland(int groupIsland, int num){
+    public void updateNoEntryTileOnGroupIsland(int groupIsland, int num) {
         //to-do: sistemare la notify
         getView().getModel().getTable().getGroupIslandByIndex(groupIsland).setNoEntryTile(num);
     }
 
-    public void updatePlayers(String nickname, Wizard wizard){
+    public void updatePlayers(String nickname, Wizard wizard) {
         //to-do: capire se l'aggiunta dei player nel mock model avviene prima o dopo la creazione di game
     }
 
-    public void updateProfessorTable(String player, HashMap<Colour,Boolean> professorTable){
+    public void updateProfessorTable(String player, HashMap<Colour, Boolean> professorTable) {
         getView().getModel().getPlayerByNickname(player).getSchoolBoard().setProfessorTable(professorTable);
     }
 
-    public void updateRound(int round){
+    public void updateRound(int round) {
         getView().getModel().setRound(round);
     }
 
-    public void updateSingleIsland(int groupIsland, int singleIsland, Colour student){
+    public void updateSingleIsland(int groupIsland, int singleIsland, Colour student) {
         //to-do: sistemare la notify in SingleIsland
         getView().getModel().getTable().getGroupIslandByIndex(groupIsland).getSingleIslandByIndex(singleIsland).setStudent(student);
     }
 
-    public void updateTowers(String player, int towers){
+    public void updateTowers(String player, int towers) {
         getView().getModel().getPlayerByNickname(player).getSchoolBoard().setTowers(towers);
     }
 
     public void updateTowerColour(String player, TowerColour towerColour){
-        //to-do: message TowerColourUpdate
         getView().getModel().getPlayerByNickname(player).setTowerColour(towerColour);
     }
 
-    public void updateTurnPhase(TurnPhase turnPhase){
+    public void updateTurnPhase(TurnPhase turnPhase) {
         getView().getModel().setTurnPhase(turnPhase);
     }
 
-    public void updateUnifyIsland(int groupIsland1, int groupIsland2){
-        getView().getModel().getTable().unify(groupIsland1,groupIsland2);
+    public void updateUnifyIsland(int groupIsland1, int groupIsland2) {
+        getView().getModel().getTable().unify(groupIsland1, groupIsland2);
     }
 
-    public void updateWinner(String player){
+    public void updateWinner(String player) {
         getView().getModel().setWinner(getView().getModel().getPlayerByNickname(player));
+    }
+
+    public void updateMotherNaturePositionUnify(int motherNaturePosition) {
+        getView().getModel().getTable().setMotherNaturePosition(motherNaturePosition);
+    }
+
+    /*
+    character cards
+     */
+    public void updateStudentToIslandCard(HashMap<Colour, Integer> students) {
+        getView().getModel().getCharacterCardByType(CharacterCardEnumeration.STUDENT_TO_ISLAND).setStudents(students);
+    }
+
+    public void updateStudentToDiningRoomCard(HashMap<Colour, Integer> students) {
+        getView().getModel().getCharacterCardByType(CharacterCardEnumeration.STUDENT_TO_DINING_ROOM).setStudents(students);
+    }
+
+    public void updateStudentToDEntranceCard(HashMap<Colour, Integer> students) {
+        getView().getModel().getCharacterCardByType(CharacterCardEnumeration.STUDENT_TO_ENTRANCE).setStudents(students);
     }
 
 

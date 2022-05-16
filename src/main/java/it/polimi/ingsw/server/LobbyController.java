@@ -56,6 +56,12 @@ public class LobbyController {
 
     }
 
+    /**
+     * Sets the wizard of the Player that is associated with the given ClientConnection.
+     *
+     * @param connection the connection that will have its player name set
+     * @param wizard     the wizard to be set
+     */
     public synchronized void setPlayerWizard(SocketClientConnection connection, Wizard wizard) {
 
         if (connection.getWizard() != null) {
@@ -85,8 +91,14 @@ public class LobbyController {
             startGame();
     }
 
-    public synchronized void setGameMode(SocketClientConnection connection, boolean GameMode) {
-        currentLobby.setGameMode(connection, GameMode);
+    /**
+     * Sets the gameMode that is associated with the given ClientConnection.
+     *
+     * @param connection the connection that will have its player name set
+     * @param gameMode   the gameMode to be set
+     */
+    public synchronized void setGameMode(SocketClientConnection connection, boolean gameMode) {
+        currentLobby.setGameMode(connection, gameMode);
     }
 
     /**

@@ -18,6 +18,7 @@ class ExpertGameTest {
     @BeforeEach
     void setup() {
         gameController = new GameController(true, 3);
+        gameController.setUp();
     }
 
     @Test
@@ -70,6 +71,7 @@ class ExpertGameTest {
         gameController.addPlayer("Viola", Wizard.TYPE_1);
         gameController.addPlayer("Laura", Wizard.TYPE_2);
         gameController.addPlayer("Sara", Wizard.TYPE_3);
+        gameController.setUpCharactersAndIslands();
         gameController.playAssistantCard("Viola", 0);
         gameController.playAssistantCard("Laura", 1);
         gameController.playAssistantCard("Sara", 2);

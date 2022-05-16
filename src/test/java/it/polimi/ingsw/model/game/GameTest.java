@@ -2,8 +2,7 @@ package it.polimi.ingsw.model.game;
 
 import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.model.AssistantCard;
-import it.polimi.ingsw.model.card.CharacterCard;
-import it.polimi.ingsw.model.card.NoColour;
+import it.polimi.ingsw.model.card.*;
 import it.polimi.ingsw.model.player.BasicPlayer;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.TowerColour;
@@ -19,6 +18,7 @@ class GameTest {
     @BeforeEach
     void setUp() {
         gameController = new GameController(false, 3);
+        gameController.setUp();
     }
 
     @Test
@@ -41,6 +41,8 @@ class GameTest {
         assertEquals(3, gameController.getGame().getNumberOfPlayer());
         assertEquals("Viola", gameController.getGame().getPlayerByIndex(2).getNickname());
         assertEquals(Wizard.TYPE_2, gameController.getGame().getPlayerByIndex(2).getWizard());
+
+        assertThrows(IllegalArgumentException.class, ()->gameController.getGame().getIndexOfPlayer(new BasicPlayer("Gio", Wizard.TYPE_2, TowerColour.WHITE)));
     }
 
     @Test
@@ -260,6 +262,45 @@ class GameTest {
     @Test
     void getAssistantCard() {
         assertThrows(IllegalArgumentException.class, () -> gameController.getGame().getAssistantCard(10));
+    }
+
+    @Test
+    void getCharacterCardIndex(){
+        final CharacterCard card = new ProtectIsland(gameController.getGame());
+        assertThrows(IllegalAccessError.class, ()-> gameController.getGame().getCharacterCardIndex(card));
+
+        final CharacterCard card1 = new NoColour(gameController.getGame());
+        assertThrows(IllegalAccessError.class, ()->gameController.getGame().getCharacterCardIndex(card1));
+
+        final CharacterCard card2 = new ExchangeEntranceDiningRoom(gameController.getGame());
+        assertThrows(IllegalAccessError.class, ()->gameController.getGame().getCharacterCardIndex(card2));
+
+        final CharacterCard card3 = new NoColour(gameController.getGame());
+        assertThrows(IllegalAccessError.class, ()->gameController.getGame().getCharacterCardIndex(card3));
+
+        final CharacterCard card4 = new IslandInfluence(gameController.getGame());
+        assertThrows(IllegalAccessError.class, ()->gameController.getGame().getCharacterCardIndex(card4));
+
+        final CharacterCard card5 = new MotherNatureMovement(gameController.getGame());
+        assertThrows(IllegalAccessError.class, ()->gameController.getGame().getCharacterCardIndex(card5));
+
+        final CharacterCard card6 = new NoTower(gameController.getGame());
+        assertThrows(IllegalAccessError.class, ()->gameController.getGame().getCharacterCardIndex(card6));
+
+        final CharacterCard card7 = new StudentToDiningRoom(gameController.getGame());
+        assertThrows(IllegalAccessError.class, ()->gameController.getGame().getCharacterCardIndex(card7));
+
+        final CharacterCard card8 = new StudentToEntrance(gameController.getGame());
+        assertThrows(IllegalAccessError.class, ()->gameController.getGame().getCharacterCardIndex(card8));
+
+        final CharacterCard card9 = new StudentToIsland(gameController.getGame());
+        assertThrows(IllegalAccessError.class, ()->gameController.getGame().getCharacterCardIndex(card9));
+
+        final CharacterCard card10 = new ThreeStudent(gameController.getGame());
+        assertThrows(IllegalAccessError.class, ()->gameController.getGame().getCharacterCardIndex(card10));
+
+        final CharacterCard card11 = new TwoPoints(gameController.getGame());
+        assertThrows(IllegalAccessError.class, ()->gameController.getGame().getCharacterCardIndex(card11));
     }
 
 }

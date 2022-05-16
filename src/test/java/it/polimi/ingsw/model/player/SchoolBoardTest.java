@@ -13,8 +13,10 @@ class SchoolBoardTest {
     @BeforeEach
     void setUp() {
         gameController = new GameController(false, 2);
+        gameController.setUp();
         gameController.getGame().addPlayer(new BasicPlayer("sara", Wizard.TYPE_1, TowerColour.WHITE));
         gameController.getGame().addPlayer(new BasicPlayer("laura", Wizard.TYPE_2, TowerColour.BLACK));
+        gameController.setUpCharactersAndIslands();
     }
 
 
@@ -34,6 +36,14 @@ class SchoolBoardTest {
 
     @Test
     void removeStudentFromDiningRoom() {
+        for (int i = 1; i <= 10; i++) {
+            for (Colour colour : Colour.values()) {
+                assertEquals(0, gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getDiningRoom(colour));
+                assertThrows(IllegalArgumentException.class, () -> gameController.getGame().getPlayerByIndex(0).getSchoolBoard().removeStudentFromDiningRoom(colour));
+                assertEquals(0, gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getDiningRoom(colour));
+            }
+        }
+
         for (int i = 1; i <= 10; i++) {
             for (Colour colour : Colour.values()) {
                 gameController.getGame().getPlayerByIndex(0).getSchoolBoard().addStudentToDiningRoom(colour);

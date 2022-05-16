@@ -152,7 +152,16 @@ public abstract class CharacterCard extends Observable<IServerPacket> {
             }
         } else {
             game.getTable().getGroupIslandByIndex(groupIsland).removeNoEntryTile();
-            notify(new NoEntryTileUpdate(groupIsland,game.getTable().getGroupIslandByIndex(groupIsland).getNumberOfNoEntryTile()));
+            notify(new NoEntryTileUpdate(groupIsland, game.getTable().getGroupIslandByIndex(groupIsland).getNumberOfNoEntryTile()));
+            // questo for è stato aggiunto per riportare il numero di noentry tile sulla carta
+            // per fare questo ho dovuto spostare due metodi di protectisland qua sotto come protected
+            // non penso sia molto elegante, ma non mi è venuto in mente nient'altro
+            //Sara ha detto che farà il funzionale
+            for (int i = 0; i < 3; i++) {
+                if (game.getCharacterCardByIndex(i).getCharacterCardType() == CharacterCardEnumeration.PROTECT_ISLAND) {
+                    game.getCharacterCardByIndex(i).setNumberOfNoEntryTiles(game.getCharacterCardByIndex(i).getNumberOfNoEntryTiles() + 1);
+                }
+            }
         }
     }
 
@@ -182,7 +191,7 @@ public abstract class CharacterCard extends Observable<IServerPacket> {
      */
     private void setNewInfluencePlayer(Player influencePlayer, int groupIsland) {
         game.getTable().getGroupIslandByIndex(groupIsland).changeInfluence(influencePlayer);
-        notify(new InfluencePlayerUpdate(influencePlayer.getNickname(),groupIsland));
+        notify(new InfluencePlayerUpdate(influencePlayer.getNickname(), groupIsland));
         if (influencePlayer.getSchoolBoard().getTowers() - game.getTable().getGroupIslandByIndex(groupIsland).getNumberOfSingleIsland() <= 0) {
             influencePlayer.getSchoolBoard().removeTower(influencePlayer.getSchoolBoard().getTowers());
             game.setWinner(influencePlayer);
@@ -334,29 +343,70 @@ public abstract class CharacterCard extends Observable<IServerPacket> {
      * @param groupIsland the group island selected
      */
     protected void checkUnifyIsland(int groupIsland) {
+        boolean flag;
         if (game.getTable().getGroupIslandByIndex(groupIsland).getInfluence().equals(game.getTable().getIslandAfter(groupIsland).getInfluence())) {
             if (groupIsland == game.getTable().getNumberOfGroupIsland() - 1) {
-                game.getTable().setMotherNaturePosition(0);
+                flag = game.getTable().getGroupIslandByIndex(groupIsland).getMotherNature();
                 unifyGroupIsland(game.getTable().getIslandAfter(groupIsland), game.getTable().getGroupIslandByIndex(groupIsland));
                 notify(new UnifyIslandsUpdate(0, groupIsland));
+                if (flag) {
+                    game.getTable().setMotherNaturePositionUnify(0);
+                }
                 groupIsland = 0;
             } else {
+                flag = game.getTable().getGroupIslandByIndex(groupIsland).getMotherNature();
                 unifyGroupIsland(game.getTable().getGroupIslandByIndex(groupIsland), game.getTable().getIslandAfter(groupIsland));
                 notify(new UnifyIslandsUpdate(groupIsland, (groupIsland + 1)));
+            }
+
+            if (!flag) {
+                int i;
+                for (i = 0; i < game.getTable().getNumberOfGroupIsland(); i++) {
+                    if (game.getTable().getGroupIslandByIndex(i).getMotherNature()) {
+                        game.getTable().setMotherNaturePositionUnify(i);
+                        break;
+                    }
+                }
             }
         }
 
         if (game.getTable().getGroupIslandByIndex(groupIsland).getInfluence().equals(game.getTable().getIslandBefore(groupIsland).getInfluence())) {
             if (groupIsland > 0) {
-                game.getTable().setMotherNaturePosition(groupIsland - 1);
+                flag = game.getTable().getGroupIslandByIndex(groupIsland).getMotherNature();
                 unifyGroupIsland(game.getTable().getIslandBefore(groupIsland), game.getTable().getGroupIslandByIndex(groupIsland));
                 notify(new UnifyIslandsUpdate(groupIsland - 1, groupIsland));
+                if (flag) {
+                    game.getTable().setMotherNaturePositionUnify(groupIsland - 1);
+                }
             } else {
+                flag = game.getTable().getGroupIslandByIndex(groupIsland).getMotherNature();
                 unifyGroupIsland(game.getTable().getGroupIslandByIndex(groupIsland), game.getTable().getIslandBefore(groupIsland));
-                notify(new UnifyIslandsUpdate(groupIsland, game.getTable().getNumberOfGroupIsland() - 1));
+                notify(new UnifyIslandsUpdate(groupIsland, game.getTable().getNumberOfGroupIsland()));
+            }
+
+            if (!flag) {
+                int i;
+                for (i = 0; i < game.getTable().getNumberOfGroupIsland(); i++) {
+                    if (game.getTable().getGroupIslandByIndex(i).getMotherNature()) {
+                        game.getTable().setMotherNaturePositionUnify(i);
+                        break;
+                    }
+                }
             }
 
         }
+    }
+
+    protected void setNumberOfNoEntryTiles(int numberOfNoEntryTiles) throws IllegalAccessError {
+        throw new IllegalAccessError("The card doesn't have this method");
+    }
+
+    protected int getNumberOfNoEntryTiles() throws IllegalAccessError {
+        throw new IllegalAccessError("The card doesn't have this method");
+    }
+
+    protected int getStudent(Colour colour) throws IllegalAccessError {
+        throw new IllegalAccessError("The card doesn't have this method");
     }
 
 }

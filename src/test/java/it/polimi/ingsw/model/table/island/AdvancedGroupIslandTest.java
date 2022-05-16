@@ -20,6 +20,10 @@ class AdvancedGroupIslandTest {
     @BeforeEach
     void setUp() {
         gameController = new GameController(true, 2);
+        gameController.setUp();
+        gameController.addPlayer("Viola", Wizard.TYPE_3);
+        gameController.addPlayer("Laura", Wizard.TYPE_4);
+        gameController.setUpCharactersAndIslands();
     }
 
     @RepeatedTest(12)

@@ -20,6 +20,6 @@ public class DiningRoomUpdate extends PlayerUpdate {
 
     @Override
     public void process(View view) {
-        view.getModelUpdateHandler().updateDiningRoom(playerName,students);
+        view.getModelUpdateHandler().updateDiningRoom(playerName, students);
     }
 }

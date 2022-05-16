@@ -31,7 +31,11 @@ public class ExpertGame extends Game {
         characterCards = new ArrayList<>();
         basicState = super.getActiveCharacterCard();
         hasPlayedCharacterCard = false;
-        coins = 20;
+    }
+
+    public void setUp() {
+        super.setUp();
+        setCoins(20);
     }
 
     /*
@@ -76,7 +80,7 @@ public class ExpertGame extends Game {
     @Override
     public void addCharacterCard(CharacterCard card) {
         characterCards.add(card);
-        if(characterCards.size() == 3){
+        if (characterCards.size() == 3) {
             List<CharacterCardEnumeration> cardsAvailable = new ArrayList<>();
             for (CharacterCard characterCard : characterCards) {
                 cardsAvailable.add(characterCard.getCharacterCardType());
@@ -93,7 +97,7 @@ public class ExpertGame extends Game {
     @Override
     public void setActiveCharacterCard(CharacterCard card) {
         super.activeCharacterCard = card;
-        notify(new ActiveCharacterCardUpdate(characterCards.indexOf(card)));
+        notify(new ActiveCharacterCardUpdate(card.getCharacterCardType()));
     }
 
     /*

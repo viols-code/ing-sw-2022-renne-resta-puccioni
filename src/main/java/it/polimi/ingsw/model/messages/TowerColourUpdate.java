@@ -1,18 +1,19 @@
 package it.polimi.ingsw.model.messages;
 
+import it.polimi.ingsw.model.player.TowerColour;
 import it.polimi.ingsw.view.View;
 
 import java.io.Serial;
 
-public class TowersUpdate extends PlayerUpdate {
+public class TowerColourUpdate extends PlayerUpdate{
     @Serial
     private static final long serialVersionUID = 7600545658820901831L;
     private final String playerName;
-    private final int towers;
+    private final TowerColour towerColour;
 
-    public TowersUpdate(String playerName, int towers) {
+    public TowerColourUpdate(String playerName, TowerColour towerColour) {
         this.playerName = playerName;
-        this.towers = towers;
+        this.towerColour = towerColour;
     }
 
     public String getPlayerName() {
@@ -20,6 +21,6 @@ public class TowersUpdate extends PlayerUpdate {
     }
 
     public void process(View view) {
-        view.getModelUpdateHandler().updateTowers(playerName, towers);
+        view.getModelUpdateHandler().updateTowerColour(playerName,towerColour);
     }
 }

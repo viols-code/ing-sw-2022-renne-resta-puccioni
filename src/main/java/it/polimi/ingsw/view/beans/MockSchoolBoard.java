@@ -79,11 +79,11 @@ public class MockSchoolBoard {
         this.professorTable = professorTable;
     }
 
-    public int getTowers(){
+    public int getTowers() {
         return towers;
     }
 
-    public void setTowers(int towers){
+    public void setTowers(int towers) {
         this.towers = towers;
     }
 }

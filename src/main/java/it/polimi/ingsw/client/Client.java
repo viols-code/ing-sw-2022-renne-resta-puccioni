@@ -1,11 +1,6 @@
 package it.polimi.ingsw.client;
 
-import it.polimi.ingsw.client.messages.GameModeMessage;
-import it.polimi.ingsw.client.messages.PlayerNameMessage;
-import it.polimi.ingsw.client.messages.PlayerWizardMessage;
-import it.polimi.ingsw.client.messages.PlayersToStartMessage;
 import it.polimi.ingsw.controller.GameController;
-import it.polimi.ingsw.model.player.Wizard;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.implementation.cli.CLI;
 
@@ -137,7 +132,7 @@ public class Client {
      * Starts the main client loop, reading and interpreting user commands.
      */
     public void run() {
-       if (startCli) {
+        if (startCli) {
             view = new CLI(this);
         } //else view = new GUI(this, stage);
         try {

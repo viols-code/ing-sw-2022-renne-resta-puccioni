@@ -1,111 +1,69 @@
 package it.polimi.ingsw.model.card;
 
+import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.model.Colour;
-import it.polimi.ingsw.model.game.ExpertGame;
-import it.polimi.ingsw.model.game.Game;
-import it.polimi.ingsw.model.player.ExpertPlayer;
-import it.polimi.ingsw.model.player.Player;
-import it.polimi.ingsw.model.player.TowerColour;
+import it.polimi.ingsw.model.game.TurnPhase;
 import it.polimi.ingsw.model.player.Wizard;
-import it.polimi.ingsw.model.table.island.AdvancedGroupIsland;
+import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.RepeatedTest;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
+
 
 public class ProtectIslandTest {
-    private ProtectIsland cardTest;
-    private Game gameTest;
+    private GameController gameController;
 
     @BeforeEach
     void setUp() {
-        Player player1;
-        gameTest = new ExpertGame();
-        cardTest = new ProtectIsland(gameTest);
-        player1 = new ExpertPlayer("Viola", Wizard.TYPE_4, TowerColour.WHITE);
-
-        gameTest.addPlayer(player1);
-        player1.setCurrentAssistantCard(gameTest.getAssistantCard(0));
-
-        gameTest.addCharacterCard(cardTest);
-        for (int i = 0; i < 12; i++) {
-            gameTest.getTable().addGroupIsland(new AdvancedGroupIsland());
-        }
-
-        settingBag();
-        settingCard();
+        gameController = new GameController(true, 2);
+        gameController.setUp();
+        gameController.addPlayer("Viola", Wizard.TYPE_1);
+        gameController.addPlayer("Laura", Wizard.TYPE_2);
+        gameController.setUpCharactersAndIslands();
     }
 
-    @Test
-    void incrementCost() {
-        int cost = cardTest.getCost();
-        assertEquals(cost, cardTest.getCost());
-        cardTest.incrementCost();
-        assertEquals(cost + 1, cardTest.getCost());
-    }
+    @RepeatedTest(1000)
+    void protectIslandTest(){
+        gameController.playAssistantCard("Viola", 0);
+        gameController.playAssistantCard("Laura", 1);
 
-    @Test
-    void setColour() {
-        for (Colour colour : Colour.values()) {
-            assertThrows(IllegalAccessError.class, () -> cardTest.setColour(colour));
-        }
-    }
-
-    @Test
-    void setColourAndIsland() {
-        for (Colour colour : Colour.values()) {
-            assertThrows(IllegalAccessError.class, () -> cardTest.setColourAndIsland(colour, gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0)));
-        }
-    }
-
-    @Test
-    public void setColourDiningRoomEntrance() {
-        for (Colour colour : Colour.values()) {
-            assertThrows(IllegalAccessError.class, () -> cardTest.setColourDiningRoomEntrance(colour, colour));
-        }
-    }
-
-    @Test
-    public void setColourCardEntrance() {
-        for (Colour colour : Colour.values()) {
-            assertThrows(IllegalAccessError.class, () -> cardTest.setColourCardEntrance(colour, colour));
-        }
-    }
-
-    @Test
-    void setGroupIsland() {
-
-        cardTest.setGroupIsland(3);
-
-        assertEquals(1, gameTest.getTable().getGroupIslandByIndex(3).getNumberOfNoEntryTile());
-
-        cardTest.setGroupIsland(3);
-        assertEquals(2, gameTest.getTable().getGroupIslandByIndex(3).getNumberOfNoEntryTile());
-    }
-
-    private void settingBag() {
-        for (Colour colour : Colour.values()) {
-            for (int i = 0; i < 2; i++) {
-                gameTest.getTable().getBag().addStudentBag(colour);
+        boolean flag = false;
+        int i;
+        for (i = 0; i < 3; i++) {
+            if (gameController.getGame().getCharacterCardByIndex(i).getCharacterCardType() == CharacterCardEnumeration.PROTECT_ISLAND) {
+                flag = true;
+                break;
             }
         }
 
-        for (int i = 1; i < 12; i++) {
-            if (i == 5) i++;
-            gameTest.getTable().getGroupIslandByIndex(i).getIslandByIndex(0).addStudent(i,0,gameTest.getTable().getBag().bagDrawStudent());
-        }
+        if(flag){
+            for(Colour colour: Colour.values()){
+                if(gameController.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) >= 3){
+                    gameController.moveStudentToDiningRoom("Viola", colour);
+                    gameController.moveStudentToDiningRoom("Viola", colour);
+                    gameController.moveStudentToDiningRoom("Viola", colour);
+                }
+            }
 
-        for (Colour colour : Colour.values()) {
-            for (int i = 0; i < 24; i++) {
-                gameTest.getTable().getBag().addStudentBag(colour);
+            if(gameController.getGame().getCurrentPlayer().getCoins() == 2){
+                gameController.playCharacterCard("Viola", i);
+                gameController.setGroupIsland("Viola", 1);
+                assertEquals(1, gameController.getGame().getTable().getGroupIslandByIndex(1).getNumberOfNoEntryTile());
+                assertEquals(3, gameController.getGame().getCharacterCardByIndex(i).getNumberOfNoEntryTiles());
+
+                assertEquals(TurnPhase.MOVE_MOTHER_NATURE, gameController.getGame().getTurnPhase());
+                gameController.moveMotherNature("Viola", 1);
+                assertEquals(0, gameController.getGame().getTable().getGroupIslandByIndex(1).getNumberOfNoEntryTile());
+                assertEquals(4, gameController.getGame().getCharacterCardByIndex(i).getNumberOfNoEntryTiles());
+                assertNull(gameController.getGame().getTable().getGroupIslandByIndex(1).getInfluence());
+            } else{
+                gameController.playCharacterCard("Viola", i);
+                gameController.setGroupIsland("Viola", 1);
+                assertEquals(0, gameController.getGame().getTable().getGroupIslandByIndex(1).getNumberOfNoEntryTile());
+                assertEquals(4, gameController.getGame().getCharacterCardByIndex(i).getNumberOfNoEntryTiles());
             }
         }
     }
 
-    private void settingCard() {
-        for (int i = 0; i < gameTest.getNumberOfCharacterCard(); i++) {
-            gameTest.getCharacterCardByIndex(i).setting();
-        }
-    }
 }

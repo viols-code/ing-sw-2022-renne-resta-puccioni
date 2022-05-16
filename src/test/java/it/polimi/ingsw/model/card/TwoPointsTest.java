@@ -59,8 +59,10 @@ class TwoPointsTest {
 
         gameTest.setCurrentPlayer(player1);
         assertEquals(4, cardTest.calculateInfluencePlayer(player1, gameTest.getTable().getGroupIslandByIndex(0)));
+        assertEquals(3, cardTest.calculateInfluencePlayer(player2, gameTest.getTable().getGroupIslandByIndex(0)));
         gameTest.setCurrentPlayer(player2);
         assertEquals(5, cardTest.calculateInfluencePlayer(player2, gameTest.getTable().getGroupIslandByIndex(0)));
+        assertEquals(2, cardTest.calculateInfluencePlayer(player1, gameTest.getTable().getGroupIslandByIndex(0)));
 
     }
 
@@ -123,5 +125,23 @@ class TwoPointsTest {
         for (int i = 0; i < gameTest.getNumberOfCharacterCard(); i++) {
             gameTest.getCharacterCardByIndex(i).setting();
         }
+    }
+
+    @Test
+    void setNumberOfNoEntryTiles(){
+        CharacterCard card = new TwoPoints(gameTest);
+        assertThrows(IllegalAccessError.class, ()->card.setNumberOfNoEntryTiles(1));
+    }
+
+    @Test
+    void getNumberOfNoEntryTiles(){
+        CharacterCard card = new TwoPoints(gameTest);
+        assertThrows(IllegalAccessError.class, card::getNumberOfNoEntryTiles);
+    }
+
+    @Test
+    void getStudent(){
+        CharacterCard card = new TwoPoints(gameTest);
+        assertThrows(IllegalAccessError.class, ()->card.getStudent(Colour.GREEN));
     }
 }

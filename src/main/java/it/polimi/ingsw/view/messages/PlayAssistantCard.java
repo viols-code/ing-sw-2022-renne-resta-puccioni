@@ -17,6 +17,6 @@ public class PlayAssistantCard extends PlayerAction {
 
     @Override
     public void process(GameController controller) {
-        controller.playCharacterCard(player, assistantCard);
+        controller.playAssistantCard(player, assistantCard);
     }
 }

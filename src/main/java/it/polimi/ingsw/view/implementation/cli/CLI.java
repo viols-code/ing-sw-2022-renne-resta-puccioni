@@ -2,15 +2,13 @@ package it.polimi.ingsw.view.implementation.cli;
 
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.model.player.Wizard;
-import it.polimi.ingsw.view.GameState;
 import it.polimi.ingsw.view.View;
+import it.polimi.ingsw.view.implementation.cli.utils.ASCIIArt;
 import it.polimi.ingsw.view.implementation.cli.utils.AnsiColour;
 import it.polimi.ingsw.view.implementation.cli.utils.ViewString;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
-import java.util.UUID;
 
 /**
  * Command line interface main class
@@ -20,6 +18,7 @@ public class CLI extends View {
 
     /**
      * Creates a new CLI for the given client
+     *
      * @param client the client that requests a command line interface
      */
     public CLI(Client client) {
@@ -33,31 +32,37 @@ public class CLI extends View {
     @Override
     public void addToLobby(boolean isFirstConnection) {
         super.addToLobby(isFirstConnection);
-        getRenderer().showGameMessage(ViewString.CHOOSE_NAME);
+        getRenderer().showLobbyMessage(ViewString.CHOOSE_NAME);
     }
 
     @Override
-    public void handleCorrectNickname(String nickname, List<String> takenNicknames){
+    public void handleCorrectNickname(String nickname, List<String> takenNicknames) {
         super.handleCorrectNickname(nickname, takenNicknames);
-        getRenderer().showGameMessage(ViewString.CHOOSE_WIZARD);
+        getRenderer().showLobbyMessage(ViewString.CHOOSE_WIZARD);
     }
 
     @Override
-    public void handleCorrectWizard(Wizard wizard, List<Wizard> takenWizard){
+    public void handleCorrectWizard(Wizard wizard, List<Wizard> takenWizard) {
         super.handleCorrectWizard(wizard, takenWizard);
-        if(isLobbyMaster()){
-            getRenderer().showGameMessage(ViewString.CHOOSE_GAME_MODE);
+        switch (wizard) {
+            case TYPE_1 -> System.out.println(AnsiColour.GOLD + ASCIIArt.WIZARD_ONE + AnsiColour.RESET);
+            case TYPE_2 -> System.out.println(AnsiColour.GOLD + ASCIIArt.WIZARD_TWO + AnsiColour.RESET);
+            case TYPE_3 -> System.out.println(AnsiColour.GOLD + ASCIIArt.WIZARD_THREE + AnsiColour.RESET);
+            case TYPE_4 -> System.out.println(AnsiColour.GOLD + ASCIIArt.WIZARD_FOUR + AnsiColour.RESET);
+        }
+        if (isLobbyMaster()) {
+            getRenderer().showLobbyMessage(ViewString.CHOOSE_GAME_MODE);
         } else {
-            getRenderer().showGameMessage(ViewString.WAITING_PLAYERS);
+            getRenderer().showLobbyMessage(ViewString.WAITING_PLAYERS);
         }
     }
 
     @Override
-    public void handlePlayerConnect(String playerName, Wizard wizard, int currentPlayers, Integer playersToStart){
-        if(playersToStart == null){
-            getRenderer().showGameMessage(ViewString.PLAYER_CONNECTED_WITH_COUNT.formatted(playerName, currentPlayers));
+    public void handlePlayerConnect(String playerName, Wizard wizard, int currentPlayers, Integer playersToStart) {
+        if (playersToStart == null) {
+            getRenderer().showLobbyMessage(ViewString.PLAYER_CONNECTED_WITH_COUNT.formatted(playerName, currentPlayers));
         } else {
-            getRenderer().showGameMessage(ViewString.PLAYER_CONNECTED_WITH_COUNT_ON_TOTAL.formatted(playerName, currentPlayers, playersToStart));
+            getRenderer().showLobbyMessage(ViewString.PLAYER_CONNECTED_WITH_COUNT_ON_TOTAL.formatted(playerName, currentPlayers, playersToStart));
         }
     }
 
@@ -69,30 +74,31 @@ public class CLI extends View {
     }
 
     @Override
-    public void handleGameMode(boolean gameMode){
-        if(gameMode){
-            getRenderer().showGameMessage(ViewString.GAME_MODE_MESSAGE_EXPERT);
-        } else{
-            getRenderer().showGameMessage(ViewString.GAME_MODE_MESSAGE_BASIC);
+    public void handleGameMode(boolean gameMode) {
+        if (!isLobbyMaster()) {
+            if (gameMode) {
+                getRenderer().showLobbyMessage(ViewString.GAME_MODE_MESSAGE_EXPERT);
+            } else {
+                getRenderer().showLobbyMessage(ViewString.GAME_MODE_MESSAGE_BASIC);
+            }
         }
     }
 
     @Override
-    public void handleGameCanStartMessage(){
+    public void handleGameCanStartMessage() {
         super.handleGameCanStartMessage();
     }
 
     @Override
     public void handleSetPlayersToStart(int playersToStart) {
         super.handleSetPlayersToStart(playersToStart);
-        getRenderer().showGameMessage(ViewString.PLAYERS_TO_START_SET);
+        getRenderer().showLobbyMessage(ViewString.PLAYERS_TO_START_SET);
     }
 
     @Override
     public void handleSetGameMode() {
         super.handleSetGameMode();
-        getRenderer().showGameMessage(ViewString.GAME_MODE_SET);
-        getRenderer().showGameMessage(ViewString.CHOOSE_PLAYERS_TO_START);
+        getRenderer().showLobbyMessage(ViewString.CHOOSE_PLAYERS_TO_START);
     }
 
     @Override
@@ -117,10 +123,9 @@ public class CLI extends View {
     @Override
     public void run() {
         Scanner scanner = new Scanner(System.in);
-        //Logo
-        //System.out.println(AnsiColour.BLUE + ASCIIArt.MASTER + AnsiColour.RESET);
+        System.out.println(AnsiColour.BLUE + ASCIIArt.ERIANTYS + AnsiColour.RESET);
 
-        getRenderer().showGameMessage("Enter the server ip and port (leave blank for localhost):");
+        getRenderer().showLobbyMessage("Enter the server ip and port (leave blank for localhost):");
         //addToLobby(false);
 
         String command;
@@ -130,7 +135,6 @@ public class CLI extends View {
             if (!getClient().isActive())
                 break;
 
-            cmdSwitch:
             switch (getGameState()) {
                 case CONNECTING -> {
                     if (command.isBlank()) {
@@ -162,32 +166,36 @@ public class CLI extends View {
                         getRenderer().showErrorMessage("Unknown host or port, please try again!");
                 }
 
-                case CHOOSING_NAME -> setPlayerName(command);
+                case CHOOSING_NAME -> {
+                    if (command.length() != command.trim().length()) {
+                        getRenderer().showErrorMessage("The nickname must be without empty spaces");
+                    } else if (command.split(" ").length > 1) {
+                        getRenderer().showErrorMessage("The nickname must be without empty spaces");
+                    } else {
+                        setPlayerName(command);
+                    }
+                }
 
                 case CHOOSING_WIZARD -> {
-                        int wizardNumber;
-                        try {
+                    int wizardNumber;
+                    try {
                         wizardNumber = Integer.parseInt(command);
-                        } catch (NumberFormatException e) {
-                            getRenderer().showErrorMessage("Choose a number between 1 and 4");
-                            return;
-                        }
-                        setWizard(Wizard.valueOf(wizardNumber));
+                    } catch (NumberFormatException e) {
+                        getRenderer().showErrorMessage("Choose a number between 1 and 4");
+                        break;
+                    }
+                    setWizard(Wizard.valueOf(wizardNumber));
                 }
 
                 case CHOOSING_GAME_MODE -> {
                     if (command.equalsIgnoreCase("expert")) {
                         getActionSender().setGameMode(true);
-                        getRenderer().showGameMessage("Playing using the expert game rules!");
-                        break;
-                    }
-                    else if(command.equalsIgnoreCase("basic")){
+                        getRenderer().showLobbyMessage("Playing using the expert game rules!");
+                    } else if (command.equalsIgnoreCase("basic")) {
                         getActionSender().setGameMode(false);
-                        getRenderer().showGameMessage("Playing using the basic game rules!");
-                        break;
-                    }
-                    else{
-                        getRenderer().showGameMessage("Write 'expert' or 'basic'");
+                        getRenderer().showLobbyMessage("Playing using the basic game rules!");
+                    } else {
+                        getRenderer().showErrorMessage("Write 'expert' or 'basic'");
                     }
                 }
 
@@ -208,13 +216,13 @@ public class CLI extends View {
                     getActionSender().setPlayersToStart(playersToStart);
                 }
 
-                case WAITING_PLAYERS -> getRenderer().showGameMessage(ViewString.WAITING_PLAYERS);
+                case WAITING_PLAYERS -> getRenderer().showLobbyMessage(ViewString.WAITING_PLAYERS);
 
                 case PLAYING -> {
                     try {
                         commandHandler.handle(command);
                     } catch (IllegalArgumentException e) {
-                        getRenderer().showErrorMessage(ViewString.COMMAND_NOT_FOUND);
+                        getRenderer().showErrorMessage(e.getMessage());
                     }
                 }
             }

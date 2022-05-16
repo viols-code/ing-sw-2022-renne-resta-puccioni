@@ -1,11 +1,10 @@
 package it.polimi.ingsw.model.messages;
 
-import it.polimi.ingsw.model.game.TurnPhase;
 import it.polimi.ingsw.view.View;
 
 import java.io.Serial;
 
-public class CurrentPlayerUpdate extends GameUpdate{
+public class CurrentPlayerUpdate extends GameUpdate {
     @Serial
     private static final long serialVersionUID = 1037513789242382023L;
     private final String currentPlayer;

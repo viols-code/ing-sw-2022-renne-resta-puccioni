@@ -36,12 +36,26 @@ public class GameInstance implements Runnable {
         for (SocketClientConnection conn : lobby.getConnections()) {
             conn.setLobbyUUID(lobby.getUuid());
 
-            controller.addPlayer(conn.getPlayerName(), conn.getWizard());
             RemoteView remoteView = conn.getRemoteView();
             remoteView.setPlayer(conn.getPlayerName());
             remoteView.setGameController(controller);
-
             controller.getGame().addObserver(remoteView);
+            controller.getGame().getTable().addObserver(remoteView);
+            controller.getGame().getTable().getBag().addObserver(remoteView);
+
+
+            registeredViews.add(remoteView);
+
+        }
+
+        controller.setUp();
+
+        for (SocketClientConnection conn : lobby.getConnections()) {
+            conn.setLobbyUUID(lobby.getUuid());
+
+            RemoteView remoteView = conn.getRemoteView();
+            controller.addPlayer(conn.getPlayerName(), conn.getWizard());
+
             for (int i = 0; i < controller.getGame().getTable().getNumberOfGroupIsland(); i++) {
                 controller.getGame().getTable().getGroupIslandByIndex(i).addObserver(remoteView);
                 for (int j = 0; j < controller.getGame().getTable().getGroupIslandByIndex(i).getNumberOfSingleIsland(); j++) {
@@ -49,16 +63,13 @@ public class GameInstance implements Runnable {
                 }
             }
 
-            controller.getGame().getTable().addObserver(remoteView);
-            controller.getGame().getTable().getBag().addObserver(remoteView);
+            controller.getGame().getBasicState().addObserver(remoteView);
 
             if (isExpertGame) {
                 for (int i = 0; i < 3; i++) {
                     controller.getGame().getCharacterCardByIndex(i).addObserver(remoteView);
                 }
             }
-
-            registeredViews.add(remoteView);
 
         }
 
@@ -68,6 +79,9 @@ public class GameInstance implements Runnable {
                 controller.getGame().getPlayerByIndex(i).getSchoolBoard().addObserver(remoteView);
             }
         }
+
+        controller.setUpCharactersAndIslands();
+
 
     }
 }

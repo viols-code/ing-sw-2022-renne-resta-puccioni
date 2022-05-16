@@ -39,9 +39,21 @@ public class GameController implements Observer<PlayerEvent> {
     public GameController(boolean isGameExpert, int numberOfPlayer) {
         this.isGameExpert = isGameExpert;
         this.numberOfPlayer = numberOfPlayer;
+        if (isGameExpert) {
+            this.game = new ExpertGame();
+        } else {
+            this.game = new BasicGame();
+        }
+    }
+
+    /*
+    SETTING PHASE
+    */
+
+    public void setUp() {
+        game.setUp();
 
         if (isGameExpert) {
-            game = new ExpertGame();
             List<Class<? extends CharacterCard>> cardTypes = new ArrayList<>(
                     Arrays.asList(StudentToIsland.class, TakeProfessor.class, IslandInfluence.class,
                             MotherNatureMovement.class, ProtectIsland.class, NoTower.class, StudentToEntrance.class,
@@ -74,22 +86,33 @@ public class GameController implements Observer<PlayerEvent> {
                 ex.printStackTrace();
             }
 
-        } else {
-            game = new BasicGame();
         }
-        settingBag();
         settingInteger();
-        settingCloudTile();
+    }
 
+    public void setUpCharactersAndIslands() {
+        settingBag();
         if (isGameExpert) {
             settingCard();
         }
+        settingCloudTile();
 
+        for (int i = 0; i < numberOfPlayer; i++) {
+            Player player = game.getPlayerByIndex(i);
+            player.getSchoolBoard().addTower(game.getNumberOfTowersPerPlayer());
+            for (int j = 0; j < game.getNumberStudentsEntrance(); j++) {
+                try {
+                    player.getSchoolBoard().addStudentToEntrance(game.getTable().getBag().bagDrawStudent());
+                } catch (IllegalAccessError ex) {
+                    ex.printStackTrace();
+                }
+            }
+
+            for (int j = 0; j < 10; j++) {
+                player.addAssistantCard(game.getAssistantCard(j));
+            }
+        }
     }
-
-    /*
-    SETTING PHASE
-    */
 
     /**
      * Setting the bag and the students on the SingleIsland
@@ -104,7 +127,7 @@ public class GameController implements Observer<PlayerEvent> {
         for (int i = 1; i < 12; i++) {
             if (i == 6) i++;
             try {
-                game.getTable().getGroupIslandByIndex(i).getIslandByIndex(0).addStudent(i,0,game.getTable().getBag().bagDrawStudent());
+                game.getTable().getGroupIslandByIndex(i).getIslandByIndex(0).addStudent(i, 0, game.getTable().getBag().bagDrawStudent());
             } catch (IllegalAccessError ex) {
                 ex.printStackTrace();
             }
@@ -184,9 +207,9 @@ public class GameController implements Observer<PlayerEvent> {
      */
     public synchronized void playCharacterCard(String nickname, int characterCard) {
         int player;
-        try{
+        try {
             player = game.getIndexOfPlayer(game.getPlayerByNickname(nickname));
-        } catch(IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             e.printStackTrace();
             return;
         }
@@ -200,8 +223,8 @@ public class GameController implements Observer<PlayerEvent> {
                             game.setActiveCharacterCard(game.getCharacterCardByIndex(characterCard));
                             game.setHasPlayedCharacterCard(true);
                             game.getCurrentPlayer().removeCoins(game.getCharacterCardByIndex(characterCard).getCost());
-                            game.getCharacterCardByIndex(characterCard).incrementCost();
                             game.setCoins(game.getCoins() + game.getCharacterCardByIndex(characterCard).getCost() - 1);
+                            game.getCharacterCardByIndex(characterCard).incrementCost();
                             game.getCharacterCardByIndex(characterCard).professor();
                         } else {
                             game.notifyInvalidAction(nickname, "You cannot play this card");
@@ -209,13 +232,13 @@ public class GameController implements Observer<PlayerEvent> {
                     } catch (IllegalAccessError ex) {
                         ex.printStackTrace();
                     }
-                } else{
+                } else {
                     game.notifyInvalidAction(nickname, "It is not the right phase of the game");
                 }
-            } else{
+            } else {
                 game.notifyInvalidAction(nickname, "For the Character Card choose a number between 0 and 2");
             }
-        } else{
+        } else {
             game.notifyInvalidAction(nickname, "It is not your turn");
         }
     }
@@ -232,11 +255,11 @@ public class GameController implements Observer<PlayerEvent> {
      */
     public synchronized void playAssistantCard(String nickname, int assistantCard) {
         int player;
-        try{
+        try {
             player = game.getIndexOfPlayer(game.getPlayerByNickname(nickname));
-        } catch(IllegalArgumentException e){
-           e.printStackTrace();
-           return;
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+            return;
         }
 
         if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
@@ -244,32 +267,33 @@ public class GameController implements Observer<PlayerEvent> {
                 if (game.getGamePhase() == GamePhase.PLAY_ASSISTANT_CARD) {
                     try {
                         if (game.getPlayerByIndex(player).isAssistantCardPresent(game.getAssistantCard(assistantCard))) {
-                            if (canPlayAssistantCard(nickname, assistantCard)) {
+                            if (canPlayAssistantCard(assistantCard)) {
                                 game.getPlayerByIndex(player).setCurrentAssistantCard(game.getAssistantCard(assistantCard));
                                 game.getPlayerByIndex(player).removeAssistantCard(game.getAssistantCard(assistantCard));
                                 game.getPlayerByIndex(player).setHasAlreadyPlayed(true);
 
                                 if (!endPhasePlay()) {
                                     game.setCurrentPlayer(game.nextPlayerClockwise());
+                                    game.setTurnPhase(TurnPhase.PLAY_ASSISTANT_CARD);
                                 } else {
                                     endPlayAssistantCard();
                                 }
-                            } else{
+                            } else {
                                 game.notifyInvalidAction(nickname, "For this turn you cannot play this assistant card, choose another one");
                             }
-                        } else{
+                        } else {
                             game.notifyInvalidAction(nickname, "You have already played this assistant card");
                         }
                     } catch (IllegalArgumentException ex) {
                         ex.printStackTrace();
                     }
-                } else{
+                } else {
                     game.notifyInvalidAction(nickname, "It is not the right phase to play an assistant card");
                 }
-            } else{
+            } else {
                 game.notifyInvalidAction(nickname, "For the Assistant Card choose a number between 0 and 9");
             }
-        } else{
+        } else {
             game.notifyInvalidAction(nickname, "It is not your turn");
         }
     }
@@ -277,15 +301,13 @@ public class GameController implements Observer<PlayerEvent> {
     /**
      * Check if the player can play an AssistantCard
      *
-     * @param nickname      the nickname of the player
      * @param assistantCard the index of the AssistantCard
      * @return true if the Player can play the AssistantCard, false otherwise
      */
-    private boolean canPlayAssistantCard(String nickname, int assistantCard) {
-        int player = game.getIndexOfPlayer(game.getPlayerByNickname(nickname));
+    private boolean canPlayAssistantCard(int assistantCard) {
         boolean check = true;
-        for (int i = 0; i < player; i++) {
-            if (game.getPlayerByIndex(i).getHasAlreadyPlayed()) {
+        for (int i = 0; i < game.getNumberOfPlayer(); i++) {
+            if (game.getPlayerByIndex(i).getHasAlreadyPlayed() && !game.getCurrentPlayer().equals(game.getPlayerByIndex(i))) {
                 try {
                     if (game.getPlayerByIndex(i).getCurrentAssistantCard().equals(game.getAssistantCard(assistantCard))) {
                         check = false;
@@ -299,6 +321,7 @@ public class GameController implements Observer<PlayerEvent> {
         if (check) {
             return true;
         }
+
 
         for (int j = 0; j < 10; j++) {
             if (game.getCurrentPlayer().isAssistantCardPresent(game.getAssistantCard(j))) {
@@ -321,7 +344,6 @@ public class GameController implements Observer<PlayerEvent> {
 
         return true;
 
-
     }
 
     /*
@@ -338,9 +360,9 @@ public class GameController implements Observer<PlayerEvent> {
      */
     public synchronized void moveStudentToIsland(String nickname, Colour colour, int groupIsland, int singleIsland) {
         int player;
-        try{
+        try {
             player = game.getIndexOfPlayer(game.getPlayerByNickname(nickname));
-        } catch(IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             e.printStackTrace();
             return;
         }
@@ -355,19 +377,19 @@ public class GameController implements Observer<PlayerEvent> {
                             if (checkEndMovementPhase(player)) {
                                 game.setTurnPhase(TurnPhase.MOVE_MOTHER_NATURE);
                             }
-                        } else{
+                        } else {
                             game.notifyInvalidAction(nickname, "You have already moved all your students");
                         }
-                    } else{
+                    } else {
                         game.notifyInvalidAction(nickname, "You have not enough student of the given colour");
                     }
-                } else{
+                } else {
                     game.notifyInvalidAction(nickname, "This is not the right phase of the game");
                 }
-            } else{
+            } else {
                 game.notifyInvalidAction(nickname, "You have chosen an island out of range");
             }
-        } else{
+        } else {
             game.notifyInvalidAction(nickname, "This is not your turn");
         }
     }
@@ -380,9 +402,9 @@ public class GameController implements Observer<PlayerEvent> {
      */
     public synchronized void moveStudentToDiningRoom(String nickname, Colour colour) {
         int player;
-        try{
+        try {
             player = game.getIndexOfPlayer(game.getPlayerByNickname(nickname));
-        } catch(IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             e.printStackTrace();
             return;
         }
@@ -405,24 +427,24 @@ public class GameController implements Observer<PlayerEvent> {
                             }
                             if (!game.getCurrentPlayer().getSchoolBoard().hasProfessor(colour)) {
                                 game.getActiveCharacterCard().checkProfessor(colour);
-                                if(game.getCurrentPlayer().getSchoolBoard().hasProfessor(colour)){
+                                if (game.getCurrentPlayer().getSchoolBoard().hasProfessor(colour)) {
                                     game.getTable().setNoProfessorOnTable(colour);
                                 }
                             }
                             if (checkEndMovementPhase(player)) {
                                 game.setTurnPhase(TurnPhase.MOVE_MOTHER_NATURE);
                             }
-                        } else{
+                        } else {
                             game.notifyInvalidAction(nickname, "You have moved too many students");
                         }
-                    } else{
+                    } else {
                         game.notifyInvalidAction(nickname, "You have not enough student of the given colour");
                     }
                 }
-            } else{
+            } else {
                 game.notifyInvalidAction(nickname, "It is not the right phase of the game");
             }
-        } else{
+        } else {
             game.notifyInvalidAction(nickname, "You are not the current player, wait your turn");
         }
     }
@@ -460,9 +482,9 @@ public class GameController implements Observer<PlayerEvent> {
      */
     public synchronized void moveMotherNature(String nickname, int movement) {
         int player;
-        try{
+        try {
             player = game.getIndexOfPlayer(game.getPlayerByNickname(nickname));
-        } catch(IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             e.printStackTrace();
             return;
         }
@@ -485,16 +507,16 @@ public class GameController implements Observer<PlayerEvent> {
                             }
                         }
                     } else {
-                        game.notifyInvalidAction(nickname,"The number of movement is too high");
+                        game.notifyInvalidAction(nickname, "The number of movement is too high");
                     }
                 } else {
-                    game.notifyInvalidAction(nickname,"The number of movement must be positive");
+                    game.notifyInvalidAction(nickname, "The number of movement must be positive");
                 }
             } else {
-                game.notifyInvalidAction(nickname,"It is not the right game phase");
+                game.notifyInvalidAction(nickname, "It is not the right game phase");
             }
         } else {
-            game.notifyInvalidAction(nickname,"It is not your turn");
+            game.notifyInvalidAction(nickname, "It is not your turn");
         }
     }
 
@@ -503,7 +525,7 @@ public class GameController implements Observer<PlayerEvent> {
      */
     private void endGame() {
         game.setGamePhase(GamePhase.END_GAME);
-        game.setTurnPhase(TurnPhase.WAITING);
+        game.setTurnPhase(TurnPhase.ENDGAME);
     }
 
     /**
@@ -527,11 +549,11 @@ public class GameController implements Observer<PlayerEvent> {
      * Sets the end of the playAssistantCardPhase
      */
     private void endPlayAssistantCard() {
-        game.setGamePhase(GamePhase.PLAYING);
         nobodyPlayed();
         game.setFirstPlayerLastTurn(game.getFirstPlayerTurn());
         game.setFirstPlayerTurn(game.nextPlayerTurn());
         game.setCurrentPlayer(game.nextPlayerTurn());
+        game.setGamePhase(GamePhase.PLAYING);
         game.setTurnPhase(TurnPhase.MOVE_STUDENT);
     }
 
@@ -566,15 +588,16 @@ public class GameController implements Observer<PlayerEvent> {
                         game.addPlayer(new BasicPlayer(nickname, wizard, TowerColour.valueOf(game.getNumberOfPlayer())));
                     }
                 } else {
-                    game.notifyInvalidAction(nickname,"Your wizard is not unique");
+                    game.notifyInvalidAction(nickname, "Your wizard is not unique");
                 }
             } else {
-                game.notifyInvalidAction(nickname,"Your nickname is not unique");
+                game.notifyInvalidAction(nickname, "Your nickname is not unique");
             }
 
             if (numberOfPlayer == game.getNumberOfPlayer()) {
                 game.setCurrentPlayer(game.getPlayerByIndex(0));
                 game.setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
+                game.setTurnPhase(TurnPhase.PLAY_ASSISTANT_CARD);
             }
         }
     }
@@ -645,9 +668,9 @@ public class GameController implements Observer<PlayerEvent> {
      */
     public synchronized void chooseCloudTile(String nickname, int cloudTile) {
         int player;
-        try{
+        try {
             player = game.getIndexOfPlayer(game.getPlayerByNickname(nickname));
-        } catch(IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             e.printStackTrace();
             return;
         }
@@ -662,13 +685,13 @@ public class GameController implements Observer<PlayerEvent> {
                     }
                     game.getTable().removeCLoudTile(game.getTable().getCloudTilesByIndex(cloudTile));
                     endTurn();
-                } else{
+                } else {
                     game.notifyInvalidAction(nickname, "The number of cloud tile given is out of range");
                 }
-            } else{
+            } else {
                 game.notifyInvalidAction(nickname, "It is not the right game phase");
             }
-        } else{
+        } else {
             game.notifyInvalidAction(nickname, "It is not your turn");
         }
     }
@@ -679,35 +702,39 @@ public class GameController implements Observer<PlayerEvent> {
     private void endTurn() {
         game.getCurrentPlayer().setHasAlreadyPlayed(true);
 
+        if (isGameExpert) {
+            try {
+                game.setHasPlayedCharacterCard(false);
+                if (!game.getActiveCharacterCard().equals(game.getBasicState())) {
+                    game.setActiveCharacterCard(game.getBasicState());
+                }
+            } catch (IllegalAccessError ex) {
+                ex.printStackTrace();
+            }
+        }
+
         if (!(endPhasePlay())) {
             game.setCurrentPlayer(game.nextPlayerTurn());
             game.setTurnPhase(TurnPhase.MOVE_STUDENT);
         } else {
             if (!game.getTable().getBag().getNoStudent()) {
                 settingCloudTile();
-                game.setCurrentPlayer(game.getFirstPlayerTurn());
-                game.setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
-                game.setTurnPhase(TurnPhase.WAITING);
                 game.incrementRound();
-                nobodyPlayed();
                 if (game.getRound() >= 11) {
                     calculateWinner();
                     endGame();
+                } else {
+                    game.setCurrentPlayer(game.getFirstPlayerTurn());
+                    game.setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
+                    game.setTurnPhase(TurnPhase.PLAY_ASSISTANT_CARD);
                 }
+                nobodyPlayed();
+
             } else {
                 calculateWinner();
                 endGame();
             }
 
-        }
-
-        if (isGameExpert) {
-            try {
-                game.setHasPlayedCharacterCard(false);
-                game.setActiveCharacterCard(game.getBasicState());
-            } catch (IllegalAccessError ex) {
-                ex.printStackTrace();
-            }
         }
     }
 
@@ -719,9 +746,9 @@ public class GameController implements Observer<PlayerEvent> {
      */
     public synchronized void setColour(String nickname, Colour colour) {
         int player;
-        try{
+        try {
             player = game.getIndexOfPlayer(game.getPlayerByNickname(nickname));
-        } catch(IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             e.printStackTrace();
             return;
         }
@@ -729,11 +756,10 @@ public class GameController implements Observer<PlayerEvent> {
         if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
             try {
                 game.getActiveCharacterCard().setColour(colour);
-            } catch (IllegalAccessError ex) {
-                ex.printStackTrace();
+            } catch (IllegalAccessError | IllegalArgumentException ex) {
                 game.notifyInvalidAction(nickname, ex.getMessage());
             }
-        } else{
+        } else {
             game.notifyInvalidAction(nickname, "You are not the current player, wait your turn");
         }
     }
@@ -748,9 +774,9 @@ public class GameController implements Observer<PlayerEvent> {
      */
     public synchronized void setColourAndIsland(String nickname, Colour colour, int groupIsland, int singleIsland) {
         int player;
-        try{
+        try {
             player = game.getIndexOfPlayer(game.getPlayerByNickname(nickname));
-        } catch(IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             e.printStackTrace();
             return;
         }
@@ -760,10 +786,9 @@ public class GameController implements Observer<PlayerEvent> {
                 if (groupIsland >= 0 && groupIsland < game.getTable().getNumberOfGroupIsland() && singleIsland >= 0 && singleIsland < game.getTable().getGroupIslandByIndex(groupIsland).getNumberOfSingleIsland())
                     game.getActiveCharacterCard().setColourAndIsland(colour, game.getTable().getGroupIslandByIndex(groupIsland).getIslandByIndex(singleIsland));
             } catch (IllegalAccessError | IllegalArgumentException ex) {
-                ex.printStackTrace();
                 game.notifyInvalidAction(nickname, ex.getMessage());
             }
-        } else{
+        } else {
             game.notifyInvalidAction(nickname, "You are not the current player, wait your turn");
         }
 
@@ -777,9 +802,9 @@ public class GameController implements Observer<PlayerEvent> {
      */
     public synchronized void setGroupIsland(String nickname, int groupIsland) {
         int player;
-        try{
+        try {
             player = game.getIndexOfPlayer(game.getPlayerByNickname(nickname));
-        } catch(IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             e.printStackTrace();
             return;
         }
@@ -788,11 +813,10 @@ public class GameController implements Observer<PlayerEvent> {
             try {
                 if (groupIsland >= 0 && groupIsland < game.getTable().getNumberOfGroupIsland())
                     game.getActiveCharacterCard().setGroupIsland(groupIsland);
-            } catch (IllegalAccessError ex) {
-                ex.printStackTrace();
+            } catch (IllegalAccessError | IllegalArgumentException ex) {
                 game.notifyInvalidAction(nickname, ex.getMessage());
             }
-        } else{
+        } else {
             game.notifyInvalidAction(nickname, "You are not the current player, wait your turn");
         }
     }
@@ -806,9 +830,9 @@ public class GameController implements Observer<PlayerEvent> {
      */
     public synchronized void setColourDiningRoomEntrance(String nickname, Colour colourDiningRoom, Colour colourEntrance) {
         int player;
-        try{
+        try {
             player = game.getIndexOfPlayer(game.getPlayerByNickname(nickname));
-        } catch(IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             e.printStackTrace();
             return;
         }
@@ -816,11 +840,10 @@ public class GameController implements Observer<PlayerEvent> {
         if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
             try {
                 game.getActiveCharacterCard().setColourDiningRoomEntrance(colourDiningRoom, colourEntrance);
-            } catch (IllegalAccessError ex) {
-                ex.printStackTrace();
+            } catch (IllegalAccessError | IllegalArgumentException ex) {
                 game.notifyInvalidAction(nickname, ex.getMessage());
             }
-        } else{
+        } else {
             game.notifyInvalidAction(nickname, "You are not the current player, wait your turn");
         }
     }
@@ -834,9 +857,9 @@ public class GameController implements Observer<PlayerEvent> {
      */
     public synchronized void setColourCardEntrance(String nickname, Colour colourCard, Colour colourEntrance) {
         int player;
-        try{
+        try {
             player = game.getIndexOfPlayer(game.getPlayerByNickname(nickname));
-        } catch(IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             e.printStackTrace();
             return;
         }
@@ -844,11 +867,10 @@ public class GameController implements Observer<PlayerEvent> {
         if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
             try {
                 game.getActiveCharacterCard().setColourCardEntrance(colourCard, colourEntrance);
-            } catch (IllegalAccessError ex) {
-                ex.printStackTrace();
+            } catch (IllegalAccessError | IllegalArgumentException ex) {
                 game.notifyInvalidAction(nickname, ex.getMessage());
             }
-        } else{
+        } else {
             game.notifyInvalidAction(nickname, "You are not the current player, wait your turn");
         }
     }

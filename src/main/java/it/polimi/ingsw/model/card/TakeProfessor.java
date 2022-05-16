@@ -54,7 +54,9 @@ public class TakeProfessor extends CharacterCard {
     @Override
     public void professor() {
         for (Colour colour : Colour.values()) {
-            this.checkProfessor(colour);
+            if (!(game.getCurrentPlayer().getSchoolBoard().getDiningRoom(colour) == 0)) {
+                this.checkProfessor(colour);
+            }
         }
     }
 }

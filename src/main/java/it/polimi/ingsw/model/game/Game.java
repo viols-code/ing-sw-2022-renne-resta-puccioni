@@ -103,6 +103,13 @@ public abstract class Game extends Observable<IServerPacket> {
         basicState = activeCharacterCard;
         assistantCard = new ArrayList<>();
 
+        studentNumberMovement = 0;
+        numberOfTowersPerPlayer = 0;
+        numberStudentsEntrance = 0;
+        winner = null;
+    }
+
+    public void setUp() {
         AssistantCard card1 = new AssistantCard(1, 1);
         assistantCard.add(card1);
         AssistantCard card2 = new AssistantCard(2, 1);
@@ -124,12 +131,8 @@ public abstract class Game extends Observable<IServerPacket> {
         AssistantCard card10 = new AssistantCard(10, 5);
         assistantCard.add(card10);
 
-        studentNumberMovement = 0;
-        numberOfTowersPerPlayer = 0;
-        numberStudentsEntrance = 0;
         setGamePhase(GamePhase.SETTING);
         setTurnPhase(TurnPhase.WAITING);
-        winner = null;
     }
 
     /*
@@ -194,20 +197,8 @@ public abstract class Game extends Observable<IServerPacket> {
      */
     public void addPlayer(Player player) {
         this.players.add(player);
-        player.getSchoolBoard().addTower(this.numberOfTowersPerPlayer);
-        for (int i = 0; i < this.numberStudentsEntrance; i++) {
-            try {
-                player.getSchoolBoard().addStudentToEntrance(this.getTable().getBag().bagDrawStudent());
-            } catch (IllegalAccessError ex) {
-                ex.printStackTrace();
-            }
-        }
-
-        for (int i = 0; i < 10; i++) {
-            player.addAssistantCard(this.getAssistantCard(i));
-        }
-
         //notify(new PlayersUpdate(player.getNickname(),player.getWizard()));
+        notify(new TowerColourUpdate(player.getNickname(),player.getTowerColour()));
     }
 
     /**
@@ -656,7 +647,7 @@ public abstract class Game extends Observable<IServerPacket> {
     /**
      * Notifies the Player that one of the action that he has tried to perform is invalid.
      *
-     * @param player the player that should be notified
+     * @param player  the player that should be notified
      * @param message the error message
      */
     public void notifyInvalidAction(String player, String message) {

@@ -65,7 +65,7 @@ public class Lobby extends Observable<IServerPacket> {
 
         if (firstConnection == null)
             firstConnection = connection;
-            indexOfFirstConnection = connections.indexOf(firstConnection);
+        indexOfFirstConnection = connections.indexOf(firstConnection);
 
         notify(new AddToLobbyMessage(connection, firstConnection == connection));
     }
@@ -78,7 +78,7 @@ public class Lobby extends Observable<IServerPacket> {
      * @param playerName the player name to be set, if it's null or empty sends an error message to the client
      */
     public void setPlayerName(SocketClientConnection connection, String playerName) {
-        if (playerName == null || playerName.trim().equals("")) {
+        if (playerName == null || playerName.trim().equalsIgnoreCase("")) {
             notify(new ErrorMessage(connection, "Your username can't be empty"));
             return;
         }
@@ -105,11 +105,11 @@ public class Lobby extends Observable<IServerPacket> {
      * an error message to the client.
      *
      * @param connection the connection that will have its player name set
-     * @param wizard the wizard to be set, if it's null or empty sends an error message to the client
+     * @param wizard     the wizard to be set, if it's null or empty sends an error message to the client
      */
-    public void setPlayerWizard(SocketClientConnection connection, Wizard wizard){
+    public void setPlayerWizard(SocketClientConnection connection, Wizard wizard) {
         if (wizard == null) {
-            notify(new ErrorMessage(connection, "Your wizard can't be empty"));
+            notify(new ErrorMessage(connection, "Choose a number between 1 and 4"));
             return;
         }
 
@@ -127,14 +127,14 @@ public class Lobby extends Observable<IServerPacket> {
                 otherWizard.add(con.getWizard());
         });
 
-        if(connection.getPlayerName() != null) {
+        if (connection.getPlayerName() != null) {
             Integer players;
-            if(playersToStart == -1){
+            if (playersToStart == -1) {
                 players = null;
             } else {
                 players = playersToStart;
             }
-            notify(new PlayerConnectMessage(connection.getPlayerName(), wizard, connections.size(), players));
+            notify(new PlayerConnectMessage(connection.getPlayerName(), wizard, connections.indexOf(connection) + 1, players));
             notify(new CorrectWizardMessage(connection, wizard, otherWizard));
         }
     }
@@ -169,8 +169,9 @@ public class Lobby extends Observable<IServerPacket> {
     /**
      * Sets the gameMode (expert or basic), if the given connection is not the first connection to the lobby
      * sends an error message to the client. If the game mode chosen is not one of the available ones sends an error to the client.
-     * @param connection
-     * @param gameMode
+     *
+     * @param connection the connection
+     * @param gameMode   the game mode chosen
      */
     public void setGameMode(SocketClientConnection connection, Boolean gameMode) {
         if (connections.indexOf(connection) != indexOfFirstConnection) {
@@ -196,7 +197,8 @@ public class Lobby extends Observable<IServerPacket> {
     }
 
     /**
-     * gets the gaemMode chosen
+     * gets the gameMode chosen
+     *
      * @return true if the gameMode is Expert
      */
     public boolean getGameMode() {
@@ -205,6 +207,7 @@ public class Lobby extends Observable<IServerPacket> {
 
     /**
      * Gets the number of players for the game
+     *
      * @return the number of players participating in the game
      */
     public int getPlayersToStart() {
@@ -215,9 +218,9 @@ public class Lobby extends Observable<IServerPacket> {
      * Notifies all connected clients that the game is starting.
      */
     public synchronized void startGame() {
-        HashMap<String,Wizard> players = new HashMap<>();
-        connections.forEach(connection ->  players.put(connection.getPlayerName(),connection.getWizard()));
-        notify(new AllPlayersConnectedMessage(players,gameMode,playersToStart));
+        HashMap<String, Wizard> players = new HashMap<>();
+        connections.forEach(connection -> players.put(connection.getPlayerName(), connection.getWizard()));
+        notify(new AllPlayersConnectedMessage(players, gameMode, playersToStart));
         notify(new GameStartMessage(gameMode));
         notify(new GameCanStartMessage());
     }

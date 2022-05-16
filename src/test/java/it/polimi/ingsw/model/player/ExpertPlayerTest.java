@@ -13,8 +13,10 @@ class ExpertPlayerTest {
     @BeforeEach
     void setUp() {
         gameController = new GameController(true, 2);
+        gameController.setUp();
         gameController.getGame().addPlayer(new ExpertPlayer("sara", Wizard.TYPE_1, TowerColour.WHITE));
         gameController.getGame().addPlayer(new ExpertPlayer("laura", Wizard.TYPE_2, TowerColour.BLACK));
+        gameController.setUpCharactersAndIslands();
     }
 
     @Test
