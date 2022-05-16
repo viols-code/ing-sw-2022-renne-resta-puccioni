@@ -24,6 +24,11 @@ public abstract class ClientMessage implements Serializable, IProcessablePacket<
         return clientConnection;
     }
 
+    /**
+     * Sets the ClientConnection of this message.
+     *
+     * @param clientConnection the clientConnection to be set
+     */
     public void setClientConnection(SocketClientConnection clientConnection) {
         this.clientConnection = clientConnection;
     }
