@@ -409,7 +409,7 @@ public class CommandHandler {
 
                 if(cli.getGameMode()){
                     if(cli.getModel().getCurrentCharacterCard() != null && (cli.getModel().getCurrentCharacterCard().getType() == CharacterCardEnumeration.NO_COLOUR ||
-                            cli.getModel().getCurrentCharacterCard().getType() == CharacterCardEnumeration.THREE_STUDENT)){
+                            cli.getModel().getCurrentCharacterCard().getType() == CharacterCardEnumeration.THREE_STUDENT || cli.getModel().getCurrentCharacterCard().getType() == CharacterCardEnumeration.STUDENT_TO_DINING_ROOM)){
                         Colour colour = Colour.valueOf(args[1].toUpperCase(Locale.ROOT));
                         cli.getActionSender().setColour(cli.getPlayerName(), colour);
                     } else{
