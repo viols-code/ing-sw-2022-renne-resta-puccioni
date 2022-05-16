@@ -10,13 +10,13 @@ Software Engineering Project A.A. 2021/2022
 
 | Functionality | State |
 |:-----------------------|:------------------------------------:|
-| Basic rules | [![GREEN](https://via.placeholder.com//15/44bb44/44bb44)](#) |
-| Complete rules | [![GREEN](https://via.placeholder.com//15/44bb44/44bb44)](#) |
+| Basic rules | ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) |
+| Complete rules | ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) |
 | CLI | [![YELLOW](https://via.placeholder.com//15/ffdd00/ffdd00)](#) |
 | GUI |  ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) |
 | Socket | [![YELLOW](https://via.placeholder.com//15/ffdd00/ffdd00)](#) |
-| Character Cards | [![GREEN](https://via.placeholder.com//15/44bb44/44bb44)](#) |
-| Multiple games | [![GREEN](https://via.placeholder.com//15/44bb44/44bb44)](#) |ù
+| Character Cards | ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) |
+| Multiple games | ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+)|
 | Third | ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+)|
 <!--
 [![RED](https://via.placeholder.com//15/f03c15/f03c15)](#)
