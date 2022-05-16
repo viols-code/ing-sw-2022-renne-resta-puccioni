@@ -7,17 +7,18 @@ Software Engineering Project A.A. 2021/2022
 **Group**: GC16
 
 ## Project Status
+🟥🟧🟨🟩
 
 | Functionality | State |
 |:-----------------------|:------------------------------------:|
-| Basic rules | ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) |
-| Complete rules | ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) |
-| CLI | [![YELLOW](https://via.placeholder.com//15/ffdd00/ffdd00)](#) |
-| GUI |  ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) |
-| Socket | [![YELLOW](https://via.placeholder.com//15/ffdd00/ffdd00)](#) |
-| Character Cards | ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) |
-| Multiple games | ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+)|
-| Third | ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+)|
+| Basic rules | 🟩 |
+| Complete rules | 🟩 |
+| CLI | 🟨 |
+| GUI |  🟥 |
+| Socket | 🟩 |
+| Character Cards | 🟩 |
+| Multiple games | 🟩|
+| Third | 🟥|
 <!--
 [![RED](https://via.placeholder.com//15/f03c15/f03c15)](#)
 [![YELLOW](https://via.placeholder.com//15/ffdd00/ffdd00)](#)
