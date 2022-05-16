@@ -1,7 +1,6 @@
 package it.polimi.ingsw.model.table.island;
 
 import it.polimi.ingsw.model.Colour;
-import it.polimi.ingsw.model.messages.InfluencePlayerUpdate;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.observer.Observable;
 import it.polimi.ingsw.server.IServerPacket;

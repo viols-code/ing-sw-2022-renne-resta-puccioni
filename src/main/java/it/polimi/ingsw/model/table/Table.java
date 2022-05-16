@@ -63,11 +63,11 @@ public class Table extends Observable<IServerPacket> {
         return bag;
     }
 
-    public boolean isProfessorOnTable(Colour colour){
+    public boolean isProfessorOnTable(Colour colour) {
         return professors.get(colour);
     }
 
-    public void setNoProfessorOnTable(Colour colour){
+    public void setNoProfessorOnTable(Colour colour) {
         professors.replace(colour, professors.get(colour), false);
         notify(new ProfessorsUpdate(colour));
     }
@@ -166,7 +166,7 @@ public class Table extends Observable<IServerPacket> {
      * @param motherNaturePosition the position to be set
      */
     public void setMotherNaturePosition(int motherNaturePosition) {
-        if(this.motherNaturePosition < getNumberOfGroupIsland()){
+        if (this.motherNaturePosition < getNumberOfGroupIsland()) {
             getGroupIslandByIndex(this.motherNaturePosition).removeMotherNature();
         }
         this.motherNaturePosition = motherNaturePosition;
@@ -180,7 +180,7 @@ public class Table extends Observable<IServerPacket> {
      * @param motherNaturePosition the position to be set
      */
     public void setMotherNaturePositionUnify(int motherNaturePosition) {
-        if(this.motherNaturePosition < getNumberOfGroupIsland()){
+        if (this.motherNaturePosition < getNumberOfGroupIsland()) {
             getGroupIslandByIndex(this.motherNaturePosition).removeMotherNature();
         }
         this.motherNaturePosition = motherNaturePosition;
@@ -221,7 +221,7 @@ public class Table extends Observable<IServerPacket> {
         for (Colour colour : Colour.values()) {
             students.put(colour, cloudTile.getTileStudents(colour));
         }
-        notify(new NewCloudTileUpdate(cloudTiles.indexOf(cloudTile),students));
+        notify(new NewCloudTileUpdate(cloudTiles.indexOf(cloudTile), students));
     }
 
     /**
@@ -236,7 +236,7 @@ public class Table extends Observable<IServerPacket> {
         for (Colour colour : Colour.values()) {
             students.put(colour, 0);
         }
-        notify(new RemoveCloudTileUpdate(index,students));
+        notify(new RemoveCloudTileUpdate(index, students));
     }
 
 }

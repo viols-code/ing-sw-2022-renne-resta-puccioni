@@ -3,7 +3,6 @@ package it.polimi.ingsw.model.card;
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.Game;
 import it.polimi.ingsw.model.messages.StudentToIslandUpdate;
-import it.polimi.ingsw.model.table.island.GroupIsland;
 import it.polimi.ingsw.model.table.island.SingleIsland;
 import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
 
@@ -80,7 +79,7 @@ public class StudentToIsland extends CharacterCard {
     @Override
     protected void effect() {
         List<Integer> indexes = getGroupIslandIndexAndSingleIslandIndexes();
-        islandChosen.addStudent(indexes.get(0),indexes.get(1),colour);
+        islandChosen.addStudent(indexes.get(0), indexes.get(1), colour);
         studentsOnCard.replace(colour, studentsOnCard.get(colour), studentsOnCard.get(colour) - 1);
         try {
             Colour newColour = game.getTable().getBag().bagDrawStudent();
@@ -92,11 +91,11 @@ public class StudentToIsland extends CharacterCard {
         game.setActiveCharacterCard(game.getBasicState());
     }
 
-    private List<Integer> getGroupIslandIndexAndSingleIslandIndexes(){
+    private List<Integer> getGroupIslandIndexAndSingleIslandIndexes() {
         List<Integer> indexes = new ArrayList<>();
-        for(int i=0; i < game.getTable().getNumberOfGroupIsland(); i++){
-            for(int j=0; j < game.getTable().getGroupIslandByIndex(i).getNumberOfSingleIsland(); j++){
-                if(islandChosen.equals(game.getTable().getGroupIslandByIndex(i).getIslandByIndex(j))){
+        for (int i = 0; i < game.getTable().getNumberOfGroupIsland(); i++) {
+            for (int j = 0; j < game.getTable().getGroupIslandByIndex(i).getNumberOfSingleIsland(); j++) {
+                if (islandChosen.equals(game.getTable().getGroupIslandByIndex(i).getIslandByIndex(j))) {
                     indexes.add(i);
                     indexes.add(j);
                 }

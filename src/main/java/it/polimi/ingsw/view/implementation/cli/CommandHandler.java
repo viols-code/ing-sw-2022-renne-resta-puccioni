@@ -1,7 +1,6 @@
 package it.polimi.ingsw.view.implementation.cli;
 
 import it.polimi.ingsw.model.Colour;
-import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.implementation.cli.utils.ViewString;
 
 import java.lang.reflect.InvocationTargetException;
@@ -14,19 +13,21 @@ public class CommandHandler {
 
     /**
      * Creates a new CommandHandler for the given CLI.
+     *
      * @param cli the cli to be associated to this CommandHandler
      */
     public CommandHandler(CLI cli) {
         this.cli = cli;
     }
 
-    public String extractCommand(String str){
+    public String extractCommand(String str) {
         return str.substring(0, 1).toUpperCase(Locale.ROOT) + str.substring(1);
     }
 
 
     /**
      * The main method. It parses the input, checking if it corresponds to a possible move, and in this case it calls it.
+     *
      * @param command user input in the CLI
      * @throws IllegalArgumentException if the input does not match with any possible player action
      */
@@ -41,7 +42,7 @@ public class CommandHandler {
         String cmd = split[0];
         String[] args = new String[0];
         if (cmd.equals("view")) {
-            if(split.length == 1){
+            if (split.length == 1) {
                 System.out.println(ViewString.INCORRECT_COMMAND);
                 return;
             }
@@ -52,8 +53,8 @@ public class CommandHandler {
             }
             cmd = cmd.concat(split[1]);
             args = null;
-        } else if(cmd.equals("play")){
-            if(split.length < 3){
+        } else if (cmd.equals("play")) {
+            if (split.length < 3) {
                 System.out.println(ViewString.INCORRECT_FORMAT + ViewString.PLAY);
                 return;
             }
@@ -76,7 +77,7 @@ public class CommandHandler {
             }
         } catch (NoSuchMethodException | SecurityException |
                 IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-            throw new IllegalArgumentException(ViewString.INCORRECT_COMMAND);
+            throw new IllegalArgumentException(e.getMessage());
         }
     }
 
@@ -84,7 +85,7 @@ public class CommandHandler {
      * Calls the method to make the player see the character cards.
      */
     public void viewCharacterCards() {
-        if(cli.getGameMode()){
+        if (cli.getGameMode()) {
             cli.getRenderer().printCharacterCards();
         } else {
             System.out.println(ViewString.GAME_MODE);
@@ -103,9 +104,9 @@ public class CommandHandler {
      */
     public void viewCurrentAssistantCard() {
 
-        if(cli.getModel().getLocalPlayer().getCurrentAssistantCard() != null) {
+        if (cli.getModel().getLocalPlayer().getCurrentAssistantCard() != null) {
             cli.getRenderer().printLocalPlayerCurrentAssistantCard();
-        }else{
+        } else {
             cli.getRenderer().showGameMessage(ViewString.YOUR_CARD_NOT_PLAYED);
         }
     }
@@ -114,7 +115,7 @@ public class CommandHandler {
      * Calls the method to make the player see their assistant cards.
      */
     public void viewActiveCharacterCard() {
-        if(cli.getGameMode()){
+        if (cli.getGameMode()) {
             cli.getRenderer().printActiveCharacterCard();
         } else {
             System.out.println(ViewString.GAME_MODE);
@@ -145,7 +146,7 @@ public class CommandHandler {
     /**
      * Calls the method to make the player see the professors on the table.
      */
-    public void viewProfessors(){
+    public void viewProfessors() {
         cli.getRenderer().printTableProfessors();
     }
 
@@ -153,7 +154,7 @@ public class CommandHandler {
      * Calls the method to make the player see the local player coins.
      */
     public void viewCoins() {
-        if(cli.getGameMode()){
+        if (cli.getGameMode()) {
             cli.getRenderer().printLocalPlayerCoins();
         } else {
             System.out.println(ViewString.GAME_MODE);
@@ -164,7 +165,7 @@ public class CommandHandler {
      * Calls the method to make the player see coins on the table.
      */
     public void viewBank() {
-        if(cli.getGameMode()){
+        if (cli.getGameMode()) {
             cli.getRenderer().printTableCoins();
         } else {
             System.out.println(ViewString.GAME_MODE);
@@ -180,6 +181,7 @@ public class CommandHandler {
 
     /**
      * Checks if the arguments are correct and then calls for the methods to spy other players' boards.
+     *
      * @param args the decomposed user command
      */
     public void spy(String[] args) {
@@ -190,21 +192,21 @@ public class CommandHandler {
         String playerName = args[0];
         playerName = playerName.toLowerCase(Locale.ROOT);
         String object = args[1];
-        for(int i = 2; i < args.length; i++){
+        for (int i = 2; i < args.length; i++) {
             object = object.concat(extractCommand(args[i]));
         }
 
         switch (object) {
             case "schoolBoard" -> cli.getRenderer().printOthersSchoolBoard(playerName);
             case "currentAssistantCard" -> {
-                if(cli.getModel().getPlayerByNickname(playerName).getCurrentAssistantCard() != null) {
+                if (cli.getModel().getPlayerByNickname(playerName).getCurrentAssistantCard() != null) {
                     cli.getRenderer().printOthersCurrentAssistantCard(playerName);
-                }else{
+                } else {
                     cli.getRenderer().showGameMessage(ViewString.CARD_NOT_PLAYED.formatted(playerName));
                 }
             }
             case "coins" -> {
-                if(cli.getGameMode()){
+                if (cli.getGameMode()) {
                     cli.getRenderer().printOthersCoins(playerName);
                 } else {
                     System.out.println(ViewString.GAME_MODE);
@@ -217,6 +219,7 @@ public class CommandHandler {
 
     /**
      * Checks if the arguments are correct and then calls for the action sender to send a "move" action event.
+     *
      * @param args the decomposed user command
      */
     public void move(String[] args) {
@@ -268,9 +271,10 @@ public class CommandHandler {
 
     /**
      * Checks if the arguments are correct and then calls for the action sender to send a "move mother nature" action event.
+     *
      * @param args the decomposed user command
      */
-    public void moveMotherNature(String[] args){
+    public void moveMotherNature(String[] args) {
         if (args.length != 1) {
             cli.getRenderer().showErrorMessage(ViewString.INCORRECT_FORMAT + ViewString.MOVE_MOTHER_NATURE_STEPS);
             return;
@@ -286,9 +290,10 @@ public class CommandHandler {
 
     /**
      * Checks if the arguments are correct and then calls for the action sender to send a "move student to single island" action event.
+     *
      * @param args the decomposed user command
      */
-    public void moveStudentToSingleIsland(String[] args){
+    public void moveStudentToSingleIsland(String[] args) {
         if (args.length != 3) {
             cli.getRenderer().showErrorMessage(ViewString.INCORRECT_FORMAT + ViewString.MOVE_STUDENT_TO_ISLAND);
             return;
@@ -307,9 +312,10 @@ public class CommandHandler {
 
     /**
      * Checks if the arguments are correct and then calls for the action sender to send a "move student to dining room" action event.
+     *
      * @param args the decomposed user command
      */
-    public void moveStudentToDiningRoom(String[] args){
+    public void moveStudentToDiningRoom(String[] args) {
         if (args.length != 1) {
             cli.getRenderer().showErrorMessage(ViewString.INCORRECT_FORMAT + ViewString.MOVE_STUDENT_TO_DINING_ROOM);
             return;
@@ -322,6 +328,7 @@ public class CommandHandler {
 
     /**
      * Checks if the arguments are correct and then calls for the action sender to send a "draw" action event.
+     *
      * @param args the decomposed user command
      */
     public void playAssistantCard(String[] args) {
@@ -340,6 +347,7 @@ public class CommandHandler {
 
     /**
      * Checks if the arguments are correct and then calls for the action sender to send a "draw" action event.
+     *
      * @param args the decomposed user command
      */
     public void playCharacterCard(String[] args) {
@@ -350,9 +358,9 @@ public class CommandHandler {
 
         try {
             int card = Integer.parseInt(args[0]);
-            if(cli.getGameMode()) {
+            if (cli.getGameMode()) {
                 cli.getActionSender().playCharacterCard(cli.getPlayerName(), card);
-            }  else {
+            } else {
                 cli.getRenderer().showErrorMessage(ViewString.GAME_MODE);
             }
         } catch (NumberFormatException e) {
@@ -362,9 +370,10 @@ public class CommandHandler {
 
     /**
      * Checks if the arguments are correct and then calls for the action sender to send a "choose cloud tile" action event.
+     *
      * @param args the decomposed user command
      */
-    public void choose(String[] args){
+    public void choose(String[] args) {
         if (args.length != 1) {
             cli.getRenderer().showErrorMessage(ViewString.INCORRECT_FORMAT + ViewString.CHOOSE_CLOUD_TILE);
             return;
@@ -380,10 +389,11 @@ public class CommandHandler {
 
     /**
      * Checks if the arguments are correct and then calls for the action sender to send a "select" action event.
+     *
      * @param args the decomposed user command
      */
 
-    public void select(String[] args){
+    public void select(String[] args) {
         if (args.length < 1) {
             cli.getRenderer().showErrorMessage(ViewString.INCORRECT_COMMAND);
             return;
@@ -405,7 +415,7 @@ public class CommandHandler {
                     cli.getRenderer().showErrorMessage(ViewString.INCORRECT_FORMAT + ViewString.SELECT_GROUP_ISLAND);
                     return;
                 }
-                if (!args[1].equals("island")){
+                if (!args[1].equals("island")) {
                     cli.getRenderer().showErrorMessage(ViewString.INCORRECT_FORMAT + ViewString.SELECT_GROUP_ISLAND);
                     return;
                 }
@@ -426,16 +436,17 @@ public class CommandHandler {
 
     /**
      * Checks if the arguments are correct and then calls for the action sender to send a "set colour and island" action event.
+     *
      * @param args the decomposed user command
      */
-    public void put(String[] args){
+    public void put(String[] args) {
         if (args.length != 4) {
             cli.getRenderer().showErrorMessage(ViewString.INCORRECT_FORMAT + ViewString.STUDENT_TO_ISLAND);
             return;
         }
         try {
             Colour colour = Colour.valueOf(args[0].toUpperCase(Locale.ROOT));
-            if(!args[1].equals("on")){
+            if (!args[1].equals("on")) {
                 cli.getRenderer().showErrorMessage(ViewString.INCORRECT_FORMAT + ViewString.STUDENT_TO_ISLAND);
                 return;
             }
@@ -449,9 +460,10 @@ public class CommandHandler {
 
     /**
      * Checks if the arguments are correct and then calls for the action sender to send "exchange" action event.
+     *
      * @param args the decomposed user command
      */
-    public void exchange(String[] args){
+    public void exchange(String[] args) {
         if (args.length < 1) {
             cli.getRenderer().showErrorMessage(ViewString.INCORRECT_FORMAT);
             return;
@@ -459,17 +471,17 @@ public class CommandHandler {
 
         switch (args[0]) {
             case "dining" -> {
-                if (args.length != 5){
+                if (args.length != 5) {
                     cli.getRenderer().showErrorMessage(ViewString.INCORRECT_FORMAT + ViewString.EXCHANGE_DINING_ROOM_ENTRANCE);
                     return;
                 }
 
-                if (!args[1].equals("room")){
+                if (!args[1].equals("room")) {
                     cli.getRenderer().showErrorMessage(ViewString.INCORRECT_FORMAT + ViewString.EXCHANGE_DINING_ROOM_ENTRANCE);
                     return;
                 }
 
-                if (!args[3].equals("entrance")){
+                if (!args[3].equals("entrance")) {
                     cli.getRenderer().showErrorMessage(ViewString.INCORRECT_FORMAT + ViewString.EXCHANGE_DINING_ROOM_ENTRANCE);
                     return;
                 }
@@ -485,7 +497,7 @@ public class CommandHandler {
                     cli.getRenderer().showErrorMessage(ViewString.INCORRECT_FORMAT + ViewString.STUDENT_TO_ENTRANCE);
                     return;
                 }
-                if (!args[2].equals("card")){
+                if (!args[2].equals("card")) {
                     cli.getRenderer().showErrorMessage(ViewString.INCORRECT_FORMAT + ViewString.STUDENT_TO_ENTRANCE);
                     return;
                 }

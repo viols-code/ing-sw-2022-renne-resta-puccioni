@@ -109,7 +109,7 @@ public abstract class Game extends Observable<IServerPacket> {
         winner = null;
     }
 
-    public void setUp(){
+    public void setUp() {
         AssistantCard card1 = new AssistantCard(1, 1);
         assistantCard.add(card1);
         AssistantCard card2 = new AssistantCard(2, 1);
@@ -646,7 +646,7 @@ public abstract class Game extends Observable<IServerPacket> {
     /**
      * Notifies the Player that one of the action that he has tried to perform is invalid.
      *
-     * @param player the player that should be notified
+     * @param player  the player that should be notified
      * @param message the error message
      */
     public void notifyInvalidAction(String player, String message) {

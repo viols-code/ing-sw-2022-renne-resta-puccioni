@@ -19,6 +19,6 @@ public class EntranceUpdate extends PlayerUpdate {
 
     @Override
     public void process(View view) {
-        view.getModelUpdateHandler().updateEntrance(playerName,students);
+        view.getModelUpdateHandler().updateEntrance(playerName, students);
     }
 }

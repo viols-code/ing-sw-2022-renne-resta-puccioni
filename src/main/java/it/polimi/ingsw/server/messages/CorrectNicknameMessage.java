@@ -1,6 +1,5 @@
 package it.polimi.ingsw.server.messages;
 
-import it.polimi.ingsw.model.player.Wizard;
 import it.polimi.ingsw.server.SocketClientConnection;
 import it.polimi.ingsw.view.View;
 

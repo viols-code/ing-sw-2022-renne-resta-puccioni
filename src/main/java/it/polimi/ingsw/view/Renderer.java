@@ -1,10 +1,6 @@
 package it.polimi.ingsw.view;
 
 
-import it.polimi.ingsw.view.beans.MockPlayer;
-
-import java.util.Map;
-
 /**
  * Class responsible for game components rendering, mainly used for the CLI.
  */

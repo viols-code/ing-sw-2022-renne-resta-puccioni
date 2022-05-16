@@ -4,7 +4,6 @@ import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.view.View;
 
 import java.io.Serial;
-import java.util.HashMap;
 
 public class ProfessorsUpdate extends TableUpdate {
     @Serial

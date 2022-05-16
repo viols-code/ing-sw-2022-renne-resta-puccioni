@@ -33,7 +33,7 @@ public class ExpertGame extends Game {
         hasPlayedCharacterCard = false;
     }
 
-    public void setUp(){
+    public void setUp() {
         super.setUp();
         setCoins(20);
     }
@@ -80,7 +80,7 @@ public class ExpertGame extends Game {
     @Override
     public void addCharacterCard(CharacterCard card) {
         characterCards.add(card);
-        if(characterCards.size() == 3){
+        if (characterCards.size() == 3) {
             List<CharacterCardEnumeration> cardsAvailable = new ArrayList<>();
             for (CharacterCard characterCard : characterCards) {
                 cardsAvailable.add(characterCard.getCharacterCardType());

@@ -20,6 +20,6 @@ public class SingleIslandUpdate extends TableUpdate {
 
     @Override
     public void process(View view) {
-        view.getModelUpdateHandler().updateSingleIsland(groupIsland,singleIsland,colour);
+        view.getModelUpdateHandler().updateSingleIsland(groupIsland, singleIsland, colour);
     }
 }

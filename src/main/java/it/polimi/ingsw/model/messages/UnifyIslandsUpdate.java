@@ -7,8 +7,8 @@ import java.io.Serial;
 public class UnifyIslandsUpdate extends GroupIslandUpdate {
     @Serial
     private static final long serialVersionUID = -5511475659820901831L;
-    private int firstGroupIsland;
-    private int secondGroupIsland;
+    private final int firstGroupIsland;
+    private final int secondGroupIsland;
 
     public UnifyIslandsUpdate(int firstGroupIsland, int secondGroupIsland) {
         this.firstGroupIsland = firstGroupIsland;
@@ -17,6 +17,6 @@ public class UnifyIslandsUpdate extends GroupIslandUpdate {
 
     @Override
     public void process(View view) {
-        view.getModelUpdateHandler().updateUnifyIsland(firstGroupIsland,secondGroupIsland);
+        view.getModelUpdateHandler().updateUnifyIsland(firstGroupIsland, secondGroupIsland);
     }
 }

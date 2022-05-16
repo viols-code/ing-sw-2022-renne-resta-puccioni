@@ -18,6 +18,7 @@ public class CLI extends View {
 
     /**
      * Creates a new CLI for the given client
+     *
      * @param client the client that requests a command line interface
      */
     public CLI(Client client) {
@@ -35,13 +36,13 @@ public class CLI extends View {
     }
 
     @Override
-    public void handleCorrectNickname(String nickname, List<String> takenNicknames){
+    public void handleCorrectNickname(String nickname, List<String> takenNicknames) {
         super.handleCorrectNickname(nickname, takenNicknames);
         getRenderer().showLobbyMessage(ViewString.CHOOSE_WIZARD);
     }
 
     @Override
-    public void handleCorrectWizard(Wizard wizard, List<Wizard> takenWizard){
+    public void handleCorrectWizard(Wizard wizard, List<Wizard> takenWizard) {
         super.handleCorrectWizard(wizard, takenWizard);
         switch (wizard) {
             case TYPE_1 -> System.out.println(AnsiColour.GOLD + ASCIIArt.WIZARD_ONE + AnsiColour.RESET);
@@ -49,7 +50,7 @@ public class CLI extends View {
             case TYPE_3 -> System.out.println(AnsiColour.GOLD + ASCIIArt.WIZARD_THREE + AnsiColour.RESET);
             case TYPE_4 -> System.out.println(AnsiColour.GOLD + ASCIIArt.WIZARD_FOUR + AnsiColour.RESET);
         }
-        if(isLobbyMaster()){
+        if (isLobbyMaster()) {
             getRenderer().showLobbyMessage(ViewString.CHOOSE_GAME_MODE);
         } else {
             getRenderer().showLobbyMessage(ViewString.WAITING_PLAYERS);
@@ -57,8 +58,8 @@ public class CLI extends View {
     }
 
     @Override
-    public void handlePlayerConnect(String playerName, Wizard wizard, int currentPlayers, Integer playersToStart){
-        if(playersToStart == null){
+    public void handlePlayerConnect(String playerName, Wizard wizard, int currentPlayers, Integer playersToStart) {
+        if (playersToStart == null) {
             getRenderer().showLobbyMessage(ViewString.PLAYER_CONNECTED_WITH_COUNT.formatted(playerName, currentPlayers));
         } else {
             getRenderer().showLobbyMessage(ViewString.PLAYER_CONNECTED_WITH_COUNT_ON_TOTAL.formatted(playerName, currentPlayers, playersToStart));
@@ -73,18 +74,18 @@ public class CLI extends View {
     }
 
     @Override
-    public void handleGameMode(boolean gameMode){
-        if(!isLobbyMaster()){
-            if(gameMode){
+    public void handleGameMode(boolean gameMode) {
+        if (!isLobbyMaster()) {
+            if (gameMode) {
                 getRenderer().showLobbyMessage(ViewString.GAME_MODE_MESSAGE_EXPERT);
-            } else{
+            } else {
                 getRenderer().showLobbyMessage(ViewString.GAME_MODE_MESSAGE_BASIC);
             }
         }
     }
 
     @Override
-    public void handleGameCanStartMessage(){
+    public void handleGameCanStartMessage() {
         super.handleGameCanStartMessage();
     }
 
@@ -166,36 +167,34 @@ public class CLI extends View {
                 }
 
                 case CHOOSING_NAME -> {
-                    if(command.length() != command.trim().length()){
+                    if (command.length() != command.trim().length()) {
                         getRenderer().showErrorMessage("The nickname must be without empty spaces");
-                    } else if(command.split(" ").length > 1){
+                    } else if (command.split(" ").length > 1) {
                         getRenderer().showErrorMessage("The nickname must be without empty spaces");
-                    } else{
+                    } else {
                         setPlayerName(command);
                     }
                 }
 
                 case CHOOSING_WIZARD -> {
-                        int wizardNumber;
-                        try {
+                    int wizardNumber;
+                    try {
                         wizardNumber = Integer.parseInt(command);
-                        } catch (NumberFormatException e) {
-                            getRenderer().showErrorMessage("Choose a number between 1 and 4");
-                            break;
-                        }
-                        setWizard(Wizard.valueOf(wizardNumber));
+                    } catch (NumberFormatException e) {
+                        getRenderer().showErrorMessage("Choose a number between 1 and 4");
+                        break;
+                    }
+                    setWizard(Wizard.valueOf(wizardNumber));
                 }
 
                 case CHOOSING_GAME_MODE -> {
                     if (command.equalsIgnoreCase("expert")) {
                         getActionSender().setGameMode(true);
                         getRenderer().showLobbyMessage("Playing using the expert game rules!");
-                    }
-                    else if(command.equalsIgnoreCase("basic")){
+                    } else if (command.equalsIgnoreCase("basic")) {
                         getActionSender().setGameMode(false);
                         getRenderer().showLobbyMessage("Playing using the basic game rules!");
-                    }
-                    else{
+                    } else {
                         getRenderer().showErrorMessage("Write 'expert' or 'basic'");
                     }
                 }

@@ -4,9 +4,7 @@ import it.polimi.ingsw.model.AssistantCard;
 import it.polimi.ingsw.model.player.TowerColour;
 import it.polimi.ingsw.model.player.Wizard;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -52,7 +50,7 @@ public class MockPlayer {
     /**
      * A list representing the assistant card deck
      */
-    private final HashMap<Integer,AssistantCard> cards;
+    private final HashMap<Integer, AssistantCard> cards;
 
     /**
      * The current assistant card
@@ -63,8 +61,8 @@ public class MockPlayer {
     /**
      * Constructs the mock player
      *
-     * @param nickname    the string containing the nickname
-     * @param hasCoins    true for expert game mode, false for basic game mode
+     * @param nickname the string containing the nickname
+     * @param hasCoins true for expert game mode, false for basic game mode
      */
     public MockPlayer(String nickname, Wizard wizard, boolean hasCoins, boolean localPlayer) {
         this.nickname = nickname;
@@ -82,25 +80,25 @@ public class MockPlayer {
         }
 
         AssistantCard card1 = new AssistantCard(1, 1);
-        cards.put(0,card1);
+        cards.put(0, card1);
         AssistantCard card2 = new AssistantCard(2, 1);
-        cards.put(1,card2);
+        cards.put(1, card2);
         AssistantCard card3 = new AssistantCard(3, 2);
-        cards.put(2,card3);
+        cards.put(2, card3);
         AssistantCard card4 = new AssistantCard(4, 2);
-        cards.put(3,card4);
+        cards.put(3, card4);
         AssistantCard card5 = new AssistantCard(5, 3);
-        cards.put(4,card5);
+        cards.put(4, card5);
         AssistantCard card6 = new AssistantCard(6, 3);
-        cards.put(5,card6);
+        cards.put(5, card6);
         AssistantCard card7 = new AssistantCard(7, 4);
-        cards.put(6,card7);
+        cards.put(6, card7);
         AssistantCard card8 = new AssistantCard(8, 4);
-        cards.put(7,card8);
+        cards.put(7, card8);
         AssistantCard card9 = new AssistantCard(9, 5);
-        cards.put(8,card9);
+        cards.put(8, card9);
         AssistantCard card10 = new AssistantCard(10, 5);
-        cards.put(9,card10);
+        cards.put(9, card10);
     }
 
     /**
@@ -157,7 +155,7 @@ public class MockPlayer {
         return towerColour;
     }
 
-    public void setTowerColour(TowerColour colour){
+    public void setTowerColour(TowerColour colour) {
         this.towerColour = colour;
     }
 
@@ -166,7 +164,7 @@ public class MockPlayer {
      *
      * @return the list of the assistant card
      */
-    public HashMap<Integer,AssistantCard> getCards() {
+    public HashMap<Integer, AssistantCard> getCards() {
         return cards;
     }
 

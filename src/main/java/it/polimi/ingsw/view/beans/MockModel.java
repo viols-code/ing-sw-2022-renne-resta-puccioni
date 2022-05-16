@@ -22,14 +22,14 @@ public class MockModel {
     /**
      * A list that contains the players in this game
      */
-    private HashMap<String, MockPlayer> players;
+    private final HashMap<String, MockPlayer> players;
 
     private MockPlayer currentPlayer;
 
     /**
      * A local copy of the game table
      */
-    private MockTable table;
+    private final MockTable table;
 
     /**
      * The current round
@@ -130,18 +130,17 @@ public class MockModel {
 
     /**
      * Adds the player in the list
-     *
      */
-    public void addPlayer(String nickname, Wizard wizard, boolean gameMode,boolean localPlayer) {
+    public void addPlayer(String nickname, Wizard wizard, boolean gameMode, boolean localPlayer) {
         List<String> matches = this.players.entrySet()
                 .stream()
                 .map(player -> player.getKey())
                 .filter(player -> player.equalsIgnoreCase(nickname))
                 .collect(Collectors.toList());
-        if(matches.size() == 0){
+        if (matches.size() == 0) {
             MockPlayer newPlayer = new MockPlayer(nickname, wizard, gameMode, localPlayer);
             players.put(nickname, newPlayer);
-            if(localPlayer){
+            if (localPlayer) {
                 this.localPlayer = newPlayer;
             }
         }
@@ -169,7 +168,7 @@ public class MockModel {
      *
      * @return the current round
      */
-    public int getRound(){
+    public int getRound() {
         return round;
     }
 
@@ -178,7 +177,7 @@ public class MockModel {
      *
      * @param round the round to set
      */
-    public void setRound(int round){
+    public void setRound(int round) {
         this.round = round;
     }
 
@@ -191,7 +190,7 @@ public class MockModel {
         return isGameExpert;
     }
 
-    public void setGameMode(boolean isGameExpert){
+    public void setGameMode(boolean isGameExpert) {
         this.isGameExpert = isGameExpert;
     }
 
@@ -231,10 +230,9 @@ public class MockModel {
      */
     public MockCard getCharacterCardByType(CharacterCardEnumeration type) {
         List<MockCard> card = characterCards.stream().filter(characterCard -> characterCard.getType().equals(type)).collect(Collectors.toList());
-        if(card.size() > 0){
+        if (card.size() > 0) {
             return card.get(0);
-        }
-        else
+        } else
             return null;
     }
 

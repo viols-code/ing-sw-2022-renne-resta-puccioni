@@ -2,7 +2,10 @@ package it.polimi.ingsw.model.card;
 
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.Game;
-import it.polimi.ingsw.model.messages.*;
+import it.polimi.ingsw.model.messages.CardCoinsUpdate;
+import it.polimi.ingsw.model.messages.InfluencePlayerUpdate;
+import it.polimi.ingsw.model.messages.NoEntryTileUpdate;
+import it.polimi.ingsw.model.messages.UnifyIslandsUpdate;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.table.island.GroupIsland;
 import it.polimi.ingsw.model.table.island.SingleIsland;
@@ -154,8 +157,8 @@ public abstract class CharacterCard extends Observable<IServerPacket> {
             // per fare questo ho dovuto spostare due metodi di protectisland qua sotto come protected
             // non penso sia molto elegante, ma non mi è venuto in mente nient'altro
             //Sara ha detto che farà il funzionale
-            for(int i = 0; i < 3; i++){
-                if(game.getCharacterCardByIndex(i).getCharacterCardType() == CharacterCardEnumeration.PROTECT_ISLAND){
+            for (int i = 0; i < 3; i++) {
+                if (game.getCharacterCardByIndex(i).getCharacterCardType() == CharacterCardEnumeration.PROTECT_ISLAND) {
                     game.getCharacterCardByIndex(i).setNumberOfNoEntryTiles(game.getCharacterCardByIndex(i).getNumberOfNoEntryTiles() + 1);
                 }
             }
@@ -188,7 +191,7 @@ public abstract class CharacterCard extends Observable<IServerPacket> {
      */
     private void setNewInfluencePlayer(Player influencePlayer, int groupIsland) {
         game.getTable().getGroupIslandByIndex(groupIsland).changeInfluence(influencePlayer);
-        notify(new InfluencePlayerUpdate(influencePlayer.getNickname(),groupIsland));
+        notify(new InfluencePlayerUpdate(influencePlayer.getNickname(), groupIsland));
         if (influencePlayer.getSchoolBoard().getTowers() - game.getTable().getGroupIslandByIndex(groupIsland).getNumberOfSingleIsland() <= 0) {
             influencePlayer.getSchoolBoard().removeTower(influencePlayer.getSchoolBoard().getTowers());
             game.setWinner(influencePlayer);
@@ -346,7 +349,7 @@ public abstract class CharacterCard extends Observable<IServerPacket> {
                 flag = game.getTable().getGroupIslandByIndex(groupIsland).getMotherNature();
                 unifyGroupIsland(game.getTable().getIslandAfter(groupIsland), game.getTable().getGroupIslandByIndex(groupIsland));
                 notify(new UnifyIslandsUpdate(0, groupIsland));
-                if(flag){
+                if (flag) {
                     game.getTable().setMotherNaturePositionUnify(0);
                 }
                 groupIsland = 0;
@@ -356,10 +359,10 @@ public abstract class CharacterCard extends Observable<IServerPacket> {
                 notify(new UnifyIslandsUpdate(groupIsland, (groupIsland + 1)));
             }
 
-            if(!flag){
+            if (!flag) {
                 int i;
-                for(i = 0; i < game.getTable().getNumberOfGroupIsland(); i++){
-                    if(game.getTable().getGroupIslandByIndex(i).getMotherNature()){
+                for (i = 0; i < game.getTable().getNumberOfGroupIsland(); i++) {
+                    if (game.getTable().getGroupIslandByIndex(i).getMotherNature()) {
                         game.getTable().setMotherNaturePositionUnify(i);
                         break;
                     }
@@ -372,7 +375,7 @@ public abstract class CharacterCard extends Observable<IServerPacket> {
                 flag = game.getTable().getGroupIslandByIndex(groupIsland).getMotherNature();
                 unifyGroupIsland(game.getTable().getIslandBefore(groupIsland), game.getTable().getGroupIslandByIndex(groupIsland));
                 notify(new UnifyIslandsUpdate(groupIsland - 1, groupIsland));
-                if(flag){
+                if (flag) {
                     game.getTable().setMotherNaturePositionUnify(groupIsland - 1);
                 }
             } else {
@@ -381,10 +384,10 @@ public abstract class CharacterCard extends Observable<IServerPacket> {
                 notify(new UnifyIslandsUpdate(groupIsland, game.getTable().getNumberOfGroupIsland()));
             }
 
-            if(!flag){
+            if (!flag) {
                 int i;
-                for(i = 0; i < game.getTable().getNumberOfGroupIsland(); i++){
-                    if(game.getTable().getGroupIslandByIndex(i).getMotherNature()){
+                for (i = 0; i < game.getTable().getNumberOfGroupIsland(); i++) {
+                    if (game.getTable().getGroupIslandByIndex(i).getMotherNature()) {
                         game.getTable().setMotherNaturePositionUnify(i);
                         break;
                     }
@@ -394,7 +397,7 @@ public abstract class CharacterCard extends Observable<IServerPacket> {
         }
     }
 
-    protected void setNumberOfNoEntryTiles(int numberOfNoEntryTiles) throws IllegalAccessError{
+    protected void setNumberOfNoEntryTiles(int numberOfNoEntryTiles) throws IllegalAccessError {
         throw new IllegalAccessError("The card doesn't have this method");
     }
 

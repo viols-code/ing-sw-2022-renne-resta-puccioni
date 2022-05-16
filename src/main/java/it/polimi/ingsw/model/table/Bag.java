@@ -48,7 +48,7 @@ public class Bag extends Observable<IServerPacket> {
         bag.replace(colour, bag.get(colour), bag.get(colour) + 1);
     }
 
-    public void setNoStudent(){
+    public void setNoStudent() {
         this.noStudent = true;
         notify(new EmptyBagUpdate());
     }
@@ -61,7 +61,7 @@ public class Bag extends Observable<IServerPacket> {
      */
     public Colour bagDrawStudent() throws IllegalAccessError {
         if (isBagEmpty()) {
-            if(!this.noStudent){
+            if (!this.noStudent) {
                 setNoStudent();
             }
             throw new IllegalAccessError("There is no student in the bag");

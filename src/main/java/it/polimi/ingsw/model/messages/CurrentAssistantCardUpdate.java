@@ -17,6 +17,6 @@ public class CurrentAssistantCardUpdate extends PlayerUpdate {
 
     @Override
     public void process(View view) {
-        view.getModelUpdateHandler().updateCurrentAssistantCard(playerName,assistantCard);
+        view.getModelUpdateHandler().updateCurrentAssistantCard(playerName, assistantCard);
     }
 }

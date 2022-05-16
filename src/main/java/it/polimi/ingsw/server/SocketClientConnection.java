@@ -9,7 +9,6 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.UUID;
-import java.util.concurrent.ArrayBlockingQueue;
 
 /**
  * Runnable class representing a client connection handler.
@@ -176,18 +175,18 @@ public class SocketClientConnection implements Runnable {
      * @param message the message to be sent, should be a
      */
     public synchronized void send(Object message) {
-            try {
-                if (this.isActive()) {
-                    out.reset();
-                    out.writeObject(message);
-                    out.flush();
-                }
-            } catch (EOFException | SocketException ignored) {
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.err.println("Error in SocketClientConnection WriteThread");
-                this.setInactive();
+        try {
+            if (this.isActive()) {
+                out.reset();
+                out.writeObject(message);
+                out.flush();
             }
+        } catch (EOFException | SocketException ignored) {
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("Error in SocketClientConnection WriteThread");
+            this.setInactive();
+        }
     }
 
 

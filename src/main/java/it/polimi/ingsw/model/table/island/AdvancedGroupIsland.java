@@ -1,7 +1,5 @@
 package it.polimi.ingsw.model.table.island;
 
-import it.polimi.ingsw.model.messages.NoEntryTileUpdate;
-
 public class AdvancedGroupIsland extends GroupIsland {
 
     /**

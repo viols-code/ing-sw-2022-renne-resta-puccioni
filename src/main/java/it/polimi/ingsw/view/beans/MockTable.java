@@ -53,7 +53,7 @@ public class MockTable {
         professorsAvailable.put(Colour.PINK, true);
         professorsAvailable.put(Colour.BLUE, true);
 
-        for(int i = 0; i < 12; i++){
+        for (int i = 0; i < 12; i++) {
             groupIslands.add(new MockGroupIsland(true));
         }
     }
@@ -63,7 +63,7 @@ public class MockTable {
      *
      * @return professorAvailable the HashMap of professors available on the table
      */
-    public HashMap<Colour, Boolean> getProfessorsAvailable(){
+    public HashMap<Colour, Boolean> getProfessorsAvailable() {
         return professorsAvailable;
     }
 
@@ -72,7 +72,7 @@ public class MockTable {
      *
      * @param colour the colour of the professor to remove
      */
-    public void removeProfessorFromTable(Colour colour){
+    public void removeProfessorFromTable(Colour colour) {
         professorsAvailable.replace(colour, professorsAvailable.get(colour), false);
     }
 
@@ -92,16 +92,18 @@ public class MockTable {
         shownCloudTiles.remove(cloudTile);
     }
 
-    public void addShownCLoudTile(){
+    public void addShownCLoudTile() {
         shownCloudTiles.add(new MockCloudTile());
     }
 
-    public void setShownCloudTile(int cloudTile, HashMap<Colour,Integer> students){
+    public void setShownCloudTile(int cloudTile, HashMap<Colour, Integer> students) {
         shownCloudTiles.get(cloudTile).setCloudTile(students);
     }
-    public List<MockCloudTile> getShownCloudTiles(){
+
+    public List<MockCloudTile> getShownCloudTiles() {
         return shownCloudTiles;
     }
+
     /**
      * Gets the cloud tile with a given index
      *
@@ -114,9 +116,10 @@ public class MockTable {
 
     /**
      * Gets the list of CloudTiled
+     *
      * @return the list of cloudTiles
      */
-    public List<MockCloudTile> getCloudTile(){
+    public List<MockCloudTile> getCloudTile() {
         return cloudTiles;
     }
 
@@ -131,6 +134,7 @@ public class MockTable {
 
     /**
      * Gets the list of GroupIslands
+     *
      * @return the list of groupIslands
      */
     public List<MockGroupIsland> getGroupIslands() {
@@ -143,7 +147,7 @@ public class MockTable {
      * @param index the given index
      * @return the group island
      */
-    public MockGroupIsland getGroupIslandByIndex(int index){
+    public MockGroupIsland getGroupIslandByIndex(int index) {
         return groupIslands.get(index);
     }
 
@@ -202,7 +206,7 @@ public class MockTable {
      * @param motherNaturePosition the new position
      */
     public void setMotherNaturePosition(int motherNaturePosition) {
-        if(this.motherNaturePosition < getGroupIslands().size()){
+        if (this.motherNaturePosition < getGroupIslands().size()) {
             getGroupIslandByIndex(this.motherNaturePosition).setMotherNature(false);
         }
         this.motherNaturePosition = motherNaturePosition;

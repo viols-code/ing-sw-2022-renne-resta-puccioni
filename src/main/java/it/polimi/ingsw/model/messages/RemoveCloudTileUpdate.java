@@ -19,7 +19,7 @@ public class RemoveCloudTileUpdate extends TableUpdate {
 
     @Override
     public void process(View view) {
-        view.getModelUpdateHandler().updateCloudTileRemoved(cloudTile,students);
+        view.getModelUpdateHandler().updateCloudTileRemoved(cloudTile, students);
     }
 
 
