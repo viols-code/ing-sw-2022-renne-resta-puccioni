@@ -63,9 +63,10 @@ public class Lobby extends Observable<IServerPacket> {
 
         connections.add(connection);
 
-        if (firstConnection == null)
+        if (firstConnection == null){
             firstConnection = connection;
-        indexOfFirstConnection = connections.indexOf(firstConnection);
+            indexOfFirstConnection = connections.indexOf(firstConnection);
+        }
 
         notify(new AddToLobbyMessage(connection, firstConnection == connection));
     }
@@ -234,6 +235,7 @@ public class Lobby extends Observable<IServerPacket> {
         if (connection == firstConnection) {
             firstConnection = null;
             playersToStart = -1;
+            isGameModeSet = false;
         }
 
         notify(new PlayerLeaveMessage(connection.getPlayerName()));
@@ -270,7 +272,7 @@ public class Lobby extends Observable<IServerPacket> {
      * @return true if the playersToStart set are 2 or 3, false otherwise
      */
     public boolean isPlayersToStartSet() {
-        return playersToStart > 1 && playersToStart < 4;
+        return playersToStart == 2 || playersToStart == 3;
     }
 
     /**

@@ -51,7 +51,7 @@ public class GameInstance implements Runnable {
         controller.setUp();
 
         for (SocketClientConnection conn : lobby.getConnections()) {
-            conn.setLobbyUUID(lobby.getUuid());
+            //conn.setLobbyUUID(lobby.getUuid());
 
             RemoteView remoteView = conn.getRemoteView();
             controller.addPlayer(conn.getPlayerName(), conn.getWizard());
