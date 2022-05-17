@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.player;
 
 import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.model.Colour;
+import it.polimi.ingsw.server.Lobby;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +13,7 @@ class SchoolBoardTest {
 
     @BeforeEach
     void setUp() {
-        gameController = new GameController(false, 2);
+        gameController = new GameController(false, 2, new Lobby());
         gameController.setUp();
         gameController.getGame().addPlayer(new BasicPlayer("sara", Wizard.TYPE_1, TowerColour.WHITE));
         gameController.getGame().addPlayer(new BasicPlayer("laura", Wizard.TYPE_2, TowerColour.BLACK));

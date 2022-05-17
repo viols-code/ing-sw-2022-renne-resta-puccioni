@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.card;
 import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.player.Wizard;
+import it.polimi.ingsw.server.Lobby;
 import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;
@@ -14,7 +15,7 @@ class MotherNatureMovementTest {
 
     @BeforeEach
     void setUp() {
-        gameController = new GameController(true, 2);
+        gameController = new GameController(true, 2, new Lobby());
         gameController.setUp();
         gameController.addPlayer("Viola", Wizard.TYPE_2);
         gameController.addPlayer("Laura", Wizard.TYPE_3);

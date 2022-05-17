@@ -4,6 +4,7 @@ import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.TurnPhase;
 import it.polimi.ingsw.model.player.Wizard;
+import it.polimi.ingsw.server.Lobby;
 import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;
@@ -16,7 +17,7 @@ public class ProtectIslandTest {
 
     @BeforeEach
     void setUp() {
-        gameController = new GameController(true, 2);
+        gameController = new GameController(true, 2, new Lobby());
         gameController.setUp();
         gameController.addPlayer("Viola", Wizard.TYPE_1);
         gameController.addPlayer("Laura", Wizard.TYPE_2);

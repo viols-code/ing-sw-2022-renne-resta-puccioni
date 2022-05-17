@@ -31,7 +31,7 @@ public class GameInstance implements Runnable {
     public void run() {
         System.out.println("Starting game!");
 
-        GameController controller = new GameController(isExpertGame, numberOfPlayers);
+        GameController controller = new GameController(isExpertGame, numberOfPlayers, lobby);
         List<RemoteView> registeredViews = new ArrayList<>();
         for (SocketClientConnection conn : lobby.getConnections()) {
             conn.setLobbyUUID(lobby.getUuid());

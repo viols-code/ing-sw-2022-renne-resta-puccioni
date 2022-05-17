@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.table;
 import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.player.Wizard;
+import it.polimi.ingsw.server.Lobby;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +15,7 @@ class BagTest {
 
     @BeforeEach
     void setUp() {
-        gameController = new GameController(false, 2);
+        gameController = new GameController(false, 2, new Lobby());
         gameController.setUp();
         gameController.addPlayer("Viola", Wizard.TYPE_3);
         gameController.addPlayer("Laura", Wizard.TYPE_4);

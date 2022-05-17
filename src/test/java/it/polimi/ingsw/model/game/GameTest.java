@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.player.BasicPlayer;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.TowerColour;
 import it.polimi.ingsw.model.player.Wizard;
+import it.polimi.ingsw.server.Lobby;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -17,7 +18,7 @@ class GameTest {
 
     @BeforeEach
     void setUp() {
-        gameController = new GameController(false, 3);
+        gameController = new GameController(false, 3, new Lobby());
         gameController.setUp();
     }
 

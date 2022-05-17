@@ -6,6 +6,7 @@ import it.polimi.ingsw.model.game.GamePhase;
 import it.polimi.ingsw.model.game.TurnPhase;
 import it.polimi.ingsw.model.player.TowerColour;
 import it.polimi.ingsw.model.player.Wizard;
+import it.polimi.ingsw.server.Lobby;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
@@ -18,9 +19,9 @@ class GameControllerTest {
 
     @BeforeEach
     void setUp() {
-        gameControllerTwo = new GameController(false, 2);
+        gameControllerTwo = new GameController(false, 2, new Lobby());
         gameControllerTwo.setUp();
-        gameControllerThree = new GameController(false, 3);
+        gameControllerThree = new GameController(false, 3, new Lobby());
         gameControllerThree.setUp();
     }
 
@@ -1406,7 +1407,7 @@ class GameControllerTest {
     @Test
     void unify() {
         GameController gameController;
-        gameController = new GameController(true, 2);
+        gameController = new GameController(true, 2, new Lobby());
         gameController.setUp();
         gameController.addPlayer("Viola", Wizard.TYPE_1);
         gameController.addPlayer("Laura", Wizard.TYPE_3);
@@ -2101,7 +2102,7 @@ class GameControllerTest {
 
     @RepeatedTest(20)
     void characterCardSetting(){
-        GameController gameControllerExpert = new GameController(true, 2);
+        GameController gameControllerExpert = new GameController(true, 2, new Lobby());
         gameControllerExpert.setUp();
         gameControllerExpert.addPlayer("Viola", Wizard.TYPE_1);
         assertEquals(TowerColour.WHITE, gameControllerExpert.getGame().getPlayerByNickname("Viola").getTowerColour());

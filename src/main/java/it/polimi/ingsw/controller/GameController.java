@@ -8,6 +8,7 @@ import it.polimi.ingsw.model.table.CloudTile;
 import it.polimi.ingsw.model.table.island.AdvancedGroupIsland;
 import it.polimi.ingsw.model.table.island.BasicGroupIsland;
 import it.polimi.ingsw.observer.Observer;
+import it.polimi.ingsw.server.Lobby;
 import it.polimi.ingsw.view.messages.PlayerEvent;
 
 import java.lang.reflect.InvocationTargetException;
@@ -29,6 +30,8 @@ public class GameController implements Observer<PlayerEvent> {
      */
     private final int numberOfPlayer;
 
+    private final Lobby lobby;
+
 
     /**
      * Constructor: creates a GameController
@@ -36,9 +39,10 @@ public class GameController implements Observer<PlayerEvent> {
      * @param isGameExpert   indicates if the game is in the expert mode
      * @param numberOfPlayer indicates the numberOfPlayer
      */
-    public GameController(boolean isGameExpert, int numberOfPlayer) {
+    public GameController(boolean isGameExpert, int numberOfPlayer, Lobby lobby) {
         this.isGameExpert = isGameExpert;
         this.numberOfPlayer = numberOfPlayer;
+        this.lobby = lobby;
         if (isGameExpert) {
             this.game = new ExpertGame();
         } else {
@@ -526,6 +530,14 @@ public class GameController implements Observer<PlayerEvent> {
     private void endGame() {
         game.setGamePhase(GamePhase.END_GAME);
         game.setTurnPhase(TurnPhase.ENDGAME);
+
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                lobby.terminate();
+            }
+        }, 100_000L); //Wait for 10 seconds before closing all connections to give time to all clients to terminate properly
     }
 
     /**

@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.card.CharacterCard;
 import it.polimi.ingsw.model.card.NoColour;
 import it.polimi.ingsw.model.card.ProtectIsland;
 import it.polimi.ingsw.model.player.Wizard;
+import it.polimi.ingsw.server.Lobby;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
@@ -17,7 +18,7 @@ class ExpertGameTest {
 
     @BeforeEach
     void setup() {
-        gameController = new GameController(true, 3);
+        gameController = new GameController(true, 3, new Lobby());
         gameController.setUp();
     }
 
