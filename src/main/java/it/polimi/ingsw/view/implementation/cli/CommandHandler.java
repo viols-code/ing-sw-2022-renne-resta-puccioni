@@ -79,7 +79,6 @@ public class CommandHandler {
         } catch (NoSuchMethodException | SecurityException |
                 IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
             throw new IllegalArgumentException("This command doesn't exist");
-
         }
     }
 

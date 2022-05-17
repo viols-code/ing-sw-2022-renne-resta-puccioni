@@ -58,7 +58,7 @@ public class Lobby extends Observable<IServerPacket> {
      * @throws IllegalStateException if 3 clients are already connected to this lobby
      */
     public void addConnection(SocketClientConnection connection) throws IllegalStateException {
-        if (connections.size() > 3)
+        if (connections.size() >= 3)
             throw new IllegalStateException();
 
         connections.add(connection);
