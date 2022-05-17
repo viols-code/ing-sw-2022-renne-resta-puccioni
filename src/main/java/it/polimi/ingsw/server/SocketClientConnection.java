@@ -9,6 +9,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Runnable class representing a client connection handler.
@@ -141,6 +142,9 @@ public class SocketClientConnection implements Runnable {
      */
     @Override
     public void run() {
+        TimeOut timeoutThread = new TimeOut();
+        timeoutThread.start();
+
         try {
             remoteView.getLobbyController().addToLobby(this);
             Object read;
@@ -148,13 +152,23 @@ public class SocketClientConnection implements Runnable {
                 read = in.readObject();
 
                 try {
-                    remoteView.handlePacket(read);
+                    if(read instanceof String){
+                        if(read.equals("pong")){
+                            timeoutThread.setHasResponded();
+                        } else{
+                            System.err.println("Received object of unknown type");
+                        }
+                    } else{
+                        remoteView.handlePacket(read);
+                    }
                 } catch (Exception e) {
                     System.err.println("Packet from " + playerName + " handling threw an uncaught exception!");
                     e.printStackTrace();
                 }
             }
 
+        } catch (EOFException e){
+            System.out.println("Client disconnected");
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         } finally {
@@ -189,7 +203,29 @@ public class SocketClientConnection implements Runnable {
         }
     }
 
+    private class TimeOut extends Thread {
+        private final AtomicBoolean hasResponded = new AtomicBoolean();
 
+        public void run(){
+            while(isActive()) {
+                send("ping");
+                hasResponded.set(false);
+                try {
+                    Thread.sleep(10000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                if(!hasResponded.get()) {
+                    close();
+                    break;
+                }
+            }
+        }
+
+        public void setHasResponded() {
+            this.hasResponded.set(true);
+        }
+    }
 }
 
 

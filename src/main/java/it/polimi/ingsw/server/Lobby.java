@@ -227,22 +227,6 @@ public class Lobby extends Observable<IServerPacket> {
     }
 
     /**
-     * Remove the given connection from the Lobby, notifying all other clients.
-     *
-     * @param connection the connection to be removed from the lobby
-     */
-    public void disconnect(SocketClientConnection connection) {
-        if (connection == firstConnection) {
-            firstConnection = null;
-            playersToStart = -1;
-            isGameModeSet = false;
-        }
-
-        notify(new PlayerLeaveMessage(connection.getPlayerName()));
-        connections.remove(connection);
-    }
-
-    /**
      * Remove the given crashed connection from the Lobby, disconnecting and notifying all other clients.
      *
      * @param crashedConnection the connection that crashed
@@ -263,7 +247,7 @@ public class Lobby extends Observable<IServerPacket> {
                     connections.remove(conn);
                 }
             }
-        }, 5000);
+        }, 50000);
     }
 
     /**

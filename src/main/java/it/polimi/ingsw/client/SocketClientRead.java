@@ -35,21 +35,29 @@ public class SocketClientRead extends Thread {
             while (client.isActive()) {
                 Object packet = socketIn.readObject();
 
-                if (packet instanceof IProcessablePacket) {
-                    if (packet instanceof IServerPacket serverPacket) {
-                        System.out.println("Received: " + packet);
+                if(packet instanceof String){
+                    if(packet.equals("ping")){
+                        client.send("pong");
+                    } else{
+                        System.err.println("Received object of unknown type");
+                    }
+                } else{
+                    if (packet instanceof IProcessablePacket) {
+                        if (packet instanceof IServerPacket serverPacket) {
+                            System.out.println("Received: " + packet);
 
-                        try {
-                            serverPacket.process(client.getView());
-                        } catch (Exception e) {
-                            System.err.println("Uncaught exception while processing server packet");
-                            e.printStackTrace();
+                            try {
+                                serverPacket.process(client.getView());
+                            } catch (Exception e) {
+                                System.err.println("Uncaught exception while processing server packet");
+                                e.printStackTrace();
+                            }
+                        } else {
+                            System.err.println("Received a packet of the wrong type");
                         }
                     } else {
-                        System.err.println("Received a packet of the wrong type");
+                        System.err.println("Received object of unknown type");
                     }
-                } else {
-                    System.err.println("Received object of unknown type");
                 }
             }
 
