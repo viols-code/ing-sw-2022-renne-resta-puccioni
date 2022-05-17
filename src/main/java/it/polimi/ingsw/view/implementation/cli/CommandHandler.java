@@ -78,7 +78,8 @@ public class CommandHandler {
             }
         } catch (NoSuchMethodException | SecurityException |
                 IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-            throw new IllegalArgumentException(e.getMessage());
+            throw new IllegalArgumentException("This command doesn't exist");
+
         }
     }
 
@@ -192,28 +193,33 @@ public class CommandHandler {
         }
         String playerName = args[0];
         playerName = playerName.toLowerCase(Locale.ROOT);
+
         String object = args[1];
         for (int i = 2; i < args.length; i++) {
             object = object.concat(extractCommand(args[i]));
         }
 
-        switch (object) {
-            case "schoolBoard" -> cli.getRenderer().printOthersSchoolBoard(playerName);
-            case "currentAssistantCard" -> {
-                if (cli.getModel().getPlayerByNickname(playerName).getCurrentAssistantCard() != null) {
-                    cli.getRenderer().printOthersCurrentAssistantCard(playerName);
-                } else {
-                    cli.getRenderer().showGameMessage(ViewString.CARD_NOT_PLAYED.formatted(playerName));
+        try{
+            switch (object) {
+                case "schoolBoard" -> cli.getRenderer().printOthersSchoolBoard(playerName);
+                case "currentAssistantCard" -> {
+                    if (cli.getModel().getPlayerByNickname(playerName).getCurrentAssistantCard() != null) {
+                        cli.getRenderer().printOthersCurrentAssistantCard(playerName);
+                    } else {
+                        cli.getRenderer().showGameMessage(ViewString.CARD_NOT_PLAYED.formatted(playerName));
+                    }
                 }
-            }
-            case "coins" -> {
-                if (cli.getGameMode()) {
-                    cli.getRenderer().printOthersCoins(playerName);
-                } else {
-                    System.out.println(ViewString.GAME_MODE);
+                case "coins" -> {
+                    if (cli.getGameMode()) {
+                        cli.getRenderer().printOthersCoins(playerName);
+                    } else {
+                        System.out.println(ViewString.GAME_MODE);
+                    }
                 }
+                default -> cli.getRenderer().showErrorMessage(ViewString.INCORRECT_FORMAT + ViewString.SPY);
             }
-            default -> cli.getRenderer().showErrorMessage(ViewString.INCORRECT_FORMAT + ViewString.SPY);
+        } catch(IllegalArgumentException e){
+            cli.getRenderer().showErrorMessage(e.getMessage());
         }
     }
 

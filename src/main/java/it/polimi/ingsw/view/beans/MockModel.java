@@ -49,7 +49,7 @@ public class MockModel {
     /**
      * A list that contains the character cards drawn for this game
      */
-    private List<MockCard> characterCards;
+    private final List<MockCard> characterCards;
 
     /**
      * Character card played by the current player
@@ -110,13 +110,17 @@ public class MockModel {
      *
      * @return the player with the given nickname
      */
-    public MockPlayer getPlayerByNickname(String nickname) {
+    public MockPlayer getPlayerByNickname(String nickname) throws IllegalArgumentException{
         List<String> matches = this.players.entrySet()
                 .stream()
                 .map(player -> player.getKey())
                 .filter(player -> player.equalsIgnoreCase(nickname))
                 .collect(Collectors.toList());
-        return players.get(matches.get(0));
+        if(matches.size() == 1){
+            return players.get(matches.get(0));
+        } else{
+            throw new IllegalArgumentException("There is no player with that nickname");
+        }
     }
 
     /**
@@ -157,7 +161,7 @@ public class MockModel {
     /**
      * Gets the local copy of the game table
      *
-     * @return the locl copy of the game table
+     * @return the local copy of the game table
      */
     public MockTable getTable() {
         return table;

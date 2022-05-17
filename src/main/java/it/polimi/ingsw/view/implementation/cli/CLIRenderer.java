@@ -170,17 +170,17 @@ public class CLIRenderer extends Renderer {
         System.out.println(professors);
     }
 
-    public void printOthersCoins(String playerName) {
+    public void printOthersCoins(String playerName) throws IllegalArgumentException{
         String numberCoins = view.getModel().getPlayerByNickname(playerName).getNickname() + "\n";
         renderCoins(view.getModel().getPlayerByNickname(playerName).getCoins(), numberCoins);
     }
 
-    public void printOthersSchoolBoard(String playerName) {
+    public void printOthersSchoolBoard(String playerName) throws IllegalArgumentException{
         String schoolBoard = view.getModel().getPlayerByNickname(playerName).getNickname() + "\n";
         renderSchoolBoard(view.getModel().getPlayerByNickname(playerName).getSchoolBoard(), schoolBoard);
     }
 
-    public void printOthersCurrentAssistantCard(String playerName) {
+    public void printOthersCurrentAssistantCard(String playerName) throws IllegalArgumentException{
         String assistantCard = view.getModel().getPlayerByNickname(playerName).getNickname() + "\n";
         renderAssistantCard(view.getModel().getPlayerByNickname(playerName).getCurrentAssistantCard().getValue(),
                 view.getModel().getPlayerByNickname(playerName).getCurrentAssistantCard().getMotherNatureMovement(), assistantCard);
