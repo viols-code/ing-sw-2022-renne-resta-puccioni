@@ -1695,7 +1695,7 @@ class GameControllerTest {
         }
     }
 
-    @Test
+    @RepeatedTest(100)
     void checkIsBagEmpty() {
         gameControllerThree.addPlayer("Viola", Wizard.TYPE_3);
         gameControllerThree.addPlayer("Laura", Wizard.TYPE_4);
@@ -2097,6 +2097,7 @@ class GameControllerTest {
 
         assertEquals(gameControllerThree.getGame().getGamePhase(), GamePhase.END_GAME);
         assertEquals(gameControllerThree.getGame().getTurnPhase(), TurnPhase.ENDGAME);
+        assertTrue(gameControllerThree.getGame().getTable().getBag().getNoStudent());
 
     }
 
