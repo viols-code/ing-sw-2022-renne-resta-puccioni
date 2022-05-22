@@ -18,6 +18,9 @@ public class Bag extends Observable<IServerPacket> {
      */
     private boolean noStudent;
 
+    /**
+     * Constructor
+     */
     public Bag() {
         bag = new HashMap<>();
         bag.put(Colour.GREEN, 0);
@@ -48,6 +51,9 @@ public class Bag extends Observable<IServerPacket> {
         bag.replace(colour, bag.get(colour), bag.get(colour) + 1);
     }
 
+    /**
+     * Sets noStudent to true when there are no student left
+     */
     public void setNoStudent() {
         this.noStudent = true;
         notify(new EmptyBagUpdate());
