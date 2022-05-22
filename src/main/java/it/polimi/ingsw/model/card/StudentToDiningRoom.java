@@ -8,7 +8,13 @@ import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
 import java.util.HashMap;
 
 public class StudentToDiningRoom extends CharacterCard {
+    /**
+     * The HashMap containing the students that are on the card
+     */
     private final HashMap<Colour, Integer> students;
+    /**
+     * The chosen colour to be moved
+     */
     private Colour colour;
 
     /**
@@ -23,6 +29,9 @@ public class StudentToDiningRoom extends CharacterCard {
         type = CharacterCardEnumeration.STUDENT_TO_DINING_ROOM;
     }
 
+    /**
+     * Sets the students on the card
+     */
     public void setting() {
         for (Colour colour1 : Colour.values()) {
             students.put(colour1, 0);
@@ -80,6 +89,12 @@ public class StudentToDiningRoom extends CharacterCard {
         }
     }
 
+    /**
+     * Gets the number of students of the given colour
+     *
+     * @param colour the given colour
+     * @return the number of students of the given colour
+     */
     protected int getStudents(Colour colour) {
         return students.get(colour);
     }

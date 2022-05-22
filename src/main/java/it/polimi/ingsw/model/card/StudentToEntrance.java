@@ -8,9 +8,21 @@ import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
 import java.util.HashMap;
 
 public class StudentToEntrance extends CharacterCard {
+    /**
+     * The HashMap containing the students that are on the card
+     */
     private final HashMap<Colour, Integer> students;
+    /**
+     * The chosen colour on the card to be switched
+     */
     private Colour colourCard;
+    /**
+     * The chosen colour in the card to be switched
+     */
     private Colour colourEntrance;
+    /**
+     * The times the player has already used this card
+     */
     private int times;
 
     /**
@@ -26,6 +38,9 @@ public class StudentToEntrance extends CharacterCard {
         type = CharacterCardEnumeration.STUDENT_TO_ENTRANCE;
     }
 
+    /**
+     * Sets the students on the card
+     */
     public void setting() {
         for (Colour colour1 : Colour.values()) {
             students.put(colour1, 0);

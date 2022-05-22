@@ -13,7 +13,7 @@ import java.util.List;
 public class StudentToIsland extends CharacterCard {
 
     /**
-     * The hashMap containing the students that are on the card
+     * The HashMap containing the students that are on the card
      */
     private final HashMap<Colour, Integer> studentsOnCard;
 
@@ -43,6 +43,10 @@ public class StudentToIsland extends CharacterCard {
 
     }
 
+    /**
+     * Sets the students on the card
+     */
+    @Override
     public void setting() {
         for (int i = 0; i < 4; i++) {
             try {
@@ -91,6 +95,11 @@ public class StudentToIsland extends CharacterCard {
         game.setActiveCharacterCard(game.getBasicState());
     }
 
+    /**
+     * Return the indexes of the group island and single island chosen
+     *
+     * @return the indexes of the group island and single island chosen
+     */
     private List<Integer> getGroupIslandIndexAndSingleIslandIndexes() {
         List<Integer> indexes = new ArrayList<>();
         for (int i = 0; i < game.getTable().getNumberOfGroupIsland(); i++) {
@@ -117,6 +126,4 @@ public class StudentToIsland extends CharacterCard {
     protected int getStudent(Colour colour) {
         return studentsOnCard.get(colour);
     }
-
-
 }
