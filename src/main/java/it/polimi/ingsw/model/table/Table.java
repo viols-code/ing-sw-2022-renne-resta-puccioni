@@ -10,6 +10,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+
+/**
+ * Table
+ *
+ * @version 1.0
+ */
 public class Table extends Observable<IServerPacket> {
     /**
      * the bag containing all the remaining students

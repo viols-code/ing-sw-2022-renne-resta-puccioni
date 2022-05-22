@@ -1,7 +1,12 @@
 package it.polimi.ingsw.model.table.island;
 
+/**
+ * AdvanceGroupIsland
+ * the group island with no entry tile manangment
+ *
+ * @version 1.0
+ */
 public class AdvancedGroupIsland extends GroupIsland {
-
     /**
      * number of no entry tiles
      */
