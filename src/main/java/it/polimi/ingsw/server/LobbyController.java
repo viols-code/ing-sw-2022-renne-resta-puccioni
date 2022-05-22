@@ -185,6 +185,7 @@ public class LobbyController {
         if (connection.getLobbyUUID() == null) {
             if(currentLobby.getConnections().contains(connection)){
                 currentLobby.disconnectAll(connection);
+                waitingLobbies.remove(currentLobby);
                 currentLobby = new Lobby();
                 return;
             }
@@ -200,7 +201,6 @@ public class LobbyController {
             Lobby lobby = playingLobbies.get(connection.getLobbyUUID());
             if (lobby != null) {
                 lobby.disconnectAll(connection);
-
                 playingLobbies.remove(connection.getLobbyUUID());
             }
         }
