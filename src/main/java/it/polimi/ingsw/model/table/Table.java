@@ -15,7 +15,6 @@ public class Table extends Observable<IServerPacket> {
      * the bag containing all the remaining students
      */
     private final Bag bag;
-
     /**
      * A List containing the Groups of island in the match
      */
@@ -28,7 +27,6 @@ public class Table extends Observable<IServerPacket> {
      * Position corresponding to the index in the List named islands
      */
     private int motherNaturePosition;
-
     /**
      * The professors
      */
@@ -63,10 +61,25 @@ public class Table extends Observable<IServerPacket> {
         return bag;
     }
 
+    /*
+    PROFESSORS
+     */
+
+    /**
+     * Return true if there is the professor of the given colour on the table, false otherwise
+     *
+     * @param colour the given colour
+     * @return true if there is the professor of the given colour on the table, false otherwise
+     */
     public boolean isProfessorOnTable(Colour colour) {
         return professors.get(colour);
     }
 
+    /**
+     * Set to false the presence of the professor of the given colour on the table
+     *
+     * @param colour the given colour
+     */
     public void setNoProfessorOnTable(Colour colour) {
         professors.replace(colour, professors.get(colour), false);
         notify(new ProfessorsUpdate(colour));
