@@ -170,7 +170,6 @@ public class LobbyController {
         waitingLobbies.remove(lobby);
 
         lobby.startGame();
-
         currentLobby = new Lobby();
 
         Thread t = new Thread(new GameInstance(lobby, lobby.getGameMode(), lobby.getPlayersToStart()));
