@@ -33,6 +33,10 @@ public class ExpertGame extends Game {
         hasPlayedCharacterCard = false;
     }
 
+    /**
+     * Adds the assistant cards, game phase, turn phase and set the coins
+     */
+    @Override
     public void setUp() {
         super.setUp();
         setCoins(20);

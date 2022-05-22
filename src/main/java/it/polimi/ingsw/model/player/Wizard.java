@@ -3,13 +3,24 @@ package it.polimi.ingsw.model.player;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Enumeration of the wizard in the game
+ *
+ * @version 1.0
+ */
 public enum Wizard {
     TYPE_1(1),
     TYPE_2(2),
     TYPE_3(3),
     TYPE_4(4);
 
+    /**
+     * Value given to the wizard
+     */
     private final int value;
+    /**
+     * A map connecting the value and the wizard
+     */
     private static final Map<Integer, Wizard> map = new HashMap<>();
 
     Wizard(int value) {
@@ -22,6 +33,12 @@ public enum Wizard {
         }
     }
 
+    /**
+     * Return the Wizard corresponding to the integer given
+     *
+     * @param wizard an integer connected to the Wizard
+     * @return the Wizard corresponding to the integer given
+     */
     public static Wizard valueOf(int wizard) {
         return map.get(wizard);
     }
