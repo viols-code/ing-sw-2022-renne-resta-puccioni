@@ -171,6 +171,8 @@ public class LobbyController {
 
         lobby.startGame();
 
+        currentLobby = new Lobby();
+
         Thread t = new Thread(new GameInstance(lobby, lobby.getGameMode(), lobby.getPlayersToStart()));
         t.start();
     }
