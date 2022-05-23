@@ -10,6 +10,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
+import java.util.List;
+
 public class GUI extends View {
     private final Stage stage;
     private Scene scene;
@@ -53,6 +55,21 @@ public class GUI extends View {
             Parent nameSelectionPage = FXMLUtils.loadFXML("/gui/NicknameSelection");
             scene.setRoot(nameSelectionPage);
         });
+    }
+
+    @Override
+    public void handleCorrectNickname(String nickname, List<String> takenNicknames){
+        super.handleCorrectNickname(nickname, takenNicknames);
+
+        //Devono essere definiti alcuni metodi nel mockModel e degli attributi di tipo IntegerProperty
+        //getModel().updatePlayerCount(currentPlayers, playersToStart);
+
+        if (nickname.equals(getPlayerName())) {
+                Platform.runLater(() -> {
+                    Parent wizardSelection = FXMLUtils.loadFXML("/gui/WizardSelection");
+                    scene.setRoot(wizardSelection);
+                });
+            }
     }
 
     @Override
