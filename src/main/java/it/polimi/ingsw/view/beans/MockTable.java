@@ -14,24 +14,22 @@ public class MockTable {
      * A list containing the cloud tiles
      */
     private final List<MockCloudTile> cloudTiles;
-
+    /**
+     * A list containing the cloud tiles to be shown
+     */
     private final List<MockCloudTile> shownCloudTiles;
-
     /**
      * A list containing the group islands
      */
     private final List<MockGroupIsland> groupIslands;
-
     /**
      * A boolean that indicates if the bag is empty
      */
     private boolean isBagEmpty;
-
     /**
      * Indicates the position of mother nature (index of the group island)
      */
     private int motherNaturePosition;
-
     /**
      * The professors available on the table
      */
@@ -92,14 +90,28 @@ public class MockTable {
         shownCloudTiles.remove(cloudTile);
     }
 
+    /**
+     * Adds a clout tile to the shown cloud tile list
+     */
     public void addShownCLoudTile() {
         shownCloudTiles.add(new MockCloudTile());
     }
 
+    /**
+     * Sets the cloud tile in the shown cloud tile
+     *
+     * @param cloudTile the position of the cloud tile in the list
+     * @param students the HashMap of the students on the cloud tile
+     */
     public void setShownCloudTile(int cloudTile, HashMap<Colour, Integer> students) {
         shownCloudTiles.get(cloudTile).setCloudTile(students);
     }
 
+    /**
+     * Gets the shown cloud tile list
+     *
+     * @return the list of shown cloud tile
+     */
     public List<MockCloudTile> getShownCloudTiles() {
         return shownCloudTiles;
     }

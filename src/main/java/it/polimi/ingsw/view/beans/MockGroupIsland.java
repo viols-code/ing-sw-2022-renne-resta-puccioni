@@ -11,22 +11,18 @@ public class MockGroupIsland {
      * A list containing the single islands of the group island
      */
     private final List<MockSingleIsland> islands;
-
     /**
      * A boolean that states if the group island is basic or advanced
      */
     private boolean isBasic;
-
     /**
      * An integer that indicates the number of no entry tiles on this group island
      */
     private int noEntryTile;
-
     /**
      * A boolean that states if mother nature is on this island
      */
     private boolean motherNature;
-
     /**
      * The Player influence
      */
@@ -82,7 +78,6 @@ public class MockGroupIsland {
         return isBasic;
     }
 
-
     /**
      * Sets the value of the attribute is basic
      */
@@ -108,18 +103,38 @@ public class MockGroupIsland {
         this.noEntryTile = noEntryTile;
     }
 
+    /**
+     * Return true if mother nature is on the MockGroupIsland, false otherwise
+     *
+     * @return true if mother nature is on the MockGroupIsland, false otherwise
+     */
     public boolean isMotherNature() {
         return motherNature;
     }
 
+    /**
+     * Set the presence of mother nature
+     *
+     * @param motherNature true if we have to set mother nature, false otherwise
+     */
     public void setMotherNature(boolean motherNature) {
         this.motherNature = motherNature;
     }
 
+    /**
+     * Return the influent player on the MockGroupIsland
+     *
+     * @return the influent player on the island
+     */
     public String getInfluentPlayer() {
         return influentPlayer;
     }
 
+    /**
+     * Set the influent player on the MockGroupIsland
+     *
+     * @param influentPlayer the influent player on the MockGroupIsland
+     */
     public void setInfluentPlayer(String influentPlayer) {
         this.influentPlayer = influentPlayer;
     }

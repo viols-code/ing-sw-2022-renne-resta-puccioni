@@ -12,27 +12,22 @@ public class MockCard {
      * The type of the character card
      */
     private final CharacterCardEnumeration type;
-
     /**
      * The character card cost
      */
     private int cost;
-
     /**
      * Number of student on the card
      */
     private final int numberOfStudentsOnTheCard;
-
     /**
      * The number of students that can be chosen
      */
     private final int numberOfStudentToChoose;
-
     /**
      * The number of no entry tile
      */
     private int numberOfNoEntryTile;
-
     /**
      * The students on the card
      */
@@ -157,10 +152,20 @@ public class MockCard {
             students.replace(colour, students.get(colour), students.get(colour) - 1);
     }
 
+    /**
+     * Gets the students on the card
+     *
+     * @return the HashMap of the students on the card
+     */
     public HashMap<Colour, Integer> getStudents() {
         return students;
     }
 
+    /**
+     * Sets the students on the card
+     *
+     * @param students the HashMap of the students on the card
+     */
     public void setStudents(HashMap<Colour, Integer> students) {
         if (type == CharacterCardEnumeration.STUDENT_TO_DINING_ROOM || type == CharacterCardEnumeration.STUDENT_TO_ENTRANCE || type == CharacterCardEnumeration.STUDENT_TO_ISLAND)
             this.students = students;

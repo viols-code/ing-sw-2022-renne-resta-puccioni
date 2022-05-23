@@ -8,11 +8,26 @@ import java.util.HashMap;
  * Class that contains a local copy of the player's school board
  */
 public class MockSchoolBoard {
+    /**
+     * The HashMap of the students in the entrance
+     */
     private HashMap<Colour, Integer> entrance;
+    /**
+     * The HashMap of the students in the diningRoom
+     */
     private HashMap<Colour, Integer> diningRoom;
+    /**
+     * The HashMap of the students in the professorTable
+     */
     private HashMap<Colour, Boolean> professorTable;
+    /**
+     * The number of towers
+     */
     private int towers;
 
+    /**
+     * Constructor of the MockSchoolBoard
+     */
     public MockSchoolBoard() {
         entrance = new HashMap<>();
         diningRoom = new HashMap<>();
@@ -79,10 +94,20 @@ public class MockSchoolBoard {
         this.professorTable = professorTable;
     }
 
+    /**
+     * Gets the number of towers
+     *
+     * @return number of towers
+     */
     public int getTowers() {
         return towers;
     }
 
+    /**
+     * Sets the number of towers
+     *
+     * @param towers number of towers
+     */
     public void setTowers(int towers) {
         this.towers = towers;
     }
