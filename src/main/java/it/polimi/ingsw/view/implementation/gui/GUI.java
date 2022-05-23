@@ -1,5 +1,6 @@
 package it.polimi.ingsw.view.implementation.gui;
 
+import it.polimi.ingsw.FXMLUtils;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.view.View;
 import javafx.scene.Parent;
@@ -32,11 +33,11 @@ public class GUI extends View {
 
     @Override
     public void run() {
-        //Parent homePage = FXMLUtils.loadFXML("/gui/Home");
+        Parent homePage = FXMLUtils.loadFXML("/gui/Home");
         String javaVersion = System.getProperty("java.version");
         String javafxVersion = System.getProperty("javafx.version");
         Label l = new Label("Hello, JavaFX " + javafxVersion + ", running on Java " + javaVersion + ".");
-        scene = new Scene(new StackPane(l), 640, 480);
+        scene = new Scene(homePage);
         stage.setScene(scene);
         stage.setTitle("Eryantis");
         stage.setMaximized(true);
