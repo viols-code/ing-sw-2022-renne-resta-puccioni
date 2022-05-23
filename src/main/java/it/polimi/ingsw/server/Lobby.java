@@ -63,9 +63,10 @@ public class Lobby extends Observable<IServerPacket> {
 
         connections.add(connection);
 
-        if (firstConnection == null)
+        if (firstConnection == null) {
             firstConnection = connection;
-        indexOfFirstConnection = connections.indexOf(firstConnection);
+            indexOfFirstConnection = connections.indexOf(firstConnection);
+        }
 
         notify(new AddToLobbyMessage(connection, firstConnection == connection));
     }
@@ -226,21 +227,6 @@ public class Lobby extends Observable<IServerPacket> {
     }
 
     /**
-     * Remove the given connection from the Lobby, notifying all other clients.
-     *
-     * @param connection the connection to be removed from the lobby
-     */
-    public void disconnect(SocketClientConnection connection) {
-        if (connection == firstConnection) {
-            firstConnection = null;
-            playersToStart = -1;
-        }
-
-        notify(new PlayerLeaveMessage(connection.getPlayerName()));
-        connections.remove(connection);
-    }
-
-    /**
      * Remove the given crashed connection from the Lobby, disconnecting and notifying all other clients.
      *
      * @param crashedConnection the connection that crashed
@@ -261,7 +247,7 @@ public class Lobby extends Observable<IServerPacket> {
                     connections.remove(conn);
                 }
             }
-        }, 5000);
+        }, 50000);
     }
 
     /**
@@ -270,7 +256,7 @@ public class Lobby extends Observable<IServerPacket> {
      * @return true if the playersToStart set are 2 or 3, false otherwise
      */
     public boolean isPlayersToStartSet() {
-        return playersToStart > 1 && playersToStart < 4;
+        return playersToStart == 2 || playersToStart == 3;
     }
 
     /**

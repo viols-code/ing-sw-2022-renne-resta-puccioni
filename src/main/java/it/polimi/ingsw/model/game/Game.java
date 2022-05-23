@@ -109,6 +109,9 @@ public abstract class Game extends Observable<IServerPacket> {
         winner = null;
     }
 
+    /**
+     * Adds the assistant cards and the game phase and turn phase
+     */
     public void setUp() {
         AssistantCard card1 = new AssistantCard(1, 1);
         assistantCard.add(card1);
@@ -198,7 +201,7 @@ public abstract class Game extends Observable<IServerPacket> {
     public void addPlayer(Player player) {
         this.players.add(player);
         //notify(new PlayersUpdate(player.getNickname(),player.getWizard()));
-        notify(new TowerColourUpdate(player.getNickname(),player.getTowerColour()));
+        notify(new TowerColourUpdate(player.getNickname(), player.getTowerColour()));
     }
 
     /**
@@ -270,6 +273,7 @@ public abstract class Game extends Observable<IServerPacket> {
                 i++;
             }
         }
+
         return getPlayerByIndex(0);
     }
 

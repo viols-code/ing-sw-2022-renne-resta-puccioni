@@ -5,7 +5,6 @@ package it.polimi.ingsw.model;
  *
  * @version 1.0
  */
-
 public enum Colour {
     GREEN,
     RED,

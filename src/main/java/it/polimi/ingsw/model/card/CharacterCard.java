@@ -153,10 +153,8 @@ public abstract class CharacterCard extends Observable<IServerPacket> {
         } else {
             game.getTable().getGroupIslandByIndex(groupIsland).removeNoEntryTile();
             notify(new NoEntryTileUpdate(groupIsland, game.getTable().getGroupIslandByIndex(groupIsland).getNumberOfNoEntryTile()));
-            // questo for è stato aggiunto per riportare il numero di noentry tile sulla carta
-            // per fare questo ho dovuto spostare due metodi di protectisland qua sotto come protected
-            // non penso sia molto elegante, ma non mi è venuto in mente nient'altro
-            //Sara ha detto che farà il funzionale
+
+            // Magari si deve fare il funzionale
             for (int i = 0; i < 3; i++) {
                 if (game.getCharacterCardByIndex(i).getCharacterCardType() == CharacterCardEnumeration.PROTECT_ISLAND) {
                     game.getCharacterCardByIndex(i).setNumberOfNoEntryTiles(game.getCharacterCardByIndex(i).getNumberOfNoEntryTiles() + 1);
@@ -397,14 +395,33 @@ public abstract class CharacterCard extends Observable<IServerPacket> {
         }
     }
 
+    /**
+     * Sets the number of no entry tiles on the card
+     *
+     * @param numberOfNoEntryTiles the number to be set
+     * @throws IllegalAccessError if the CharacterCard doesn't have this method
+     */
     protected void setNumberOfNoEntryTiles(int numberOfNoEntryTiles) throws IllegalAccessError {
         throw new IllegalAccessError("The card doesn't have this method");
     }
 
+    /**
+     * Gets the number of no entry tiles on the card
+     *
+     * @return the number of no entry tiles on the card
+     * @throws IllegalAccessError if the CharacterCard doesn't have this method
+     */
     protected int getNumberOfNoEntryTiles() throws IllegalAccessError {
         throw new IllegalAccessError("The card doesn't have this method");
     }
 
+    /**
+     * Return the number of students of the given colour
+     *
+     * @param colour the given colour
+     * @return the number of students of the given colour
+     * @throws IllegalAccessError if the CharacterCard doesn't have this method
+     */
     protected int getStudent(Colour colour) throws IllegalAccessError {
         throw new IllegalAccessError("The card doesn't have this method");
     }

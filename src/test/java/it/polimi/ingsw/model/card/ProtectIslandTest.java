@@ -9,7 +9,8 @@ import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 
 public class ProtectIslandTest {
@@ -25,7 +26,7 @@ public class ProtectIslandTest {
     }
 
     @RepeatedTest(1000)
-    void protectIslandTest(){
+    void protectIslandTest() {
         gameController.playAssistantCard("Viola", 0);
         gameController.playAssistantCard("Laura", 1);
 
@@ -38,16 +39,16 @@ public class ProtectIslandTest {
             }
         }
 
-        if(flag){
-            for(Colour colour: Colour.values()){
-                if(gameController.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) >= 3){
+        if (flag) {
+            for (Colour colour : Colour.values()) {
+                if (gameController.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) >= 3) {
                     gameController.moveStudentToDiningRoom("Viola", colour);
                     gameController.moveStudentToDiningRoom("Viola", colour);
                     gameController.moveStudentToDiningRoom("Viola", colour);
                 }
             }
 
-            if(gameController.getGame().getCurrentPlayer().getCoins() == 2){
+            if (gameController.getGame().getCurrentPlayer().getCoins() == 2) {
                 gameController.playCharacterCard("Viola", i);
                 gameController.setGroupIsland("Viola", 1);
                 assertEquals(1, gameController.getGame().getTable().getGroupIslandByIndex(1).getNumberOfNoEntryTile());
@@ -58,7 +59,7 @@ public class ProtectIslandTest {
                 assertEquals(0, gameController.getGame().getTable().getGroupIslandByIndex(1).getNumberOfNoEntryTile());
                 assertEquals(4, gameController.getGame().getCharacterCardByIndex(i).getNumberOfNoEntryTiles());
                 assertNull(gameController.getGame().getTable().getGroupIslandByIndex(1).getInfluence());
-            } else{
+            } else {
                 gameController.playCharacterCard("Viola", i);
                 gameController.setGroupIsland("Viola", 1);
                 assertEquals(0, gameController.getGame().getTable().getGroupIslandByIndex(1).getNumberOfNoEntryTile());

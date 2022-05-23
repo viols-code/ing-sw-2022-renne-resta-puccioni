@@ -3,16 +3,21 @@ package it.polimi.ingsw.server;
 import it.polimi.ingsw.client.messages.ClientMessage;
 import it.polimi.ingsw.model.player.Wizard;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Controller for the lobbies waiting to start a game.
  */
 public class LobbyController {
-    private final Map<UUID, Lobby> playingLobbies = new HashMap<>();
-    private Lobby currentLobby = new Lobby();
+    private final Map<UUID, Lobby> playingLobbies;
+    private final List<Lobby> waitingLobbies;
+    private Lobby currentLobby;
+
+    public LobbyController() {
+        playingLobbies = new HashMap<>();
+        waitingLobbies = new ArrayList<>();
+        currentLobby = new Lobby();
+    }
 
     /**
      * Processes the given ClientMessage.
@@ -29,12 +34,25 @@ public class LobbyController {
      * @param connection the connection that will be added to the lobby
      */
     public synchronized void addToLobby(SocketClientConnection connection) {
+        if ((!currentLobby.isPlayersToStartSet() && currentLobby.getConnections().size() < 3) || (currentLobby.isPlayersToStartSet() && currentLobby.getConnections().size() < currentLobby.getPlayersToStart())) {
+            currentLobby.addObserver(connection.getRemoteView());
+            try {
+                currentLobby.addConnection(connection);
+            } catch (IllegalStateException e) {
+                System.err.println("More than 3 connections, closing this one");
+                connection.closeConnection();
+            }
+            return;
+        }
+
+
+        waitingLobbies.add(currentLobby);
+        currentLobby = new Lobby();
         currentLobby.addObserver(connection.getRemoteView());
         try {
             currentLobby.addConnection(connection);
         } catch (IllegalStateException e) {
             System.err.println("More than 3 connections, closing this one");
-
             connection.closeConnection();
         }
     }
@@ -50,9 +68,17 @@ public class LobbyController {
             return;
         }
 
-        currentLobby.setPlayerName(connection, playerName);
-
-        System.out.println("Player connected: " + connection.getPlayerName());
+        if (currentLobby.getConnections().contains(connection)) {
+            currentLobby.setPlayerName(connection, playerName);
+            System.out.println("Player " + connection.getPlayerName() + " connected in Lobby " + currentLobby.getUuid());
+        } else {
+            for (Lobby lobby : waitingLobbies) {
+                if (lobby.getConnections().contains(connection)) {
+                    lobby.setPlayerName(connection, playerName);
+                    System.out.println("Player " + connection.getPlayerName() + " connected in Lobby " + lobby.getUuid());
+                }
+            }
+        }
 
     }
 
@@ -63,17 +89,29 @@ public class LobbyController {
      * @param wizard     the wizard to be set
      */
     public synchronized void setPlayerWizard(SocketClientConnection connection, Wizard wizard) {
-
         if (connection.getWizard() != null) {
             return;
         }
 
-        currentLobby.setPlayerWizard(connection, wizard);
+        if (currentLobby.getConnections().contains(connection)) {
+            currentLobby.setPlayerWizard(connection, wizard);
 
-        System.out.println("Player connected: " + connection.getPlayerName() + ", with wizard: " + connection.getWizard());
+            System.out.println("Player connected: " + connection.getPlayerName() + ", with wizard: " + connection.getWizard());
 
-        if (currentLobby.canStart())
-            startGame();
+            if (currentLobby.canStart())
+                startGame(currentLobby);
+        } else {
+            for (Lobby lobby : waitingLobbies) {
+                if (lobby.getConnections().contains(connection)) {
+                    lobby.setPlayerWizard(connection, wizard);
+
+                    System.out.println("Player connected: " + connection.getPlayerName() + ", with wizard: " + connection.getWizard());
+
+                    if (lobby.canStart())
+                        startGame(lobby);
+                }
+            }
+        }
     }
 
     /**
@@ -83,12 +121,26 @@ public class LobbyController {
      * @param playersToStart the number of players needed to start the game in the current lobby
      */
     public synchronized void setPlayersToStart(SocketClientConnection connection, int playersToStart) {
-        if (currentLobby.isPlayersToStartSet()) {
-            return;
+        if (currentLobby.getConnections().contains(connection)) {
+            if (currentLobby.isPlayersToStartSet()) {
+                return;
+            }
+            currentLobby.setPlayersToStart(connection, playersToStart);
+            if (currentLobby.canStart())
+                startGame(currentLobby);
+        } else {
+            for (Lobby lobby : waitingLobbies) {
+                if (lobby.getConnections().contains(connection)) {
+                    if (lobby.isPlayersToStartSet()) {
+                        return;
+                    }
+                    lobby.setPlayersToStart(connection, playersToStart);
+                    if (lobby.canStart())
+                        startGame(lobby);
+                }
+            }
         }
-        currentLobby.setPlayersToStart(connection, playersToStart);
-        if (currentLobby.canStart())
-            startGame();
+
     }
 
     /**
@@ -98,23 +150,30 @@ public class LobbyController {
      * @param gameMode   the gameMode to be set
      */
     public synchronized void setGameMode(SocketClientConnection connection, boolean gameMode) {
-        currentLobby.setGameMode(connection, gameMode);
+        if (currentLobby.getConnections().contains(connection)) {
+            currentLobby.setGameMode(connection, gameMode);
+        } else {
+            for (Lobby lobby : waitingLobbies) {
+                if (lobby.getConnections().contains(connection)) {
+                    lobby.setGameMode(connection, gameMode);
+                }
+            }
+        }
     }
 
     /**
      * Starts the game in the current lobby. The game is initialized in a separate Thread to allow new players to connect
      * to the next lobby without waiting.
      */
-    private synchronized void startGame() {
-        Lobby lobbyToStart = currentLobby;
-        playingLobbies.put(currentLobby.getUuid(), lobbyToStart);
+    private synchronized void startGame(Lobby lobby) {
+        playingLobbies.put(lobby.getUuid(), lobby);
+        waitingLobbies.remove(lobby);
 
-        currentLobby.startGame();
-
-        Thread t = new Thread(new GameInstance(lobbyToStart, lobbyToStart.getGameMode(), lobbyToStart.getPlayersToStart()));
-        t.start();
-
+        lobby.startGame();
         currentLobby = new Lobby();
+
+        Thread t = new Thread(new GameInstance(lobby, lobby.getGameMode(), lobby.getPlayersToStart()));
+        t.start();
     }
 
     /**
@@ -125,12 +184,23 @@ public class LobbyController {
      */
     public synchronized void deregisterConnection(SocketClientConnection connection) {
         if (connection.getLobbyUUID() == null) {
-            currentLobby.disconnect(connection);
+            if (currentLobby.getConnections().contains(connection)) {
+                currentLobby.disconnectAll(connection);
+                currentLobby = new Lobby();
+                return;
+            }
+
+            for (Lobby waitingLobby : waitingLobbies) {
+                if (waitingLobby.getConnections().contains(connection)) {
+                    waitingLobby.disconnectAll(connection);
+                    waitingLobbies.remove(waitingLobby);
+                    return;
+                }
+            }
         } else {
             Lobby lobby = playingLobbies.get(connection.getLobbyUUID());
             if (lobby != null) {
                 lobby.disconnectAll(connection);
-
                 playingLobbies.remove(connection.getLobbyUUID());
             }
         }

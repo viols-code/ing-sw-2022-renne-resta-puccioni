@@ -14,7 +14,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class ExchangeEntranceDiningRoomTest {
@@ -61,7 +60,7 @@ class ExchangeEntranceDiningRoomTest {
     }
 
     @RepeatedTest(2000)
-    void exchangeEntranceDiningRoom(){
+    void exchangeEntranceDiningRoom() {
         GameController gameController;
         gameController = new GameController(true, 2, new Lobby());
         gameController.setUp();
@@ -71,8 +70,8 @@ class ExchangeEntranceDiningRoomTest {
 
         boolean flag = false;
         int i;
-        for(i = 0; i < 3; i++){
-            if(gameController.getGame().getCharacterCardByIndex(i).getCharacterCardType() == CharacterCardEnumeration.EXCHANGE_ENTRANCE_DINING_ROOM){
+        for (i = 0; i < 3; i++) {
+            if (gameController.getGame().getCharacterCardByIndex(i).getCharacterCardType() == CharacterCardEnumeration.EXCHANGE_ENTRANCE_DINING_ROOM) {
                 CharacterCard card = gameController.getGame().getCharacterCardByIndex(i);
                 flag = true;
                 assertEquals(i, gameController.getGame().getCharacterCardIndex(card));
@@ -80,7 +79,7 @@ class ExchangeEntranceDiningRoomTest {
             }
         }
 
-        if(flag){
+        if (flag) {
             gameController.playAssistantCard("Viola", 0);
             gameController.playAssistantCard("Laura", 1);
 
@@ -94,8 +93,8 @@ class ExchangeEntranceDiningRoomTest {
             int numBlue = 0;
             int numRed = 0;
 
-            for(Colour colour : Colour.values()){
-                for(int j = 0; j < gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour); j++){
+            for (Colour colour : Colour.values()) {
+                for (int j = 0; j < gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour); j++) {
                     switch (colour) {
                         case YELLOW -> numYellow++;
                         case PINK -> numPink++;
@@ -106,85 +105,85 @@ class ExchangeEntranceDiningRoomTest {
                 }
             }
 
-            if(numPink == 0){
+            if (numPink == 0) {
                 gameController.setColourDiningRoomEntrance("Viola", Colour.RED, Colour.PINK);
                 assertEquals(numPink, gameController.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(Colour.PINK));
                 assertEquals(0, gameController.getGame().getCurrentPlayer().getSchoolBoard().getDiningRoom(Colour.PINK));
             }
 
-            if(numGreen == 0){
+            if (numGreen == 0) {
                 gameController.setColourDiningRoomEntrance("Viola", Colour.RED, Colour.GREEN);
                 assertEquals(numGreen, gameController.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(Colour.GREEN));
                 assertEquals(0, gameController.getGame().getCurrentPlayer().getSchoolBoard().getDiningRoom(Colour.GREEN));
             }
 
-            if(numBlue == 0){
+            if (numBlue == 0) {
                 gameController.setColourDiningRoomEntrance("Viola", Colour.RED, Colour.BLUE);
                 assertEquals(numBlue, gameController.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(Colour.BLUE));
                 assertEquals(0, gameController.getGame().getCurrentPlayer().getSchoolBoard().getDiningRoom(Colour.BLUE));
             }
 
-            if(numYellow == 0){
+            if (numYellow == 0) {
                 gameController.setColourDiningRoomEntrance("Viola", Colour.RED, Colour.YELLOW);
                 assertEquals(numYellow, gameController.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(Colour.YELLOW));
                 assertEquals(0, gameController.getGame().getCurrentPlayer().getSchoolBoard().getDiningRoom(Colour.YELLOW));
             }
 
-            if(numRed == 0){
+            if (numRed == 0) {
                 gameController.setColourDiningRoomEntrance("Viola", Colour.RED, Colour.RED);
                 assertEquals(numRed, gameController.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(Colour.RED));
                 assertEquals(0, gameController.getGame().getCurrentPlayer().getSchoolBoard().getDiningRoom(Colour.RED));
             }
 
-            if(numPink > 0){
+            if (numPink > 0) {
                 gameController.moveStudentToDiningRoom("Viola", Colour.PINK);
-                numPink --;
+                numPink--;
                 assertEquals(numPink, gameController.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(Colour.PINK));
                 assertEquals(1, gameController.getGame().getCurrentPlayer().getSchoolBoard().getDiningRoom(Colour.PINK));
 
-                if(numBlue == 0){
+                if (numBlue == 0) {
                     gameController.setColourDiningRoomEntrance("Viola", Colour.PINK, Colour.BLUE);
                     assertEquals(numBlue, gameController.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(Colour.BLUE));
                     assertEquals(0, gameController.getGame().getCurrentPlayer().getSchoolBoard().getDiningRoom(Colour.BLUE));
                     assertEquals(1, gameController.getGame().getCurrentPlayer().getSchoolBoard().getDiningRoom(Colour.PINK));
                 }
 
-                if(numGreen == 0){
+                if (numGreen == 0) {
                     gameController.setColourDiningRoomEntrance("Viola", Colour.PINK, Colour.GREEN);
                     assertEquals(numGreen, gameController.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(Colour.GREEN));
                     assertEquals(0, gameController.getGame().getCurrentPlayer().getSchoolBoard().getDiningRoom(Colour.GREEN));
                     assertEquals(1, gameController.getGame().getCurrentPlayer().getSchoolBoard().getDiningRoom(Colour.PINK));
                 }
-            } else if(numYellow > 0){
+            } else if (numYellow > 0) {
                 gameController.moveStudentToDiningRoom("Viola", Colour.YELLOW);
-                numYellow --;
+                numYellow--;
                 assertEquals(numYellow, gameController.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(Colour.YELLOW));
                 assertEquals(1, gameController.getGame().getCurrentPlayer().getSchoolBoard().getDiningRoom(Colour.YELLOW));
 
-                if(numBlue == 0){
+                if (numBlue == 0) {
                     gameController.setColourDiningRoomEntrance("Viola", Colour.YELLOW, Colour.BLUE);
                     assertEquals(numBlue, gameController.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(Colour.BLUE));
                     assertEquals(0, gameController.getGame().getCurrentPlayer().getSchoolBoard().getDiningRoom(Colour.BLUE));
                     assertEquals(1, gameController.getGame().getCurrentPlayer().getSchoolBoard().getDiningRoom(Colour.YELLOW));
                 }
 
-                if(numGreen == 0){
+                if (numGreen == 0) {
                     gameController.setColourDiningRoomEntrance("Viola", Colour.YELLOW, Colour.GREEN);
                     assertEquals(numGreen, gameController.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(Colour.GREEN));
                     assertEquals(0, gameController.getGame().getCurrentPlayer().getSchoolBoard().getDiningRoom(Colour.GREEN));
                     assertEquals(1, gameController.getGame().getCurrentPlayer().getSchoolBoard().getDiningRoom(Colour.YELLOW));
                 }
 
-                if(numBlue > 0){
+                if (numBlue > 0) {
                     gameController.setColourDiningRoomEntrance("Viola", Colour.YELLOW, Colour.BLUE);
-                    numBlue --;
-                    numYellow ++;
+                    numBlue--;
+                    numYellow++;
                     assertEquals(numBlue, gameController.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(Colour.BLUE));
                     assertEquals(numYellow, gameController.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(Colour.YELLOW));
                     assertEquals(1, gameController.getGame().getCurrentPlayer().getSchoolBoard().getDiningRoom(Colour.BLUE));
                     assertEquals(0, gameController.getGame().getCurrentPlayer().getSchoolBoard().getDiningRoom(Colour.YELLOW));
                 }
-            } else if(numGreen >= 3 && numRed > 0){
+            } else if (numGreen >= 3 && numRed > 0) {
                 gameController.moveStudentToDiningRoom("Viola", Colour.GREEN);
                 gameController.moveStudentToDiningRoom("Viola", Colour.GREEN);
                 gameController.moveStudentToDiningRoom("Viola", Colour.RED);
@@ -208,21 +207,21 @@ class ExchangeEntranceDiningRoomTest {
     }
 
     @Test
-    void setNumberOfNoEntryTiles(){
+    void setNumberOfNoEntryTiles() {
         CharacterCard card = new ExchangeEntranceDiningRoom(gameTest);
-        assertThrows(IllegalAccessError.class, ()->card.setNumberOfNoEntryTiles(1));
+        assertThrows(IllegalAccessError.class, () -> card.setNumberOfNoEntryTiles(1));
     }
 
     @Test
-    void getNumberOfNoEntryTiles(){
+    void getNumberOfNoEntryTiles() {
         CharacterCard card = new ExchangeEntranceDiningRoom(gameTest);
         assertThrows(IllegalAccessError.class, card::getNumberOfNoEntryTiles);
     }
 
     @Test
-    void getStudent(){
+    void getStudent() {
         CharacterCard card = new ExchangeEntranceDiningRoom(gameTest);
-        assertThrows(IllegalAccessError.class, ()->card.getStudent(Colour.GREEN));
+        assertThrows(IllegalAccessError.class, () -> card.getStudent(Colour.GREEN));
     }
 
 }

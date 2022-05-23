@@ -10,7 +10,9 @@ public class ProtectIsland extends CharacterCard {
      * The number of no entry tiles available
      */
     private int numberOfNoEntryTiles;
-
+    /**
+     * The chosen group island to be protected
+     */
     private int groupIslandToProtect;
 
     /**

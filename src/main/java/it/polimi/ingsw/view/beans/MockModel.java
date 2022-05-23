@@ -110,15 +110,15 @@ public class MockModel {
      *
      * @return the player with the given nickname
      */
-    public MockPlayer getPlayerByNickname(String nickname) throws IllegalArgumentException{
+    public MockPlayer getPlayerByNickname(String nickname) throws IllegalArgumentException {
         List<String> matches = this.players.entrySet()
                 .stream()
                 .map(player -> player.getKey())
                 .filter(player -> player.equalsIgnoreCase(nickname))
                 .collect(Collectors.toList());
-        if(matches.size() == 1){
+        if (matches.size() == 1) {
             return players.get(matches.get(0));
-        } else{
+        } else {
             throw new IllegalArgumentException("There is no player with that nickname");
         }
     }

@@ -10,6 +10,9 @@ public class BasicGame extends Game {
         super();
     }
 
+    /**
+     * Add the GroupIsland to the Game
+     */
     public void setUp() {
         super.setUp();
         for (int i = 0; i < 12; i++) {

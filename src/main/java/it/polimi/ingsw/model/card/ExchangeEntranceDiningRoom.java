@@ -5,8 +5,17 @@ import it.polimi.ingsw.model.game.Game;
 import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
 
 public class ExchangeEntranceDiningRoom extends CharacterCard {
+    /**
+     * The colour on the dining room to be switched
+     */
     private Colour colourDiningRoom;
+    /**
+     * The colour on the entrance to be switched
+     */
     private Colour colourEntrance;
+    /**
+     * The times the player has already used this card
+     */
     private int times;
 
     /**
@@ -86,10 +95,20 @@ public class ExchangeEntranceDiningRoom extends CharacterCard {
         times += 1;
     }
 
+    /**
+     * Gets the colour set in the colour entrance
+     *
+     * @return the colour set in the colour entrance
+     */
     protected Colour getColourEntrance() {
         return colourEntrance;
     }
 
+    /**
+     * Gets the colour set in the colour dining room
+     *
+     * @return the colour set in the colour dining room
+     */
     protected Colour getColourDiningRoom() {
         return colourDiningRoom;
     }

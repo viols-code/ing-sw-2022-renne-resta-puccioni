@@ -8,6 +8,9 @@ import it.polimi.ingsw.model.table.island.GroupIsland;
 import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
 
 public class NoColour extends CharacterCard {
+    /**
+     * The chosen colour
+     */
     private Colour colour;
 
     /**
@@ -58,6 +61,11 @@ public class NoColour extends CharacterCard {
         return influence;
     }
 
+    /**
+     * Gets the set colour
+     *
+     * @return the set colour
+     */
     protected Colour getColour() {
         return colour;
     }

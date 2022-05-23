@@ -8,10 +8,18 @@ import java.io.Serial;
  * Update sent when a Player performs an invalid action.
  */
 public class InvalidActionUpdate extends ModelUpdate {
+    /**
+     * The serial version UID
+     */
     @Serial
     private static final long serialVersionUID = 6266673714222888773L;
-
+    /**
+     * The nickname of the player
+     */
     private transient final String player;
+    /**
+     * The error message
+     */
     private final String errorMessage;
 
     /**
@@ -34,6 +42,11 @@ public class InvalidActionUpdate extends ModelUpdate {
         return player;
     }
 
+    /**
+     * Update the view with the invalid action
+     *
+     * @param view the view
+     */
     @Override
     public void process(View view) {
         view.handleInvalidAction(errorMessage);

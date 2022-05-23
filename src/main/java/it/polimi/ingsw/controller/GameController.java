@@ -54,6 +54,9 @@ public class GameController implements Observer<PlayerEvent> {
     SETTING PHASE
     */
 
+    /**
+     * Set up the game
+     */
     public void setUp() {
         game.setUp();
 
@@ -94,6 +97,9 @@ public class GameController implements Observer<PlayerEvent> {
         settingInteger();
     }
 
+    /**
+     * Set up character cards and islands
+     */
     public void setUpCharactersAndIslands() {
         settingBag();
         if (isGameExpert) {
@@ -928,6 +934,11 @@ public class GameController implements Observer<PlayerEvent> {
         }
     }
 
+    /**
+     * Update an event
+     *
+     * @param event the event
+     */
     @Override
     public synchronized void update(PlayerEvent event) {
         try {

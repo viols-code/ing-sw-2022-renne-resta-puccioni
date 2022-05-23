@@ -68,20 +68,20 @@ class TakeProfessorTest {
             }
         }
 
-        if(flag){
-            for(Colour colour: Colour.values()){
-                if(gameController.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) >= 3){
+        if (flag) {
+            for (Colour colour : Colour.values()) {
+                if (gameController.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) >= 3) {
                     gameController.moveStudentToDiningRoom("Viola", colour);
                     gameController.moveStudentToDiningRoom("Viola", colour);
                     gameController.moveStudentToDiningRoom("Viola", colour);
                 }
             }
 
-            if(gameController.getGame().getCurrentPlayer().getCoins() == 2){
+            if (gameController.getGame().getCurrentPlayer().getCoins() == 2) {
                 gameController.playCharacterCard("Viola", i);
 
-                for(Colour colour: Colour.values()){
-                    if(gameController.getGame().getCurrentPlayer().getSchoolBoard().getDiningRoom(colour) > 0){
+                for (Colour colour : Colour.values()) {
+                    if (gameController.getGame().getCurrentPlayer().getSchoolBoard().getDiningRoom(colour) > 0) {
                         assertTrue(gameController.getGame().getCurrentPlayer().getSchoolBoard().hasProfessor(colour));
                         assertEquals(3, gameController.getGame().getCurrentPlayer().getSchoolBoard().getDiningRoom(colour));
                     } else {
@@ -95,7 +95,7 @@ class TakeProfessorTest {
     }
 
     @RepeatedTest(10000)
-    void takeProfessor(){
+    void takeProfessor() {
         gameController = new GameController(true, 2, new Lobby());
         gameController.setUp();
         gameController.addPlayer("Viola", Wizard.TYPE_1);
@@ -114,10 +114,10 @@ class TakeProfessorTest {
             }
         }
 
-        if(flag){
+        if (flag) {
 
-            for(Colour colour: Colour.values()){
-                if(gameController.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) >= 3){
+            for (Colour colour : Colour.values()) {
+                if (gameController.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) >= 3) {
                     gameController.moveStudentToDiningRoom("Viola", colour);
                     gameController.moveStudentToDiningRoom("Viola", colour);
                     gameController.moveStudentToDiningRoom("Viola", colour);
@@ -127,7 +127,7 @@ class TakeProfessorTest {
                     gameController.moveMotherNature("Viola", 1);
                     gameController.chooseCloudTile("Viola", 0);
 
-                    if(gameController.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) >= 3){
+                    if (gameController.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) >= 3) {
                         gameController.moveStudentToDiningRoom("Laura", colour);
                         gameController.moveStudentToDiningRoom("Laura", colour);
                         gameController.moveStudentToDiningRoom("Laura", colour);
@@ -143,7 +143,6 @@ class TakeProfessorTest {
                     break;
                 }
             }
-
 
 
         }
@@ -203,7 +202,7 @@ class TakeProfessorTest {
 
         for (int i = 1; i < 12; i++) {
             if (i == 5) i++;
-            gameTest.getTable().getGroupIslandByIndex(i).getIslandByIndex(0).addStudent(i,0,gameTest.getTable().getBag().bagDrawStudent());
+            gameTest.getTable().getGroupIslandByIndex(i).getIslandByIndex(0).addStudent(i, 0, gameTest.getTable().getBag().bagDrawStudent());
         }
 
         for (Colour colour : Colour.values()) {

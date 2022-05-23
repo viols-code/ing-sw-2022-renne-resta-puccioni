@@ -51,11 +51,11 @@ class TwoPointsTest {
     @Test
     void calculateInfluencePlayer() {
 
-        gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0).addStudent(0,0,Colour.BLUE);
-        gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0).addStudent(0,0,Colour.BLUE);
-        gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0).addStudent(0,0,Colour.RED);
-        gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0).addStudent(0,0,Colour.RED);
-        gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0).addStudent(0,0,Colour.RED);
+        gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0).addStudent(0, 0, Colour.BLUE);
+        gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0).addStudent(0, 0, Colour.BLUE);
+        gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0).addStudent(0, 0, Colour.RED);
+        gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0).addStudent(0, 0, Colour.RED);
+        gameTest.getTable().getGroupIslandByIndex(0).getIslandByIndex(0).addStudent(0, 0, Colour.RED);
 
         gameTest.setCurrentPlayer(player1);
         assertEquals(4, cardTest.calculateInfluencePlayer(player1, gameTest.getTable().getGroupIslandByIndex(0)));
@@ -111,7 +111,7 @@ class TwoPointsTest {
 
         for (int i = 1; i < 12; i++) {
             if (i == 5) i++;
-            gameTest.getTable().getGroupIslandByIndex(i).getIslandByIndex(0).addStudent(i,0,gameTest.getTable().getBag().bagDrawStudent());
+            gameTest.getTable().getGroupIslandByIndex(i).getIslandByIndex(0).addStudent(i, 0, gameTest.getTable().getBag().bagDrawStudent());
         }
 
         for (Colour colour : Colour.values()) {
@@ -128,20 +128,20 @@ class TwoPointsTest {
     }
 
     @Test
-    void setNumberOfNoEntryTiles(){
+    void setNumberOfNoEntryTiles() {
         CharacterCard card = new TwoPoints(gameTest);
-        assertThrows(IllegalAccessError.class, ()->card.setNumberOfNoEntryTiles(1));
+        assertThrows(IllegalAccessError.class, () -> card.setNumberOfNoEntryTiles(1));
     }
 
     @Test
-    void getNumberOfNoEntryTiles(){
+    void getNumberOfNoEntryTiles() {
         CharacterCard card = new TwoPoints(gameTest);
         assertThrows(IllegalAccessError.class, card::getNumberOfNoEntryTiles);
     }
 
     @Test
-    void getStudent(){
+    void getStudent() {
         CharacterCard card = new TwoPoints(gameTest);
-        assertThrows(IllegalAccessError.class, ()->card.getStudent(Colour.GREEN));
+        assertThrows(IllegalAccessError.class, () -> card.getStudent(Colour.GREEN));
     }
 }

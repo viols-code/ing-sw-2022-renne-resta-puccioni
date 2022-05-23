@@ -1695,7 +1695,7 @@ class GameControllerTest {
         }
     }
 
-    @Test
+    @RepeatedTest(100)
     void checkIsBagEmpty() {
         gameControllerThree.addPlayer("Viola", Wizard.TYPE_3);
         gameControllerThree.addPlayer("Laura", Wizard.TYPE_4);
@@ -2097,11 +2097,12 @@ class GameControllerTest {
 
         assertEquals(gameControllerThree.getGame().getGamePhase(), GamePhase.END_GAME);
         assertEquals(gameControllerThree.getGame().getTurnPhase(), TurnPhase.ENDGAME);
+        assertTrue(gameControllerThree.getGame().getTable().getBag().getNoStudent());
 
     }
 
     @RepeatedTest(20)
-    void characterCardSetting(){
+    void characterCardSetting() {
         GameController gameControllerExpert = new GameController(true, 2, new Lobby());
         gameControllerExpert.setUp();
         gameControllerExpert.addPlayer("Viola", Wizard.TYPE_1);
@@ -2120,7 +2121,7 @@ class GameControllerTest {
         assertEquals(TurnPhase.MOVE_STUDENT, gameControllerExpert.getGame().getTurnPhase());
 
 
-        if(gameControllerExpert.getGame().getPlayerByNickname("Viola").getCoins() >= gameControllerExpert.getGame().getCharacterCardByIndex(0).getCost()){
+        if (gameControllerExpert.getGame().getPlayerByNickname("Viola").getCoins() >= gameControllerExpert.getGame().getCharacterCardByIndex(0).getCost()) {
             gameControllerExpert.playCharacterCard("Viola", 0);
             assertEquals(gameControllerExpert.getGame().getActiveCharacterCard(), gameControllerExpert.getGame().getCharacterCardByIndex(0));
         }
@@ -2128,7 +2129,7 @@ class GameControllerTest {
     }
 
     @RepeatedTest(100)
-    void exceptionSetting(){
+    void exceptionSetting() {
         gameControllerTwo.addPlayer("Viola", Wizard.TYPE_2);
         assertEquals(1, gameControllerTwo.getGame().getNumberOfPlayer());
         gameControllerTwo.addPlayer("Viola", Wizard.TYPE_1);
@@ -2380,7 +2381,6 @@ class GameControllerTest {
 
         assertEquals(GamePhase.PLAYING, gameControllerTwo.getGame().getGamePhase());
         assertEquals(TurnPhase.MOVE_MOTHER_NATURE, gameControllerTwo.getGame().getTurnPhase());
-
 
 
         gameControllerTwo.chooseCloudTile("Viola", 0);
@@ -2730,7 +2730,7 @@ class GameControllerTest {
     }
 
     @Test
-    void assistantCard(){
+    void assistantCard() {
         gameControllerTwo.addPlayer("Laura", Wizard.TYPE_1);
         gameControllerTwo.addPlayer("Viola", Wizard.TYPE_4);
         gameControllerTwo.setUpCharactersAndIslands();

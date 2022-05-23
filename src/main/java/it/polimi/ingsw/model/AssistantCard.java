@@ -8,7 +8,13 @@ import java.util.Objects;
  * @version 1.0
  */
 public class AssistantCard {
+    /**
+     * The value of the assistant card
+     */
     private final int value;
+    /**
+     * The mother nature steps you can do if you play this card
+     */
     private final int motherNatureMovement;
 
     /**
