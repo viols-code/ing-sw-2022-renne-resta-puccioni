@@ -4,7 +4,7 @@ import java.io.ObjectOutputStream;
 import java.util.concurrent.ArrayBlockingQueue;
 
 /**
- * Thread responsible to queue and send messages to the Server.
+ * Thread responsible to queue and send messages to the Server
  */
 public class SocketClientWrite extends Thread {
     private static final int BUFFER_CAPACITY = 20;
@@ -14,7 +14,7 @@ public class SocketClientWrite extends Thread {
     private final ArrayBlockingQueue<Object> bufferOut;
 
     /**
-     * Constructs a new SocketClientWrite for the given Client that will write to the given ObjectOutputStream.
+     * Constructs a new SocketClientWrite for the given Client that will write to the given ObjectOutputStream
      *
      * @param client    the client that is associated with this thread
      * @param socketOut the output stream where messages will be sent
@@ -28,7 +28,7 @@ public class SocketClientWrite extends Thread {
     }
 
     /**
-     * Starts writing thread loop, waiting for objects to be added to the queue and sending them to the server.
+     * Starts writing thread loop, waiting for objects to be added to the queue and sending them to the server
      */
     @Override
     public void run() {
@@ -49,7 +49,7 @@ public class SocketClientWrite extends Thread {
 
     /**
      * Adds a message to the queue to be sent to the Server. If the queue does not have enough capacity prints an error
-     * message in the console.
+     * message in the console
      *
      * @param message the object that will be sent to the server
      */

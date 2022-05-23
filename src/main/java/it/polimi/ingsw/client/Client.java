@@ -11,6 +11,9 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.NoSuchElementException;
 
+/**
+ * Main client instance
+ */
 public class Client {
     private String ip = "localhost";
     private int port = 54321;
@@ -25,7 +28,7 @@ public class Client {
 
 
     /**
-     * Constructs a new Client with the given arguments.
+     * Constructs a new Client with the given arguments
      *
      * @param startCli a boolean indicating if the client should be started in CLI mode
      */
@@ -34,7 +37,7 @@ public class Client {
     }
 
     /**
-     * Checks if this client is still active.
+     * Checks if this client is still active
      *
      * @return true if the client is active, false otherwise
      */
@@ -43,7 +46,7 @@ public class Client {
     }
 
     /**
-     * Set the ip of the game server to connect to.
+     * Set the ip of the game server to connect to
      *
      * @param ip the ip of the game server
      */
@@ -52,7 +55,7 @@ public class Client {
     }
 
     /**
-     * Set the port of the game server to connect to.
+     * Set the port of the game server to connect to
      *
      * @param port the port of the game server
      */
@@ -84,7 +87,7 @@ public class Client {
     }
 
     /**
-     * Sends a message to the Server.
+     * Sends a message to the Server
      *
      * @param message the message that will be sent to the server
      */
@@ -115,7 +118,7 @@ public class Client {
     }
 
     /**
-     * Gets the View associated with this Client.
+     * Gets the View associated with this Client
      *
      * @return the view that's associated with this client
      */
@@ -124,7 +127,7 @@ public class Client {
     }
 
     /**
-     * Starts the main client loop, reading and interpreting user commands.
+     * Starts the main client loop, reading and interpreting user commands
      */
     public void run() {
         if (startCli) {
@@ -138,7 +141,7 @@ public class Client {
     }
 
     /**
-     * Resets this Client instance to the initial state, closing the connection with the server.
+     * Resets this Client instance to the initial state, closing the connection with the server
      */
     public void reset() {
         ip = "localhost";

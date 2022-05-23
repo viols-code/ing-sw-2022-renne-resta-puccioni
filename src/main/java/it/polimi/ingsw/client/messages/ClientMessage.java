@@ -8,11 +8,17 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * Represents a message that will be sent from the Client to the Server.
+ * Represents a message that will be sent from the Client to the Server
  */
 public abstract class ClientMessage implements Serializable, IProcessablePacket<LobbyController> {
+    /**
+     * The serial version UID
+     */
     @Serial
     private static final long serialVersionUID = 463009486016884875L;
+    /**
+     * The socketClientConnection
+     */
     private transient SocketClientConnection clientConnection;
 
     /**
@@ -24,6 +30,11 @@ public abstract class ClientMessage implements Serializable, IProcessablePacket<
         return clientConnection;
     }
 
+    /**
+     * Constructor
+     *
+     * @param clientConnection the socketClientConnection
+     */
     public void setClientConnection(SocketClientConnection clientConnection) {
         this.clientConnection = clientConnection;
     }

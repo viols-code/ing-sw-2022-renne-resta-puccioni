@@ -7,14 +7,14 @@ import java.io.ObjectInputStream;
 import java.net.SocketException;
 
 /**
- * Thread responsible to read messages coming from the server and handling them.
+ * Thread responsible to read messages coming from the server and handling them
  */
 public class SocketClientRead extends Thread {
     private final Client client;
     private final ObjectInputStream socketIn;
 
     /**
-     * Constructs a new SocketClientRead for the given Client that will read messages from the given ObjectInputStream.
+     * Constructs a new SocketClientRead for the given Client that will read messages from the given ObjectInputStream
      *
      * @param client   the client that is associated with this thread
      * @param socketIn the input stream from where messages will be read
@@ -27,7 +27,7 @@ public class SocketClientRead extends Thread {
     }
 
     /**
-     * Starts the read thread loop, waiting for objects to be read from the input stream and handling them.
+     * Starts the read thread loop, waiting for objects to be read from the input stream and handling them
      */
     @Override
     public void run() {
