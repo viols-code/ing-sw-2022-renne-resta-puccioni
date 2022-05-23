@@ -3,6 +3,7 @@ package it.polimi.ingsw.view.implementation.gui;
 import it.polimi.ingsw.FXMLUtils;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.view.View;
+import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -42,6 +43,16 @@ public class GUI extends View {
         stage.setTitle("Eryantis");
         stage.setMaximized(true);
         stage.show();
+    }
+
+    @Override
+    public void addToLobby(boolean isFirstConnection){
+        super.addToLobby(isFirstConnection);
+
+        Platform.runLater(() -> {
+            Parent nameSelectionPage = FXMLUtils.loadFXML("/gui/NicknameSelection");
+            scene.setRoot(nameSelectionPage);
+        });
     }
 
     @Override
