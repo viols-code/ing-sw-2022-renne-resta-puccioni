@@ -1,4 +1,9 @@
 package it.polimi.ingsw.view.implementation.gui;
 
-public class GUIModelUpdateHandler {
+import it.polimi.ingsw.view.ModelUpdateHandler;
+
+public class GUIModelUpdateHandler extends ModelUpdateHandler {
+    public GUIModelUpdateHandler(GUI gui) {
+        super(gui);
+    }
 }

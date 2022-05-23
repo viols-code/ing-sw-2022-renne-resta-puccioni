@@ -3,6 +3,7 @@ package it.polimi.ingsw.client;
 import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.implementation.cli.CLI;
+import it.polimi.ingsw.view.implementation.gui.GUI;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -138,7 +139,7 @@ public class Client {
     public void run() {
         if (startCli) {
             view = new CLI(this);
-        } //else view = new GUI(this, stage);
+        } else view = new GUI(this, stage);
         try {
             view.run();
         } catch (Exception e) {

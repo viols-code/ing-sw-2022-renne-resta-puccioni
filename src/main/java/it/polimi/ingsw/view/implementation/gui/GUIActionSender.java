@@ -1,4 +1,9 @@
 package it.polimi.ingsw.view.implementation.gui;
 
-public class GUIActionSender {
+import it.polimi.ingsw.view.ActionSender;
+
+public class GUIActionSender extends ActionSender {
+    public GUIActionSender(GUI gui) {
+        super(gui);
+    }
 }
