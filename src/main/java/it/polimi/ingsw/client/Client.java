@@ -1,6 +1,5 @@
 package it.polimi.ingsw.client;
 
-import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.implementation.cli.CLI;
 
@@ -17,9 +16,6 @@ public class Client {
     private int port = 54321;
 
     private Socket socket;
-    private GameController localGameController;
-    private String localPlayerName;
-    private Boolean isGameExpert = null;
     private final boolean startCli;
     private boolean active = true;
     private SocketClientWrite writeThread;
@@ -85,7 +81,6 @@ public class Client {
             e.printStackTrace();
         }
         return true;
-
     }
 
     /**
