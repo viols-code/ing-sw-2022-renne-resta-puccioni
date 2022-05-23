@@ -101,7 +101,7 @@ public class MockTable {
      * Sets the cloud tile in the shown cloud tile
      *
      * @param cloudTile the position of the cloud tile in the list
-     * @param students the HashMap of the students on the cloud tile
+     * @param students  the HashMap of the students on the cloud tile
      */
     public void setShownCloudTile(int cloudTile, HashMap<Colour, Integer> students) {
         shownCloudTiles.get(cloudTile).setCloudTile(students);

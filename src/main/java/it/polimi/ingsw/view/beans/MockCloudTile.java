@@ -12,10 +12,12 @@ public class MockCloudTile {
      * A hash map with the students on the cloud tile
      */
     private HashMap<Colour, Integer> tileStudents;
+
     /**
      * Constructor: creates a new MockCloudTile
      */
-    public MockCloudTile() {}
+    public MockCloudTile() {
+    }
 
     /**
      * Gets the cloud tile
