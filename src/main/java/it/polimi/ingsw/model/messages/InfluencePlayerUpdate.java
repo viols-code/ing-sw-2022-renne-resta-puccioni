@@ -25,7 +25,7 @@ public class InfluencePlayerUpdate extends GroupIslandUpdate {
     /**
      * Constructor
      *
-     * @param player the nickname of influence player
+     * @param player      the nickname of influence player
      * @param groupIsland the group island
      */
     public InfluencePlayerUpdate(String player, int groupIsland) {

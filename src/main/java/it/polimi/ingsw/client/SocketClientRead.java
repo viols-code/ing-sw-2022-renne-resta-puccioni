@@ -35,13 +35,13 @@ public class SocketClientRead extends Thread {
             while (client.isActive()) {
                 Object packet = socketIn.readObject();
 
-                if(packet instanceof String){
-                    if(packet.equals("ping")){
+                if (packet instanceof String) {
+                    if (packet.equals("ping")) {
                         client.send("pong");
-                    } else{
+                    } else {
                         System.err.println("Received object of unknown type");
                     }
-                } else{
+                } else {
                     if (packet instanceof IProcessablePacket) {
                         if (packet instanceof IServerPacket serverPacket) {
                             System.out.println("Received: " + packet);

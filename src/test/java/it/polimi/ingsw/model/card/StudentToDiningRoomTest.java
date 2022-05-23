@@ -59,9 +59,6 @@ class StudentToDiningRoomTest {
         }
 
 
-
-
-
         for (Colour colour : Colour.values()) {
             if (cardTest.getStudents(colour) == 0) {
                 assertThrows(IllegalArgumentException.class, () -> cardTest.setColour(colour));

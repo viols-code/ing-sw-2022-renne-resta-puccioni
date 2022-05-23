@@ -26,7 +26,7 @@ public class TowersUpdate extends PlayerUpdate {
      * Constructor
      *
      * @param playerName the player's nickname
-     * @param towers the number of towers
+     * @param towers     the number of towers
      */
     public TowersUpdate(String playerName, int towers) {
         this.playerName = playerName;

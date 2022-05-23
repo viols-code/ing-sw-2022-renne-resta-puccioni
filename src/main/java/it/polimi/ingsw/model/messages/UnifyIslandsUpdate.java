@@ -25,7 +25,7 @@ public class UnifyIslandsUpdate extends GroupIslandUpdate {
     /**
      * Constructor
      *
-     * @param firstGroupIsland the first group island
+     * @param firstGroupIsland  the first group island
      * @param secondGroupIsland the second group island
      */
     public UnifyIslandsUpdate(int firstGroupIsland, int secondGroupIsland) {

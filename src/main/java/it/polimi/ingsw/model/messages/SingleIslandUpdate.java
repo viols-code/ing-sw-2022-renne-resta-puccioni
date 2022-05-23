@@ -30,9 +30,9 @@ public class SingleIslandUpdate extends TableUpdate {
     /**
      * Constructor
      *
-     * @param groupIsland the group island
+     * @param groupIsland  the group island
      * @param singleIsland the single island
-     * @param colour the colour
+     * @param colour       the colour
      */
     public SingleIslandUpdate(int groupIsland, int singleIsland, Colour colour) {
         this.groupIsland = groupIsland;

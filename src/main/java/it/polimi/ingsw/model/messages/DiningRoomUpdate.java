@@ -28,7 +28,7 @@ public class DiningRoomUpdate extends PlayerUpdate {
      * Constructor
      *
      * @param playerName the nickname of the player
-     * @param students the students in the dining room
+     * @param students   the students in the dining room
      */
     public DiningRoomUpdate(String playerName, HashMap<Colour, Integer> students) {
         this.playerName = playerName;

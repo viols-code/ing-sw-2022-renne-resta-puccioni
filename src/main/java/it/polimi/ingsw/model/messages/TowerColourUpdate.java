@@ -8,7 +8,7 @@ import java.io.Serial;
 /**
  * Update the tower colour of the player
  */
-public class TowerColourUpdate extends PlayerUpdate{
+public class TowerColourUpdate extends PlayerUpdate {
     /**
      * The serial version UID
      */
@@ -26,7 +26,7 @@ public class TowerColourUpdate extends PlayerUpdate{
     /**
      * Constructor
      *
-     * @param playerName the player's nickname
+     * @param playerName  the player's nickname
      * @param towerColour the colour of the tower
      */
     public TowerColourUpdate(String playerName, TowerColour towerColour) {
@@ -49,6 +49,6 @@ public class TowerColourUpdate extends PlayerUpdate{
      * @param view the view
      */
     public void process(View view) {
-        view.getModelUpdateHandler().updateTowerColour(playerName,towerColour);
+        view.getModelUpdateHandler().updateTowerColour(playerName, towerColour);
     }
 }

@@ -26,7 +26,7 @@ public class CardCoinsUpdate extends CardUpdate {
      * Constructor
      *
      * @param characterCard the character card
-     * @param coins the new cost of the character card
+     * @param coins         the new cost of the character card
      */
     public CardCoinsUpdate(int characterCard, int coins) {
         this.characterCard = characterCard;

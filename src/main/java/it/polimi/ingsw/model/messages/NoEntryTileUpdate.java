@@ -25,7 +25,7 @@ public class NoEntryTileUpdate extends GroupIslandUpdate {
     /**
      * Constructor
      *
-     * @param groupIsland the group island
+     * @param groupIsland          the group island
      * @param numberOfNoEntryTiles the number of no entry tiles
      */
     public NoEntryTileUpdate(int groupIsland, int numberOfNoEntryTiles) {

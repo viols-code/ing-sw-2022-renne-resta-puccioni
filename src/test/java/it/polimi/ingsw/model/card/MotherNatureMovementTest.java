@@ -8,7 +8,7 @@ import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class MotherNatureMovementTest {
     private GameController gameController;
@@ -41,9 +41,9 @@ class MotherNatureMovementTest {
             assertEquals(gameController.getGame().getCharacterCardByIndex(i), gameController.getGame().getActiveCharacterCard());
 
             int j = 0;
-            while(j < 3){
-                for(Colour colour: Colour.values()){
-                    if(gameController.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) > 0){
+            while (j < 3) {
+                for (Colour colour : Colour.values()) {
+                    if (gameController.getGame().getCurrentPlayer().getSchoolBoard().getEntrance(colour) > 0) {
                         gameController.moveStudentToDiningRoom("Viola", colour);
                         j++;
                     }

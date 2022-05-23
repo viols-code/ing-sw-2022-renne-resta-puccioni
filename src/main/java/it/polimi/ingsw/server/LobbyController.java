@@ -13,7 +13,7 @@ public class LobbyController {
     private final List<Lobby> waitingLobbies;
     private Lobby currentLobby;
 
-    public LobbyController(){
+    public LobbyController() {
         playingLobbies = new HashMap<>();
         waitingLobbies = new ArrayList<>();
         currentLobby = new Lobby();
@@ -68,12 +68,12 @@ public class LobbyController {
             return;
         }
 
-        if(currentLobby.getConnections().contains(connection)){
+        if (currentLobby.getConnections().contains(connection)) {
             currentLobby.setPlayerName(connection, playerName);
             System.out.println("Player " + connection.getPlayerName() + " connected in Lobby " + currentLobby.getUuid());
-        } else{
-            for (Lobby lobby: waitingLobbies) {
-                if(lobby.getConnections().contains(connection)){
+        } else {
+            for (Lobby lobby : waitingLobbies) {
+                if (lobby.getConnections().contains(connection)) {
                     lobby.setPlayerName(connection, playerName);
                     System.out.println("Player " + connection.getPlayerName() + " connected in Lobby " + lobby.getUuid());
                 }
@@ -93,16 +93,16 @@ public class LobbyController {
             return;
         }
 
-        if(currentLobby.getConnections().contains(connection)){
+        if (currentLobby.getConnections().contains(connection)) {
             currentLobby.setPlayerWizard(connection, wizard);
 
             System.out.println("Player connected: " + connection.getPlayerName() + ", with wizard: " + connection.getWizard());
 
             if (currentLobby.canStart())
                 startGame(currentLobby);
-        } else{
-            for (Lobby lobby: waitingLobbies) {
-                if(lobby.getConnections().contains(connection)){
+        } else {
+            for (Lobby lobby : waitingLobbies) {
+                if (lobby.getConnections().contains(connection)) {
                     lobby.setPlayerWizard(connection, wizard);
 
                     System.out.println("Player connected: " + connection.getPlayerName() + ", with wizard: " + connection.getWizard());
@@ -121,16 +121,16 @@ public class LobbyController {
      * @param playersToStart the number of players needed to start the game in the current lobby
      */
     public synchronized void setPlayersToStart(SocketClientConnection connection, int playersToStart) {
-        if(currentLobby.getConnections().contains(connection)){
+        if (currentLobby.getConnections().contains(connection)) {
             if (currentLobby.isPlayersToStartSet()) {
                 return;
             }
             currentLobby.setPlayersToStart(connection, playersToStart);
             if (currentLobby.canStart())
                 startGame(currentLobby);
-        } else{
-            for (Lobby lobby: waitingLobbies) {
-                if(lobby.getConnections().contains(connection)){
+        } else {
+            for (Lobby lobby : waitingLobbies) {
+                if (lobby.getConnections().contains(connection)) {
                     if (lobby.isPlayersToStartSet()) {
                         return;
                     }
@@ -150,11 +150,11 @@ public class LobbyController {
      * @param gameMode   the gameMode to be set
      */
     public synchronized void setGameMode(SocketClientConnection connection, boolean gameMode) {
-        if(currentLobby.getConnections().contains(connection)){
+        if (currentLobby.getConnections().contains(connection)) {
             currentLobby.setGameMode(connection, gameMode);
-        } else{
-            for (Lobby lobby: waitingLobbies) {
-                if(lobby.getConnections().contains(connection)){
+        } else {
+            for (Lobby lobby : waitingLobbies) {
+                if (lobby.getConnections().contains(connection)) {
                     lobby.setGameMode(connection, gameMode);
                 }
             }
@@ -184,7 +184,7 @@ public class LobbyController {
      */
     public synchronized void deregisterConnection(SocketClientConnection connection) {
         if (connection.getLobbyUUID() == null) {
-            if(currentLobby.getConnections().contains(connection)){
+            if (currentLobby.getConnections().contains(connection)) {
                 currentLobby.disconnectAll(connection);
                 currentLobby = new Lobby();
                 return;

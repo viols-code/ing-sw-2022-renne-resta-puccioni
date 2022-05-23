@@ -25,7 +25,7 @@ public class CurrentAssistantCardUpdate extends PlayerUpdate {
     /**
      * Constructor
      *
-     * @param playerName the nickname of the player
+     * @param playerName    the nickname of the player
      * @param assistantCard the assistant card the player has chosen to play
      */
     public CurrentAssistantCardUpdate(String playerName, int assistantCard) {

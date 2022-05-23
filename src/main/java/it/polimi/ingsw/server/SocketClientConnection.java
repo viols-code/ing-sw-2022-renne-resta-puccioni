@@ -152,13 +152,13 @@ public class SocketClientConnection implements Runnable {
                 read = in.readObject();
 
                 try {
-                    if(read instanceof String){
-                        if(read.equals("pong")){
+                    if (read instanceof String) {
+                        if (read.equals("pong")) {
                             timeoutThread.setHasResponded();
-                        } else{
+                        } else {
                             System.err.println("Received object of unknown type");
                         }
-                    } else{
+                    } else {
                         remoteView.handlePacket(read);
                     }
                 } catch (Exception e) {
@@ -167,7 +167,7 @@ public class SocketClientConnection implements Runnable {
                 }
             }
 
-        } catch (EOFException e){
+        } catch (EOFException e) {
             System.out.println("Client disconnected");
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -206,8 +206,8 @@ public class SocketClientConnection implements Runnable {
     private class TimeOut extends Thread {
         private final AtomicBoolean hasResponded = new AtomicBoolean();
 
-        public void run(){
-            while(isActive()) {
+        public void run() {
+            while (isActive()) {
                 send("ping");
                 hasResponded.set(false);
                 try {
@@ -215,7 +215,7 @@ public class SocketClientConnection implements Runnable {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                if(!hasResponded.get()) {
+                if (!hasResponded.get()) {
                     close();
                     break;
                 }

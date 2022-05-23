@@ -63,7 +63,7 @@ public class Lobby extends Observable<IServerPacket> {
 
         connections.add(connection);
 
-        if (firstConnection == null){
+        if (firstConnection == null) {
             firstConnection = connection;
             indexOfFirstConnection = connections.indexOf(firstConnection);
         }

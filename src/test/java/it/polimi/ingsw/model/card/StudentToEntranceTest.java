@@ -15,7 +15,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class StudentToEntranceTest {
 
@@ -90,9 +91,9 @@ class StudentToEntranceTest {
     }
 
     @RepeatedTest(3)
-    void exceptionNoColourOnCard(){
-        for(Colour colour : Colour.values()){
-            if(cardTest.getStudent(colour) == 0){
+    void exceptionNoColourOnCard() {
+        for (Colour colour : Colour.values()) {
+            if (cardTest.getStudent(colour) == 0) {
                 assertThrows(IllegalArgumentException.class, () -> cardTest.setColourCardEntrance(colour, colour));
             }
         }
@@ -115,7 +116,7 @@ class StudentToEntranceTest {
             }
         }
 
-        if(flag){
+        if (flag) {
             gameController.playAssistantCard("Viola", 0);
             gameController.playAssistantCard("Laura", 1);
             gameController.playCharacterCard("Viola", i);
@@ -144,7 +145,7 @@ class StudentToEntranceTest {
                 }
             }
 
-            if(flag1 && flag2){
+            if (flag1 && flag2) {
                 int studentsInEntrance;
                 int studentsOnCard;
                 studentsOnCard = gameController.getGame().getCharacterCardByIndex(i).getStudent(colourEntrance);
@@ -152,7 +153,7 @@ class StudentToEntranceTest {
 
 
                 gameController.setColourCardEntrance("Viola", colourCard, colourEntrance);
-                if(colourCard != colourEntrance){
+                if (colourCard != colourEntrance) {
                     assertEquals(studentsInEntrance + 1, gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colourCard));
                     assertEquals(studentsOnCard + 1, gameController.getGame().getCharacterCardByIndex(i).getStudent(colourEntrance));
                 } else {
@@ -182,7 +183,7 @@ class StudentToEntranceTest {
                 }
             }
 
-            if(flag1 && flag2){
+            if (flag1 && flag2) {
                 int studentsInEntrance;
                 int studentsOnCard;
                 studentsOnCard = gameController.getGame().getCharacterCardByIndex(i).getStudent(colourEntrance);
@@ -190,7 +191,7 @@ class StudentToEntranceTest {
 
 
                 gameController.setColourCardEntrance("Viola", colourCard, colourEntrance);
-                if(colourCard != colourEntrance){
+                if (colourCard != colourEntrance) {
                     assertEquals(studentsInEntrance + 1, gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colourCard));
                     assertEquals(studentsOnCard + 1, gameController.getGame().getCharacterCardByIndex(i).getStudent(colourEntrance));
                 } else {
@@ -220,7 +221,7 @@ class StudentToEntranceTest {
                 }
             }
 
-            if(flag1 && flag2){
+            if (flag1 && flag2) {
                 int studentsInEntrance;
                 int studentsOnCard;
                 studentsOnCard = gameController.getGame().getCharacterCardByIndex(i).getStudent(colourEntrance);
@@ -228,7 +229,7 @@ class StudentToEntranceTest {
 
 
                 gameController.setColourCardEntrance("Viola", colourCard, colourEntrance);
-                if(colourCard != colourEntrance){
+                if (colourCard != colourEntrance) {
                     assertEquals(studentsInEntrance + 1, gameController.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colourCard));
                     assertEquals(studentsOnCard + 1, gameController.getGame().getCharacterCardByIndex(i).getStudent(colourEntrance));
                 } else {
@@ -251,7 +252,7 @@ class StudentToEntranceTest {
 
         for (int i = 1; i < 12; i++) {
             if (i == 5) i++;
-            gameTest.getTable().getGroupIslandByIndex(i).getIslandByIndex(0).addStudent(i,0,gameTest.getTable().getBag().bagDrawStudent());
+            gameTest.getTable().getGroupIslandByIndex(i).getIslandByIndex(0).addStudent(i, 0, gameTest.getTable().getBag().bagDrawStudent());
         }
 
         for (Colour colour : Colour.values()) {

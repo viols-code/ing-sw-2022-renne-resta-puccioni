@@ -28,7 +28,7 @@ public class RemoveCloudTileUpdate extends TableUpdate {
      * Constructor
      *
      * @param cloudTile the cloud tile chosen
-     * @param students the students on the cloud tile
+     * @param students  the students on the cloud tile
      */
     public RemoveCloudTileUpdate(int cloudTile, HashMap<Colour, Integer> students) {
         this.cloudTile = cloudTile;

@@ -43,7 +43,7 @@ class GameTest {
         assertEquals("Viola", gameController.getGame().getPlayerByIndex(2).getNickname());
         assertEquals(Wizard.TYPE_2, gameController.getGame().getPlayerByIndex(2).getWizard());
 
-        assertThrows(IllegalArgumentException.class, ()->gameController.getGame().getIndexOfPlayer(new BasicPlayer("Gio", Wizard.TYPE_2, TowerColour.WHITE)));
+        assertThrows(IllegalArgumentException.class, () -> gameController.getGame().getIndexOfPlayer(new BasicPlayer("Gio", Wizard.TYPE_2, TowerColour.WHITE)));
     }
 
     @Test
@@ -266,42 +266,42 @@ class GameTest {
     }
 
     @Test
-    void getCharacterCardIndex(){
+    void getCharacterCardIndex() {
         final CharacterCard card = new ProtectIsland(gameController.getGame());
-        assertThrows(IllegalAccessError.class, ()-> gameController.getGame().getCharacterCardIndex(card));
+        assertThrows(IllegalAccessError.class, () -> gameController.getGame().getCharacterCardIndex(card));
 
         final CharacterCard card1 = new NoColour(gameController.getGame());
-        assertThrows(IllegalAccessError.class, ()->gameController.getGame().getCharacterCardIndex(card1));
+        assertThrows(IllegalAccessError.class, () -> gameController.getGame().getCharacterCardIndex(card1));
 
         final CharacterCard card2 = new ExchangeEntranceDiningRoom(gameController.getGame());
-        assertThrows(IllegalAccessError.class, ()->gameController.getGame().getCharacterCardIndex(card2));
+        assertThrows(IllegalAccessError.class, () -> gameController.getGame().getCharacterCardIndex(card2));
 
         final CharacterCard card3 = new NoColour(gameController.getGame());
-        assertThrows(IllegalAccessError.class, ()->gameController.getGame().getCharacterCardIndex(card3));
+        assertThrows(IllegalAccessError.class, () -> gameController.getGame().getCharacterCardIndex(card3));
 
         final CharacterCard card4 = new IslandInfluence(gameController.getGame());
-        assertThrows(IllegalAccessError.class, ()->gameController.getGame().getCharacterCardIndex(card4));
+        assertThrows(IllegalAccessError.class, () -> gameController.getGame().getCharacterCardIndex(card4));
 
         final CharacterCard card5 = new MotherNatureMovement(gameController.getGame());
-        assertThrows(IllegalAccessError.class, ()->gameController.getGame().getCharacterCardIndex(card5));
+        assertThrows(IllegalAccessError.class, () -> gameController.getGame().getCharacterCardIndex(card5));
 
         final CharacterCard card6 = new NoTower(gameController.getGame());
-        assertThrows(IllegalAccessError.class, ()->gameController.getGame().getCharacterCardIndex(card6));
+        assertThrows(IllegalAccessError.class, () -> gameController.getGame().getCharacterCardIndex(card6));
 
         final CharacterCard card7 = new StudentToDiningRoom(gameController.getGame());
-        assertThrows(IllegalAccessError.class, ()->gameController.getGame().getCharacterCardIndex(card7));
+        assertThrows(IllegalAccessError.class, () -> gameController.getGame().getCharacterCardIndex(card7));
 
         final CharacterCard card8 = new StudentToEntrance(gameController.getGame());
-        assertThrows(IllegalAccessError.class, ()->gameController.getGame().getCharacterCardIndex(card8));
+        assertThrows(IllegalAccessError.class, () -> gameController.getGame().getCharacterCardIndex(card8));
 
         final CharacterCard card9 = new StudentToIsland(gameController.getGame());
-        assertThrows(IllegalAccessError.class, ()->gameController.getGame().getCharacterCardIndex(card9));
+        assertThrows(IllegalAccessError.class, () -> gameController.getGame().getCharacterCardIndex(card9));
 
         final CharacterCard card10 = new ThreeStudent(gameController.getGame());
-        assertThrows(IllegalAccessError.class, ()->gameController.getGame().getCharacterCardIndex(card10));
+        assertThrows(IllegalAccessError.class, () -> gameController.getGame().getCharacterCardIndex(card10));
 
         final CharacterCard card11 = new TwoPoints(gameController.getGame());
-        assertThrows(IllegalAccessError.class, ()->gameController.getGame().getCharacterCardIndex(card11));
+        assertThrows(IllegalAccessError.class, () -> gameController.getGame().getCharacterCardIndex(card11));
     }
 
 }

@@ -26,7 +26,7 @@ public class CoinsUpdate extends PlayerUpdate {
      * Constructor
      *
      * @param player the nickname of the player
-     * @param coins the number of coins of the player
+     * @param coins  the number of coins of the player
      */
     public CoinsUpdate(String player, int coins) {
         this.player = player;

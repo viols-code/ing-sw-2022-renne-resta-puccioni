@@ -28,7 +28,7 @@ public class NewCloudTileUpdate extends TableUpdate {
      * Constructor
      *
      * @param cloudTile the position of the cloud tile in the list
-     * @param students HashMap with the students on the cloud tile
+     * @param students  HashMap with the students on the cloud tile
      */
     public NewCloudTileUpdate(int cloudTile, HashMap<Colour, Integer> students) {
         this.cloudTile = cloudTile;

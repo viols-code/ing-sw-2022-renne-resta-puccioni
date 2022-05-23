@@ -28,7 +28,7 @@ public class EntranceUpdate extends PlayerUpdate {
      * Constructor
      *
      * @param playerName the nickname of the player
-     * @param students the HashMap with the students in the entrance
+     * @param students   the HashMap with the students in the entrance
      */
     public EntranceUpdate(String playerName, HashMap<Colour, Integer> students) {
         this.playerName = playerName;

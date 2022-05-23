@@ -22,7 +22,7 @@ class SingleIslandTest {
 
         for (int i = 1; i < 1000; i++) {
             for (Colour colour : Colour.values()) {
-                testIsland.addStudent(0,0,colour);
+                testIsland.addStudent(0, 0, colour);
                 assertEquals(i, testIsland.getStudents(colour));
             }
         }
