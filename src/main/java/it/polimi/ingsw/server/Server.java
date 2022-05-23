@@ -36,8 +36,6 @@ public class Server {
                 SocketClientConnection socketConnection = new SocketClientConnection(connection, lobbyController);
                 Thread t = new Thread(socketConnection);
                 t.start();
-                boolean status = t.isAlive();
-                System.out.println(status);
             } catch (IOException e) {
                 System.err.println("Connection Error!");
             } catch (Exception e) {
