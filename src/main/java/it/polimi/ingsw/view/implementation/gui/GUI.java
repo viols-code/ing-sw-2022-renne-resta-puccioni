@@ -42,7 +42,7 @@ public class GUI extends View {
         Label l = new Label("Hello, JavaFX " + javafxVersion + ", running on Java " + javaVersion + ".");
         scene = new Scene(homePage);
         stage.setScene(scene);
-        stage.setTitle("Eryantis");
+        stage.setTitle("Eriantys");
         stage.setMaximized(true);
         stage.show();
     }

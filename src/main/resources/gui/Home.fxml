@@ -9,11 +9,15 @@
 
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.implementation.gui.controllers.Home">
-    <center>
-    <HBox prefHeight="720">
 
-        <VBox fx:id="leftVBox" alignment="CENTER">
+<BorderPane prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.implementation.gui.controllers.Home">
+    <top>
+        <VBox alignment="CENTER">
+            <Label text="Eriantys"/>
+        </VBox>
+    </top>
+    <center>
+        <VBox prefHeight="720" alignment="CENTER">
             <Label>Enter the server ip and port:</Label>
             <TextField fx:id="serverIp" maxWidth="200.0">
                 <VBox.margin>
@@ -25,10 +29,5 @@
                 <Insets left="20.0" right="20.0"/>
             </HBox.margin>
         </VBox>
-
-        <VBox alignment="TOP_CENTER" prefHeight="720.0" prefWidth="1068.0" HBox.hgrow="ALWAYS">
-            <Label text="Eryantis" />
-        </VBox>
-    </HBox>
     </center>
 </BorderPane>
