@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.ListView?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<AnchorPane xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="it.polimi.ingsw.view.implementation.gui.controllers.WizardSelection">
+
+    <padding>
+        <Insets right="10.0"/>
+    </padding>
+    <children>
+        <Label>Choose a wizard:</Label>
+        <ListView fx:id="wizards" layoutX = "700.0" layoutY = "300.0" prefHeight="200.0" prefWidth="200.0"/>
+    </children>
+
+</AnchorPane>
