@@ -3,6 +3,7 @@ package it.polimi.ingsw.client;
 import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.implementation.cli.CLI;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -27,13 +28,16 @@ public class Client {
 
     private View view;
 
+    private final Stage stage;
+
 
     /**
      * Constructs a new Client with the given arguments.
      *
      * @param startCli a boolean indicating if the client should be started in CLI mode
      */
-    public Client(boolean startCli) {
+    public Client(Stage stage, boolean startCli) {
+        this.stage = stage;
         this.startCli = startCli;
     }
 
