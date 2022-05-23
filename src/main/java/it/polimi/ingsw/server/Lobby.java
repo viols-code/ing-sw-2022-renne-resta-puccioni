@@ -8,7 +8,7 @@ import java.util.*;
 
 /**
  * Models a lobby, holding the list of connected clients, the first connected client and the number of players needed to
- * start the game in the current lobby.
+ * start the game in the current lobby
  */
 public class Lobby extends Observable<IServerPacket> {
     private final UUID uuid;
@@ -21,7 +21,7 @@ public class Lobby extends Observable<IServerPacket> {
     private int indexOfFirstConnection = 0;
 
     /**
-     * Constructs a new Lobby with a random UUID, an empty connection list and the players needed to start set to -1.
+     * Constructs a new Lobby with a random UUID, an empty connection list and the players needed to start set to -1
      */
     public Lobby() {
         this.uuid = UUID.randomUUID();
@@ -33,7 +33,7 @@ public class Lobby extends Observable<IServerPacket> {
     }
 
     /**
-     * Gets the UUID of this Lobby.
+     * Gets the UUID of this Lobby
      *
      * @return the uuid of the lobby
      */
@@ -52,7 +52,7 @@ public class Lobby extends Observable<IServerPacket> {
 
 
     /**
-     * Adds the given connection to this lobby.
+     * Adds the given connection to this lobby
      *
      * @param connection the connection to be added
      * @throws IllegalStateException if 3 clients are already connected to this lobby
@@ -73,7 +73,7 @@ public class Lobby extends Observable<IServerPacket> {
 
     /**
      * Sets the player name for the given connection. If there is another player with this name already connected sends
-     * an error message to the client.
+     * an error message to the client
      *
      * @param connection the connection that will have its player name set
      * @param playerName the player name to be set, if it's null or empty sends an error message to the client
@@ -103,7 +103,7 @@ public class Lobby extends Observable<IServerPacket> {
 
     /**
      * Sets the wizard for the given connection. If there is another player with this wizard already connected sends
-     * an error message to the client.
+     * an error message to the client
      *
      * @param connection the connection that will have its player name set
      * @param wizard     the wizard to be set, if it's null or empty sends an error message to the client
@@ -143,7 +143,7 @@ public class Lobby extends Observable<IServerPacket> {
     /**
      * Sets the players needed to start the game, if the given connection is not the first connection to the lobby
      * sends an error message to the client. If the number given is less than the number of clients already connected
-     * sends an error message to the client.
+     * sends an error message to the client
      *
      * @param connection     the connection that wants to set the number of players needed to start
      * @param playersToStart the number of players needed to start the game, should be between 2 and 3, otherwise an
@@ -169,7 +169,7 @@ public class Lobby extends Observable<IServerPacket> {
 
     /**
      * Sets the gameMode (expert or basic), if the given connection is not the first connection to the lobby
-     * sends an error message to the client. If the game mode chosen is not one of the available ones sends an error to the client.
+     * sends an error message to the client. If the game mode chosen is not one of the available ones sends an error to the client
      *
      * @param connection the connection
      * @param gameMode   the game mode chosen
@@ -198,7 +198,7 @@ public class Lobby extends Observable<IServerPacket> {
     }
 
     /**
-     * gets the gameMode chosen
+     * Gets the gameMode chosen
      *
      * @return true if the gameMode is Expert
      */
@@ -216,7 +216,7 @@ public class Lobby extends Observable<IServerPacket> {
     }
 
     /**
-     * Notifies all connected clients that the game is starting.
+     * Notifies all connected clients that the game is starting
      */
     public synchronized void startGame() {
         HashMap<String, Wizard> players = new HashMap<>();
@@ -227,7 +227,7 @@ public class Lobby extends Observable<IServerPacket> {
     }
 
     /**
-     * Remove the given crashed connection from the Lobby, disconnecting and notifying all other clients.
+     * Remove the given crashed connection from the Lobby, disconnecting and notifying all others clients
      *
      * @param crashedConnection the connection that crashed
      */
@@ -251,7 +251,7 @@ public class Lobby extends Observable<IServerPacket> {
     }
 
     /**
-     * Checks if the number of players needed to start the game for this Lobby is set.
+     * Checks if the number of players needed to start the game for this Lobby is set
      *
      * @return true if the playersToStart set are 2 or 3, false otherwise
      */
@@ -260,7 +260,7 @@ public class Lobby extends Observable<IServerPacket> {
     }
 
     /**
-     * Checks if the Lobby can start a game.
+     * Checks if the Lobby can start a game
      *
      * @return true if all connected clients have their name set and the number of connected clients is equal to
      * playersToStart, false otherwise
@@ -274,7 +274,7 @@ public class Lobby extends Observable<IServerPacket> {
     }
 
     /**
-     * Terminate the Lobby, disconnecting all clients.
+     * Terminate the Lobby, disconnecting all clients
      */
     public synchronized void terminate() {
         for (SocketClientConnection conn : connections) {

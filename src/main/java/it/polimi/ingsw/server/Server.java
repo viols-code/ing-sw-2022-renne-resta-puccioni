@@ -5,7 +5,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 /**
- * Main server instance.
+ * Main server instance
  */
 public class Server {
     private static final int PORT = 54321;
@@ -13,7 +13,7 @@ public class Server {
     private final LobbyController lobbyController;
 
     /**
-     * Constructs a new Server, initializing the ServerSocket, the FixedThreadPool and the LobbyController.
+     * Constructs a new Server, initializing the ServerSocket and the LobbyController
      *
      * @throws IOException if an error occurs while initializing the ServerSocket
      */
@@ -23,7 +23,7 @@ public class Server {
     }
 
     /**
-     * Runs the server and makes it wait for and accept incoming connections.
+     * Runs the server and makes it wait for and accept incoming connections
      */
     public void run() {
         System.out.println("Server starting...");

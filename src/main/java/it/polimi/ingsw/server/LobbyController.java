@@ -6,7 +6,7 @@ import it.polimi.ingsw.model.player.Wizard;
 import java.util.*;
 
 /**
- * Controller for the lobbies waiting to start a game.
+ * Controller for the lobbies waiting to start a game
  */
 public class LobbyController {
     private final Map<UUID, Lobby> playingLobbies;
@@ -20,7 +20,7 @@ public class LobbyController {
     }
 
     /**
-     * Processes the given ClientMessage.
+     * Processes the given ClientMessage
      *
      * @param message the client message to process
      */
@@ -29,7 +29,7 @@ public class LobbyController {
     }
 
     /**
-     * Adds the given ClientConnection to the current lobby.
+     * Adds the given ClientConnection to the current lobby
      *
      * @param connection the connection that will be added to the lobby
      */
@@ -45,7 +45,6 @@ public class LobbyController {
             return;
         }
 
-
         waitingLobbies.add(currentLobby);
         currentLobby = new Lobby();
         currentLobby.addObserver(connection.getRemoteView());
@@ -58,7 +57,7 @@ public class LobbyController {
     }
 
     /**
-     * Sets the name of the Player that is associated with the given ClientConnection.
+     * Sets the name of the Player that is associated with the given ClientConnection
      *
      * @param connection the connection that will have its player name set
      * @param playerName the name to be set
@@ -83,7 +82,7 @@ public class LobbyController {
     }
 
     /**
-     * Sets the wizard of the Player that is associated with the given ClientConnection.
+     * Sets the wizard of the Player that is associated with the given ClientConnection
      *
      * @param connection the connection that will have its player name set
      * @param wizard     the wizard to be set
@@ -115,7 +114,7 @@ public class LobbyController {
     }
 
     /**
-     * Sets the number of players needed to start the game in the current lobby.
+     * Sets the number of players needed to start the game of the connection
      *
      * @param connection     the connection that wants to set the players needed to start
      * @param playersToStart the number of players needed to start the game in the current lobby
@@ -144,7 +143,7 @@ public class LobbyController {
     }
 
     /**
-     * Sets the gameMode that is associated with the given ClientConnection.
+     * Sets the gameMode that is associated with the given ClientConnection
      *
      * @param connection the connection that will have its player name set
      * @param gameMode   the gameMode to be set
@@ -162,8 +161,10 @@ public class LobbyController {
     }
 
     /**
-     * Starts the game in the current lobby. The game is initialized in a separate Thread to allow new players to connect
-     * to the next lobby without waiting.
+     * Starts the game in the given Lobby. The game is initialized in a separate Thread to allow new players to connect
+     * to the next lobby without waiting
+     *
+     * @param lobby the Lobby to be started
      */
     private synchronized void startGame(Lobby lobby) {
         playingLobbies.put(lobby.getUuid(), lobby);
@@ -177,7 +178,7 @@ public class LobbyController {
     }
 
     /**
-     * Deregister a connection from the lobby, if it is in a playing lobby terminates the game and disconnects all other
+     * Deregister a connection from the lobby and terminate the game and disconnects all other
      * players in that lobby.
      *
      * @param connection the connection to deregister

@@ -10,7 +10,7 @@ import it.polimi.ingsw.view.messages.PlayerEvent;
 
 /**
  * Represents a client view on the server. It is responsible for handling incoming and outgoing messages and updates to
- * the associated client connection.
+ * the associated client connection
  */
 public class RemoteView implements Observer<IServerPacket> {
     private String player;
@@ -19,7 +19,7 @@ public class RemoteView implements Observer<IServerPacket> {
     private GameController gameController;
 
     /**
-     * Constructs a new RemoteView associated with the given client connection.
+     * Constructs a new RemoteView associated with the given client connection
      *
      * @param connection      the connection to be associated with this remote view
      * @param lobbyController the lobby controller that should handle this remote view
@@ -32,7 +32,7 @@ public class RemoteView implements Observer<IServerPacket> {
     }
 
     /**
-     * Sets the Player associated with this RemoteView.
+     * Sets the Player associated with this RemoteView
      *
      * @param player the player to be associated with the remote view
      */
@@ -41,7 +41,7 @@ public class RemoteView implements Observer<IServerPacket> {
     }
 
     /**
-     * Gets the client connection associated with this RemoteView.
+     * Gets the client connection associated with this RemoteView
      *
      * @return the associated client connection
      */
@@ -50,7 +50,7 @@ public class RemoteView implements Observer<IServerPacket> {
     }
 
     /**
-     * Gets the LobbyController that handles this RemoteView.
+     * Gets the LobbyController that handles this RemoteView
      *
      * @return the lobby controller
      */
@@ -59,7 +59,7 @@ public class RemoteView implements Observer<IServerPacket> {
     }
 
     /**
-     * Sets the GameController that handles this RemoteView.
+     * Sets the GameController that handles this RemoteView
      *
      * @param gameController the game controller to be set
      */
@@ -70,7 +70,7 @@ public class RemoteView implements Observer<IServerPacket> {
 
     /**
      * Notifies the GameController of the given PlayerEvent, if the GameController is null (the game is not started)
-     * prints an error and does nothing.
+     * prints an error and does nothing
      */
     private void notifyActionEvent(PlayerEvent event) {
         if (gameController != null) {
@@ -87,7 +87,7 @@ public class RemoteView implements Observer<IServerPacket> {
 
     /**
      * Notifies the LobbyController of the given ClientMessage, if the game is already started (GameController is not null)
-     * prints an error and does nothing.
+     * prints an error and does nothing
      *
      * @param message the client message that will be notified to the lobby controller
      */
@@ -104,7 +104,7 @@ public class RemoteView implements Observer<IServerPacket> {
     }
 
     /**
-     * Handles an IServerPacket and sends it to the client associated with this RemoteView.
+     * Handles an IServerPacket and sends it to the client associated with this RemoteView
      *
      * @param packet the packet to be sent to the client
      */
@@ -122,7 +122,7 @@ public class RemoteView implements Observer<IServerPacket> {
 
 
     /**
-     * Handles an incoming packet, notifying it to the adequate controller.
+     * Handles an incoming packet, notifying it to the adequate controller
      *
      * @param packet the incoming packet to be processed
      */

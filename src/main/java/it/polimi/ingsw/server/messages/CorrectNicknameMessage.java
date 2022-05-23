@@ -7,18 +7,27 @@ import java.io.Serial;
 import java.util.List;
 
 /**
- * ServerMessage notifying all clients of a new client connection.
+ * DirectServerMessage notifying a client that they set successfully the nickname
  */
 public class CorrectNicknameMessage extends DirectServerMessage {
+    /**
+     * The serial version UID
+     */
     @Serial
     private static final long serialVersionUID = -8678594154824429984L;
-
+    /**
+     * The nickname of the player
+     */
     private final String playerName;
+    /**
+     * The list of nicknames already taken
+     */
     private final List<String> takenNicknames;
 
     /**
-     * Constructs a new PlayerConnectMessage for the player with the given name.
+     * Constructs a new PlayerConnectMessage for the player with the given name
      *
+     * @param recipient      the client connection to send this message to
      * @param playerName     the name of the player that just connected
      * @param takenNicknames the list of nicknames already taken
      */
@@ -28,6 +37,11 @@ public class CorrectNicknameMessage extends DirectServerMessage {
         this.takenNicknames = takenNicknames;
     }
 
+    /**
+     * Notifying a client that they set successfully the nickname
+     *
+     * @param view the view
+     */
     @Override
     public void process(View view) {
         view.handleCorrectNickname(playerName, takenNicknames);

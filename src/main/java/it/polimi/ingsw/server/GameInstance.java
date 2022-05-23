@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Thread to start a new Game instance.
+ * Thread to start a new Game instance
  */
 public class GameInstance implements Runnable {
     private final boolean isExpertGame;
@@ -14,9 +14,11 @@ public class GameInstance implements Runnable {
     private final Lobby lobby;
 
     /**
-     * Constructs a new GameInstance for the given Lobby.
+     * Constructs a new GameInstance for the given Lobby
      *
-     * @param lobby the lobby that will have its game started
+     * @param lobby           the lobby that will have its game started
+     * @param isExpertGame    the gameMode
+     * @param numberOfPlayers the number of players in the game
      */
     GameInstance(Lobby lobby, boolean isExpertGame, int numberOfPlayers) {
         this.isExpertGame = isExpertGame;
@@ -25,7 +27,7 @@ public class GameInstance implements Runnable {
     }
 
     /**
-     * Initializes a new Game, instantiating and registering all necessary controller and model objects.
+     * Initializes a new Game, instantiating and registering all necessary controller and model objects
      */
     @Override
     public void run() {
@@ -81,7 +83,5 @@ public class GameInstance implements Runnable {
         }
 
         controller.setUpCharactersAndIslands();
-
-
     }
 }

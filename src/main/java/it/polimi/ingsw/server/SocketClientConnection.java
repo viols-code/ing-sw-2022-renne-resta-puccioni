@@ -12,7 +12,7 @@ import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- * Runnable class representing a client connection handler.
+ * Runnable class representing a client connection handler
  */
 public class SocketClientConnection implements Runnable {
     private final Socket socket;
@@ -26,7 +26,7 @@ public class SocketClientConnection implements Runnable {
     private final RemoteView remoteView;
 
     /**
-     * Creates a new SocketClientConnection that manages the communication with the given Socket.
+     * Creates a new SocketClientConnection that manages the communication with the given Socket
      *
      * @param socket the client socket
      */
@@ -38,7 +38,7 @@ public class SocketClientConnection implements Runnable {
     }
 
     /**
-     * Checks if this instance is still running.
+     * Checks if this instance is still running
      *
      * @return true if the instance is still running, false otherwise
      */
@@ -47,14 +47,14 @@ public class SocketClientConnection implements Runnable {
     }
 
     /**
-     * Sets this instance as no longer running.
+     * Sets this instance as no longer running
      */
     synchronized void setInactive() {
         this.active = false;
     }
 
     /**
-     * Gets the player name associated with this connection.
+     * Gets the player name associated with this connection
      *
      * @return the player name, or <code>null</code> if it has not been set yet
      */
@@ -63,7 +63,7 @@ public class SocketClientConnection implements Runnable {
     }
 
     /**
-     * Sets the player name associated with this connection.
+     * Sets the player name associated with this connection
      *
      * @param playerName the player name to associate with this connection
      */
@@ -72,7 +72,7 @@ public class SocketClientConnection implements Runnable {
     }
 
     /**
-     * Gets the player name associated with this connection.
+     * Gets the player name associated with this connection
      *
      * @return the player name, or <code>null</code> if it has not been set yet
      */
@@ -81,7 +81,7 @@ public class SocketClientConnection implements Runnable {
     }
 
     /**
-     * Sets the player name associated with this connection.
+     * Sets the player name associated with this connection
      *
      * @param wizard the player name to associate with this connection
      */
@@ -90,7 +90,7 @@ public class SocketClientConnection implements Runnable {
     }
 
     /**
-     * Sets the lobby UUID.
+     * Sets the lobby UUID
      *
      * @param lobbyUUID the UUID of the lobby
      */
@@ -99,7 +99,7 @@ public class SocketClientConnection implements Runnable {
     }
 
     /**
-     * Gets the UUID of the Lobby that this connection is part of.
+     * Gets the UUID of the Lobby that this connection is part of
      *
      * @return the uuid of the lobby
      */
@@ -117,7 +117,7 @@ public class SocketClientConnection implements Runnable {
     }
 
     /**
-     * Closes this socket connection.
+     * Closes this socket connection
      */
     public synchronized void closeConnection() {
         try {
@@ -129,7 +129,7 @@ public class SocketClientConnection implements Runnable {
     }
 
     /**
-     * Stops this instance and deregister it from the LobbyController.
+     * Stops this instance and deregister it from the LobbyController
      */
     private void close() {
         closeConnection();
@@ -138,7 +138,7 @@ public class SocketClientConnection implements Runnable {
     }
 
     /**
-     * Runs this instance, waiting for client messages and handling them.
+     * Runs this instance, waiting for client messages and handling them
      */
     @Override
     public void run() {
@@ -184,7 +184,7 @@ public class SocketClientConnection implements Runnable {
     }
 
     /**
-     * Sends a message to the client.
+     * Sends a message to the client
      *
      * @param message the message to be sent, should be a
      */
@@ -203,6 +203,9 @@ public class SocketClientConnection implements Runnable {
         }
     }
 
+    /**
+     * Thread used for the ping to the client
+     */
     private class TimeOut extends Thread {
         private final AtomicBoolean hasResponded = new AtomicBoolean();
 
