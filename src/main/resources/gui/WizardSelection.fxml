@@ -1,23 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.BorderPane?>
 
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.control.ListView?>
-
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<AnchorPane xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="it.polimi.ingsw.view.implementation.gui.controllers.WizardSelection">
-
-    <padding>
-        <Insets right="10.0"/>
-    </padding>
-    <children>
-        <Label>Choose a wizard:</Label>
-        <ListView fx:id="wizards" layoutX = "700.0" layoutY = "300.0" prefHeight="200.0" prefWidth="200.0"/>
-    </children>
-
-</AnchorPane>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.implementation.gui.controllers.WizardSelection">
+   <center>
+      <MenuButton fx:id="wizards" accessibleRole="CHECK_BOX" mnemonicParsing="false" text="Select Wizard" BorderPane.alignment="CENTER">
+        <items>
+          <MenuItem fx:id="type_1" mnemonicParsing="false" onAction="#type_1" text="TYPE_1" />
+          <MenuItem fx:id="type_2" mnemonicParsing="false" onAction="#type_2" text="TYPE_2" />
+            <MenuItem fx:id="type_3" mnemonicParsing="false" onAction="#type_3" text="TYPE_3" />
+            <MenuItem fx:id="type_4" mnemonicParsing="false" onAction="#type_4" text="TYPE_4" />
+        </items>
+      </MenuButton>
+   </center>
+</BorderPane>
