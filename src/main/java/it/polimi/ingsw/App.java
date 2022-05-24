@@ -15,7 +15,7 @@ public class App extends Application {
 
     public static void main(String[] args) {
 
-           // handleCommand(args[0]);
+        handleCommand(args[0]);
 
         launch();
     }
