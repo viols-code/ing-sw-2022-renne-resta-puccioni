@@ -105,6 +105,15 @@ public class GUI extends View {
     }
 
     @Override
+    public void handleSetPlayersToStart(int playersToStart) {
+        super.handleSetPlayersToStart(playersToStart);
+        Platform.runLater(() -> {
+            Parent waitingPlayers = FXMLUtils.loadFXML("/gui/WaitingPlayers");
+            scene.setRoot(waitingPlayers);
+        });
+    }
+
+    @Override
     public void handlePlayerDisconnect(String playerName) {
 
     }

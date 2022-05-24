@@ -185,7 +185,7 @@ public abstract class View {
     }
 
     public void handleSetPlayersToStart(int playersToStart) {
-        setGameState(GameState.CHOOSING_GAME_MODE);
+        setGameState(GameState.WAITING_PLAYERS);
     }
 
     public void handleSetGameMode() {
