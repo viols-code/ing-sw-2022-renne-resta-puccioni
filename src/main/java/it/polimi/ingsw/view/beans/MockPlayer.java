@@ -33,7 +33,7 @@ public class MockPlayer {
     private final MockSchoolBoard schoolBoard;
 
     /**
-     * An attibute that indicates if the player has coins or not
+     * An attribute that indicates if the player has coins or not
      */
     private final boolean hasCoins;
 
