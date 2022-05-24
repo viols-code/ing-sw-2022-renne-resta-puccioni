@@ -18,7 +18,7 @@ public abstract class PlayerEvent implements Serializable, IProcessablePacket<Ga
     /**
      * The player's nickname
      */
-    private final String player;
+    private String player;
 
     /**
      * Constructor
@@ -36,5 +36,14 @@ public abstract class PlayerEvent implements Serializable, IProcessablePacket<Ga
      */
     protected String getPlayer() {
         return player;
+    }
+
+    /**
+     * Sets the player's nickname
+     *
+     * @param player the player's nickname
+     */
+    public void setPlayer(String player){
+        this.player = player;
     }
 }
