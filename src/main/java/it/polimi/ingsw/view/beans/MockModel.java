@@ -304,10 +304,20 @@ public class MockModel {
         this.turnPhase = turnPhase;
     }
 
+    /**
+     * Gets the winner of the game
+     *
+     * @return the winner of the game
+     */
     public MockPlayer getWinner() {
         return winner;
     }
 
+    /**
+     * Sets the winner of the game
+     *
+     * @param winner the winner of the game
+     */
     public void setWinner(MockPlayer winner) {
         this.winner = winner;
     }

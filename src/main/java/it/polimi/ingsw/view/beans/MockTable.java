@@ -92,14 +92,27 @@ public class MockTable {
         shownCloudTiles.remove(cloudTile);
     }
 
+    /**
+     * Adds a cloud tile to the list shownCLoudTIles
+     */
     public void addShownCLoudTile() {
         shownCloudTiles.add(new MockCloudTile());
     }
 
+    /**
+     * Sets the students on a cloud tile to show
+     * @param cloudTile the index of the cloud tile
+     * @param students the students on the cloud tile
+     */
     public void setShownCloudTile(int cloudTile, HashMap<Colour, Integer> students) {
         shownCloudTiles.get(cloudTile).setCloudTile(students);
     }
 
+    /**
+     * Gets the cloud tiles shown
+     *
+     * @return the list of the cloud tiles shown
+     */
     public List<MockCloudTile> getShownCloudTiles() {
         return shownCloudTiles;
     }

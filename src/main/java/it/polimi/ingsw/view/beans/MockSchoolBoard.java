@@ -79,10 +79,20 @@ public class MockSchoolBoard {
         this.professorTable = professorTable;
     }
 
+    /**
+     * Gets the number of towers on that school board
+     *
+     * @return the number of towers on that school board
+     */
     public int getTowers() {
         return towers;
     }
 
+    /**
+     * Sets the number of towers on that school board
+     *
+     * @param towers the number of towers
+     */
     public void setTowers(int towers) {
         this.towers = towers;
     }

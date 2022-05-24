@@ -108,18 +108,38 @@ public class MockGroupIsland {
         this.noEntryTile = noEntryTile;
     }
 
+    /**
+     * States if mother nature is on that island
+     *
+     * @return true if mother nature is on this island, false if mother nature is not on that island
+     */
     public boolean isMotherNature() {
         return motherNature;
     }
 
+    /**
+     * Sets the attribute motherNature
+     *
+     * @param motherNature a boolean that is true if mother nature is on that island, false if mother nature is not on that island
+     */
     public void setMotherNature(boolean motherNature) {
         this.motherNature = motherNature;
     }
 
+    /**
+     * Gets the influent player on that group island
+     *
+     * @return the nickname of the influent player on that group island
+     */
     public String getInfluentPlayer() {
         return influentPlayer;
     }
 
+    /**
+     * Sets the influent player on that group island
+     *
+     * @param influentPlayer the nickname of the influent player on that group island
+     */
     public void setInfluentPlayer(String influentPlayer) {
         this.influentPlayer = influentPlayer;
     }

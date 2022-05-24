@@ -2,6 +2,9 @@ package it.polimi.ingsw.view.implementation.cli.utils;
 
 import it.polimi.ingsw.model.Colour;
 
+/**
+ * CLass used to change the colour in the CLI
+ */
 public class AnsiColour {
     private static final String START_ITALICIZE = "\033[3m";
     private static final String START_BOLD = "\033[1m";

@@ -157,10 +157,20 @@ public class MockCard {
             students.replace(colour, students.get(colour), students.get(colour) - 1);
     }
 
+    /**
+     * Gets the students on the card
+     *
+     * @return the students on the card
+     */
     public HashMap<Colour, Integer> getStudents() {
         return students;
     }
 
+    /**
+     * Sets the students on the card
+     *
+     * @param students the students on the card
+     */
     public void setStudents(HashMap<Colour, Integer> students) {
         if (type == CharacterCardEnumeration.STUDENT_TO_DINING_ROOM || type == CharacterCardEnumeration.STUDENT_TO_ENTRANCE || type == CharacterCardEnumeration.STUDENT_TO_ISLAND)
             this.students = students;
