@@ -29,18 +29,35 @@ public class CLI extends View {
         this.commandHandler = new CommandHandler(this);
     }
 
+    /**
+     * Handles the successful connection to a server lobby.
+     *
+     * @param isFirstConnection true if this client is the first to connect to the lobby, false otherwise
+     */
     @Override
     public void addToLobby(boolean isFirstConnection) {
         super.addToLobby(isFirstConnection);
         getRenderer().showLobbyMessage(ViewString.CHOOSE_NAME);
     }
 
+    /**
+     * Handles the successful nickname setting
+     *
+     * @param nickname the nickname chosen by the local player
+     * @param takenNicknames the nicknames chosen by the players connected to the lobby
+     */
     @Override
     public void handleCorrectNickname(String nickname, List<String> takenNicknames) {
         super.handleCorrectNickname(nickname, takenNicknames);
         getRenderer().showLobbyMessage(ViewString.CHOOSE_WIZARD);
     }
 
+    /**
+     * Handles the successful wizard setting
+     *
+     * @param wizard the wizard chosen by the local player
+     * @param takenWizard the wizard chosen by the players connected to the lobby
+     */
     @Override
     public void handleCorrectWizard(Wizard wizard, List<Wizard> takenWizard) {
         super.handleCorrectWizard(wizard, takenWizard);
@@ -57,6 +74,14 @@ public class CLI extends View {
         }
     }
 
+    /**
+     * Handles the connection of another player to the lobby.
+     *
+     * @param playerName     the name of the player that connected
+     * @param wizard         the name of the player that connected
+     * @param currentPlayers the amount of players connected to the lobby
+     * @param playersToStart the number of players required to start the game
+     */
     @Override
     public void handlePlayerConnect(String playerName, Wizard wizard, int currentPlayers, Integer playersToStart) {
         if (playersToStart == null) {
@@ -66,13 +91,22 @@ public class CLI extends View {
         }
     }
 
-
+    /**
+     * Handles the game start.
+     *
+     * @param gameMode the game config used for this game
+     */
     @Override
     public void handleGameStart(boolean gameMode) {
         super.handleGameStart(gameMode);
         getRenderer().showLobbyMessage(ViewString.GAME_STARTING);
     }
 
+    /**
+     * Handles the successful setting ot the game mode (basic or expert)
+     *
+     * @param gameMode a boolean which is true if the game mode set is expert, false if it's basic
+     */
     @Override
     public void handleGameMode(boolean gameMode) {
         if (!isLobbyMaster()) {
@@ -84,29 +118,50 @@ public class CLI extends View {
         }
     }
 
+    /**
+     * Handles the game can start message
+     */
     @Override
     public void handleGameCanStartMessage() {
         super.handleGameCanStartMessage();
     }
 
+    /**
+     * Handles the successful setting of the number of players
+     *
+     * @param playersToStart the number of players set to start the game
+     */
     @Override
     public void handleSetPlayersToStart(int playersToStart) {
         super.handleSetPlayersToStart(playersToStart);
         getRenderer().showLobbyMessage(ViewString.PLAYERS_TO_START_SET);
     }
 
+    /**
+     * Handles the successful game mode setting
+     */
     @Override
     public void handleSetGameMode() {
         super.handleSetGameMode();
         getRenderer().showLobbyMessage(ViewString.CHOOSE_PLAYERS_TO_START);
     }
 
+    /**
+     * Handles the disconnection of one of the other players from the lobby.
+     *
+     * @param playerName the name of the player that disconnected
+     */
     @Override
     public void handlePlayerDisconnect(String playerName) {
         getRenderer().showLobbyMessage(playerName == null ? ViewString.PLAYER_DISCONNECT :
                 ViewString.PLAYER_DISCONNECT_WITH_NAME.formatted(playerName));
     }
 
+    /**
+     * Handles the disconnection of one of the other players, terminating the game.
+     *
+     * @param playerName the name of the player that disconnected
+     */
     @Override
     public void handlePlayerCrash(String playerName) {
         getRenderer().showLobbyMessage(playerName == null ? ViewString.PLAYER_CRASH :
@@ -114,12 +169,18 @@ public class CLI extends View {
         getClient().terminate();
     }
 
+    /**
+     * Handles the ending of the game.
+     */
     @Override
     public void handleEndGame() {
         getRenderer().printResult();
         getClient().terminate();
     }
 
+    /**
+     * Handles the interaction with the user
+     */
     @Override
     public void run() {
         Scanner scanner = new Scanner(System.in);

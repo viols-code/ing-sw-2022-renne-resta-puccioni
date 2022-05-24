@@ -52,26 +52,56 @@ public abstract class View {
         return client;
     }
 
+    /**
+     * Gets the model update handler
+     *
+     * @return the model update handler associated with the view
+     */
     public ModelUpdateHandler getModelUpdateHandler() {
         return modelUpdateHandler;
     }
 
+    /**
+     * Gets the renderer.
+     *
+     * @return the renderer associated with the view
+     */
     public Renderer getRenderer() {
         return renderer;
     }
 
+    /**
+     * Gets the action sender.
+     *
+     * @return the action sender associated with the view
+     */
     public ActionSender getActionSender() {
         return actionSender;
     }
 
+    /**
+     * Gets the nickname of the local player of the view.
+     *
+     * @return the player nickname
+     */
     public String getPlayerName() {
         return playerName;
     }
 
+    /**
+     * Gets the wizard of the local player of the view.
+     *
+     * @return the player wizard
+     */
     public Wizard getPlayerWizard() {
         return wizard;
     }
 
+    /**
+     * Gets the game mode selected for this game
+     *
+     * @return the game mode
+     */
     public boolean getGameMode() {
         return gameMode;
     }
@@ -85,26 +115,56 @@ public abstract class View {
         return lobbyMaster;
     }
 
+    /**
+     * Gets the game state
+     *
+     * @return the game state
+     */
     public GameState getGameState() {
         return gameState;
     }
 
+    /**
+     * Gets the mock model
+     *
+     * @return the mock model
+     */
     public MockModel getModel() {
         return model;
     }
 
+    /**
+     * Sets the model update handler
+     *
+     * @param modelUpdateHandler the model update handler
+     */
     public void setModelUpdateHandler(ModelUpdateHandler modelUpdateHandler) {
         this.modelUpdateHandler = modelUpdateHandler;
     }
 
+    /**
+     * Sets the renderer
+     *
+     * @param renderer the renderer
+     */
     public void setRenderer(Renderer renderer) {
         this.renderer = renderer;
     }
 
+    /**
+     * Sets the action sender
+     *
+     * @param actionSender the action sender
+     */
     public void setActionSender(ActionSender actionSender) {
         this.actionSender = actionSender;
     }
 
+    /**
+     * Sets the game state
+     *
+     * @param gameState the game state
+     */
     public void setGameState(GameState gameState) {
         this.gameState = gameState;
     }
@@ -145,10 +205,22 @@ public abstract class View {
             lobbyMaster = true;
     }
 
+    /**
+     * Handles the successful nickname setting
+     *
+     * @param nickname the nickname chosen by the local player
+     * @param takenNicknames the nicknames chosen by the players connected to the lobby
+     */
     public void handleCorrectNickname(String nickname, List<String> takenNicknames) {
         setGameState(GameState.CHOOSING_WIZARD);
     }
 
+    /**
+     * Handles the successful wizard setting
+     *
+     * @param wizard the wizard chosen by the local player
+     * @param takenWizard the wizard chosen by the players connected to the lobby
+     */
     public void handleCorrectWizard(Wizard wizard, List<Wizard> takenWizard) {
         if (isLobbyMaster()) {
             setGameState(GameState.CHOOSING_GAME_MODE);
@@ -157,10 +229,22 @@ public abstract class View {
         }
     }
 
+    /**
+     * Handles the successful setting ot the game mode (basic or expert)
+     *
+     * @param gameMode a boolean which is true if the game mode set is expert, false if it's basic
+     */
     public void handleGameMode(boolean gameMode) {
 
     }
 
+    /**
+     * Handles the successful connection of all players and prepares the mock model for the game
+     *
+     * @param players a hash map that associate each nickname with the wizard chosen by the player
+     * @param gameMode a boolean which is true if the game mode set is expert, false if it's basic
+     * @param numPlayers the number of players in the game
+     */
     public void handleAllPlayersConnected(HashMap<String, Wizard> players, boolean gameMode, int numPlayers) {
         this.gameMode = gameMode;
         this.numPlayers = numPlayers;
@@ -184,10 +268,18 @@ public abstract class View {
 
     }
 
+    /**
+     * Handles the successful setting of the number of players
+     *
+     * @param playersToStart the number of players set to start the game
+     */
     public void handleSetPlayersToStart(int playersToStart) {
         setGameState(GameState.WAITING_PLAYERS);
     }
 
+    /**
+     * Handles the successful game mode setting
+     */
     public void handleSetGameMode() {
         setGameState(GameState.CHOOSING_PLAYERS);
     }
@@ -210,6 +302,9 @@ public abstract class View {
         setGameState(GameState.STARTING);
     }
 
+    /**
+     * Handles the game can start message
+     */
     public void handleGameCanStartMessage() {
         setGameState(GameState.PLAYING);
     }
