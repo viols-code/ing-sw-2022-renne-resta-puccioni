@@ -1,5 +1,8 @@
 package it.polimi.ingsw.view.implementation.cli.utils;
 
+/**
+ * Class used to store ASCIIArt used in the CLI
+ */
 public class ASCIIArt {
     public static final String ERIANTYS = """
                                                                                 \s

@@ -1,22 +1,35 @@
 package it.polimi.ingsw;
 
 import it.polimi.ingsw.client.Client;
+import javafx.application.Application;
+import javafx.stage.Stage;
 
-import java.util.concurrent.TimeUnit;
 
-/**
- * Hello world!
- */
-public class App {
+public class App extends Application {
+
+
+    private static boolean startCli = false;
+
+
     public static void main(String[] args) {
-        System.out.println("Hello World!");
-        Client client = new Client(true);
-        client.run();
-        try {
-            TimeUnit.SECONDS.sleep(20);
-        } catch (InterruptedException e) {
 
+        handleCommand(args[0]);
+
+        launch();
+    }
+
+
+    private static void handleCommand(String command) {
+        if (command.equalsIgnoreCase("cli")) {
+            startCli = true;
         }
+    }
 
+
+    @Override
+    public void start(Stage stage) {
+        Client client;
+        client = new Client(stage, startCli);
+        client.run();
     }
 }

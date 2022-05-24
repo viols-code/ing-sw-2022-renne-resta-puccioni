@@ -5,7 +5,7 @@ import it.polimi.ingsw.controller.GameController;
 import java.io.Serial;
 
 /**
- * Message to the server notifying the mother nature movement
+ * Message to notify the chosen steps for mother nature
  */
 public class MoveMotherNature extends PlayerAction {
     /**
@@ -13,28 +13,34 @@ public class MoveMotherNature extends PlayerAction {
      */
     @Serial
     private static final long serialVersionUID = -695696550449539585L;
+
     /**
-     * The mother nature movement chosen
+     * The nickname of the player
+     */
+    private String player;
+
+    /**
+     * The steps chosen for mother nature
      */
     private final int movement;
 
     /**
-     * Constructor
+     * Constructs the message
      *
-     * @param player the player's nickname
-     * @param movement the mother nature movement chosen
+     * @param player the nickname of the player
+     * @param movement the steps mother nature has to do
      */
     public MoveMotherNature(String player, int movement) {
-        super(player);
+        this.player = player;
         this.movement = movement;
     }
 
     /**
-     * Process the message by calling a method in the gameController
+     * Notifies the game controller with the chosen steps for mother nature
      *
-     * @param gameController the controller that will process the packet
+     * @param gameController the game controller that will process the message
      */
     public void process(GameController gameController) {
-        gameController.moveMotherNature(getPlayer(), movement);
+        gameController.moveMotherNature(player, movement);
     }
 }

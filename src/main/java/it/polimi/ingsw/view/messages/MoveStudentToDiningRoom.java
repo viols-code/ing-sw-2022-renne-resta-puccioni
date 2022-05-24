@@ -6,37 +6,44 @@ import it.polimi.ingsw.model.Colour;
 import java.io.Serial;
 
 /**
- * Message to the server notifying the chosen student's Colour
+ * Message to notify the update of the dining room
  */
 public class MoveStudentToDiningRoom extends PlayerAction {
+
     /**
      * The serial version UID
      */
     @Serial
     private static final long serialVersionUID = 9204228452737758886L;
+
     /**
-     * The chosen student's Colour
+     * The nickname of the player
+     */
+    private String player;
+
+    /**
+     * The colour of the student moved to the dining room
      */
     private final Colour colour;
 
     /**
-     * Constructor
+     * Constructs the message
      *
-     * @param player the player's nickname
-     * @param colour the chosen student's Colour
+     * @param player the nickname of the player
+     * @param colour the colour of the student moved to the dining room
      */
     public MoveStudentToDiningRoom(String player, Colour colour) {
-        super(player);
+        this.player = player;
         this.colour = colour;
     }
 
     /**
-     * Process the message by calling a method in the gameController
+     * Notifies the game controller with the colour of the student moved to the dining room
      *
-     * @param gameController the controller that will process the packet
+     * @param gameController the game controller that will process the message
      */
     public void process(GameController gameController) {
-        gameController.moveStudentToDiningRoom(getPlayer(), colour);
+        gameController.moveStudentToDiningRoom(player, colour);
     }
 
 

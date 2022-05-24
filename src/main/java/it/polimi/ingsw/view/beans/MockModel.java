@@ -13,50 +13,62 @@ import java.util.stream.Collectors;
  * Local copy of the game model
  */
 public class MockModel {
+
     /**
      * The local player
      */
     private MockPlayer localPlayer;
+
     /**
      * A list that contains the players in this game
      */
     private final HashMap<String, MockPlayer> players;
+
     /**
      * The current player
      */
     private MockPlayer currentPlayer;
+
     /**
      * A local copy of the game table
      */
     private final MockTable table;
+
     /**
      * The current round
      */
     private int round;
+
     /**
      * A variable that states if the game mode is expert or not
      */
     private boolean isGameExpert;
+
     /**
      * Number of coins available
      */
     private int coins;
+
     /**
      * A list that contains the character cards drawn for this game
      */
     private final List<MockCard> characterCards;
+
     /**
      * Character card played by the current player
      */
     private MockCard currentCharacterCard;
+
     /**
      * A variable that indicates the current game phase
      */
     private GamePhase gamePhase;
+
     /**
      * A variable that indicates the current turn phase
      */
     private TurnPhase turnPhase;
+
     /**
      * The winner
      */
@@ -141,20 +153,10 @@ public class MockModel {
         }
     }
 
-    /**
-     * Gets the current player
-     *
-     * @return the current player
-     */
     public MockPlayer getCurrentPlayer() {
         return currentPlayer;
     }
 
-    /**
-     * Sets the current player
-     *
-     * @param currentPlayer the current player to be set
-     */
     public void setCurrentPlayer(MockPlayer currentPlayer) {
         this.currentPlayer = currentPlayer;
     }
@@ -241,6 +243,7 @@ public class MockModel {
             return null;
     }
 
+
     /**
      * Adds a character card to the list
      *
@@ -305,18 +308,18 @@ public class MockModel {
     }
 
     /**
-     * Gets the winner
+     * Gets the winner of the game
      *
-     * @return the winner
+     * @return the winner of the game
      */
     public MockPlayer getWinner() {
         return winner;
     }
 
     /**
-     * Sets the winner
+     * Sets the winner of the game
      *
-     * @param winner the winner
+     * @param winner the winner of the game
      */
     public void setWinner(MockPlayer winner) {
         this.winner = winner;

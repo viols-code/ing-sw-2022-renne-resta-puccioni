@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * CLass used to store all the strings used by the CLI renderer
+ */
 public class ViewString {
     /*
     Lobby messages
