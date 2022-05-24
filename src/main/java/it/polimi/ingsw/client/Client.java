@@ -15,15 +15,37 @@ import java.util.NoSuchElementException;
  * Main client instance
  */
 public class Client {
+    /**
+     * Default ip
+     */
     private String ip = "localhost";
+    /**
+     * Default port
+     */
     private int port = 54321;
-
+    /**
+     * Socket
+     */
     private Socket socket;
+    /**
+     * True if the client chooses CLI, false if the client chooses GUI
+     */
     private final boolean startCli;
+    /**
+     *
+     */
     private boolean active = true;
+    /**
+     * Thread that sends messages to the server
+     */
     private SocketClientWrite writeThread;
+    /**
+     * Thread that receives messages from the server
+     */
     private SocketClientRead readThread;
-
+    /**
+     * The view
+     */
     private View view;
 
 
@@ -63,14 +85,22 @@ public class Client {
         this.port = port;
     }
 
+    /**
+     * Connects the client to the server
+     *
+     * @return true if the client connected correctly, false otherwise
+     */
     public boolean connect() {
         ObjectOutputStream out;
         ObjectInputStream in;
+
         try {
             socket = new Socket(ip, port);
             out = new ObjectOutputStream(socket.getOutputStream());
             in = new ObjectInputStream(socket.getInputStream());
 
+            // Creates two new threads, one for reading the messages from the server one for sending the messages
+            // to the server
             readThread = new SocketClientRead(this, in);
             writeThread = new SocketClientWrite(this, out);
             readThread.start();
@@ -96,7 +126,7 @@ public class Client {
     }
 
     /**
-     * Terminates this client.
+     * Terminates this client and the threads associated to it
      */
     public synchronized void terminate() {
         this.active = false;

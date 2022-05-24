@@ -8,7 +8,6 @@ import java.util.concurrent.ArrayBlockingQueue;
  */
 public class SocketClientWrite extends Thread {
     private static final int BUFFER_CAPACITY = 20;
-
     private final Client client;
     private final ObjectOutputStream socketOut;
     private final ArrayBlockingQueue<Object> bufferOut;

@@ -33,10 +33,14 @@ public class SocketClientRead extends Thread {
     public void run() {
         try {
             while (client.isActive()) {
+                // Wait a message from the server
                 Object packet = socketIn.readObject();
 
+                // Select the type of the message and choose how to handle it
                 if (packet instanceof String) {
+                    // Ping message
                     if (packet.equals("ping")) {
+                        // Answer the ping from the server
                         client.send("pong");
                     } else {
                         System.err.println("Received object of unknown type");
@@ -47,6 +51,7 @@ public class SocketClientRead extends Thread {
                             System.out.println("Received: " + packet);
 
                             try {
+                                // Call the method process in the message
                                 serverPacket.process(client.getView());
                             } catch (Exception e) {
                                 System.err.println("Uncaught exception while processing server packet");
