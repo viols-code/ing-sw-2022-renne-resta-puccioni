@@ -83,6 +83,14 @@ public class Lobby extends Observable<IServerPacket> {
             notify(new ErrorMessage(connection, "Your username can't be empty"));
             return;
         }
+        else if(playerName.trim().length() != playerName.length()){
+            notify(new ErrorMessage(connection, "The nickname must be without empty spaces"));
+            return;
+        } else if(playerName.split(" ").length > 1){
+            notify(new ErrorMessage(connection, "The nickname must be without empty spaces"));
+            return;
+        }
+
 
         for (SocketClientConnection clientConnection : connections) {
             if (playerName.equalsIgnoreCase(clientConnection.getPlayerName())) {
