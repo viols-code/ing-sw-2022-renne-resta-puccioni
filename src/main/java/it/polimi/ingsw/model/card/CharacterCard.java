@@ -40,6 +40,7 @@ public abstract class CharacterCard extends Observable<IServerPacket> {
     public CharacterCard(Game game) {
         this.game = game;
     }
+
     /*
     TYPE
      */
@@ -109,12 +110,14 @@ public abstract class CharacterCard extends Observable<IServerPacket> {
     public int calculateInfluencePlayer(Player player, GroupIsland groupIsland) {
         int influence = 0;
 
+        // Influence due to the students
         for (Colour colour : Colour.values()) {
             if (player.getSchoolBoard().hasProfessor(colour)) {
                 influence += groupIsland.getNumberStudent(colour);
             }
         }
 
+        // Influence due to the towers
         if (player.equals(groupIsland.getInfluence())) {
             influence += groupIsland.getNumberOfSingleIsland();
         }
@@ -129,12 +132,14 @@ public abstract class CharacterCard extends Observable<IServerPacket> {
      */
     public void calculateInfluence(int groupIsland) {
         if (!game.getTable().getGroupIslandByIndex(groupIsland).isNoEntryTile()) {
+            // Creates a HashMap with the Player as a key and the scores
             HashMap<Player, Integer> scores = new HashMap<>();
             List<Player> res;
             for (int i = 0; i < game.getNumberOfPlayer(); i++) {
                 scores.put(game.getPlayerByIndex(i), calculateInfluencePlayer(game.getPlayerByIndex(i), game.getTable().getGroupIslandByIndex(groupIsland)));
             }
 
+            // Get the Players with the higher scores
             Integer maxInfluence = scores.values().stream().reduce(0, (y1, y2) -> {
                 if (y1 > y2) return y1;
                 else return y2;
@@ -147,14 +152,15 @@ public abstract class CharacterCard extends Observable<IServerPacket> {
                     .collect(Collectors.toList());
 
 
+            // If there is only a Player left, they have the influence of the GroupIsland
             if (res.size() == 1) {
                 changeInfluenceGroupIsland(res.get(0), groupIsland);
             }
         } else {
+            // If the GroupIsland was protected, remove one no entry tile
             game.getTable().getGroupIslandByIndex(groupIsland).removeNoEntryTile();
             notify(new NoEntryTileUpdate(groupIsland, game.getTable().getGroupIslandByIndex(groupIsland).getNumberOfNoEntryTile()));
 
-            // Magari si deve fare il funzionale
             for (int i = 0; i < 3; i++) {
                 if (game.getCharacterCardByIndex(i).getCharacterCardType() == CharacterCardEnumeration.PROTECT_ISLAND) {
                     game.getCharacterCardByIndex(i).setNumberOfNoEntryTiles(game.getCharacterCardByIndex(i).getNumberOfNoEntryTiles() + 1);
@@ -210,6 +216,8 @@ public abstract class CharacterCard extends Observable<IServerPacket> {
      */
     public void checkProfessor(Colour colour) {
         boolean control = true;
+        // If one Player already has the professor of the given colour, removes the professor from their school board
+        // and add it to the current Player
         for (int i = 0; i < game.getNumberOfPlayer(); i++) {
             if (game.getPlayerByIndex(i).getSchoolBoard().hasProfessor(colour) && !game.getPlayerByIndex(i).equals(game.getCurrentPlayer())) {
                 control = false;
@@ -220,6 +228,8 @@ public abstract class CharacterCard extends Observable<IServerPacket> {
             }
         }
 
+        // If no one has the professor of the given colour and the Player has the higher number of students of the given colour
+        // adds to their school board the professor
         if (control) {
             boolean check = true;
             for (int i = 0; i < game.getNumberOfPlayer(); i++) {
@@ -342,8 +352,10 @@ public abstract class CharacterCard extends Observable<IServerPacket> {
      */
     protected void checkUnifyIsland(int groupIsland) {
         boolean flag;
+        // Check if the GroupIsland can be unified with the GroupIsland after
         if (game.getTable().getGroupIslandByIndex(groupIsland).getInfluence().equals(game.getTable().getIslandAfter(groupIsland).getInfluence())) {
             if (groupIsland == game.getTable().getNumberOfGroupIsland() - 1) {
+                // Unify last GroupIsland with GroupIsland 0
                 flag = game.getTable().getGroupIslandByIndex(groupIsland).getMotherNature();
                 unifyGroupIsland(game.getTable().getIslandAfter(groupIsland), game.getTable().getGroupIslandByIndex(groupIsland));
                 notify(new UnifyIslandsUpdate(0, groupIsland));
@@ -357,6 +369,8 @@ public abstract class CharacterCard extends Observable<IServerPacket> {
                 notify(new UnifyIslandsUpdate(groupIsland, (groupIsland + 1)));
             }
 
+            // If flag is false, then modifies mother nature position
+            // flag is false only if checkUnifyIsland was called by the IslandInfluence card
             if (!flag) {
                 int i;
                 for (i = 0; i < game.getTable().getNumberOfGroupIsland(); i++) {
@@ -368,6 +382,7 @@ public abstract class CharacterCard extends Observable<IServerPacket> {
             }
         }
 
+        // Check if the GroupIsland can be unified with the GroupIsland before
         if (game.getTable().getGroupIslandByIndex(groupIsland).getInfluence().equals(game.getTable().getIslandBefore(groupIsland).getInfluence())) {
             if (groupIsland > 0) {
                 flag = game.getTable().getGroupIslandByIndex(groupIsland).getMotherNature();
@@ -382,6 +397,8 @@ public abstract class CharacterCard extends Observable<IServerPacket> {
                 notify(new UnifyIslandsUpdate(groupIsland, game.getTable().getNumberOfGroupIsland()));
             }
 
+            // If flag is false, then modifies mother nature position
+            // flag is false only if checkUnifyIsland was called by the IslandInfluence card
             if (!flag) {
                 int i;
                 for (i = 0; i < game.getTable().getNumberOfGroupIsland(); i++) {

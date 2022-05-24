@@ -81,8 +81,10 @@ public class Bag extends Observable<IServerPacket> {
             Random rand = new Random();
             int upperbound = bag_size;
             int n;
+            // Get a random number
             n = rand.nextInt(upperbound) + 1;
 
+            // Get the colour corresponding to the random number
             if (n <= getBagStudent(Colour.YELLOW)) {
                 this.removeStudentBag(Colour.YELLOW);
                 return Colour.YELLOW;
