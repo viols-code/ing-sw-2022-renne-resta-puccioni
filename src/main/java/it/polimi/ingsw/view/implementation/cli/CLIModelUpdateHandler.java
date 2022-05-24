@@ -21,6 +21,11 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
         super(view);
     }
 
+    /**
+     * Updates the current player
+     *
+     * @param currentPlayer the nickname of the current player
+     */
     @Override
     public void updateCurrentPlayer(String currentPlayer) {
         super.updateCurrentPlayer(currentPlayer);
@@ -31,6 +36,12 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
         }
     }
 
+    /**
+     * Updates the turn phase
+     *
+     * @param turnPhase the new turn phase
+     */
+    @Override
     public void updateTurnPhase(TurnPhase turnPhase) {
         super.updateTurnPhase(turnPhase);
         if (turnPhase == TurnPhase.WAITING) {
@@ -46,6 +57,11 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
         }
     }
 
+    /**
+     * Updates the winner of the game
+     *
+     * @param player the nickname of the winner
+     */
     @Override
     public void updateWinner(String player) {
         super.updateWinner(player);
@@ -56,6 +72,12 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
         }
     }
 
+    /**
+     * Updates the influence player on the group island
+     *
+     * @param player the nickname of the new influence player
+     * @param groupIsland the index of the group island where influence changed
+     */
     @Override
     public void updateInfluencePlayerOnGroupIsland(String player, int groupIsland) {
         if (getView().getModel().getTable().getGroupIslandByIndex(groupIsland).getInfluentPlayer() != null) {
@@ -73,12 +95,24 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
         }
     }
 
+    /**
+     * Updates the ArrayList islands in MockTable according to the merge of the group island selected
+     *
+     * @param groupIsland1 the index of the first group island
+     * @param groupIsland2 the index of the second gorup island
+     */
     @Override
     public void updateUnifyIsland(int groupIsland1, int groupIsland2) {
         super.updateUnifyIsland(groupIsland1, groupIsland2);
         getView().getRenderer().showGameMessage(ViewString.UNIFY_ISLANDS.formatted(groupIsland1, groupIsland2));
     }
 
+    /**
+     * Updates the current assistant card of the selected player
+     *
+     * @param player the nickname of the player
+     * @param assistantCard the index of the assistant card played in this turn
+     */
     @Override
     public void updateCurrentAssistantCard(String player, int assistantCard) {
         super.updateCurrentAssistantCard(player, assistantCard);
@@ -89,6 +123,11 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
         }
     }
 
+    /**
+     * Updates the position of mother nature
+     *
+     * @param motherNaturePosition the integer representing the new position of mother nature
+     */
     @Override
     public void updateMotherNaturePosition(int motherNaturePosition) {
         super.updateMotherNaturePosition(motherNaturePosition);
@@ -101,6 +140,11 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
         }
     }
 
+    /**
+     * Updates the round
+     *
+     * @param round the number of the current round
+     */
     @Override
     public void updateRound(int round) {
         super.updateRound(round);
@@ -109,6 +153,12 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
         }
     }
 
+    /**
+     * Updates the professor table on the school board of the player selected
+     *
+     * @param player the nickname of the player
+     * @param professorTable the hash map representing the updated professor table
+     */
     @Override
     public void updateProfessorTable(String player, HashMap<Colour, Boolean> professorTable) {
         for (Colour colour : Colour.values()) {
@@ -133,12 +183,22 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
         super.updateProfessorTable(player, professorTable);
     }
 
+    /**
+     * Updates the position of mother nature after group islands merge
+     *
+     * @param motherNaturePosition the updated position of mother nature
+     */
     @Override
     public void updateMotherNaturePositionUnify(int motherNaturePosition) {
         super.updateMotherNaturePositionUnify(motherNaturePosition);
         getView().getRenderer().showGameMessage(ViewString.MOTHER_NATURE_POSITION_UNIFY.formatted(motherNaturePosition));
     }
 
+    /**
+     * Updates the active character card in MockModel
+     *
+     * @param characterCard the new current character card
+     */
     @Override
     public void updateActiveCharacterCard(CharacterCardEnumeration characterCard) {
         super.updateActiveCharacterCard(characterCard);
@@ -161,6 +221,12 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
         }
     }
 
+    /**
+     * Updates the number of no entry tile on a group island
+     *
+     * @param groupIsland the index of the group island
+     * @param num the updated number of no entry tiles
+     */
     @Override
     public void updateNoEntryTileOnGroupIsland(int groupIsland, int num) {
         if (getView().getModel().getTable().getGroupIslandByIndex(groupIsland).getNoEntryTile() < num) {
@@ -176,6 +242,9 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
         super.updateNoEntryTileOnGroupIsland(groupIsland, num);
     }
 
+    /**
+     * Shows a message on the CLI to let the players know that students are finished, so they are playing the last round
+     */
     @Override
     public void updateEmptyBag() {
         getView().getRenderer().showGameMessage("The students are finished. This is the last round");

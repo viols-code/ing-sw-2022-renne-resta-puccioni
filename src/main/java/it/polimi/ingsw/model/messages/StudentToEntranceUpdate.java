@@ -36,6 +36,6 @@ public class StudentToEntranceUpdate extends CardUpdate {
      */
     @Override
     public void process(View view) {
-        view.getModelUpdateHandler().updateStudentToDEntranceCard(students);
+        view.getModelUpdateHandler().updateStudentToEntranceCard(students);
     }
 }
