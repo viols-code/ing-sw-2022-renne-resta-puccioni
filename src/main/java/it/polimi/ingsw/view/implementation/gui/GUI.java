@@ -2,6 +2,7 @@ package it.polimi.ingsw.view.implementation.gui;
 
 import it.polimi.ingsw.FXMLUtils;
 import it.polimi.ingsw.client.Client;
+import it.polimi.ingsw.model.player.Wizard;
 import it.polimi.ingsw.view.View;
 import javafx.application.Platform;
 import javafx.scene.Parent;
@@ -70,6 +71,37 @@ public class GUI extends View {
                     scene.setRoot(wizardSelection);
                 });
             }
+    }
+
+    @Override
+    public void handleCorrectWizard(Wizard wizard, List<Wizard> takenWizard){
+        super.handleCorrectWizard(wizard, takenWizard);
+
+        if(wizard.equals(getPlayerWizard())){
+            if(isLobbyMaster()) {
+                Platform.runLater(() -> {
+                    Parent gameModeSelection = FXMLUtils.loadFXML("/gui/GameModeSelection");
+                    scene.setRoot(gameModeSelection);
+                });
+            }
+            else{
+                Platform.runLater(() -> {
+                    Parent waitingPlayers = FXMLUtils.loadFXML("/gui/WaitingPlayers");
+                    scene.setRoot(waitingPlayers);
+                });
+            }
+        }
+    }
+
+    @Override
+    public void handleGameMode(boolean gameMode){
+        super.handleGameMode(gameMode);
+
+        Platform.runLater(() -> {
+            Parent playersToStartSelection = FXMLUtils.loadFXML("/gui/PlayersToStartSelection");
+            scene.setRoot(playersToStartSelection);
+        });
+
     }
 
     @Override
