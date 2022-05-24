@@ -6,16 +6,35 @@ import it.polimi.ingsw.controller.GameController;
 import java.io.Serial;
 import java.io.Serializable;
 
+/**
+ * Abstract class representing a Player Event
+ */
 public abstract class PlayerEvent implements Serializable, IProcessablePacket<GameController> {
+    /**
+     * The serial version UID
+     */
     @Serial
     private static final long serialVersionUID = -695696550449639585L;
-    private String player;
+    /**
+     * The player's nickname
+     */
+    private final String player;
 
-    protected String getPlayer() {
-        return player;
+    /**
+     * Constructor
+     *
+     * @param player the player's nickname
+     */
+    public PlayerEvent(String player){
+        this.player = player;
     }
 
-    public void setPlayer(String player) {
-        this.player = player;
+    /**
+     * Gets the player's nickname
+     *
+     * @return the player's nickname
+     */
+    protected String getPlayer() {
+        return player;
     }
 }

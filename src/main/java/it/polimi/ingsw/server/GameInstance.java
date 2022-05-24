@@ -33,7 +33,10 @@ public class GameInstance implements Runnable {
     public void run() {
         System.out.println("Starting game!");
 
+        // Creates a gameController
         GameController controller = new GameController(isExpertGame, numberOfPlayers, lobby);
+
+        // Add observers
         List<RemoteView> registeredViews = new ArrayList<>();
         for (SocketClientConnection conn : lobby.getConnections()) {
             conn.setLobbyUUID(lobby.getUuid());
@@ -47,14 +50,13 @@ public class GameInstance implements Runnable {
 
 
             registeredViews.add(remoteView);
-
         }
 
+        // Set up the game
         controller.setUp();
 
+        // Add other observers
         for (SocketClientConnection conn : lobby.getConnections()) {
-            //conn.setLobbyUUID(lobby.getUuid());
-
             RemoteView remoteView = conn.getRemoteView();
             controller.addPlayer(conn.getPlayerName(), conn.getWizard());
 
@@ -82,6 +84,7 @@ public class GameInstance implements Runnable {
             }
         }
 
+        // Set up the Table and the Players
         controller.setUpTableAndPlayers();
     }
 }

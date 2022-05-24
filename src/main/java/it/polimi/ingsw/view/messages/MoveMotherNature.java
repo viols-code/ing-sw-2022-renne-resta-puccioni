@@ -4,18 +4,37 @@ import it.polimi.ingsw.controller.GameController;
 
 import java.io.Serial;
 
+/**
+ * Message to the server notifying the mother nature movement
+ */
 public class MoveMotherNature extends PlayerAction {
+    /**
+     * The serial version UID
+     */
     @Serial
     private static final long serialVersionUID = -695696550449539585L;
-    private String player;
+    /**
+     * The mother nature movement chosen
+     */
     private final int movement;
 
+    /**
+     * Constructor
+     *
+     * @param player the player's nickname
+     * @param movement the mother nature movement chosen
+     */
     public MoveMotherNature(String player, int movement) {
-        this.player = player;
+        super(player);
         this.movement = movement;
     }
 
+    /**
+     * Process the message by calling a method in the gameController
+     *
+     * @param gameController the controller that will process the packet
+     */
     public void process(GameController gameController) {
-        gameController.moveMotherNature(player, movement);
+        gameController.moveMotherNature(getPlayer(), movement);
     }
 }
