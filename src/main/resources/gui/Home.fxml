@@ -29,16 +29,22 @@
             </BorderPane.margin>
             <Accordion/>
             <Label text="Enter the server ip and port:">
+                <font>
+                    <Font name="System Bold Italic" size="25.0"/>
+                </font>
                 <VBox.margin>
-                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                    <Insets bottom="15.0" left="20.0" right="20.0" top="5.0"/>
                 </VBox.margin>
                 <padding>
                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                 </padding>
             </Label>
             <TextField fx:id="serverIp" maxWidth="200.0">
+                <font>
+                    <Font size="15.0"/>
+                </font>
                 <padding>
-                    <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                 </padding>
                 <VBox.margin>
                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
@@ -46,10 +52,14 @@
             </TextField>
             <ToggleButton fx:id="connect" mnemonicParsing="false" text="Connect" textFill="#5569b9">
                 <VBox.margin>
-                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                    <Insets bottom="10.0" left="5.0" right="5.0" top="15.0"/>
                 </VBox.margin>
             </ToggleButton>
-            <Label fx:id="errorDisplay" visible="false"/>
+            <Label fx:id="errorDisplay" visible="false">
+                <font>
+                    <Font size="15.0"/>
+                </font>
+            </Label>
         </VBox>
     </center>
     <left>
