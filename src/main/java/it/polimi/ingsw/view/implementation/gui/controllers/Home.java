@@ -2,9 +2,9 @@ package it.polimi.ingsw.view.implementation.gui.controllers;
 
 import it.polimi.ingsw.view.implementation.gui.GUI;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.VBox;
 
 public class Home {
@@ -16,7 +16,7 @@ public class Home {
     private TextField serverIp;
 
     @FXML
-    private Button connect;
+    private ToggleButton connect;
 
     @FXML
     private Label errorDisplay;
