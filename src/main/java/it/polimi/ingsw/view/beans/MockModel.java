@@ -24,6 +24,9 @@ public class MockModel {
      */
     private final HashMap<String, MockPlayer> players;
 
+    /**
+     * The current player
+     */
     private MockPlayer currentPlayer;
 
     /**
