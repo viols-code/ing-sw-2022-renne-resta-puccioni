@@ -14,7 +14,7 @@ public class GameWidget extends StackPane {
         FXMLUtils.loadWidgetFXML(this);
     }
 
-    public void initializeWidgets(){
+    public void initializeWidgets() {
 
     }
 }

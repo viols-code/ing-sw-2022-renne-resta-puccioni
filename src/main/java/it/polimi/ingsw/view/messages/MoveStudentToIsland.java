@@ -30,9 +30,9 @@ public class MoveStudentToIsland extends PlayerAction {
     /**
      * Constructor
      *
-     * @param player the player's nickname
-     * @param colour the chosen student's Colour
-     * @param groupIsland the chosen GroupIsland's position
+     * @param player       the player's nickname
+     * @param colour       the chosen student's Colour
+     * @param groupIsland  the chosen GroupIsland's position
      * @param singleIsland the chosen SingleIsland's position
      */
     public MoveStudentToIsland(String player, Colour colour, int groupIsland, int singleIsland) {

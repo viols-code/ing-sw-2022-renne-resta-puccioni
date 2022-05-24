@@ -17,7 +17,7 @@ public abstract class ChangeCharacterCardState extends PlayerEvent {
      *
      * @param player the player's nickname
      */
-    public ChangeCharacterCardState(String player){
+    public ChangeCharacterCardState(String player) {
         super(player);
     }
 }

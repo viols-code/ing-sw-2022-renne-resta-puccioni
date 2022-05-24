@@ -21,7 +21,7 @@ public class MoveMotherNature extends PlayerAction {
     /**
      * Constructor
      *
-     * @param player the player's nickname
+     * @param player   the player's nickname
      * @param movement the mother nature movement chosen
      */
     public MoveMotherNature(String player, int movement) {

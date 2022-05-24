@@ -179,7 +179,7 @@ public class CLIRenderer extends Renderer {
     /**
      * Prints the selected character card
      *
-     * @param card the card to print
+     * @param card      the card to print
      * @param character the name of the character card
      */
     public void renderCharacter(MockCard card, String character) {
@@ -295,7 +295,7 @@ public class CLIRenderer extends Renderer {
      * Renders the school board given
      *
      * @param mockSchoolBoard the school board to print
-     * @param schoolBoard the string to print
+     * @param schoolBoard     the string to print
      */
     private void renderSchoolBoard(MockSchoolBoard mockSchoolBoard, String schoolBoard) {
         HashMap<Colour, Integer> entrance = mockSchoolBoard.getEntrance();
@@ -333,7 +333,7 @@ public class CLIRenderer extends Renderer {
     /**
      * Prints the coins of a player
      *
-     * @param coins the number of coins
+     * @param coins       the number of coins
      * @param numberCoins the string to print
      */
     private void renderCoins(int coins, String numberCoins) {
@@ -344,8 +344,8 @@ public class CLIRenderer extends Renderer {
     /**
      * Prints the assistant card
      *
-     * @param value the assistant card value
-     * @param steps the steps that mother nature can do
+     * @param value         the assistant card value
+     * @param steps         the steps that mother nature can do
      * @param assistantCard the string to print
      */
     private void renderAssistantCard(int value, int steps, String assistantCard) {

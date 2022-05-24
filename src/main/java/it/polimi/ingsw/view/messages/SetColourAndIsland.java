@@ -30,9 +30,9 @@ public class SetColourAndIsland extends ChangeCharacterCardState {
     /**
      * Constructor
      *
-     * @param player the player's nickname
-     * @param colour the chosen colour of the student
-     * @param groupIsland the chosen GroupIsland's position
+     * @param player       the player's nickname
+     * @param colour       the chosen colour of the student
+     * @param groupIsland  the chosen GroupIsland's position
      * @param singleIsland the chosen SingleIsland's position
      */
     public SetColourAndIsland(String player, Colour colour, int groupIsland, int singleIsland) {

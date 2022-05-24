@@ -26,9 +26,9 @@ public class SetColourDiningRoomEntrance extends ChangeCharacterCardState {
     /**
      * Constructor
      *
-     * @param player the player's nickname
+     * @param player           the player's nickname
      * @param colourDiningRoom the chosen colour from the dining room
-     * @param colourEntrance the chosen colour from the entrance
+     * @param colourEntrance   the chosen colour from the entrance
      */
     public SetColourDiningRoomEntrance(String player, Colour colourDiningRoom, Colour colourEntrance) {
         super(player);

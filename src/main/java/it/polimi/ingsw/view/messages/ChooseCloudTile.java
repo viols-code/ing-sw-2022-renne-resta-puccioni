@@ -21,7 +21,7 @@ public class ChooseCloudTile extends PlayerAction {
     /**
      * Constructor
      *
-     * @param player the player's nickname
+     * @param player    the player's nickname
      * @param cloudTile the chosen CloudTile's position
      */
     public ChooseCloudTile(String player, int cloudTile) {

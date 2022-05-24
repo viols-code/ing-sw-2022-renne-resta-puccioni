@@ -21,7 +21,7 @@ public class PlayAssistantCard extends PlayerAction {
     /**
      * Constructor
      *
-     * @param player the player's nickname
+     * @param player        the player's nickname
      * @param assistantCard the AssistantCard's position
      */
     public PlayAssistantCard(String player, int assistantCard) {

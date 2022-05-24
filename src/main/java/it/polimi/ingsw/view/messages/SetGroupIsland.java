@@ -21,7 +21,7 @@ public class SetGroupIsland extends ChangeCharacterCardState {
     /**
      * Constructor
      *
-     * @param player the player's nickname
+     * @param player      the player's nickname
      * @param groupIsland the chosen GroupIsland's position
      */
     public SetGroupIsland(String player, int groupIsland) {

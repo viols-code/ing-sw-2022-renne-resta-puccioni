@@ -93,7 +93,7 @@ public class GameController implements Observer<PlayerEvent> {
                     for (int i = 0; i < 12; i++) {
                         game.getTable().addGroupIsland(new AdvancedGroupIsland());
                     }
-                // If the game is in expert mode without the ProtectIsland card, creates the BasicGroupIsland
+                    // If the game is in expert mode without the ProtectIsland card, creates the BasicGroupIsland
                 } else {
                     for (int i = 0; i < 12; i++) {
                         game.getTable().addGroupIsland(new BasicGroupIsland());
@@ -321,7 +321,7 @@ public class GameController implements Observer<PlayerEvent> {
                                     game.setCurrentPlayer(game.nextPlayerClockwise());
                                     // Set the TurnPhase to PLAY_ASSISTANT_CARD
                                     game.setTurnPhase(TurnPhase.PLAY_ASSISTANT_CARD);
-                                // If all the Players have played an AssistantCard
+                                    // If all the Players have played an AssistantCard
                                 } else {
                                     // End the PLAY_ASSISTANT_CARD phase
                                     endPlayAssistantCard();
@@ -558,7 +558,7 @@ public class GameController implements Observer<PlayerEvent> {
                         game.getActiveCharacterCard().calculateInfluence(game.getTable().getMotherNaturePosition());
                         // If the Winner has been set, end the Game
                         if (game.getWinner() != null) endGame();
-                        // If the number of the GroupIsland is less than three, end the game
+                            // If the number of the GroupIsland is less than three, end the game
                         else if (game.getTable().getNumberOfGroupIsland() <= 3) {
                             calculateWinner();
                             endGame();

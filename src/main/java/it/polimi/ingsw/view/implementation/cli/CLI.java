@@ -43,7 +43,7 @@ public class CLI extends View {
     /**
      * Handles the successful nickname setting
      *
-     * @param nickname the nickname chosen by the local player
+     * @param nickname       the nickname chosen by the local player
      * @param takenNicknames the nicknames chosen by the players connected to the lobby
      */
     @Override
@@ -55,7 +55,7 @@ public class CLI extends View {
     /**
      * Handles the successful wizard setting
      *
-     * @param wizard the wizard chosen by the local player
+     * @param wizard      the wizard chosen by the local player
      * @param takenWizard the wizard chosen by the players connected to the lobby
      */
     @Override

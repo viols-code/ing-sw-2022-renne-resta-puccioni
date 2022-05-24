@@ -26,8 +26,8 @@ public class SetColourCardEntrance extends ChangeCharacterCardState {
     /**
      * Constructor
      *
-     * @param player the player's nickname
-     * @param colourCard the chosen colour from the card
+     * @param player         the player's nickname
+     * @param colourCard     the chosen colour from the card
      * @param colourEntrance the chosen colour from entrance
      */
     public SetColourCardEntrance(String player, Colour colourCard, Colour colourEntrance) {

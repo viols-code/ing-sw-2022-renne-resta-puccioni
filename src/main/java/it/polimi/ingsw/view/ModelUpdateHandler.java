@@ -4,7 +4,6 @@ import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.GamePhase;
 import it.polimi.ingsw.model.game.TurnPhase;
 import it.polimi.ingsw.model.player.TowerColour;
-import it.polimi.ingsw.model.player.Wizard;
 import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
 import it.polimi.ingsw.view.beans.MockCard;
 import it.polimi.ingsw.view.beans.MockGroupIsland;
@@ -53,7 +52,7 @@ public abstract class ModelUpdateHandler {
      * Updates the cost of the selected character card
      *
      * @param characterCard the index of the character card selected
-     * @param coins the new cost of the character card
+     * @param coins         the new cost of the character card
      */
     public void updateCardCoins(int characterCard, int coins) {
         getView().getModel().getCharacterCardByIndex(characterCard).setCost(coins);
@@ -80,7 +79,7 @@ public abstract class ModelUpdateHandler {
      * Updates a specific cloud tile when it is filled
      *
      * @param cloudTile the index of the cloud tile selected
-     * @param students the hash map containing the students on the cloud tile
+     * @param students  the hash map containing the students on the cloud tile
      */
     public void updateCloudTileAdded(int cloudTile, HashMap<Colour, Integer> students) {
         getView().getModel().getTable().getCloudTileByIndex(cloudTile).setCloudTile(students);
@@ -93,7 +92,7 @@ public abstract class ModelUpdateHandler {
      * Updates a specific cloud tile when it is chosen
      *
      * @param cloudTile the index of the cloud tile selected
-     * @param students the hash map containing the students on the cloud tile
+     * @param students  the hash map containing the students on the cloud tile
      */
     public void updateCloudTileRemoved(int cloudTile, HashMap<Colour, Integer> students) {
         getView().getModel().getTable().getCloudTileByIndex(cloudTile).setCloudTile(students);
@@ -104,7 +103,7 @@ public abstract class ModelUpdateHandler {
      * Updates the coins available for the selected player
      *
      * @param player the nickname of the player
-     * @param coins the coins of that player
+     * @param coins  the coins of that player
      */
     public void updatePlayerCoins(String player, int coins) {
         getView().getModel().getPlayerByNickname(player).setCoins(coins);
@@ -122,7 +121,7 @@ public abstract class ModelUpdateHandler {
     /**
      * Updates the current assistant card of the selected player
      *
-     * @param player the nickname of the player
+     * @param player        the nickname of the player
      * @param assistantCard the index of the assistant card played in this turn
      */
     public void updateCurrentAssistantCard(String player, int assistantCard) {
@@ -132,7 +131,7 @@ public abstract class ModelUpdateHandler {
     /**
      * Updates the dining room on the school board of the selected player
      *
-     * @param player the nickname of the player
+     * @param player     the nickname of the player
      * @param diningRoom the hash map containing the updated dining room
      */
     public void updateDiningRoom(String player, HashMap<Colour, Integer> diningRoom) {
@@ -154,7 +153,7 @@ public abstract class ModelUpdateHandler {
     /**
      * Updates the entrance on the school board of the selected player
      *
-     * @param player the nickname of the player
+     * @param player   the nickname of the player
      * @param entrance the hash map containing the updated entrance
      */
     public void updateEntrance(String player, HashMap<Colour, Integer> entrance) {
@@ -182,7 +181,7 @@ public abstract class ModelUpdateHandler {
     /**
      * Updates the influence player on the group island
      *
-     * @param player the nickname of the new influence player
+     * @param player      the nickname of the new influence player
      * @param groupIsland the index of the group island where influence changed
      */
     public void updateInfluencePlayerOnGroupIsland(String player, int groupIsland) {
@@ -212,7 +211,7 @@ public abstract class ModelUpdateHandler {
      * Updates the number of no entry tile on a group island
      *
      * @param groupIsland the index of the group island
-     * @param num the updated number of no entry tiles
+     * @param num         the updated number of no entry tiles
      */
     public void updateNoEntryTileOnGroupIsland(int groupIsland, int num) {
         getView().getModel().getTable().getGroupIslandByIndex(groupIsland).setNoEntryTile(num);
@@ -221,7 +220,7 @@ public abstract class ModelUpdateHandler {
     /**
      * Updates the professor table on the school board of the player selected
      *
-     * @param player the nickname of the player
+     * @param player         the nickname of the player
      * @param professorTable the hash map representing the updated professor table
      */
     public void updateProfessorTable(String player, HashMap<Colour, Boolean> professorTable) {
@@ -240,9 +239,9 @@ public abstract class ModelUpdateHandler {
     /**
      * Updates the student on a single island
      *
-     * @param groupIsland the index of the group island selected
+     * @param groupIsland  the index of the group island selected
      * @param singleIsland the index of the single island
-     * @param student the hash map containing the updated students on the single island
+     * @param student      the hash map containing the updated students on the single island
      */
     public void updateSingleIsland(int groupIsland, int singleIsland, Colour student) {
         getView().getModel().getTable().getGroupIslandByIndex(groupIsland).getSingleIslandByIndex(singleIsland).setStudent(student);
@@ -261,7 +260,7 @@ public abstract class ModelUpdateHandler {
     /**
      * Updates the tower colour of the selected player ate the beginning of the game
      *
-     * @param player the nickname of the selected player
+     * @param player      the nickname of the selected player
      * @param towerColour the tower colour assigned to that player
      */
     public void updateTowerColour(String player, TowerColour towerColour) {

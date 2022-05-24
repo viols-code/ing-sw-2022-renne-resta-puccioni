@@ -208,7 +208,7 @@ public abstract class View {
     /**
      * Handles the successful nickname setting
      *
-     * @param nickname the nickname chosen by the local player
+     * @param nickname       the nickname chosen by the local player
      * @param takenNicknames the nicknames chosen by the players connected to the lobby
      */
     public void handleCorrectNickname(String nickname, List<String> takenNicknames) {
@@ -218,7 +218,7 @@ public abstract class View {
     /**
      * Handles the successful wizard setting
      *
-     * @param wizard the wizard chosen by the local player
+     * @param wizard      the wizard chosen by the local player
      * @param takenWizard the wizard chosen by the players connected to the lobby
      */
     public void handleCorrectWizard(Wizard wizard, List<Wizard> takenWizard) {
@@ -241,8 +241,8 @@ public abstract class View {
     /**
      * Handles the successful connection of all players and prepares the mock model for the game
      *
-     * @param players a hash map that associate each nickname with the wizard chosen by the player
-     * @param gameMode a boolean which is true if the game mode set is expert, false if it's basic
+     * @param players    a hash map that associate each nickname with the wizard chosen by the player
+     * @param gameMode   a boolean which is true if the game mode set is expert, false if it's basic
      * @param numPlayers the number of players in the game
      */
     public void handleAllPlayersConnected(HashMap<String, Wizard> players, boolean gameMode, int numPlayers) {

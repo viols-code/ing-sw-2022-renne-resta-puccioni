@@ -75,7 +75,7 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
     /**
      * Updates the influence player on the group island
      *
-     * @param player the nickname of the new influence player
+     * @param player      the nickname of the new influence player
      * @param groupIsland the index of the group island where influence changed
      */
     @Override
@@ -110,7 +110,7 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
     /**
      * Updates the current assistant card of the selected player
      *
-     * @param player the nickname of the player
+     * @param player        the nickname of the player
      * @param assistantCard the index of the assistant card played in this turn
      */
     @Override
@@ -156,7 +156,7 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
     /**
      * Updates the professor table on the school board of the player selected
      *
-     * @param player the nickname of the player
+     * @param player         the nickname of the player
      * @param professorTable the hash map representing the updated professor table
      */
     @Override
@@ -225,7 +225,7 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
      * Updates the number of no entry tile on a group island
      *
      * @param groupIsland the index of the group island
-     * @param num the updated number of no entry tiles
+     * @param num         the updated number of no entry tiles
      */
     @Override
     public void updateNoEntryTileOnGroupIsland(int groupIsland, int num) {

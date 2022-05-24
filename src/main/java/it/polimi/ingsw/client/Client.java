@@ -1,6 +1,5 @@
 package it.polimi.ingsw.client;
 
-import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.implementation.cli.CLI;
 import it.polimi.ingsw.view.implementation.gui.GUI;
