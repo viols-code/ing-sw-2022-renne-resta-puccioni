@@ -17,4 +17,21 @@ public class FXMLUtils {
             return new Label("Something went wrong");
         }
     }
+
+    public static <T extends Parent> void loadWidgetFXML(T component) {
+        String fileName = "/widget/" + component.getClass().getSimpleName() + ".fxml";
+        loadFXMLComponent(component, fileName);
+    }
+
+    public static <T extends Parent> void loadFXMLComponent(T component, String fileName) {
+        FXMLLoader loader = new FXMLLoader(App.class.getResource(fileName));
+        loader.setRoot(component);
+        loader.setControllerFactory(theClass -> component);
+
+        try {
+            loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
