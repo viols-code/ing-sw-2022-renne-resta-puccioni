@@ -21,7 +21,6 @@ import java.util.stream.Collectors;
  * @version 1.0
  */
 public abstract class Game extends Observable<IServerPacket> {
-
     /**
      * A List containing the players in the match
      */
@@ -159,7 +158,6 @@ public abstract class Game extends Observable<IServerPacket> {
      * @return the index of the given player
      */
     public int getIndexOfPlayer(Player player) throws IllegalArgumentException {
-
         for (int i = 0; i < players.size(); i++) {
             if (players.get(i).equals(player)) {
                 return i;
@@ -200,7 +198,6 @@ public abstract class Game extends Observable<IServerPacket> {
      */
     public void addPlayer(Player player) {
         this.players.add(player);
-        //notify(new PlayersUpdate(player.getNickname(),player.getWizard()));
         notify(new TowerColourUpdate(player.getNickname(), player.getTowerColour()));
     }
 
@@ -215,7 +212,6 @@ public abstract class Game extends Observable<IServerPacket> {
             throw new IllegalArgumentException("This player is not in the game");
         }
         this.players.remove(player);
-        //to-do : notify the client that a player has been removed
     }
 
     /**
@@ -234,6 +230,7 @@ public abstract class Game extends Observable<IServerPacket> {
      * @return the nextPlayer according to the assistantCard number
      */
     public Player nextPlayerTurn() {
+        // Creates a HashMap with the Player as a key and the value of the AssistantCard
         HashMap<Player, Integer> values = new HashMap<>();
         List<Player> res;
 
@@ -243,6 +240,7 @@ public abstract class Game extends Observable<IServerPacket> {
             }
         }
 
+        // Gets the Player with the minimum value of the AssistantCard
         Integer min = values.values().stream().reduce(11, (y1, y2) -> {
             if (y1 < y2) return y1;
             else return y2;
@@ -255,15 +253,19 @@ public abstract class Game extends Observable<IServerPacket> {
                 .collect(Collectors.toList());
 
 
+        // If the size is 1, then the Player is the next current Player
         if (res.size() == 1) {
             return res.get(0);
         } else {
+            // Otherwise, return the first Player to choose the AssistantCard
             int j = 0;
+            // Get the index of the firstPlayerLastTurn
             for (int i = 0; i < getNumberOfPlayer(); i++) {
                 if (firstPlayerLastTurn.equals(getPlayerByIndex(i))) {
                     j = i;
                 }
             }
+            // Get the first Player who firstly chose the AssistantCard
             int i = 0;
             while (i < getNumberOfPlayer()) {
                 if (res.contains(getPlayerByIndex(j))) {
