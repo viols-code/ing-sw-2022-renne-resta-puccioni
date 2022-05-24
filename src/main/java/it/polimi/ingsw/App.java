@@ -4,8 +4,6 @@ import it.polimi.ingsw.client.Client;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-import java.util.concurrent.TimeUnit;
-
 
 public class App extends Application {
 

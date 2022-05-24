@@ -6,12 +6,12 @@ import javafx.fxml.FXML;
 public class GameModeSelection {
 
     @FXML
-    private void basic(){
+    private void basic() {
         GUI.instance().getActionSender().setGameMode(false);
     }
 
     @FXML
-    private void expert(){
+    private void expert() {
         GUI.instance().getActionSender().setGameMode(true);
     }
 }

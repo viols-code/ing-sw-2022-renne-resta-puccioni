@@ -157,7 +157,7 @@ public abstract class View {
         }
     }
 
-    public void handleGameMode(boolean gameMode){
+    public void handleGameMode(boolean gameMode) {
 
     }
 

@@ -6,12 +6,12 @@ import javafx.fxml.FXML;
 public class PlayersToStartSelection {
 
     @FXML
-    private void twoPlayersGame(){
+    private void twoPlayersGame() {
         GUI.instance().getActionSender().setPlayersToStart(2);
     }
 
     @FXML
-    private void threePlayersGame(){
+    private void threePlayersGame() {
         GUI.instance().getActionSender().setPlayersToStart(3);
     }
 }

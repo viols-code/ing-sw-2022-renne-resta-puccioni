@@ -19,9 +19,6 @@ public class Client {
     private int port = 54321;
 
     private Socket socket;
-    private GameController localGameController;
-    private String localPlayerName;
-    private Boolean isGameExpert = null;
     private final boolean startCli;
     private boolean active = true;
     private SocketClientWrite writeThread;
@@ -71,7 +68,7 @@ public class Client {
 
     public boolean connect(String address) {
         String[] split = address.split(":");
-        if(split.length != 2)
+        if (split.length != 2)
             return false;
         setIp(split[0]);
         try {

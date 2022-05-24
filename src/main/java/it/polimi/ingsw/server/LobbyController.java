@@ -70,10 +70,9 @@ public class LobbyController {
 
         if (currentLobby.getConnections().contains(connection)) {
             currentLobby.setPlayerName(connection, playerName);
-            if(connection.getPlayerName() != null){
+            if (connection.getPlayerName() != null) {
                 System.out.println("Player " + connection.getPlayerName() + " connected in Lobby " + currentLobby.getUuid());
-            }
-            else{
+            } else {
                 System.out.println("Duplicated username, waiting for a new one");
             }
 
@@ -81,10 +80,9 @@ public class LobbyController {
             for (Lobby lobby : waitingLobbies) {
                 if (lobby.getConnections().contains(connection)) {
                     lobby.setPlayerName(connection, playerName);
-                    if(connection.getPlayerName() != null){
+                    if (connection.getPlayerName() != null) {
                         System.out.println("Player " + connection.getPlayerName() + " connected in Lobby " + lobby.getUuid());
-                    }
-                    else{
+                    } else {
                         System.out.println("Duplicated username, waiting for a new one");
                     }
 

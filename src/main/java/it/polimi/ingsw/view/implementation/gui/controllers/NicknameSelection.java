@@ -18,16 +18,16 @@ public class NicknameSelection {
     @FXML
     private void initialize() {
         choose.setOnAction(actionEvent -> {
-            if(username.getText().trim().length() != username.getText().length()){
+            if (username.getText().trim().length() != username.getText().length()) {
                 wrongNickname.setText("The nickname must be without empty spaces");
                 wrongNickname.setVisible(true);
-            } else if(username.getText().split(" ").length > 1){
+            } else if (username.getText().split(" ").length > 1) {
                 wrongNickname.setText("The nickname must be without empty spaces");
                 wrongNickname.setVisible(true);
-            } else{
+            } else {
                 if (!username.getText().isBlank())
                     GUI.instance().setPlayerName(username.getText());
-                else{
+                else {
                     wrongNickname.setText("The nickname cannot be empty");
                     wrongNickname.setVisible(true);
                 }

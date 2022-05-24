@@ -8,7 +8,6 @@ import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.util.List;
@@ -49,7 +48,7 @@ public class GUI extends View {
     }
 
     @Override
-    public void addToLobby(boolean isFirstConnection){
+    public void addToLobby(boolean isFirstConnection) {
         super.addToLobby(isFirstConnection);
 
         Platform.runLater(() -> {
@@ -59,32 +58,31 @@ public class GUI extends View {
     }
 
     @Override
-    public void handleCorrectNickname(String nickname, List<String> takenNicknames){
+    public void handleCorrectNickname(String nickname, List<String> takenNicknames) {
         super.handleCorrectNickname(nickname, takenNicknames);
 
         //Devono essere definiti alcuni metodi nel mockModel e degli attributi di tipo IntegerProperty
         //getModel().updatePlayerCount(currentPlayers, playersToStart);
 
         if (nickname.equals(getPlayerName())) {
-                Platform.runLater(() -> {
-                    Parent wizardSelection = FXMLUtils.loadFXML("/gui/WizardSelection");
-                    scene.setRoot(wizardSelection);
-                });
-            }
+            Platform.runLater(() -> {
+                Parent wizardSelection = FXMLUtils.loadFXML("/gui/WizardSelection");
+                scene.setRoot(wizardSelection);
+            });
+        }
     }
 
     @Override
-    public void handleCorrectWizard(Wizard wizard, List<Wizard> takenWizard){
+    public void handleCorrectWizard(Wizard wizard, List<Wizard> takenWizard) {
         super.handleCorrectWizard(wizard, takenWizard);
 
-        if(wizard.equals(getPlayerWizard())){
-            if(isLobbyMaster()) {
+        if (wizard.equals(getPlayerWizard())) {
+            if (isLobbyMaster()) {
                 Platform.runLater(() -> {
                     Parent gameModeSelection = FXMLUtils.loadFXML("/gui/GameModeSelection");
                     scene.setRoot(gameModeSelection);
                 });
-            }
-            else{
+            } else {
                 Platform.runLater(() -> {
                     Parent waitingPlayers = FXMLUtils.loadFXML("/gui/WaitingPlayers");
                     scene.setRoot(waitingPlayers);
@@ -94,7 +92,7 @@ public class GUI extends View {
     }
 
     @Override
-    public void handleGameMode(boolean gameMode){
+    public void handleGameMode(boolean gameMode) {
         super.handleGameMode(gameMode);
 
         Platform.runLater(() -> {
