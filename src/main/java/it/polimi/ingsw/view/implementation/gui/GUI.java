@@ -75,12 +75,33 @@ public class GUI extends View {
 
     @Override
     public void handleCorrectWizard(Wizard wizard, List<Wizard> takenWizard){
+        super.handleCorrectWizard(wizard, takenWizard);
+
         if(wizard.equals(getPlayerWizard())){
-            Platform.runLater(() -> {
-                Parent gameModeSelection = FXMLUtils.loadFXML("/gui/GameModeSelection");
-                scene.setRoot(gameModeSelection);
-            });
+            if(isLobbyMaster()) {
+                Platform.runLater(() -> {
+                    Parent gameModeSelection = FXMLUtils.loadFXML("/gui/GameModeSelection");
+                    scene.setRoot(gameModeSelection);
+                });
+            }
+            else{
+                Platform.runLater(() -> {
+                    Parent waitingPlayers = FXMLUtils.loadFXML("/gui/WaitingPlayers");
+                    scene.setRoot(waitingPlayers);
+                });
+            }
         }
+    }
+
+    @Override
+    public void handleGameMode(boolean gameMode){
+        super.handleGameMode(gameMode);
+
+        Platform.runLater(() -> {
+            Parent playersToStartSelection = FXMLUtils.loadFXML("/gui/PlayersToStartSelection");
+            scene.setRoot(playersToStartSelection);
+        });
+
     }
 
     @Override
