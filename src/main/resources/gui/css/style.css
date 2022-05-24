@@ -1,0 +1,23 @@
+.error-display {
+    -fx-text-fill: red;
+    -fx-font-style: italic;
+}
+
+.title {
+    -fx-font-size: 70;
+    -fx-text-fill: saddlebrown;
+    -fx-font-family: 'Girassol', cursive;
+}
+.title .text {
+    -fx-stroke: black;
+    -fx-stroke-width: 2;
+}
+.font-20 {
+    -fx-font-size: 20;
+}
+
+.wizard:hover{
+    -fx-border-color:orange;
+    -fx-border-width:2.0;
+    -fx-border-style:solid;
+}

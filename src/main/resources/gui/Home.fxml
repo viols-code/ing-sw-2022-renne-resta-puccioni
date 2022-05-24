@@ -14,7 +14,7 @@
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.implementation.gui.controllers.Home">
     <top>
         <VBox alignment="CENTER" prefHeight="226.0" prefWidth="1080.0">
-            <Label contentDisplay="CENTER" graphicTextGap="5.0" text="Eriantys" textAlignment="CENTER" textFill="#2a9ed0"
+            <Label contentDisplay="CENTER" graphicTextGap="5.0" text="Eriantys" textAlignment="CENTER" textFill="#5569b9"
                    textOverrun="CENTER_ELLIPSIS">
                 <font>
                     <Font name="System Bold Italic" size="48.0"/>

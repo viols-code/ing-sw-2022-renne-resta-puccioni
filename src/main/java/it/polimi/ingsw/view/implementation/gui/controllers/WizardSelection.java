@@ -9,14 +9,23 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
+import javafx.scene.image.ImageView;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class WizardSelection {
+    @FXML
+    public ImageView w_1;
 
     @FXML
-    private MenuButton wizards;
+    public ImageView w_2;
 
+    @FXML
+    public ImageView w_3;
+
+    @FXML
+    public ImageView w_4;
 
     @FXML
     private void type_1(){
