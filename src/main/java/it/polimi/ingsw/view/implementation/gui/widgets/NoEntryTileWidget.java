@@ -1,4 +1,4 @@
 package it.polimi.ingsw.view.implementation.gui.widgets;
 
-public class SingleIsland {
+public class NoEntryTileWidget {
 }
