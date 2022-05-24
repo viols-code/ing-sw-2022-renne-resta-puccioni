@@ -30,7 +30,7 @@ class GameControllerTest {
         gameControllerTwo.addPlayer("Viola", Wizard.TYPE_4);
         gameControllerTwo.addPlayer("Laura", Wizard.TYPE_3);
 
-        gameControllerTwo.setUpCharactersAndIslands();
+        gameControllerTwo.setUpTableAndPlayers();
 
         assertEquals(8, gameControllerTwo.getGame().getNumberOfTowersPerPlayer());
         assertEquals(7, gameControllerTwo.getGame().getNumberStudentsEntrance());
@@ -70,7 +70,7 @@ class GameControllerTest {
         gameControllerTwo.addPlayer("Viola", Wizard.TYPE_4);
         gameControllerTwo.addPlayer("Laura", Wizard.TYPE_3);
 
-        gameControllerTwo.setUpCharactersAndIslands();
+        gameControllerTwo.setUpTableAndPlayers();
 
         assertEquals(8, gameControllerTwo.getGame().getNumberOfTowersPerPlayer());
         assertEquals(7, gameControllerTwo.getGame().getNumberStudentsEntrance());
@@ -108,7 +108,7 @@ class GameControllerTest {
     void playCharacterCard() {
         gameControllerTwo.addPlayer("Viola", Wizard.TYPE_3);
         gameControllerTwo.addPlayer("Laura", Wizard.TYPE_4);
-        gameControllerTwo.setUpCharactersAndIslands();
+        gameControllerTwo.setUpTableAndPlayers();
         Game game = gameControllerTwo.getGame();
         gameControllerTwo.playCharacterCard("Viola", 0);
         assertEquals(game, gameControllerTwo.getGame());
@@ -118,7 +118,7 @@ class GameControllerTest {
     void playAssistantCard() {
         gameControllerTwo.addPlayer("Viola", Wizard.TYPE_1);
         gameControllerTwo.addPlayer("Laura", Wizard.TYPE_2);
-        gameControllerTwo.setUpCharactersAndIslands();
+        gameControllerTwo.setUpTableAndPlayers();
         gameControllerTwo.moveStudentToIsland("Viola", Colour.PINK, 0, 0);
         assertEquals(0, gameControllerTwo.getGame().getTable().getGroupIslandByIndex(0).getIslandByIndex(0).getStudents(Colour.PINK));
         gameControllerTwo.playAssistantCard("Laura", 0);
@@ -132,7 +132,7 @@ class GameControllerTest {
     void playAssistantCardCornerCase() {
         gameControllerTwo.addPlayer("Viola", Wizard.TYPE_1);
         gameControllerTwo.addPlayer("Laura", Wizard.TYPE_2);
-        gameControllerTwo.setUpCharactersAndIslands();
+        gameControllerTwo.setUpTableAndPlayers();
 
         for (int i = 0; i < 9; i++) {
             gameControllerTwo.playAssistantCard("Viola", i);
@@ -155,7 +155,7 @@ class GameControllerTest {
         assertEquals(0, gameControllerTwo.getGame().getTable().getGroupIslandByIndex(0).getIslandByIndex(0).getStudents(Colour.PINK));
         gameControllerTwo.addPlayer("Laura", Wizard.TYPE_2);
         assertNull(gameControllerTwo.getGame().getPlayerByIndex(1).getCurrentAssistantCard());
-        gameControllerTwo.setUpCharactersAndIslands();
+        gameControllerTwo.setUpTableAndPlayers();
         gameControllerTwo.moveStudentToIsland("Viola", Colour.PINK, 0, 0);
         assertEquals(0, gameControllerTwo.getGame().getTable().getGroupIslandByIndex(0).getIslandByIndex(0).getStudents(Colour.PINK));
         gameControllerTwo.playAssistantCard("Viola", 0);
@@ -181,7 +181,7 @@ class GameControllerTest {
     void moveStudentToDiningRoom() {
         gameControllerTwo.addPlayer("Viola", Wizard.TYPE_1);
         gameControllerTwo.addPlayer("Laura", Wizard.TYPE_2);
-        gameControllerTwo.setUpCharactersAndIslands();
+        gameControllerTwo.setUpTableAndPlayers();
         gameControllerTwo.playAssistantCard("Viola", 0);
         gameControllerTwo.playAssistantCard("Laura", 1);
         for (int i = 0; i < 3; i++) {
@@ -205,7 +205,7 @@ class GameControllerTest {
     void moveMotherNature() {
         gameControllerTwo.addPlayer("Viola", Wizard.TYPE_1);
         gameControllerTwo.addPlayer("Laura", Wizard.TYPE_2);
-        gameControllerTwo.setUpCharactersAndIslands();
+        gameControllerTwo.setUpTableAndPlayers();
         gameControllerTwo.playAssistantCard("Viola", 0);
         gameControllerTwo.playAssistantCard("Laura", 1);
         for (int i = 0; i < 3; i++) {
@@ -237,7 +237,7 @@ class GameControllerTest {
         assertEquals(TowerColour.WHITE, gameControllerTwo.getGame().getPlayerByIndex(0).getTowerColour());
         gameControllerTwo.addPlayer("Laura", Wizard.TYPE_2);
         assertEquals(TowerColour.BLACK, gameControllerTwo.getGame().getPlayerByIndex(1).getTowerColour());
-        gameControllerTwo.setUpCharactersAndIslands();
+        gameControllerTwo.setUpTableAndPlayers();
         gameControllerTwo.playAssistantCard("Viola", 0);
         gameControllerTwo.playAssistantCard("Laura", 1);
         for (int i = 0; i < 3; i++) {
@@ -257,7 +257,7 @@ class GameControllerTest {
     void setColour() {
         gameControllerTwo.addPlayer("Viola", Wizard.TYPE_1);
         gameControllerTwo.addPlayer("Laura", Wizard.TYPE_2);
-        gameControllerTwo.setUpCharactersAndIslands();
+        gameControllerTwo.setUpTableAndPlayers();
         gameControllerTwo.playAssistantCard("Viola", 0);
         gameControllerTwo.playAssistantCard("Laura", 1);
         for (int i = 0; i < 3; i++) {
@@ -279,7 +279,7 @@ class GameControllerTest {
     void setColourAndIsland() {
         gameControllerTwo.addPlayer("Viola", Wizard.TYPE_1);
         gameControllerTwo.addPlayer("Laura", Wizard.TYPE_2);
-        gameControllerTwo.setUpCharactersAndIslands();
+        gameControllerTwo.setUpTableAndPlayers();
         gameControllerTwo.playAssistantCard("Viola", 0);
         gameControllerTwo.playAssistantCard("Laura", 1);
         for (int i = 0; i < 3; i++) {
@@ -301,7 +301,7 @@ class GameControllerTest {
     void setGroupIsland() {
         gameControllerTwo.addPlayer("Viola", Wizard.TYPE_1);
         gameControllerTwo.addPlayer("Laura", Wizard.TYPE_2);
-        gameControllerTwo.setUpCharactersAndIslands();
+        gameControllerTwo.setUpTableAndPlayers();
         gameControllerTwo.playAssistantCard("Viola", 0);
         gameControllerTwo.playAssistantCard("Laura", 1);
         for (int i = 0; i < 3; i++) {
@@ -324,7 +324,7 @@ class GameControllerTest {
     void setColourDiningRoomEntrance() {
         gameControllerTwo.addPlayer("Viola", Wizard.TYPE_1);
         gameControllerTwo.addPlayer("Laura", Wizard.TYPE_2);
-        gameControllerTwo.setUpCharactersAndIslands();
+        gameControllerTwo.setUpTableAndPlayers();
         gameControllerTwo.playAssistantCard("Viola", 0);
         gameControllerTwo.playAssistantCard("Laura", 1);
         for (int i = 0; i < 3; i++) {
@@ -347,7 +347,7 @@ class GameControllerTest {
     void setColourCardEntrance() {
         gameControllerTwo.addPlayer("Viola", Wizard.TYPE_1);
         gameControllerTwo.addPlayer("Laura", Wizard.TYPE_2);
-        gameControllerTwo.setUpCharactersAndIslands();
+        gameControllerTwo.setUpTableAndPlayers();
         gameControllerTwo.playAssistantCard("Viola", 0);
         gameControllerTwo.playAssistantCard("Laura", 1);
         for (int i = 0; i < 3; i++) {
@@ -372,7 +372,7 @@ class GameControllerTest {
         // adding player to the game
         gameControllerTwo.addPlayer("Laura", Wizard.TYPE_2);
         gameControllerTwo.addPlayer("Viola", Wizard.TYPE_3);
-        gameControllerTwo.setUpCharactersAndIslands();
+        gameControllerTwo.setUpTableAndPlayers();
         // First turn
         gameControllerTwo.playAssistantCard("Laura", 0);
         gameControllerTwo.playAssistantCard("Viola", 9);
@@ -693,7 +693,7 @@ class GameControllerTest {
         assertEquals(Wizard.TYPE_4, gameControllerThree.getGame().getPlayerByIndex(2).getWizard());
         gameControllerThree.addPlayer("Elisa", Wizard.TYPE_2);
         assertEquals(3, gameControllerThree.getGame().getNumberOfPlayer());
-        gameControllerThree.setUpCharactersAndIslands();
+        gameControllerThree.setUpTableAndPlayers();
         assertEquals(GamePhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getGamePhase());
         assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
         assertEquals(gameControllerThree.getGame().getCurrentPlayer(), gameControllerThree.getGame().getPlayerByIndex(0));
@@ -1064,7 +1064,7 @@ class GameControllerTest {
         assertEquals(1, gameControllerTwo.getGame().getNumberOfPlayer());
 
         gameControllerTwo.addPlayer("Viola", Wizard.TYPE_1);
-        gameControllerTwo.setUpCharactersAndIslands();
+        gameControllerTwo.setUpTableAndPlayers();
         assertEquals(2, gameControllerTwo.getGame().getNumberOfPlayer());
 
         assertEquals(GamePhase.PLAY_ASSISTANT_CARD, gameControllerTwo.getGame().getGamePhase());
@@ -1376,7 +1376,7 @@ class GameControllerTest {
     void professorAreCorrect() {
         gameControllerTwo.addPlayer("Viola", Wizard.TYPE_3);
         gameControllerTwo.addPlayer("Laura", Wizard.TYPE_1);
-        gameControllerTwo.setUpCharactersAndIslands();
+        gameControllerTwo.setUpTableAndPlayers();
 
         gameControllerTwo.playAssistantCard("Viola", 0);
         gameControllerTwo.playAssistantCard("Laura", 1);
@@ -1411,7 +1411,7 @@ class GameControllerTest {
         gameController.setUp();
         gameController.addPlayer("Viola", Wizard.TYPE_1);
         gameController.addPlayer("Laura", Wizard.TYPE_3);
-        gameController.setUpCharactersAndIslands();
+        gameController.setUpTableAndPlayers();
 
         // First Round
         gameController.playAssistantCard("Viola", 0);
@@ -1510,7 +1510,7 @@ class GameControllerTest {
     void checkCanPlayAssistantCardTwoPlayer() {
         gameControllerTwo.addPlayer("Viola", Wizard.TYPE_3);
         gameControllerTwo.addPlayer("Laura", Wizard.TYPE_4);
-        gameControllerTwo.setUpCharactersAndIslands();
+        gameControllerTwo.setUpTableAndPlayers();
 
         gameControllerTwo.playAssistantCard("Viola", 0);
         gameControllerTwo.playAssistantCard("Laura", 0);
@@ -1587,7 +1587,7 @@ class GameControllerTest {
         gameControllerThree.addPlayer("Viola", Wizard.TYPE_3);
         gameControllerThree.addPlayer("Laura", Wizard.TYPE_4);
         gameControllerThree.addPlayer("Sara", Wizard.TYPE_2);
-        gameControllerThree.setUpCharactersAndIslands();
+        gameControllerThree.setUpTableAndPlayers();
 
         gameControllerThree.playAssistantCard("Viola", 0);
         gameControllerThree.playAssistantCard("Laura", 1);
@@ -1700,7 +1700,7 @@ class GameControllerTest {
         gameControllerThree.addPlayer("Viola", Wizard.TYPE_3);
         gameControllerThree.addPlayer("Laura", Wizard.TYPE_4);
         gameControllerThree.addPlayer("Sara", Wizard.TYPE_2);
-        gameControllerThree.setUpCharactersAndIslands();
+        gameControllerThree.setUpTableAndPlayers();
 
         int num = 0;
         for (Colour colour : Colour.values()) {
@@ -2112,7 +2112,7 @@ class GameControllerTest {
         gameControllerExpert.addPlayer("Laura", Wizard.TYPE_3);
         assertEquals(TowerColour.BLACK, gameControllerExpert.getGame().getPlayerByNickname("Laura").getTowerColour());
         assertEquals(Wizard.TYPE_2, gameControllerExpert.getGame().getPlayerByNickname("Laura").getWizard());
-        gameControllerExpert.setUpCharactersAndIslands();
+        gameControllerExpert.setUpTableAndPlayers();
 
 
         gameControllerExpert.playAssistantCard("Viola", 0);
@@ -2138,7 +2138,7 @@ class GameControllerTest {
         assertEquals(1, gameControllerTwo.getGame().getNumberOfPlayer());
         gameControllerTwo.addPlayer("Sara", Wizard.TYPE_3);
         gameControllerTwo.addPlayer("Laura", Wizard.TYPE_1);
-        gameControllerTwo.setUpCharactersAndIslands();
+        gameControllerTwo.setUpTableAndPlayers();
 
         // exception with the Character Card
         gameControllerTwo.moveStudentToDiningRoom("Sara", Colour.GREEN);
@@ -2420,7 +2420,7 @@ class GameControllerTest {
         // adding player to the game
         gameControllerTwo.addPlayer("Laura", Wizard.TYPE_2);
         gameControllerTwo.addPlayer("Viola", Wizard.TYPE_3);
-        gameControllerTwo.setUpCharactersAndIslands();
+        gameControllerTwo.setUpTableAndPlayers();
         // First turn
         gameControllerTwo.playAssistantCard("Laura", 0);
         gameControllerTwo.playAssistantCard("Viola", 1);
@@ -2733,7 +2733,7 @@ class GameControllerTest {
     void assistantCard() {
         gameControllerTwo.addPlayer("Laura", Wizard.TYPE_1);
         gameControllerTwo.addPlayer("Viola", Wizard.TYPE_4);
-        gameControllerTwo.setUpCharactersAndIslands();
+        gameControllerTwo.setUpTableAndPlayers();
 
         // First turn
         gameControllerTwo.playAssistantCard("Laura", 0);

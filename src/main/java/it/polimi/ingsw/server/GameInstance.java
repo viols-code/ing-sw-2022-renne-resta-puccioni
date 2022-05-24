@@ -82,6 +82,6 @@ public class GameInstance implements Runnable {
             }
         }
 
-        controller.setUpCharactersAndIslands();
+        controller.setUpTableAndPlayers();
     }
 }

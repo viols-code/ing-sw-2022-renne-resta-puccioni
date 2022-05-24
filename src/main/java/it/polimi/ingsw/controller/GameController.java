@@ -14,22 +14,25 @@ import it.polimi.ingsw.view.messages.PlayerEvent;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
+/**
+ * GameController
+ */
 public class GameController implements Observer<PlayerEvent> {
     /**
      * The Game
      */
     private final Game game;
-
     /**
      * Indicates if the game is in the expert mode
      */
     private final boolean isGameExpert;
-
     /**
      * The numberOfPlayer
      */
     private final int numberOfPlayer;
-
+    /**
+     * The lobby connected to this GameController
+     */
     private final Lobby lobby;
 
 
@@ -55,20 +58,25 @@ public class GameController implements Observer<PlayerEvent> {
     */
 
     /**
-     * Set up the game
+     * Sets up the game
+     * If the game is in expert mode, draws the three CharacterCards
+     * If the game is in expert mode and has the ProtectIsland card, creates the AdvanceGroupIsland, otherwise creates the BasicGroupIsland
      */
     public void setUp() {
         game.setUp();
 
         if (isGameExpert) {
+            // Creates a List with all the CharacterCards
             List<Class<? extends CharacterCard>> cardTypes = new ArrayList<>(
                     Arrays.asList(StudentToIsland.class, TakeProfessor.class, IslandInfluence.class,
                             MotherNatureMovement.class, ProtectIsland.class, NoTower.class, StudentToEntrance.class,
                             TwoPoints.class, NoColour.class, ExchangeEntranceDiningRoom.class, StudentToDiningRoom.class,
                             ThreeStudent.class));
 
+            // Shuffle the list
             Collections.shuffle(cardTypes);
 
+            // Choose only the first three CharacterCards
             for (int i = 0; i < 3; i++) {
                 try {
                     CharacterCard cardInstance = cardTypes.get(i).getConstructor(Game.class).newInstance(game);
@@ -80,10 +88,12 @@ public class GameController implements Observer<PlayerEvent> {
 
 
             try {
+                // If the game is in expert mode and the ProtectIsland card has been chosen, creates the AdvancedGroupIsland
                 if (game.hasProtectIslandCard()) {
                     for (int i = 0; i < 12; i++) {
                         game.getTable().addGroupIsland(new AdvancedGroupIsland());
                     }
+                // If the game is in expert mode without the ProtectIsland card, creates the BasicGroupIsland
                 } else {
                     for (int i = 0; i < 12; i++) {
                         game.getTable().addGroupIsland(new BasicGroupIsland());
@@ -94,22 +104,31 @@ public class GameController implements Observer<PlayerEvent> {
             }
 
         }
+        // Sets some integers for the game
         settingInteger();
     }
 
     /**
-     * Set up character cards and islands
+     * Set up the Table and the Players
+     * Set up the Bag, the CharacterCards and the CloudTiles
+     * Set up the Players' entrance, towers and assistantCards
      */
-    public void setUpCharactersAndIslands() {
+    public void setUpTableAndPlayers() {
+        // Add students in the Bag
         settingBag();
         if (isGameExpert) {
+            // Setting of the cards with students on them
             settingCard();
         }
+        // Setting the cloud tiles
         settingCloudTile();
 
+        // For all the players in the game
         for (int i = 0; i < numberOfPlayer; i++) {
             Player player = game.getPlayerByIndex(i);
+            // Sets the correct number of towers
             player.getSchoolBoard().addTower(game.getNumberOfTowersPerPlayer());
+            // Sets the students in the entrance
             for (int j = 0; j < game.getNumberStudentsEntrance(); j++) {
                 try {
                     player.getSchoolBoard().addStudentToEntrance(game.getTable().getBag().bagDrawStudent());
@@ -118,6 +137,7 @@ public class GameController implements Observer<PlayerEvent> {
                 }
             }
 
+            // Add all the assistant cards
             for (int j = 0; j < 10; j++) {
                 player.addAssistantCard(game.getAssistantCard(j));
             }
@@ -128,13 +148,16 @@ public class GameController implements Observer<PlayerEvent> {
      * Setting the bag and the students on the SingleIsland
      */
     private void settingBag() {
+        // Adds two students of each colour in the Bag
         for (Colour colour : Colour.values()) {
             for (int i = 0; i < 2; i++) {
                 game.getTable().getBag().addStudentBag(colour);
             }
         }
 
+        // Starting from the GroupIsland 1, add one student to each SingleIsland
         for (int i = 1; i < 12; i++) {
+            // The SingleIsland 6 must be left empty
             if (i == 6) i++;
             try {
                 game.getTable().getGroupIslandByIndex(i).getIslandByIndex(0).addStudent(i, 0, game.getTable().getBag().bagDrawStudent());
@@ -143,6 +166,7 @@ public class GameController implements Observer<PlayerEvent> {
             }
         }
 
+        // Adds 24 students of each colour in the Bag
         for (Colour colour : Colour.values()) {
             for (int i = 0; i < 24; i++) {
                 game.getTable().getBag().addStudentBag(colour);
@@ -179,7 +203,7 @@ public class GameController implements Observer<PlayerEvent> {
      * Setting the CharacterCard
      */
     private void settingCard() {
-
+        // Sets all the CharacterCards
         for (int i = 0; i < 3; i++) {
             try {
                 game.getCharacterCardByIndex(i).setting();
@@ -230,11 +254,17 @@ public class GameController implements Observer<PlayerEvent> {
                     try {
                         if (!game.getHasPlayedCharacterCard() &&
                                 game.getCurrentPlayer().getCoins() >= game.getCharacterCardByIndex(characterCard).getCost()) {
+                            // Set the active CharacterCards
                             game.setActiveCharacterCard(game.getCharacterCardByIndex(characterCard));
+                            // Set that the current Player has played a CharacterCard
                             game.setHasPlayedCharacterCard(true);
+                            // Remove the coins from the current Player
                             game.getCurrentPlayer().removeCoins(game.getCharacterCardByIndex(characterCard).getCost());
+                            // Add coins to the table
                             game.setCoins(game.getCoins() + game.getCharacterCardByIndex(characterCard).getCost() - 1);
+                            // Increment the costs of the CharacterCard
                             game.getCharacterCardByIndex(characterCard).incrementCost();
+                            // Call the method professor, which is valid only if the CharacterCard played is the TakeProfessor Card
                             game.getCharacterCardByIndex(characterCard).professor();
                         } else {
                             game.notifyInvalidAction(nickname, "You cannot play this card");
@@ -278,14 +308,22 @@ public class GameController implements Observer<PlayerEvent> {
                     try {
                         if (game.getPlayerByIndex(player).isAssistantCardPresent(game.getAssistantCard(assistantCard))) {
                             if (canPlayAssistantCard(assistantCard)) {
+                                // Sets the current AssistantCard
                                 game.getPlayerByIndex(player).setCurrentAssistantCard(game.getAssistantCard(assistantCard));
+                                // Remove the AssistantCard chosen from the Set of the current Player
                                 game.getPlayerByIndex(player).removeAssistantCard(game.getAssistantCard(assistantCard));
+                                // Set hasAlreadyPlayer to true for the current Player
                                 game.getPlayerByIndex(player).setHasAlreadyPlayed(true);
 
+                                // If not all the Players have already played an AssistantCard
                                 if (!endPhasePlay()) {
+                                    // Set the current Player to the nextPlayerClockwise
                                     game.setCurrentPlayer(game.nextPlayerClockwise());
+                                    // Set the TurnPhase to PLAY_ASSISTANT_CARD
                                     game.setTurnPhase(TurnPhase.PLAY_ASSISTANT_CARD);
+                                // If all the Players have played an AssistantCard
                                 } else {
+                                    // End the PLAY_ASSISTANT_CARD phase
                                     endPlayAssistantCard();
                                 }
                             } else {
@@ -315,6 +353,7 @@ public class GameController implements Observer<PlayerEvent> {
      * @return true if the Player can play the AssistantCard, false otherwise
      */
     private boolean canPlayAssistantCard(int assistantCard) {
+        // First check if the AssistantCard played is different from all the AssistantCard already played in that round
         boolean check = true;
         for (int i = 0; i < game.getNumberOfPlayer(); i++) {
             if (game.getPlayerByIndex(i).getHasAlreadyPlayed() && !game.getCurrentPlayer().equals(game.getPlayerByIndex(i))) {
@@ -328,11 +367,15 @@ public class GameController implements Observer<PlayerEvent> {
 
             }
         }
+        // If the AssistantCard played is different from all the AssistantCard already played in that round, returns true
         if (check) {
             return true;
         }
 
 
+        // If the AssistantCard played is equal to another AssistantCard played in that turn
+        // Checks if the current Player has another AssistantCard in their set that is different from the AssistantCard
+        // already played, if not so, then the Player is allowed to play this AssistantCard
         for (int j = 0; j < 10; j++) {
             if (game.getCurrentPlayer().isAssistantCardPresent(game.getAssistantCard(j))) {
                 check = true;
@@ -351,9 +394,7 @@ public class GameController implements Observer<PlayerEvent> {
                 }
             }
         }
-
         return true;
-
     }
 
     /*
@@ -382,8 +423,11 @@ public class GameController implements Observer<PlayerEvent> {
                 if (game.getGamePhase() == GamePhase.PLAYING && game.getTurnPhase() == TurnPhase.MOVE_STUDENT) {
                     if (game.getPlayerByIndex(player).getSchoolBoard().getEntrance(colour) > 0) {
                         if (checkStudentsMovement(player)) {
+                            // Add the student of the given colour to the SingleIsland
                             game.getTable().getGroupIslandByIndex(groupIsland).getIslandByIndex(singleIsland).addStudent(groupIsland, singleIsland, colour);
+                            // Remove the student of the given colour from the SingleIsland
                             game.getPlayerByIndex(player).getSchoolBoard().removeStudentFromEntrance(colour);
+                            // If the Player has already moved all their students from the entrance, then change the TurnPhase to the MOVE_MOTHER_NATURE phase
                             if (checkEndMovementPhase(player)) {
                                 game.setTurnPhase(TurnPhase.MOVE_MOTHER_NATURE);
                             }
@@ -425,9 +469,12 @@ public class GameController implements Observer<PlayerEvent> {
                     if (game.getPlayerByIndex(player).getSchoolBoard().getEntrance(colour) > 0) {
                         if (checkStudentsMovement(player) && game.getPlayerByIndex(player).getSchoolBoard().getDiningRoom(colour) < 10) {
                             try {
+                                // Remove student of the given colour from the entrance
                                 game.getPlayerByIndex(player).getSchoolBoard().removeStudentFromEntrance(colour);
+                                // Add the student of the given colour in the dining room
                                 game.getPlayerByIndex(player).getSchoolBoard().addStudentToDiningRoom(colour);
 
+                                // If the game is expert, check if the Player earned a coin
                                 if (isGameExpert && ((game.getPlayerByIndex(player).getSchoolBoard().getDiningRoom(colour)) % 3) == 0 && game.getCoins() > 0) {
                                     game.getPlayerByIndex(player).addCoins(1);
                                     game.setCoins(game.getCoins() - 1);
@@ -435,12 +482,15 @@ public class GameController implements Observer<PlayerEvent> {
                             } catch (IllegalAccessError ex) {
                                 ex.printStackTrace();
                             }
+                            // If the Player doesn't already have the professor of the given colour, check if they obtained it
                             if (!game.getCurrentPlayer().getSchoolBoard().hasProfessor(colour)) {
                                 game.getActiveCharacterCard().checkProfessor(colour);
                                 if (game.getCurrentPlayer().getSchoolBoard().hasProfessor(colour)) {
+                                    // Remove the professor from the Table
                                     game.getTable().setNoProfessorOnTable(colour);
                                 }
                             }
+                            // If the Player has already moved all their students from the entrance, then change the TurnPhase to the MOVE_MOTHER_NATURE phase
                             if (checkEndMovementPhase(player)) {
                                 game.setTurnPhase(TurnPhase.MOVE_MOTHER_NATURE);
                             }
@@ -466,7 +516,7 @@ public class GameController implements Observer<PlayerEvent> {
      * @return true if the player can move another student, false otherwise
      */
     private boolean checkStudentsMovement(int player) {
-        return game.getPlayerByIndex(player).getSchoolBoard().getNumberStudentsEntrance() >= game.getNumberStudentsEntrance() - 4;
+        return game.getPlayerByIndex(player).getSchoolBoard().getNumberStudentsEntrance() >= game.getNumberStudentsEntrance() - game.getStudentNumberMovement();
     }
 
     /**
@@ -482,7 +532,6 @@ public class GameController implements Observer<PlayerEvent> {
     /*
     MOVING MOTHER NATURE
      */
-
 
     /**
      * Move mother nature
@@ -503,16 +552,23 @@ public class GameController implements Observer<PlayerEvent> {
             if (game.getGamePhase() == GamePhase.PLAYING && game.getTurnPhase() == TurnPhase.MOVE_MOTHER_NATURE) {
                 if (movement > 0) {
                     if (game.getActiveCharacterCard().checkMotherNatureMovement(player, movement)) {
+                        // Set mother nature position
                         game.getTable().setMotherNaturePosition((game.getTable().getMotherNaturePosition() + movement) % game.getTable().getNumberOfGroupIsland());
+                        // Calculate the influence using the active CharacterCard
                         game.getActiveCharacterCard().calculateInfluence(game.getTable().getMotherNaturePosition());
+                        // If the Winner has been set, end the Game
                         if (game.getWinner() != null) endGame();
+                        // If the number of the GroupIsland is less than three, end the game
                         else if (game.getTable().getNumberOfGroupIsland() <= 3) {
                             calculateWinner();
                             endGame();
                         } else {
+                            // If there are no more students in the Bag, end the Turn
                             if (game.getTable().getBag().getNoStudent()) {
                                 endTurn();
-                            } else {
+                            }
+                            // Set the TurnPhase to the CHOOSE_CLOUD_TILE_PHASE
+                            else {
                                 game.setTurnPhase(TurnPhase.CHOOSE_CLOUD_TILE);
                             }
                         }
@@ -543,7 +599,7 @@ public class GameController implements Observer<PlayerEvent> {
             public void run() {
                 lobby.terminate();
             }
-        }, 100_000L); //Wait for 10 seconds before closing all connections to give time to all clients to terminate properly
+        }, 100_000L); //Wait for 100 seconds before closing all connections to give time to all clients to terminate properly
     }
 
     /**
@@ -595,6 +651,7 @@ public class GameController implements Observer<PlayerEvent> {
             if (checkUniqueNickname(nickname)) {
                 if (checkUniqueWizard(wizard)) {
                     if (isGameExpert) {
+                        // If the Game is in expert mode, add an ExpertPlayer
                         game.addPlayer(new ExpertPlayer(nickname, wizard, TowerColour.valueOf(game.getNumberOfPlayer())));
                         try {
                             game.setCoins(game.getCoins() - 1);
@@ -603,6 +660,7 @@ public class GameController implements Observer<PlayerEvent> {
                         }
 
                     } else {
+                        // If the Game is in basic mode, add a BasicPlayer
                         game.addPlayer(new BasicPlayer(nickname, wizard, TowerColour.valueOf(game.getNumberOfPlayer())));
                     }
                 } else {
@@ -612,6 +670,7 @@ public class GameController implements Observer<PlayerEvent> {
                 game.notifyInvalidAction(nickname, "Your nickname is not unique");
             }
 
+            // If the numberOfPlayer is equals to the Players in the Game, start the Game
             if (numberOfPlayer == game.getNumberOfPlayer()) {
                 game.setCurrentPlayer(game.getPlayerByIndex(0));
                 game.setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
@@ -661,11 +720,13 @@ public class GameController implements Observer<PlayerEvent> {
      * Create the cloudTile
      */
     private void createCloudTile() {
+        // For all colours, put 0 students in the CloudTile
         HashMap<Colour, Integer> students = new HashMap<>();
         for (Colour colour : Colour.values()) {
             students.put(colour, 0);
         }
 
+        // Add the students to the CloudTile from the Bag
         for (int i = 0; i < game.getStudentNumberMovement(); i++) {
             try {
                 Colour colour1 = game.getTable().getBag().bagDrawStudent();
@@ -696,12 +757,14 @@ public class GameController implements Observer<PlayerEvent> {
         if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
             if (game.getGamePhase() == GamePhase.PLAYING && game.getTurnPhase() == TurnPhase.CHOOSE_CLOUD_TILE) {
                 if (cloudTile >= 0 && cloudTile < game.getTable().getNumberOfCloudTile()) {
+                    // For all the colours in the CloudTile, add the student of the given colour
                     for (Colour colour : Colour.values()) {
                         for (int i = 0; i < game.getTable().getCloudTilesByIndex(cloudTile).getTileStudents(colour); i++) {
                             game.getCurrentPlayer().getSchoolBoard().addStudentToEntrance(colour);
                         }
                     }
                     game.getTable().removeCLoudTile(game.getTable().getCloudTilesByIndex(cloudTile));
+                    // End the Turn
                     endTurn();
                 } else {
                     game.notifyInvalidAction(nickname, "The number of cloud tile given is out of range");
@@ -722,7 +785,9 @@ public class GameController implements Observer<PlayerEvent> {
 
         if (isGameExpert) {
             try {
+                // Set hasPlayedCharacterCard to false
                 game.setHasPlayedCharacterCard(false);
+                // Set the state to the basic one
                 if (!game.getActiveCharacterCard().equals(game.getBasicState())) {
                     game.setActiveCharacterCard(game.getBasicState());
                 }
@@ -732,10 +797,12 @@ public class GameController implements Observer<PlayerEvent> {
         }
 
         if (!(endPhasePlay())) {
+            // If the PLAYING phase is not ended, sets the TurnPhase and the current Player
             game.setCurrentPlayer(game.nextPlayerTurn());
             game.setTurnPhase(TurnPhase.MOVE_STUDENT);
         } else {
             if (!game.getTable().getBag().getNoStudent()) {
+                // If the PLAYING phase is ended, sets the CloudTile, increments the Round and sets the next current Player
                 settingCloudTile();
                 game.incrementRound();
                 if (game.getRound() >= 11) {
@@ -901,6 +968,7 @@ public class GameController implements Observer<PlayerEvent> {
         int min = 8;
         List<Player> possibleWinner = new ArrayList<>();
 
+        // Gets the Players with the minimum number of towers
         for (int i = 0; i < numberOfPlayer; i++) {
             if (game.getPlayerByIndex(i).getSchoolBoard().getTowers() < min) {
                 min = game.getPlayerByIndex(i).getSchoolBoard().getTowers();
@@ -915,10 +983,13 @@ public class GameController implements Observer<PlayerEvent> {
 
         int max = 0;
 
+        // If only one Player is left, they are the winner
         if (possibleWinner.size() == 1) {
             game.setWinner(possibleWinner.get(0));
             return;
-        } else {
+        }
+        // Get the Players with the max number of Professors
+        else {
             for (Player player : possibleWinner) {
                 if (player.getSchoolBoard().getNumberOfProfessors() > max) {
                     max = player.getSchoolBoard().getNumberOfProfessors();
@@ -926,6 +997,7 @@ public class GameController implements Observer<PlayerEvent> {
             }
         }
 
+        // If more than one Player is left, then the winner is the first Player in the possibleWinner list that connected
         for (Player player : possibleWinner) {
             if (player.getSchoolBoard().getNumberOfProfessors() == max) {
                 game.setWinner(player);

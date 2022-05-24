@@ -22,7 +22,7 @@ class TableTest {
         gameController.setUp();
         gameController.addPlayer("Viola", Wizard.TYPE_4);
         gameController.addPlayer("Laura", Wizard.TYPE_3);
-        gameController.setUpCharactersAndIslands();
+        gameController.setUpTableAndPlayers();
     }
 
     @Test

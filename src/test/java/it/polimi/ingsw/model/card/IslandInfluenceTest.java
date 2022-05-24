@@ -287,7 +287,7 @@ class IslandInfluenceTest {
         gameController.setUp();
         gameController.addPlayer("Viola", Wizard.TYPE_1);
         gameController.addPlayer("Laura", Wizard.TYPE_2);
-        gameController.setUpCharactersAndIslands();
+        gameController.setUpTableAndPlayers();
 
         boolean flag = false;
         int i;

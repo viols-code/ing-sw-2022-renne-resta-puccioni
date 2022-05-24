@@ -19,7 +19,7 @@ class MotherNatureMovementTest {
         gameController.setUp();
         gameController.addPlayer("Viola", Wizard.TYPE_2);
         gameController.addPlayer("Laura", Wizard.TYPE_3);
-        gameController.setUpCharactersAndIslands();
+        gameController.setUpTableAndPlayers();
     }
 
     @RepeatedTest(100)

@@ -54,7 +54,7 @@ class TakeProfessorTest {
         gameController.setUp();
         gameController.addPlayer("Viola", Wizard.TYPE_1);
         gameController.addPlayer("Laura", Wizard.TYPE_2);
-        gameController.setUpCharactersAndIslands();
+        gameController.setUpTableAndPlayers();
 
         gameController.playAssistantCard("Viola", 0);
         gameController.playAssistantCard("Laura", 1);
@@ -100,7 +100,7 @@ class TakeProfessorTest {
         gameController.setUp();
         gameController.addPlayer("Viola", Wizard.TYPE_1);
         gameController.addPlayer("Laura", Wizard.TYPE_2);
-        gameController.setUpCharactersAndIslands();
+        gameController.setUpTableAndPlayers();
 
         gameController.playAssistantCard("Viola", 0);
         gameController.playAssistantCard("Laura", 1);

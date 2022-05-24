@@ -19,7 +19,7 @@ class BagTest {
         gameController.setUp();
         gameController.addPlayer("Viola", Wizard.TYPE_3);
         gameController.addPlayer("Laura", Wizard.TYPE_4);
-        gameController.setUpCharactersAndIslands();
+        gameController.setUpTableAndPlayers();
     }
 
     @Test

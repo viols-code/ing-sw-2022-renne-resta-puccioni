@@ -105,7 +105,7 @@ class StudentToEntranceTest {
         gameController.setUp();
         gameController.addPlayer("Viola", Wizard.TYPE_2);
         gameController.addPlayer("Laura", Wizard.TYPE_1);
-        gameController.setUpCharactersAndIslands();
+        gameController.setUpTableAndPlayers();
 
         boolean flag = false;
         int i;
