@@ -8,15 +8,18 @@ import java.util.HashMap;
  * Class which represents a local copy of the cloud tiles
  */
 public class MockCloudTile {
+
     /**
      * A hash map with the students on the cloud tile
      */
     private HashMap<Colour, Integer> tileStudents;
 
+
     /**
      * Constructor: creates a new MockCloudTile
      */
     public MockCloudTile() {
+
     }
 
     /**

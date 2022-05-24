@@ -153,10 +153,20 @@ public class MockModel {
         }
     }
 
+    /**
+     * Gets the current Player
+     *
+     * @return the current Player
+     */
     public MockPlayer getCurrentPlayer() {
         return currentPlayer;
     }
 
+    /**
+     * Sets the current Player
+     *
+     * @param currentPlayer the current Player
+     */
     public void setCurrentPlayer(MockPlayer currentPlayer) {
         this.currentPlayer = currentPlayer;
     }
@@ -197,6 +207,11 @@ public class MockModel {
         return isGameExpert;
     }
 
+    /**
+     * Sets the gameMode
+     *
+     * @param isGameExpert true if the gameMode is expert, flase if it is basic
+     */
     public void setGameMode(boolean isGameExpert) {
         this.isGameExpert = isGameExpert;
     }

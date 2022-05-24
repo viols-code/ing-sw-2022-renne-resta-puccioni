@@ -15,34 +15,43 @@ public class MockPlayer {
      * A string that represents the nickname of the player
      */
     private final String nickname;
+
     /**
      * The wizard chosen by the player
      */
     private final Wizard wizard;
+
+
     /**
      * The current assistant card
      */
     private final boolean localPlayer;
+
     /**
      * The player's school board
      */
     private final MockSchoolBoard schoolBoard;
+
     /**
-     * An attribute that indicates if the player has coins or not
+     * An attibute that indicates if the player has coins or not
      */
     private final boolean hasCoins;
+
     /**
      * Number of coins
      */
     private int coins;
+
     /**
      * The colour of the tower given to the player
      */
     private TowerColour towerColour;
+
     /**
      * A list representing the assistant card deck
      */
     private final HashMap<Integer, AssistantCard> cards;
+
     /**
      * The current assistant card
      */
@@ -146,6 +155,11 @@ public class MockPlayer {
         return towerColour;
     }
 
+    /**
+     * Sets the colour of the tower
+     *
+     * @param colour the colour of the tower
+     */
     public void setTowerColour(TowerColour colour) {
         this.towerColour = colour;
     }
