@@ -3,6 +3,10 @@ package it.polimi.ingsw.view.beans;
 import it.polimi.ingsw.model.game.GamePhase;
 import it.polimi.ingsw.model.game.TurnPhase;
 import it.polimi.ingsw.model.player.Wizard;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableMap;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,7 +26,7 @@ public class MockModel {
     /**
      * A list that contains the players in this game
      */
-    private final HashMap<String, MockPlayer> players;
+    private final ObservableMap<String, MockPlayer> players;
 
     /**
      * The current player
@@ -37,7 +41,7 @@ public class MockModel {
     /**
      * The current round
      */
-    private int round;
+    private IntegerProperty round;
 
     /**
      * A variable that states if the game mode is expert or not
@@ -47,7 +51,7 @@ public class MockModel {
     /**
      * Number of coins available
      */
-    private int coins;
+    private IntegerProperty coins;
 
     /**
      * A list that contains the character cards drawn for this game
@@ -80,9 +84,9 @@ public class MockModel {
     public MockModel() {
         this.localPlayer = null;
         currentCharacterCard = null;
-        coins = -1;
+        coins = new SimpleIntegerProperty(-1);
         characterCards = new ArrayList<>();
-        players = new HashMap<>();
+        players = FXCollections.observableHashMap();
         table = new MockTable();
         currentCharacterCard = null;
         gamePhase = null;
@@ -104,7 +108,7 @@ public class MockModel {
      *
      * @return the players in this game
      */
-    public HashMap<String, MockPlayer> getPlayers() {
+    public ObservableMap<String, MockPlayer> getPlayers() {
         return players;
     }
 
@@ -176,7 +180,7 @@ public class MockModel {
      * @return the current round
      */
     public int getRound() {
-        return round;
+        return round.getValue();
     }
 
     /**
@@ -185,7 +189,7 @@ public class MockModel {
      * @param round the round to set
      */
     public void setRound(int round) {
-        this.round = round;
+        this.round.setValue(round);
     }
 
     /**
@@ -207,7 +211,7 @@ public class MockModel {
      * @return the number of coins
      */
     public int getCoins() {
-        return coins;
+        return coins.getValue();
     }
 
     /**
@@ -216,7 +220,7 @@ public class MockModel {
      * @param coins the number of coins available
      */
     public void setCoins(int coins) {
-        this.coins = coins;
+        this.coins.setValue(coins);
     }
 
     /**
