@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class GUI extends View {
@@ -109,6 +110,17 @@ public class GUI extends View {
             Parent waitingPlayers = FXMLUtils.loadFXML("/gui/WaitingPlayers");
             scene.setRoot(waitingPlayers);
         });
+    }
+
+    @Override
+    public void handleAllPlayersConnected(HashMap<String, Wizard> players, boolean gameMode, int numPlayers){
+        super.handleAllPlayersConnected(players, gameMode, numPlayers);
+
+        Platform.runLater(() -> {
+            Parent waitingPlayers = FXMLUtils.loadFXML("/gui/Widgets/SchoolBoard");
+            scene.setRoot(waitingPlayers);
+        });
+
     }
 
     @Override
