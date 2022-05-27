@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.implementation.gui.widgets.GroupIslandWidget">
+   <children>
+      <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="11.0" layoutY="268.0">
+         <image>
+            <Image url="@../../images/islands/island1.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="110.0" layoutY="131.0">
+         <image>
+            <Image url="@../../images/islands/island2.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="245.0" layoutY="40.0">
+         <image>
+            <Image url="@../../images/islands/island3.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="429.0" layoutY="3.0">
+         <image>
+            <Image url="@../../images/islands/island1.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="601.0" layoutY="40.0">
+         <image>
+            <Image url="@../../images/islands/island2.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="753.0" layoutY="131.0">
+         <image>
+            <Image url="@../../images/islands/island3.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="853.0" layoutY="268.0">
+         <image>
+            <Image url="@../../images/islands/island1.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="753.0" layoutY="410.0">
+         <image>
+            <Image url="@../../images/islands/island2.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="601.0" layoutY="490.0">
+         <image>
+            <Image url="@../../images/islands/island3.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="429.0" layoutY="524.0">
+         <image>
+            <Image url="@../../images/islands/island1.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="245.0" layoutY="490.0">
+         <image>
+            <Image url="@../../images/islands/island2.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="99.0" layoutY="410.0">
+         <image>
+            <Image url="@../../images/islands/island3.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="626.0" layoutY="293.0">
+         <image>
+            <Image url="@../../images/cloudTiles/cloud_card_3.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="463.0" layoutY="293.0">
+         <image>
+            <Image url="@../../images/cloudTiles/cloud_card_2.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="299.0" layoutY="293.0">
+         <image>
+            <Image url="@../../images/cloudTiles/cloud_card_1.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
