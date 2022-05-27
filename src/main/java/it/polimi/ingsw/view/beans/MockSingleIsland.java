@@ -1,6 +1,8 @@
 package it.polimi.ingsw.view.beans;
 
 import it.polimi.ingsw.model.Colour;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableMap;
 
 import java.util.HashMap;
 
@@ -11,13 +13,13 @@ public class MockSingleIsland {
     /**
      * An HashMap containing the number of students for each colour on the single islands
      */
-    private final HashMap<Colour, Integer> students;
+    private final ObservableMap<Colour, Integer> students;
 
     /**
      * Constructs the single island
      */
     public MockSingleIsland() {
-        students = new HashMap<>();
+        students = FXCollections.observableHashMap();
         for (Colour colour : Colour.values()) {
             students.put(colour, 0);
         }

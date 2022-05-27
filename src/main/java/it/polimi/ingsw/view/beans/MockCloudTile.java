@@ -1,6 +1,8 @@
 package it.polimi.ingsw.view.beans;
 
 import it.polimi.ingsw.model.Colour;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableMap;
 
 import java.util.HashMap;
 
@@ -12,14 +14,17 @@ public class MockCloudTile {
     /**
      * A hash map with the students on the cloud tile
      */
-    private HashMap<Colour, Integer> tileStudents;
+    private ObservableMap<Colour, Integer> tileStudents;
 
 
     /**
      * Constructor: creates a new MockCloudTile
      */
     public MockCloudTile() {
-
+        tileStudents = FXCollections.observableHashMap();
+        for(Colour colour: Colour.values()){
+            tileStudents.put(colour,0);
+        }
     }
 
     /**
@@ -28,7 +33,7 @@ public class MockCloudTile {
      * @return the students on the cloud tile
      */
     public HashMap<Colour, Integer> getMockCloudTile() {
-        return tileStudents;
+        return new HashMap<>(tileStudents);
     }
 
     /**
@@ -37,6 +42,6 @@ public class MockCloudTile {
      * @param tileStudents hashmap with the students
      */
     public void setCloudTile(HashMap<Colour, Integer> tileStudents) {
-        this.tileStudents = tileStudents;
+        this.tileStudents.entrySet().forEach(entry -> entry.setValue(tileStudents.get(entry.getKey())));
     }
 }

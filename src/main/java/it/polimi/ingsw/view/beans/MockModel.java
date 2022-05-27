@@ -3,6 +3,13 @@ package it.polimi.ingsw.view.beans;
 import it.polimi.ingsw.model.game.GamePhase;
 import it.polimi.ingsw.model.game.TurnPhase;
 import it.polimi.ingsw.model.player.Wizard;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.Property;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,7 +29,7 @@ public class MockModel {
     /**
      * A list that contains the players in this game
      */
-    private final HashMap<String, MockPlayer> players;
+    private final ObservableMap<String, MockPlayer> players;
 
     /**
      * The current player
@@ -37,7 +44,7 @@ public class MockModel {
     /**
      * The current round
      */
-    private int round;
+    private IntegerProperty round;
 
     /**
      * A variable that states if the game mode is expert or not
@@ -47,32 +54,32 @@ public class MockModel {
     /**
      * Number of coins available
      */
-    private int coins;
+    private IntegerProperty coins;
 
     /**
      * A list that contains the character cards drawn for this game
      */
-    private final List<MockCard> characterCards;
+    private final ObservableList<MockCard> characterCards;
 
     /**
      * Character card played by the current player
      */
-    private MockCard currentCharacterCard;
+    private Property<MockCard> currentCharacterCard;
 
     /**
      * A variable that indicates the current game phase
      */
-    private GamePhase gamePhase;
+    private Property<GamePhase> gamePhase;
 
     /**
      * A variable that indicates the current turn phase
      */
-    private TurnPhase turnPhase;
+    private Property<TurnPhase> turnPhase;
 
     /**
      * The winner
      */
-    private MockPlayer winner;
+    private Property<MockPlayer> winner;
 
     /**
      * Constructs the local copy of the game
@@ -80,14 +87,15 @@ public class MockModel {
     public MockModel() {
         this.localPlayer = null;
         currentCharacterCard = null;
-        coins = -1;
-        characterCards = new ArrayList<>();
-        players = new HashMap<>();
+        coins = new SimpleIntegerProperty(-1);
+        characterCards = FXCollections.observableArrayList();
+        players = FXCollections.observableHashMap();
         table = new MockTable();
-        currentCharacterCard = null;
-        gamePhase = null;
-        turnPhase = null;
-        winner = null;
+        round = new SimpleIntegerProperty();
+        currentCharacterCard = new SimpleObjectProperty<>();
+        gamePhase = new SimpleObjectProperty<>();
+        turnPhase = new SimpleObjectProperty<>();
+        winner = new SimpleObjectProperty<>();
     }
 
     /**
@@ -104,7 +112,7 @@ public class MockModel {
      *
      * @return the players in this game
      */
-    public HashMap<String, MockPlayer> getPlayers() {
+    public ObservableMap<String, MockPlayer> getPlayers() {
         return players;
     }
 
@@ -186,7 +194,7 @@ public class MockModel {
      * @return the current round
      */
     public int getRound() {
-        return round;
+        return round.getValue();
     }
 
     /**
@@ -195,7 +203,7 @@ public class MockModel {
      * @param round the round to set
      */
     public void setRound(int round) {
-        this.round = round;
+        this.round.setValue(round);
     }
 
     /**
@@ -222,7 +230,7 @@ public class MockModel {
      * @return the number of coins
      */
     public int getCoins() {
-        return coins;
+        return coins.getValue();
     }
 
     /**
@@ -231,7 +239,7 @@ public class MockModel {
      * @param coins the number of coins available
      */
     public void setCoins(int coins) {
-        this.coins = coins;
+        this.coins.setValue(coins);
     }
 
     /**
@@ -274,7 +282,7 @@ public class MockModel {
      * @return the current character card
      */
     public MockCard getCurrentCharacterCard() {
-        return currentCharacterCard;
+        return currentCharacterCard.getValue();
     }
 
     /**
@@ -283,7 +291,7 @@ public class MockModel {
      * @param currentCharacterCard the card
      */
     public void setCurrentCharacterCard(MockCard currentCharacterCard) {
-        this.currentCharacterCard = currentCharacterCard;
+        this.currentCharacterCard.setValue(currentCharacterCard);
     }
 
     /**
@@ -292,7 +300,7 @@ public class MockModel {
      * @return the game phase
      */
     public GamePhase getGamePhase() {
-        return gamePhase;
+        return gamePhase.getValue();
     }
 
     /**
@@ -301,7 +309,7 @@ public class MockModel {
      * @param gamePhase the game phase
      */
     public void setGamePhase(GamePhase gamePhase) {
-        this.gamePhase = gamePhase;
+        this.gamePhase.setValue(gamePhase);
     }
 
     /**
@@ -310,7 +318,7 @@ public class MockModel {
      * @return the turn phase
      */
     public TurnPhase getTurnPhase() {
-        return turnPhase;
+        return turnPhase.getValue();
     }
 
     /**
@@ -319,7 +327,7 @@ public class MockModel {
      * @param turnPhase the turn phase
      */
     public void setTurnPhase(TurnPhase turnPhase) {
-        this.turnPhase = turnPhase;
+        this.turnPhase.setValue(turnPhase);
     }
 
     /**
@@ -328,7 +336,7 @@ public class MockModel {
      * @return the winner of the game
      */
     public MockPlayer getWinner() {
-        return winner;
+        return winner.getValue();
     }
 
     /**
@@ -337,6 +345,6 @@ public class MockModel {
      * @param winner the winner of the game
      */
     public void setWinner(MockPlayer winner) {
-        this.winner = winner;
+        this.winner.setValue(winner);
     }
 }

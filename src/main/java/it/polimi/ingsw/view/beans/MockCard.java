@@ -1,6 +1,10 @@
 package it.polimi.ingsw.view.beans;
 
 import it.polimi.ingsw.model.Colour;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableMap;
 
 import java.util.HashMap;
 
@@ -16,7 +20,7 @@ public class MockCard {
     /**
      * The character card cost
      */
-    private int cost;
+    private IntegerProperty cost;
 
     /**
      * Number of student on the card
@@ -31,12 +35,12 @@ public class MockCard {
     /**
      * The number of no entry tile
      */
-    private int numberOfNoEntryTile;
+    private IntegerProperty numberOfNoEntryTile;
 
     /**
      * The students on the card
      */
-    private HashMap<Colour, Integer> students;
+    private ObservableMap<Colour, Integer> students;
 
     /**
      * Constructs the character card
@@ -60,17 +64,23 @@ public class MockCard {
             }
         }
         if (type.equals(CharacterCardEnumeration.PROTECT_ISLAND)) {
-            numberOfNoEntryTile = 4;
+            numberOfNoEntryTile = new SimpleIntegerProperty(4);
         } else {
-            numberOfNoEntryTile = 0;
+            numberOfNoEntryTile = new SimpleIntegerProperty(0);
         }
 
-        students = new HashMap<>();
+        students = FXCollections.observableHashMap();
+        students.put(Colour.GREEN,0);
+        students.put(Colour.RED,0);
+        students.put(Colour.YELLOW,0);
+        students.put(Colour.PINK,0);
+        students.put(Colour.BLUE,0);
 
+        cost = new SimpleIntegerProperty();
         switch (type) {
-            case STUDENT_TO_ISLAND, MOTHER_NATURE_MOVEMENT, STUDENT_TO_ENTRANCE, EXCHANGE_ENTRANCE_DINING_ROOM -> cost = 1;
-            case TAKE_PROFESSOR, PROTECT_ISLAND, TWO_POINTS, STUDENT_TO_DINING_ROOM -> cost = 2;
-            case ISLAND_INFLUENCE, NO_TOWER, NO_COLOUR, THREE_STUDENT -> cost = 3;
+            case STUDENT_TO_ISLAND, MOTHER_NATURE_MOVEMENT, STUDENT_TO_ENTRANCE, EXCHANGE_ENTRANCE_DINING_ROOM -> cost.setValue(1);
+            case TAKE_PROFESSOR, PROTECT_ISLAND, TWO_POINTS, STUDENT_TO_DINING_ROOM -> cost.set(2);
+            case ISLAND_INFLUENCE, NO_TOWER, NO_COLOUR, THREE_STUDENT -> cost.setValue(3);
         }
     }
 
@@ -89,7 +99,7 @@ public class MockCard {
      * @return the cost
      */
     public int getCost() {
-        return cost;
+        return cost.getValue();
     }
 
     /**
@@ -98,7 +108,7 @@ public class MockCard {
      * @param cost the updated cost
      */
     public void setCost(int cost) {
-        this.cost = cost;
+        this.cost.setValue(cost);
     }
 
     /**
@@ -125,7 +135,7 @@ public class MockCard {
      * @return number of no entry tiles
      */
     public int getNumberOfNoEntryTile() {
-        return numberOfNoEntryTile;
+        return numberOfNoEntryTile.getValue();
     }
 
     /**
@@ -134,7 +144,7 @@ public class MockCard {
      * @param numberOfNoEntryTile the updated number of no entry tiles
      */
     public void setNumberOfNoEntryTile(int numberOfNoEntryTile) {
-        this.numberOfNoEntryTile = numberOfNoEntryTile;
+        this.numberOfNoEntryTile.setValue(numberOfNoEntryTile);
     }
 
     /**
@@ -163,7 +173,7 @@ public class MockCard {
      * @return the students on the card
      */
     public HashMap<Colour, Integer> getStudents() {
-        return students;
+        return new HashMap<>(students);
     }
 
     /**
@@ -173,6 +183,6 @@ public class MockCard {
      */
     public void setStudents(HashMap<Colour, Integer> students) {
         if (type == CharacterCardEnumeration.STUDENT_TO_DINING_ROOM || type == CharacterCardEnumeration.STUDENT_TO_ENTRANCE || type == CharacterCardEnumeration.STUDENT_TO_ISLAND)
-            this.students = students;
+            this.students.entrySet().forEach(entry -> entry.setValue(students.get(entry.getKey())));
     }
 }

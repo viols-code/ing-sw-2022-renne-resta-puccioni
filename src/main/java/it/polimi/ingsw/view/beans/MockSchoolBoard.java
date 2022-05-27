@@ -1,23 +1,28 @@
 package it.polimi.ingsw.view.beans;
 
 import it.polimi.ingsw.model.Colour;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableMap;
 
 import java.util.HashMap;
+import java.util.stream.Collectors;
 
 /**
  * Class that contains a local copy of the player's school board
  */
 public class MockSchoolBoard {
-    private HashMap<Colour, Integer> entrance;
-    private HashMap<Colour, Integer> diningRoom;
-    private HashMap<Colour, Boolean> professorTable;
-    private int towers;
+    private ObservableMap<Colour, Integer> entrance;
+    private ObservableMap<Colour, Integer> diningRoom;
+    private ObservableMap<Colour, Boolean> professorTable;
+    private IntegerProperty towers;
 
     public MockSchoolBoard() {
-        entrance = new HashMap<>();
-        diningRoom = new HashMap<>();
-        professorTable = new HashMap<>();
-
+        entrance = FXCollections.observableHashMap();
+        diningRoom = FXCollections.observableHashMap();
+        professorTable = FXCollections.observableHashMap();
+        towers = new SimpleIntegerProperty();
         for (Colour colour : Colour.values()) {
             entrance.put(colour, 0);
             diningRoom.put(colour, 0);
@@ -31,7 +36,7 @@ public class MockSchoolBoard {
      * @return the entrance
      */
     public HashMap<Colour, Integer> getEntrance() {
-        return entrance;
+        return new HashMap<>(entrance);
     }
 
     /**
@@ -40,7 +45,7 @@ public class MockSchoolBoard {
      * @param entrance the entrance updated
      */
     public void setEntrance(HashMap<Colour, Integer> entrance) {
-        this.entrance = entrance;
+        this.entrance.entrySet().forEach(entry -> entry.setValue(entrance.get(entry.getKey())));
     }
 
     /**
@@ -49,7 +54,7 @@ public class MockSchoolBoard {
      * @return the dining room
      */
     public HashMap<Colour, Integer> getDiningRoom() {
-        return diningRoom;
+        return new HashMap<>(diningRoom);
     }
 
     /**
@@ -58,7 +63,7 @@ public class MockSchoolBoard {
      * @param diningRoom the dining room updated
      */
     public void setDiningRoom(HashMap<Colour, Integer> diningRoom) {
-        this.diningRoom = diningRoom;
+        this.diningRoom.entrySet().forEach(entry -> entry.setValue(diningRoom.get(entry.getKey())));
     }
 
     /**
@@ -67,7 +72,7 @@ public class MockSchoolBoard {
      * @return the professor table
      */
     public HashMap<Colour, Boolean> getProfessorTable() {
-        return professorTable;
+        return new HashMap<>(professorTable);
     }
 
     /**
@@ -76,7 +81,7 @@ public class MockSchoolBoard {
      * @param professorTable the professor table updated
      */
     public void setProfessorTable(HashMap<Colour, Boolean> professorTable) {
-        this.professorTable = professorTable;
+        this.professorTable.entrySet().forEach(entry -> entry.setValue(professorTable.get(entry.getKey())));
     }
 
     /**
@@ -85,7 +90,7 @@ public class MockSchoolBoard {
      * @return the number of towers on that school board
      */
     public int getTowers() {
-        return towers;
+        return towers.getValue();
     }
 
     /**
@@ -94,6 +99,6 @@ public class MockSchoolBoard {
      * @param towers the number of towers
      */
     public void setTowers(int towers) {
-        this.towers = towers;
+        this.towers.setValue(towers);
     }
 }

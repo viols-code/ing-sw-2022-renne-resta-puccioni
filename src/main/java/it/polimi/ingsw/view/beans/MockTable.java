@@ -1,6 +1,9 @@
 package it.polimi.ingsw.view.beans;
 
 import it.polimi.ingsw.model.Colour;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,14 +16,14 @@ public class MockTable {
     /**
      * A list containing the cloud tiles
      */
-    private final List<MockCloudTile> cloudTiles;
+    private final ObservableList<MockCloudTile> cloudTiles;
 
-    private final List<MockCloudTile> shownCloudTiles;
+    private final ObservableList<MockCloudTile> shownCloudTiles;
 
     /**
      * A list containing the group islands
      */
-    private final List<MockGroupIsland> groupIslands;
+    private final ObservableList<MockGroupIsland> groupIslands;
 
     /**
      * A boolean that indicates if the bag is empty
@@ -35,18 +38,18 @@ public class MockTable {
     /**
      * The professors available on the table
      */
-    private final HashMap<Colour, Boolean> professorsAvailable;
+    private final ObservableMap<Colour, Boolean> professorsAvailable;
 
     /**
      * Constructs the table
      */
     public MockTable() {
-        cloudTiles = new ArrayList<>();
-        shownCloudTiles = new ArrayList<>();
-        groupIslands = new ArrayList<>();
+        cloudTiles = FXCollections.observableArrayList();
+        shownCloudTiles = FXCollections.observableArrayList();
+        groupIslands = FXCollections.observableArrayList();
         isBagEmpty = false;
         motherNaturePosition = 0;
-        professorsAvailable = new HashMap<>();
+        professorsAvailable = FXCollections.observableHashMap();
         professorsAvailable.put(Colour.GREEN, true);
         professorsAvailable.put(Colour.RED, true);
         professorsAvailable.put(Colour.YELLOW, true);
@@ -64,7 +67,7 @@ public class MockTable {
      * @return professorAvailable the HashMap of professors available on the table
      */
     public HashMap<Colour, Boolean> getProfessorsAvailable() {
-        return professorsAvailable;
+        return new HashMap<>(professorsAvailable);
     }
 
     /**
@@ -93,7 +96,7 @@ public class MockTable {
     }
 
     /**
-     * Adds a cloud tile to the list shownCLoudTIles
+     * Adds a cloud tile to the list shownCLoudTiles
      */
     public void addShownCLoudTile() {
         shownCloudTiles.add(new MockCloudTile());

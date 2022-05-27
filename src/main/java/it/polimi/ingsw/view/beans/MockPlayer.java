@@ -3,6 +3,12 @@ package it.polimi.ingsw.view.beans;
 import it.polimi.ingsw.model.AssistantCard;
 import it.polimi.ingsw.model.player.TowerColour;
 import it.polimi.ingsw.model.player.Wizard;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.Property;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableMap;
 
 import java.util.HashMap;
 import java.util.stream.Collectors;
@@ -40,7 +46,7 @@ public class MockPlayer {
     /**
      * Number of coins
      */
-    private int coins;
+    private IntegerProperty coins;
 
     /**
      * The colour of the tower given to the player
@@ -50,12 +56,12 @@ public class MockPlayer {
     /**
      * A list representing the assistant card deck
      */
-    private final HashMap<Integer, AssistantCard> cards;
+    private final ObservableMap<Integer, AssistantCard> cards;
 
     /**
      * The current assistant card
      */
-    private AssistantCard currentAssistantCard;
+    private Property<AssistantCard> currentAssistantCard;
 
 
     /**
@@ -71,12 +77,13 @@ public class MockPlayer {
         this.hasCoins = hasCoins;
         this.towerColour = null;
         schoolBoard = new MockSchoolBoard();
-        cards = new HashMap<>();
-        currentAssistantCard = null;
+        cards = FXCollections.observableHashMap();
+        currentAssistantCard = new SimpleObjectProperty<>();
+        coins = new SimpleIntegerProperty();
         if (hasCoins) {
-            coins = 1;
+            coins.setValue(1);
         } else {
-            coins = 0;
+            coins.setValue(0);
         }
 
         AssistantCard card1 = new AssistantCard(1, 1);
@@ -134,7 +141,7 @@ public class MockPlayer {
      * @param coins the coins
      */
     public void setCoins(int coins) {
-        this.coins = coins;
+        this.coins.setValue(coins);
     }
 
     /**
@@ -143,7 +150,7 @@ public class MockPlayer {
      * @return the coins
      */
     public int getCoins() {
-        return coins;
+        return coins.getValue();
     }
 
     /**
@@ -170,7 +177,7 @@ public class MockPlayer {
      * @return the list of the assistant card
      */
     public HashMap<Integer, AssistantCard> getCards() {
-        return cards;
+        return new HashMap<>(cards);
     }
 
     /**
@@ -179,7 +186,7 @@ public class MockPlayer {
      * @param currentAssistantCard the assistant card played
      */
     public void setCurrentAssistantCard(int currentAssistantCard) {
-        this.currentAssistantCard = cards.entrySet().stream().map(card -> card.getValue()).filter(card -> card.getValue() == currentAssistantCard).collect(Collectors.toList()).get(0);
+        this.currentAssistantCard.setValue(cards.get(currentAssistantCard - 1));
         cards.remove(currentAssistantCard - 1);
     }
 
@@ -189,7 +196,7 @@ public class MockPlayer {
      * @return the current assistant card
      */
     public AssistantCard getCurrentAssistantCard() {
-        return currentAssistantCard;
+        return currentAssistantCard.getValue();
     }
 
 
