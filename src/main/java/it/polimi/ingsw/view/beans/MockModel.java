@@ -88,6 +88,7 @@ public class MockModel {
         characterCards = new ArrayList<>();
         players = FXCollections.observableHashMap();
         table = new MockTable();
+        round = new SimpleIntegerProperty();
         currentCharacterCard = null;
         gamePhase = null;
         turnPhase = null;
