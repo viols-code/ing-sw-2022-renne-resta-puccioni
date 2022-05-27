@@ -6,6 +6,7 @@ import it.polimi.ingsw.model.player.Wizard;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 
@@ -60,7 +61,7 @@ public class MockPlayer {
     /**
      * The current assistant card
      */
-    private AssistantCard currentAssistantCard;
+    private Property<AssistantCard> currentAssistantCard;
 
 
     /**
@@ -77,7 +78,7 @@ public class MockPlayer {
         this.towerColour = null;
         schoolBoard = new MockSchoolBoard();
         cards = FXCollections.observableHashMap();
-        currentAssistantCard = null;
+        currentAssistantCard = new SimpleObjectProperty<>();
         coins = new SimpleIntegerProperty();
         if (hasCoins) {
             coins.setValue(1);
@@ -180,7 +181,7 @@ public class MockPlayer {
      * @param currentAssistantCard the assistant card played
      */
     public void setCurrentAssistantCard(int currentAssistantCard) {
-        this.currentAssistantCard = cards.entrySet().stream().map(card -> card.getValue()).filter(card -> card.getValue() == currentAssistantCard).collect(Collectors.toList()).get(0);
+        this.currentAssistantCard.setValue(cards.get(currentAssistantCard - 1));
         cards.remove(currentAssistantCard - 1);
     }
 
@@ -190,7 +191,7 @@ public class MockPlayer {
      * @return the current assistant card
      */
     public AssistantCard getCurrentAssistantCard() {
-        return currentAssistantCard;
+        return currentAssistantCard.getValue();
     }
 
 
