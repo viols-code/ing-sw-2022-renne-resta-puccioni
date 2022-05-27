@@ -40,7 +40,7 @@ public class MockCard {
     /**
      * The students on the card
      */
-    private HashMap<Colour, Integer> students;
+    private ObservableMap<Colour, Integer> students;
 
     /**
      * Constructs the character card
@@ -69,7 +69,12 @@ public class MockCard {
             numberOfNoEntryTile = new SimpleIntegerProperty(0);
         }
 
-        students = new HashMap<>();
+        students = FXCollections.observableHashMap();
+        students.put(Colour.GREEN,0);
+        students.put(Colour.RED,0);
+        students.put(Colour.YELLOW,0);
+        students.put(Colour.PINK,0);
+        students.put(Colour.BLUE,0);
 
         cost = new SimpleIntegerProperty();
         switch (type) {
@@ -168,7 +173,7 @@ public class MockCard {
      * @return the students on the card
      */
     public HashMap<Colour, Integer> getStudents() {
-        return students;
+        return new HashMap<>(students);
     }
 
     /**
@@ -178,6 +183,6 @@ public class MockCard {
      */
     public void setStudents(HashMap<Colour, Integer> students) {
         if (type == CharacterCardEnumeration.STUDENT_TO_DINING_ROOM || type == CharacterCardEnumeration.STUDENT_TO_ENTRANCE || type == CharacterCardEnumeration.STUDENT_TO_ISLAND)
-            this.students = students;
+            this.students.entrySet().forEach(entry -> entry.setValue(students.get(entry.getKey())));
     }
 }
