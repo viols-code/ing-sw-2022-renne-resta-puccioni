@@ -4,8 +4,6 @@ import it.polimi.ingsw.model.Colour;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 
-import java.util.HashMap;
-
 /**
  * Class which represents a local copy of the single islands
  */

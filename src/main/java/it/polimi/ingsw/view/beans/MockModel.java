@@ -11,8 +11,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -218,7 +216,7 @@ public class MockModel {
     /**
      * Sets the gameMode
      *
-     * @param isGameExpert true if the gameMode is expert, flase if it is basic
+     * @param isGameExpert true if the gameMode is expert, false if it is basic
      */
     public void setGameMode(boolean isGameExpert) {
         this.isGameExpert = isGameExpert;

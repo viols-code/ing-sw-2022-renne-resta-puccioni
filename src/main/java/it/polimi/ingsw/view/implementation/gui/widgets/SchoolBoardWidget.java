@@ -13,8 +13,7 @@ public class SchoolBoardWidget {
     private MockPlayer localPlayer;
 
     private void initialize(){
-
-       localPlayer = GUI.instance().getModel().getLocalPlayer();
+        localPlayer = GUI.instance().getModel().getLocalPlayer();
 
 
     }
