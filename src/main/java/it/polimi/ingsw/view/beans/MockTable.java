@@ -16,9 +16,9 @@ public class MockTable {
     /**
      * A list containing the cloud tiles
      */
-    private final List<MockCloudTile> cloudTiles;
+    private final ObservableList<MockCloudTile> cloudTiles;
 
-    private final List<MockCloudTile> shownCloudTiles;
+    private final ObservableList<MockCloudTile> shownCloudTiles;
 
     /**
      * A list containing the group islands
@@ -44,8 +44,8 @@ public class MockTable {
      * Constructs the table
      */
     public MockTable() {
-        cloudTiles = new ArrayList<>();
-        shownCloudTiles = new ArrayList<>();
+        cloudTiles = FXCollections.observableArrayList();
+        shownCloudTiles = FXCollections.observableArrayList();
         groupIslands = FXCollections.observableArrayList();
         isBagEmpty = false;
         motherNaturePosition = 0;
