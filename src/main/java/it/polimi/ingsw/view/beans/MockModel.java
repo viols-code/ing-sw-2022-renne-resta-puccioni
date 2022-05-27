@@ -4,8 +4,11 @@ import it.polimi.ingsw.model.game.GamePhase;
 import it.polimi.ingsw.model.game.TurnPhase;
 import it.polimi.ingsw.model.player.Wizard;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.Property;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 
 import java.util.ArrayList;
@@ -56,27 +59,27 @@ public class MockModel {
     /**
      * A list that contains the character cards drawn for this game
      */
-    private final List<MockCard> characterCards;
+    private final ObservableList<MockCard> characterCards;
 
     /**
      * Character card played by the current player
      */
-    private MockCard currentCharacterCard;
+    private Property<MockCard> currentCharacterCard;
 
     /**
      * A variable that indicates the current game phase
      */
-    private GamePhase gamePhase;
+    private Property<GamePhase> gamePhase;
 
     /**
      * A variable that indicates the current turn phase
      */
-    private TurnPhase turnPhase;
+    private Property<TurnPhase> turnPhase;
 
     /**
      * The winner
      */
-    private MockPlayer winner;
+    private Property<MockPlayer> winner;
 
     /**
      * Constructs the local copy of the game
@@ -85,14 +88,14 @@ public class MockModel {
         this.localPlayer = null;
         currentCharacterCard = null;
         coins = new SimpleIntegerProperty(-1);
-        characterCards = new ArrayList<>();
+        characterCards = FXCollections.observableArrayList();
         players = FXCollections.observableHashMap();
         table = new MockTable();
         round = new SimpleIntegerProperty();
-        currentCharacterCard = null;
-        gamePhase = null;
-        turnPhase = null;
-        winner = null;
+        currentCharacterCard = new SimpleObjectProperty<>();
+        gamePhase = new SimpleObjectProperty<>();
+        turnPhase = new SimpleObjectProperty<>();
+        winner = new SimpleObjectProperty<>();
     }
 
     /**
@@ -264,7 +267,7 @@ public class MockModel {
      * @return the current character card
      */
     public MockCard getCurrentCharacterCard() {
-        return currentCharacterCard;
+        return currentCharacterCard.getValue();
     }
 
     /**
@@ -273,7 +276,7 @@ public class MockModel {
      * @param currentCharacterCard the card
      */
     public void setCurrentCharacterCard(MockCard currentCharacterCard) {
-        this.currentCharacterCard = currentCharacterCard;
+        this.currentCharacterCard.setValue(currentCharacterCard);
     }
 
     /**
@@ -282,7 +285,7 @@ public class MockModel {
      * @return the game phase
      */
     public GamePhase getGamePhase() {
-        return gamePhase;
+        return gamePhase.getValue();
     }
 
     /**
@@ -291,7 +294,7 @@ public class MockModel {
      * @param gamePhase the game phase
      */
     public void setGamePhase(GamePhase gamePhase) {
-        this.gamePhase = gamePhase;
+        this.gamePhase.setValue(gamePhase);
     }
 
     /**
@@ -300,7 +303,7 @@ public class MockModel {
      * @return the turn phase
      */
     public TurnPhase getTurnPhase() {
-        return turnPhase;
+        return turnPhase.getValue();
     }
 
     /**
@@ -309,7 +312,7 @@ public class MockModel {
      * @param turnPhase the turn phase
      */
     public void setTurnPhase(TurnPhase turnPhase) {
-        this.turnPhase = turnPhase;
+        this.turnPhase.setValue(turnPhase);
     }
 
     /**
@@ -318,7 +321,7 @@ public class MockModel {
      * @return the winner of the game
      */
     public MockPlayer getWinner() {
-        return winner;
+        return winner.getValue();
     }
 
     /**
@@ -327,6 +330,6 @@ public class MockModel {
      * @param winner the winner of the game
      */
     public void setWinner(MockPlayer winner) {
-        this.winner = winner;
+        this.winner.setValue(winner);
     }
 }
