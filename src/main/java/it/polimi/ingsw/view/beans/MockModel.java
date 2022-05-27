@@ -34,7 +34,7 @@ public class MockModel {
     /**
      * The current player
      */
-    private MockPlayer currentPlayer;
+    private Property<MockPlayer>currentPlayer;
 
     /**
      * A local copy of the game table
@@ -86,7 +86,7 @@ public class MockModel {
      */
     public MockModel() {
         this.localPlayer = null;
-        currentCharacterCard = null;
+        currentPlayer = new SimpleObjectProperty<>();
         coins = new SimpleIntegerProperty(-1);
         characterCards = FXCollections.observableArrayList();
         players = FXCollections.observableHashMap();
@@ -167,7 +167,7 @@ public class MockModel {
      * @return the current Player
      */
     public MockPlayer getCurrentPlayer() {
-        return currentPlayer;
+        return currentPlayer.getValue();
     }
 
     /**
@@ -176,7 +176,7 @@ public class MockModel {
      * @param currentPlayer the current Player
      */
     public void setCurrentPlayer(MockPlayer currentPlayer) {
-        this.currentPlayer = currentPlayer;
+        this.currentPlayer.setValue(currentPlayer);
     }
 
     /**
@@ -346,5 +346,13 @@ public class MockModel {
      */
     public void setWinner(MockPlayer winner) {
         this.winner.setValue(winner);
+    }
+
+    public Property<MockPlayer> getCurrentPlayerProperty(){
+        return currentPlayer;
+    }
+
+    public IntegerProperty getRoundProperty(){
+        return round;
     }
 }
