@@ -5,10 +5,7 @@ import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.model.player.Wizard;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.beans.MockPlayer;
-import it.polimi.ingsw.view.implementation.gui.widgets.AssistantCardsWidget;
-import it.polimi.ingsw.view.implementation.gui.widgets.CharacterCardsWidget;
-import it.polimi.ingsw.view.implementation.gui.widgets.GroupIslandsWidget;
-import it.polimi.ingsw.view.implementation.gui.widgets.SchoolBoardWidget;
+import it.polimi.ingsw.view.implementation.gui.widgets.*;
 import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -138,8 +135,8 @@ public class GUI extends View {
 
     public void showOtherPlayerBoard(MockPlayer player) {
         Platform.runLater(() -> {
-            SchoolBoardWidget schoolBoard = new SchoolBoardWidget(player);
-            scene.setRoot(schoolBoard);
+            OtherSchoolBoardWidget otherSchoolBoard = new OtherSchoolBoardWidget(player);
+            scene.setRoot(otherSchoolBoard);
         });
     }
 

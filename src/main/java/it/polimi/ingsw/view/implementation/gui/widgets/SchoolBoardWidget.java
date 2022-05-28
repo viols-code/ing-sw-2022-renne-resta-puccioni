@@ -83,13 +83,6 @@ public class SchoolBoardWidget extends StackPane{
 
     }
 
-    @FXML
-    private void goToPlayer1SchoolBoard(MockPlayer player) {
-        Platform.runLater(() -> {
-            SchoolBoardWidget schoolBoardWidget = new SchoolBoardWidget(player);
-            //GUI.instance().setRoot(schoolBoardWidget);
-        });
-    }
 
     @FXML
     private void goToIsland() {
@@ -116,7 +109,7 @@ public class SchoolBoardWidget extends StackPane{
             players.add(player);
         }
 
-        Platform.runLater(() -> getScene().setRoot(new SchoolBoardWidget(players.get(0))));
+        Platform.runLater(() -> getScene().setRoot(new OtherSchoolBoardWidget(players.get(0))));
     }
 
 }
