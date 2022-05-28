@@ -7,8 +7,8 @@ import javafx.geometry.Insets;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 
 import java.util.Objects;
 
@@ -21,8 +21,8 @@ public class CharacterCardsWidget extends StackPane {
     }
 
     @FXML
-    public void initialize(){
-        for(int i = 0; i < 3; i++){
+    public void initialize() {
+        for (int i = 0; i < 3; i++) {
             FlowPane flowPane = new FlowPane();
             box.getChildren().add(flowPane);
             flowPane.getStyleClass().add("assistantCards");
@@ -45,7 +45,7 @@ public class CharacterCardsWidget extends StackPane {
     }
 
     @FXML
-    public void playCharacterCard(int i){
+    public void playCharacterCard(int i) {
         GUI.instance().getActionSender().playCharacterCard(GUI.instance().getPlayerName(), i);
     }
 
