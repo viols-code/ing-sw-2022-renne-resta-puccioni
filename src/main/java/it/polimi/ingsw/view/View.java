@@ -202,7 +202,7 @@ public abstract class View {
      * Handles the successful connection to a server lobby.
      *
      * @param isFirstConnection true if this client is the first to connect to the lobby, false otherwise
-     * @param
+     * @param takenWizard the list of wizard already taken
      */
     public void addToLobby(boolean isFirstConnection, List<Wizard> takenWizard) {
         setGameState(GameState.CHOOSING_NAME);
@@ -210,9 +210,6 @@ public abstract class View {
             lobbyMaster = true;
 
         if (takenWizard != null) {
-            for (Wizard wizard : takenWizard) {
-                System.out.println(wizard);
-            }
             this.takenWizards.clear();
             this.takenWizards.addAll(takenWizard);
         }
