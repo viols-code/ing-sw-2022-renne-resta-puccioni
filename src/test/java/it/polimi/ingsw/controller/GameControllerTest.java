@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.game.TurnPhase;
 import it.polimi.ingsw.model.player.TowerColour;
 import it.polimi.ingsw.model.player.Wizard;
 import it.polimi.ingsw.server.Lobby;
+import it.polimi.ingsw.view.messages.MoveMotherNature;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
@@ -460,6 +461,7 @@ class GameControllerTest {
         //Fourth turn
         gameControllerTwo.playAssistantCard("Laura", 3);
         gameControllerTwo.playAssistantCard("Viola", 6);
+        gameControllerTwo.update(new MoveMotherNature("Viola", 3));
 
         i = 0;
         while (i < 3) {
