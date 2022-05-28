@@ -102,10 +102,12 @@ public class GUI extends View {
     public void handleGameMode(boolean gameMode) {
         super.handleGameMode(gameMode);
 
-        Platform.runLater(() -> {
-            Parent playersToStartSelection = FXMLUtils.loadFXML("/gui/PlayersToStartSelection");
-            scene.setRoot(playersToStartSelection);
-        });
+        if(isLobbyMaster()) {
+            Platform.runLater(() -> {
+                Parent playersToStartSelection = FXMLUtils.loadFXML("/gui/PlayersToStartSelection");
+                scene.setRoot(playersToStartSelection);
+            });
+        }
 
     }
 
