@@ -1,65 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <fx:root type="StackPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
          fx:controller="it.polimi.ingsw.view.implementation.gui.widgets.CharacterCardsWidget">
 
-    <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0"
+    <AnchorPane stylesheets="@../gui/css/style.css" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0"
                 prefWidth="1080.0">
-        <children>
-            <HBox alignment="CENTER" layoutX="230.0" layoutY="205.0" prefHeight="200.0" prefWidth="400.0">
-                <children>
-                    <ImageView fitHeight="300.0" fitWidth="196.5">
-                        <image>
-                            <Image url="@../images/characterCards/ExchangeEntranceDiningRoom.jpg"/>
-                        </image>
-                        <HBox.margin>
-                            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-                        </HBox.margin>
-                    </ImageView>
-                    <VBox prefHeight="200.0" prefWidth="131.0">
-                        <children>
-                            <VBox prefHeight="200.0" prefWidth="131.0">
-                                <children>
-                                    <ImageView fitHeight="300.0" fitWidth="196.5">
-                                        <image>
-                                            <Image url="@../images/characterCards/IslandInfluence.jpg"/>
-                                        </image>
-                                        <VBox.margin>
-                                            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-                                        </VBox.margin>
-                                    </ImageView>
-                                </children>
-                            </VBox>
-                        </children>
-                    </VBox>
-                    <VBox prefHeight="200.0" prefWidth="131.0">
-                        <children>
-                            <ImageView fitHeight="300.0" fitWidth="196.5">
-                                <image>
-                                    <Image url="@../images/characterCards/MotherNatureMovement.jpg"/>
-                                </image>
-                                <VBox.margin>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-                                </VBox.margin>
-                            </ImageView>
-                        </children>
-                    </VBox>
-                </children>
-            </HBox>
-            <Label layoutX="348.0" layoutY="96.0" text="Character Cards">
-                <font>
-                    <Font name="Comic Sans MS Bold Italic" size="48.0"/>
-                </font>
-            </Label>
-            <Button layoutX="53.0" layoutY="70.0" mnemonicParsing="false" onAction="#showSchoolBoard"
-                    text="GO BACK TO SCHOOL BOARD"/>
-        </children>
-    </AnchorPane>
+        <HBox fx:id="box" alignment="CENTER" layoutX="230.0" layoutY="205.0" prefHeight="200.0" prefWidth="400.0">
 
+        </HBox>
+        <Label layoutX="348.0" layoutY="96.0" text="Character Cards">
+            <font>
+                <Font name="Comic Sans MS Bold Italic" size="48.0"/>
+            </font>
+        </Label>
+        <Button layoutX="53.0" layoutY="70.0" mnemonicParsing="false" onAction="#showSchoolBoard"
+                text="GO BACK TO SCHOOL BOARD"/>
+    </AnchorPane>
 </fx:root>
