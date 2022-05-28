@@ -4,6 +4,7 @@ import it.polimi.ingsw.FXMLUtils;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.model.player.Wizard;
 import it.polimi.ingsw.view.View;
+import it.polimi.ingsw.view.implementation.gui.widgets.AssistantCardsWidget;
 import it.polimi.ingsw.view.implementation.gui.widgets.GroupIslandsWidget;
 import it.polimi.ingsw.view.implementation.gui.widgets.SchoolBoardWidget;
 import javafx.application.Platform;
@@ -131,14 +132,17 @@ public class GUI extends View {
         });
     }
 
-    public void showAssistantCards() {
-
-    }
-
     public void showIslands(){
         Platform.runLater(() -> {
             GroupIslandsWidget groupIsland = new GroupIslandsWidget();
             scene.setRoot(groupIsland);
+        });
+    }
+
+    public void showAssistantCards(){
+        Platform.runLater(() -> {
+            AssistantCardsWidget assistantCards = new AssistantCardsWidget();
+            scene.setRoot(assistantCards);
         });
     }
 

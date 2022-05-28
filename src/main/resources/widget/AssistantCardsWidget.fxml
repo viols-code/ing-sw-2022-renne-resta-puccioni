@@ -4,129 +4,127 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.*?>
 
+<fx:root type="StackPane" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+         fx:controller="it.polimi.ingsw.view.implementation.gui.widgets.AssistantCardsWidget">
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="720.0" prefWidth="1080.0"
-            xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="it.polimi.ingsw.view.implementation.gui.widgets.AssistantCardsWidget">
-<center>
-    <VBox prefHeight="359.8" prefWidth="546.0" BorderPane.alignment="CENTER">
-        <children>
-            <HBox alignment="CENTER" minWidth="546.0" prefHeight="179.9" prefWidth="546.0">
-                <children>
-                    <ImageView fx:id="a_0" fitHeight="159.9" fitWidth="109.2" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../images/assistantCards/assistant_0.png"/>
-                        </image>
-                        <HBox.margin>
-                            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                        </HBox.margin>
-                    </ImageView>
-                    <ImageView fx:id="a_1" fitHeight="159.9" fitWidth="109.2" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../images/assistantCards/assistant_1.png" />
-                        </image>
-                        <HBox.margin>
-                            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                        </HBox.margin>
-                    </ImageView>
-                    <ImageView fx:id="a_2" fitHeight="159.9" fitWidth="109.2" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../images/assistantCards/assistant_2.png" />
-                        </image>
-                        <HBox.margin>
-                            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                        </HBox.margin>
-                    </ImageView>
-                    <ImageView fx:id="a_3" fitHeight="159.9" fitWidth="109.2" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../images/assistantCards/assistant_3.png" />
-                        </image>
-                        <HBox.margin>
-                            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                        </HBox.margin>
-                    </ImageView>
-                    <ImageView fx:id="a_4" fitHeight="159.9" fitWidth="109.2" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../images/assistantCards/assistant_4.png" />
-                        </image>
-                        <HBox.margin>
-                            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                        </HBox.margin>
-                    </ImageView>
-                </children>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="179.9" prefWidth="546.0">
-                <children>
-                    <ImageView fx:id="a_5" fitHeight="159.9" fitWidth="109.2">
-                        <image>
-                            <Image url="@../images/assistantCards/assistant_5.png" />
-                        </image>
-                        <HBox.margin>
-                            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                        </HBox.margin>
-                    </ImageView>
-                    <ImageView fx:id="a_6" fitHeight="159.9" fitWidth="109.2" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../images/assistantCards/assistant_6.png" />
-                        </image>
-                        <HBox.margin>
-                            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                        </HBox.margin>
-                    </ImageView>
-                    <ImageView fx:id="a_7" fitHeight="159.9" fitWidth="109.2" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../images/assistantCards/assistant_7.png" />
-                        </image>
-                        <HBox.margin>
-                            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                        </HBox.margin>
-                    </ImageView>
-                    <ImageView fx:id="a_8" fitHeight="159.9" fitWidth="109.2" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../images/assistantCards/assistant_8.png" />
-                        </image>
-                        <HBox.margin>
-                            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                        </HBox.margin>
-                    </ImageView>
-                    <ImageView fx:id="a_9" fitHeight="159.9" fitWidth="109.2" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../images/assistantCards/assistant_9.png" />
-                        </image>
-                        <HBox.margin>
-                            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                        </HBox.margin>
-                    </ImageView>
-                </children>
-            </HBox>
-        </children>
-    </VBox>
-</center>
-<top>
-    <VBox alignment="CENTER" prefHeight="257.0" prefWidth="1080.0" BorderPane.alignment="CENTER">
-        <children>
-            <Label contentDisplay="CENTER" text="Your Assistant Cards">
-                <font>
-                    <Font name="Comic Sans MS Bold" size="51.0" />
-                </font>
-            </Label>
-        </children>
-    </VBox>
-</top>
-<right>
-    <VBox prefHeight="375.0" prefWidth="196.0" BorderPane.alignment="CENTER" />
-</right>
-<left>
-    <VBox prefHeight="375.0" prefWidth="178.0" BorderPane.alignment="CENTER" />
-</left>
-<bottom>
-    <VBox prefHeight="88.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
-</bottom>
-</BorderPane>
+    <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                prefHeight="720.0" prefWidth="1080.0">
+    <center>
+        <VBox prefHeight="359.8" prefWidth="546.0" BorderPane.alignment="CENTER">
+            <children>
+                <HBox alignment="CENTER" minWidth="546.0" prefHeight="179.9" prefWidth="546.0">
+                    <children>
+                        <ImageView fx:id="a_0" fitHeight="159.9" fitWidth="109.2" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/assistantCards/assistant_0.png"/>
+                            </image>
+                            <HBox.margin>
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                            </HBox.margin>
+                        </ImageView>
+                        <ImageView fx:id="a_1" fitHeight="159.9" fitWidth="109.2" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/assistantCards/assistant_1.png" />
+                            </image>
+                            <HBox.margin>
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                            </HBox.margin>
+                        </ImageView>
+                        <ImageView fx:id="a_2" fitHeight="159.9" fitWidth="109.2" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/assistantCards/assistant_2.png" />
+                            </image>
+                            <HBox.margin>
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                            </HBox.margin>
+                        </ImageView>
+                        <ImageView fx:id="a_3" fitHeight="159.9" fitWidth="109.2" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/assistantCards/assistant_3.png" />
+                            </image>
+                            <HBox.margin>
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                            </HBox.margin>
+                        </ImageView>
+                        <ImageView fx:id="a_4" fitHeight="159.9" fitWidth="109.2" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/assistantCards/assistant_4.png" />
+                            </image>
+                            <HBox.margin>
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                            </HBox.margin>
+                        </ImageView>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER" prefHeight="179.9" prefWidth="546.0">
+                    <children>
+                        <ImageView fx:id="a_5" fitHeight="159.9" fitWidth="109.2">
+                            <image>
+                                <Image url="@../images/assistantCards/assistant_5.png" />
+                            </image>
+                            <HBox.margin>
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                            </HBox.margin>
+                        </ImageView>
+                        <ImageView fx:id="a_6" fitHeight="159.9" fitWidth="109.2" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/assistantCards/assistant_6.png" />
+                            </image>
+                            <HBox.margin>
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                            </HBox.margin>
+                        </ImageView>
+                        <ImageView fx:id="a_7" fitHeight="159.9" fitWidth="109.2" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/assistantCards/assistant_7.png" />
+                            </image>
+                            <HBox.margin>
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                            </HBox.margin>
+                        </ImageView>
+                        <ImageView fx:id="a_8" fitHeight="159.9" fitWidth="109.2" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/assistantCards/assistant_8.png" />
+                            </image>
+                            <HBox.margin>
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                            </HBox.margin>
+                        </ImageView>
+                        <ImageView fx:id="a_9" fitHeight="159.9" fitWidth="109.2" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/assistantCards/assistant_9.png" />
+                            </image>
+                            <HBox.margin>
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                            </HBox.margin>
+                        </ImageView>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </center>
+    <top>
+        <VBox alignment="CENTER" prefHeight="257.0" prefWidth="1080.0" BorderPane.alignment="CENTER">
+            <children>
+                <Label contentDisplay="CENTER" text="Your Assistant Cards">
+                    <font>
+                        <Font name="Comic Sans MS Bold" size="51.0" />
+                    </font>
+                </Label>
+            </children>
+        </VBox>
+    </top>
+    <right>
+        <VBox prefHeight="375.0" prefWidth="196.0" BorderPane.alignment="CENTER" />
+    </right>
+    <left>
+        <VBox prefHeight="375.0" prefWidth="178.0" BorderPane.alignment="CENTER" />
+    </left>
+    <bottom>
+        <VBox prefHeight="88.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
+    </bottom>
+    </BorderPane>
+</fx:root>
