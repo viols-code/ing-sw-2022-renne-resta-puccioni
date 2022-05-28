@@ -100,7 +100,7 @@ public class GUI extends View {
     public void handleGameMode(boolean gameMode) {
         super.handleGameMode(gameMode);
 
-        if(isLobbyMaster()) {
+        if (isLobbyMaster()) {
             Platform.runLater(() -> {
                 Parent playersToStartSelection = FXMLUtils.loadFXML("/gui/PlayersToStartSelection");
                 scene.setRoot(playersToStartSelection);
@@ -119,7 +119,7 @@ public class GUI extends View {
     }
 
     @Override
-    public void handleAllPlayersConnected(HashMap<String, Wizard> players, boolean gameMode, int numPlayers){
+    public void handleAllPlayersConnected(HashMap<String, Wizard> players, boolean gameMode, int numPlayers) {
         super.handleAllPlayersConnected(players, gameMode, numPlayers);
     }
 
@@ -140,21 +140,21 @@ public class GUI extends View {
         });
     }
 
-    public void showIslands(){
+    public void showIslands() {
         Platform.runLater(() -> {
             GroupIslandsWidget groupIsland = new GroupIslandsWidget();
             scene.setRoot(groupIsland);
         });
     }
 
-    public void showAssistantCards(){
+    public void showAssistantCards() {
         Platform.runLater(() -> {
             AssistantCardsWidget assistantCards = new AssistantCardsWidget();
             scene.setRoot(assistantCards);
         });
     }
 
-    public void showCharacterCards(){
+    public void showCharacterCards() {
         Platform.runLater(() -> {
             CharacterCardsWidget characterCards = new CharacterCardsWidget();
             scene.setRoot(characterCards);
@@ -181,7 +181,7 @@ public class GUI extends View {
         return scene;
     }
 
-    public boolean isOwnTurn(){
+    public boolean isOwnTurn() {
         return getModel().getCurrentPlayer().getNickname().equals(getModel().getLocalPlayer().getNickname());
     }
 }

@@ -17,7 +17,7 @@ public class OtherSchoolBoardWidget extends StackPane {
     }
 
     @FXML
-    public void showSchoolBoard(){
+    public void showSchoolBoard() {
         GUI.instance().showPlayerBoard();
     }
 }

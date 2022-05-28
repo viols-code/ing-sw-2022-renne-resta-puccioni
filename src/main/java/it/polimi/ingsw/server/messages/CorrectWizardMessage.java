@@ -23,8 +23,8 @@ public class CorrectWizardMessage extends DirectServerMessage {
     /**
      * Constructs a new CorrectWizardMessage for the player with the given wizard
      *
-     * @param recipient   the client connection to send this message to
-     * @param wizard      the wizard chosen by the player
+     * @param recipient the client connection to send this message to
+     * @param wizard    the wizard chosen by the player
      */
     public CorrectWizardMessage(SocketClientConnection recipient, Wizard wizard) {
         super(recipient);

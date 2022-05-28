@@ -7,7 +7,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 
 import java.util.HashMap;
-import java.util.stream.Collectors;
 
 /**
  * Class that contains a local copy of the player's school board

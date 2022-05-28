@@ -28,6 +28,7 @@ public abstract class View {
     private int numPlayers;
     private boolean lobbyMaster;
     private final ObservableList<Wizard> takenWizards;
+
     /**
      * Constructs a new View.
      *
@@ -208,8 +209,8 @@ public abstract class View {
         if (isFirstConnection)
             lobbyMaster = true;
 
-        if(takenWizard != null){
-            for(Wizard wizard : takenWizard){
+        if (takenWizard != null) {
+            for (Wizard wizard : takenWizard) {
                 System.out.println(wizard);
             }
             this.takenWizards.clear();
@@ -230,7 +231,7 @@ public abstract class View {
     /**
      * Handles the successful wizard setting
      *
-     * @param wizard      the wizard chosen by the local player
+     * @param wizard the wizard chosen by the local player
      */
     public void handleCorrectWizard(Wizard wizard) {
         if (isLobbyMaster()) {
@@ -272,10 +273,11 @@ public abstract class View {
      * @param wizard         the name of the player that connected
      * @param currentPlayers the amount of players connected to the lobby
      * @param playersToStart the number of players required to start the game
+     * @param takenWizard    the list of wizard already taken
      */
     public void handlePlayerConnect(String playerName, Wizard wizard, int currentPlayers, Integer playersToStart, List<Wizard> takenWizard) {
         this.takenWizards.clear();
-        if(takenWizard != null){
+        if (takenWizard != null) {
             this.takenWizards.addAll(takenWizard);
         }
     }

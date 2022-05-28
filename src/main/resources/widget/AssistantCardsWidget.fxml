@@ -2,41 +2,42 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
+<fx:root type="StackPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
+         fx:controller="it.polimi.ingsw.view.implementation.gui.widgets.AssistantCardsWidget">
 
-<fx:root type="StackPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.implementation.gui.widgets.AssistantCardsWidget">
+    <BorderPane stylesheets="@../gui/css/style.css" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0">
+        <center>
+            <VBox fx:id="vbox" prefHeight="359.8" prefWidth="546.0" BorderPane.alignment="CENTER">
 
-    <BorderPane stylesheets="@../gui/css/style.css" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0">
-    <center>
-        <VBox fx:id="vbox" prefHeight="359.8" prefWidth="546.0" BorderPane.alignment="CENTER">
-
-        </VBox>
-    </center>
-    <top>
-        <VBox alignment="CENTER" prefHeight="257.0" prefWidth="1080.0" BorderPane.alignment="CENTER">
-            <children>
-                <Label contentDisplay="CENTER" text="Your Assistant Cards">
-                    <font>
-                        <Font name="Comic Sans MS Bold" size="51.0" />
-                    </font>
-                </Label>
-            </children>
-        </VBox>
-    </top>
-    <right>
-        <VBox prefHeight="375.0" prefWidth="196.0" BorderPane.alignment="CENTER" />
-    </right>
-    <left>
-        <VBox alignment="CENTER" prefHeight="375.0" prefWidth="178.0" BorderPane.alignment="CENTER">
-            <children>
-               <Button alignment="CENTER" mnemonicParsing="false" onAction="#showSchoolBoard" text="BACK TO SCHOOL BOARD" />
-            </children></VBox>
-    </left>
-    <bottom>
-        <VBox prefHeight="88.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
-    </bottom>
+            </VBox>
+        </center>
+        <top>
+            <VBox alignment="CENTER" prefHeight="257.0" prefWidth="1080.0" BorderPane.alignment="CENTER">
+                <children>
+                    <Label contentDisplay="CENTER" text="Your Assistant Cards">
+                        <font>
+                            <Font name="Comic Sans MS Bold" size="51.0"/>
+                        </font>
+                    </Label>
+                </children>
+            </VBox>
+        </top>
+        <right>
+            <VBox prefHeight="375.0" prefWidth="196.0" BorderPane.alignment="CENTER"/>
+        </right>
+        <left>
+            <VBox alignment="CENTER" prefHeight="375.0" prefWidth="178.0" BorderPane.alignment="CENTER">
+                <children>
+                    <Button alignment="CENTER" mnemonicParsing="false" onAction="#showSchoolBoard"
+                            text="BACK TO SCHOOL BOARD"/>
+                </children>
+            </VBox>
+        </left>
+        <bottom>
+            <VBox prefHeight="88.0" prefWidth="600.0" BorderPane.alignment="CENTER"/>
+        </bottom>
     </BorderPane>
 </fx:root>

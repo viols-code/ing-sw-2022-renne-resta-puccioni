@@ -43,7 +43,7 @@ public class PlayerConnectMessage extends ServerMessage {
      * @param wizard         the wizard of the player that just connected
      * @param currentPlayers the current number of players in the lobby
      * @param playersToStart the number of players required to start the game in the lobby
-     * @param takenWizard the list of wizard already taken
+     * @param takenWizard    the list of wizard already taken
      */
     public PlayerConnectMessage(String playerName, Wizard wizard, int currentPlayers, Integer playersToStart, List<Wizard> takenWizard) {
         this.playerName = playerName;

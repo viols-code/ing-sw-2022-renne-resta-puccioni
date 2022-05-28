@@ -12,7 +12,7 @@ public class GroupIslandsWidget extends StackPane {
     }
 
     @FXML
-    public void showSchoolBoard(){
+    public void showSchoolBoard() {
         GUI.instance().showPlayerBoard();
     }
 }

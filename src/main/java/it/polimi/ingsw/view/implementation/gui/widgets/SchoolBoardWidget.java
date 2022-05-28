@@ -1,7 +1,6 @@
 package it.polimi.ingsw.view.implementation.gui.widgets;
 
 import it.polimi.ingsw.FXMLUtils;
-import it.polimi.ingsw.view.GameState;
 import it.polimi.ingsw.view.beans.MockPlayer;
 import it.polimi.ingsw.view.implementation.gui.GUI;
 import javafx.application.Platform;
@@ -14,7 +13,7 @@ import javafx.scene.layout.StackPane;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SchoolBoardWidget extends StackPane{
+public class SchoolBoardWidget extends StackPane {
 
     @FXML
     private Image studentEntrance1;
@@ -55,8 +54,8 @@ public class SchoolBoardWidget extends StackPane{
     }
 
     @FXML
-    private void initialize(){
-       //Shows the current Player
+    private void initialize() {
+        //Shows the current Player
         currentPlayerLabel.setText(GUI.instance().isOwnTurn() ? "Yours" :
                 GUI.instance().getModel().getCurrentPlayer().getNickname());
         GUI.instance().getModel().getCurrentPlayerProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> {
@@ -72,7 +71,7 @@ public class SchoolBoardWidget extends StackPane{
         }));
 
 
-       // Shows the turn phase
+        // Shows the turn phase
         turnPhaseLabel.setText(GUI.instance().getModel().getTurnPhase().name());
         GUI.instance().getModel().getTurnPhaseProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> {
             turnPhaseLabel.setText(GUI.instance().getModel().getTurnPhase().name());
@@ -83,16 +82,16 @@ public class SchoolBoardWidget extends StackPane{
 
     @FXML
     private void goToIsland() {
-       GUI.instance().showIslands();
+        GUI.instance().showIslands();
     }
 
     @FXML
-    private void goToAssistantCards(){
+    private void goToAssistantCards() {
         GUI.instance().showAssistantCards();
     }
 
     @FXML
-    private void goToCharacterCards(){
+    private void goToCharacterCards() {
         GUI.instance().showCharacterCards();
     }
 

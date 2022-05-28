@@ -33,7 +33,7 @@ public class CLI extends View {
      * Handles the successful connection to a server lobby.
      *
      * @param isFirstConnection true if this client is the first to connect to the lobby, false otherwise
-     * @param takenWizard  the list of wizard already taken
+     * @param takenWizard       the list of wizard already taken
      */
     @Override
     public void addToLobby(boolean isFirstConnection, List<Wizard> takenWizard) {
@@ -56,7 +56,7 @@ public class CLI extends View {
     /**
      * Handles the successful wizard setting
      *
-     * @param wizard      the wizard chosen by the local player
+     * @param wizard the wizard chosen by the local player
      */
     @Override
     public void handleCorrectWizard(Wizard wizard) {
@@ -81,7 +81,7 @@ public class CLI extends View {
      * @param wizard         the name of the player that connected
      * @param currentPlayers the amount of players connected to the lobby
      * @param playersToStart the number of players required to start the game
-     * @param otherWizard the list of wizard already taken
+     * @param otherWizard    the list of wizard already taken
      */
     @Override
     public void handlePlayerConnect(String playerName, Wizard wizard, int currentPlayers, Integer playersToStart, List<Wizard> otherWizard) {

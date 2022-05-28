@@ -14,10 +14,10 @@ public class GUIActionSender extends ActionSender {
      * @param assistantCard the value of assistant card
      */
     @Override
-    public void playAssistantCard(String localPlayer, int assistantCard){
-        try{
+    public void playAssistantCard(String localPlayer, int assistantCard) {
+        try {
             super.playAssistantCard(localPlayer, assistantCard);
-        } catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
 
         }
     }

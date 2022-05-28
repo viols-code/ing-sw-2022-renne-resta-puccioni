@@ -22,8 +22,8 @@ public class MockCloudTile {
      */
     public MockCloudTile() {
         tileStudents = FXCollections.observableHashMap();
-        for(Colour colour: Colour.values()){
-            tileStudents.put(colour,0);
+        for (Colour colour : Colour.values()) {
+            tileStudents.put(colour, 0);
         }
     }
 

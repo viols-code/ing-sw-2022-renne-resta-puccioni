@@ -16,7 +16,7 @@ public class GUIModelUpdateHandler extends ModelUpdateHandler {
         }
     }
 
-    public void updateCurrentAssistantCard(String playerName, int assistantCard){
+    public void updateCurrentAssistantCard(String playerName, int assistantCard) {
         super.updateCurrentAssistantCard(playerName, assistantCard);
     }
 }

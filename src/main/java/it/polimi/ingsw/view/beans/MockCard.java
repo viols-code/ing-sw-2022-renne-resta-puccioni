@@ -70,11 +70,11 @@ public class MockCard {
         }
 
         students = FXCollections.observableHashMap();
-        students.put(Colour.GREEN,0);
-        students.put(Colour.RED,0);
-        students.put(Colour.YELLOW,0);
-        students.put(Colour.PINK,0);
-        students.put(Colour.BLUE,0);
+        students.put(Colour.GREEN, 0);
+        students.put(Colour.RED, 0);
+        students.put(Colour.YELLOW, 0);
+        students.put(Colour.PINK, 0);
+        students.put(Colour.BLUE, 0);
 
         cost = new SimpleIntegerProperty();
         switch (type) {

@@ -3,7 +3,10 @@ package it.polimi.ingsw.view.beans;
 import it.polimi.ingsw.model.game.GamePhase;
 import it.polimi.ingsw.model.game.TurnPhase;
 import it.polimi.ingsw.model.player.Wizard;
-import javafx.beans.property.*;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.Property;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
@@ -343,15 +346,15 @@ public class MockModel {
         this.winner.setValue(winner);
     }
 
-    public Property<MockPlayer> getCurrentPlayerProperty(){
+    public Property<MockPlayer> getCurrentPlayerProperty() {
         return currentPlayer;
     }
 
-    public IntegerProperty getRoundProperty(){
+    public IntegerProperty getRoundProperty() {
         return round;
     }
 
-    public Property<TurnPhase> getTurnPhaseProperty(){
+    public Property<TurnPhase> getTurnPhaseProperty() {
         return this.turnPhase;
     }
 }

@@ -30,11 +30,11 @@ public class AssistantCardsWidget extends StackPane {
     }
 
     @FXML
-    public void initialize(){
+    public void initialize() {
         HBox hBox1 = new HBox();
         HBox hBox2 = new HBox();
 
-        for(int i = 1; i < 11; i++){
+        for (int i = 1; i < 11; i++) {
             FlowPane flowPane = new FlowPane();
             flowPane.getStyleClass().add("assistantCards");
             flowPane.setMaxHeight(159.9);
@@ -49,14 +49,14 @@ public class AssistantCardsWidget extends StackPane {
                     "/images/assistantCards/assistant_" + (i - 1) + ".png"))));
             int a = i - 1;
             imageView.setOnMouseClicked(event -> playAssistantCard(a));
-            if(i <= 5){
+            if (i <= 5) {
                 hBox1.getChildren().add(flowPane);
-            } else{
+            } else {
                 hBox2.getChildren().add(flowPane);
             }
 
             HBox.setMargin(flowPane, new Insets(5.0, 5.0, 5.0, 5.0));
-            if(! GUI.instance().getModel().getLocalPlayer().getCardsProperty().containsKey(a)){
+            if (!GUI.instance().getModel().getLocalPlayer().getCardsProperty().containsKey(a)) {
                 imageView.setOpacity(0.5);
             }
         }
@@ -70,20 +70,20 @@ public class AssistantCardsWidget extends StackPane {
         hBox2.prefWidth(179.9);
         hBox2.prefHeight(546.0);
 
-        GUI.instance().getModel().getLocalPlayer().getCardsProperty().addListener(((MapChangeListener<? super Integer, ? super AssistantCard>) change ->  Platform.runLater(() -> {
-            if(change.wasRemoved()){
+        GUI.instance().getModel().getLocalPlayer().getCardsProperty().addListener(((MapChangeListener<? super Integer, ? super AssistantCard>) change -> Platform.runLater(() -> {
+            if (change.wasRemoved()) {
                 images.get(change.getKey()).setOpacity(0.5);
             }
         })));
     }
 
     @FXML
-    public void showSchoolBoard(){
+    public void showSchoolBoard() {
         GUI.instance().showPlayerBoard();
     }
 
     @FXML
-    public void playAssistantCard(int i){
+    public void playAssistantCard(int i) {
         GUI.instance().getActionSender().playAssistantCard(GUI.instance().getPlayerName(), i);
     }
 

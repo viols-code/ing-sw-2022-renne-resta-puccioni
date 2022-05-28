@@ -24,8 +24,8 @@ public class WizardSelection extends BorderPane {
     private final List<ImageView> images = new ArrayList<>();
 
     @FXML
-    public void initialize(){
-        for(int i = 1; i < 5; i++){
+    public void initialize() {
+        for (int i = 1; i < 5; i++) {
             FlowPane flowPane = new FlowPane();
             box.getChildren().add(flowPane);
             flowPane.getStyleClass().add("wizard");
@@ -45,8 +45,8 @@ public class WizardSelection extends BorderPane {
             imageView.setOnMouseClicked(event -> chooseWizard(a));
             HBox.setMargin(flowPane, new Insets(5.0, 5.0, 5.0, 5.0));
 
-            if(GUI.instance().getTakenWizards() != null){
-                if(GUI.instance().getTakenWizards().contains(Wizard.valueOf(a))){
+            if (GUI.instance().getTakenWizards() != null) {
+                if (GUI.instance().getTakenWizards().contains(Wizard.valueOf(a))) {
                     imageView.setOpacity(0.5);
                 }
             }
@@ -55,19 +55,18 @@ public class WizardSelection extends BorderPane {
 
         GUI.instance().getTakenWizardsProperty().addListener((ListChangeListener<? super Wizard>) change -> Platform.runLater(() -> {
             while (change.next()) {
-                System.out.println("Ciao");
-                if(change.wasAdded()){
+                if (change.wasAdded()) {
                     for (Wizard wizard : change.getAddedSubList()) {
-                        if(wizard == Wizard.TYPE_1){
+                        if (wizard == Wizard.TYPE_1) {
                             images.get(0).setOpacity(0.5);
                         }
-                        if(wizard == Wizard.TYPE_2){
+                        if (wizard == Wizard.TYPE_2) {
                             images.get(1).setOpacity(0.5);
                         }
-                        if(wizard == Wizard.TYPE_3){
+                        if (wizard == Wizard.TYPE_3) {
                             images.get(2).setOpacity(0.5);
                         }
-                        if(wizard == Wizard.TYPE_4){
+                        if (wizard == Wizard.TYPE_4) {
                             images.get(3).setOpacity(0.5);
                         }
                     }
@@ -79,7 +78,7 @@ public class WizardSelection extends BorderPane {
     }
 
     @FXML
-    private void chooseWizard(int i){
+    private void chooseWizard(int i) {
         GUI.instance().setWizard(Wizard.valueOf(i));
     }
 

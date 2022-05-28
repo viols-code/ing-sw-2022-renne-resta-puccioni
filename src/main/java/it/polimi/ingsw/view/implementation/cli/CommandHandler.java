@@ -590,9 +590,9 @@ public class CommandHandler {
      * Calls the method to make the player see all the possible commands.
      */
     public void help(String[] args) {
-        if(args.length == 0){
+        if (args.length == 0) {
             cli.getRenderer().help();
-        } else{
+        } else {
             cli.getRenderer().showErrorMessage(ViewString.INCORRECT_COMMAND);
         }
     }
