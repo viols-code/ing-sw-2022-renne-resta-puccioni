@@ -149,7 +149,7 @@ public class GUI extends View {
         });
     }
 
-    public void showCharacterCard(){
+    public void showCharacterCards(){
         Platform.runLater(() -> {
             CharacterCardsWidget characterCards = new CharacterCardsWidget();
             scene.setRoot(characterCards);

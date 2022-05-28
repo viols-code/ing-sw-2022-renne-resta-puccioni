@@ -180,10 +180,10 @@
             </rowConstraints>
              <children>
                 <Button fx:id="islandsButton" mnemonicParsing="false" text="ISLANDS" onAction="#goToIsland" />
-                <Button fx:id="deckButton" mnemonicParsing="false" text="DECK" GridPane.rowIndex="1" />
+                <Button fx:id="deckButton" mnemonicParsing="false" text="DECK" GridPane.rowIndex="1" onAction="#goToAssistantCards"/>
                 <Button fx:id="player1Button" mnemonicParsing="false" text="PLAYER1" GridPane.rowIndex="2" />
                 <Button fx:id="player2" mnemonicParsing="false" text="PLAYER2" GridPane.rowIndex="3" />
-                <Button fx:id="charactersButton" mnemonicParsing="false" text="CHARACTERS" GridPane.rowIndex="4" />
+                <Button fx:id="charactersButton" mnemonicParsing="false" text="CHARACTERS" GridPane.rowIndex="4" onAction="#goToCharacterCards"/>
              </children>
           </GridPane>
        </children>
