@@ -93,5 +93,14 @@ public class SchoolBoardWidget extends StackPane{
        GUI.instance().showIslands();
     }
 
+    @FXML
+    private void goToAssistantCards(){
+        GUI.instance().showAssistantCards();
+    }
+
+    @FXML
+    private void goToCharacterCards(){
+        GUI.instance().showCharacterCards();
+    }
 
 }

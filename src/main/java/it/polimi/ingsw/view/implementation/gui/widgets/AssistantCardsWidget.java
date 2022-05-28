@@ -15,4 +15,5 @@ public class AssistantCardsWidget extends StackPane {
     public void showSchoolBoard(){
         GUI.instance().showPlayerBoard();
     }
+
 }
