@@ -3,10 +3,7 @@ package it.polimi.ingsw.view.beans;
 import it.polimi.ingsw.model.game.GamePhase;
 import it.polimi.ingsw.model.game.TurnPhase;
 import it.polimi.ingsw.model.player.Wizard;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.Property;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
@@ -79,6 +76,8 @@ public class MockModel {
      */
     private Property<MockPlayer> winner;
 
+    private final StringProperty currentPlayerName;
+
     /**
      * Constructs the local copy of the game
      */
@@ -94,6 +93,7 @@ public class MockModel {
         gamePhase = new SimpleObjectProperty<>();
         turnPhase = new SimpleObjectProperty<>();
         winner = new SimpleObjectProperty<>();
+        currentPlayerName = new SimpleStringProperty();
     }
 
     /**
@@ -352,5 +352,9 @@ public class MockModel {
 
     public IntegerProperty getRoundProperty(){
         return round;
+    }
+
+    public StringProperty currentPlayerNameProperty() {
+        return currentPlayerName;
     }
 }

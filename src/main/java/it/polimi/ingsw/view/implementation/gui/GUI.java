@@ -4,6 +4,7 @@ import it.polimi.ingsw.FXMLUtils;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.model.player.Wizard;
 import it.polimi.ingsw.view.View;
+import it.polimi.ingsw.view.beans.MockPlayer;
 import it.polimi.ingsw.view.implementation.gui.widgets.AssistantCardsWidget;
 import it.polimi.ingsw.view.implementation.gui.widgets.CharacterCardsWidget;
 import it.polimi.ingsw.view.implementation.gui.widgets.GroupIslandsWidget;
@@ -130,7 +131,14 @@ public class GUI extends View {
      */
     public void showPlayerBoard() {
         Platform.runLater(() -> {
-            SchoolBoardWidget schoolBoard = new SchoolBoardWidget();
+            SchoolBoardWidget schoolBoard = new SchoolBoardWidget(getModel().getCurrentPlayer());
+            scene.setRoot(schoolBoard);
+        });
+    }
+
+    public void showOtherPlayerBoard(MockPlayer player) {
+        Platform.runLater(() -> {
+            SchoolBoardWidget schoolBoard = new SchoolBoardWidget(player);
             scene.setRoot(schoolBoard);
         });
     }
@@ -174,5 +182,9 @@ public class GUI extends View {
 
     public Scene getScene() {
         return scene;
+    }
+
+    public boolean isOwnTurn(){
+        return getModel().getCurrentPlayer().getNickname().equals(getModel().getLocalPlayer().getNickname());
     }
 }

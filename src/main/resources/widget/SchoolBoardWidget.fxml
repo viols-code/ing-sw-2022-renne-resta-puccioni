@@ -157,7 +157,7 @@
                 <Label text="ROUND:" />
                 <Label fx:id="roundNumberLabel" text="1" GridPane.columnIndex="1" />
                 <Label text="TURN:" GridPane.rowIndex="1" />
-                <Label fx:id="currentPlayerLabel" text="YOU" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Label fx:id="currentPlayerLabel" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                 <Label text="PHASE:" GridPane.rowIndex="2" />
                 <Label fx:id="turnPhaseLabel" text="PLAY ASSISTANT CARD" GridPane.columnIndex="1" GridPane.rowIndex="2" />
              </children>
@@ -181,7 +181,7 @@
              <children>
                 <Button fx:id="islandsButton" mnemonicParsing="false" text="ISLANDS" onAction="#goToIsland" />
                 <Button fx:id="deckButton" mnemonicParsing="false" text="DECK" GridPane.rowIndex="1" onAction="#goToAssistantCards"/>
-                <Button fx:id="player1Button" mnemonicParsing="false" text="PLAYER1" GridPane.rowIndex="2" />
+                <Button fx:id="player1Button" mnemonicParsing="false" text="PLAYER1" GridPane.rowIndex="2" onAction="#goToPlayer1"/>
                 <Button fx:id="player2" mnemonicParsing="false" text="PLAYER2" GridPane.rowIndex="3" />
                 <Button fx:id="charactersButton" mnemonicParsing="false" text="CHARACTERS" GridPane.rowIndex="4" onAction="#goToCharacterCards"/>
              </children>
