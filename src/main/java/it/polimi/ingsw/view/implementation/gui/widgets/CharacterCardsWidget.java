@@ -1,4 +1,4 @@
 package it.polimi.ingsw.view.implementation.gui.widgets;
 
-public class AssistantCardWidget {
+public class CharacterCardsWidget {
 }

@@ -10,13 +10,13 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.implementation.gui.widgets.CharacterCardWidget">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.implementation.gui.widgets.CharacterCardsWidget">
    <children>
       <HBox alignment="CENTER" layoutX="230.0" layoutY="205.0" prefHeight="200.0" prefWidth="400.0">
          <children>
             <ImageView fitHeight="300.0" fitWidth="196.5">
                <image>
-                  <Image url="@../../images/characterCards/ExchangeEntranceDiningRoom.jpg" />
+                  <Image url="@../images/characterCards/ExchangeEntranceDiningRoom.jpg" />
                </image>
                <HBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -28,7 +28,7 @@
                      <children>
                         <ImageView fitHeight="300.0" fitWidth="196.5">
                            <image>
-                              <Image url="@../../images/characterCards/IslandInfluence.jpg" />
+                              <Image url="@../images/characterCards/IslandInfluence.jpg" />
                            </image>
                            <VBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -42,7 +42,7 @@
                <children>
                   <ImageView fitHeight="300.0" fitWidth="196.5">
                      <image>
-                        <Image url="@../../images/characterCards/MotherNatureMovement.jpg" />
+                        <Image url="@../images/characterCards/MotherNatureMovement.jpg" />
                      </image>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

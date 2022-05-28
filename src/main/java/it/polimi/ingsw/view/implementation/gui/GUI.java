@@ -4,6 +4,8 @@ import it.polimi.ingsw.FXMLUtils;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.model.player.Wizard;
 import it.polimi.ingsw.view.View;
+import it.polimi.ingsw.view.implementation.gui.widgets.GroupIslandsWidget;
+import it.polimi.ingsw.view.implementation.gui.widgets.SchoolBoardWidget;
 import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -46,6 +48,8 @@ public class GUI extends View {
         stage.setTitle("Eriantys");
         //stage.setMaximized(true);
         stage.show();
+
+        stage.setOnCloseRequest(windowEvent -> getClient().terminate());
     }
 
     @Override
@@ -115,12 +119,27 @@ public class GUI extends View {
     @Override
     public void handleAllPlayersConnected(HashMap<String, Wizard> players, boolean gameMode, int numPlayers){
         super.handleAllPlayersConnected(players, gameMode, numPlayers);
+    }
 
+    /**
+     * Shows the local player's PlayerBoard.
+     */
+    public void showPlayerBoard() {
         Platform.runLater(() -> {
-            Parent waitingPlayers = FXMLUtils.loadFXML("/gui/Widgets/SchoolBoard");
-            scene.setRoot(waitingPlayers);
+            SchoolBoardWidget schoolBoard = new SchoolBoardWidget();
+            scene.setRoot(schoolBoard);
         });
+    }
 
+    public void showAssistantCards() {
+
+    }
+
+    public void showIslands(){
+        Platform.runLater(() -> {
+            GroupIslandsWidget groupIsland = new GroupIslandsWidget();
+            scene.setRoot(groupIsland);
+        });
     }
 
     @Override
@@ -136,5 +155,9 @@ public class GUI extends View {
     @Override
     public void handleEndGame() {
 
+    }
+
+    public Scene getScene() {
+        return scene;
     }
 }

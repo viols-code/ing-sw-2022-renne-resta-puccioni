@@ -1,5 +1,6 @@
 package it.polimi.ingsw.view.implementation.gui.widgets;
 
+import it.polimi.ingsw.FXMLUtils;
 import it.polimi.ingsw.view.beans.MockPlayer;
 import it.polimi.ingsw.view.implementation.gui.GUI;
 import javafx.application.Platform;
@@ -7,8 +8,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.layout.StackPane;
 
-public class SchoolBoardWidget {
+public class SchoolBoardWidget extends StackPane{
 
     @FXML
     private Image studentEntrance1;
@@ -45,6 +47,12 @@ public class SchoolBoardWidget {
 
     private MockPlayer localPlayer;
 
+
+    public SchoolBoardWidget() {
+       // this.player = player;
+        FXMLUtils.loadWidgetFXML(this);
+    }
+
     private void initialize(){
 
        localPlayer = GUI.instance().getModel().getLocalPlayer();
@@ -78,6 +86,11 @@ public class SchoolBoardWidget {
             SchoolBoardWidget schoolBoardWidget = new SchoolBoardWidget();
             //GUI.instance().setRoot(schoolBoardWidget);
         });
+    }
+
+    @FXML
+    private void goToIsland() {
+       GUI.instance().showIslands();
     }
 
 
