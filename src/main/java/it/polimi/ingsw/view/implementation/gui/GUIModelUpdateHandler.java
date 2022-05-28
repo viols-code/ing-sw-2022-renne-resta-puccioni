@@ -15,4 +15,8 @@ public class GUIModelUpdateHandler extends ModelUpdateHandler {
             GUI.instance().showPlayerBoard();
         }
     }
+
+    public void updateCurrentAssistantCard(String playerName, int assistantCard){
+        super.updateCurrentAssistantCard(playerName, assistantCard);
+    }
 }

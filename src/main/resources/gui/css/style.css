@@ -23,3 +23,9 @@
     -fx-border-width: 2.0;
     -fx-border-style: solid;
 }
+
+.assistantCards:hover {
+    -fx-border-color: orange;
+    -fx-border-width: 2.0;
+    -fx-border-style: solid;
+}

@@ -11,7 +11,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 
 import java.util.HashMap;
-import java.util.stream.Collectors;
 
 /**
  * Class that contains a local copy of the player
@@ -26,7 +25,6 @@ public class MockPlayer {
      * The wizard chosen by the player
      */
     private final Wizard wizard;
-
 
     /**
      * The current assistant card
@@ -178,6 +176,10 @@ public class MockPlayer {
      */
     public HashMap<Integer, AssistantCard> getCards() {
         return new HashMap<>(cards);
+    }
+
+    public ObservableMap<Integer, AssistantCard> getCardsProperty() {
+        return cards;
     }
 
     /**

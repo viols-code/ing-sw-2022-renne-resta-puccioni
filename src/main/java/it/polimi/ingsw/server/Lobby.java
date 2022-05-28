@@ -68,7 +68,13 @@ public class Lobby extends Observable<IServerPacket> {
             indexOfFirstConnection = connections.indexOf(firstConnection);
         }
 
-        notify(new AddToLobbyMessage(connection, firstConnection == connection));
+        List<Wizard> otherWizard = new ArrayList<>();
+        connections.forEach(con -> {
+            if (con.getWizard() != null)
+                otherWizard.add(con.getWizard());
+        });
+
+        notify(new AddToLobbyMessage(connection, firstConnection == connection, otherWizard));
     }
 
     /**
@@ -142,8 +148,8 @@ public class Lobby extends Observable<IServerPacket> {
             } else {
                 players = playersToStart;
             }
-            notify(new PlayerConnectMessage(connection.getPlayerName(), wizard, connections.indexOf(connection) + 1, players));
-            notify(new CorrectWizardMessage(connection, wizard, otherWizard));
+            notify(new PlayerConnectMessage(connection.getPlayerName(), wizard, connections.indexOf(connection) + 1, players, otherWizard));
+            notify(new CorrectWizardMessage(connection, wizard));
         }
     }
 
@@ -254,7 +260,7 @@ public class Lobby extends Observable<IServerPacket> {
                     connections.remove(conn);
                 }
             }
-        }, 50000);
+        }, 5000);
     }
 
     /**

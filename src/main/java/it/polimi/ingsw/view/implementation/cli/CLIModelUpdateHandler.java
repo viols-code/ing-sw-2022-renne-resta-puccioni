@@ -99,7 +99,7 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
      * Updates the ArrayList islands in MockTable according to the merge of the group island selected
      *
      * @param groupIsland1 the index of the first group island
-     * @param groupIsland2 the index of the second gorup island
+     * @param groupIsland2 the index of the second group island
      */
     @Override
     public void updateUnifyIsland(int groupIsland1, int groupIsland2) {

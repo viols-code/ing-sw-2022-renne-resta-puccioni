@@ -89,8 +89,7 @@ public class CLIRenderer extends Renderer {
     public void printAvailableAssistantCards() {
         String assistantCard = "";
         view.getModel().getLocalPlayer().getCards()
-                .entrySet()
-                .forEach(card -> renderAssistantCard(card.getValue().getValue(), card.getValue().getMotherNatureMovement(), assistantCard));
+                .forEach((key, value) -> renderAssistantCard(value.getValue(), value.getMotherNatureMovement(), assistantCard));
     }
 
     /**

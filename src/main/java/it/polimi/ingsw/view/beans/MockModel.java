@@ -29,7 +29,7 @@ public class MockModel {
     /**
      * The current player
      */
-    private Property<MockPlayer>currentPlayer;
+    private Property<MockPlayer> currentPlayer;
 
     /**
      * A local copy of the game table
@@ -76,8 +76,6 @@ public class MockModel {
      */
     private Property<MockPlayer> winner;
 
-    private final StringProperty currentPlayerName;
-
     /**
      * Constructs the local copy of the game
      */
@@ -93,7 +91,6 @@ public class MockModel {
         gamePhase = new SimpleObjectProperty<>();
         turnPhase = new SimpleObjectProperty<>();
         winner = new SimpleObjectProperty<>();
-        currentPlayerName = new SimpleStringProperty();
     }
 
     /**
@@ -354,7 +351,7 @@ public class MockModel {
         return round;
     }
 
-    public StringProperty currentPlayerNameProperty() {
-        return currentPlayerName;
+    public Property<TurnPhase> getTurnPhaseProperty(){
+        return this.turnPhase;
     }
 }

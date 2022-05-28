@@ -5,6 +5,8 @@ import it.polimi.ingsw.client.messages.PlayerNameMessage;
 import it.polimi.ingsw.client.messages.PlayerWizardMessage;
 import it.polimi.ingsw.model.player.Wizard;
 import it.polimi.ingsw.view.beans.MockModel;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.util.HashMap;
 import java.util.List;
@@ -25,7 +27,7 @@ public abstract class View {
     private boolean gameMode;
     private int numPlayers;
     private boolean lobbyMaster;
-
+    private final ObservableList<Wizard> takenWizards;
     /**
      * Constructs a new View.
      *
@@ -36,6 +38,7 @@ public abstract class View {
         this.model = new MockModel();
         this.gameState = GameState.CONNECTING;
         this.wizard = null;
+        this.takenWizards = FXCollections.observableArrayList();
     }
 
     /**
@@ -198,11 +201,20 @@ public abstract class View {
      * Handles the successful connection to a server lobby.
      *
      * @param isFirstConnection true if this client is the first to connect to the lobby, false otherwise
+     * @param
      */
-    public void addToLobby(boolean isFirstConnection) {
+    public void addToLobby(boolean isFirstConnection, List<Wizard> takenWizard) {
         setGameState(GameState.CHOOSING_NAME);
         if (isFirstConnection)
             lobbyMaster = true;
+
+        if(takenWizard != null){
+            for(Wizard wizard : takenWizard){
+                System.out.println(wizard);
+            }
+            this.takenWizards.clear();
+            this.takenWizards.addAll(takenWizard);
+        }
     }
 
     /**
@@ -219,9 +231,8 @@ public abstract class View {
      * Handles the successful wizard setting
      *
      * @param wizard      the wizard chosen by the local player
-     * @param takenWizard the wizard chosen by the players connected to the lobby
      */
-    public void handleCorrectWizard(Wizard wizard, List<Wizard> takenWizard) {
+    public void handleCorrectWizard(Wizard wizard) {
         if (isLobbyMaster()) {
             setGameState(GameState.CHOOSING_GAME_MODE);
         } else {
@@ -248,9 +259,7 @@ public abstract class View {
     public void handleAllPlayersConnected(HashMap<String, Wizard> players, boolean gameMode, int numPlayers) {
         this.gameMode = gameMode;
         this.numPlayers = numPlayers;
-        players.entrySet()
-                .stream()
-                .forEach(player -> getModel().addPlayer(player.getKey(), player.getValue(), gameMode, player.getKey().equalsIgnoreCase(this.playerName)));
+        players.forEach((key, value) -> getModel().addPlayer(key, value, gameMode, key.equalsIgnoreCase(this.playerName)));
         for (int i = 0; i < numPlayers; i++) {
             getModel().getTable().addCloudTile();
         }
@@ -264,8 +273,11 @@ public abstract class View {
      * @param currentPlayers the amount of players connected to the lobby
      * @param playersToStart the number of players required to start the game
      */
-    public void handlePlayerConnect(String playerName, Wizard wizard, int currentPlayers, Integer playersToStart) {
-
+    public void handlePlayerConnect(String playerName, Wizard wizard, int currentPlayers, Integer playersToStart, List<Wizard> takenWizard) {
+        this.takenWizards.clear();
+        if(takenWizard != null){
+            this.takenWizards.addAll(takenWizard);
+        }
     }
 
     /**
@@ -338,5 +350,13 @@ public abstract class View {
         this.model = new MockModel();
 
         getClient().reset();
+    }
+
+    public ObservableList<Wizard> getTakenWizardsProperty() {
+        return takenWizards;
+    }
+
+    public List<Wizard> getTakenWizards() {
+        return takenWizards;
     }
 }

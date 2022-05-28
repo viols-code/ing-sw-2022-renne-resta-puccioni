@@ -53,8 +53,8 @@ public class GUI extends View {
     }
 
     @Override
-    public void addToLobby(boolean isFirstConnection) {
-        super.addToLobby(isFirstConnection);
+    public void addToLobby(boolean isFirstConnection, List<Wizard> takenWizard) {
+        super.addToLobby(isFirstConnection, takenWizard);
 
         Platform.runLater(() -> {
             Parent nameSelectionPage = FXMLUtils.loadFXML("/gui/NicknameSelection");
@@ -78,8 +78,8 @@ public class GUI extends View {
     }
 
     @Override
-    public void handleCorrectWizard(Wizard wizard, List<Wizard> takenWizard) {
-        super.handleCorrectWizard(wizard, takenWizard);
+    public void handleCorrectWizard(Wizard wizard) {
+        super.handleCorrectWizard(wizard);
 
         if (wizard.equals(getPlayerWizard())) {
             if (isLobbyMaster()) {
@@ -128,7 +128,7 @@ public class GUI extends View {
      */
     public void showPlayerBoard() {
         Platform.runLater(() -> {
-            SchoolBoardWidget schoolBoard = new SchoolBoardWidget(getModel().getCurrentPlayer());
+            SchoolBoardWidget schoolBoard = new SchoolBoardWidget();
             scene.setRoot(schoolBoard);
         });
     }

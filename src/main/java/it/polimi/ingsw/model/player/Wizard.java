@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model.player;
 
+import javafx.collections.ObservableArray;
+
 import java.util.HashMap;
 import java.util.Map;
 

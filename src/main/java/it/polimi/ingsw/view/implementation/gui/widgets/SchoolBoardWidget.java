@@ -1,6 +1,7 @@
 package it.polimi.ingsw.view.implementation.gui.widgets;
 
 import it.polimi.ingsw.FXMLUtils;
+import it.polimi.ingsw.view.GameState;
 import it.polimi.ingsw.view.beans.MockPlayer;
 import it.polimi.ingsw.view.implementation.gui.GUI;
 import javafx.application.Platform;
@@ -48,11 +49,8 @@ public class SchoolBoardWidget extends StackPane{
     @FXML
     private Label turnPhaseLabel;
 
-    private final MockPlayer player;
 
-
-    public SchoolBoardWidget(MockPlayer player) {
-       this.player = player;
+    public SchoolBoardWidget() {
         FXMLUtils.loadWidgetFXML(this);
     }
 
@@ -61,24 +59,23 @@ public class SchoolBoardWidget extends StackPane{
        //Shows the current Player
         currentPlayerLabel.setText(GUI.instance().isOwnTurn() ? "Yours" :
                 GUI.instance().getModel().getCurrentPlayer().getNickname());
-        GUI.instance().getModel().currentPlayerNameProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> {
-            if (GUI.instance().getPlayerName().equals(newVal)) {
-                currentPlayerLabel.setText("Yours");
-            } else {
-                currentPlayerLabel.setText(newVal);
-            }
+        GUI.instance().getModel().getCurrentPlayerProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> {
+            currentPlayerLabel.setText(GUI.instance().isOwnTurn() ? "Yours" :
+                    GUI.instance().getModel().getCurrentPlayer().getNickname());
         }));
 
 
+        // Shows the round
+        roundNumberLabel.setText(String.valueOf(GUI.instance().getModel().getRound()));
         GUI.instance().getModel().getRoundProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> {
-            roundNumberLabel.setText(GUI.instance().getModel().getRoundProperty().toString());
+            roundNumberLabel.setText(String.valueOf(GUI.instance().getModel().getRound()));
         }));
 
 
-       //Shows the turn phase
-        roundNumberLabel.setText("play assistant card");
-        GUI.instance().getModel().getRoundProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> {
-            roundNumberLabel.setText(GUI.instance().getModel().getTurnPhase().name());
+       // Shows the turn phase
+        turnPhaseLabel.setText(GUI.instance().getModel().getTurnPhase().name());
+        GUI.instance().getModel().getTurnPhaseProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> {
+            turnPhaseLabel.setText(GUI.instance().getModel().getTurnPhase().name());
         }));
 
     }
@@ -109,7 +106,7 @@ public class SchoolBoardWidget extends StackPane{
             players.add(player);
         }
 
-        Platform.runLater(() -> getScene().setRoot(new OtherSchoolBoardWidget(players.get(0))));
+        Platform.runLater(() -> GUI.instance().showOtherPlayerBoard(players.get(0)));
     }
 
 }
