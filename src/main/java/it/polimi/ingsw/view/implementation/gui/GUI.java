@@ -5,6 +5,7 @@ import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.model.player.Wizard;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.implementation.gui.widgets.AssistantCardsWidget;
+import it.polimi.ingsw.view.implementation.gui.widgets.CharacterCardsWidget;
 import it.polimi.ingsw.view.implementation.gui.widgets.GroupIslandsWidget;
 import it.polimi.ingsw.view.implementation.gui.widgets.SchoolBoardWidget;
 import javafx.application.Platform;
@@ -145,6 +146,14 @@ public class GUI extends View {
             scene.setRoot(assistantCards);
         });
     }
+
+    public void showCharacterCard(){
+        Platform.runLater(() -> {
+            CharacterCardsWidget characterCards = new CharacterCardsWidget();
+            scene.setRoot(characterCards);
+        });
+    }
+
 
     @Override
     public void handlePlayerDisconnect(String playerName) {
