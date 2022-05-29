@@ -2,25 +2,163 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
-<fx:root type="StackPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
-         fx:controller="it.polimi.ingsw.view.implementation.gui.widgets.CharacterCardsWidget">
 
-    <AnchorPane stylesheets="@../gui/css/style.css" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                minWidth="-Infinity" prefHeight="720.0"
-                prefWidth="1080.0">
-        <HBox fx:id="box" alignment="CENTER" layoutX="230.0" layoutY="205.0" prefHeight="300.0" prefWidth="196.5">
+<fx:root type="StackPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.implementation.gui.widgets.CharacterCardsWidget">
 
-        </HBox>
+    <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" stylesheets="@../gui/css/style.css">
+        <HBox fx:id="box" alignment="CENTER" layoutX="230.0" layoutY="205.0" prefHeight="310.0" prefWidth="619.5" />
         <Label layoutX="348.0" layoutY="96.0" text="Character Cards">
             <font>
-                <Font name="Comic Sans MS Bold Italic" size="48.0"/>
+                <Font name="Comic Sans MS Bold Italic" size="48.0" />
             </font>
         </Label>
-        <Button layoutX="53.0" layoutY="70.0" mnemonicParsing="false" onAction="#showSchoolBoard"
-                text="GO BACK TO SCHOOL BOARD"/>
+        <Button layoutX="53.0" layoutY="70.0" mnemonicParsing="false" onAction="#showSchoolBoard" text="GO BACK TO SCHOOL BOARD" />
+         <GridPane fx:id="studentsOnCard" alignment="BOTTOM_CENTER" layoutX="493.0" layoutY="516.0" prefHeight="140.0" prefWidth="100.0">
+             <columnConstraints>
+                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="40.0" />
+                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="20.0" />
+                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="40.0" />
+             </columnConstraints>
+             <rowConstraints>
+                 <RowConstraints maxHeight="91.79999389648438" minHeight="40.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                 <RowConstraints maxHeight="91.79999389648438" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+                 <RowConstraints maxHeight="91.79999389648438" minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                 <RowConstraints maxHeight="91.79999389648438" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+                 <RowConstraints maxHeight="91.79999389648438" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+             </rowConstraints>
+         <children>
+            <ImageView>
+               <image>
+                  <Image url="@../images/students/student_blue.png" />
+               </image>
+            </ImageView>
+            <ImageView GridPane.columnIndex="2">
+               <image>
+                  <Image url="@../images/students/student_green.png" />
+               </image>
+            </ImageView>
+            <ImageView GridPane.rowIndex="2">
+               <image>
+                  <Image url="@../images/students/student_pink.png" />
+               </image>
+            </ImageView>
+            <ImageView GridPane.columnIndex="2" GridPane.rowIndex="2">
+               <image>
+                  <Image url="@../images/students/student_yellow.png" />
+               </image>
+            </ImageView>
+            <ImageView GridPane.rowIndex="4">
+               <image>
+                  <Image url="@../images/students/student_red.png" />
+               </image>
+            </ImageView>
+            <ImageView GridPane.columnIndex="2" GridPane.rowIndex="4">
+               <image>
+                  <Image url="@../images/students/student_red.png" />
+               </image>
+            </ImageView>
+         </children>
+         </GridPane>
+      <GridPane fx:id="studentsOnCard1" alignment="BOTTOM_CENTER" layoutX="702.0" layoutY="515.0" prefHeight="140.0" prefWidth="100.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="40.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="20.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="40.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="91.79999389648438" minHeight="40.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="91.79999389648438" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="91.79999389648438" minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="91.79999389648438" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="91.79999389648438" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <ImageView>
+               <image>
+                  <Image url="@../images/students/student_blue.png" />
+               </image>
+            </ImageView>
+            <ImageView GridPane.columnIndex="2">
+               <image>
+                  <Image url="@../images/students/student_green.png" />
+               </image>
+            </ImageView>
+            <ImageView GridPane.rowIndex="2">
+               <image>
+                  <Image url="@../images/students/student_pink.png" />
+               </image>
+            </ImageView>
+            <ImageView GridPane.columnIndex="2" GridPane.rowIndex="2">
+               <image>
+                  <Image url="@../images/students/student_yellow.png" />
+               </image>
+            </ImageView>
+            <ImageView GridPane.rowIndex="4">
+               <image>
+                  <Image url="@../images/students/student_red.png" />
+               </image>
+            </ImageView>
+            <ImageView GridPane.columnIndex="2" GridPane.rowIndex="4">
+               <image>
+                  <Image url="@../images/students/student_red.png" />
+               </image>
+            </ImageView>
+         </children>
+      </GridPane>
+      <GridPane fx:id="studentsOnCard2" alignment="BOTTOM_CENTER" layoutX="273.0" layoutY="518.0" prefHeight="140.0" prefWidth="100.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="40.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="20.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="40.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="91.79999389648438" minHeight="40.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="91.79999389648438" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="91.79999389648438" minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="91.79999389648438" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="91.79999389648438" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <ImageView>
+               <image>
+                  <Image url="@../images/students/student_blue.png" />
+               </image>
+            </ImageView>
+            <ImageView GridPane.columnIndex="2">
+               <image>
+                  <Image url="@../images/students/student_green.png" />
+               </image>
+            </ImageView>
+            <ImageView GridPane.rowIndex="2">
+               <image>
+                  <Image url="@../images/students/student_pink.png" />
+               </image>
+            </ImageView>
+            <ImageView GridPane.columnIndex="2" GridPane.rowIndex="2">
+               <image>
+                  <Image url="@../images/students/student_yellow.png" />
+               </image>
+            </ImageView>
+            <ImageView GridPane.rowIndex="4">
+               <image>
+                  <Image url="@../images/students/student_red.png" />
+               </image>
+            </ImageView>
+            <ImageView GridPane.columnIndex="2" GridPane.rowIndex="4">
+               <image>
+                  <Image url="@../images/students/student_red.png" />
+               </image>
+            </ImageView>
+         </children>
+      </GridPane>
     </AnchorPane>
 </fx:root>
