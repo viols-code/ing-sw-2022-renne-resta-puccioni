@@ -100,4 +100,8 @@ public class MockSchoolBoard {
     public void setTowers(int towers) {
         this.towers.setValue(towers);
     }
+
+    public ObservableMap<Colour, Integer> getEntranceProperty(){
+        return entrance;
+    }
 }

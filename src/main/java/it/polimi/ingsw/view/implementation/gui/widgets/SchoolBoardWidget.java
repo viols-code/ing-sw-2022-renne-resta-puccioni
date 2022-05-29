@@ -1,17 +1,24 @@
 package it.polimi.ingsw.view.implementation.gui.widgets;
 
 import it.polimi.ingsw.FXMLUtils;
+import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.view.beans.MockPlayer;
 import it.polimi.ingsw.view.implementation.gui.GUI;
 import javafx.application.Platform;
+import javafx.collections.MapChangeListener;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.Objects;
 
 public class SchoolBoardWidget extends StackPane {
 
@@ -48,6 +55,9 @@ public class SchoolBoardWidget extends StackPane {
     @FXML
     private Label turnPhaseLabel;
 
+    @FXML
+    private GridPane entrance;
+
 
     public SchoolBoardWidget() {
         FXMLUtils.loadWidgetFXML(this);
@@ -76,6 +86,31 @@ public class SchoolBoardWidget extends StackPane {
         GUI.instance().getModel().getTurnPhaseProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> {
             turnPhaseLabel.setText(GUI.instance().getModel().getTurnPhase().name());
         }));
+
+        int c = 0;
+        int r = 2;
+
+        for(Colour colour : Colour.values()){
+            for(int i = 0; i < GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getEntrance().get(colour); i++){
+                ImageView imageView = new ImageView();
+                imageView.setImage(new Image(Objects.requireNonNull(SchoolBoardWidget.class.getResourceAsStream(
+                        "/images/students/student_" + colour.name().toLowerCase(Locale.ROOT) + ".png"))));
+                entrance.add(imageView, r, c);
+                if(r == 2){
+                    r = 0;
+                    c+=2;
+                }
+                else if (r == 0){
+                    r = 2;
+                }
+
+            }
+        }
+
+        GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getEntranceProperty().addListener((MapChangeListener<? super Colour,? super Integer> ) listener ->
+                Platform.runLater(() -> {
+
+            }));
 
     }
 
