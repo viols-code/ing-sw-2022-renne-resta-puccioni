@@ -139,7 +139,7 @@ public abstract class ActionSender {
      *                                  the player hasn't enough money to pay the card
      */
     public void playCharacterCard(String localPlayer, int characterCard) throws IllegalArgumentException {
-        if (getView().getModel().isGameExpert()) {
+        if (!getView().getModel().isGameExpert()) {
             throw new IllegalArgumentException("The game mode is not expert: you can't play character card");
         } else if (!getView().getModel().getCurrentPlayer().getNickname().equalsIgnoreCase(localPlayer)) {
             throw new IllegalArgumentException("It's not your turn");
