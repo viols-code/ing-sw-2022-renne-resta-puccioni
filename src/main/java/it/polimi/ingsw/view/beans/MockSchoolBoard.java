@@ -6,7 +6,9 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Class that contains a local copy of the player's school board
@@ -16,6 +18,7 @@ public class MockSchoolBoard {
     private ObservableMap<Colour, Integer> diningRoom;
     private ObservableMap<Colour, Boolean> professorTable;
     private IntegerProperty towers;
+    private List<StudentCoordinates> selectedStudents;
 
     public MockSchoolBoard() {
         entrance = FXCollections.observableHashMap();
@@ -27,6 +30,7 @@ public class MockSchoolBoard {
             diningRoom.put(colour, 0);
             professorTable.put(colour, false);
         }
+        selectedStudents = new ArrayList<>();
     }
 
     /**
@@ -103,5 +107,17 @@ public class MockSchoolBoard {
 
     public ObservableMap<Colour, Integer> getEntranceProperty(){
         return entrance;
+    }
+
+    public List<StudentCoordinates> getSelectedStudents() {
+        return selectedStudents;
+    }
+
+    public void addSelectedStudent(int row, int col, Colour colour){
+        selectedStudents.add(new StudentCoordinates(row,col,colour));
+    }
+
+    public ObservableMap<Colour, Integer> getDiningRoomProperty(){
+        return diningRoom;
     }
 }

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.view.beans;
 
+import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.GamePhase;
 import it.polimi.ingsw.model.game.TurnPhase;
 import it.polimi.ingsw.model.player.Wizard;
@@ -78,6 +79,11 @@ public class MockModel {
      * The winner
      */
     private Property<MockPlayer> winner;
+
+    /**
+     * The colour selected
+     */
+    private Colour selectedColour;
 
     /**
      * Constructs the local copy of the game
@@ -356,5 +362,13 @@ public class MockModel {
 
     public Property<TurnPhase> getTurnPhaseProperty() {
         return this.turnPhase;
+    }
+
+    public Colour getSelectedColour() {
+        return selectedColour;
+    }
+
+    public void setSelectedColour(Colour selectedColour) {
+        this.selectedColour = selectedColour;
     }
 }
