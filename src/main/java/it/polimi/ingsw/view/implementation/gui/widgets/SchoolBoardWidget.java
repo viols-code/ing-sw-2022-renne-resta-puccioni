@@ -13,12 +13,10 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Objects;
+import java.util.*;
 
 public class SchoolBoardWidget extends StackPane {
 
@@ -50,8 +48,34 @@ public class SchoolBoardWidget extends StackPane {
     @FXML
     private Label turnPhaseLabel;
 
+    /*
+    Entrance
+     */
     @FXML
     private GridPane entrance;
+
+    /*
+     * Dining room
+     */
+    @FXML
+    private GridPane diningRoom;
+
+    @FXML
+    private RowConstraints diningRoomGreen;
+
+    @FXML
+    private RowConstraints diningRoomRed;
+
+    @FXML
+    private RowConstraints diningRoomYellow;
+
+    @FXML
+    private RowConstraints diningRoomPink;
+
+    @FXML
+    private RowConstraints diningRoomBlue;
+
+    private List<Coordinates> entranceBoxes;
 
 
     public SchoolBoardWidget() {
@@ -60,6 +84,8 @@ public class SchoolBoardWidget extends StackPane {
 
     @FXML
     private void initialize() {
+        entranceBoxes = new ArrayList<>(Arrays.asList(new Coordinates(2,0),new Coordinates(0,2),new Coordinates(2,2),new Coordinates(0,4),new Coordinates(2,4),new Coordinates(0,6),new Coordinates(2,6),new Coordinates(0,8),new Coordinates(2,8)));
+
         //Shows the current Player
         currentPlayerLabel.setText(GUI.instance().isOwnTurn() ? "Yours" :
                 GUI.instance().getModel().getCurrentPlayer().getNickname());
@@ -109,30 +135,8 @@ public class SchoolBoardWidget extends StackPane {
             gridPane.add(button, 0, row);
         }
 
-        int c = 0;
-        int r = 2;
-
-        for(Colour colour : Colour.values()){
-            for(int i = 0; i < GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getEntrance().get(colour); i++){
-                ImageView imageView = new ImageView();
-                imageView.setImage(new Image(Objects.requireNonNull(SchoolBoardWidget.class.getResourceAsStream(
-                        "/images/students/student_" + colour.name().toLowerCase(Locale.ROOT) + ".png"))));
-                entrance.add(imageView, r, c);
-                if(r == 2){
-                    r = 0;
-                    c+=2;
-                }
-                else if (r == 0){
-                    r = 2;
-                }
-
-            }
-        }
-
-        GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getEntranceProperty().addListener((MapChangeListener<? super Colour,? super Integer> ) listener ->
-                Platform.runLater(() -> {
-
-            }));
+       initEntrance();
+       initDiningRoom();
 
     }
 
@@ -145,6 +149,110 @@ public class SchoolBoardWidget extends StackPane {
     @FXML
     private void goToAssistantCards() {
         GUI.instance().showAssistantCards();
+    }
+
+    @FXML
+    private void selectStudentFromEntrance(Colour colour){
+        GUI.instance().getModel().setSelectedColour(colour);
+        diningRoom.setOnMouseClicked(event -> moveStudentToDiningRoom());
+    }
+
+    @FXML
+    private void moveStudentToDiningRoom(){
+        GUI.instance().getActionSender().moveStudentToDiningRoom(GUI.instance().getPlayerName(), GUI.instance().getModel().getSelectedColour());
+        diningRoom.setOnMouseClicked(event -> noAction());
+    }
+
+    @FXML
+    private void noAction(){
+
+    }
+
+    private void initEntrance(){
+        //init the entrance
+        List<Colour> entranceStudents = new ArrayList<>();
+        for(Colour colour: Colour.values()){
+            for(int i=0; i<GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getEntrance().get(colour); i++){
+                entranceStudents.add(colour);
+            }
+        }
+
+        for(int i=0; i<entranceStudents.size();i++){
+            ImageView imageView = new ImageView();
+            entrance.add(imageView,entranceBoxes.get(i).getRow(),entranceBoxes.get(i).getColumn());
+            imageView.setImage(new Image(Objects.requireNonNull(SchoolBoardWidget.class.getResourceAsStream(
+                    "/images/students/student_" + entranceStudents.get(i).name().toLowerCase(Locale.ROOT) + ".png"))));
+            Colour colour = entranceStudents.get(i);
+            imageView.setOnMouseClicked(event -> selectStudentFromEntrance(colour));
+        }
+
+        GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getEntranceProperty().addListener((MapChangeListener<? super Colour,? super Integer> ) listener ->
+                Platform.runLater(() -> {
+                    entrance.getChildren().forEach(node -> node.setVisible(false));
+                    entrance.getChildren().removeAll();
+                    List<Colour> students = new ArrayList<>();
+                    for(Colour colour: Colour.values()){
+                        for(int i=0; i<GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getEntrance().get(colour); i++){
+                            students.add(colour);
+                        }
+                    }
+
+                    for(int i=0; i<students.size();i++){
+                        ImageView imageView = new ImageView();
+                        entrance.add(imageView,entranceBoxes.get(i).getRow(),entranceBoxes.get(i).getColumn());
+                        imageView.setImage(new Image(Objects.requireNonNull(SchoolBoardWidget.class.getResourceAsStream(
+                                "/images/students/student_" + students.get(i).name().toLowerCase(Locale.ROOT) + ".png"))));
+                        Colour colour = students.get(i);
+                        imageView.setOnMouseClicked(event -> selectStudentFromEntrance(colour));
+                    }
+                }));
+    }
+
+    private void initDiningRoom(){
+        for(Colour colour: Colour.values()){
+            for(int i=0; i<GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getDiningRoom().get(colour); i++){
+                ImageView imageView = new ImageView();
+                diningRoom.add(imageView,i,getDiningRoomTable(colour));
+                imageView.setImage(new Image(Objects.requireNonNull(SchoolBoardWidget.class.getResourceAsStream(
+                        "/images/students/student_" + colour + ".png"))));
+
+            }
+        }
+
+        GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getDiningRoomProperty().addListener((MapChangeListener<? super Colour,? super Integer> ) listener ->
+                Platform.runLater(() -> {
+                    for(Colour colour: Colour.values()){
+                        for(int i=0; i<GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getDiningRoom().get(colour); i++){
+                            ImageView imageView = new ImageView();
+                            diningRoom.add(imageView,i,getDiningRoomTable(colour));
+                            imageView.setImage(new Image(Objects.requireNonNull(SchoolBoardWidget.class.getResourceAsStream(
+                                    "/images/students/student_" + colour + ".png"))));
+
+                        }
+                    }
+                }));
+    }
+
+    private int getDiningRoomTable(Colour colour){
+        int res = 0;
+        switch (colour){
+            case GREEN -> {
+                res = 0;
+            }
+            case RED -> {
+                res = 2;
+            }
+            case YELLOW -> {
+                res = 4;
+            }
+            case PINK -> {
+                res = 6;
+            }
+            case BLUE -> {
+                res = 8;
+            }
+        }
+        return res;
     }
 
 }
