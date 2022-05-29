@@ -35,13 +35,8 @@ public class SchoolBoardWidget extends StackPane {
     private Button deckButton;
 
     @FXML
-    private Button player1Button;
+    private GridPane gridPane;
 
-    @FXML
-    private Button player2Button;
-
-    @FXML
-    private Button charactersButton;
 
     /*
      * LABELS
@@ -87,6 +82,33 @@ public class SchoolBoardWidget extends StackPane {
             turnPhaseLabel.setText(GUI.instance().getModel().getTurnPhase().name());
         }));
 
+        List<MockPlayer> players = new ArrayList<>();
+
+        for (MockPlayer player : GUI.instance().getModel().getPlayers().values()) {
+            if (player.equals(GUI.instance().getModel().getLocalPlayer()))
+                continue;
+            players.add(player);
+        }
+
+        int row = 2;
+
+        for(int i = 0; i < GUI.instance().getNumPlayers() - 1; i++){
+            Button button = new Button();
+            button.setText(players.get(i).getNickname() + "'s school board");
+            int a = i;
+            button.setOnMouseClicked(event -> Platform.runLater(() -> GUI.instance().showOtherPlayerBoard(players.get(a))));
+            button.setPrefWidth(Double.MAX_VALUE);
+            gridPane.add(button, 0, row);
+            row++;
+        }
+
+        if(GUI.instance().getGameMode()){
+            Button button = new Button();
+            button.setText("Character Cards");
+            button.setOnMouseClicked(event -> Platform.runLater(() -> GUI.instance().showCharacterCards()));
+            gridPane.add(button, 0, row);
+        }
+
         int c = 0;
         int r = 2;
 
@@ -123,24 +145,6 @@ public class SchoolBoardWidget extends StackPane {
     @FXML
     private void goToAssistantCards() {
         GUI.instance().showAssistantCards();
-    }
-
-    @FXML
-    private void goToCharacterCards() {
-        GUI.instance().showCharacterCards();
-    }
-
-    @FXML
-    private void goToPlayer1() {
-        List<MockPlayer> players = new ArrayList<>();
-
-        for (MockPlayer player : GUI.instance().getModel().getPlayers().values()) {
-            if (player.equals(GUI.instance().getModel().getLocalPlayer()))
-                continue;
-            players.add(player);
-        }
-
-        Platform.runLater(() -> GUI.instance().showOtherPlayerBoard(players.get(0)));
     }
 
 }

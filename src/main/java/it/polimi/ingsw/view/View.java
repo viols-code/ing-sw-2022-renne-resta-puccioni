@@ -358,4 +358,8 @@ public abstract class View {
     public List<Wizard> getTakenWizards() {
         return takenWizards;
     }
+
+    public int getNumPlayers(){
+        return numPlayers;
+    }
 }

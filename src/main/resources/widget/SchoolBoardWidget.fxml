@@ -158,7 +158,7 @@
                     <Font name="Comic Sans MS Bold Italic" size="53.0" />
                 </font>
             </Label>
-            <GridPane layoutX="51.0" layoutY="49.0">
+            <GridPane fx:id = "gridPane" layoutX="51.0" layoutY="49.0">
                 <columnConstraints>
                     <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 </columnConstraints>
@@ -170,11 +170,8 @@
                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 </rowConstraints>
                 <children>
-                    <Button fx:id="islandsButton" mnemonicParsing="false" onAction="#goToIsland" text="ISLANDS" />
+                    <Button fx:id="islandsButton" mnemonicParsing="false" onAction="#goToIsland" text="ISLANDS" GridPane.rowIndex="0"/>
                     <Button fx:id="deckButton" mnemonicParsing="false" onAction="#goToAssistantCards" text="DECK" GridPane.rowIndex="1" />
-                    <Button fx:id="player1Button" mnemonicParsing="false" onAction="#goToPlayer1" text="PLAYER1" GridPane.rowIndex="2" />
-                    <Button fx:id="player2" mnemonicParsing="false" text="PLAYER2" GridPane.rowIndex="3" />
-                    <Button fx:id="charactersButton" mnemonicParsing="false" onAction="#goToCharacterCards" text="CHARACTERS" GridPane.rowIndex="4" />
                 </children>
             </GridPane>
         </children>
