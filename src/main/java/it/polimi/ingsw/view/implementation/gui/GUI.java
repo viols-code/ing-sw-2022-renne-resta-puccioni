@@ -15,13 +15,20 @@ import javafx.stage.Stage;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * The singleton class that manages all the functionalities of the GUI.
+ */
 public class GUI extends View {
     private final Stage stage;
     private Scene scene;
     private static GUI instance;
-    //private MediaPlayer mediaPlayer;
-    private boolean wasPlayingMusicBefore;
 
+    /**
+     * Constructor of a new GUI.
+     *
+     * @param client the client that is the owner of this gui
+     * @param stage the main stage of the application
+     */
     public GUI(Client client, Stage stage) {
         super(client);
         this.stage = stage;
@@ -33,6 +40,11 @@ public class GUI extends View {
 
     }
 
+    /**
+     * Gets the singleton instance.
+     *
+     * @return the singleton instance
+     */
     public static GUI instance() {
         return instance;
     }
