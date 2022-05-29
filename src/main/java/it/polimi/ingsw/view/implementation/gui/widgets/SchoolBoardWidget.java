@@ -97,7 +97,7 @@ public class SchoolBoardWidget extends StackPane {
             button.setText(players.get(i).getNickname() + "'s school board");
             int a = i;
             button.setOnMouseClicked(event -> Platform.runLater(() -> GUI.instance().showOtherPlayerBoard(players.get(a))));
-            button.setPrefWidth(Double.MAX_VALUE);
+            //button.setPrefWidth(Double.MAX_VALUE);
             gridPane.add(button, 0, row);
             row++;
         }
