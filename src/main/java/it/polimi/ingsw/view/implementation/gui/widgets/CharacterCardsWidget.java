@@ -21,7 +21,7 @@ public class CharacterCardsWidget extends StackPane {
     }
 
     @FXML
-    public void initialize() {
+    private void initialize() {
         for (int i = 0; i < 3; i++) {
             FlowPane flowPane = new FlowPane();
             box.getChildren().add(flowPane);

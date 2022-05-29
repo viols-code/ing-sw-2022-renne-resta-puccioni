@@ -12,7 +12,7 @@
     <AnchorPane stylesheets="@../gui/css/style.css" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
                 minWidth="-Infinity" prefHeight="720.0"
                 prefWidth="1080.0">
-        <HBox fx:id="box" alignment="CENTER" layoutX="230.0" layoutY="205.0" prefHeight="200.0" prefWidth="400.0">
+        <HBox fx:id="box" alignment="CENTER" layoutX="230.0" layoutY="205.0" prefHeight="300.0" prefWidth="196.5">
 
         </HBox>
         <Label layoutX="348.0" layoutY="96.0" text="Character Cards">

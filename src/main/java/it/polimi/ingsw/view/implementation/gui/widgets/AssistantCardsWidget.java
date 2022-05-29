@@ -30,7 +30,7 @@ public class AssistantCardsWidget extends StackPane {
     }
 
     @FXML
-    public void initialize() {
+    private void initialize() {
         HBox hBox1 = new HBox();
         HBox hBox2 = new HBox();
 

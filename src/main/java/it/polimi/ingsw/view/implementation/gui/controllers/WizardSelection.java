@@ -72,9 +72,7 @@ public class WizardSelection extends BorderPane {
                     }
                 }
             }
-
         }));
-
     }
 
     @FXML
