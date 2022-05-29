@@ -1,10 +1,24 @@
 package it.polimi.ingsw.view.implementation.gui;
 
 import it.polimi.ingsw.view.Renderer;
+import javafx.application.Platform;
+import javafx.scene.control.Alert;
 
 public class GUIRenderer extends Renderer {
     public GUIRenderer(GUI gui) {
         super(gui);
+    }
+
+    @Override
+    public void showErrorMessage(String message) {
+        Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText(message);
+
+            alert.showAndWait();
+        });
     }
 
     @Override
@@ -14,11 +28,6 @@ public class GUIRenderer extends Renderer {
 
     @Override
     public void showLobbyMessage(String message) {
-
-    }
-
-    @Override
-    public void showErrorMessage(String message) {
 
     }
 
