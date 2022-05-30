@@ -2,7 +2,10 @@ package it.polimi.ingsw.view.implementation.gui.widgets;
 
 import it.polimi.ingsw.FXMLUtils;
 import it.polimi.ingsw.model.Colour;
+import it.polimi.ingsw.view.beans.MockCloudTile;
 import it.polimi.ingsw.view.implementation.gui.GUI;
+import javafx.application.Platform;
+import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.image.Image;
@@ -26,6 +29,35 @@ public class CloudTileWidget extends StackPane {
 
     @FXML
     private void initialize() {
+
+        initializeCloudTileImages();
+
+        GUI.instance().getModel().getTable().getShownCloudTilesProperty().addListener((ListChangeListener<? super MockCloudTile>) change ->
+                Platform.runLater(() -> {
+                    box.getChildren().forEach(node -> node.setVisible(false));
+                    box.getChildren().removeAll();
+
+                    initializeCloudTileImages();
+
+                }));
+    }
+
+    public void initializeCloudTileStudents(AnchorPane anchorPane, int i, List<Integer> x, List<Integer> y) {
+        int c = 0;
+        for (Colour colour : Colour.values()) {
+            for (int j = 0; j < GUI.instance().getModel().getTable().getShownCloudTiles().get(i).getMockCloudTile().get(colour); j++) {
+                ImageView student = new ImageView();
+                student.setImage(new Image(Objects.requireNonNull(CloudTileWidget.class.getResourceAsStream(
+                        "/images/students/student_" + colour.name().toLowerCase(Locale.ROOT) + ".png")), 80, 80, false, false));
+                anchorPane.getChildren().add(student);
+                student.setLayoutX(x.get(c));
+                student.setLayoutY(y.get(c));
+                c++;
+            }
+        }
+    }
+
+    public void initializeCloudTileImages(){
         for (int i = 0; i < GUI.instance().getModel().getTable().getShownCloudTiles().size(); i++) {
             AnchorPane anchorPane = new AnchorPane();
             ImageView imageView = new ImageView();
@@ -36,9 +68,9 @@ public class CloudTileWidget extends StackPane {
             int a = i;
             imageView.setOnMouseClicked(event -> chooseCloudTile(a));
 
+            List<Integer> x = new ArrayList<>();
+            List<Integer> y = new ArrayList<>();
             if (GUI.instance().getNumPlayers() == 2) {
-                List<Integer> x = new ArrayList<>();
-                List<Integer> y = new ArrayList<>();
                 x.add(1);
                 x.add(79);
                 x.add(103);
@@ -51,10 +83,7 @@ public class CloudTileWidget extends StackPane {
                         "/images/cloudTiles/cloud_card_" + GUI.instance().getNumPlayers()
                                 + "_" + (i + 1) + ".png")), 200, 200, false, false));
 
-                initializeCloudTile(anchorPane, i, x, y);
             } else {
-                List<Integer> x = new ArrayList<>();
-                List<Integer> y = new ArrayList<>();
                 x.add(20);
                 x.add(150);
                 x.add(20);
@@ -69,23 +98,8 @@ public class CloudTileWidget extends StackPane {
                         "/images/cloudTiles/cloud_card_" + GUI.instance().getNumPlayers()
                                 + "_" + (i + 1) + ".png")), 250, 250, false, false));
 
-                initializeCloudTile(anchorPane, i, x, y);
             }
-        }
-    }
-
-    public void initializeCloudTile(AnchorPane anchorPane, int i, List<Integer> x, List<Integer> y) {
-        int c = 0;
-        for (Colour colour : Colour.values()) {
-            for (int j = 0; j < GUI.instance().getModel().getTable().getShownCloudTiles().get(i).getMockCloudTile().get(colour); j++) {
-                ImageView student = new ImageView();
-                student.setImage(new Image(Objects.requireNonNull(CloudTileWidget.class.getResourceAsStream(
-                        "/images/students/student_" + colour.name().toLowerCase(Locale.ROOT) + ".png")), 80, 80, false, false));
-                anchorPane.getChildren().add(student);
-                student.setLayoutX(x.get(c));
-                student.setLayoutY(y.get(c));
-                c++;
-            }
+            initializeCloudTileStudents(anchorPane, i, x, y);
         }
     }
 

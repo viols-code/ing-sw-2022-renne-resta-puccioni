@@ -121,6 +121,16 @@ public class MockTable {
     }
 
     /**
+     * Gets the cloud tiles shown
+     *
+     * @return the list of the cloud tiles shown
+     */
+    public ObservableList<MockCloudTile> getShownCloudTilesProperty() {
+        return shownCloudTiles;
+    }
+
+
+    /**
      * Gets the cloud tile with a given index
      *
      * @param cloudTile the index of the cloud tile selected
