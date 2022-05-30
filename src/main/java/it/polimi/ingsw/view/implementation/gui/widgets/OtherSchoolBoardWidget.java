@@ -11,13 +11,20 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 
 public class OtherSchoolBoardWidget extends StackPane {
 
     @FXML
     private final MockPlayer player;
+
+    @FXML
+    private Label nicknameLabel;
 
     @FXML
     private GridPane entrance;
@@ -37,6 +44,7 @@ public class OtherSchoolBoardWidget extends StackPane {
 
     @FXML
     private void initialize(){
+        nicknameLabel.setText(player.getNickname());
         entranceBoxes = new ArrayList<>(Arrays.asList(new Coordinates(2,0),new Coordinates(0,2),new Coordinates(2,2),new Coordinates(0,4),new Coordinates(2,4),new Coordinates(0,6),new Coordinates(2,6),new Coordinates(0,8),new Coordinates(2,8)));
         initEntrance();
         initDiningRoom();

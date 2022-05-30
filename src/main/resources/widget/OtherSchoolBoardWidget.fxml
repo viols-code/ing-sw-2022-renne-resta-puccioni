@@ -95,7 +95,7 @@
                     <RowConstraints maxHeight="60.0000061035156" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
                 </rowConstraints>
             </GridPane>
-            <Label fx:id="nickname" layoutX="516.0" layoutY="151.0" text="YOU">
+            <Label fx:id="nicknameLabel" layoutX="516.0" layoutY="151.0" text="YOU">
                 <font>
                     <Font name="Comic Sans MS Bold Italic" size="53.0" />
                 </font>
