@@ -22,6 +22,10 @@ public class GUI extends View {
     private final Stage stage;
     private Scene scene;
     private static GUI instance;
+    private static SchoolBoardWidget schoolBoardWidget;
+    private static GroupIslandsWidget groupIslandsWidget;
+    private static AssistantCardsWidget assistantCardsWidget;
+    private static CharacterCardsWidget characterCardsWidget;
 
     /**
      * Constructor of a new GUI.
@@ -37,6 +41,10 @@ public class GUI extends View {
         this.setRenderer(new GUIRenderer(this));
         this.setActionSender(new GUIActionSender(this));
         instance = this;
+        schoolBoardWidget = null;
+        groupIslandsWidget = null;
+        characterCardsWidget = null;
+        assistantCardsWidget = null;
 
     }
 
@@ -140,8 +148,10 @@ public class GUI extends View {
      */
     public void showPlayerBoard() {
         Platform.runLater(() -> {
-            SchoolBoardWidget schoolBoard = new SchoolBoardWidget();
-            scene.setRoot(schoolBoard);
+            if(schoolBoardWidget == null){
+                schoolBoardWidget = new SchoolBoardWidget();
+            }
+            scene.setRoot(schoolBoardWidget);
         });
     }
 
@@ -154,22 +164,28 @@ public class GUI extends View {
 
     public void showIslands() {
         Platform.runLater(() -> {
-            GroupIslandsWidget groupIsland = new GroupIslandsWidget();
-            scene.setRoot(groupIsland);
+            if(groupIslandsWidget == null){
+                groupIslandsWidget = new GroupIslandsWidget();
+            }
+            scene.setRoot(groupIslandsWidget);
         });
     }
 
     public void showAssistantCards() {
         Platform.runLater(() -> {
-            AssistantCardsWidget assistantCards = new AssistantCardsWidget();
-            scene.setRoot(assistantCards);
+            if(assistantCardsWidget == null){
+                assistantCardsWidget = new AssistantCardsWidget();
+            }
+            scene.setRoot(assistantCardsWidget);
         });
     }
 
     public void showCharacterCards() {
         Platform.runLater(() -> {
-            CharacterCardsWidget characterCards = new CharacterCardsWidget();
-            scene.setRoot(characterCards);
+            if(characterCardsWidget == null){
+                characterCardsWidget = new CharacterCardsWidget();
+            }
+            scene.setRoot(characterCardsWidget);
         });
     }
 
