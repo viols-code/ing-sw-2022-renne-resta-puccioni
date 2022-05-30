@@ -101,6 +101,7 @@
                 </font>
             </Label>
             <Button layoutX="112.0" layoutY="109.0" mnemonicParsing="false" onAction="#showSchoolBoard" text="GO BACK TO YOUR SCHOOL BOARD" />
+         <ImageView fx:id="currentAssistantCard" fitHeight="159.9" fitWidth="109.2" layoutX="768.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" />
         </children>
     </AnchorPane>
 </fx:root>

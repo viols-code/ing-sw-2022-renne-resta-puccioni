@@ -2,6 +2,7 @@ package it.polimi.ingsw.view.implementation.gui.widgets;
 
 import it.polimi.ingsw.FXMLUtils;
 import it.polimi.ingsw.model.Colour;
+import it.polimi.ingsw.model.player.Wizard;
 import it.polimi.ingsw.view.beans.MockPlayer;
 import it.polimi.ingsw.view.implementation.gui.GUI;
 import javafx.application.Platform;
@@ -35,6 +36,9 @@ public class OtherSchoolBoardWidget extends StackPane {
     @FXML
     private GridPane professorsTable;
 
+    @FXML
+    private ImageView currentAssistantCard;
+
     private List<Coordinates> entranceBoxes;
 
     public OtherSchoolBoardWidget(MockPlayer player) {
@@ -46,6 +50,7 @@ public class OtherSchoolBoardWidget extends StackPane {
     private void initialize(){
         nicknameLabel.setText(player.getNickname());
         entranceBoxes = new ArrayList<>(Arrays.asList(new Coordinates(2,0),new Coordinates(0,2),new Coordinates(2,2),new Coordinates(0,4),new Coordinates(2,4),new Coordinates(0,6),new Coordinates(2,6),new Coordinates(0,8),new Coordinates(2,8)));
+        initCurrentAssistantCard();
         initEntrance();
         initDiningRoom();
         initProfessorsTable();
@@ -162,5 +167,26 @@ public class OtherSchoolBoardWidget extends StackPane {
                         }
                     }
                 }));
+    }
+
+    private void initCurrentAssistantCard(){
+        if(player.getCurrentAssistantCardProperty().getValue() != null){
+            currentAssistantCard.setImage(new Image(Objects.requireNonNull(AssistantCardsWidget.class.getResourceAsStream(
+                    "/images/assistantCards/assistant_" + (player.getCurrentAssistantCardProperty().getValue().getValue() - 1) + ".png"))));
+        }
+        else{
+            currentAssistantCard.setImage(new Image(Objects.requireNonNull(AssistantCardsWidget.class.getResourceAsStream(
+                    "/images/wizard/wizard" + (Wizard.getWizardCode(player.getWizard())) + ".png"))));
+        }
+        player.getCurrentAssistantCardProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> {
+            if(player.getCurrentAssistantCardProperty().getValue() != null){
+                currentAssistantCard.setImage(new Image(Objects.requireNonNull(AssistantCardsWidget.class.getResourceAsStream(
+                        "/images/assistantCards/assistant_" + (player.getCurrentAssistantCardProperty().getValue().getValue() - 1) + ".png"))));
+            }
+            else{
+                currentAssistantCard.setImage(new Image(Objects.requireNonNull(AssistantCardsWidget.class.getResourceAsStream(
+                        "/images/wizard/wizard" + (Wizard.getWizardCode(player.getWizard())) + ".png"))));
+            }
+        }));
     }
 }
