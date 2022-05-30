@@ -61,20 +61,7 @@ public class SchoolBoardWidget extends StackPane {
     @FXML
     private GridPane diningRoom;
 
-    @FXML
-    private RowConstraints diningRoomGreen;
 
-    @FXML
-    private RowConstraints diningRoomRed;
-
-    @FXML
-    private RowConstraints diningRoomYellow;
-
-    @FXML
-    private RowConstraints diningRoomPink;
-
-    @FXML
-    private RowConstraints diningRoomBlue;
 
     private List<Coordinates> entranceBoxes;
 
