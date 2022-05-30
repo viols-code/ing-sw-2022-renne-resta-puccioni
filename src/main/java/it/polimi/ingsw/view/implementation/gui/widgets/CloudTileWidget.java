@@ -25,8 +25,8 @@ public class CloudTileWidget extends StackPane {
     }
 
     @FXML
-    private void initialize(){
-        for(int i = 0; i < GUI.instance().getModel().getTable().getShownCloudTiles().size(); i++){
+    private void initialize() {
+        for (int i = 0; i < GUI.instance().getModel().getTable().getShownCloudTiles().size(); i++) {
             FlowPane flowPane = new FlowPane();
             ImageView imageView = new ImageView();
             flowPane.getChildren().add(imageView);
@@ -37,11 +37,11 @@ public class CloudTileWidget extends StackPane {
             HBox.setMargin(flowPane, new Insets(10.0, 10.0, 10.0, 10.0));
             imageView.setImage(new Image(Objects.requireNonNull(CloudTileWidget.class.getResourceAsStream(
                     "/images/cloudTiles/cloud_card_" + GUI.instance().getNumPlayers()
-                            + "_" + (i + 1) + ".png")), 200, 200 , false, false));
+                            + "_" + (i + 1) + ".png")), 200, 200, false, false));
             int a = i;
             imageView.setOnMouseClicked(event -> chooseCloudTile(a));
 
-            if(GUI.instance().getNumPlayers() == 2){
+            if (GUI.instance().getNumPlayers() == 2) {
                 int c = 0;
                 List<Integer> x = new ArrayList<>();
                 List<Integer> y = new ArrayList<>();
@@ -52,8 +52,8 @@ public class CloudTileWidget extends StackPane {
                 y.add(10);
                 y.add(30);
 
-                for(Colour colour : Colour.values()){
-                    for(int j = 0; j < GUI.instance().getModel().getTable().getShownCloudTiles().get(i).getMockCloudTile().get(colour); j++){
+                for (Colour colour : Colour.values()) {
+                    for (int j = 0; j < GUI.instance().getModel().getTable().getShownCloudTiles().get(i).getMockCloudTile().get(colour); j++) {
                         ImageView student = new ImageView();
                         student.setImage(new Image(Objects.requireNonNull(CloudTileWidget.class.getResourceAsStream(
                                 "/images/students/student_" + colour.name().toLowerCase(Locale.ROOT) + ".png")), 80, 80, false, false));
@@ -68,12 +68,12 @@ public class CloudTileWidget extends StackPane {
     }
 
     @FXML
-    private void chooseCloudTile(int i){
+    private void chooseCloudTile(int i) {
         GUI.instance().getActionSender().chooseCloudTile(GUI.instance().getPlayerName(), i);
     }
 
     @FXML
-    private void showSchoolBoard(){
+    private void showSchoolBoard() {
         GUI.instance().showPlayerBoard();
     }
 }

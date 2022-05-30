@@ -58,9 +58,9 @@ public class CharacterCardsWidget extends StackPane {
             c = 0;
             r = 0;
 
-            if(GUI.instance().getModel().getCharacterCardByIndex(i).getNumberOfStudentsOnTheCard() > 0){
-                for(Colour colour : Colour.values()){
-                    for(int j = 0; j < GUI.instance().getModel().getCharacterCardByIndex(i).getStudents().get(colour); j++){
+            if (GUI.instance().getModel().getCharacterCardByIndex(i).getNumberOfStudentsOnTheCard() > 0) {
+                for (Colour colour : Colour.values()) {
+                    for (int j = 0; j < GUI.instance().getModel().getCharacterCardByIndex(i).getStudents().get(colour); j++) {
                         FlowPane pane = new FlowPane();
                         pane.getStyleClass().add("student");
                         ImageView imageViewStudent = new ImageView();
@@ -68,17 +68,17 @@ public class CharacterCardsWidget extends StackPane {
                         imageViewStudent.setImage(new Image(Objects.requireNonNull(CharacterCardsWidget.class.getResourceAsStream(
                                 "/images/students/student_" + colour.name().toLowerCase(Locale.ROOT) + ".png"))));
                         imageView.setOnMouseClicked(event -> setStudent(colour));
-                        if(i == 0){
+                        if (i == 0) {
                             studentsOnCard0.add(pane, r, c);
-                        } else if(i == 1){
+                        } else if (i == 1) {
                             studentsOnCard1.add(pane, r, c);
-                        } else{
+                        } else {
                             studentsOnCard2.add(pane, r, c);
                         }
-                        if(r == 2){
+                        if (r == 2) {
                             c += 2;
                             r = 0;
-                        } else{
+                        } else {
                             r = 2;
                         }
                     }

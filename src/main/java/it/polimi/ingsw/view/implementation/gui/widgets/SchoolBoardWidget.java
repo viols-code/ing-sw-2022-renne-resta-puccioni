@@ -8,13 +8,11 @@ import it.polimi.ingsw.view.implementation.gui.GUI;
 import javafx.application.Platform;
 import javafx.collections.MapChangeListener;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
 
 import java.util.*;
@@ -71,7 +69,7 @@ public class SchoolBoardWidget extends StackPane {
 
     @FXML
     private void initialize() {
-        entranceBoxes = new ArrayList<>(Arrays.asList(new Coordinates(2,0),new Coordinates(0,2),new Coordinates(2,2),new Coordinates(0,4),new Coordinates(2,4),new Coordinates(0,6),new Coordinates(2,6),new Coordinates(0,8),new Coordinates(2,8)));
+        entranceBoxes = new ArrayList<>(Arrays.asList(new Coordinates(2, 0), new Coordinates(0, 2), new Coordinates(2, 2), new Coordinates(0, 4), new Coordinates(2, 4), new Coordinates(0, 6), new Coordinates(2, 6), new Coordinates(0, 8), new Coordinates(2, 8)));
 
         //Shows the current Player
         currentPlayerLabel.setText(GUI.instance().isOwnTurn() ? "Yours" :
@@ -96,7 +94,6 @@ public class SchoolBoardWidget extends StackPane {
         }));
 
 
-
         List<MockPlayer> players = new ArrayList<>();
 
         for (MockPlayer player : GUI.instance().getModel().getPlayers().values()) {
@@ -107,7 +104,7 @@ public class SchoolBoardWidget extends StackPane {
 
         int row = 3;
 
-        for(int i = 0; i < GUI.instance().getNumPlayers() - 1; i++){
+        for (int i = 0; i < GUI.instance().getNumPlayers() - 1; i++) {
             Button button = new Button();
             button.setText(players.get(i).getNickname() + "'s school board");
             int a = i;
@@ -117,7 +114,7 @@ public class SchoolBoardWidget extends StackPane {
             row++;
         }
 
-        if(GUI.instance().getGameMode()){
+        if (GUI.instance().getGameMode()) {
             Button button = new Button();
             button.setText("Character Cards");
             button.setOnMouseClicked(event -> Platform.runLater(() -> GUI.instance().showCharacterCards()));
@@ -143,54 +140,54 @@ public class SchoolBoardWidget extends StackPane {
     }
 
     @FXML
-    private void selectStudentFromEntrance(Colour colour){
+    private void selectStudentFromEntrance(Colour colour) {
         GUI.instance().getModel().setSelectedColour(colour);
         diningRoom.setOnMouseClicked(event -> moveStudentToDiningRoom());
     }
 
     @FXML
-    private void moveStudentToDiningRoom(){
+    private void moveStudentToDiningRoom() {
         GUI.instance().getActionSender().moveStudentToDiningRoom(GUI.instance().getPlayerName(), GUI.instance().getModel().getSelectedColour());
         diningRoom.setOnMouseClicked(event -> noAction());
     }
 
     @FXML
-    private void noAction(){
+    private void noAction() {
 
     }
 
-    private void initEntrance(){
+    private void initEntrance() {
         //init the entrance
         List<Colour> entranceStudents = new ArrayList<>();
-        for(Colour colour: Colour.values()){
-            for(int i=0; i<GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getEntrance().get(colour); i++){
+        for (Colour colour : Colour.values()) {
+            for (int i = 0; i < GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getEntrance().get(colour); i++) {
                 entranceStudents.add(colour);
             }
         }
 
-        for(int i=0; i<entranceStudents.size();i++){
+        for (int i = 0; i < entranceStudents.size(); i++) {
             ImageView imageView = new ImageView();
-            entrance.add(imageView,entranceBoxes.get(i).getRow(),entranceBoxes.get(i).getColumn());
+            entrance.add(imageView, entranceBoxes.get(i).getRow(), entranceBoxes.get(i).getColumn());
             imageView.setImage(new Image(Objects.requireNonNull(SchoolBoardWidget.class.getResourceAsStream(
                     "/images/students/student_" + entranceStudents.get(i).name().toLowerCase(Locale.ROOT) + ".png"))));
             Colour colour = entranceStudents.get(i);
             imageView.setOnMouseClicked(event -> selectStudentFromEntrance(colour));
         }
 
-        GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getEntranceProperty().addListener((MapChangeListener<? super Colour,? super Integer> ) listener ->
+        GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getEntranceProperty().addListener((MapChangeListener<? super Colour, ? super Integer>) listener ->
                 Platform.runLater(() -> {
                     entrance.getChildren().forEach(node -> node.setVisible(false));
                     entrance.getChildren().removeAll();
                     List<Colour> students = new ArrayList<>();
-                    for(Colour colour: Colour.values()){
-                        for(int i=0; i<GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getEntrance().get(colour); i++){
+                    for (Colour colour : Colour.values()) {
+                        for (int i = 0; i < GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getEntrance().get(colour); i++) {
                             students.add(colour);
                         }
                     }
 
-                    for(int i=0; i<students.size();i++){
+                    for (int i = 0; i < students.size(); i++) {
                         ImageView imageView = new ImageView();
-                        entrance.add(imageView,entranceBoxes.get(i).getRow(),entranceBoxes.get(i).getColumn());
+                        entrance.add(imageView, entranceBoxes.get(i).getRow(), entranceBoxes.get(i).getColumn());
                         imageView.setImage(new Image(Objects.requireNonNull(SchoolBoardWidget.class.getResourceAsStream(
                                 "/images/students/student_" + students.get(i).name().toLowerCase(Locale.ROOT) + ".png"))));
                         Colour colour = students.get(i);
@@ -199,23 +196,23 @@ public class SchoolBoardWidget extends StackPane {
                 }));
     }
 
-    private void initDiningRoom(){
-        for(Colour colour: Colour.values()){
-            for(int i=0; i<GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getDiningRoom().get(colour); i++){
+    private void initDiningRoom() {
+        for (Colour colour : Colour.values()) {
+            for (int i = 0; i < GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getDiningRoom().get(colour); i++) {
                 ImageView imageView = new ImageView();
-                diningRoom.add(imageView,i,getDiningRoomTable(colour));
+                diningRoom.add(imageView, i, getDiningRoomTable(colour));
                 imageView.setImage(new Image(Objects.requireNonNull(SchoolBoardWidget.class.getResourceAsStream(
                         "/images/students/student_" + colour + ".png"))));
 
             }
         }
 
-        GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getDiningRoomProperty().addListener((MapChangeListener<? super Colour,? super Integer> ) listener ->
+        GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getDiningRoomProperty().addListener((MapChangeListener<? super Colour, ? super Integer>) listener ->
                 Platform.runLater(() -> {
-                    for(Colour colour: Colour.values()){
-                        for(int i=0; i<GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getDiningRoom().get(colour); i++){
+                    for (Colour colour : Colour.values()) {
+                        for (int i = 0; i < GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getDiningRoom().get(colour); i++) {
                             ImageView imageView = new ImageView();
-                            diningRoom.add(imageView,i,getDiningRoomTable(colour));
+                            diningRoom.add(imageView, i, getDiningRoomTable(colour));
                             imageView.setImage(new Image(Objects.requireNonNull(SchoolBoardWidget.class.getResourceAsStream(
                                     "/images/students/student_" + colour + ".png"))));
 
@@ -224,9 +221,9 @@ public class SchoolBoardWidget extends StackPane {
                 }));
     }
 
-    private int getDiningRoomTable(Colour colour){
+    private int getDiningRoomTable(Colour colour) {
         int res = 0;
-        switch (colour){
+        switch (colour) {
             case GREEN -> {
                 res = 0;
             }
@@ -246,46 +243,44 @@ public class SchoolBoardWidget extends StackPane {
         return res;
     }
 
-    private void initProfessorsTable(){
-        for(Colour colour: Colour.values()){
-            if(GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getProfessorTable().get(colour)){
+    private void initProfessorsTable() {
+        for (Colour colour : Colour.values()) {
+            if (GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getProfessorTable().get(colour)) {
                 ImageView imageView = new ImageView();
                 professorsTable.add(imageView, 0, getDiningRoomTable(colour));
                 imageView.setImage(new Image(Objects.requireNonNull(SchoolBoardWidget.class.getResourceAsStream(
-                        "/images/professors/teacher_" + colour + ".png")), 40, 40 , false, false));
+                        "/images/professors/teacher_" + colour + ".png")), 40, 40, false, false));
 
             }
         }
 
-        GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getProfessorTableProperty().addListener((MapChangeListener<? super Colour,? super Boolean> ) listener ->
+        GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getProfessorTableProperty().addListener((MapChangeListener<? super Colour, ? super Boolean>) listener ->
                 Platform.runLater(() -> {
-                    for(Colour colour: Colour.values()) {
+                    for (Colour colour : Colour.values()) {
                         if (GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getProfessorTable().get(colour)) {
                             ImageView imageView = new ImageView();
                             professorsTable.add(imageView, 0, getDiningRoomTable(colour));
                             imageView.setImage(new Image(Objects.requireNonNull(SchoolBoardWidget.class.getResourceAsStream(
-                                    "/images/professors/teacher_" + colour + ".png")),40, 40 , false, false));
+                                    "/images/professors/teacher_" + colour + ".png")), 40, 40, false, false));
 
                         }
                     }
                 }));
     }
 
-    private void initCurrentAssistantCard(){
-        if(GUI.instance().getModel().getLocalPlayer().getCurrentAssistantCardProperty().getValue() != null){
+    private void initCurrentAssistantCard() {
+        if (GUI.instance().getModel().getLocalPlayer().getCurrentAssistantCardProperty().getValue() != null) {
             currentAssistantCard.setImage(new Image(Objects.requireNonNull(AssistantCardsWidget.class.getResourceAsStream(
                     "/images/assistantCards/assistant_" + (GUI.instance().getModel().getLocalPlayer().getCurrentAssistantCardProperty().getValue().getValue() - 1) + ".png"))));
-        }
-        else{
+        } else {
             currentAssistantCard.setImage(new Image(Objects.requireNonNull(AssistantCardsWidget.class.getResourceAsStream(
                     "/images/wizard/wizard" + (Wizard.getWizardCode(GUI.instance().getModel().getLocalPlayer().getWizard())) + ".png"))));
         }
         GUI.instance().getModel().getLocalPlayer().getCurrentAssistantCardProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> {
-            if(GUI.instance().getModel().getLocalPlayer().getCurrentAssistantCardProperty().getValue() != null){
+            if (GUI.instance().getModel().getLocalPlayer().getCurrentAssistantCardProperty().getValue() != null) {
                 currentAssistantCard.setImage(new Image(Objects.requireNonNull(AssistantCardsWidget.class.getResourceAsStream(
                         "/images/assistantCards/assistant_" + (GUI.instance().getModel().getLocalPlayer().getCurrentAssistantCardProperty().getValue().getValue() - 1) + ".png"))));
-            }
-            else{
+            } else {
                 currentAssistantCard.setImage(new Image(Objects.requireNonNull(AssistantCardsWidget.class.getResourceAsStream(
                         "/images/wizard/wizard" + (Wizard.getWizardCode(GUI.instance().getModel().getLocalPlayer().getWizard())) + ".png"))));
             }
@@ -293,7 +288,7 @@ public class SchoolBoardWidget extends StackPane {
     }
 
     @FXML
-    public void goToCloudTile(){
+    public void goToCloudTile() {
         GUI.instance().showCloudTile();
     }
 

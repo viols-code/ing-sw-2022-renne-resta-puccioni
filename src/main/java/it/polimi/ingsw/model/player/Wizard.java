@@ -44,7 +44,7 @@ public enum Wizard {
         return map.get(wizard);
     }
 
-    public static int getWizardCode(Wizard wizard){
+    public static int getWizardCode(Wizard wizard) {
         return map.entrySet()
                 .stream()
                 .filter(entry -> entry.getValue().equals(wizard))

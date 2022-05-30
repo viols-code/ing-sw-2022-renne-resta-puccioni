@@ -7,7 +7,7 @@ public class StudentCoordinates {
     private final int column;
     private final Colour studentColour;
 
-    public StudentCoordinates(int row, int column, Colour studentColour){
+    public StudentCoordinates(int row, int column, Colour studentColour) {
         this.row = row;
         this.column = column;
         this.studentColour = studentColour;

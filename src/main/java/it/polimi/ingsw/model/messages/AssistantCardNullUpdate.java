@@ -4,7 +4,7 @@ import it.polimi.ingsw.view.View;
 
 import java.io.Serial;
 
-public class AssistantCardNullUpdate extends GameUpdate{
+public class AssistantCardNullUpdate extends GameUpdate {
     /**
      * The serial version UID
      */
@@ -18,9 +18,9 @@ public class AssistantCardNullUpdate extends GameUpdate{
     /**
      * Constructor
      *
-     * @param playerName    the nickname of the player
+     * @param playerName the nickname of the player
      */
-    public AssistantCardNullUpdate(String playerName){
+    public AssistantCardNullUpdate(String playerName) {
         this.playerName = playerName;
     }
 

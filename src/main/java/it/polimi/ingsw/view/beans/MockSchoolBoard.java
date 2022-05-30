@@ -105,7 +105,7 @@ public class MockSchoolBoard {
         this.towers.setValue(towers);
     }
 
-    public ObservableMap<Colour, Integer> getEntranceProperty(){
+    public ObservableMap<Colour, Integer> getEntranceProperty() {
         return entrance;
     }
 
@@ -113,15 +113,15 @@ public class MockSchoolBoard {
         return selectedStudents;
     }
 
-    public void addSelectedStudent(int row, int col, Colour colour){
-        selectedStudents.add(new StudentCoordinates(row,col,colour));
+    public void addSelectedStudent(int row, int col, Colour colour) {
+        selectedStudents.add(new StudentCoordinates(row, col, colour));
     }
 
-    public ObservableMap<Colour, Integer> getDiningRoomProperty(){
+    public ObservableMap<Colour, Integer> getDiningRoomProperty() {
         return diningRoom;
     }
 
-    public ObservableMap<Colour, Boolean> getProfessorTableProperty(){
+    public ObservableMap<Colour, Boolean> getProfessorTableProperty() {
         return professorTable;
     }
 }

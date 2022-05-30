@@ -336,7 +336,7 @@ public abstract class ModelUpdateHandler {
      *
      * @param player the nickname of the player
      */
-    public void updateCurrentAssistantCardNull(String player){
+    public void updateCurrentAssistantCardNull(String player) {
         getView().getModel().getPlayerByNickname(player).setCurrentAssistantCardNull();
     }
 

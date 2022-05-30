@@ -31,7 +31,7 @@ public class GUI extends View {
      * Constructor of a new GUI.
      *
      * @param client the client that is the owner of this gui
-     * @param stage the main stage of the application
+     * @param stage  the main stage of the application
      */
     public GUI(Client client, Stage stage) {
         super(client);
@@ -148,7 +148,7 @@ public class GUI extends View {
      */
     public void showPlayerBoard() {
         Platform.runLater(() -> {
-            if(schoolBoardWidget == null){
+            if (schoolBoardWidget == null) {
                 schoolBoardWidget = new SchoolBoardWidget();
             }
             scene.setRoot(schoolBoardWidget);
@@ -162,7 +162,7 @@ public class GUI extends View {
         });
     }
 
-    public void showCloudTile(){
+    public void showCloudTile() {
         Platform.runLater(() -> {
             CloudTileWidget cloudTileWidget = new CloudTileWidget();
             scene.setRoot(cloudTileWidget);
@@ -171,7 +171,7 @@ public class GUI extends View {
 
     public void showIslands() {
         Platform.runLater(() -> {
-            if(groupIslandsWidget == null){
+            if (groupIslandsWidget == null) {
                 groupIslandsWidget = new GroupIslandsWidget();
             }
             scene.setRoot(groupIslandsWidget);
@@ -180,7 +180,7 @@ public class GUI extends View {
 
     public void showAssistantCards() {
         Platform.runLater(() -> {
-            if(assistantCardsWidget == null){
+            if (assistantCardsWidget == null) {
                 assistantCardsWidget = new AssistantCardsWidget();
             }
             scene.setRoot(assistantCardsWidget);
@@ -189,7 +189,7 @@ public class GUI extends View {
 
     public void showCharacterCards() {
         Platform.runLater(() -> {
-            if(characterCardsWidget == null){
+            if (characterCardsWidget == null) {
                 characterCardsWidget = new CharacterCardsWidget();
             }
             scene.setRoot(characterCardsWidget);

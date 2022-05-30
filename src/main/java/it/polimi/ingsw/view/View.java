@@ -359,7 +359,7 @@ public abstract class View {
         return takenWizards;
     }
 
-    public int getNumPlayers(){
+    public int getNumPlayers() {
         return numPlayers;
     }
 }

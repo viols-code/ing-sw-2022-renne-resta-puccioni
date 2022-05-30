@@ -224,7 +224,7 @@ public abstract class Player extends Observable<IServerPacket> {
     /**
      * Sets the current assistant card to null
      */
-    public void setNullAssistantCard(){
+    public void setNullAssistantCard() {
         currentAssistantCard = null;
         notify(new AssistantCardNullUpdate(getNickname()));
     }
