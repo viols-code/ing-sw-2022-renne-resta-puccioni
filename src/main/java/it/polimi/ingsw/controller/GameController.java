@@ -814,6 +814,9 @@ public class GameController implements Observer<PlayerEvent> {
                     game.setTurnPhase(TurnPhase.PLAY_ASSISTANT_CARD);
                 }
                 nobodyPlayed();
+                for(int i = 0; i < game.getNumberOfPlayer(); i++){
+                    game.getPlayerByIndex(i).setNullAssistantCard();
+                }
 
             } else {
                 calculateWinner();
