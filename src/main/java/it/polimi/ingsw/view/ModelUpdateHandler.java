@@ -331,5 +331,14 @@ public abstract class ModelUpdateHandler {
         getView().getModel().getCharacterCardByType(CharacterCardEnumeration.STUDENT_TO_ENTRANCE).setStudents(students);
     }
 
+    /**
+     * Updates the current assistant card to null
+     *
+     * @param player the nickname of the player
+     */
+    public void updateCurrentAssistantCardNull(String player){
+        getView().getModel().getPlayerByNickname(player).setCurrentAssistantCardNull();
+    }
+
 
 }

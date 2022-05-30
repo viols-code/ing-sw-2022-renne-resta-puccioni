@@ -192,6 +192,13 @@ public class MockPlayer {
     }
 
     /**
+     * Sets the current assistant card to null
+     */
+    public void setCurrentAssistantCardNull(){
+        this.currentAssistantCard = new SimpleObjectProperty<>();
+    }
+
+    /**
      * Gets the current assistant card
      *
      * @return the current assistant card
@@ -199,6 +206,8 @@ public class MockPlayer {
     public AssistantCard getCurrentAssistantCard() {
         return currentAssistantCard.getValue();
     }
+
+
 
     public Property<AssistantCard> getCurrentAssistantCardProperty(){
         return currentAssistantCard;

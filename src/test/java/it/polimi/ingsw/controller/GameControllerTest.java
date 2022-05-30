@@ -375,6 +375,8 @@ class GameControllerTest {
         gameControllerTwo.addPlayer("Viola", Wizard.TYPE_3);
         gameControllerTwo.setUpTableAndPlayers();
         // First turn
+        assertNull(gameControllerTwo.getGame().getPlayerByNickname("Viola").getCurrentAssistantCard());
+        assertNull(gameControllerTwo.getGame().getPlayerByNickname("Laura").getCurrentAssistantCard());
         gameControllerTwo.playAssistantCard("Laura", 0);
         gameControllerTwo.playAssistantCard("Viola", 9);
 
@@ -403,6 +405,8 @@ class GameControllerTest {
         gameControllerTwo.chooseCloudTile("Viola", 0);
 
         // Second turn
+        assertNull(gameControllerTwo.getGame().getPlayerByNickname("Viola").getCurrentAssistantCard());
+        assertNull(gameControllerTwo.getGame().getPlayerByNickname("Laura").getCurrentAssistantCard());
         gameControllerTwo.playAssistantCard("Laura", 1);
         gameControllerTwo.playAssistantCard("Viola", 8);
 
@@ -431,6 +435,8 @@ class GameControllerTest {
         gameControllerTwo.chooseCloudTile("Viola", 0);
 
         //Third turn
+        assertNull(gameControllerTwo.getGame().getPlayerByNickname("Viola").getCurrentAssistantCard());
+        assertNull(gameControllerTwo.getGame().getPlayerByNickname("Laura").getCurrentAssistantCard());
         gameControllerTwo.playAssistantCard("Laura", 2);
         gameControllerTwo.playAssistantCard("Viola", 7);
 
@@ -459,6 +465,8 @@ class GameControllerTest {
         gameControllerTwo.chooseCloudTile("Viola", 0);
 
         //Fourth turn
+        assertNull(gameControllerTwo.getGame().getPlayerByNickname("Viola").getCurrentAssistantCard());
+        assertNull(gameControllerTwo.getGame().getPlayerByNickname("Laura").getCurrentAssistantCard());
         gameControllerTwo.playAssistantCard("Laura", 3);
         gameControllerTwo.playAssistantCard("Viola", 6);
         gameControllerTwo.update(new MoveMotherNature("Viola", 3));
@@ -488,6 +496,8 @@ class GameControllerTest {
         gameControllerTwo.chooseCloudTile("Viola", 0);
 
         //Fifth turn
+        assertNull(gameControllerTwo.getGame().getPlayerByNickname("Viola").getCurrentAssistantCard());
+        assertNull(gameControllerTwo.getGame().getPlayerByNickname("Laura").getCurrentAssistantCard());
         gameControllerTwo.playAssistantCard("Laura", 4);
         gameControllerTwo.playAssistantCard("Viola", 5);
 
@@ -516,6 +526,8 @@ class GameControllerTest {
         gameControllerTwo.chooseCloudTile("Viola", 0);
 
         //Sixth turn
+        assertNull(gameControllerTwo.getGame().getPlayerByNickname("Viola").getCurrentAssistantCard());
+        assertNull(gameControllerTwo.getGame().getPlayerByNickname("Laura").getCurrentAssistantCard());
         gameControllerTwo.playAssistantCard("Laura", 5);
         gameControllerTwo.playAssistantCard("Viola", 4);
 
@@ -544,6 +556,8 @@ class GameControllerTest {
         gameControllerTwo.chooseCloudTile("Laura", 0);
 
         //Seventh turn
+        assertNull(gameControllerTwo.getGame().getPlayerByNickname("Viola").getCurrentAssistantCard());
+        assertNull(gameControllerTwo.getGame().getPlayerByNickname("Laura").getCurrentAssistantCard());
         gameControllerTwo.playAssistantCard("Viola", 3);
         gameControllerTwo.playAssistantCard("Laura", 6);
 
@@ -572,6 +586,8 @@ class GameControllerTest {
         gameControllerTwo.chooseCloudTile("Laura", 0);
 
         // Eighth turn
+        assertNull(gameControllerTwo.getGame().getPlayerByNickname("Viola").getCurrentAssistantCard());
+        assertNull(gameControllerTwo.getGame().getPlayerByNickname("Laura").getCurrentAssistantCard());
         gameControllerTwo.playAssistantCard("Viola", 2);
         gameControllerTwo.playAssistantCard("Laura", 7);
 
@@ -600,6 +616,8 @@ class GameControllerTest {
         gameControllerTwo.chooseCloudTile("Laura", 0);
 
         // Ninth turn
+        assertNull(gameControllerTwo.getGame().getPlayerByNickname("Viola").getCurrentAssistantCard());
+        assertNull(gameControllerTwo.getGame().getPlayerByNickname("Laura").getCurrentAssistantCard());
         gameControllerTwo.playAssistantCard("Viola", 1);
         gameControllerTwo.playAssistantCard("Laura", 8);
 
@@ -628,6 +646,8 @@ class GameControllerTest {
         gameControllerTwo.chooseCloudTile("Laura", 0);
 
         // Tenth turn
+        assertNull(gameControllerTwo.getGame().getPlayerByNickname("Viola").getCurrentAssistantCard());
+        assertNull(gameControllerTwo.getGame().getPlayerByNickname("Laura").getCurrentAssistantCard());
         gameControllerTwo.playAssistantCard("Viola", 0);
         gameControllerTwo.playAssistantCard("Laura", 9);
 
@@ -694,6 +714,11 @@ class GameControllerTest {
         assertEquals("Sara", gameControllerThree.getGame().getPlayerByIndex(2).getNickname());
         assertEquals(Wizard.TYPE_4, gameControllerThree.getGame().getPlayerByIndex(2).getWizard());
         gameControllerThree.addPlayer("Elisa", Wizard.TYPE_2);
+        gameControllerThree.setGroupIsland("Elisa", 0);
+        gameControllerThree.setColourDiningRoomEntrance("Elisa", Colour.RED, Colour.GREEN);
+        gameControllerThree.setColour("Elisa", Colour.RED);
+        gameControllerThree.setColourCardEntrance("Elisa", Colour.RED, Colour.BLUE);
+        gameControllerThree.setColourAndIsland("Elisa", Colour.RED, 0, 0);
         assertEquals(3, gameControllerThree.getGame().getNumberOfPlayer());
         gameControllerThree.setUpTableAndPlayers();
         assertEquals(GamePhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getGamePhase());
@@ -705,6 +730,8 @@ class GameControllerTest {
         }
 
         // playing AssistantCard first turn
+        assertNull(gameControllerThree.getGame().getPlayerByNickname("Viola").getCurrentAssistantCard());
+        assertNull(gameControllerThree.getGame().getPlayerByNickname("Laura").getCurrentAssistantCard());
         gameControllerThree.playAssistantCard("Laura", 0);
         assertNull(gameControllerThree.getGame().getPlayerByIndex(1).getCurrentAssistantCard());
         gameControllerThree.playAssistantCard("Viola", 4);
@@ -862,6 +889,9 @@ class GameControllerTest {
         assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
 
         // third turn
+        assertNull(gameControllerThree.getGame().getPlayerByNickname("Viola").getCurrentAssistantCard());
+        assertNull(gameControllerThree.getGame().getPlayerByNickname("Laura").getCurrentAssistantCard());
+        assertNull(gameControllerThree.getGame().getPlayerByNickname("Sara").getCurrentAssistantCard());
         gameControllerThree.playAssistantCard("Viola", 5);
         gameControllerThree.playAssistantCard("Laura", 1);
         gameControllerThree.playAssistantCard("Sara", 8);
