@@ -54,6 +54,7 @@ public class SchoolBoardWidget extends StackPane {
     @FXML
     private GridPane entrance;
 
+
     /*
      * Dining room
      */
@@ -77,6 +78,11 @@ public class SchoolBoardWidget extends StackPane {
 
     private List<Coordinates> entranceBoxes;
 
+    /*
+    PROFESSORS TABLE
+     */
+    @FXML
+    private GridPane professorsTable;
 
     public SchoolBoardWidget() {
         FXMLUtils.loadWidgetFXML(this);
@@ -137,6 +143,7 @@ public class SchoolBoardWidget extends StackPane {
 
        initEntrance();
        initDiningRoom();
+       initProfessorsTable();
 
     }
 
@@ -254,5 +261,31 @@ public class SchoolBoardWidget extends StackPane {
         }
         return res;
     }
+
+    private void initProfessorsTable(){
+        for(Colour colour: Colour.values()){
+            if(GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getProfessorTable().get(colour)){
+                ImageView imageView = new ImageView();
+                professorsTable.add(imageView, 0, getDiningRoomTable(colour));
+                imageView.setImage(new Image(Objects.requireNonNull(SchoolBoardWidget.class.getResourceAsStream(
+                        "/images/professors/teacher_" + colour + ".png")), 40, 40 , false, false));
+
+            }
+        }
+
+        GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getProfessorTableProperty().addListener((MapChangeListener<? super Colour,? super Boolean> ) listener ->
+                Platform.runLater(() -> {
+                    for(Colour colour: Colour.values()) {
+                        if (GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getProfessorTable().get(colour)) {
+                            ImageView imageView = new ImageView();
+                            professorsTable.add(imageView, 0, getDiningRoomTable(colour));
+                            imageView.setImage(new Image(Objects.requireNonNull(SchoolBoardWidget.class.getResourceAsStream(
+                                    "/images/professors/teacher_" + colour + ".png")),40, 40 , false, false));
+
+                        }
+                    }
+                }));
+    }
+
 
 }
