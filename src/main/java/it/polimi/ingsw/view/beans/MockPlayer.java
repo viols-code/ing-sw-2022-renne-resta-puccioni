@@ -207,4 +207,8 @@ public class MockPlayer {
     public Wizard getWizard() {
         return wizard;
     }
+
+    public IntegerProperty getCoinsProperty(){
+        return coins;
+    }
 }
