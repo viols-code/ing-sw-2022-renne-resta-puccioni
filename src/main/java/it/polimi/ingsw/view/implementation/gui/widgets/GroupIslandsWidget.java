@@ -7,6 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 
 import java.util.ArrayList;
@@ -57,6 +58,16 @@ public class GroupIslandsWidget extends StackPane {
                 anchorPane.setLayoutY(singleIslandsCoordinates.get(k).getColumn());
                 imageView.setLayoutX(0);
                 imageView.setLayoutY(0);
+
+                GridPane gridPane1 = new GridPane();
+                GridPane gridPane2 = new GridPane();
+                GridPane gridPane3 = new GridPane();
+                GridPane gridPane4 = new GridPane();
+                anchorPane.getChildren().add(gridPane1);
+                anchorPane.getChildren().add(gridPane2);
+                anchorPane.getChildren().add(gridPane3);
+                anchorPane.getChildren().add(gridPane4);
+
 
             }
 
