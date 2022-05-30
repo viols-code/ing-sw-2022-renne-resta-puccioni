@@ -120,4 +120,8 @@ public class MockSchoolBoard {
     public ObservableMap<Colour, Integer> getDiningRoomProperty(){
         return diningRoom;
     }
+
+    public ObservableMap<Colour, Boolean> getProfessorTableProperty(){
+        return professorTable;
+    }
 }
