@@ -7,7 +7,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 
@@ -27,45 +27,68 @@ public class CloudTileWidget extends StackPane {
     @FXML
     private void initialize() {
         for (int i = 0; i < GUI.instance().getModel().getTable().getShownCloudTiles().size(); i++) {
-            FlowPane flowPane = new FlowPane();
+            AnchorPane anchorPane = new AnchorPane();
             ImageView imageView = new ImageView();
-            flowPane.getChildren().add(imageView);
-            box.getChildren().add(flowPane);
-            flowPane.setMaxHeight(200);
-            flowPane.setMaxWidth(200);
-            flowPane.getStyleClass().add("cloudTile");
-            HBox.setMargin(flowPane, new Insets(10.0, 10.0, 10.0, 10.0));
-            imageView.setImage(new Image(Objects.requireNonNull(CloudTileWidget.class.getResourceAsStream(
-                    "/images/cloudTiles/cloud_card_" + GUI.instance().getNumPlayers()
-                            + "_" + (i + 1) + ".png")), 200, 200, false, false));
+            anchorPane.getChildren().add(imageView);
+            box.getChildren().add(anchorPane);
+            anchorPane.getStyleClass().add("cloudTile");
+            HBox.setMargin(anchorPane, new Insets(10.0, 10.0, 10.0, 10.0));
             int a = i;
             imageView.setOnMouseClicked(event -> chooseCloudTile(a));
 
             if (GUI.instance().getNumPlayers() == 2) {
-                int c = 0;
                 List<Integer> x = new ArrayList<>();
                 List<Integer> y = new ArrayList<>();
-                x.add(10);
-                x.add(20);
-                x.add(30);
-                y.add(20);
-                y.add(10);
-                y.add(30);
+                x.add(1);
+                x.add(79);
+                x.add(103);
+                y.add(49);
+                y.add(120);
+                y.add(19);
+                anchorPane.setMaxHeight(200);
+                anchorPane.setMaxWidth(200);
+                imageView.setImage(new Image(Objects.requireNonNull(CloudTileWidget.class.getResourceAsStream(
+                        "/images/cloudTiles/cloud_card_" + GUI.instance().getNumPlayers()
+                                + "_" + (i + 1) + ".png")), 200, 200, false, false));
 
-                for (Colour colour : Colour.values()) {
-                    for (int j = 0; j < GUI.instance().getModel().getTable().getShownCloudTiles().get(i).getMockCloudTile().get(colour); j++) {
-                        ImageView student = new ImageView();
-                        student.setImage(new Image(Objects.requireNonNull(CloudTileWidget.class.getResourceAsStream(
-                                "/images/students/student_" + colour.name().toLowerCase(Locale.ROOT) + ".png")), 80, 80, false, false));
-                        flowPane.getChildren().add(student);
-                        student.setLayoutX(x.get(c));
-                        student.setLayoutY(y.get(c));
-                        c++;
-                    }
-                }
+                initializeCloudTile(anchorPane, i, x, y);
+            } else {
+                List<Integer> x = new ArrayList<>();
+                List<Integer> y = new ArrayList<>();
+                x.add(20);
+                x.add(150);
+                x.add(20);
+                x.add(150);
+                y.add(49);
+                y.add(49);
+                y.add(140);
+                y.add(140);
+                anchorPane.setMaxHeight(250);
+                anchorPane.setMaxWidth(250);
+                imageView.setImage(new Image(Objects.requireNonNull(CloudTileWidget.class.getResourceAsStream(
+                        "/images/cloudTiles/cloud_card_" + GUI.instance().getNumPlayers()
+                                + "_" + (i + 1) + ".png")), 250, 250, false, false));
+
+                initializeCloudTile(anchorPane, i, x, y);
             }
         }
     }
+
+    public void initializeCloudTile(AnchorPane anchorPane, int i, List<Integer> x, List<Integer> y) {
+        int c = 0;
+        for (Colour colour : Colour.values()) {
+            for (int j = 0; j < GUI.instance().getModel().getTable().getShownCloudTiles().get(i).getMockCloudTile().get(colour); j++) {
+                ImageView student = new ImageView();
+                student.setImage(new Image(Objects.requireNonNull(CloudTileWidget.class.getResourceAsStream(
+                        "/images/students/student_" + colour.name().toLowerCase(Locale.ROOT) + ".png")), 80, 80, false, false));
+                anchorPane.getChildren().add(student);
+                student.setLayoutX(x.get(c));
+                student.setLayoutY(y.get(c));
+                c++;
+            }
+        }
+    }
+
 
     @FXML
     private void chooseCloudTile(int i) {

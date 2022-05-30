@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 
@@ -165,14 +166,7 @@ public class SchoolBoardWidget extends StackPane {
             }
         }
 
-        for (int i = 0; i < entranceStudents.size(); i++) {
-            ImageView imageView = new ImageView();
-            entrance.add(imageView, entranceBoxes.get(i).getRow(), entranceBoxes.get(i).getColumn());
-            imageView.setImage(new Image(Objects.requireNonNull(SchoolBoardWidget.class.getResourceAsStream(
-                    "/images/students/student_" + entranceStudents.get(i).name().toLowerCase(Locale.ROOT) + ".png"))));
-            Colour colour = entranceStudents.get(i);
-            imageView.setOnMouseClicked(event -> selectStudentFromEntrance(colour));
-        }
+        setStudentEntrance(entranceStudents);
 
         GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getEntranceProperty().addListener((MapChangeListener<? super Colour, ? super Integer>) listener ->
                 Platform.runLater(() -> {
@@ -185,14 +179,7 @@ public class SchoolBoardWidget extends StackPane {
                         }
                     }
 
-                    for (int i = 0; i < students.size(); i++) {
-                        ImageView imageView = new ImageView();
-                        entrance.add(imageView, entranceBoxes.get(i).getRow(), entranceBoxes.get(i).getColumn());
-                        imageView.setImage(new Image(Objects.requireNonNull(SchoolBoardWidget.class.getResourceAsStream(
-                                "/images/students/student_" + students.get(i).name().toLowerCase(Locale.ROOT) + ".png"))));
-                        Colour colour = students.get(i);
-                        imageView.setOnMouseClicked(event -> selectStudentFromEntrance(colour));
-                    }
+                    setStudentEntrance(students);
                 }));
     }
 
@@ -241,6 +228,20 @@ public class SchoolBoardWidget extends StackPane {
             }
         }
         return res;
+    }
+
+    public void setStudentEntrance(List<Colour> entranceStudents){
+        for (int i = 0; i < entranceStudents.size(); i++) {
+            FlowPane flowPane = new FlowPane();
+            entrance.add(flowPane, entranceBoxes.get(i).getRow(), entranceBoxes.get(i).getColumn());
+            ImageView imageView = new ImageView();
+            flowPane.getChildren().add(imageView);
+            flowPane.getStyleClass().add("student");
+            imageView.setImage(new Image(Objects.requireNonNull(SchoolBoardWidget.class.getResourceAsStream(
+                    "/images/students/student_" + entranceStudents.get(i).name().toLowerCase(Locale.ROOT) + ".png"))));
+            Colour colour = entranceStudents.get(i);
+            imageView.setOnMouseClicked(event -> selectStudentFromEntrance(colour));
+        }
     }
 
     private void initProfessorsTable() {

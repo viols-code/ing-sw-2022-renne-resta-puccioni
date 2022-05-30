@@ -7,7 +7,8 @@
 <?import javafx.scene.text.Font?>
 <fx:root type="StackPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
          fx:controller="it.polimi.ingsw.view.implementation.gui.widgets.SchoolBoardWidget">
-    <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0"
+
+    <AnchorPane stylesheets="@../gui/css/style.css" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0"
                 prefWidth="1080.0">
 
         <children>
