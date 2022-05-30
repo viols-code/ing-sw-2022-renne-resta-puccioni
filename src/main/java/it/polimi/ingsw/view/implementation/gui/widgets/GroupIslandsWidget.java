@@ -46,14 +46,18 @@ public class GroupIslandsWidget extends StackPane {
 
             singleIslandsCoordinates = getIslandsCoordinates(singleIslands);
             for(int k = 0; k < singleIslands; k++){
+                AnchorPane anchorPane = new AnchorPane();
                 ImageView imageView = new ImageView();
                 islandPane.getChildren().add(imageView);
                 imageView.setFitWidth(200);
                 imageView.setFitHeight(200);
                 imageView.setImage(new Image(Objects.requireNonNull(AssistantCardsWidget.class.getResourceAsStream(
                         "/images/islands/island2.png"))));
-                imageView.setLayoutX(singleIslandsCoordinates.get(k).getRow());
-                imageView.setLayoutY(singleIslandsCoordinates.get(k).getColumn());
+                anchorPane.setLayoutX(singleIslandsCoordinates.get(k).getRow());
+                anchorPane.setLayoutY(singleIslandsCoordinates.get(k).getColumn());
+                imageView.setLayoutX(0);
+                imageView.setLayoutY(0);
+
             }
 
 
