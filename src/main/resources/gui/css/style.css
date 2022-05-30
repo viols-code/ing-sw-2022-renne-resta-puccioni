@@ -36,3 +36,10 @@
     -fx-border-style: solid;
     -fx-border-radius: 20;
 }
+
+.cloudTile:hover{
+    -fx-border-color: orange;
+    -fx-border-width: 2.0;
+    -fx-border-style: solid;
+    -fx-border-radius: 20;
+}

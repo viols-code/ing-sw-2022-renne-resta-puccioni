@@ -2,16 +2,24 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<fx:root type="StackPane" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-         fx:controller="it.polimi.ingsw.view.implementation.gui.widgets.CloudTileWidget">
-    <AnchorPane
-            maxHeight="-Infinity" maxWidth="-Infinity"
-            minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="720.0" prefWidth="1080.0">
+<fx:root type="StackPane" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.implementation.gui.widgets.CloudTileWidget">
+    <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" stylesheets="@../gui/css/style.css">
 
 
-        <Label layoutX="503.0" layoutY="115.0" text="Cloud Tiles"/>
-        <HBox fx:id="box" layoutX="207.0" layoutY="197.0" prefHeight="292.0" prefWidth="664.0"/>
+        <Label layoutX="427.0" layoutY="113.0" text="Cloud Tiles">
+            <font>
+                <Font name="System Bold Italic" size="48.0" />
+            </font>
+        </Label>
+        <HBox fx:id="box" alignment="CENTER" layoutX="207.0" layoutY="232.0" prefHeight="292.0" prefWidth="664.0" />
+
+        <Button layoutX="48.0" layoutY="55.0" mnemonicParsing="false" onAction="#showSchoolBoard"
+                text="GO BACK TO SCHOOL BOARD">
+            <font>
+                <Font size="11.0"/>
+            </font>
+        </Button>
     </AnchorPane>
 </fx:root>
