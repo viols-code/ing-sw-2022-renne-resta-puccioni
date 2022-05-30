@@ -220,6 +220,13 @@ public abstract class Player extends Observable<IServerPacket> {
         throw new IllegalAccessError("This is for the Expert Mode");
     }
 
+    /**
+     * Sets the current assistant card to null
+     */
+    public void setNullAssistantCard(){
+        currentAssistantCard = null;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
