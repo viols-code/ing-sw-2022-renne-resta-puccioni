@@ -21,17 +21,9 @@ import java.util.*;
 
 public class SchoolBoardWidget extends StackPane {
 
-    @FXML
-    private Image studentEntrance1;
-
     /*
      *BUTTONS
      */
-    @FXML
-    private Button islandsButton;
-
-    @FXML
-    private Button deckButton;
 
     @FXML
     private GridPane gridPane;
@@ -113,7 +105,7 @@ public class SchoolBoardWidget extends StackPane {
             players.add(player);
         }
 
-        int row = 2;
+        int row = 3;
 
         for(int i = 0; i < GUI.instance().getNumPlayers() - 1; i++){
             Button button = new Button();
@@ -298,6 +290,11 @@ public class SchoolBoardWidget extends StackPane {
                         "/images/wizard/wizard" + (Wizard.getWizardCode(GUI.instance().getModel().getLocalPlayer().getWizard())) + ".png"))));
             }
         }));
+    }
+
+    @FXML
+    public void goToCloudTile(){
+        GUI.instance().showCloudTile();
     }
 
 

@@ -69,21 +69,6 @@
                     <Image url="@../images/islands/island3.png"/>
                 </image>
             </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="626.0" layoutY="293.0">
-                <image>
-                    <Image url="@../images/cloudTiles/cloud_card_3.png"/>
-                </image>
-            </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="463.0" layoutY="293.0">
-                <image>
-                    <Image url="@../images/cloudTiles/cloud_card_2.png"/>
-                </image>
-            </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="299.0" layoutY="293.0">
-                <image>
-                    <Image url="@../images/cloudTiles/cloud_card_1.png"/>
-                </image>
-            </ImageView>
             <Button layoutX="48.0" layoutY="55.0" mnemonicParsing="false" onAction="#showSchoolBoard"
                     text="GO BACK TO SCHOOL BOARD">
                 <font>

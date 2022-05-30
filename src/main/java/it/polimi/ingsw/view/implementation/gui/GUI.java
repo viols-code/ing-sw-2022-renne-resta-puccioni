@@ -162,6 +162,13 @@ public class GUI extends View {
         });
     }
 
+    public void showCloudTile(){
+        Platform.runLater(() -> {
+            CloudTileWidget cloudTileWidget = new CloudTileWidget();
+            scene.setRoot(cloudTileWidget);
+        });
+    }
+
     public void showIslands() {
         Platform.runLater(() -> {
             if(groupIslandsWidget == null){

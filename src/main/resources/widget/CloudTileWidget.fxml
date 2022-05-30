@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<fx:root type="StackPane" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+         fx:controller="it.polimi.ingsw.view.implementation.gui.widgets.CloudTileWidget">
+    <AnchorPane
+            maxHeight="-Infinity" maxWidth="-Infinity"
+            minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="720.0" prefWidth="1080.0">
+
+
+        <Label layoutX="503.0" layoutY="115.0" text="Cloud Tiles"/>
+        <HBox fx:id="box" layoutX="207.0" layoutY="197.0" prefHeight="292.0" prefWidth="664.0"/>
+    </AnchorPane>
+</fx:root>
