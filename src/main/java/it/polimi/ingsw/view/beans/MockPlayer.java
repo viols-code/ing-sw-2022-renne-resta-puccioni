@@ -83,7 +83,6 @@ public class MockPlayer {
         } else {
             coins.setValue(0);
         }
-
         AssistantCard card1 = new AssistantCard(1, 1);
         cards.put(0, card1);
         AssistantCard card2 = new AssistantCard(2, 1);
@@ -201,5 +200,11 @@ public class MockPlayer {
         return currentAssistantCard.getValue();
     }
 
+    public Property<AssistantCard> getCurrentAssistantCardProperty(){
+        return currentAssistantCard;
+    }
 
+    public Wizard getWizard() {
+        return wizard;
+    }
 }
