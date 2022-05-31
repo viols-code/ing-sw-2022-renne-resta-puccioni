@@ -129,12 +129,9 @@ public class GroupIslandsWidget extends StackPane {
             }
 
             int groupIsland = i;
-            GUI.instance().getModel().getTurnPhaseProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> {
-
-                if(GUI.instance().getModel().getTurnPhase().equals(TurnPhase.MOVE_MOTHER_NATURE)){
+                if(GUI.instance().getModel().getTurnPhase().equals(TurnPhase.MOVE_MOTHER_NATURE)) {
                     islandPane.setOnMouseClicked(event -> moveMotherNature(groupIsland));
                 }
-            }));
 
             //sets the layout
             islandPane.setLayoutX(groupIslandBoxes.get(j).getRow());
