@@ -132,6 +132,14 @@ public class GroupIslandsWidget extends StackPane {
                             blueStudents.setText("" + listener.getMap().get(Colour.BLUE));
                         }));
 
+                int groupIsland = i;
+
+                GUI.instance().getModel().getTurnPhaseProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> {
+
+                        if(GUI.instance().getModel().getTurnPhase().equals(TurnPhase.MOVE_MOTHER_NATURE)){
+                            islandPane.setOnMouseClicked(event -> moveMotherNature(groupIsland));
+                        }
+                        }));
             }
 
 
@@ -205,5 +213,16 @@ public class GroupIslandsWidget extends StackPane {
             }
         }
         GUI.instance().getModel().setSelectedColour(null);
+    }
+
+    private void moveMotherNature(int groupIsland){
+
+        int movement = GUI.instance().getModel().getTable().getMotherNaturePosition() - groupIsland;
+
+        if(movement < 0){
+            movement += GUI.instance().getModel().getTable().getGroupIslands().size();
+        }
+
+        GUI.instance().getActionSender().moveMotherNature(GUI.instance().getPlayerName(), movement);
     }
 }
