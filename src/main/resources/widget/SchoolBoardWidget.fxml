@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<fx:root type="StackPane" styleClass="background" stylesheets="@css/styleWidgets.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.implementation.gui.widgets.SchoolBoardWidget">
+<fx:root styleClass="background" stylesheets="@css/styleWidgets.css" type="StackPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.implementation.gui.widgets.SchoolBoardWidget">
 
     <AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" stylesheets="@../gui/css/style.css">
 
@@ -120,7 +120,7 @@
                     <Font name="Comic Sans MS Bold Italic" size="53.0" />
                 </font>
             </Label>
-            <GridPane fx:id="gridPane" layoutX="51.0" layoutY="49.0" prefHeight="152.0" prefWidth="208.0">
+            <GridPane fx:id="gridPane" layoutX="51.0" layoutY="49.0" prefHeight="186.0" prefWidth="208.0">
                 <columnConstraints>
                     <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 </columnConstraints>
