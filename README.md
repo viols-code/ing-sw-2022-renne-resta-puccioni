@@ -14,7 +14,7 @@ Software Engineering Project A.A. 2021/2022
 | Basic rules | 🟩 |
 | Complete rules | 🟩 |
 | CLI | 🟩 |
-| GUI |  🟥 |
+| GUI |  🟧 |
 | Socket | 🟩 |
 | Character Cards | 🟩 |
 | Multiple games | 🟩|
