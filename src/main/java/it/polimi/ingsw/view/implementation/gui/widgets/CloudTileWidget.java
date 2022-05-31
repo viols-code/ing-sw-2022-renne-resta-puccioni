@@ -38,6 +38,7 @@ public class CloudTileWidget extends StackPane {
                 Platform.runLater(() -> {
                     while (change.next()) {
                         box.getChildren().removeAll(cloudTiles);
+                        cloudTiles.clear();
                         initializeCloudTileImages();
                     }
                 }));
