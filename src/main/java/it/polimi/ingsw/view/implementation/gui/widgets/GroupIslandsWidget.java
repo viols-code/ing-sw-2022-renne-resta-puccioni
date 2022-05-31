@@ -125,10 +125,10 @@ public class GroupIslandsWidget extends StackPane {
                         Platform.runLater(() -> {
                             //addsStudents
                             greenStudents.setText("" + listener.getMap().get(Colour.GREEN));
-                            redStudents.setText("" + listener.getMap().get(Colour.GREEN));
-                            yellowStudents.setText("" + listener.getMap().get(Colour.GREEN));
-                            pinkStudents.setText("" + listener.getMap().get(Colour.GREEN));
-                            blueStudents.setText("" + listener.getMap().get(Colour.GREEN));
+                            redStudents.setText("" + listener.getMap().get(Colour.RED));
+                            yellowStudents.setText("" + listener.getMap().get(Colour.YELLOW));
+                            pinkStudents.setText("" + listener.getMap().get(Colour.PINK));
+                            blueStudents.setText("" + listener.getMap().get(Colour.BLUE));
                         }));
 
             }
