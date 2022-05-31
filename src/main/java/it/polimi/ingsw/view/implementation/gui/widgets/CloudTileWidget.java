@@ -28,7 +28,7 @@ public class CloudTileWidget extends StackPane {
         FXMLUtils.loadWidgetFXML(this);
     }
 
-    private List<AnchorPane> cloudTiles = new ArrayList<>();
+    private final List<AnchorPane> cloudTiles = new ArrayList<>();
 
     @FXML
     private void initialize() {
