@@ -364,6 +364,8 @@ public class MockModel {
         return this.turnPhase;
     }
 
+    public IntegerProperty getCoinsProperty(){ return coins;}
+
     public Colour getSelectedColour() {
         return selectedColour;
     }
