@@ -76,6 +76,8 @@ public class SchoolBoardWidget extends StackPane {
     private GridPane towers;
 
     private final List<Circle> towersImage = new ArrayList<>();
+    private final List<ImageView> professorImage = new ArrayList<>();
+    private final List<ImageView> diningRoomImage = new ArrayList<>();
 
     public SchoolBoardWidget() {
         FXMLUtils.loadWidgetFXML(this);
@@ -229,13 +231,18 @@ public class SchoolBoardWidget extends StackPane {
         diningRoom.getStyleClass().add("diningRoom");
 
         GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getDiningRoomProperty().addListener((MapChangeListener<? super Colour, ? super Integer>) listener ->
-                Platform.runLater(this::initDiningRoomImage));
+                Platform.runLater(() -> {
+                    diningRoom.getChildren().removeAll(diningRoomImage);
+                    diningRoomImage.clear();
+                    initDiningRoomImage();
+                }));
     }
 
     private void initDiningRoomImage(){
         for (Colour colour : Colour.values()) {
             for (int i = 0; i < GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getDiningRoom().get(colour); i++) {
                 ImageView imageView = new ImageView();
+                diningRoomImage.add(imageView);
                 diningRoom.add(imageView, i, getDiningRoomTable(colour));
                 imageView.setImage(new Image(Objects.requireNonNull(SchoolBoardWidget.class.getResourceAsStream(
                         "/images/students/student_" + colour + ".png"))));
@@ -278,7 +285,11 @@ public class SchoolBoardWidget extends StackPane {
         initProfessorTableImage();
 
         GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getProfessorTableProperty().addListener((MapChangeListener<? super Colour, ? super Boolean>) listener ->
-                Platform.runLater(this::initProfessorTableImage));
+                Platform.runLater(() -> {
+                    professorsTable.getChildren().removeAll(professorImage);
+                    professorImage.clear();
+                    initProfessorTableImage();
+                }));
     }
 
 
@@ -286,6 +297,7 @@ public class SchoolBoardWidget extends StackPane {
         for (Colour colour : Colour.values()) {
             if (GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getProfessorTable().get(colour)) {
                 ImageView imageView = new ImageView();
+                professorImage.add(imageView);
                 professorsTable.add(imageView, 0, getDiningRoomTable(colour));
                 imageView.setImage(new Image(Objects.requireNonNull(SchoolBoardWidget.class.getResourceAsStream(
                         "/images/professors/teacher_" + colour + ".png")), 40, 40, false, false));
