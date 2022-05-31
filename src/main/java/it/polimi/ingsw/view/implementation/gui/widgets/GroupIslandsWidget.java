@@ -218,6 +218,7 @@ public class GroupIslandsWidget extends StackPane {
             movement += GUI.instance().getModel().getTable().getGroupIslands().size();
         }
 
+
         GUI.instance().getActionSender().moveMotherNature(GUI.instance().getPlayerName(), movement);
     }
 }
