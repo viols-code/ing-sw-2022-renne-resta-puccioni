@@ -2,6 +2,7 @@ package it.polimi.ingsw.view.implementation.gui.widgets;
 
 import it.polimi.ingsw.FXMLUtils;
 import it.polimi.ingsw.model.Colour;
+import it.polimi.ingsw.model.game.TurnPhase;
 import it.polimi.ingsw.view.implementation.gui.GUI;
 import javafx.application.Platform;
 import javafx.collections.MapChangeListener;
@@ -72,7 +73,7 @@ public class GroupIslandsWidget extends StackPane {
                 imageView.setLayoutX(0);
                 imageView.setLayoutY(0);
                 //imageView.toBack();
-                imageView.setOnMouseClicked(event -> addStudentToSingleIsland(groupIslandIndex,singleIslandIndex));
+                singleIslandPane.setOnMouseClicked(event -> addStudentToSingleIsland(groupIslandIndex,singleIslandIndex));
 
                 //adds the students
                 Label greenStudents = new Label();
@@ -81,7 +82,7 @@ public class GroupIslandsWidget extends StackPane {
                 Label pinkStudents = new Label();
                 Label blueStudents = new Label();
                 GridPane studentsOnSingleIsland= new GridPane();
-                islandPane.getChildren().add(studentsOnSingleIsland);
+                singleIslandPane.getChildren().add(studentsOnSingleIsland);
                 studentsOnSingleIsland.setPrefWidth(100);
                 studentsOnSingleIsland.setPrefHeight(100);
                 studentsOnSingleIsland.toFront();
@@ -90,8 +91,8 @@ public class GroupIslandsWidget extends StackPane {
                 greenStudents.setBackground(new Background(new BackgroundFill(Color.rgb(0,255,0),CornerRadii.EMPTY, Insets.EMPTY)));
                 yellowStudents.setBackground(new Background(new BackgroundFill(Color.rgb(255, 204, 0),CornerRadii.EMPTY, Insets.EMPTY)));
                 redStudents.setBackground(new Background(new BackgroundFill(Color.rgb(255, 0, 0),CornerRadii.EMPTY, Insets.EMPTY)));
-                pinkStudents.setBackground(new Background(new BackgroundFill(Color.rgb(255, 0, 102),CornerRadii.EMPTY, Insets.EMPTY)));
-                blueStudents.setBackground(new Background(new BackgroundFill(Color.rgb(0, 0, 255),CornerRadii.EMPTY, Insets.EMPTY)));
+                pinkStudents.setBackground(new Background(new BackgroundFill(Color.rgb(255, 102, 204),CornerRadii.EMPTY, Insets.EMPTY)));
+                blueStudents.setBackground(new Background(new BackgroundFill(Color.rgb(0, 204, 255),CornerRadii.EMPTY, Insets.EMPTY)));
                 studentsOnSingleIsland.setVisible(true);
                 studentsOnSingleIsland.addRow(0,greenStudents);
                 studentsOnSingleIsland.addRow(1,redStudents);
@@ -199,7 +200,9 @@ public class GroupIslandsWidget extends StackPane {
             GUI.instance().getActionSender().moveStudentToIsland(GUI.instance().getPlayerName(),GUI.instance().getModel().getSelectedColour(),groupIsland,singleIsland);
         }
         else{
-            GUI.instance().getRenderer().showErrorMessage("Select a student!!!!!!");
+            if(GUI.instance().getModel().getTurnPhase() == TurnPhase.MOVE_STUDENT){
+                GUI.instance().getRenderer().showErrorMessage("Select a student!");
+            }
         }
         GUI.instance().getModel().setSelectedColour(null);
     }
