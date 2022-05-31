@@ -62,3 +62,7 @@
     -fx-border-width: 2.0;
     -fx-border-style: solid;
 }
+
+.background{
+    -fx-background-color: #DDEFFF;
+}
