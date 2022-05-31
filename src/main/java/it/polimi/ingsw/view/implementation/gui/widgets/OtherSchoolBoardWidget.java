@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -42,6 +43,9 @@ public class OtherSchoolBoardWidget extends StackPane {
     @FXML
     private GridPane towersOtherPlayer;
 
+    @FXML
+    private AnchorPane anchorPane;
+
     private List<Coordinates> entranceBoxes;
 
     public OtherSchoolBoardWidget(MockPlayer player) {
@@ -57,6 +61,25 @@ public class OtherSchoolBoardWidget extends StackPane {
         initEntrance();
         initDiningRoom();
         initProfessorsTable();
+
+        if(GUI.instance().getGameMode()){
+            ImageView coins = new ImageView();
+            anchorPane.getChildren().add(coins);
+            coins.setFitWidth(87);
+            coins.setFitHeight(100);
+            coins.setLayoutX(901);
+            coins.setLayoutY(66);
+            coins.setImage(new Image(Objects.requireNonNull(SchoolBoardWidget.class.getResourceAsStream(
+                    "/images/Moneta_base.png"))));
+            Label numberCoins = new Label();
+            numberCoins.setLayoutX(1000);
+            numberCoins.setLayoutY(100);
+            numberCoins.setStyle("-fx-font: 22 System;");
+            anchorPane.getChildren().add(numberCoins);
+
+            numberCoins.setText(String.valueOf(player.getCoins()));
+            player.getCoinsProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> numberCoins.setText(String.valueOf(player.getCoins()))));
+        }
         initTowers();
     }
 
