@@ -3,8 +3,10 @@ package it.polimi.ingsw.view.implementation.gui.widgets;
 import it.polimi.ingsw.FXMLUtils;
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.view.implementation.gui.GUI;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
@@ -27,6 +29,18 @@ public class CharacterCardsWidget extends StackPane {
 
     @FXML
     private GridPane studentsOnCard2;
+
+    @FXML
+    private Label numberCoinsTable;
+
+    @FXML
+    private Label costCard0;
+
+    @FXML
+    private Label costCard1;
+
+    @FXML
+    private Label costCard2;
 
     public CharacterCardsWidget() {
         FXMLUtils.loadWidgetFXML(this);
@@ -85,6 +99,26 @@ public class CharacterCardsWidget extends StackPane {
                 }
             }
         }
+
+        costCard0.setText(String.valueOf(GUI.instance().getModel().getCharacterCardByIndex(0).getCost()));
+        GUI.instance().getModel().getCharacterCardByIndex(0).getCostProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> {
+            costCard0.setText(String.valueOf(GUI.instance().getModel().getCharacterCardByIndex(0).getCost()));
+        }));
+
+        costCard1.setText(String.valueOf(GUI.instance().getModel().getCharacterCardByIndex(1).getCost()));
+        GUI.instance().getModel().getCharacterCardByIndex(1).getCostProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> {
+            costCard1.setText(String.valueOf(GUI.instance().getModel().getCharacterCardByIndex(1).getCost()));
+        }));
+
+        costCard2.setText(String.valueOf(GUI.instance().getModel().getCharacterCardByIndex(2).getCost()));
+        GUI.instance().getModel().getCharacterCardByIndex(2).getCostProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> {
+            costCard2.setText(String.valueOf(GUI.instance().getModel().getCharacterCardByIndex(2).getCost()));
+        }));
+
+        numberCoinsTable.setText(String.valueOf(GUI.instance().getModel().getCoins()));
+        GUI.instance().getModel().getCoinsProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> {
+            numberCoinsTable.setText(String.valueOf(GUI.instance().getModel().getCoins()));
+        }));
     }
 
     @FXML
