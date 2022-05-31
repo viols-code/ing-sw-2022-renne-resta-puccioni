@@ -371,7 +371,9 @@ public class MockModel {
         return this.turnPhase;
     }
 
-    public IntegerProperty getCoinsProperty(){ return coins;}
+    public IntegerProperty getCoinsProperty() {
+        return coins;
+    }
 
     public IntegerProperty getPosition() {
         return position;

@@ -148,5 +148,7 @@ public class MockGroupIsland {
         this.influentPlayer.setValue(influentPlayer);
     }
 
-    public BooleanProperty getIsMotherNatureProperty(){ return motherNature;}
+    public BooleanProperty getIsMotherNatureProperty() {
+        return motherNature;
+    }
 }

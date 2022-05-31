@@ -36,7 +36,7 @@ public class CloudTileWidget extends StackPane {
 
         GUI.instance().getModel().getTable().getShownCloudTilesProperty().addListener((ListChangeListener<? super MockCloudTile>) change ->
                 Platform.runLater(() -> {
-                    while(change.next()){
+                    while (change.next()) {
                         box.getChildren().removeAll(cloudTiles);
                         initializeCloudTileImages();
                     }
@@ -58,7 +58,7 @@ public class CloudTileWidget extends StackPane {
         }
     }
 
-    public void initializeCloudTileImages(){
+    public void initializeCloudTileImages() {
         for (int i = 0; i < GUI.instance().getModel().getTable().getShownCloudTiles().size(); i++) {
             AnchorPane anchorPane = new AnchorPane();
             cloudTiles.add(anchorPane);

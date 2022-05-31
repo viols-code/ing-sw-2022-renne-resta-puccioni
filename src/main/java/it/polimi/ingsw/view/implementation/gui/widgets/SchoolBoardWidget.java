@@ -198,7 +198,7 @@ public class SchoolBoardWidget extends StackPane {
 
         setStudentEntrance(entranceStudents);
 
-        if(GUI.instance().getModel().getPosition().getValue() != -1){
+        if (GUI.instance().getModel().getPosition().getValue() != -1) {
             entrance.getChildren().get(GUI.instance().getModel().getPosition().getValue()).getStyleClass().add("studentSelected");
         }
 
@@ -217,10 +217,10 @@ public class SchoolBoardWidget extends StackPane {
                 }));
 
         GUI.instance().getModel().getPosition().addListener((change, oldval, newval) -> {
-            if(oldval.intValue() != -1){
+            if (oldval.intValue() != -1) {
                 entrance.getChildren().get(oldval.intValue()).getStyleClass().removeAll("studentSelected");
             }
-            if(newval.intValue() != -1){
+            if (newval.intValue() != -1) {
                 entrance.getChildren().get(newval.intValue()).getStyleClass().add("studentSelected");
             }
         });
@@ -265,7 +265,7 @@ public class SchoolBoardWidget extends StackPane {
         return res;
     }
 
-    public void setStudentEntrance(List<Colour> entranceStudents){
+    public void setStudentEntrance(List<Colour> entranceStudents) {
         for (int i = 0; i < entranceStudents.size(); i++) {
             FlowPane flowPane = new FlowPane();
             entrance.add(flowPane, entranceBoxes.get(i).getRow(), entranceBoxes.get(i).getColumn());
@@ -277,8 +277,8 @@ public class SchoolBoardWidget extends StackPane {
             Colour colour = entranceStudents.get(i);
             int a = i;
             imageView.setOnMouseClicked(event -> {
-                    flowPane.getStyleClass().add("studentSelected");
-                    selectStudentFromEntrance(a, colour);
+                flowPane.getStyleClass().add("studentSelected");
+                selectStudentFromEntrance(a, colour);
             });
         }
     }
@@ -315,7 +315,7 @@ public class SchoolBoardWidget extends StackPane {
     }
 
 
-    private void setCurrentAssistantCard(){
+    private void setCurrentAssistantCard() {
         if (GUI.instance().getModel().getLocalPlayer().isAssistantCardValue()) {
             currentAssistantCard.setImage(new Image(Objects.requireNonNull(SchoolBoardWidget.class.getResourceAsStream(
                     "/images/assistantCards/assistant_" + (GUI.instance().getModel().getLocalPlayer().getCurrentAssistantCardProperty().getValue().getValue() - 1) + ".png"))));
@@ -325,63 +325,57 @@ public class SchoolBoardWidget extends StackPane {
         }
     }
 
-    private void initTowers(){
+    private void initTowers() {
 
         int j = 0;
         int k = 0;
 
-        for(int i=0; i< GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getTowers(); i++){
+        for (int i = 0; i < GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getTowers(); i++) {
 
             Circle tower = new Circle();
             tower.setRadius(24);
-            if(GUI.instance().getModel().getLocalPlayer().getTowerColour() == TowerColour.WHITE) {
+            if (GUI.instance().getModel().getLocalPlayer().getTowerColour() == TowerColour.WHITE) {
                 tower.setFill(Color.rgb(255, 255, 255));
-            }
-            else if(GUI.instance().getModel().getLocalPlayer().getTowerColour() == TowerColour.BLACK) {
+            } else if (GUI.instance().getModel().getLocalPlayer().getTowerColour() == TowerColour.BLACK) {
                 tower.setFill(Color.rgb(0, 0, 0));
-            }
-            else if(GUI.instance().getModel().getLocalPlayer().getTowerColour() == TowerColour.GREY){
+            } else if (GUI.instance().getModel().getLocalPlayer().getTowerColour() == TowerColour.GREY) {
                 tower.setFill(Color.rgb(179, 179, 179));
             }
             towers.add(tower, j, k);
 
-            if(j==0){
-                j+=2;
-            }
-            else{
-                j=0;
-                k+=2;
+            if (j == 0) {
+                j += 2;
+            } else {
+                j = 0;
+                k += 2;
             }
         }
 
-        GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getTowersProperty().addListener( (change, oldVal, newVal) ->
+        GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getTowersProperty().addListener((change, oldVal, newVal) ->
                 Platform.runLater(() -> {
                     int l = 0;
                     int m = 0;
 
-                    for(int i=0; i< GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getTowers(); i++){
+                    for (int i = 0; i < GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getTowers(); i++) {
 
                         Circle tower = new Circle();
                         tower.setRadius(24);
 
-                        if(GUI.instance().getModel().getLocalPlayer().getTowerColour() == TowerColour.WHITE) {
+                        if (GUI.instance().getModel().getLocalPlayer().getTowerColour() == TowerColour.WHITE) {
                             tower.setFill(Color.rgb(255, 255, 255));
-                        }
-                        else if(GUI.instance().getModel().getLocalPlayer().getTowerColour() == TowerColour.BLACK) {
+                        } else if (GUI.instance().getModel().getLocalPlayer().getTowerColour() == TowerColour.BLACK) {
                             tower.setFill(Color.rgb(0, 0, 0));
-                        }
-                        else if(GUI.instance().getModel().getLocalPlayer().getTowerColour() == TowerColour.GREY){
+                        } else if (GUI.instance().getModel().getLocalPlayer().getTowerColour() == TowerColour.GREY) {
                             tower.setFill(Color.rgb(166, 166, 166));
                         }
 
                         towers.add(tower, l, m);
 
-                        if(l==0){
-                            l+=2;
-                        }
-                        else{
-                            l=0;
-                            m+=2;
+                        if (l == 0) {
+                            l += 2;
+                        } else {
+                            l = 0;
+                            m += 2;
                         }
                     }
                 }));

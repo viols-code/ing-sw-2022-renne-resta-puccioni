@@ -36,12 +36,12 @@ public class GroupIslandsWidget extends StackPane {
         GUI.instance().showPlayerBoard();
     }
 
-    public void initialize(){
-        groupIslandBoxes = new ArrayList<>(Arrays.asList(new Coordinates(11,268), new Coordinates(110,131), new Coordinates(245,40),new Coordinates(425,-6), new Coordinates(601,40),new Coordinates(753,131),new Coordinates(853,268),new Coordinates(753,410),new Coordinates(601,490),new Coordinates(429,524),new Coordinates(245,490),new Coordinates(99,410)));
+    public void initialize() {
+        groupIslandBoxes = new ArrayList<>(Arrays.asList(new Coordinates(11, 268), new Coordinates(110, 131), new Coordinates(245, 40), new Coordinates(425, -6), new Coordinates(601, 40), new Coordinates(753, 131), new Coordinates(853, 268), new Coordinates(753, 410), new Coordinates(601, 490), new Coordinates(429, 524), new Coordinates(245, 490), new Coordinates(99, 410)));
         int groupIslands = GUI.instance().getModel().getTable().getGroupIslands().size();
         int singleIslands;
         List<Coordinates> singleIslandsCoordinates;
-        for(int i = 0,j=0; i < groupIslands; i++){
+        for (int i = 0, j = 0; i < groupIslands; i++) {
             singleIslands = GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getIslands().size();
 
             //creates the flow pane for the group island
@@ -51,7 +51,7 @@ public class GroupIslandsWidget extends StackPane {
             anchorPane.getChildren().add(islandPane);
 
             singleIslandsCoordinates = getIslandsCoordinates(singleIslands);
-            for(int k = 0; k < singleIslands; k++){
+            for (int k = 0; k < singleIslands; k++) {
 
                 //creates the anchor pane for the single island
                 AnchorPane singleIslandPane = new AnchorPane();
@@ -73,7 +73,7 @@ public class GroupIslandsWidget extends StackPane {
                 imageView.setLayoutX(0);
                 imageView.setLayoutY(0);
                 //imageView.toBack();
-                singleIslandPane.setOnMouseClicked(event -> addStudentToSingleIsland(groupIslandIndex,singleIslandIndex));
+                singleIslandPane.setOnMouseClicked(event -> addStudentToSingleIsland(groupIslandIndex, singleIslandIndex));
 
                 //adds the students
                 Label greenStudents = new Label();
@@ -81,24 +81,24 @@ public class GroupIslandsWidget extends StackPane {
                 Label yellowStudents = new Label();
                 Label pinkStudents = new Label();
                 Label blueStudents = new Label();
-                GridPane studentsOnSingleIsland= new GridPane();
+                GridPane studentsOnSingleIsland = new GridPane();
                 singleIslandPane.getChildren().add(studentsOnSingleIsland);
                 studentsOnSingleIsland.setPrefWidth(100);
                 studentsOnSingleIsland.setPrefHeight(100);
                 studentsOnSingleIsland.toFront();
                 studentsOnSingleIsland.setLayoutX(50);
                 studentsOnSingleIsland.setLayoutY(50);
-                greenStudents.setBackground(new Background(new BackgroundFill(Color.rgb(0,255,0),CornerRadii.EMPTY, Insets.EMPTY)));
-                yellowStudents.setBackground(new Background(new BackgroundFill(Color.rgb(255, 204, 0),CornerRadii.EMPTY, Insets.EMPTY)));
-                redStudents.setBackground(new Background(new BackgroundFill(Color.rgb(255, 0, 0),CornerRadii.EMPTY, Insets.EMPTY)));
-                pinkStudents.setBackground(new Background(new BackgroundFill(Color.rgb(255, 102, 204),CornerRadii.EMPTY, Insets.EMPTY)));
-                blueStudents.setBackground(new Background(new BackgroundFill(Color.rgb(0, 204, 255),CornerRadii.EMPTY, Insets.EMPTY)));
+                greenStudents.setBackground(new Background(new BackgroundFill(Color.rgb(0, 255, 0), CornerRadii.EMPTY, Insets.EMPTY)));
+                yellowStudents.setBackground(new Background(new BackgroundFill(Color.rgb(255, 204, 0), CornerRadii.EMPTY, Insets.EMPTY)));
+                redStudents.setBackground(new Background(new BackgroundFill(Color.rgb(255, 0, 0), CornerRadii.EMPTY, Insets.EMPTY)));
+                pinkStudents.setBackground(new Background(new BackgroundFill(Color.rgb(255, 102, 204), CornerRadii.EMPTY, Insets.EMPTY)));
+                blueStudents.setBackground(new Background(new BackgroundFill(Color.rgb(0, 204, 255), CornerRadii.EMPTY, Insets.EMPTY)));
                 studentsOnSingleIsland.setVisible(true);
-                studentsOnSingleIsland.addRow(0,greenStudents);
-                studentsOnSingleIsland.addRow(1,redStudents);
-                studentsOnSingleIsland.addRow(2,yellowStudents);
-                studentsOnSingleIsland.addRow(3,pinkStudents);
-                studentsOnSingleIsland.addRow(4,blueStudents);
+                studentsOnSingleIsland.addRow(0, greenStudents);
+                studentsOnSingleIsland.addRow(1, redStudents);
+                studentsOnSingleIsland.addRow(2, yellowStudents);
+                studentsOnSingleIsland.addRow(3, pinkStudents);
+                studentsOnSingleIsland.addRow(4, blueStudents);
 
                 //addsStudents
                 greenStudents.setText("" + GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getSingleIslandByIndex(k).getStudents(Colour.GREEN));
@@ -129,7 +129,7 @@ public class GroupIslandsWidget extends StackPane {
             }
 
             int groupIsland = i;
-            if(GUI.instance().getModel().getTurnPhase().equals(TurnPhase.MOVE_MOTHER_NATURE)) {
+            if (GUI.instance().getModel().getTurnPhase().equals(TurnPhase.MOVE_MOTHER_NATURE)) {
                 islandPane.setOnMouseClicked(event -> moveMotherNature(groupIsland));
             }
 
@@ -140,9 +140,9 @@ public class GroupIslandsWidget extends StackPane {
         }
     }
 
-    private List<Coordinates> getIslandsCoordinates(int numberOfSingleIsland){
+    private List<Coordinates> getIslandsCoordinates(int numberOfSingleIsland) {
         List<Coordinates> coordinates = null;
-        switch(numberOfSingleIsland){
+        switch (numberOfSingleIsland) {
             case 1 -> coordinates = getCoordinatesForOneSingleIsland();
             case 2 -> coordinates = getCoordinatesForTwoSingleIslands();
             case 3 -> coordinates = getCoordinatesForThreeSingleIslands();
@@ -154,62 +154,61 @@ public class GroupIslandsWidget extends StackPane {
         return coordinates;
     }
 
-    private List<Coordinates> getCoordinatesForOneSingleIsland(){
+    private List<Coordinates> getCoordinatesForOneSingleIsland() {
         return new ArrayList<>(List.of(new Coordinates(0, 0)));
     }
 
-    private List<Coordinates> getCoordinatesForTwoSingleIslands(){
-        return new ArrayList<>(Arrays.asList(new Coordinates(0,0),new Coordinates(110,80)));
+    private List<Coordinates> getCoordinatesForTwoSingleIslands() {
+        return new ArrayList<>(Arrays.asList(new Coordinates(0, 0), new Coordinates(110, 80)));
     }
 
-    private List<Coordinates> getCoordinatesForThreeSingleIslands(){
-        return new ArrayList<>(Arrays.asList(new Coordinates(-12,23),new Coordinates(113,-9),new Coordinates(88,110)));
+    private List<Coordinates> getCoordinatesForThreeSingleIslands() {
+        return new ArrayList<>(Arrays.asList(new Coordinates(-12, 23), new Coordinates(113, -9), new Coordinates(88, 110)));
     }
 
-    private List<Coordinates> getCoordinatesForFourGroupIslands(){
-        return new ArrayList<>(Arrays.asList(new Coordinates(0,100),new Coordinates(96,0),new Coordinates(206,79), new Coordinates(113,179)));
+    private List<Coordinates> getCoordinatesForFourGroupIslands() {
+        return new ArrayList<>(Arrays.asList(new Coordinates(0, 100), new Coordinates(96, 0), new Coordinates(206, 79), new Coordinates(113, 179)));
     }
 
-    private List<Coordinates> getCoordinatesForFiveGroupIslands(){
-        return new ArrayList<>(Arrays.asList(new Coordinates(50,14),new Coordinates(166,77),new Coordinates(286,150), new Coordinates(50,141),new Coordinates(166,214)));
+    private List<Coordinates> getCoordinatesForFiveGroupIslands() {
+        return new ArrayList<>(Arrays.asList(new Coordinates(50, 14), new Coordinates(166, 77), new Coordinates(286, 150), new Coordinates(50, 141), new Coordinates(166, 214)));
     }
 
-    private List<Coordinates> getCoordinatesForSixGroupIslands(){
-        return new ArrayList<>(Arrays.asList(new Coordinates(50,14),new Coordinates(166,77),new Coordinates(286,150), new Coordinates(50,141),new Coordinates(166,214),new Coordinates(56,266)));
+    private List<Coordinates> getCoordinatesForSixGroupIslands() {
+        return new ArrayList<>(Arrays.asList(new Coordinates(50, 14), new Coordinates(166, 77), new Coordinates(286, 150), new Coordinates(50, 141), new Coordinates(166, 214), new Coordinates(56, 266)));
     }
 
-    private List<Coordinates> getCoordinatesForSevenGroupIslands(){
-        return new ArrayList<>(Arrays.asList(new Coordinates(50,14),new Coordinates(166,77),new Coordinates(286,150), new Coordinates(50,141),new Coordinates(166,214),new Coordinates(56,266),new Coordinates(277,286)));
+    private List<Coordinates> getCoordinatesForSevenGroupIslands() {
+        return new ArrayList<>(Arrays.asList(new Coordinates(50, 14), new Coordinates(166, 77), new Coordinates(286, 150), new Coordinates(50, 141), new Coordinates(166, 214), new Coordinates(56, 266), new Coordinates(277, 286)));
     }
 
-    private int getIslandPaneDimension(int numberOfSingleIsland){
+    private int getIslandPaneDimension(int numberOfSingleIsland) {
         int res = 0;
-        switch(numberOfSingleIsland){
+        switch (numberOfSingleIsland) {
             case 1 -> res = 200;
-            case 2,3 -> res = 300;
+            case 2, 3 -> res = 300;
             case 4 -> res = 400;
-            case 5,6,7 -> res = 500;
+            case 5, 6, 7 -> res = 500;
         }
         return res;
     }
 
-    private void addStudentToSingleIsland(int groupIsland, int singleIsland){
-        if(GUI.instance().getModel().getSelectedColour() != null){
-            GUI.instance().getActionSender().moveStudentToIsland(GUI.instance().getPlayerName(),GUI.instance().getModel().getSelectedColour(),groupIsland,singleIsland);
-        }
-        else{
-            if(GUI.instance().getModel().getTurnPhase() == TurnPhase.MOVE_STUDENT){
+    private void addStudentToSingleIsland(int groupIsland, int singleIsland) {
+        if (GUI.instance().getModel().getSelectedColour() != null) {
+            GUI.instance().getActionSender().moveStudentToIsland(GUI.instance().getPlayerName(), GUI.instance().getModel().getSelectedColour(), groupIsland, singleIsland);
+        } else {
+            if (GUI.instance().getModel().getTurnPhase() == TurnPhase.MOVE_STUDENT) {
                 GUI.instance().getRenderer().showErrorMessage("Select a student!");
             }
         }
         GUI.instance().getModel().setSelectedColour(null);
     }
 
-    private void moveMotherNature(int groupIsland){
+    private void moveMotherNature(int groupIsland) {
 
         int movement = groupIsland - GUI.instance().getModel().getTable().getMotherNaturePosition();
 
-        if(movement < 0){
+        if (movement < 0) {
             movement += GUI.instance().getModel().getTable().getGroupIslands().size();
         }
 

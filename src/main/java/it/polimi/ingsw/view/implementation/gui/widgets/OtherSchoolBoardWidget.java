@@ -62,7 +62,7 @@ public class OtherSchoolBoardWidget extends StackPane {
         initDiningRoom();
         initProfessorsTable();
 
-        if(GUI.instance().getGameMode()){
+        if (GUI.instance().getGameMode()) {
             ImageView coins = new ImageView();
             anchorPane.getChildren().add(coins);
             coins.setFitWidth(87);
@@ -201,11 +201,11 @@ public class OtherSchoolBoardWidget extends StackPane {
 
 
         player.getCurrentAssistantCardProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> {
-           setCurrentAssistantCard();
+            setCurrentAssistantCard();
         }));
     }
 
-    private void setCurrentAssistantCard(){
+    private void setCurrentAssistantCard() {
         if (player.isAssistantCardValue()) {
             currentAssistantCard.setImage(new Image(Objects.requireNonNull(AssistantCardsWidget.class.getResourceAsStream(
                     "/images/assistantCards/assistant_" + (player.getCurrentAssistantCardProperty().getValue().getValue() - 1) + ".png"))));
@@ -215,64 +215,58 @@ public class OtherSchoolBoardWidget extends StackPane {
         }
     }
 
-    private void initTowers(){
+    private void initTowers() {
 
         int j = 0;
         int k = 0;
 
-        for(int i=0; i < player.getSchoolBoard().getTowers(); i++){
+        for (int i = 0; i < player.getSchoolBoard().getTowers(); i++) {
 
             Circle tower = new Circle();
             tower.setRadius(24);
-            if(player.getTowerColour() == TowerColour.WHITE) {
+            if (player.getTowerColour() == TowerColour.WHITE) {
                 tower.setFill(Color.rgb(255, 255, 255));
-            }
-            else if(player.getTowerColour() == TowerColour.BLACK) {
+            } else if (player.getTowerColour() == TowerColour.BLACK) {
                 tower.setFill(Color.rgb(0, 0, 0));
-            }
-            else if(player.getTowerColour() == TowerColour.GREY){
+            } else if (player.getTowerColour() == TowerColour.GREY) {
                 tower.setFill(Color.rgb(179, 179, 179));
             }
 
             towersOtherPlayer.add(tower, j, k);
 
-            if(j==0){
-                j+=2;
-            }
-            else{
-                j=0;
-                k+=2;
+            if (j == 0) {
+                j += 2;
+            } else {
+                j = 0;
+                k += 2;
             }
         }
 
-        GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getTowersProperty().addListener( (change, oldVal, newVal) ->
+        GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getTowersProperty().addListener((change, oldVal, newVal) ->
                 Platform.runLater(() -> {
                     int l = 0;
                     int m = 0;
 
-                    for(int i=0; i < player.getSchoolBoard().getTowers(); i++){
+                    for (int i = 0; i < player.getSchoolBoard().getTowers(); i++) {
 
                         Circle tower = new Circle();
                         tower.setRadius(24);
 
-                        if(player.getTowerColour() == TowerColour.WHITE) {
+                        if (player.getTowerColour() == TowerColour.WHITE) {
                             tower.setFill(Color.rgb(255, 255, 255));
-                        }
-                        else if(player.getTowerColour() == TowerColour.BLACK) {
+                        } else if (player.getTowerColour() == TowerColour.BLACK) {
                             tower.setFill(Color.rgb(0, 0, 0));
-                        }
-                        else if(player.getTowerColour() == TowerColour.GREY){
+                        } else if (player.getTowerColour() == TowerColour.GREY) {
                             tower.setFill(Color.rgb(166, 166, 166));
                         }
 
                         towersOtherPlayer.add(tower, l, m);
 
-                        if(l==0){
-                            l+=2;
-                        }
-                        else{
-                            l=0;
-                            m+=2;
+                        if (l == 0) {
+                            l += 2;
+                        } else {
+                            l = 0;
+                            m += 2;
                         }
                     }
                 }));

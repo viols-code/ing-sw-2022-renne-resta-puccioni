@@ -125,5 +125,7 @@ public class MockSchoolBoard {
         return professorTable;
     }
 
-    public IntegerProperty getTowersProperty(){ return towers;}
+    public IntegerProperty getTowersProperty() {
+        return towers;
+    }
 }

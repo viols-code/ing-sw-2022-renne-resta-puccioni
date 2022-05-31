@@ -186,7 +186,7 @@ public class MockCard {
             this.students.entrySet().forEach(entry -> entry.setValue(students.get(entry.getKey())));
     }
 
-    public IntegerProperty getCostProperty(){
+    public IntegerProperty getCostProperty() {
         return cost;
     }
 }
