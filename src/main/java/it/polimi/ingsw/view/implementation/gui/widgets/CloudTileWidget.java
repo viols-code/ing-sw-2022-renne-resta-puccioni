@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
+
 public class CloudTileWidget extends StackPane {
     @FXML
     private HBox box;
@@ -27,16 +28,18 @@ public class CloudTileWidget extends StackPane {
         FXMLUtils.loadWidgetFXML(this);
     }
 
+    private List<AnchorPane> cloudTiles = new ArrayList<>();
+
     @FXML
     private void initialize() {
         initializeCloudTileImages();
 
         GUI.instance().getModel().getTable().getShownCloudTilesProperty().addListener((ListChangeListener<? super MockCloudTile>) change ->
                 Platform.runLater(() -> {
-                  //  box.getChildren().forEach(node -> node.setVisible(false));
-                    box.getChildren().removeAll();
-
-                    initializeCloudTileImages();
+                    while(change.next()){
+                        box.getChildren().removeAll(cloudTiles);
+                        initializeCloudTileImages();
+                    }
                 }));
     }
 
@@ -58,6 +61,7 @@ public class CloudTileWidget extends StackPane {
     public void initializeCloudTileImages(){
         for (int i = 0; i < GUI.instance().getModel().getTable().getShownCloudTiles().size(); i++) {
             AnchorPane anchorPane = new AnchorPane();
+            cloudTiles.add(anchorPane);
             ImageView imageView = new ImageView();
             anchorPane.getChildren().add(imageView);
             box.getChildren().add(anchorPane);
