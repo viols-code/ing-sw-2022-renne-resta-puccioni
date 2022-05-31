@@ -135,7 +135,7 @@ public class SchoolBoardWidget extends StackPane {
             Label numberCoins = new Label();
             numberCoins.setLayoutX(914);
             numberCoins.setLayoutY(197);
-            numberCoins.setPrefSize(12, 32);
+            numberCoins.setStyle("-fx-font: 22 System;");
             anchorPane.getChildren().add(numberCoins);
 
             numberCoins.setText(String.valueOf(GUI.instance().getModel().getLocalPlayer().getCoins()));
