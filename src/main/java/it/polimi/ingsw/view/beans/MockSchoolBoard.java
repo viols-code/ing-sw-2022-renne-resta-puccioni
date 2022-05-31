@@ -124,4 +124,6 @@ public class MockSchoolBoard {
     public ObservableMap<Colour, Boolean> getProfessorTableProperty() {
         return professorTable;
     }
+
+    public IntegerProperty getTowersProperty(){ return towers;}
 }
