@@ -212,7 +212,7 @@ public class GroupIslandsWidget extends StackPane {
 
     private void moveMotherNature(int groupIsland){
 
-        int movement = GUI.instance().getModel().getTable().getMotherNaturePosition() - groupIsland;
+        int movement = groupIsland - GUI.instance().getModel().getTable().getMotherNaturePosition();
 
         if(movement < 0){
             movement += GUI.instance().getModel().getTable().getGroupIslands().size();
