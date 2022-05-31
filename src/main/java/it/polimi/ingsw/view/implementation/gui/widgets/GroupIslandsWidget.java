@@ -195,6 +195,12 @@ public class GroupIslandsWidget extends StackPane {
     }
 
     private void addStudentToSingleIsland(int groupIsland, int singleIsland){
-        GUI.instance().getActionSender().moveStudentToIsland(GUI.instance().getPlayerName(),GUI.instance().getModel().getSelectedColour(),groupIsland,singleIsland);
+        if(GUI.instance().getModel().getSelectedColour() != null){
+            GUI.instance().getActionSender().moveStudentToIsland(GUI.instance().getPlayerName(),GUI.instance().getModel().getSelectedColour(),groupIsland,singleIsland);
+        }
+        else{
+            GUI.instance().getRenderer().showErrorMessage("Select a student!!!!!!");
+        }
+        GUI.instance().getModel().setSelectedColour(null);
     }
 }
