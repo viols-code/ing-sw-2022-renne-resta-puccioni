@@ -309,23 +309,20 @@ public class SchoolBoardWidget extends StackPane {
     }
 
     private void initCurrentAssistantCard() {
-        if (GUI.instance().getModel().getLocalPlayer().getCurrentAssistantCardProperty().getValue() != null) {
+        setCurrentAssistantCard();
+
+        GUI.instance().getModel().getLocalPlayer().isAssistantCardValueProperty().addListener((change, oldVal, newVal) -> Platform.runLater(this::setCurrentAssistantCard));
+    }
+
+
+    private void setCurrentAssistantCard(){
+        if (GUI.instance().getModel().getLocalPlayer().isAssistantCardValue()) {
             currentAssistantCard.setImage(new Image(Objects.requireNonNull(SchoolBoardWidget.class.getResourceAsStream(
                     "/images/assistantCards/assistant_" + (GUI.instance().getModel().getLocalPlayer().getCurrentAssistantCardProperty().getValue().getValue() - 1) + ".png"))));
         } else {
             currentAssistantCard.setImage(new Image(Objects.requireNonNull(SchoolBoardWidget.class.getResourceAsStream(
                     "/images/wizard/wizard" + (Wizard.getWizardCode(GUI.instance().getModel().getLocalPlayer().getWizard())) + ".png"))));
         }
-
-        GUI.instance().getModel().getLocalPlayer().getCurrentAssistantCardProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> {
-            if (GUI.instance().getModel().getLocalPlayer().getCurrentAssistantCardProperty().getValue() != null) {
-                currentAssistantCard.setImage(new Image(Objects.requireNonNull(SchoolBoardWidget.class.getResourceAsStream(
-                        "/images/assistantCards/assistant_" + (GUI.instance().getModel().getLocalPlayer().getCurrentAssistantCardProperty().getValue().getValue() - 1) + ".png"))));
-            } else {
-                currentAssistantCard.setImage(new Image(Objects.requireNonNull(SchoolBoardWidget.class.getResourceAsStream(
-                        "/images/wizard/wizard" + (Wizard.getWizardCode(GUI.instance().getModel().getLocalPlayer().getWizard())) + ".png"))));
-            }
-        }));
     }
 
     private void initTowers(){

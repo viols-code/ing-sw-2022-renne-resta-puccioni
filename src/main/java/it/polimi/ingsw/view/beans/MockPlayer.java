@@ -3,10 +3,7 @@ package it.polimi.ingsw.view.beans;
 import it.polimi.ingsw.model.AssistantCard;
 import it.polimi.ingsw.model.player.TowerColour;
 import it.polimi.ingsw.model.player.Wizard;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.Property;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 
@@ -61,6 +58,11 @@ public class MockPlayer {
      */
     private Property<AssistantCard> currentAssistantCard;
 
+    /**
+     * True if the assistantCard is set, false otherwise
+     */
+    private BooleanProperty assistantCardValue;
+
 
     /**
      * Constructs the mock player
@@ -103,6 +105,8 @@ public class MockPlayer {
         cards.put(8, card9);
         AssistantCard card10 = new AssistantCard(10, 5);
         cards.put(9, card10);
+
+        assistantCardValue = new SimpleBooleanProperty();
     }
 
     /**
@@ -192,13 +196,6 @@ public class MockPlayer {
     }
 
     /**
-     * Sets the current assistant card to null
-     */
-    public void setCurrentAssistantCardNull() {
-        this.currentAssistantCard = new SimpleObjectProperty<>();
-    }
-
-    /**
      * Gets the current assistant card
      *
      * @return the current assistant card
@@ -218,5 +215,17 @@ public class MockPlayer {
 
     public IntegerProperty getCoinsProperty() {
         return coins;
+    }
+
+    public BooleanProperty isAssistantCardValueProperty() {
+        return assistantCardValue;
+    }
+
+    public boolean isAssistantCardValue() {
+        return assistantCardValue.getValue();
+    }
+
+    public void setAssistantCardValue(boolean assistantCardValue) {
+        this.assistantCardValue.setValue(assistantCardValue);
     }
 }

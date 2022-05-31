@@ -197,22 +197,22 @@ public class OtherSchoolBoardWidget extends StackPane {
     }
 
     private void initCurrentAssistantCard() {
-        if (player.getCurrentAssistantCardProperty().getValue() != null) {
+        setCurrentAssistantCard();
+
+
+        player.getCurrentAssistantCardProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> {
+           setCurrentAssistantCard();
+        }));
+    }
+
+    private void setCurrentAssistantCard(){
+        if (player.isAssistantCardValue()) {
             currentAssistantCard.setImage(new Image(Objects.requireNonNull(AssistantCardsWidget.class.getResourceAsStream(
                     "/images/assistantCards/assistant_" + (player.getCurrentAssistantCardProperty().getValue().getValue() - 1) + ".png"))));
         } else {
             currentAssistantCard.setImage(new Image(Objects.requireNonNull(AssistantCardsWidget.class.getResourceAsStream(
                     "/images/wizard/wizard" + (Wizard.getWizardCode(player.getWizard())) + ".png"))));
         }
-        player.getCurrentAssistantCardProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> {
-            if (player.getCurrentAssistantCardProperty().getValue() != null) {
-                currentAssistantCard.setImage(new Image(Objects.requireNonNull(AssistantCardsWidget.class.getResourceAsStream(
-                        "/images/assistantCards/assistant_" + (player.getCurrentAssistantCardProperty().getValue().getValue() - 1) + ".png"))));
-            } else {
-                currentAssistantCard.setImage(new Image(Objects.requireNonNull(AssistantCardsWidget.class.getResourceAsStream(
-                        "/images/wizard/wizard" + (Wizard.getWizardCode(player.getWizard())) + ".png"))));
-            }
-        }));
     }
 
     private void initTowers(){
