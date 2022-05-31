@@ -126,6 +126,7 @@ public class SchoolBoardWidget extends StackPane {
             button.setText("Character Cards");
             button.setOnMouseClicked(event -> Platform.runLater(() -> GUI.instance().showCharacterCards()));
             gridPane.add(button, 0, row);
+
             ImageView coins = new ImageView();
             anchorPane.getChildren().add(coins);
             coins.setFitWidth(87);
