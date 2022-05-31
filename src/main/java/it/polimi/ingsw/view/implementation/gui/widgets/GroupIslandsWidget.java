@@ -64,6 +64,7 @@ public class GroupIslandsWidget extends StackPane {
                 //create the image view to for the single island
                 ImageView imageView = new ImageView();
                 singleIslandPane.getChildren().add(imageView);
+                singleIslandPane.getStyleClass().add("singleIsland");
                 imageView.setFitWidth(200);
                 imageView.setFitHeight(200);
                 imageView.setImage(new Image(Objects.requireNonNull(AssistantCardsWidget.class.getResourceAsStream(
