@@ -41,4 +41,8 @@ public class MockSingleIsland {
     public int getStudents(Colour colour) {
         return students.get(colour);
     }
+
+    public ObservableMap<Colour, Integer> getStudentsProperty() {
+        return students;
+    }
 }

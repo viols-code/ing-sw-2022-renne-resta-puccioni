@@ -1,14 +1,18 @@
 package it.polimi.ingsw.view.implementation.gui.widgets;
 
 import it.polimi.ingsw.FXMLUtils;
+import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.view.implementation.gui.GUI;
+import javafx.application.Platform;
+import javafx.collections.MapChangeListener;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -47,27 +51,84 @@ public class GroupIslandsWidget extends StackPane {
 
             singleIslandsCoordinates = getIslandsCoordinates(singleIslands);
             for(int k = 0; k < singleIslands; k++){
-                AnchorPane anchorPane = new AnchorPane();
+
+                //creates the anchor pane for the single island
+                AnchorPane singleIslandPane = new AnchorPane();
+                islandPane.getChildren().add(singleIslandPane);
+                singleIslandPane.setLayoutX(singleIslandsCoordinates.get(k).getRow());
+                singleIslandPane.setLayoutY(singleIslandsCoordinates.get(k).getColumn());
+                int groupIslandIndex = i;
+                int singleIslandIndex = k;
+
+
+                //create the image view to for the single island
                 ImageView imageView = new ImageView();
-                islandPane.getChildren().add(imageView);
+                singleIslandPane.getChildren().add(imageView);
                 imageView.setFitWidth(200);
                 imageView.setFitHeight(200);
                 imageView.setImage(new Image(Objects.requireNonNull(AssistantCardsWidget.class.getResourceAsStream(
                         "/images/islands/island2.png"))));
-                anchorPane.setLayoutX(singleIslandsCoordinates.get(k).getRow());
-                anchorPane.setLayoutY(singleIslandsCoordinates.get(k).getColumn());
                 imageView.setLayoutX(0);
                 imageView.setLayoutY(0);
+                //imageView.toBack();
+                imageView.setOnMouseClicked(event -> addStudentToSingleIsland(groupIslandIndex,singleIslandIndex));
 
-                GridPane gridPane1 = new GridPane();
-                GridPane gridPane2 = new GridPane();
-                GridPane gridPane3 = new GridPane();
-                GridPane gridPane4 = new GridPane();
-                anchorPane.getChildren().add(gridPane1);
-                anchorPane.getChildren().add(gridPane2);
-                anchorPane.getChildren().add(gridPane3);
-                anchorPane.getChildren().add(gridPane4);
+                //adds the students
+                Label greenStudents = new Label();
+                Label redStudents = new Label();
+                Label yellowStudents = new Label();
+                Label pinkStudents = new Label();
+                Label blueStudents = new Label();
+                GridPane studentsOnSingleIsland= new GridPane();
+                islandPane.getChildren().add(studentsOnSingleIsland);
+                studentsOnSingleIsland.setPrefWidth(100);
+                studentsOnSingleIsland.setPrefHeight(100);
+                studentsOnSingleIsland.toFront();
+                studentsOnSingleIsland.setLayoutX(50);
+                studentsOnSingleIsland.setLayoutY(50);
+                greenStudents.setBackground(new Background(new BackgroundFill(Color.rgb(0,255,0),CornerRadii.EMPTY, Insets.EMPTY)));
+                yellowStudents.setBackground(new Background(new BackgroundFill(Color.rgb(255, 204, 0),CornerRadii.EMPTY, Insets.EMPTY)));
+                redStudents.setBackground(new Background(new BackgroundFill(Color.rgb(255, 0, 0),CornerRadii.EMPTY, Insets.EMPTY)));
+                pinkStudents.setBackground(new Background(new BackgroundFill(Color.rgb(255, 0, 102),CornerRadii.EMPTY, Insets.EMPTY)));
+                blueStudents.setBackground(new Background(new BackgroundFill(Color.rgb(0, 0, 255),CornerRadii.EMPTY, Insets.EMPTY)));
+                studentsOnSingleIsland.setVisible(true);
+                studentsOnSingleIsland.addRow(0,greenStudents);
+                studentsOnSingleIsland.addRow(1,redStudents);
+                studentsOnSingleIsland.addRow(2,yellowStudents);
+                studentsOnSingleIsland.addRow(3,pinkStudents);
+                studentsOnSingleIsland.addRow(4,blueStudents);
 
+                //addsStudents
+                greenStudents.setText("" + GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getSingleIslandByIndex(k).getStudents(Colour.GREEN));
+                redStudents.setText("" + GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getSingleIslandByIndex(k).getStudents(Colour.RED));
+                yellowStudents.setText("" + GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getSingleIslandByIndex(k).getStudents(Colour.YELLOW));
+                pinkStudents.setText("" + GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getSingleIslandByIndex(k).getStudents(Colour.PINK));
+                blueStudents.setText("" + GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getSingleIslandByIndex(k).getStudents(Colour.BLUE));
+                //adds mother nature
+                Circle motherNature = new Circle();
+                motherNature.setRadius(10);
+                singleIslandPane.getChildren().add(motherNature);
+                motherNature.setLayoutX(150);
+                motherNature.setLayoutY(100);
+                motherNature.toFront();
+                motherNature.setFill(Color.rgb(255, 102, 0));
+                if(GUI.instance().getModel().getTable().getGroupIslandByIndex(i).isMotherNature() && k ==0){
+                    motherNature.setVisible(true);
+                }
+                else{
+                    motherNature.setVisible(false);
+                }
+
+                //adds a listener to all the single islands
+                GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getSingleIslandByIndex(k).getStudentsProperty().addListener((MapChangeListener<? super Colour, ? super Integer>) listener ->
+                        Platform.runLater(() -> {
+                            //addsStudents
+                            greenStudents.setText("" + listener.getMap().get(Colour.GREEN));
+                            redStudents.setText("" + listener.getMap().get(Colour.GREEN));
+                            yellowStudents.setText("" + listener.getMap().get(Colour.GREEN));
+                            pinkStudents.setText("" + listener.getMap().get(Colour.GREEN));
+                            blueStudents.setText("" + listener.getMap().get(Colour.GREEN));
+                        }));
 
             }
 
@@ -130,5 +191,9 @@ public class GroupIslandsWidget extends StackPane {
             case 5,6,7 -> res = 500;
         }
         return res;
+    }
+
+    private void addStudentToSingleIsland(int groupIsland, int singleIsland){
+        GUI.instance().getActionSender().moveStudentToIsland(GUI.instance().getPlayerName(),GUI.instance().getModel().getSelectedColour(),groupIsland,singleIsland);
     }
 }
