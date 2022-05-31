@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -19,6 +20,9 @@ import javafx.scene.layout.StackPane;
 import java.util.*;
 
 public class SchoolBoardWidget extends StackPane {
+
+    @FXML
+    private AnchorPane anchorPane;
 
     /*
      *BUTTONS
@@ -120,6 +124,24 @@ public class SchoolBoardWidget extends StackPane {
             button.setText("Character Cards");
             button.setOnMouseClicked(event -> Platform.runLater(() -> GUI.instance().showCharacterCards()));
             gridPane.add(button, 0, row);
+            ImageView coins = new ImageView();
+            anchorPane.getChildren().add(coins);
+            coins.setFitWidth(87);
+            coins.setFitHeight(100);
+            coins.setLayoutX(815);
+            coins.setLayoutY(163);
+            coins.setImage(new Image(Objects.requireNonNull(SchoolBoardWidget.class.getResourceAsStream(
+                    "/images/Moneta_base.png"))));
+            Label numberCoins = new Label();
+            numberCoins.setLayoutX(914);
+            numberCoins.setLayoutY(197);
+            numberCoins.setPrefSize(12, 32);
+            anchorPane.getChildren().add(numberCoins);
+
+            numberCoins.setText(String.valueOf(GUI.instance().getModel().getLocalPlayer().getCoins()));
+            GUI.instance().getModel().getLocalPlayer().getCoinsProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> {
+                numberCoins.setText(String.valueOf(GUI.instance().getModel().getLocalPlayer().getCoins()));
+            }));
         }
 
         initCurrentAssistantCard();
@@ -193,6 +215,8 @@ public class SchoolBoardWidget extends StackPane {
 
             }
         }
+
+        diningRoom.getStyleClass().add("diningRoom");
 
         GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getDiningRoomProperty().addListener((MapChangeListener<? super Colour, ? super Integer>) listener ->
                 Platform.runLater(() -> {
