@@ -161,6 +161,10 @@ public class SchoolBoardWidget extends StackPane {
 
     @FXML
     private void goToAssistantCards() {
+
+        GUI.instance().getModel().setPosition(-1);
+        GUI.instance().getModel().setSelectedColour(null);
+
         GUI.instance().showAssistantCards();
     }
 
@@ -387,8 +391,10 @@ public class SchoolBoardWidget extends StackPane {
 
     @FXML
     public void goToCloudTile() {
+
         GUI.instance().getModel().setPosition(-1);
         GUI.instance().getModel().setSelectedColour(null);
+
         GUI.instance().showCloudTile();
     }
 
