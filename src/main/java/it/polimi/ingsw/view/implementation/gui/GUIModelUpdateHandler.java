@@ -11,7 +11,7 @@ public class GUIModelUpdateHandler extends ModelUpdateHandler {
     @Override
     public void updateGamePhase(GamePhase gamePhase) {
         super.updateGamePhase(gamePhase);
-        if (gamePhase == GamePhase.PLAY_ASSISTANT_CARD) {
+        if (gamePhase == GamePhase.PLAY_ASSISTANT_CARD && getView().getModel().getRound() == 1) {
             GUI.instance().showPlayerBoard();
         }
     }
