@@ -37,11 +37,13 @@ public class CloudTileWidget extends StackPane {
         GUI.instance().getModel().getTable().getShownCloudTilesProperty().addListener((ListChangeListener<? super MockCloudTile>) change ->
                 Platform.runLater(() -> {
                     while (change.next()) {
-                        box.getChildren().removeAll(cloudTiles);
-                        cloudTiles.clear();
-                        initializeCloudTileImages();
+                            box.getChildren().clear();
+                            cloudTiles.clear();
+                            initializeCloudTileImages();
                     }
                 }));
+
+
     }
 
     public void initializeCloudTileStudents(AnchorPane anchorPane, int i, List<Integer> x, List<Integer> y) {
@@ -104,6 +106,9 @@ public class CloudTileWidget extends StackPane {
             }
             initializeCloudTileStudents(anchorPane, i, x, y);
         }
+
+        System.out.println("Stampo le cloud tile aggiunte");
+        System.out.println(cloudTiles.toString());
     }
 
 
