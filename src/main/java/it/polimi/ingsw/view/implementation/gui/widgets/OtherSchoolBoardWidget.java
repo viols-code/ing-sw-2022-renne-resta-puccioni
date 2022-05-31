@@ -50,6 +50,8 @@ public class OtherSchoolBoardWidget extends StackPane {
 
     private List<ImageView> professorsImage = new ArrayList<>();
 
+    private List<ImageView> diningRoomImages = new ArrayList<>();
+
     private List<Coordinates> entranceBoxes;
 
     public OtherSchoolBoardWidget(MockPlayer player) {
@@ -101,7 +103,7 @@ public class OtherSchoolBoardWidget extends StackPane {
             }
         }
 
-        entrance(entranceStudents);
+        entranceUpdate(entranceStudents);
 
         player.getSchoolBoard().getEntranceProperty().addListener((MapChangeListener<? super Colour, ? super Integer>) listener ->
                 Platform.runLater(() -> {
@@ -114,11 +116,11 @@ public class OtherSchoolBoardWidget extends StackPane {
                         }
                     }
 
-                    entrance(students);
+                    entranceUpdate(students);
                 }));
     }
 
-    private void entrance(List<Colour> entranceStudents) {
+    private void entranceUpdate(List<Colour> entranceStudents) {
         for (int i = 0; i < entranceStudents.size(); i++) {
             ImageView imageView = new ImageView();
             entrance.add(imageView, entranceBoxes.get(i).getRow(), entranceBoxes.get(i).getColumn());
@@ -128,29 +130,31 @@ public class OtherSchoolBoardWidget extends StackPane {
     }
 
     private void initDiningRoom() {
+
+        diningRoomUpdate();
+
+        player.getSchoolBoard().getDiningRoomProperty().addListener((MapChangeListener<? super Colour, ? super Integer>) listener ->
+                Platform.runLater(() -> {
+                    diningRoom.getChildren().removeAll(diningRoomImages);
+                    diningRoomImages.clear();
+                    diningRoomUpdate();
+                }));
+    }
+
+    private void diningRoomUpdate(){
         for (Colour colour : Colour.values()) {
             for (int i = 0; i < player.getSchoolBoard().getDiningRoom().get(colour); i++) {
                 ImageView imageView = new ImageView();
+                diningRoomImages.add(imageView);
                 diningRoom.add(imageView, i, getDiningRoomTable(colour));
                 imageView.setImage(new Image(Objects.requireNonNull(SchoolBoardWidget.class.getResourceAsStream(
                         "/images/students/student_" + colour + ".png"))));
 
             }
         }
-
-        player.getSchoolBoard().getDiningRoomProperty().addListener((MapChangeListener<? super Colour, ? super Integer>) listener ->
-                Platform.runLater(() -> {
-                    for (Colour colour : Colour.values()) {
-                        for (int i = 0; i < GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getDiningRoom().get(colour); i++) {
-                            ImageView imageView = new ImageView();
-                            diningRoom.add(imageView, i, getDiningRoomTable(colour));
-                            imageView.setImage(new Image(Objects.requireNonNull(SchoolBoardWidget.class.getResourceAsStream(
-                                    "/images/students/student_" + colour + ".png"))));
-
-                        }
-                    }
-                }));
     }
+
+
 
     private int getDiningRoomTable(Colour colour) {
         int res = 0;
@@ -179,6 +183,8 @@ public class OtherSchoolBoardWidget extends StackPane {
 
         player.getSchoolBoard().getProfessorTableProperty().addListener((MapChangeListener<? super Colour, ? super Boolean>) listener ->
                 Platform.runLater(() -> {
+                    professorsTable.getChildren().removeAll(professorsImage);
+                    professorsImage.clear();
                     professorUpdate();
                 }));
     }
@@ -187,6 +193,7 @@ public class OtherSchoolBoardWidget extends StackPane {
         for (Colour colour : Colour.values()) {
             if (player.getSchoolBoard().getProfessorTable().get(colour)) {
                 ImageView imageView = new ImageView();
+                professorsImage.add(imageView);
                 professorsTable.add(imageView, 0, getDiningRoomTable(colour));
                 imageView.setImage(new Image(Objects.requireNonNull(SchoolBoardWidget.class.getResourceAsStream(
                         "/images/professors/teacher_" + colour + ".png")), 40, 40, false, false));
