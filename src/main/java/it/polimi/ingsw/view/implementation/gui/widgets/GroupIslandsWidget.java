@@ -138,6 +138,7 @@ public class GroupIslandsWidget extends StackPane {
                 motherNature.setFill(Color.rgb(255, 102, 0));
                 motherNature.setVisible(GUI.instance().getModel().getTable().getGroupIslandByIndex(i).isMotherNature() && k == 0);
 
+
                 //adds a listener to all the single islands
                 GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getSingleIslandByIndex(k).getStudentsProperty().addListener((MapChangeListener<? super Colour, ? super Integer>) listener ->
                         Platform.runLater(() -> {
@@ -159,7 +160,30 @@ public class GroupIslandsWidget extends StackPane {
             islandPane.setLayoutY(groupIslandBoxes.get(j).getColumn());
             j += singleIslands;
         }
+        addListenerOnTurnPhase();
+        addListenerOnMotherNatureProperty();
 
+
+
+
+
+    }
+
+    
+
+    private void addListenerOnMotherNatureProperty(){
+        //adds the listener on mother nature property on a single island
+        for(int i = 0; i < GUI.instance().getModel().getTable().getGroupIslands().size(); i++){
+            int groupIsland = i;
+            GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getIsMotherNatureProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> {
+                for(int j = 0; j < GUI.instance().getModel().getTable().getGroupIslandByIndex(groupIsland).getIslands().size(); j++){
+                    singleIslandPanes.get(groupIsland).get(j).getChildren().get(2).setVisible(GUI.instance().getModel().getTable().getGroupIslandByIndex(groupIsland).isMotherNature() && j==0);
+                }
+            }));
+        }
+    }
+
+    private void addListenerOnTurnPhase(){
         //adds the listeners for the turn phase to add mouse click on group islands
         GUI.instance().getModel().getTurnPhaseProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> {
 
@@ -205,18 +229,6 @@ public class GroupIslandsWidget extends StackPane {
                 }
             }
         }));
-
-
-        //adds the listener on mother nature property on a single island
-        for(int i = 0; i < GUI.instance().getModel().getTable().getGroupIslands().size(); i++){
-            int groupIsland = i;
-            GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getIsMotherNatureProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> {
-                for(int j = 0; j < GUI.instance().getModel().getTable().getGroupIslandByIndex(groupIsland).getIslands().size(); j++){
-                    singleIslandPanes.get(groupIsland).get(j).getChildren().get(2).setVisible(GUI.instance().getModel().getTable().getGroupIslandByIndex(groupIsland).isMotherNature() && j==0);
-                }
-            }));
-        }
-
     }
 
     private List<Coordinates> getIslandsCoordinates(int numberOfSingleIsland){
