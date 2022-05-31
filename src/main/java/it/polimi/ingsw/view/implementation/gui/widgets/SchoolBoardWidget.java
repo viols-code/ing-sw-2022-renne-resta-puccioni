@@ -238,7 +238,7 @@ public class SchoolBoardWidget extends StackPane {
                 }));
     }
 
-    private void initDiningRoomImage(){
+    private void initDiningRoomImage() {
         for (Colour colour : Colour.values()) {
             for (int i = 0; i < GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getDiningRoom().get(colour); i++) {
                 ImageView imageView = new ImageView();
@@ -293,7 +293,7 @@ public class SchoolBoardWidget extends StackPane {
     }
 
 
-    private void initProfessorTableImage(){
+    private void initProfessorTableImage() {
         for (Colour colour : Colour.values()) {
             if (GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getProfessorTable().get(colour)) {
                 ImageView imageView = new ImageView();
@@ -305,7 +305,6 @@ public class SchoolBoardWidget extends StackPane {
             }
         }
     }
-
 
 
     private void initCurrentAssistantCard() {
@@ -330,13 +329,13 @@ public class SchoolBoardWidget extends StackPane {
 
         GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getTowersProperty().addListener((change, oldVal, newVal) ->
                 Platform.runLater(() -> {
-                        towers.getChildren().removeAll(towersImage);
-                        towersImage.clear();
-                        initTowerImage();
+                    towers.getChildren().removeAll(towersImage);
+                    towersImage.clear();
+                    initTowerImage();
                 }));
     }
 
-    private void initTowerImage(){
+    private void initTowerImage() {
         int j = 0;
         int k = 0;
 

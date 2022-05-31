@@ -46,11 +46,11 @@ public class OtherSchoolBoardWidget extends StackPane {
     @FXML
     private AnchorPane anchorPane;
 
-    private List<Circle> towersImage = new ArrayList<>();
+    private final List<Circle> towersImage = new ArrayList<>();
 
-    private List<ImageView> professorsImage = new ArrayList<>();
+    private final List<ImageView> professorsImage = new ArrayList<>();
 
-    private List<ImageView> diningRoomImages = new ArrayList<>();
+    private final List<ImageView> diningRoomImages = new ArrayList<>();
 
     private List<Coordinates> entranceBoxes;
 
@@ -141,7 +141,7 @@ public class OtherSchoolBoardWidget extends StackPane {
                 }));
     }
 
-    private void diningRoomUpdate(){
+    private void diningRoomUpdate() {
         for (Colour colour : Colour.values()) {
             for (int i = 0; i < player.getSchoolBoard().getDiningRoom().get(colour); i++) {
                 ImageView imageView = new ImageView();
@@ -155,25 +155,14 @@ public class OtherSchoolBoardWidget extends StackPane {
     }
 
 
-
     private int getDiningRoomTable(Colour colour) {
-        int res = 0;
+        int res = -1;
         switch (colour) {
-            case GREEN -> {
-                res = 0;
-            }
-            case RED -> {
-                res = 2;
-            }
-            case YELLOW -> {
-                res = 4;
-            }
-            case PINK -> {
-                res = 6;
-            }
-            case BLUE -> {
-                res = 8;
-            }
+            case GREEN -> res = 0;
+            case RED -> res = 2;
+            case YELLOW -> res = 4;
+            case PINK -> res = 6;
+            case BLUE -> res = 8;
         }
         return res;
     }
@@ -205,10 +194,7 @@ public class OtherSchoolBoardWidget extends StackPane {
     private void initCurrentAssistantCard() {
         setCurrentAssistantCard();
 
-
-        player.getCurrentAssistantCardProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> {
-            setCurrentAssistantCard();
-        }));
+        player.getCurrentAssistantCardProperty().addListener((change, oldVal, newVal) -> Platform.runLater(this::setCurrentAssistantCard));
     }
 
     private void setCurrentAssistantCard() {
@@ -232,7 +218,7 @@ public class OtherSchoolBoardWidget extends StackPane {
                 }));
     }
 
-    private void initTowerImage(){
+    private void initTowerImage() {
         int j = 0;
         int k = 0;
 
