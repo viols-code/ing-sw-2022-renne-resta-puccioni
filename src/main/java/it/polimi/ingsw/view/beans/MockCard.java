@@ -185,4 +185,8 @@ public class MockCard {
         if (type == CharacterCardEnumeration.STUDENT_TO_DINING_ROOM || type == CharacterCardEnumeration.STUDENT_TO_ENTRANCE || type == CharacterCardEnumeration.STUDENT_TO_ISLAND)
             this.students.entrySet().forEach(entry -> entry.setValue(students.get(entry.getKey())));
     }
+
+    public IntegerProperty getCostProperty(){
+        return cost;
+    }
 }

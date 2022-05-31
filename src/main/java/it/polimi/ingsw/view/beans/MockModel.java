@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
  * Local copy of the game model
  */
 public class MockModel {
+
     /**
      * The local player
      */
@@ -370,6 +371,8 @@ public class MockModel {
         return this.turnPhase;
     }
 
+    public IntegerProperty getCoinsProperty(){ return coins;}
+
     public IntegerProperty getPosition() {
         return position;
     }
@@ -377,6 +380,7 @@ public class MockModel {
     public void setPosition(int position) {
         this.position.setValue(position);
     }
+
 
     public Colour getSelectedColour() {
         return selectedColour;
