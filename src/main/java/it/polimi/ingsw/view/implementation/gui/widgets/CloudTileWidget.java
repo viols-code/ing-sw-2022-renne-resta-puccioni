@@ -29,16 +29,14 @@ public class CloudTileWidget extends StackPane {
 
     @FXML
     private void initialize() {
-
         initializeCloudTileImages();
 
         GUI.instance().getModel().getTable().getShownCloudTilesProperty().addListener((ListChangeListener<? super MockCloudTile>) change ->
                 Platform.runLater(() -> {
-                    box.getChildren().forEach(node -> node.setVisible(false));
+                  //  box.getChildren().forEach(node -> node.setVisible(false));
                     box.getChildren().removeAll();
 
                     initializeCloudTileImages();
-
                 }));
     }
 
