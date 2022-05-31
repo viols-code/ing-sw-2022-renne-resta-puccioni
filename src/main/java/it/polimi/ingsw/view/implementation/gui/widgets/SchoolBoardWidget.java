@@ -77,6 +77,8 @@ public class SchoolBoardWidget extends StackPane {
     @FXML
     private GridPane towers;
 
+    private List<Circle> towersImage = new ArrayList<>();
+
     public SchoolBoardWidget() {
         FXMLUtils.loadWidgetFXML(this);
     }
@@ -326,13 +328,23 @@ public class SchoolBoardWidget extends StackPane {
     }
 
     private void initTowers() {
+        initTowerImage();
 
+        GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getTowersProperty().addListener((change, oldVal, newVal) ->
+                Platform.runLater(() -> {
+                        towers.getChildren().removeAll(towersImage);
+                        towersImage.clear();
+                        initTowerImage();
+                }));
+    }
+
+    private void initTowerImage(){
         int j = 0;
         int k = 0;
 
         for (int i = 0; i < GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getTowers(); i++) {
-
             Circle tower = new Circle();
+            towersImage.add(tower);
             tower.setRadius(24);
             if (GUI.instance().getModel().getLocalPlayer().getTowerColour() == TowerColour.WHITE) {
                 tower.setFill(Color.rgb(255, 255, 255));
@@ -350,35 +362,6 @@ public class SchoolBoardWidget extends StackPane {
                 k += 2;
             }
         }
-
-        GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getTowersProperty().addListener((change, oldVal, newVal) ->
-                Platform.runLater(() -> {
-                    int l = 0;
-                    int m = 0;
-
-                    for (int i = 0; i < GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getTowers(); i++) {
-
-                        Circle tower = new Circle();
-                        tower.setRadius(24);
-
-                        if (GUI.instance().getModel().getLocalPlayer().getTowerColour() == TowerColour.WHITE) {
-                            tower.setFill(Color.rgb(255, 255, 255));
-                        } else if (GUI.instance().getModel().getLocalPlayer().getTowerColour() == TowerColour.BLACK) {
-                            tower.setFill(Color.rgb(0, 0, 0));
-                        } else if (GUI.instance().getModel().getLocalPlayer().getTowerColour() == TowerColour.GREY) {
-                            tower.setFill(Color.rgb(166, 166, 166));
-                        }
-
-                        towers.add(tower, l, m);
-
-                        if (l == 0) {
-                            l += 2;
-                        } else {
-                            l = 0;
-                            m += 2;
-                        }
-                    }
-                }));
     }
 
     @FXML
