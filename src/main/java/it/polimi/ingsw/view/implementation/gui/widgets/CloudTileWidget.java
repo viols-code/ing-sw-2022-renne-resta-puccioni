@@ -66,7 +66,7 @@ public class CloudTileWidget extends StackPane {
             anchorPane.getStyleClass().add("cloudTile");
             HBox.setMargin(anchorPane, new Insets(10.0, 10.0, 10.0, 10.0));
             int a = i;
-            imageView.setOnMouseClicked(event -> chooseCloudTile(a));
+            anchorPane.setOnMouseClicked(event -> chooseCloudTile(a));
 
             List<Integer> x = new ArrayList<>();
             List<Integer> y = new ArrayList<>();
