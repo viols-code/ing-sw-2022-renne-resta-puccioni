@@ -114,12 +114,7 @@ public class GroupIslandsWidget extends StackPane {
                 motherNature.setLayoutY(100);
                 motherNature.toFront();
                 motherNature.setFill(Color.rgb(255, 102, 0));
-                if(GUI.instance().getModel().getTable().getGroupIslandByIndex(i).isMotherNature() && k ==0){
-                    motherNature.setVisible(true);
-                }
-                else{
-                    motherNature.setVisible(false);
-                }
+                motherNature.setVisible(GUI.instance().getModel().getTable().getGroupIslandByIndex(i).isMotherNature() && k == 0);
 
                 //adds a listener to all the single islands
                 GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getSingleIslandByIndex(k).getStudentsProperty().addListener((MapChangeListener<? super Colour, ? super Integer>) listener ->
@@ -165,7 +160,7 @@ public class GroupIslandsWidget extends StackPane {
     }
 
     private List<Coordinates> getCoordinatesForOneSingleIsland(){
-        return new ArrayList<>(Arrays.asList(new Coordinates(0,0)));
+        return new ArrayList<>(List.of(new Coordinates(0, 0)));
     }
 
     private List<Coordinates> getCoordinatesForTwoSingleIslands(){
