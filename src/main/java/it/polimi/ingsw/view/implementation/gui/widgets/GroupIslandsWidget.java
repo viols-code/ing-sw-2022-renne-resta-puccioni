@@ -80,7 +80,13 @@ public class GroupIslandsWidget extends StackPane {
 
                 if(GUI.instance().getModel().getTurnPhase().equals(TurnPhase.MOVE_STUDENT)){
                     singleIslandPane.getStyleClass().add("singleIsland");
+                    islandPane.getStyleClass().removeAll("groupIsland");
                     singleIslandPane.setOnMouseClicked(event -> addStudentToSingleIsland(groupIsland,singleIsland));
+                    islandPane.setOnMouseClicked(event -> noAction());
+                }
+                else{
+                    singleIslandPane.getStyleClass().removeAll("singleIsland");
+                    singleIslandPane.setOnMouseClicked(event -> noAction());
                 }
 
 
@@ -165,7 +171,7 @@ public class GroupIslandsWidget extends StackPane {
                     groupIslandsPanes.get(i).getStyleClass().add("groupIsland");
                     for(int j = 0; j < GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getIslands().size(); j++){
                         int singleIsland = j;
-                        singleIslandPanes.get(i).get(j).getStyleClass().removeAll();
+                        singleIslandPanes.get(i).get(j).getStyleClass().removeAll("singleIsland");
                         singleIslandPanes.get(i).get(j).setOnMouseClicked(event -> noAction());
                     }
                 }
@@ -175,7 +181,7 @@ public class GroupIslandsWidget extends StackPane {
                 //GUI.instance().getRenderer().showErrorMessage("sono entrato nel run later -> move student");
                 for(int i = 0; i < GUI.instance().getModel().getTable().getGroupIslands().size(); i++){
                     int groupIsland = i;
-                    groupIslandsPanes.get(i).getStyleClass().removeAll();
+                    groupIslandsPanes.get(i).getStyleClass().removeAll("groupIsland");
                     groupIslandsPanes.get(i).setOnMouseClicked(event -> noAction());
                     for(int j = 0; j < GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getIslands().size(); j++){
                         int singleIsland = j;
@@ -188,11 +194,11 @@ public class GroupIslandsWidget extends StackPane {
             else{
                 for(int i = 0; i < GUI.instance().getModel().getTable().getGroupIslands().size(); i++){
                     int groupIsland = i;
-                    groupIslandsPanes.get(i).getStyleClass().removeAll();
+                    groupIslandsPanes.get(i).getStyleClass().removeAll("groupIsland");
                     groupIslandsPanes.get(i).setOnMouseClicked(event -> noAction());
                     for(int j = 0; j < GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getIslands().size(); j++){
                         int singleIsland = j;
-                        singleIslandPanes.get(i).get(j).getStyleClass().removeAll();
+                        singleIslandPanes.get(i).get(j).getStyleClass().removeAll("singleIsland");
                         singleIslandPanes.get(i).get(j).setOnMouseClicked(event -> noAction());
                     }
 
