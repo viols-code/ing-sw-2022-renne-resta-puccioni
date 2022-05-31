@@ -22,48 +22,6 @@
             </font>
         </Label>
         <Button layoutX="53.0" layoutY="70.0" mnemonicParsing="false" onAction="#showSchoolBoard" text="GO BACK TO SCHOOL BOARD" />
-        <GridPane fx:id="studentsOnCard1" alignment="BOTTOM_CENTER" layoutX="493.0" layoutY="516.0" prefHeight="140.0" prefWidth="100.0">
-            <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="40.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="20.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="40.0" />
-            </columnConstraints>
-            <rowConstraints>
-                <RowConstraints maxHeight="91.79999389648438" minHeight="40.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="91.79999389648438" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="91.79999389648438" minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="91.79999389648438" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="91.79999389648438" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
-            </rowConstraints>
-        </GridPane>
-        <GridPane fx:id="studentsOnCard2" alignment="BOTTOM_CENTER" layoutX="702.0" layoutY="515.0" prefHeight="140.0" prefWidth="100.0">
-            <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="40.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="20.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="40.0" />
-            </columnConstraints>
-            <rowConstraints>
-                <RowConstraints maxHeight="91.79999389648438" minHeight="40.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="91.79999389648438" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="91.79999389648438" minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="91.79999389648438" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="91.79999389648438" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
-            </rowConstraints>
-        </GridPane>
-        <GridPane fx:id="studentsOnCard0" alignment="BOTTOM_CENTER" layoutX="273.0" layoutY="518.0" prefHeight="140.0" prefWidth="100.0">
-            <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="40.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="20.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="40.0" />
-            </columnConstraints>
-            <rowConstraints>
-                <RowConstraints maxHeight="91.79999389648438" minHeight="40.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="91.79999389648438" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="91.79999389648438" minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="91.79999389648438" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="91.79999389648438" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
-            </rowConstraints>
-        </GridPane>
       <Label layoutX="778.0" layoutY="74.0" text="Table Coins: ">
          <font>
             <Font size="19.0" />
@@ -118,5 +76,47 @@
             <Image url="@../images/Moneta_base.png" />
          </image>
       </ImageView>
+        <GridPane fx:id="studentsOnCard1" alignment="BOTTOM_CENTER" layoutX="493.0" layoutY="524.0" prefHeight="140.0" prefWidth="100.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="40.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="20.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="40.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints maxHeight="91.79999389648438" minHeight="40.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="91.79999389648438" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="91.79999389648438" minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="91.79999389648438" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="91.79999389648438" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+        </GridPane>
+        <GridPane fx:id="studentsOnCard2" alignment="BOTTOM_CENTER" layoutX="702.0" layoutY="522.0" prefHeight="140.0" prefWidth="100.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="40.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="20.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="40.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints maxHeight="91.79999389648438" minHeight="40.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="91.79999389648438" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="91.79999389648438" minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="91.79999389648438" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="91.79999389648438" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+        </GridPane>
+        <GridPane fx:id="studentsOnCard0" alignment="BOTTOM_CENTER" layoutX="273.0" layoutY="528.0" prefHeight="140.0" prefWidth="100.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="40.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="20.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="40.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints maxHeight="91.79999389648438" minHeight="40.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="91.79999389648438" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="91.79999389648438" minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="91.79999389648438" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="91.79999389648438" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+        </GridPane>
     </AnchorPane>
 </fx:root>

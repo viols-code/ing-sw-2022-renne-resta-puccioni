@@ -81,7 +81,7 @@ public class CharacterCardsWidget extends StackPane {
                         pane.getChildren().add(imageViewStudent);
                         imageViewStudent.setImage(new Image(Objects.requireNonNull(CharacterCardsWidget.class.getResourceAsStream(
                                 "/images/students/student_" + colour.name().toLowerCase(Locale.ROOT) + ".png"))));
-                        imageView.setOnMouseClicked(event -> setStudent(colour));
+                        imageViewStudent.setOnMouseClicked(event -> setStudent(colour));
                         if (i == 0) {
                             studentsOnCard0.add(pane, r, c);
                         } else if (i == 1) {
