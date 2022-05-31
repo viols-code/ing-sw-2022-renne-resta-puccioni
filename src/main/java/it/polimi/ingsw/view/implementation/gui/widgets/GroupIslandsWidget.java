@@ -3,6 +3,7 @@ package it.polimi.ingsw.view.implementation.gui.widgets;
 import it.polimi.ingsw.FXMLUtils;
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.TurnPhase;
+import it.polimi.ingsw.model.player.TowerColour;
 import it.polimi.ingsw.view.implementation.gui.GUI;
 import javafx.application.Platform;
 import javafx.collections.MapChangeListener;
@@ -13,12 +14,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class GroupIslandsWidget extends StackPane {
 
@@ -31,6 +30,10 @@ public class GroupIslandsWidget extends StackPane {
 
     private List<List<AnchorPane>> singleIslandPanes = new ArrayList<>();
 
+    private HashMap<Colour,Paint> studentRGBColours = new HashMap<>();
+
+    private HashMap<TowerColour,Paint> towerRGBColours = new HashMap<>();
+
     public GroupIslandsWidget() {
         FXMLUtils.loadWidgetFXML(this);
     }
@@ -41,6 +44,8 @@ public class GroupIslandsWidget extends StackPane {
     }
 
     public void initialize(){
+        initStudentRGBColour();
+        initTowerRGBColour();
         groupIslandBoxes = new ArrayList<>(Arrays.asList(new Coordinates(11,268), new Coordinates(110,131), new Coordinates(245,40),new Coordinates(425,-6), new Coordinates(601,40),new Coordinates(753,131),new Coordinates(853,268),new Coordinates(753,410),new Coordinates(601,490),new Coordinates(429,524),new Coordinates(245,490),new Coordinates(99,410)));
         int groupIslands = GUI.instance().getModel().getTable().getGroupIslands().size();
         int singleIslands;
@@ -65,19 +70,24 @@ public class GroupIslandsWidget extends StackPane {
             singleIslandsCoordinates = getIslandsCoordinates(singleIslands);
             for(int k = 0; k < singleIslands; k++){
                 int singleIsland = k;
-                //creates the anchor pane for the single island
+                //creates the anchor pane for the single island and sets the position in the groupIslandPane
                 AnchorPane singleIslandPane = new AnchorPane();
                 singleIslandBoxes.add(singleIslandPane);
                 islandPane.getChildren().add(singleIslandPane);
                 singleIslandPane.setLayoutX(singleIslandsCoordinates.get(k).getRow());
                 singleIslandPane.setLayoutY(singleIslandsCoordinates.get(k).getColumn());
 
-
-
-                //create the image view to for the single island
+                //create the pane and image view to for the single island
                 ImageView imageView = new ImageView();
                 singleIslandPane.getChildren().add(imageView);
+                imageView.setFitWidth(200);
+                imageView.setFitHeight(200);
+                imageView.setImage(new Image(Objects.requireNonNull(AssistantCardsWidget.class.getResourceAsStream(
+                        "/images/islands/island2.png"))));
+                imageView.setLayoutX(0);
+                imageView.setLayoutY(0);
 
+                //init the on mouse click event on the single island according to the turn phase
                 if(GUI.instance().getModel().getTurnPhase().equals(TurnPhase.MOVE_STUDENT)){
                     singleIslandPane.getStyleClass().add("singleIsland");
                     islandPane.getStyleClass().removeAll("groupIsland");
@@ -90,45 +100,25 @@ public class GroupIslandsWidget extends StackPane {
                 }
 
 
-                imageView.setFitWidth(200);
-                imageView.setFitHeight(200);
-                imageView.setImage(new Image(Objects.requireNonNull(AssistantCardsWidget.class.getResourceAsStream(
-                        "/images/islands/island2.png"))));
-                imageView.setLayoutX(0);
-                imageView.setLayoutY(0);
-
-                //adds the students
-                Label greenStudents = new Label();
-                Label redStudents = new Label();
-                Label yellowStudents = new Label();
-                Label pinkStudents = new Label();
-                Label blueStudents = new Label();
-                GridPane studentsOnSingleIsland= new GridPane();
+                //adds the grid for the students
+                GridPane studentsOnSingleIsland = new GridPane();
                 singleIslandPane.getChildren().add(studentsOnSingleIsland);
                 studentsOnSingleIsland.setPrefWidth(100);
                 studentsOnSingleIsland.setPrefHeight(100);
                 studentsOnSingleIsland.toFront();
                 studentsOnSingleIsland.setLayoutX(50);
                 studentsOnSingleIsland.setLayoutY(50);
-                greenStudents.setBackground(new Background(new BackgroundFill(Color.rgb(0,255,0),CornerRadii.EMPTY, Insets.EMPTY)));
-                yellowStudents.setBackground(new Background(new BackgroundFill(Color.rgb(255, 204, 0),CornerRadii.EMPTY, Insets.EMPTY)));
-                redStudents.setBackground(new Background(new BackgroundFill(Color.rgb(255, 0, 0),CornerRadii.EMPTY, Insets.EMPTY)));
-                pinkStudents.setBackground(new Background(new BackgroundFill(Color.rgb(255, 102, 204),CornerRadii.EMPTY, Insets.EMPTY)));
-                blueStudents.setBackground(new Background(new BackgroundFill(Color.rgb(0, 204, 255),CornerRadii.EMPTY, Insets.EMPTY)));
-                studentsOnSingleIsland.setVisible(true);
-                studentsOnSingleIsland.addRow(0,greenStudents);
-                studentsOnSingleIsland.addRow(1,redStudents);
-                studentsOnSingleIsland.addRow(2,yellowStudents);
-                studentsOnSingleIsland.addRow(3,pinkStudents);
-                studentsOnSingleIsland.addRow(4,blueStudents);
+                List<Label> studentsLabels = new ArrayList<>();
+                for(Colour colour: Colour.values()){
+                    Label label = new Label();
+                    studentsLabels.add(label);
+                    label.setBackground(new Background(new BackgroundFill(studentRGBColours.get(colour),CornerRadii.EMPTY, Insets.EMPTY)));
+                    studentsOnSingleIsland.addRow(Colour.getColourCode(colour),label);
+                    label.setText("" + GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getSingleIslandByIndex(k).getStudents(colour));
+                }
 
-                //addsStudents
-                greenStudents.setText("" + GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getSingleIslandByIndex(k).getStudents(Colour.GREEN));
-                redStudents.setText("" + GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getSingleIslandByIndex(k).getStudents(Colour.RED));
-                yellowStudents.setText("" + GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getSingleIslandByIndex(k).getStudents(Colour.YELLOW));
-                pinkStudents.setText("" + GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getSingleIslandByIndex(k).getStudents(Colour.PINK));
-                blueStudents.setText("" + GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getSingleIslandByIndex(k).getStudents(Colour.BLUE));
-                //adds mother nature
+
+                //adds mother nature to the single island
                 Circle motherNature = new Circle();
                 motherNature.setRadius(10);
                 singleIslandPane.getChildren().add(motherNature);
@@ -136,21 +126,32 @@ public class GroupIslandsWidget extends StackPane {
                 motherNature.setLayoutY(100);
                 motherNature.toFront();
                 motherNature.setFill(Color.rgb(255, 102, 0));
+                //sets the visibility of mother nature according to its position on the game table
                 motherNature.setVisible(GUI.instance().getModel().getTable().getGroupIslandByIndex(i).isMotherNature() && k == 0);
+                addListenerOnSingleIslandStudents(i,k,studentsLabels);
+
+                //adds the tower
+                Circle tower = new Circle();
+                tower.setRadius(10);
+                singleIslandPane.getChildren().add(tower);
+                tower.setLayoutX(100);
+                tower.setLayoutY(100);
+                tower.toFront();
+                if(GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getInfluentPlayer() != null){
+                    tower.setVisible(true);
+                    tower.setFill(towerRGBColours.get(GUI.instance().getModel().getPlayerByNickname(GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getInfluentPlayer()).getTowerColour()));
+                }
+                else{
+                    tower.setVisible(false);
+                    tower.setFill(Color.rgb(0,0,0,0.0));
+                }
+
+                addListenerOnSingleIslandStudents(i,k,studentsLabels);
 
 
-                //adds a listener to all the single islands
-                GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getSingleIslandByIndex(k).getStudentsProperty().addListener((MapChangeListener<? super Colour, ? super Integer>) listener ->
-                        Platform.runLater(() -> {
-                            //addsStudents
-                            greenStudents.setText("" + listener.getMap().get(Colour.GREEN));
-                            redStudents.setText("" + listener.getMap().get(Colour.RED));
-                            yellowStudents.setText("" + listener.getMap().get(Colour.YELLOW));
-                            pinkStudents.setText("" + listener.getMap().get(Colour.PINK));
-                            blueStudents.setText("" + listener.getMap().get(Colour.BLUE));
-                        }));
             }
 
+            //init the on mouse click event on the group island if the turn phase is MOVE_MOTHER_NATURE
             if(GUI.instance().getModel().getTurnPhase().equals(TurnPhase.MOVE_MOTHER_NATURE)) {
                 islandPane.setOnMouseClicked(event -> moveMotherNature(groupIsland));
             }
@@ -162,14 +163,51 @@ public class GroupIslandsWidget extends StackPane {
         }
         addListenerOnTurnPhase();
         addListenerOnMotherNatureProperty();
-
-
-
-
+        addListenerOnGroupIslandInfluentPlayer();
 
     }
 
-    
+    private void initTowerRGBColour(){
+        towerRGBColours.put(TowerColour.WHITE,Color.rgb(255,255,255));
+        towerRGBColours.put(TowerColour.BLACK,Color.rgb(0, 0, 0));
+        towerRGBColours.put(TowerColour.GREY,Color.rgb(179, 179, 179));
+    }
+
+    private void initStudentRGBColour(){
+        studentRGBColours.put(Colour.GREEN,Color.rgb(0,255,0));
+        studentRGBColours.put(Colour.RED,Color.rgb(255, 0, 0));
+        studentRGBColours.put(Colour.YELLOW,Color.rgb(255, 204, 0));
+        studentRGBColours.put(Colour.PINK,Color.rgb(255, 102, 204));
+        studentRGBColours.put(Colour.BLUE,Color.rgb(0, 204, 255));
+    }
+
+    private void addListenerOnGroupIslandInfluentPlayer(){
+        //adds the listener on mother nature property on a single island
+        for(int i = 0; i < GUI.instance().getModel().getTable().getGroupIslands().size(); i++){
+            int groupIsland = i;
+            GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getInfluentPlayerProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> {
+                for(int j = 0; j < GUI.instance().getModel().getTable().getGroupIslandByIndex(groupIsland).getIslands().size(); j++){
+                    if(GUI.instance().getModel().getTable().getGroupIslandByIndex(groupIsland).getInfluentPlayer() != null){
+                        Circle tower = (Circle) singleIslandPanes.get(groupIsland).get(j).getChildren().get(3);
+                        tower.setVisible(true);
+                        tower.setFill(towerRGBColours.get(GUI.instance().getModel().getPlayerByNickname(GUI.instance().getModel().getTable().getGroupIslandByIndex(groupIsland).getInfluentPlayer()).getTowerColour()));
+                    }
+                    singleIslandPanes.get(groupIsland).get(j).getChildren().get(3).setVisible(GUI.instance().getModel().getTable().getGroupIslandByIndex(groupIsland).isMotherNature() && j==0);
+                }
+            }));
+        }
+    }
+
+    private void addListenerOnSingleIslandStudents(int groupIslandIndex, int singleIslandIndex, List<Label> studentsLabels){
+        //adds a listener to all the single islands
+        GUI.instance().getModel().getTable().getGroupIslandByIndex(groupIslandIndex).getSingleIslandByIndex(singleIslandIndex).getStudentsProperty().addListener((MapChangeListener<? super Colour, ? super Integer>) listener ->
+                Platform.runLater(() -> {
+                    //addsStudents
+                    for(Colour colour: Colour.values()){
+                        studentsLabels.get(Colour.getColourCode(colour)).setText("" + listener.getMap().get(colour));
+                    }
+                }));
+    }
 
     private void addListenerOnMotherNatureProperty(){
         //adds the listener on mother nature property on a single island
