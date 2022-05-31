@@ -48,5 +48,11 @@
     -fx-border-color: orange;
     -fx-border-width: 2.0;
     -fx-border-style: solid;
+}
+
+.studentSelected {
+    -fx-border-color: orange;
+    -fx-border-width: 2.0;
+    -fx-border-style: solid;
     -fx-border-radius: 20;
 }

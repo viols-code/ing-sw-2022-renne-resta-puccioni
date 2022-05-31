@@ -79,24 +79,18 @@ public class SchoolBoardWidget extends StackPane {
         //Shows the current Player
         currentPlayerLabel.setText(GUI.instance().isOwnTurn() ? "Yours" :
                 GUI.instance().getModel().getCurrentPlayer().getNickname());
-        GUI.instance().getModel().getCurrentPlayerProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> {
-            currentPlayerLabel.setText(GUI.instance().isOwnTurn() ? "Yours" :
-                    GUI.instance().getModel().getCurrentPlayer().getNickname());
-        }));
+        GUI.instance().getModel().getCurrentPlayerProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> currentPlayerLabel.setText(GUI.instance().isOwnTurn() ? "Yours" :
+                GUI.instance().getModel().getCurrentPlayer().getNickname())));
 
 
         // Shows the round
         roundNumberLabel.setText(String.valueOf(GUI.instance().getModel().getRound()));
-        GUI.instance().getModel().getRoundProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> {
-            roundNumberLabel.setText(String.valueOf(GUI.instance().getModel().getRound()));
-        }));
+        GUI.instance().getModel().getRoundProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> roundNumberLabel.setText(String.valueOf(GUI.instance().getModel().getRound()))));
 
 
         // Shows the turn phase
         turnPhaseLabel.setText(GUI.instance().getModel().getTurnPhase().name());
-        GUI.instance().getModel().getTurnPhaseProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> {
-            turnPhaseLabel.setText(GUI.instance().getModel().getTurnPhase().name());
-        }));
+        GUI.instance().getModel().getTurnPhaseProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> turnPhaseLabel.setText(GUI.instance().getModel().getTurnPhase().name())));
 
 
         List<MockPlayer> players = new ArrayList<>();
@@ -139,9 +133,7 @@ public class SchoolBoardWidget extends StackPane {
             anchorPane.getChildren().add(numberCoins);
 
             numberCoins.setText(String.valueOf(GUI.instance().getModel().getLocalPlayer().getCoins()));
-            GUI.instance().getModel().getLocalPlayer().getCoinsProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> {
-                numberCoins.setText(String.valueOf(GUI.instance().getModel().getLocalPlayer().getCoins()));
-            }));
+            GUI.instance().getModel().getLocalPlayer().getCoinsProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> numberCoins.setText(String.valueOf(GUI.instance().getModel().getLocalPlayer().getCoins()))));
         }
 
         initCurrentAssistantCard();
@@ -163,7 +155,8 @@ public class SchoolBoardWidget extends StackPane {
     }
 
     @FXML
-    private void selectStudentFromEntrance(Colour colour) {
+    private void selectStudentFromEntrance(int i, Colour colour) {
+        GUI.instance().getModel().setPosition(i);
         GUI.instance().getModel().setSelectedColour(colour);
         diningRoom.setOnMouseClicked(event -> moveStudentToDiningRoom());
     }
@@ -171,12 +164,13 @@ public class SchoolBoardWidget extends StackPane {
     @FXML
     private void moveStudentToDiningRoom() {
         GUI.instance().getActionSender().moveStudentToDiningRoom(GUI.instance().getPlayerName(), GUI.instance().getModel().getSelectedColour());
+        GUI.instance().getModel().setPosition(-1);
+        GUI.instance().getModel().setSelectedColour(null);
         diningRoom.setOnMouseClicked(event -> noAction());
     }
 
     @FXML
     private void noAction() {
-
     }
 
     private void initEntrance() {
@@ -189,6 +183,10 @@ public class SchoolBoardWidget extends StackPane {
         }
 
         setStudentEntrance(entranceStudents);
+
+        if(GUI.instance().getModel().getPosition().getValue() != -1){
+            entrance.getChildren().get(GUI.instance().getModel().getPosition().getValue()).getStyleClass().add("studentSelected");
+        }
 
         GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getEntranceProperty().addListener((MapChangeListener<? super Colour, ? super Integer>) listener ->
                 Platform.runLater(() -> {
@@ -203,6 +201,15 @@ public class SchoolBoardWidget extends StackPane {
 
                     setStudentEntrance(students);
                 }));
+
+        GUI.instance().getModel().getPosition().addListener((change, oldval, newval) -> {
+            if(oldval.intValue() != -1){
+                entrance.getChildren().get(oldval.intValue()).getStyleClass().removeAll("studentSelected");
+            }
+            if(newval.intValue() != -1){
+                entrance.getChildren().get(newval.intValue()).getStyleClass().add("studentSelected");
+            }
+        });
     }
 
     private void initDiningRoom() {
@@ -233,23 +240,13 @@ public class SchoolBoardWidget extends StackPane {
     }
 
     private int getDiningRoomTable(Colour colour) {
-        int res = 0;
+        int res = -1;
         switch (colour) {
-            case GREEN -> {
-                res = 0;
-            }
-            case RED -> {
-                res = 2;
-            }
-            case YELLOW -> {
-                res = 4;
-            }
-            case PINK -> {
-                res = 6;
-            }
-            case BLUE -> {
-                res = 8;
-            }
+            case GREEN -> res = 0;
+            case RED -> res = 2;
+            case YELLOW -> res = 4;
+            case PINK -> res = 6;
+            case BLUE -> res = 8;
         }
         return res;
     }
@@ -264,7 +261,11 @@ public class SchoolBoardWidget extends StackPane {
             imageView.setImage(new Image(Objects.requireNonNull(SchoolBoardWidget.class.getResourceAsStream(
                     "/images/students/student_" + entranceStudents.get(i).name().toLowerCase(Locale.ROOT) + ".png"))));
             Colour colour = entranceStudents.get(i);
-            imageView.setOnMouseClicked(event -> selectStudentFromEntrance(colour));
+            int a = i;
+            imageView.setOnMouseClicked(event -> {
+                    flowPane.getStyleClass().add("studentSelected");
+                    selectStudentFromEntrance(a, colour);
+            });
         }
     }
 

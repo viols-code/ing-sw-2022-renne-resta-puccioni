@@ -19,7 +19,6 @@ import java.util.stream.Collectors;
  * Local copy of the game model
  */
 public class MockModel {
-
     /**
      * The local player
      */
@@ -81,6 +80,11 @@ public class MockModel {
     private Property<MockPlayer> winner;
 
     /**
+     * The row of the student selected
+     */
+    private IntegerProperty position;
+
+    /**
      * The colour selected
      */
     private Colour selectedColour;
@@ -100,6 +104,8 @@ public class MockModel {
         gamePhase = new SimpleObjectProperty<>();
         turnPhase = new SimpleObjectProperty<>();
         winner = new SimpleObjectProperty<>();
+        position = new SimpleIntegerProperty();
+        position.setValue(-1);
     }
 
     /**
@@ -362,6 +368,14 @@ public class MockModel {
 
     public Property<TurnPhase> getTurnPhaseProperty() {
         return this.turnPhase;
+    }
+
+    public IntegerProperty getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position.setValue(position);
     }
 
     public Colour getSelectedColour() {
