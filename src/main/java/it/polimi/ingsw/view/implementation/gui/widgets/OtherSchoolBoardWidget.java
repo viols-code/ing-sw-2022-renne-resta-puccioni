@@ -2,6 +2,7 @@ package it.polimi.ingsw.view.implementation.gui.widgets;
 
 import it.polimi.ingsw.FXMLUtils;
 import it.polimi.ingsw.model.Colour;
+import it.polimi.ingsw.model.player.TowerColour;
 import it.polimi.ingsw.model.player.Wizard;
 import it.polimi.ingsw.view.beans.MockPlayer;
 import it.polimi.ingsw.view.implementation.gui.GUI;
@@ -13,6 +14,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 
 import java.util.*;
 
@@ -36,6 +39,9 @@ public class OtherSchoolBoardWidget extends StackPane {
     @FXML
     private ImageView currentAssistantCard;
 
+    @FXML
+    private GridPane towersOtherPlayer;
+
     private List<Coordinates> entranceBoxes;
 
     public OtherSchoolBoardWidget(MockPlayer player) {
@@ -51,6 +57,7 @@ public class OtherSchoolBoardWidget extends StackPane {
         initEntrance();
         initDiningRoom();
         initProfessorsTable();
+        initTowers();
     }
 
     @FXML
@@ -183,5 +190,68 @@ public class OtherSchoolBoardWidget extends StackPane {
                         "/images/wizard/wizard" + (Wizard.getWizardCode(player.getWizard())) + ".png"))));
             }
         }));
+    }
+
+    private void initTowers(){
+
+        int j = 0;
+        int k = 0;
+
+        for(int i=0; i < player.getSchoolBoard().getTowers(); i++){
+
+            Circle tower = new Circle();
+            tower.setRadius(24);
+            if(player.getTowerColour() == TowerColour.WHITE) {
+                tower.setFill(Color.rgb(255, 255, 255));
+            }
+            else if(player.getTowerColour() == TowerColour.BLACK) {
+                tower.setFill(Color.rgb(0, 0, 0));
+            }
+            else if(player.getTowerColour() == TowerColour.GREY){
+                tower.setFill(Color.rgb(179, 179, 179));
+            }
+
+            towersOtherPlayer.add(tower, j, k);
+
+            if(j==0){
+                j+=2;
+            }
+            else{
+                j=0;
+                k+=2;
+            }
+        }
+
+        GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getTowersProperty().addListener( (change, oldVal, newVal) ->
+                Platform.runLater(() -> {
+                    int l = 0;
+                    int m = 0;
+
+                    for(int i=0; i < player.getSchoolBoard().getTowers(); i++){
+
+                        Circle tower = new Circle();
+                        tower.setRadius(24);
+
+                        if(player.getTowerColour() == TowerColour.WHITE) {
+                            tower.setFill(Color.rgb(255, 255, 255));
+                        }
+                        else if(player.getTowerColour() == TowerColour.BLACK) {
+                            tower.setFill(Color.rgb(0, 0, 0));
+                        }
+                        else if(player.getTowerColour() == TowerColour.GREY){
+                            tower.setFill(Color.rgb(166, 166, 166));
+                        }
+
+                        towersOtherPlayer.add(tower, l, m);
+
+                        if(l==0){
+                            l+=2;
+                        }
+                        else{
+                            l=0;
+                            m+=2;
+                        }
+                    }
+                }));
     }
 }
