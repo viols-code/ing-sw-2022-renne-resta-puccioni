@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<fx:root type="StackPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.implementation.gui.widgets.CharacterCardsWidget">
+<fx:root type="StackPane" styleClass="background" stylesheets="@css/styleWidgets.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.implementation.gui.widgets.CharacterCardsWidget">
 
     <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" stylesheets="@../gui/css/style.css">
         <HBox fx:id="box" alignment="CENTER" layoutX="230.0" layoutY="217.0" prefHeight="310.0" prefWidth="619.5" />
