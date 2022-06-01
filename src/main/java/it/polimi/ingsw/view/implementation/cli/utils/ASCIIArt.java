@@ -71,7 +71,27 @@ public class ASCIIArt {
                   
             """;
 
-    public static final String SCHOOLBOARD = """
+    public static final String SCHOOL_BOARD = """
+             __________________
+            | %s   %s   %s   %s   |
+            | %s   %s   %s   %s   |
+            |_________________|
+            |  %s  %s  %s  %s  %s  |
+            |_________________|
+            |  %s  %s  %s  %s  %s  |
+            |  %s  %s  %s  %s  %s  |
+            |  %s  %s  %s  %s  %s  |
+            |  %s  %s  %s  %s  %s  |
+            |  %s  %s  %s  %s  %s  |
+            |  %s  %s  %s  %s  %s  |
+            |  %s  %s  %s  %s  %s  |
+            |  %s  %s  %s  %s  %s  |
+            |  %s  %s  %s  %s  %s  |
+            |  %s  %s  %s  %s  %s  |
+            |_________________|
+            | %s  %s  %s  %s  %s   |
+            | %s   %s   %s   %s   |
+            |_________________|
             """;
 
 }

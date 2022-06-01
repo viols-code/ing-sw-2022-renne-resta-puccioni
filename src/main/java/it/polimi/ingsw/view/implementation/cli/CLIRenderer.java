@@ -64,7 +64,7 @@ public class CLIRenderer extends Renderer {
      */
     public void printLocalPlayerSchoolBoard() {
         String schoolBoard = "";
-        renderSchoolBoard(view.getModel().getLocalPlayer().getSchoolBoard(), schoolBoard);
+        renderSchoolBoard(view.getModel().getLocalPlayer());
     }
 
     /**
@@ -115,18 +115,7 @@ public class CLIRenderer extends Renderer {
         int i = 0;
         for (MockGroupIsland groupIsland : view.getModel().getTable().getGroupIslands()) {
             String influence = " ";
-            if(groupIsland.getInfluentPlayer() != null){
-                switch (getView().getModel().getPlayerByNickname(groupIsland.getInfluentPlayer()).getTowerColour()){
-                    case WHITE -> influence = "\u001b[47;1m◯\u001b[0m";
-                    case BLACK -> influence = "\u001b[30m◯\u001b[0m";
-                    case GREY -> influence = "\u001b[30; 1m◯\u001b[0m";
-                }
-            }
-            if(count < 6){
-                influenceText1.add(influence);
-            } else{
-                influenceText2.add(influence);
-            }
+            influence(count, influenceText1, influenceText2, groupIsland, influence);
 
             String entryTile = " ";
             if(!groupIsland.getIsBasic()){
@@ -161,18 +150,7 @@ public class CLIRenderer extends Renderer {
 
                 if(j > 0){
                     influence = " ";
-                    if(groupIsland.getInfluentPlayer() != null){
-                        switch (getView().getModel().getPlayerByNickname(groupIsland.getInfluentPlayer()).getTowerColour()){
-                            case WHITE -> influence = "\u001b[47;1m◯\u001b[0m";
-                            case BLACK -> influence = "\u001b[30m◯\u001b[0m";
-                            case GREY -> influence = "\u001b[30; 1m◯\u001b[0m";
-                        }
-                    }
-                    if(count < 6){
-                        influenceText1.add(influence);
-                    } else{
-                        influenceText2.add(influence);
-                    }
+                    influence(count, influenceText1, influenceText2, groupIsland, influence);
 
                     entryTile = " ";
                     if(count < 6){
@@ -215,6 +193,21 @@ public class CLIRenderer extends Renderer {
         System.out.print("\033[H\033[2J");
         System.out.flush();
 
+    }
+
+    private void influence(int count, List<String> influenceText1, List<String> influenceText2, MockGroupIsland groupIsland, String influence) {
+        if(groupIsland.getInfluentPlayer() != null){
+            switch (getView().getModel().getPlayerByNickname(groupIsland.getInfluentPlayer()).getTowerColour()){
+                case WHITE -> influence = "\u001b[37;1m◯\u001b[0m";
+                case BLACK -> influence = "\u001b[30m◯\u001b[0m";
+                case GREY -> influence = "\u001b[30; 1m◯\u001b[0m";
+            }
+        }
+        if(count < 6){
+            influenceText1.add(influence);
+        } else{
+            influenceText2.add(influence);
+        }
     }
 
     private List<String> createTotal(List<String> groupIslandText1, List<String> influenceText1, List<String> motherNatureText1, List<String> colour11, List<String> colour21) {
@@ -352,7 +345,7 @@ public class CLIRenderer extends Renderer {
      */
     public void printOthersSchoolBoard(String playerName) throws IllegalArgumentException {
         String schoolBoard = view.getModel().getPlayerByNickname(playerName).getNickname() + "\n";
-        renderSchoolBoard(view.getModel().getPlayerByNickname(playerName).getSchoolBoard(), schoolBoard);
+        renderSchoolBoard(view.getModel().getPlayerByNickname(playerName));
     }
 
     /**
@@ -401,40 +394,203 @@ public class CLIRenderer extends Renderer {
     /**
      * Renders the school board given
      *
-     * @param mockSchoolBoard the school board to print
-     * @param schoolBoard     the string to print
+     * @param player the player
      */
-    private void renderSchoolBoard(MockSchoolBoard mockSchoolBoard, String schoolBoard) {
-        HashMap<Colour, Integer> entrance = mockSchoolBoard.getEntrance();
-        HashMap<Colour, Integer> diningRoom = mockSchoolBoard.getDiningRoom();
-        HashMap<Colour, Boolean> professor = mockSchoolBoard.getProfessorTable();
+    private void renderSchoolBoard(MockPlayer player) {
+        HashMap<Colour, Integer> entrance = player.getSchoolBoard().getEntrance();
+        HashMap<Colour, Integer> diningRoom = player.getSchoolBoard().getDiningRoom();
+        HashMap<Colour, Boolean> professor = player.getSchoolBoard().getProfessorTable();
 
-        schoolBoard = schoolBoard.concat(AnsiColour.bold("Entrance: "));
-
-        for (Colour colour : Colour.values()) {
-            schoolBoard = schoolBoard.concat("\n\t" +
-                    AnsiColour.getStudentColour(colour) + colour.name() + ": " + entrance.get(colour) + AnsiColour.RESET);
+        List<String> entranceText1 = new ArrayList<>();
+        List<String> entranceText2 = new ArrayList<>();
+        int count = 0;
+        for(Colour colour: Colour.values()){
+            for(int i = 0; i < entrance.get(colour); i++){
+                if(count < 5){
+                    selectingColour(entranceText1, colour);
+                } else{
+                    selectingColour(entranceText2, colour);
+                }
+                count++;
+            }
         }
 
-        schoolBoard = schoolBoard.concat("\n" + AnsiColour.bold("Dining Room: "));
-
-        for (Colour colour : Colour.values()) {
-            schoolBoard = schoolBoard.concat("\n\t" +
-                    AnsiColour.getStudentColour(colour) + colour.name() + ": " + diningRoom.get(colour) + AnsiColour.RESET);
+        if(entranceText1.size() < 5){
+            while(entranceText1.size() < 5){
+                entranceText1.add(" ");
+            }
         }
 
-        schoolBoard = schoolBoard.concat("\n" + AnsiColour.bold("Professors: "));
-
-        for (Colour colour : Colour.values()) {
-            schoolBoard = schoolBoard.concat("\n\t" +
-                    AnsiColour.getStudentColour(colour) + colour.name() + ": " + professor.get(colour) + AnsiColour.RESET);
+        if(entranceText2.size() < 5){
+            while(entranceText2.size() < 5){
+                entranceText2.add(" ");
+            }
         }
 
-        schoolBoard = schoolBoard.concat("\n" + AnsiColour.bold("Towers: ") + mockSchoolBoard.getTowers());
+        List<String> diningRoomText0 = new ArrayList<>();
+        List<String> diningRoomText1 = new ArrayList<>();
+        List<String> diningRoomText2 = new ArrayList<>();
+        List<String> diningRoomText3 = new ArrayList<>();
+        List<String> diningRoomText4 = new ArrayList<>();
+        List<String> diningRoomText5 = new ArrayList<>();
+        List<String> diningRoomText6 = new ArrayList<>();
+        List<String> diningRoomText7 = new ArrayList<>();
+        List<String> diningRoomText8 = new ArrayList<>();
+        List<String> diningRoomText9 = new ArrayList<>();
+        for(int i = 0; i < 10; i++){
+            for(Colour colour : Colour.values()){
+                switch (i){
+                    case 0 -> {
+                        if(diningRoom.get(colour) > i){
+                            selectingColour(diningRoomText0, colour);
+                        } else {
+                            diningRoomText0.add(" ");
+                        }
+                    }
+                    case 1 -> {
+                        if(diningRoom.get(colour) > i){
+                            selectingColour(diningRoomText1, colour);
+                        } else {
+                            diningRoomText1.add(" ");
+                        }
+                    }
+                    case 2 -> {
+                        if(diningRoom.get(colour) > i){
+                            selectingColour(diningRoomText2, colour);
+                        } else {
+                            diningRoomText2.add(" ");
+                        }
+                    }
+                    case 3 -> {
+                        if(diningRoom.get(colour) > i){
+                            selectingColour(diningRoomText3, colour);
+                        } else {
+                            diningRoomText3.add(" ");
+                        }
+                    }
+                    case 4 -> {
+                        if(diningRoom.get(colour) > i){
+                            selectingColour(diningRoomText4, colour);
+                        } else {
+                            diningRoomText4.add(" ");
+                        }
+                    }
+                    case 5 -> {
+                        if(diningRoom.get(colour) > i){
+                            selectingColour(diningRoomText5, colour);
+                        } else {
+                            diningRoomText5.add(" ");
+                        }
+                    }
+                    case 6 -> {
+                        if(diningRoom.get(colour) > i){
+                            selectingColour(diningRoomText6, colour);
+                        } else {
+                            diningRoomText6.add(" ");
+                        }
+                    }
+                    case 7 -> {
+                        if(diningRoom.get(colour) > i){
+                            selectingColour(diningRoomText7, colour);
+                        } else {
+                            diningRoomText7.add(" ");
+                        }
+                    }
+
+                    case 8 -> {
+                        if(diningRoom.get(colour) > i){
+                            selectingColour(diningRoomText8, colour);
+                        } else {
+                            diningRoomText8.add(" ");
+                        }
+                    }
+
+                    case 9 -> {
+                        if(diningRoom.get(colour) > i){
+                            selectingColour(diningRoomText9, colour);
+                        } else {
+                            diningRoomText9.add(" ");
+                        }
+                    }
+                }
+
+            }
 
 
-        System.out.println(schoolBoard);
+        }
 
+        List<String> professorText = new ArrayList<>();
+
+        for(Colour colour : Colour.values()){
+                    if(professor.get(colour)){
+                        selectingColour(professorText, colour);
+                    } else {
+                        professorText.add(" ");
+                    }
+        }
+
+        List<String> tower1 = new ArrayList<>();
+        List<String> tower2 = new ArrayList<>();
+        String influence = "";
+        count = 0;
+        for(int i = 0; i < player.getSchoolBoard().getTowers(); i++){
+            if(count < 4){
+                switch (player.getTowerColour()){
+                    case WHITE -> influence = "\u001b[37;1m●\u001b[0m";
+                    case BLACK -> influence = "\u001b[30m●\u001b[0m";
+                    case GREY -> influence = "\u001b[30; 1m●\u001b[0m";
+                }
+                tower1.add(influence);
+            } else{
+                tower2.add(influence);
+            }
+            count++;
+        }
+
+        while(count < 8){
+            if(count < 4){
+                while(count < 4){
+                    tower1.add(" ");
+                    count ++;
+                }
+            } else {
+                tower2.add(" ");
+                count++;
+            }
+        }
+
+        Formatter formatter = new Formatter();
+
+        List<String> total = new ArrayList<>();
+        total.addAll(tower2);
+        total.addAll(tower1);
+        total.addAll(professorText);
+        total.addAll(diningRoomText9);
+        total.addAll(diningRoomText8);
+        total.addAll(diningRoomText7);
+        total.addAll(diningRoomText6);
+        total.addAll(diningRoomText5);
+        total.addAll(diningRoomText4);
+        total.addAll(diningRoomText3);
+        total.addAll(diningRoomText2);
+        total.addAll(diningRoomText1);
+        total.addAll(diningRoomText0);
+        total.addAll(entranceText1);
+        total.addAll(entranceText2);
+
+
+        System.out.println(formatter.format(ASCIIArt.SCHOOL_BOARD, total.toArray()));
+
+    }
+
+    private void selectingColour(List<String> entranceText1, Colour colour) {
+        switch (colour){
+            case RED -> entranceText1.add("\u001b[31;1m●\u001b[0m");
+            case GREEN -> entranceText1.add("\u001b[32;1m●\u001b[0m");
+            case YELLOW -> entranceText1.add("\u001b[33;1m●\u001b[0m");
+            case BLUE -> entranceText1.add("\u001b[34;1m●\u001b[0m");
+            case PINK -> entranceText1.add("\u001b[35;1m●\u001b[0m");
+        }
     }
 
     /**
