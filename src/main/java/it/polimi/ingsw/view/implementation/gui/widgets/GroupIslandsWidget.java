@@ -121,8 +121,8 @@ public class GroupIslandsWidget extends StackPane {
                 //create the pane and image view to for the single island
                 ImageView imageView = new ImageView();
                 singleIslandPane.getChildren().add(imageView);
-                imageView.setFitWidth(200);
-                imageView.setFitHeight(200);
+                imageView.setFitWidth(150);
+                imageView.setFitHeight(150);
                 imageView.setImage(new Image(Objects.requireNonNull(AssistantCardsWidget.class.getResourceAsStream(
                         "/images/islands/island2.png"))));
                 imageView.setLayoutX(0);
@@ -146,8 +146,8 @@ public class GroupIslandsWidget extends StackPane {
                 studentsOnSingleIsland.setPrefWidth(100);
                 studentsOnSingleIsland.setPrefHeight(100);
                 studentsOnSingleIsland.toFront();
-                studentsOnSingleIsland.setLayoutX(50);
-                studentsOnSingleIsland.setLayoutY(50);
+                studentsOnSingleIsland.setLayoutX(25);
+                studentsOnSingleIsland.setLayoutY(25);
                 List<Label> studentsLabels = new ArrayList<>();
                 for(Colour colour: Colour.values()){
                     Label label = new Label();
@@ -161,8 +161,8 @@ public class GroupIslandsWidget extends StackPane {
                 Circle motherNature = new Circle();
                 motherNature.setRadius(10);
                 singleIslandPane.getChildren().add(motherNature);
-                motherNature.setLayoutX(150);
-                motherNature.setLayoutY(100);
+                motherNature.setLayoutX(130);
+                motherNature.setLayoutY(75);
                 motherNature.toFront();
                 motherNature.setFill(Color.rgb(255, 102, 0));
 
@@ -174,8 +174,8 @@ public class GroupIslandsWidget extends StackPane {
                 Circle tower = new Circle();
                 tower.setRadius(10);
                 singleIslandPane.getChildren().add(tower);
-                tower.setLayoutX(100);
-                tower.setLayoutY(100);
+                tower.setLayoutX(90);
+                tower.setLayoutY(75);
                 tower.toFront();
                 if(GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getInfluentPlayer() != null){
                     tower.setVisible(true);
@@ -319,36 +319,37 @@ public class GroupIslandsWidget extends StackPane {
     }
 
     private List<Coordinates> getCoordinatesForTwoSingleIslands(){
-        return new ArrayList<>(Arrays.asList(new Coordinates(0,0),new Coordinates(110,80)));
+        return new ArrayList<>(Arrays.asList(new Coordinates(7,18),new Coordinates(114,111)));
     }
 
     private List<Coordinates> getCoordinatesForThreeSingleIslands(){
-        return new ArrayList<>(Arrays.asList(new Coordinates(-12,23),new Coordinates(113,-9),new Coordinates(88,110)));
+        return new ArrayList<>(Arrays.asList(new Coordinates(24,66),new Coordinates(136,14),new Coordinates(136,141)));
     }
 
     private List<Coordinates> getCoordinatesForFourGroupIslands(){
-        return new ArrayList<>(Arrays.asList(new Coordinates(0,100),new Coordinates(96,0),new Coordinates(206,79), new Coordinates(113,179)));
+        return new ArrayList<>(Arrays.asList(new Coordinates(14,8),new Coordinates(150,0),new Coordinates(14,136), new Coordinates(150,136)));
     }
 
     private List<Coordinates> getCoordinatesForFiveGroupIslands(){
-        return new ArrayList<>(Arrays.asList(new Coordinates(50,14),new Coordinates(166,77),new Coordinates(286,150), new Coordinates(50,141),new Coordinates(166,214)));
+        return new ArrayList<>(Arrays.asList(new Coordinates(14,14),new Coordinates(134,66),new Coordinates(286,150), new Coordinates(50,141),new Coordinates(166,214)));
     }
 
     private List<Coordinates> getCoordinatesForSixGroupIslands(){
-        return new ArrayList<>(Arrays.asList(new Coordinates(50,14),new Coordinates(166,77),new Coordinates(286,150), new Coordinates(50,141),new Coordinates(166,214),new Coordinates(56,266)));
+        return new ArrayList<>(Arrays.asList(new Coordinates(14,14),new Coordinates(250,6),new Coordinates(127,81), new Coordinates(14,149),new Coordinates(127,224),new Coordinates(239,149)));
     }
 
     private List<Coordinates> getCoordinatesForSevenGroupIslands(){
-        return new ArrayList<>(Arrays.asList(new Coordinates(50,14),new Coordinates(166,77),new Coordinates(286,150), new Coordinates(50,141),new Coordinates(166,214),new Coordinates(56,266),new Coordinates(277,286)));
+        return new ArrayList<>(Arrays.asList(new Coordinates(0,50),new Coordinates(125,0),new Coordinates(250,61), new Coordinates(125,125),new Coordinates(0,192),new Coordinates(125,250),new Coordinates(250,200)));
     }
 
     private int getIslandPaneDimension(int numberOfSingleIsland){
         int res = 0;
         switch(numberOfSingleIsland){
-            case 1 -> res = 200;
-            case 2,3 -> res = 300;
-            case 4 -> res = 400;
-            case 5,6,7 -> res = 500;
+            case 1 -> res = 150;
+            case 2 -> res = 262;
+            case 3,4 -> res = 300;
+            case  5,6 -> res = 400;
+            case 7 -> res = 500;
         }
         return res;
     }
