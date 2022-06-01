@@ -4,8 +4,10 @@ import it.polimi.ingsw.FXMLUtils;
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.TurnPhase;
 import it.polimi.ingsw.model.player.TowerColour;
+import it.polimi.ingsw.view.beans.MockGroupIsland;
 import it.polimi.ingsw.view.implementation.gui.GUI;
 import javafx.application.Platform;
+import javafx.collections.ListChangeListener;
 import javafx.collections.MapChangeListener;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -43,6 +45,7 @@ public class GroupIslandsWidget extends StackPane {
         GUI.instance().showPlayerBoard();
     }
 
+    @FXML
     public void initialize(){
         initStudentRGBColour();
         initTowerRGBColour();
@@ -99,7 +102,6 @@ public class GroupIslandsWidget extends StackPane {
                     singleIslandPane.setOnMouseClicked(event -> noAction());
                 }
 
-
                 //adds the grid for the students
                 GridPane studentsOnSingleIsland = new GridPane();
                 singleIslandPane.getChildren().add(studentsOnSingleIsland);
@@ -117,7 +119,6 @@ public class GroupIslandsWidget extends StackPane {
                     label.setText("" + GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getSingleIslandByIndex(k).getStudents(colour));
                 }
 
-
                 //adds mother nature to the single island
                 Circle motherNature = new Circle();
                 motherNature.setRadius(10);
@@ -126,6 +127,7 @@ public class GroupIslandsWidget extends StackPane {
                 motherNature.setLayoutY(100);
                 motherNature.toFront();
                 motherNature.setFill(Color.rgb(255, 102, 0));
+
                 //sets the visibility of mother nature according to its position on the game table
                 motherNature.setVisible(GUI.instance().getModel().getTable().getGroupIslandByIndex(i).isMotherNature() && k == 0);
                 addListenerOnSingleIslandStudents(i,k,studentsLabels);
@@ -145,10 +147,7 @@ public class GroupIslandsWidget extends StackPane {
                     tower.setVisible(false);
                     tower.setFill(Color.rgb(0,0,0,0.0));
                 }
-
                 addListenerOnSingleIslandStudents(i,k,studentsLabels);
-
-
             }
 
             //init the on mouse click event on the group island if the turn phase is MOVE_MOTHER_NATURE
@@ -164,7 +163,19 @@ public class GroupIslandsWidget extends StackPane {
         addListenerOnTurnPhase();
         addListenerOnMotherNatureProperty();
         addListenerOnGroupIslandInfluentPlayer();
+        addListenerOnGroupIslandList();
+    }
 
+    private void addListenerOnGroupIslandList(){
+        GUI.instance().getModel().getTable().getGroupIslandsProperty().addListener((ListChangeListener<? super MockGroupIsland>) listener ->
+                Platform.runLater(() -> {
+                    anchorPane.getChildren().removeAll(groupIslandsPanes);
+                    groupIslandsPanes.clear();
+                    singleIslandPanes.clear();
+                    studentRGBColours.clear();
+                    towerRGBColours.clear();
+                    initialize();
+                }));
     }
 
     private void initTowerRGBColour(){
