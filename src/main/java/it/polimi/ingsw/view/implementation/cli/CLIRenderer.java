@@ -342,8 +342,6 @@ public class CLIRenderer extends Renderer {
      * Prints the islands
      */
     public void printIslands() {
-        System.out.println("\u001b[2J");
-
         int count = 0;
         Formatter formatter = new Formatter();
         List<String> groupIslandText1 = new ArrayList<>();
@@ -435,9 +433,6 @@ public class CLIRenderer extends Renderer {
             }
         }
 
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-
     }
 
     private void influence(int count, List<String> influenceText1, List<String> influenceText2, MockGroupIsland groupIsland, String influence) {
@@ -518,7 +513,7 @@ public class CLIRenderer extends Renderer {
             case RED -> cloudTilesStudents.add("\u001b[31;1m●\u001b[0m");
             case GREEN -> cloudTilesStudents.add("\u001b[32;1m●\u001b[0m");
             case YELLOW -> cloudTilesStudents.add("\u001b[33;1m●\u001b[0m");
-            case BLUE -> cloudTilesStudents.add("\u001b[34;1m●\u001b[0m");
+            case BLUE -> cloudTilesStudents.add("\u001b[34m●\u001b[0m");
             case PINK -> cloudTilesStudents.add("\u001b[35;1m●\u001b[0m");
         }
     }
