@@ -4,10 +4,11 @@ import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.view.Renderer;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.beans.*;
+import it.polimi.ingsw.view.implementation.cli.utils.ASCIIArt;
 import it.polimi.ingsw.view.implementation.cli.utils.AnsiColour;
 import it.polimi.ingsw.view.implementation.cli.utils.ViewString;
 
-import java.util.HashMap;
+import java.util.*;
 
 public class CLIRenderer extends Renderer {
 
@@ -96,35 +97,142 @@ public class CLIRenderer extends Renderer {
      * Prints the islands
      */
     public void printIslands() {
-        String island = "";
-        int i = 0;
+        System.out.println("\u001b[2J");
 
+        int count = 0;
+        Formatter formatter = new Formatter();
+        List<String> groupIslandText1 = new ArrayList<>();
+        List<String> groupIslandText2 = new ArrayList<>();
+        List<String> influenceText1 = new ArrayList<>();
+        List<String> influenceText2 = new ArrayList<>();
+        List<String> motherNatureText1 = new ArrayList<>();
+        List<String> motherNatureText2 = new ArrayList<>();
+        List<String> colour11 = new ArrayList<>();
+        List<String> colour21 = new ArrayList<>();
+        List<String> colour12 = new ArrayList<>();
+        List<String> colour22 = new ArrayList<>();
+
+        int i = 0;
         for (MockGroupIsland groupIsland : view.getModel().getTable().getGroupIslands()) {
-            island = island.concat("Group island " + i);
-            if (groupIsland.isMotherNature()) {
-                island = island.concat(AnsiColour.GOLD + "\n\tMother Nature is here!" + AnsiColour.RESET);
+            String influence = " ";
+            if(groupIsland.getInfluentPlayer() != null){
+                switch (getView().getModel().getPlayerByNickname(groupIsland.getInfluentPlayer()).getTowerColour()){
+                    case WHITE -> influence = "\u001b[47;1m◯\u001b[0m";
+                    case BLACK -> influence = "\u001b[30m◯\u001b[0m";
+                    case GREY -> influence = "\u001b[30; 1m◯\u001b[0m";
+                }
             }
-            if (groupIsland.getInfluentPlayer() != null) {
-                island = island.concat("\n\t" + "The influent player is: " + groupIsland.getInfluentPlayer());
+            if(count < 6){
+                influenceText1.add(influence);
+            } else{
+                influenceText2.add(influence);
             }
-            if (!groupIsland.getIsBasic() && groupIsland.getNoEntryTile() > 0) {
-                island = island.concat("\n\t" + "The island is protected with " + groupIsland.getNoEntryTile() + " no entry tile");
+
+            String entryTile = " ";
+            if(!groupIsland.getIsBasic()){
+                if(groupIsland.getNoEntryTile() > 0){
+                   entryTile = "%d".formatted(groupIsland.getNoEntryTile());
+                }
             }
+            if(count < 6){
+                influenceText1.add(entryTile);
+            } else{
+                influenceText2.add(entryTile);
+            }
+
+
+            String motherNature = " ";
+            if(groupIsland.isMotherNature()){
+                motherNature = "\u001b[31m◯\u001b[0m";
+            }
+            if(count < 6){
+                motherNatureText1.add(motherNature);
+            } else{
+                motherNatureText2.add(motherNature);
+            }
+
             int j = 0;
             for (MockSingleIsland singleIsland : groupIsland.getIslands()) {
-                island = island.concat("\n\t" + "Single island " + j);
-                for (Colour colour : Colour.values()) {
-                    island = island.concat("\n\t\t" +
-                            AnsiColour.getStudentColour(colour) + colour.name() + ": " + singleIsland.getStudents(colour) + AnsiColour.RESET);
+                if(count < 6){
+                    groupIslandText1.add(i + ", " + j);
+                } else{
+                    groupIslandText2.add(i + ", " + j);
                 }
+
+                if(j > 0){
+                    influence = " ";
+                    if(groupIsland.getInfluentPlayer() != null){
+                        switch (getView().getModel().getPlayerByNickname(groupIsland.getInfluentPlayer()).getTowerColour()){
+                            case WHITE -> influence = "\u001b[47;1m◯\u001b[0m";
+                            case BLACK -> influence = "\u001b[30m◯\u001b[0m";
+                            case GREY -> influence = "\u001b[30; 1m◯\u001b[0m";
+                        }
+                    }
+                    if(count < 6){
+                        influenceText1.add(influence);
+                    } else{
+                        influenceText2.add(influence);
+                    }
+
+                    entryTile = " ";
+                    if(count < 6){
+                        influenceText1.add(entryTile);
+                    } else{
+                        influenceText2.add(entryTile);
+                    }
+
+                    motherNature = " ";
+                    if(count < 6){
+                        motherNatureText1.add(motherNature);
+                    } else{
+                        motherNatureText2.add(motherNature);
+                    }
+                }
+
+                if(count < 6){
+                    Colour(colour11, colour21, singleIsland);
+                } else{
+                    Colour(colour12, colour22, singleIsland);
+                }
+
                 j++;
+                count ++;
             }
 
             i++;
-            island = island.concat("\n");
+
+            if(count == 12){
+                List<String> total1 = createTotal(groupIslandText1, influenceText1, motherNatureText1, colour11, colour21);
+                List<String> total2 =createTotal(groupIslandText2, influenceText2, motherNatureText2, colour12, colour22);
+                List<String> total = new ArrayList<>();
+                total.addAll(total1);
+                total.addAll(total2);
+                System.out.println(formatter.format(ASCIIArt.ISLAND, total.toArray()));
+
+            }
         }
 
-        System.out.println(island);
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+
+    }
+
+    private List<String> createTotal(List<String> groupIslandText1, List<String> influenceText1, List<String> motherNatureText1, List<String> colour11, List<String> colour21) {
+        List<String> total1 = new ArrayList<>();
+        total1.addAll(groupIslandText1);
+        total1.addAll(influenceText1);
+        total1.addAll(motherNatureText1);
+        total1.addAll(colour11);
+        total1.addAll(colour21);
+        return total1;
+    }
+
+    private void Colour(List<String> colour11, List<String> colour21, MockSingleIsland singleIsland) {
+        colour11.add("\u001b[41;1m %d \u001b[0m".formatted(singleIsland.getStudents(Colour.RED)));
+        colour11.add("\u001b[42;1m %d \u001b[0m".formatted(singleIsland.getStudents(Colour.GREEN)));
+        colour11.add("\u001b[43;1m %d \u001b[0m".formatted(singleIsland.getStudents(Colour.YELLOW)));
+        colour21.add("\u001b[44;1m %d \u001b[0m".formatted(singleIsland.getStudents(Colour.BLUE)));
+        colour21.add("\u001b[45;1m %d \u001b[0m".formatted(singleIsland.getStudents(Colour.PINK)));
     }
 
     /**
