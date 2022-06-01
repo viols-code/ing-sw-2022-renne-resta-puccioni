@@ -187,6 +187,7 @@ public abstract class ModelUpdateHandler {
      */
     public void updateInfluencePlayerOnGroupIsland(String player, int groupIsland) {
         getView().getModel().getTable().getGroupIslandByIndex(groupIsland).setInfluentPlayer(player);
+        getView().getModel().getTable().setIslandInfluenceChanged(groupIsland);
     }
 
 
