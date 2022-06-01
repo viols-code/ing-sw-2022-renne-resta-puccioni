@@ -1,18 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
-<BorderPane styleClass="background" stylesheets="@css/style.css" maxHeight="-Infinity" maxWidth="-Infinity"
-            minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
-            prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="it.polimi.ingsw.view.implementation.gui.controllers.WaitingPlayers">
-    <center>
-        <Label prefHeight="70.0" prefWidth="494.0" text="Waiting for other players to join"
-               BorderPane.alignment="CENTER">
+
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" styleClass="background" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.implementation.gui.controllers.WaitingPlayers">
+        <Label layoutX="171.0" layoutY="325.0" prefHeight="70.0" prefWidth="900.0" text="Waiting for other players to join" BorderPane.alignment="CENTER">
             <font>
-                <Font size="35.0"/>
+                <Font name="System Bold Italic" size="48.0" />
             </font>
         </Label>
-    </center>
-</BorderPane>
+   <GridPane fx:id="playerList" layoutX="163.0" layoutY="282.0" prefHeight="30.0" prefWidth="696.0">
+     <columnConstraints>
+       <ColumnConstraints hgrow="SOMETIMES" maxWidth="375.39996337890625" minWidth="10.0" prefWidth="198.0000244140625" />
+       <ColumnConstraints hgrow="SOMETIMES" maxWidth="393.20000000000005" minWidth="10.0" prefWidth="155.80005493164063" />
+         <ColumnConstraints hgrow="SOMETIMES" maxWidth="384.0" minWidth="10.0" prefWidth="161.3999450683594" />
+         <ColumnConstraints hgrow="SOMETIMES" maxWidth="348.20001220703125" minWidth="10.0" prefWidth="173.60003662109375" />
+     </columnConstraints>
+     <rowConstraints>
+       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+     </rowConstraints>
+      <children>
+         <Label prefHeight="50.0" prefWidth="200.0" text="Players connected:">
+            <font>
+               <Font size="24.0" />
+            </font></Label>
+      </children>
+   </GridPane>
+   <ProgressIndicator layoutX="510.0" layoutY="401.0" />
+</AnchorPane>
