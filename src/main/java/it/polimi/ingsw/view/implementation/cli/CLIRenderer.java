@@ -68,20 +68,102 @@ public class CLIRenderer extends Renderer {
         renderSchoolBoard(view.getModel().getLocalPlayer());
     }
 
-    public void printLocalPlayerSchoolBoardHorizontal(){
-        renderSchoolBoardHorizontal(view.getModel().getLocalPlayer());
-    }
 
-    private void renderSchoolBoardHorizontal(MockPlayer player){
-        HashMap<Colour, Integer> entrance = player.getSchoolBoard().getEntrance();
-        HashMap<Colour, Integer> diningRoom = player.getSchoolBoard().getDiningRoom();
-        HashMap<Colour, Boolean> professor = player.getSchoolBoard().getProfessorTable();
-
+    private void renderSchoolBoardHorizontal(){
+        List<String> row0 = new ArrayList<>();
         List<String> row1 = new ArrayList<>();
         List<String> row2 = new ArrayList<>();
         List<String> row3 = new ArrayList<>();
         List<String> row4 = new ArrayList<>();
         List<String> row5 = new ArrayList<>();
+        List<String> total = new ArrayList<>();
+
+        MockPlayer player1 = null;
+        MockPlayer player2 = null;
+
+        createHorizontalSchoolBoard(getView().getModel().getLocalPlayer(), row0, row1, row2, row3, row4, row5);
+
+        int i = 0;
+        for(MockPlayer mockPlayer : getView().getModel().getPlayers().values()){
+            if(! mockPlayer.equals(getView().getModel().getLocalPlayer())){
+                createHorizontalSchoolBoard(mockPlayer, row0, row1, row2, row3, row4, row5);
+                if(i == 0){
+                    player1 = mockPlayer;
+                } else{
+                    player2 = mockPlayer;
+                }
+                i++;
+            }
+        }
+
+        total.addAll(row0);
+        total.addAll(row1);
+        total.addAll(row2);
+        total.addAll(row3);
+        total.addAll(row4);
+        total.addAll(row5);
+
+        Formatter formatter = new Formatter();
+
+        if(getView().getNumPlayers() == 2){
+                if(getView().getModel().getLocalPlayer().isAssistantCardValue()){
+                    if(player1 != null && player1.isAssistantCardValue()){
+                        System.out.println(formatter.format(ASCIIArt.SCHOOL_BOARD_HORIZONTAL_2_0, total.toArray()));
+                    } else{
+                        System.out.println(formatter.format(ASCIIArt.SCHOOL_BOARD_HORIZONTAL_2_1, total.toArray()));
+                    }
+                } else{
+                if(player1 != null && player1.isAssistantCardValue()){
+                    System.out.println(formatter.format(ASCIIArt.SCHOOL_BOARD_HORIZONTAL_2_2, total.toArray()));
+                } else{
+                    System.out.println(formatter.format(ASCIIArt.SCHOOL_BOARD_HORIZONTAL_2_3, total.toArray()));
+                }
+            }
+        } else{
+            if(getView().getModel().getLocalPlayer().isAssistantCardValue()){
+                if(player1 != null && player1.isAssistantCardValue()){
+                    if(player2 != null && player2.isAssistantCardValue()){
+                        System.out.println(formatter.format(ASCIIArt.SCHOOL_BOARD_HORIZONTAL_3_0, total.toArray()));
+                    } else{
+                        System.out.println(formatter.format(ASCIIArt.SCHOOL_BOARD_HORIZONTAL_3_1, total.toArray()));
+                    }
+                } else{
+                    if(player2 != null && player2.isAssistantCardValue()){
+                        System.out.println(formatter.format(ASCIIArt.SCHOOL_BOARD_HORIZONTAL_3_2, total.toArray()));
+                    } else{
+                        System.out.println(formatter.format(ASCIIArt.SCHOOL_BOARD_HORIZONTAL_3_3, total.toArray()));
+                    }
+                }
+            } else{
+                if(player1 != null && player1.isAssistantCardValue()){
+                    if(player2 != null && player2.isAssistantCardValue()){
+                        System.out.println(formatter.format(ASCIIArt.SCHOOL_BOARD_HORIZONTAL_3_4, total.toArray()));
+                    } else{
+                        System.out.println(formatter.format(ASCIIArt.SCHOOL_BOARD_HORIZONTAL_3_5, total.toArray()));
+                    }
+                } else{
+                    if(player2 != null && player2.isAssistantCardValue()){
+                        System.out.println(formatter.format(ASCIIArt.SCHOOL_BOARD_HORIZONTAL_3_6, total.toArray()));
+                    } else{
+                        System.out.println(formatter.format(ASCIIArt.SCHOOL_BOARD_HORIZONTAL_3_7, total.toArray()));
+                    }
+                }
+            }
+        }
+
+
+    }
+
+    private void createHorizontalSchoolBoard(MockPlayer player, List<String> row0, List<String> row1, List<String> row2, List<String> row3, List<String> row4, List<String> row5){
+        HashMap<Colour, Integer> entrance = player.getSchoolBoard().getEntrance();
+        HashMap<Colour, Integer> diningRoom = player.getSchoolBoard().getDiningRoom();
+        HashMap<Colour, Boolean> professor = player.getSchoolBoard().getProfessorTable();
+
+        if(getView().getModel().getLocalPlayer().equals(player)){
+            row0.add("You");
+        } else{
+            row0.add(player.getNickname());
+        }
 
         int count = 0;
         for(Colour colour: Colour.values()){
@@ -89,7 +171,6 @@ public class CLIRenderer extends Renderer {
                 count = getCount(row1, row2, row3, row4, row5, count, colour);
             }
         }
-
         while(count < 9){
             switch(count){
                 case 0, 1 -> row1.add(" ");
@@ -111,7 +192,6 @@ public class CLIRenderer extends Renderer {
             }
         }
 
-
         for(Colour colour : Colour.values()){
             if(professor.get(colour)){
                 colour(row1, row2, row3, row4, row5, colour);
@@ -119,7 +199,6 @@ public class CLIRenderer extends Renderer {
                 addEmptySpace(row1, row2, row3, row4, row5, colour);
             }
         }
-
 
         count = 0;
         for(int i = 0; i < player.getSchoolBoard().getTowers(); i++){
@@ -142,17 +221,17 @@ public class CLIRenderer extends Renderer {
             count ++;
         }
 
-        Formatter formatter = new Formatter();
+        if(player.isAssistantCardValue()){
+            if(player.getCurrentAssistantCard().getValue() < 9){
+                row1.add(player.getCurrentAssistantCard().getValue() + " ");
+            } else{
+                row1.add(player.getCurrentAssistantCard().getValue() + "");
+            }
+            row1.add(player.getCurrentAssistantCard().getMotherNatureMovement() + "");
+        }
 
-        List<String> total = new ArrayList<>();
-        total.addAll(row1);
-        total.addAll(row2);
-        total.addAll(row3);
-        total.addAll(row4);
-        total.addAll(row5);
-
-        System.out.println(formatter.format(ASCIIArt.SCHOOL_BOARD_HORIZONTAL, total.toArray()));
     }
+
 
     private void addEmptySpace(List<String> row1, List<String> row2, List<String> row3, List<String> row4, List<String> row5, Colour colour) {
         switch(colour){
@@ -211,6 +290,7 @@ public class CLIRenderer extends Renderer {
     }
 
     public void printAvailableAssistantCards(){
+        System.out.println("Your assistant cards still available");
         printAssistantCards(view.getModel().getLocalPlayer());
     }
 
@@ -236,8 +316,8 @@ public class CLIRenderer extends Renderer {
             }
 
             if(assistantCardNumber.size() == 5 && i < 9){
-                total.addAll(assistantCardNumber);
                 total.addAll(assistantCardValues);
+                total.addAll(assistantCardNumber);
                 System.out.println(formatter.format(ASCIIArt.ASSISTANT_CARDS_5, total.toArray()));
                 assistantCardNumber = new ArrayList<>();
                 assistantCardValues = new ArrayList<>();
@@ -246,8 +326,8 @@ public class CLIRenderer extends Renderer {
             }
         }
 
-        total.addAll(assistantCardNumber);
         total.addAll(assistantCardValues);
+        total.addAll(assistantCardNumber);
 
         switch (assistantCardNumber.size()){
             case(1) -> System.out.println(formatter.format(ASCIIArt.ASSISTANT_CARDS_1, total.toArray()));
@@ -345,8 +425,8 @@ public class CLIRenderer extends Renderer {
             i++;
 
             if(count == 12){
-                List<String> total1 = createTotal(groupIslandText1, influenceText1, motherNatureText1, colour11, colour21);
-                List<String> total2 =createTotal(groupIslandText2, influenceText2, motherNatureText2, colour12, colour22);
+                List<String> total1 = createTotal(influenceText1, motherNatureText1, colour11, colour21, groupIslandText1);
+                List<String> total2 =createTotal(influenceText2, motherNatureText2, colour12, colour22, groupIslandText2);
                 List<String> total = new ArrayList<>();
                 total.addAll(total1);
                 total.addAll(total2);
@@ -414,8 +494,8 @@ public class CLIRenderer extends Renderer {
         }
 
         List<String> total = new ArrayList<>();
-        total.addAll(cloudTilesNumber);
         total.addAll(cloudTilesStudents);
+        total.addAll(cloudTilesNumber);
 
         Formatter formatter = new Formatter();
 
@@ -822,8 +902,7 @@ public class CLIRenderer extends Renderer {
     }
 
     public void printAll(){
-        printLocalPlayerCurrentAssistantCard();
-        printLocalPlayerSchoolBoardHorizontal();
+        renderSchoolBoardHorizontal();
         printIslands();
     }
 }

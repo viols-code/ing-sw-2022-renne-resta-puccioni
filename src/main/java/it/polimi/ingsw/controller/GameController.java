@@ -142,6 +142,9 @@ public class GameController implements Observer<PlayerEvent> {
                 player.addAssistantCard(game.getAssistantCard(j));
             }
         }
+
+        game.setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
+        game.setTurnPhase(TurnPhase.PLAY_ASSISTANT_CARD);
     }
 
     /**
@@ -673,8 +676,6 @@ public class GameController implements Observer<PlayerEvent> {
             // If the numberOfPlayer is equals to the Players in the Game, start the Game
             if (numberOfPlayer == game.getNumberOfPlayer()) {
                 game.setCurrentPlayer(game.getPlayerByIndex(0));
-                game.setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
-                game.setTurnPhase(TurnPhase.PLAY_ASSISTANT_CARD);
             }
         }
     }
