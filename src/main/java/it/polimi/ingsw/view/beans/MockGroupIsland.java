@@ -151,4 +151,6 @@ public class MockGroupIsland {
     public BooleanProperty getIsMotherNatureProperty() {
         return motherNature;
     }
+
+    public StringProperty getInfluentPlayerProperty(){return influentPlayer;}
 }
