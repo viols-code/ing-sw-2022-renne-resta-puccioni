@@ -154,7 +154,7 @@ public class MockTable {
      *
      * @param groupIsland the group island
      */
-    public void addGroupIsland(MockGroupIsland groupIsland) {
+    public synchronized void addGroupIsland(MockGroupIsland groupIsland) {
         groupIslands.add(groupIsland);
     }
 
@@ -163,7 +163,7 @@ public class MockTable {
      *
      * @return the list of groupIslands
      */
-    public List<MockGroupIsland> getGroupIslands() {
+    public synchronized List<MockGroupIsland> getGroupIslands() {
         return groupIslands;
     }
 
@@ -173,7 +173,7 @@ public class MockTable {
      * @param index the given index
      * @return the group island
      */
-    public MockGroupIsland getGroupIslandByIndex(int index) {
+    public synchronized MockGroupIsland getGroupIslandByIndex(int index) {
         return groupIslands.get(index);
     }
 
@@ -192,7 +192,7 @@ public class MockTable {
      * @param groupIsland1 the first group island
      * @param groupIsland2 the second group island (it will be removed after unification)
      */
-    public void unify(int groupIsland1, int groupIsland2) {
+    public synchronized void unify(int groupIsland1, int groupIsland2) {
         for (MockSingleIsland singleIsland : groupIslands.get(groupIsland2).getIslands()) {
             groupIslands.get(groupIsland1).addMockSingleIsland(singleIsland);
         }
@@ -238,4 +238,6 @@ public class MockTable {
         this.motherNaturePosition = motherNaturePosition;
         getGroupIslandByIndex(motherNaturePosition).setMotherNature(true);
     }
+
+    public synchronized ObservableList<MockGroupIsland> getGroupIslandsProperty(){return groupIslands;}
 }
