@@ -348,8 +348,7 @@ public class GroupIslandsWidget extends StackPane {
             case 1 -> res = 150;
             case 2 -> res = 262;
             case 3,4 -> res = 300;
-            case  5,6 -> res = 400;
-            case 7 -> res = 500;
+            case  5,6,7 -> res = 400;
         }
         return res;
     }
