@@ -93,6 +93,7 @@ public class MockModel {
     private Colour selectedColour;
 
     private final IntegerProperty currentPlayers;
+
     private final IntegerProperty playersToStart;
 
     private final ObservableList<String> nicknames;
