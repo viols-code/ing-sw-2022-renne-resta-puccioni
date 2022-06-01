@@ -50,6 +50,44 @@ public class GroupIslandsWidget extends StackPane {
         initStudentRGBColour();
         initTowerRGBColour();
         groupIslandBoxes = new ArrayList<>(Arrays.asList(new Coordinates(11,268), new Coordinates(110,131), new Coordinates(245,40),new Coordinates(425,-6), new Coordinates(601,40),new Coordinates(753,131),new Coordinates(853,268),new Coordinates(753,410),new Coordinates(601,490),new Coordinates(429,524),new Coordinates(245,490),new Coordinates(99,410)));
+        initGroupIslands();
+        addListenerOnTurnPhase();
+        addListenerOnMotherNatureProperty();
+        //addListenerOnGroupIslandInfluentPlayer();
+        addListenerOnGroupIslandList();
+        addListenerOnIslandInfluenceChange();
+    }
+
+    private void addListenerOnGroupIslandList(){
+        GUI.instance().getModel().getTable().getGroupIslandsProperty().addListener((ListChangeListener<? super MockGroupIsland>) listener ->
+                Platform.runLater(() -> {
+                    for(int i = 0; i < groupIslandsPanes.size(); i++){
+                        groupIslandsPanes.get(i).getChildren().removeAll(singleIslandPanes.get(i));
+                    }
+
+                    anchorPane.getChildren().removeAll(groupIslandsPanes);
+                    groupIslandsPanes.clear();
+                    singleIslandPanes.clear();
+                    System.out.println(groupIslandsPanes.size() + "-" + singleIslandPanes.size());
+                    initGroupIslands();
+                    //addListenerOnGroupIslandInfluentPlayer();
+                }));
+    }
+
+    private void addListenerOnIslandInfluenceChange(){
+        GUI.instance().getModel().getTable().islandInfluenceChangedProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> {
+            if(GUI.instance().getModel().getTable().islandInfluenceChangedProperty().getValue() < GUI.instance().getModel().getTable().getGroupIslands().size()) {
+                for (int j = 0; j < GUI.instance().getModel().getTable().getGroupIslandByIndex(GUI.instance().getModel().getTable().islandInfluenceChangedProperty().getValue()).getIslands().size(); j++) {
+                    if (newVal != null) {
+                        Circle tower = (Circle) singleIslandPanes.get(GUI.instance().getModel().getTable().islandInfluenceChangedProperty().getValue()).get(j).getChildren().get(3);
+                        tower.setVisible(true);
+                        tower.setFill(towerRGBColours.get(GUI.instance().getModel().getPlayerByNickname(GUI.instance().getModel().getTable().getGroupIslandByIndex(GUI.instance().getModel().getTable().islandInfluenceChangedProperty().getValue()).getInfluentPlayer()).getTowerColour()));
+                    }
+                }}
+            }));
+    }
+
+    private void initGroupIslands(){
         int groupIslands = GUI.instance().getModel().getTable().getGroupIslands().size();
         int singleIslands;
         List<Coordinates> singleIslandsCoordinates;
@@ -160,22 +198,6 @@ public class GroupIslandsWidget extends StackPane {
             islandPane.setLayoutY(groupIslandBoxes.get(j).getColumn());
             j += singleIslands;
         }
-        addListenerOnTurnPhase();
-        addListenerOnMotherNatureProperty();
-        addListenerOnGroupIslandInfluentPlayer();
-        addListenerOnGroupIslandList();
-    }
-
-    private void addListenerOnGroupIslandList(){
-        GUI.instance().getModel().getTable().getGroupIslandsProperty().addListener((ListChangeListener<? super MockGroupIsland>) listener ->
-                Platform.runLater(() -> {
-                    anchorPane.getChildren().removeAll(groupIslandsPanes);
-                    groupIslandsPanes.clear();
-                    singleIslandPanes.clear();
-                    studentRGBColours.clear();
-                    towerRGBColours.clear();
-                    initialize();
-                }));
     }
 
     private void initTowerRGBColour(){
@@ -192,22 +214,23 @@ public class GroupIslandsWidget extends StackPane {
         studentRGBColours.put(Colour.BLUE,Color.rgb(0, 204, 255));
     }
 
-    private void addListenerOnGroupIslandInfluentPlayer(){
+    /*private void addListenerOnGroupIslandInfluentPlayer(){
         //adds the listener on mother nature property on a single island
         for(int i = 0; i < GUI.instance().getModel().getTable().getGroupIslands().size(); i++){
             int groupIsland = i;
             GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getInfluentPlayerProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> {
-                for(int j = 0; j < GUI.instance().getModel().getTable().getGroupIslandByIndex(groupIsland).getIslands().size(); j++){
-                    if(GUI.instance().getModel().getTable().getGroupIslandByIndex(groupIsland).getInfluentPlayer() != null){
-                        Circle tower = (Circle) singleIslandPanes.get(groupIsland).get(j).getChildren().get(3);
-                        tower.setVisible(true);
-                        tower.setFill(towerRGBColours.get(GUI.instance().getModel().getPlayerByNickname(GUI.instance().getModel().getTable().getGroupIslandByIndex(groupIsland).getInfluentPlayer()).getTowerColour()));
+                if(groupIsland < GUI.instance().getModel().getTable().getGroupIslands().size()){
+                    for(int j = 0; j < GUI.instance().getModel().getTable().getGroupIslandByIndex(groupIsland).getIslands().size(); j++){
+                        if(newVal != null){
+                            Circle tower = (Circle) singleIslandPanes.get(groupIsland).get(j).getChildren().get(3);
+                            tower.setVisible(true);
+                            tower.setFill(towerRGBColours.get(GUI.instance().getModel().getPlayerByNickname(newVal).getTowerColour()));
+                        }
                     }
-                    singleIslandPanes.get(groupIsland).get(j).getChildren().get(3).setVisible(GUI.instance().getModel().getTable().getGroupIslandByIndex(groupIsland).isMotherNature() && j==0);
                 }
             }));
         }
-    }
+    }*/
 
     private void addListenerOnSingleIslandStudents(int groupIslandIndex, int singleIslandIndex, List<Label> studentsLabels){
         //adds a listener to all the single islands
@@ -222,15 +245,12 @@ public class GroupIslandsWidget extends StackPane {
 
     private void addListenerOnMotherNatureProperty(){
         //adds the listener on mother nature property on a single island
-        for(int i = 0; i < GUI.instance().getModel().getTable().getGroupIslands().size(); i++){
-            int groupIsland = i;
-            GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getIsMotherNatureProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> {
-                for(int j = 0; j < GUI.instance().getModel().getTable().getGroupIslandByIndex(groupIsland).getIslands().size(); j++){
-                    singleIslandPanes.get(groupIsland).get(j).getChildren().get(2).setVisible(GUI.instance().getModel().getTable().getGroupIslandByIndex(groupIsland).isMotherNature() && j==0);
-                }
-            }));
-        }
+        GUI.instance().getModel().getTable().getMotherNaturePositionProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> {
+            singleIslandPanes.get(oldVal.intValue()).get(0).getChildren().get(2).setVisible(false);
+            singleIslandPanes.get(newVal.intValue()).get(0).getChildren().get(2).setVisible(true);
+        }));
     }
+
 
     private void addListenerOnTurnPhase(){
         //adds the listeners for the turn phase to add mouse click on group islands
