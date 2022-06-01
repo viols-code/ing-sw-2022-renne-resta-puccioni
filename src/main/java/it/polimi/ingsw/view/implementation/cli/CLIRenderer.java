@@ -1,5 +1,6 @@
 package it.polimi.ingsw.view.implementation.cli;
 
+import it.polimi.ingsw.model.AssistantCard;
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.view.Renderer;
 import it.polimi.ingsw.view.View;
@@ -63,7 +64,6 @@ public class CLIRenderer extends Renderer {
      * Prints the school board of the local player
      */
     public void printLocalPlayerSchoolBoard() {
-        String schoolBoard = "";
         renderSchoolBoard(view.getModel().getLocalPlayer());
     }
 
@@ -79,18 +79,56 @@ public class CLIRenderer extends Renderer {
      * Prints the current assistant card of the local layer
      */
     public void printLocalPlayerCurrentAssistantCard() {
-        String assistantCard = "";
         renderAssistantCard(view.getModel().getLocalPlayer().getCurrentAssistantCard().getValue(),
-                view.getModel().getLocalPlayer().getCurrentAssistantCard().getMotherNatureMovement(), assistantCard);
+                view.getModel().getLocalPlayer().getCurrentAssistantCard().getMotherNatureMovement());
+    }
+
+    public void printAvailableAssistantCards(){
+        printAssistantCards(view.getModel().getLocalPlayer());
     }
 
     /**
      * Prints the available assistant cards
      */
-    public void printAvailableAssistantCards() {
-        String assistantCard = "";
-        view.getModel().getLocalPlayer().getCards()
-                .forEach((key, value) -> renderAssistantCard(value.getValue(), value.getMotherNatureMovement(), assistantCard));
+    public void printAssistantCards(MockPlayer player) {
+        List<String> assistantCardNumber = new ArrayList<>();
+        List<String> assistantCardValues = new ArrayList<>();
+        List<String> total = new ArrayList<>();
+        HashMap<Integer, AssistantCard> cards = player.getCards();
+        Formatter formatter = new Formatter();
+
+        for(int i = 0; i < 10; i++){
+            if(cards.containsKey(i)){
+                assistantCardNumber.add(i + "");
+                if(i < 9){
+                    assistantCardValues.add(cards.get(i).getValue() + " ");
+                } else{
+                    assistantCardValues.add(cards.get(i).getValue() + "");
+                }
+                assistantCardValues.add(cards.get(i).getMotherNatureMovement() + "");
+            }
+
+            if(assistantCardNumber.size() == 5 && i < 9){
+                total.addAll(assistantCardNumber);
+                total.addAll(assistantCardValues);
+                System.out.println(formatter.format(ASCIIArt.ASSISTANT_CARDS_5, total.toArray()));
+                assistantCardNumber = new ArrayList<>();
+                assistantCardValues = new ArrayList<>();
+                total = new ArrayList<>();
+                formatter = new Formatter();
+            }
+        }
+
+        total.addAll(assistantCardNumber);
+        total.addAll(assistantCardValues);
+
+        switch (assistantCardNumber.size()){
+            case(1) -> System.out.println(formatter.format(ASCIIArt.ASSISTANT_CARDS_1, total.toArray()));
+            case(2) -> System.out.println(formatter.format(ASCIIArt.ASSISTANT_CARDS_2, total.toArray()));
+            case(3) -> System.out.println(formatter.format(ASCIIArt.ASSISTANT_CARDS_3, total.toArray()));
+            case(4) -> System.out.println(formatter.format(ASCIIArt.ASSISTANT_CARDS_4, total.toArray()));
+            case(5) -> System.out.println(formatter.format(ASCIIArt.ASSISTANT_CARDS_5, total.toArray()));
+        }
     }
 
     /**
@@ -132,7 +170,7 @@ public class CLIRenderer extends Renderer {
 
             String motherNature = " ";
             if(groupIsland.isMotherNature()){
-                motherNature = "\u001b[31m◯\u001b[0m";
+                motherNature = "\u001b[31m●\u001b[0m";
             }
             if(count < 6){
                 motherNatureText1.add(motherNature);
@@ -198,9 +236,9 @@ public class CLIRenderer extends Renderer {
     private void influence(int count, List<String> influenceText1, List<String> influenceText2, MockGroupIsland groupIsland, String influence) {
         if(groupIsland.getInfluentPlayer() != null){
             switch (getView().getModel().getPlayerByNickname(groupIsland.getInfluentPlayer()).getTowerColour()){
-                case WHITE -> influence = "\u001b[37;1m◯\u001b[0m";
-                case BLACK -> influence = "\u001b[30m◯\u001b[0m";
-                case GREY -> influence = "\u001b[30; 1m◯\u001b[0m";
+                case WHITE -> influence = "\u001b[97;1m●\u001b[0m";
+                case BLACK -> influence = "\u001b[30m●\u001b[0m";
+                case GREY -> influence = "\u001b[37;1m●\u001b[0m";
             }
         }
         if(count < 6){
@@ -232,23 +270,50 @@ public class CLIRenderer extends Renderer {
      * Prints the available cloud tiles
      */
     public void printCloudTiles() {
-        String cloudTile = "";
+        List<String> cloudTilesNumber = new ArrayList<>();
+        List<String> cloudTilesStudents = new ArrayList<>();
+
         int i = 0;
 
         for (MockCloudTile cloud : view.getModel().getTable().getShownCloudTiles()) {
-            cloudTile = cloudTile.concat("Cloud tile: " + i);
-            HashMap<Colour, Integer> students = cloud.getMockCloudTile();
+            cloudTilesNumber.add(i + " ");
 
             for (Colour colour : Colour.values()) {
-                cloudTile = cloudTile.concat("\n\t" +
-                        AnsiColour.getStudentColour(colour) + colour.name() + ": " + students.get(colour) + AnsiColour.RESET);
+                for(int j = 0; j < cloud.getMockCloudTile().get(colour) ; j++){
+                    getCloudStudents(cloudTilesStudents, colour);
+                }
             }
-
-            cloudTile = cloudTile.concat("\n");
             i++;
         }
 
-        System.out.println(cloudTile);
+        List<String> total = new ArrayList<>();
+        total.addAll(cloudTilesNumber);
+        total.addAll(cloudTilesStudents);
+
+        Formatter formatter = new Formatter();
+
+        if(view.getNumPlayers() == 2){
+            switch(view.getModel().getTable().getShownCloudTiles().size()) {
+                case (1) -> System.out.println(formatter.format(ASCIIArt.CLOUD_TILE_2_1, total.toArray()));
+                case (2) -> System.out.println(formatter.format(ASCIIArt.CLOUD_TILE_2_2, total.toArray()));
+            }
+        } else{
+            switch(view.getModel().getTable().getShownCloudTiles().size()) {
+                case (1) -> System.out.println(formatter.format(ASCIIArt.CLOUD_TILE_3_1, total.toArray()));
+                case (2) -> System.out.println(formatter.format(ASCIIArt.CLOUD_TILE_3_2, total.toArray()));
+                case (3) -> System.out.println(formatter.format(ASCIIArt.CLOUD_TILE_3_3, total.toArray()));
+            }
+        }
+    }
+
+    private void getCloudStudents(List<String> cloudTilesStudents, Colour colour) {
+        switch (colour){
+            case RED -> cloudTilesStudents.add("\u001b[31;1m●\u001b[0m");
+            case GREEN -> cloudTilesStudents.add("\u001b[32;1m●\u001b[0m");
+            case YELLOW -> cloudTilesStudents.add("\u001b[33;1m●\u001b[0m");
+            case BLUE -> cloudTilesStudents.add("\u001b[34;1m●\u001b[0m");
+            case PINK -> cloudTilesStudents.add("\u001b[35;1m●\u001b[0m");
+        }
     }
 
     /**
@@ -314,16 +379,27 @@ public class CLIRenderer extends Renderer {
      * Prints the professors available on the table
      */
     public void printTableProfessors() {
-        String professors = "";
-        professors = professors.concat("Available professors: ");
+        System.out.println("Available professors: ");
         HashMap<Colour, Boolean> prof = view.getModel().getTable().getProfessorsAvailable();
 
+        List<String> professorsAvailable = new ArrayList<>();
 
         for (Colour colour : Colour.values()) {
-            professors = professors.concat("\n\t" +
-                    AnsiColour.getStudentColour(colour) + colour.name() + ": " + prof.get(colour) + AnsiColour.RESET);
+            if(prof.get(colour)){
+                getStudentColour(professorsAvailable, colour);
+            }
         }
-        System.out.println(professors);
+
+        while(professorsAvailable.size() < 5){
+            professorsAvailable.add("");
+        }
+
+        Formatter formatter = new Formatter();
+        System.out.println(formatter.format(ASCIIArt.AVAILABLE_PROFESSOR, professorsAvailable.toArray()));
+    }
+
+    private void getStudentColour(List<String> professorsAvailable, Colour colour) {
+        getCloudStudents(professorsAvailable, colour);
     }
 
     /**
@@ -344,7 +420,6 @@ public class CLIRenderer extends Renderer {
      * @throws IllegalArgumentException if the nickname typed is not present in this game
      */
     public void printOthersSchoolBoard(String playerName) throws IllegalArgumentException {
-        String schoolBoard = view.getModel().getPlayerByNickname(playerName).getNickname() + "\n";
         renderSchoolBoard(view.getModel().getPlayerByNickname(playerName));
     }
 
@@ -355,9 +430,8 @@ public class CLIRenderer extends Renderer {
      * @throws IllegalArgumentException if the nickname typed is not present in this game
      */
     public void printOthersCurrentAssistantCard(String playerName) throws IllegalArgumentException {
-        String assistantCard = view.getModel().getPlayerByNickname(playerName).getNickname() + "\n";
         renderAssistantCard(view.getModel().getPlayerByNickname(playerName).getCurrentAssistantCard().getValue(),
-                view.getModel().getPlayerByNickname(playerName).getCurrentAssistantCard().getMotherNatureMovement(), assistantCard);
+                view.getModel().getPlayerByNickname(playerName).getCurrentAssistantCard().getMotherNatureMovement());
     }
 
     /**
@@ -536,9 +610,9 @@ public class CLIRenderer extends Renderer {
         for(int i = 0; i < player.getSchoolBoard().getTowers(); i++){
             if(count < 4){
                 switch (player.getTowerColour()){
-                    case WHITE -> influence = "\u001b[37;1m●\u001b[0m";
+                    case WHITE -> influence = "\u001b[97;1m●\u001b[0m";
                     case BLACK -> influence = "\u001b[30m●\u001b[0m";
-                    case GREY -> influence = "\u001b[30; 1m●\u001b[0m";
+                    case GREY -> influence = "\u001b[37;1m●\u001b[0m";
                 }
                 tower1.add(influence);
             } else{
@@ -584,13 +658,7 @@ public class CLIRenderer extends Renderer {
     }
 
     private void selectingColour(List<String> entranceText1, Colour colour) {
-        switch (colour){
-            case RED -> entranceText1.add("\u001b[31;1m●\u001b[0m");
-            case GREEN -> entranceText1.add("\u001b[32;1m●\u001b[0m");
-            case YELLOW -> entranceText1.add("\u001b[33;1m●\u001b[0m");
-            case BLUE -> entranceText1.add("\u001b[34;1m●\u001b[0m");
-            case PINK -> entranceText1.add("\u001b[35;1m●\u001b[0m");
-        }
+        getStudentColour(entranceText1, colour);
     }
 
     /**
@@ -609,10 +677,8 @@ public class CLIRenderer extends Renderer {
      *
      * @param value         the assistant card value
      * @param steps         the steps that mother nature can do
-     * @param assistantCard the string to print
      */
-    private void renderAssistantCard(int value, int steps, String assistantCard) {
-        assistantCard = assistantCard.concat("Assistant Card number: " + (value - 1) + "\n\tValue: " + value + "\n\t" + "Steps: " + steps);
-        System.out.println(assistantCard);
+    private void renderAssistantCard(int value, int steps) {
+        System.out.printf((ASCIIArt.CURRENT_ASSISTANT_CARD) + "%n", value, steps);
     }
 }

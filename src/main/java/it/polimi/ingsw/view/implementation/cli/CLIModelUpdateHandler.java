@@ -49,10 +49,25 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
         }
         if (getView().getModel().getLocalPlayer().getNickname().equalsIgnoreCase(getView().getModel().getCurrentPlayer().getNickname())) {
             switch (getView().getModel().getTurnPhase()) {
-                case PLAY_ASSISTANT_CARD -> getView().getRenderer().showGameMessage(ViewString.SELECT_ASSISTANT_CARD);
-                case MOVE_STUDENT -> getView().getRenderer().showGameMessage(ViewString.MOVE_STUDENT_FROM_ENTRANCE);
-                case MOVE_MOTHER_NATURE -> getView().getRenderer().showGameMessage(ViewString.MOVE_MOTHER_NATURE);
-                case CHOOSE_CLOUD_TILE -> getView().getRenderer().showGameMessage(ViewString.SELECT_CLOUD_TILE);
+                case PLAY_ASSISTANT_CARD -> {
+                    getView().getRenderer().showGameMessage(ViewString.SELECT_ASSISTANT_CARD);
+                    getView().getRenderer().printAvailableAssistantCards();
+                }
+                case MOVE_STUDENT -> {
+                    getView().getRenderer().showGameMessage(ViewString.MOVE_STUDENT_FROM_ENTRANCE);
+                    getView().getRenderer().printLocalPlayerSchoolBoard();
+                    getView().getRenderer().printIslands();
+                }
+                case MOVE_MOTHER_NATURE -> {
+                    getView().getRenderer().showGameMessage(ViewString.MOVE_MOTHER_NATURE);
+                    getView().getRenderer().printLocalPlayerCurrentAssistantCard();
+                    getView().getRenderer().printIslands();
+                }
+                case CHOOSE_CLOUD_TILE -> {
+                    getView().getRenderer().printIslands();
+                    getView().getRenderer().showGameMessage(ViewString.SELECT_CLOUD_TILE);
+                    getView().getRenderer().printCloudTiles();
+                }
             }
         }
     }
@@ -118,6 +133,7 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
         super.updateCurrentAssistantCard(player, assistantCard);
         if (getView().getModel().getLocalPlayer().getNickname().equalsIgnoreCase(player)) {
             getView().getRenderer().showGameMessage(ViewString.YOU_SELECTED_ASSISTANT_CARD.formatted(assistantCard - 1));
+            getView().getRenderer().printLocalPlayerCurrentAssistantCard();
         } else {
             getView().getRenderer().showGameMessage(ViewString.OTHER_SELECTED_ASSISTANT_CARD.formatted(player, assistantCard - 1));
         }
