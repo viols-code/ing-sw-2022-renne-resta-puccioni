@@ -3,10 +3,14 @@ package it.polimi.ingsw.view.implementation.gui;
 import it.polimi.ingsw.FXMLUtils;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.model.player.Wizard;
+import it.polimi.ingsw.observer.Observable;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.beans.MockPlayer;
+import it.polimi.ingsw.view.implementation.cli.utils.ViewString;
 import it.polimi.ingsw.view.implementation.gui.widgets.*;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -79,6 +83,7 @@ public class GUI extends View {
             Parent nameSelectionPage = FXMLUtils.loadFXML("/gui/NicknameSelection");
             scene.setRoot(nameSelectionPage);
         });
+
     }
 
     @Override
@@ -131,12 +136,21 @@ public class GUI extends View {
     @Override
     public void handleSetPlayersToStart(int playersToStart) {
         super.handleSetPlayersToStart(playersToStart);
+        getModel().updatePlayerCount(getModel().getPlayers().size() + 1, playersToStart);
         Platform.runLater(() -> {
             Parent waitingPlayers = FXMLUtils.loadFXML("/gui/WaitingPlayers");
             scene.setRoot(waitingPlayers);
         });
     }
 
+    @Override
+    public void handlePlayerConnect(String playerName, Wizard wizard, int currentPlayers, Integer playersToStart, List<Wizard> takenWizard) {
+        super.handlePlayerConnect(playerName, wizard, currentPlayers, playersToStart, takenWizard);
+        if (playersToStart != null) {
+            getModel().updatePlayerCount(currentPlayers, playersToStart);
+        }
+        getModel().addPlayerNickname(playerName);
+    }
     @Override
     public void handleAllPlayersConnected(HashMap<String, Wizard> players, boolean gameMode, int numPlayers) {
         super.handleAllPlayersConnected(players, gameMode, numPlayers);
@@ -218,4 +232,5 @@ public class GUI extends View {
     public boolean isOwnTurn() {
         return getModel().getCurrentPlayer().getNickname().equals(getModel().getLocalPlayer().getNickname());
     }
+
 }

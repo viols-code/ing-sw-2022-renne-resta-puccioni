@@ -28,6 +28,7 @@ public abstract class View {
     private int numPlayers;
     private boolean lobbyMaster;
     private final ObservableList<Wizard> takenWizards;
+    private final ObservableList<String> otherNicks;
 
     /**
      * Constructs a new View.
@@ -40,6 +41,7 @@ public abstract class View {
         this.gameState = GameState.CONNECTING;
         this.wizard = null;
         this.takenWizards = FXCollections.observableArrayList();
+        this.otherNicks = FXCollections.observableArrayList();
     }
 
     /**
@@ -223,6 +225,14 @@ public abstract class View {
      */
     public void handleCorrectNickname(String nickname, List<String> takenNicknames) {
         setGameState(GameState.CHOOSING_WIZARD);
+
+        if(takenNicknames != null){
+            for (String player : takenNicknames) {
+                if(!player.equals(getPlayerName())) {
+                    getModel().addPlayerNickname(player);
+                }
+            }
+        }
     }
 
     /**

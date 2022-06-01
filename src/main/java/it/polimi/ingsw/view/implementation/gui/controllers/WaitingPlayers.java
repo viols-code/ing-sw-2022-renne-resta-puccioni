@@ -1,4 +1,86 @@
 package it.polimi.ingsw.view.implementation.gui.controllers;
 
+import it.polimi.ingsw.FXMLUtils;
+import it.polimi.ingsw.model.player.Wizard;
+import it.polimi.ingsw.view.beans.MockPlayer;
+import it.polimi.ingsw.view.implementation.gui.GUI;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.MapChangeListener;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.geometry.HPos;
+import javafx.geometry.Pos;
+import javafx.geometry.VPos;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.ProgressIndicator;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class WaitingPlayers {
+
+    @FXML
+    private Label currentPlayers;
+
+    @FXML
+    private Label playersToStart;
+
+    @FXML
+    private Label divisor;
+
+    @FXML
+    private GridPane playerList;
+
+    private List<String> players;
+
+    @FXML
+    private void initialize() {
+        GUI gui = GUI.instance();
+
+        //Da sistemare, c'è ancora qualche problemino
+
+        /*currentPlayers.textProperty().bind(gui.getModel().currentPlayersProperty().asString());
+        playersToStart.textProperty().bind(gui.getModel().playersToStartProperty().asString());
+
+        if (gui.getModel().playersToStartProperty().get() == -1) {
+            currentPlayers.setVisible(false);
+            divisor.setVisible(false);
+            playersToStart.setVisible(false);
+            gui.getModel().playersToStartProperty().addListener((change, prev, next) -> {
+                if (next.intValue() != -1)
+                    currentPlayers.setVisible(true);
+                    divisor.setVisible(true);
+                    playersToStart.setVisible(true);
+            });
+        }*/
+
+        //Questo funziona!
+        players = FXCollections.observableList(new ArrayList<>(gui.getModel().getNicknames()));
+
+        gui.getModel().getNicknames().addListener((ListChangeListener<? super String>) change -> {
+                if(change.next()) {
+                    Platform.runLater(() -> {
+                        players.addAll(change.getAddedSubList());
+                        initializeGrid();
+                    });
+                }
+        });
+
+        initializeGrid();
+    }
+
+    private void initializeGrid(){
+        for(int i = 0; i < players.size(); i++){
+            Label label = new Label();
+            label.setText(players.get(i));
+            label.setStyle("-fx-font: 22 System;");
+            GridPane.setHalignment(label, HPos.CENTER);
+            playerList.add(label, 0, i+1);
+        }
+    }
 }

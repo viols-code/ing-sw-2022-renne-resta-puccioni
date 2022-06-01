@@ -4,6 +4,8 @@ import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.GamePhase;
 import it.polimi.ingsw.model.game.TurnPhase;
 import it.polimi.ingsw.model.player.Wizard;
+import it.polimi.ingsw.view.View;
+import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -90,6 +92,11 @@ public class MockModel {
      */
     private Colour selectedColour;
 
+    private final IntegerProperty currentPlayers;
+    private final IntegerProperty playersToStart;
+
+    private final ObservableList<String> nicknames;
+
     /**
      * Constructs the local copy of the game
      */
@@ -107,6 +114,9 @@ public class MockModel {
         winner = new SimpleObjectProperty<>();
         position = new SimpleIntegerProperty();
         position.setValue(-1);
+        currentPlayers = new SimpleIntegerProperty();
+        playersToStart = new SimpleIntegerProperty();
+        nicknames = FXCollections.observableArrayList();
     }
 
     /**
@@ -359,6 +369,13 @@ public class MockModel {
         this.winner.setValue(winner);
     }
 
+    public void updatePlayerCount(int currentPlayers, int playersToStart) {
+        Platform.runLater(() -> {
+            this.currentPlayers.setValue(currentPlayers);
+            this.playersToStart.setValue(playersToStart);
+        });
+    }
+
     public Property<MockPlayer> getCurrentPlayerProperty() {
         return currentPlayer;
     }
@@ -369,6 +386,22 @@ public class MockModel {
 
     public Property<TurnPhase> getTurnPhaseProperty() {
         return this.turnPhase;
+    }
+
+    public IntegerProperty currentPlayersProperty() {
+        return currentPlayers;
+    }
+
+    public IntegerProperty playersToStartProperty() {
+        return playersToStart;
+    }
+
+    public void addPlayerNickname(String name){
+        this.nicknames.add(name);
+    }
+
+    public ObservableList<String> getNicknames(){
+        return this.nicknames;
     }
 
     public IntegerProperty getCoinsProperty() {
