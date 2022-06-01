@@ -39,7 +39,7 @@ public class WaitingPlayers {
     private void initialize() {
         GUI gui = GUI.instance();
 
-        //Da sistemare, c'è ancora qualche problemino
+        //Da sistemare, c'è ancora qualche problemino quando si connette un altro giocatore prima che il primo abbia deciso il num di giocatori
 
         currentPlayers.textProperty().bind(gui.getModel().currentPlayersProperty().asString());
         playersToStart.textProperty().bind(gui.getModel().playersToStartProperty().asString());
