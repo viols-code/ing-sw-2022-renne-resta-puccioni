@@ -151,6 +151,7 @@ public class GUI extends View {
         }
         getModel().addPlayerNickname(playerName);
     }
+
     @Override
     public void handleAllPlayersConnected(HashMap<String, Wizard> players, boolean gameMode, int numPlayers) {
         super.handleAllPlayersConnected(players, gameMode, numPlayers);
