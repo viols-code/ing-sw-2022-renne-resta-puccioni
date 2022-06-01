@@ -584,7 +584,7 @@ public class CLIRenderer extends Renderer {
      */
     public void printTableCoins() {
         String coins = "";
-        coins = coins.concat("Available coins: " + view.getModel().getCoins());
+        coins = coins.concat("Available coins: " + view.getModel().getCoins() + "\n");
         System.out.println(coins);
     }
 
@@ -897,6 +897,16 @@ public class CLIRenderer extends Renderer {
     }
 
     public void printAll(){
+        for(Colour colour : Colour.values()){
+            if(getView().getModel().getTable().getProfessorsAvailable().get(colour)){
+                printTableProfessors();
+                break;
+            }
+        }
+        if(view.getGameMode()){
+            printTableCoins();
+        }
+
         renderSchoolBoardHorizontal();
         printIslands();
     }

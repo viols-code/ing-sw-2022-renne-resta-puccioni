@@ -95,7 +95,7 @@ public class ASCIIArt {
     public static final String SCHOOL_BOARD_HORIZONTAL_2_0 = """
                                %s                                                                 %s
                        School Board:             Current Assistant Card:          School Board:                   Current Assistant Card:
-            _______________________________________       ________           _______________________________________       ________
+            _______________________________________      __________          _______________________________________      __________
             | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |      | %s   %s |          | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |      | %s   %s |
             | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |      |        |          | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |      |        |
             | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |      |________|          | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |      |________|
@@ -107,7 +107,7 @@ public class ASCIIArt {
     public static final String SCHOOL_BOARD_HORIZONTAL_2_1 = """
                                %s                                                          %s
                        School Board:             Current Assistant Card:          School Board:
-            _______________________________________       ________           _______________________________________
+            _______________________________________      __________          _______________________________________
             | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |      | %s   %s |          | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |
             | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |      |        |          | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |
             | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |      |________|          | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |
@@ -119,7 +119,7 @@ public class ASCIIArt {
     public static final String SCHOOL_BOARD_HORIZONTAL_2_2 = """
                                %s                                                                 %s
                        School Board:                       School Board:                   Current Assistant Card:
-            _______________________________________                _______________________________________       ________
+            _______________________________________                _______________________________________      __________
             | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |                | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |      | %s   %s |
             | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |                | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |      |        |
             | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |                | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |      |________|
@@ -144,7 +144,7 @@ public class ASCIIArt {
     public static final String SCHOOL_BOARD_HORIZONTAL_3_0 = """
                             %s                                                           %s                                                           %s
                        School Board:          Current Assistant Card:       School Board:                Current Assistant Card:     School Board:              Current Assistant Card:
-            _______________________________________    ________        _______________________________________    ________       _______________________________________     ________
+            _______________________________________   __________       _______________________________________   __________      _______________________________________    __________
             | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |   | %s   %s |       | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |   | %s   %s |       | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |   | %s   %s |
             | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |   |        |       | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |   |        |       | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |   |        |
             | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |   |________|       | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |   |________|       | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |   |________|
@@ -156,7 +156,7 @@ public class ASCIIArt {
     public static final String SCHOOL_BOARD_HORIZONTAL_3_1 = """
                                %s                                                                 %s                                                %s
                        School Board:             Current Assistant Card:          School Board:                   Current Assistant Card:          School Board:
-            _______________________________________       ________           _______________________________________       ________           _______________________________________
+            _______________________________________      __________          _______________________________________      __________          _______________________________________
             | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |      | %s   %s |          | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |      | %s   %s |          | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |
             | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |      |        |          | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |      |        |          | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |
             | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |      |________|          | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |      |________|          | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |
@@ -168,7 +168,7 @@ public class ASCIIArt {
     public static final String SCHOOL_BOARD_HORIZONTAL_3_2 = """
                                %s                                                     %s                                              %s
                        School Board:             Current Assistant Card:          School Board:                             School Board:                   Current Assistant Card:
-            _______________________________________       ________           _______________________________________            _______________________________________       ________
+            _______________________________________      __________          _______________________________________            _______________________________________      __________
             | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |      | %s   %s |          | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |            | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |      | %s   %s |
             | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |      |        |          | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |            | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |      |        |
             | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |      |________|          | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |            | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |      |________|
@@ -180,7 +180,7 @@ public class ASCIIArt {
     public static final String SCHOOL_BOARD_HORIZONTAL_3_3 = """
                                %s                                                     %s                                               %s
                        School Board:             Current Assistant Card:          School Board:                                     School Board:
-            _______________________________________       ________           _______________________________________            _______________________________________
+            _______________________________________      __________          _______________________________________            _______________________________________
             | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |      | %s   %s |          | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |            | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |
             | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |      |        |          | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |            | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |
             | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |      |________|          | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |            | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |
@@ -192,7 +192,7 @@ public class ASCIIArt {
     public static final String SCHOOL_BOARD_HORIZONTAL_3_4 = """
                                %s                                                                 %s                                                                 %s
                        School Board:                             School Board:                   Current Assistant Card:          School Board:                Current Assistant Card:
-            _______________________________________           _______________________________________       ________           _______________________________________       ________
+            _______________________________________           _______________________________________      __________          _______________________________________      __________
             | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |           | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |      | %s   %s |          | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |      | %s   %s |
             | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |           | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |      |        |          | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |      |        |
             | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |           | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |      |________|          | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |      |________|
@@ -203,20 +203,20 @@ public class ASCIIArt {
 
     public static final String SCHOOL_BOARD_HORIZONTAL_3_5 = """
                              %s                                                                 %s                                  %s
-                       School Board:                       School Board:                   Current Assistant Card:          School Board:
-            _______________________________________           _______________________________________       ________           _______________________________________
-            | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |          | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |      | %s   %s |          | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |
-            | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |          | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |      |        |          | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |
-            | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |          | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |      |________|          | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |
-            | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |             | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |                          | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |
-            | %s   | %s %s %s %s %s %s %s %s %s %s | %s |     |                | %s   | %s %s %s %s %s %s %s %s %s %s | %s |     |                          | %s   | %s %s %s %s %s %s %s %s %s %s | %s |     |
-            |_____|_____________________|___|_____|                |_____|_____________________|___|_____|                          |_____|_____________________|___|_____|
+                       School Board:                           School Board:                   Current Assistant Card:          School Board:
+            _______________________________________           _______________________________________      __________          _______________________________________
+            | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |           | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |      | %s   %s |          | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |
+            | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |           | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |      |        |          | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |
+            | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |           | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |      |________|          | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |
+            | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |          | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |                          | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |
+            | %s   | %s %s %s %s %s %s %s %s %s %s | %s |     |           | %s   | %s %s %s %s %s %s %s %s %s %s | %s |     |                          | %s   | %s %s %s %s %s %s %s %s %s %s | %s |     |
+            |_____|_____________________|___|_____|           |_____|_____________________|___|_____|                          |_____|_____________________|___|_____|
             """;
 
     public static final String SCHOOL_BOARD_HORIZONTAL_3_6 = """
                                %s                                             %s                                             %s
                        School Board:                                     School Board:                                        School Board:
-            _______________________________________                _______________________________________                _______________________________________       ________
+            _______________________________________                _______________________________________                _______________________________________      __________
             | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |                | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |                | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |      | %s   %s |
             | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |                | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |                | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |      |        |
             | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |                | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |                | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |      |________|
@@ -284,14 +284,14 @@ public class ASCIIArt {
 
     public static final String CURRENT_ASSISTANT_CARD = """
             Current Assistant Card
-             ________
+            __________
             | %s   %s |
             |        |
             |________|
             """;
 
     public static final String ASSISTANT_CARDS_1 = """
-             ________
+            __________
             | %s   %s |
             |        |
             |________|
@@ -299,7 +299,7 @@ public class ASCIIArt {
                 """;
 
     public static final String ASSISTANT_CARDS_2 = """
-            __________         __________
+            __________        __________
             | %s   %s |        | %s   %s |
             |        |        |        |
             |________|        |________|
@@ -307,7 +307,7 @@ public class ASCIIArt {
                 """;
 
     public static final String ASSISTANT_CARDS_3 = """
-             ________          ________          ________
+            __________        __________        __________
             | %s   %s |        | %s   %s |        | %s   %s |
             |        |        |        |        |        |
             |________|        |________|        |________|
@@ -315,7 +315,7 @@ public class ASCIIArt {
                 """;
 
     public static final String ASSISTANT_CARDS_4 = """
-             ________          ________          ________          ________
+            __________        __________        __________        __________
             | %s   %s |        | %s   %s |        | %s   %s |        | %s   %s |
             |        |        |        |        |        |        |        |
             |________|        |________|        |________|        |________|
@@ -323,7 +323,7 @@ public class ASCIIArt {
                 """;
 
     public static final String ASSISTANT_CARDS_5 = """
-             ________          ________          ________          ________          ________
+            __________        __________        __________        __________        __________
             | %s   %s |        | %s   %s |        | %s   %s |        | %s   %s |        | %s   %s |
             |        |        |        |        |        |        |        |        |        |
             |________|        |________|        |________|        |________|        |________|
@@ -333,7 +333,7 @@ public class ASCIIArt {
     public static final String CHARACTER_CARD = """
             %s
                 %s
-             ________
+            __________
             |      %s |
             | %s %s %s %s|
             |________|

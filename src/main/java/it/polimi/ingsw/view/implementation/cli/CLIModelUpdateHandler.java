@@ -131,7 +131,6 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
         super.updateCurrentAssistantCard(player, assistantCard);
         if (getView().getModel().getLocalPlayer().getNickname().equalsIgnoreCase(player)) {
             getView().getRenderer().showGameMessage(ViewString.YOU_SELECTED_ASSISTANT_CARD.formatted(assistantCard - 1));
-            getView().getRenderer().printLocalPlayerCurrentAssistantCard();
         } else {
             getView().getRenderer().showGameMessage(ViewString.OTHER_SELECTED_ASSISTANT_CARD.formatted(player, assistantCard - 1));
         }
