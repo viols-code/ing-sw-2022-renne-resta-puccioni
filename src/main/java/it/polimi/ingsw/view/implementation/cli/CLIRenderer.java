@@ -320,9 +320,9 @@ public class CLIRenderer extends Renderer {
      * Prints the active character card
      */
     public void printActiveCharacterCard() {
-        String character = "The active character card is: ";
         if (view.getModel().getCurrentCharacterCard() != null) {
-            renderCharacter(view.getModel().getCurrentCharacterCard(), character);
+            System.out.println("The active character card is:");
+            renderCharacter(-1, view.getModel().getCurrentCharacterCard());
         } else {
             showGameMessage(ViewString.NO_ACTIVE_CHARACTER_CARD);
         }
@@ -332,12 +332,9 @@ public class CLIRenderer extends Renderer {
      * Prints the character cards
      */
     public void printCharacterCards() {
-        String character = "The character cards available are: ";
+        System.out.println("The character cards available are:");
         for (int i = 0; i < 3; i++) {
-            character = character.concat("\nCharacter Card " + i);
-            renderCharacter(view.getModel().getCharacterCardByIndex(i), character);
-            character = "";
-
+            renderCharacter(i, view.getModel().getCharacterCardByIndex(i));
         }
     }
 
@@ -345,25 +342,39 @@ public class CLIRenderer extends Renderer {
      * Prints the selected character card
      *
      * @param card      the card to print
-     * @param character the name of the character card
      */
-    public void renderCharacter(MockCard card, String character) {
-        character = character.concat("\n" + card.getType().name());
-        character = character.concat("\n\tCost: " + card.getCost());
+    public void renderCharacter(int i, MockCard card) {
+        List<String> total = new ArrayList<>();
+        total.add(card.getType().name());
+        if(i == -1){
+            total.add("");
+        } else{
+            total.add(i + "");
+        }
+        total.add(card.getCost() + "");
 
-        HashMap<Colour, Integer> students = card.getStudents();
-        if (card.getNumberOfStudentsOnTheCard() > 0) {
-            for (Colour colour : Colour.values()) {
-                character = character.concat("\n\t" +
-                        AnsiColour.getStudentColour(colour) + colour.name() + ": " + students.get(colour) + AnsiColour.RESET);
+        if(card.getNumberOfNoEntryTile() > 0){
+            for(int j = 0; j < card.getNumberOfNoEntryTile(); j++){
+                total.add("o");
+            }
+        }
+        while(total.size() < 7){
+            total.add(" ");
+        }
+
+        if(card.getNumberOfStudentsOnTheCard() > 0){
+            for(Colour colour : Colour.values()){
+                for(int j = 0; j < card.getStudents().get(colour); j++){
+                    getCloudStudents(total, colour);
+                }
             }
         }
 
-        if (card.getType() == CharacterCardEnumeration.PROTECT_ISLAND) {
-            character = character.concat("\n\tThe number of entry tiles available is: " + card.getNumberOfNoEntryTile());
+        while(total.size() < 13){
+            total.add("");
         }
 
-        System.out.println(character);
+        System.out.printf((ASCIIArt.CHARACTER_CARD), total.toArray());
     }
 
     /**

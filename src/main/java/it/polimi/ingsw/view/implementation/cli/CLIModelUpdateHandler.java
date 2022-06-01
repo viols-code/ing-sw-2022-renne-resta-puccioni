@@ -223,6 +223,7 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
         } else {
             if (getView().getModel().getLocalPlayer().getNickname().equalsIgnoreCase(getView().getModel().getCurrentPlayer().getNickname())) {
                 getView().getRenderer().showGameMessage(ViewString.YOU_SET_ACTIVE_CHARACTER_CARD.formatted(characterCard.name().toLowerCase(Locale.ROOT)));
+                getView().getRenderer().printActiveCharacterCard();
 
                 switch (characterCard) {
                     case EXCHANGE_ENTRANCE_DINING_ROOM -> getView().getRenderer().showGameMessage(ViewString.ADVICE_EXCHANGE_DINING_ROOM_ENTRANCE.formatted(characterCard.name().toLowerCase(Locale.ROOT)));
