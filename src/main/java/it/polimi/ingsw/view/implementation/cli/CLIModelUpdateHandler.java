@@ -55,18 +55,19 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
                 }
                 case MOVE_STUDENT -> {
                     getView().getRenderer().showGameMessage(ViewString.MOVE_STUDENT_FROM_ENTRANCE);
-                    getView().getRenderer().printLocalPlayerSchoolBoard();
+                    getView().getRenderer().printLocalPlayerSchoolBoardHorizontal();
                     getView().getRenderer().printIslands();
                 }
                 case MOVE_MOTHER_NATURE -> {
                     getView().getRenderer().showGameMessage(ViewString.MOVE_MOTHER_NATURE);
-                    getView().getRenderer().printLocalPlayerCurrentAssistantCard();
-                    getView().getRenderer().printIslands();
+                    getView().getRenderer().printAll();
                 }
                 case CHOOSE_CLOUD_TILE -> {
                     getView().getRenderer().printIslands();
+                    System.out.println();
                     getView().getRenderer().showGameMessage(ViewString.SELECT_CLOUD_TILE);
                     getView().getRenderer().printCloudTiles();
+                    getView().getRenderer().printLocalPlayerSchoolBoardHorizontal();
                 }
             }
         }

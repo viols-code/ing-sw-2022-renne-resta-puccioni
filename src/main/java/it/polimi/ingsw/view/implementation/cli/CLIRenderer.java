@@ -2,6 +2,7 @@ package it.polimi.ingsw.view.implementation.cli;
 
 import it.polimi.ingsw.model.AssistantCard;
 import it.polimi.ingsw.model.Colour;
+import it.polimi.ingsw.model.player.TowerColour;
 import it.polimi.ingsw.view.Renderer;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.beans.*;
@@ -67,6 +68,132 @@ public class CLIRenderer extends Renderer {
         renderSchoolBoard(view.getModel().getLocalPlayer());
     }
 
+    public void printLocalPlayerSchoolBoardHorizontal(){
+        renderSchoolBoardHorizontal(view.getModel().getLocalPlayer());
+    }
+
+    private void renderSchoolBoardHorizontal(MockPlayer player){
+        HashMap<Colour, Integer> entrance = player.getSchoolBoard().getEntrance();
+        HashMap<Colour, Integer> diningRoom = player.getSchoolBoard().getDiningRoom();
+        HashMap<Colour, Boolean> professor = player.getSchoolBoard().getProfessorTable();
+
+        List<String> row1 = new ArrayList<>();
+        List<String> row2 = new ArrayList<>();
+        List<String> row3 = new ArrayList<>();
+        List<String> row4 = new ArrayList<>();
+        List<String> row5 = new ArrayList<>();
+
+        int count = 0;
+        for(Colour colour: Colour.values()){
+            for(int i = 0; i < entrance.get(colour); i++){
+                count = getCount(row1, row2, row3, row4, row5, count, colour);
+            }
+        }
+
+        while(count < 9){
+            switch(count){
+                case 0, 1 -> row1.add(" ");
+                case 2, 3 -> row2.add(" ");
+                case 4, 5 -> row3.add(" ");
+                case 6, 7 -> row4.add(" ");
+                case 8 -> row5.add(" ");
+            }
+            count ++;
+        }
+
+        for(Colour colour: Colour.values()){
+            for(int i = 0; i < 10; i++){
+                if(diningRoom.get(colour) > i){
+                    colour(row1, row2, row3, row4, row5, colour);
+                } else{
+                    addEmptySpace(row1, row2, row3, row4, row5, colour);
+                }
+            }
+        }
+
+
+        for(Colour colour : Colour.values()){
+            if(professor.get(colour)){
+                colour(row1, row2, row3, row4, row5, colour);
+            } else {
+                addEmptySpace(row1, row2, row3, row4, row5, colour);
+            }
+        }
+
+
+        count = 0;
+        for(int i = 0; i < player.getSchoolBoard().getTowers(); i++){
+            switch(count){
+                case 0, 1 -> selectTowerColour(row1, player.getTowerColour());
+                case 2, 3 -> selectTowerColour(row2, player.getTowerColour());
+                case 4, 5 -> selectTowerColour(row3, player.getTowerColour());
+                case 6, 7 -> selectTowerColour(row4, player.getTowerColour());
+            }
+            count++;
+        }
+
+        while(count < 8){
+            switch(count){
+                case 0, 1 -> row1.add(" ");
+                case 2, 3 -> row2.add(" ");
+                case 4, 5 -> row3.add(" ");
+                case 6, 7 -> row4.add(" ");
+            }
+            count ++;
+        }
+
+        Formatter formatter = new Formatter();
+
+        List<String> total = new ArrayList<>();
+        total.addAll(row1);
+        total.addAll(row2);
+        total.addAll(row3);
+        total.addAll(row4);
+        total.addAll(row5);
+
+        System.out.println(formatter.format(ASCIIArt.SCHOOL_BOARD_HORIZONTAL, total.toArray()));
+    }
+
+    private void addEmptySpace(List<String> row1, List<String> row2, List<String> row3, List<String> row4, List<String> row5, Colour colour) {
+        switch(colour){
+            case GREEN -> row1.add(" ");
+            case RED -> row2.add(" ");
+            case BLUE -> row3.add(" ");
+            case YELLOW -> row4.add(" ");
+            case PINK -> row5.add(" ");
+        }
+    }
+
+    private void colour(List<String> row1, List<String> row2, List<String> row3, List<String> row4, List<String> row5, Colour colour) {
+        switch(colour){
+            case GREEN -> selectingColour(row1, colour);
+            case RED -> selectingColour(row2, colour);
+            case BLUE -> selectingColour(row3, colour);
+            case YELLOW -> selectingColour(row4, colour);
+            case PINK -> selectingColour(row5, colour);
+        }
+    }
+
+    private int getCount(List<String> row1, List<String> row2, List<String> row3, List<String> row4, List<String> row5, int count, Colour colour) {
+        switch(count){
+            case 0, 1 -> selectingColour(row1, colour);
+            case 2, 3 -> selectingColour(row2, colour);
+            case 4, 5 -> selectingColour(row3, colour);
+            case 6, 7 -> selectingColour(row4, colour);
+            case 8 -> selectingColour(row5, colour);
+        }
+        count++;
+        return count;
+    }
+
+    private void selectTowerColour(List<String> towers, TowerColour colour){
+        switch (colour){
+            case WHITE -> towers.add("\u001b[97;1m●\u001b[0m");
+            case BLACK -> towers.add("\u001b[30m●\u001b[0m");
+            case GREY -> towers.add("\u001b[37;1m●\u001b[0m");
+        }
+    }
+
     /**
      * Prints the coins of the local player
      */
@@ -90,7 +217,7 @@ public class CLIRenderer extends Renderer {
     /**
      * Prints the available assistant cards
      */
-    public void printAssistantCards(MockPlayer player) {
+    private void printAssistantCards(MockPlayer player) {
         List<String> assistantCardNumber = new ArrayList<>();
         List<String> assistantCardValues = new ArrayList<>();
         List<String> total = new ArrayList<>();
@@ -280,7 +407,7 @@ public class CLIRenderer extends Renderer {
 
             for (Colour colour : Colour.values()) {
                 for(int j = 0; j < cloud.getMockCloudTile().get(colour) ; j++){
-                    getCloudStudents(cloudTilesStudents, colour);
+                    addStudentColour(cloudTilesStudents, colour);
                 }
             }
             i++;
@@ -306,7 +433,7 @@ public class CLIRenderer extends Renderer {
         }
     }
 
-    private void getCloudStudents(List<String> cloudTilesStudents, Colour colour) {
+    private void addStudentColour(List<String> cloudTilesStudents, Colour colour) {
         switch (colour){
             case RED -> cloudTilesStudents.add("\u001b[31;1m●\u001b[0m");
             case GREEN -> cloudTilesStudents.add("\u001b[32;1m●\u001b[0m");
@@ -343,7 +470,7 @@ public class CLIRenderer extends Renderer {
      *
      * @param card      the card to print
      */
-    public void renderCharacter(int i, MockCard card) {
+    private void renderCharacter(int i, MockCard card) {
         List<String> total = new ArrayList<>();
         total.add(card.getType().name());
         if(i == -1){
@@ -365,7 +492,7 @@ public class CLIRenderer extends Renderer {
         if(card.getNumberOfStudentsOnTheCard() > 0){
             for(Colour colour : Colour.values()){
                 for(int j = 0; j < card.getStudents().get(colour); j++){
-                    getCloudStudents(total, colour);
+                    addStudentColour(total, colour);
                 }
             }
         }
@@ -397,7 +524,7 @@ public class CLIRenderer extends Renderer {
 
         for (Colour colour : Colour.values()) {
             if(prof.get(colour)){
-                getStudentColour(professorsAvailable, colour);
+                addStudentColour(professorsAvailable, colour);
             }
         }
 
@@ -407,10 +534,6 @@ public class CLIRenderer extends Renderer {
 
         Formatter formatter = new Formatter();
         System.out.println(formatter.format(ASCIIArt.AVAILABLE_PROFESSOR, professorsAvailable.toArray()));
-    }
-
-    private void getStudentColour(List<String> professorsAvailable, Colour colour) {
-        getCloudStudents(professorsAvailable, colour);
     }
 
     /**
@@ -669,7 +792,7 @@ public class CLIRenderer extends Renderer {
     }
 
     private void selectingColour(List<String> entranceText1, Colour colour) {
-        getStudentColour(entranceText1, colour);
+        addStudentColour(entranceText1, colour);
     }
 
     /**
@@ -690,6 +813,17 @@ public class CLIRenderer extends Renderer {
      * @param steps         the steps that mother nature can do
      */
     private void renderAssistantCard(int value, int steps) {
-        System.out.printf((ASCIIArt.CURRENT_ASSISTANT_CARD) + "%n", value, steps);
+        String v = value + "";
+        if(value < 10){
+            v = v.concat(" ");
+        }
+
+        System.out.printf((ASCIIArt.CURRENT_ASSISTANT_CARD) + "%n", v, steps);
+    }
+
+    public void printAll(){
+        printLocalPlayerCurrentAssistantCard();
+        printLocalPlayerSchoolBoardHorizontal();
+        printIslands();
     }
 }
