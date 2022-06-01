@@ -26,11 +26,26 @@
          <RowConstraints minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
      </rowConstraints>
       <children>
-         <Label prefHeight="50.0" prefWidth="200.0" text="Players connected:" GridPane.halignment="CENTER">
+         <Label prefHeight="35.0" prefWidth="221.0" text="Players connected: " GridPane.halignment="CENTER">
             <font>
                <Font size="24.0" />
             </font></Label>
       </children>
    </GridPane>
    <ProgressIndicator layoutX="698.0" layoutY="445.0" />
+   <Label fx:id="currentPlayers" layoutX="336.0" layoutY="264.0">
+      <font>
+         <Font size="22.0" />
+      </font>
+   </Label>
+   <Label fx:id="playersToStart" layoutX="368.0" layoutY="264.0">
+      <font>
+         <Font size="22.0" />
+      </font>
+   </Label>
+   <Label layoutX="354.0" layoutY="264.0" text="/">
+      <font>
+         <Font size="22.0" />
+      </font>
+   </Label>
 </AnchorPane>

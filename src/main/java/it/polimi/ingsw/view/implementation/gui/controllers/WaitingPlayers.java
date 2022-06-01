@@ -31,9 +31,6 @@ public class WaitingPlayers {
     private Label playersToStart;
 
     @FXML
-    private Label divisor;
-
-    @FXML
     private GridPane playerList;
 
     private List<String> players;
@@ -44,20 +41,17 @@ public class WaitingPlayers {
 
         //Da sistemare, c'è ancora qualche problemino
 
-        /*currentPlayers.textProperty().bind(gui.getModel().currentPlayersProperty().asString());
+        currentPlayers.textProperty().bind(gui.getModel().currentPlayersProperty().asString());
         playersToStart.textProperty().bind(gui.getModel().playersToStartProperty().asString());
 
         if (gui.getModel().playersToStartProperty().get() == -1) {
-            currentPlayers.setVisible(false);
-            divisor.setVisible(false);
             playersToStart.setVisible(false);
             gui.getModel().playersToStartProperty().addListener((change, prev, next) -> {
                 if (next.intValue() != -1)
-                    currentPlayers.setVisible(true);
-                    divisor.setVisible(true);
                     playersToStart.setVisible(true);
             });
-        }*/
+        }
+
 
         //Questo funziona!
         players = FXCollections.observableList(new ArrayList<>(gui.getModel().getNicknames()));
