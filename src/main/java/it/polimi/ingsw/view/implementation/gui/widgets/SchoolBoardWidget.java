@@ -362,6 +362,7 @@ public class SchoolBoardWidget extends StackPane {
 
     private void initWinner(){
 
+        //Da rendere più carino dal punto di vista grafico
         if(GUI.instance().getModel().getTurnPhase().equals(TurnPhase.MOVE_MOTHER_NATURE)) {
            setWinnerLabel();
         }
