@@ -4,7 +4,6 @@ import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.GamePhase;
 import it.polimi.ingsw.model.game.TurnPhase;
 import it.polimi.ingsw.model.player.Wizard;
-import it.polimi.ingsw.view.View;
 import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.Property;
@@ -15,7 +14,6 @@ import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Local copy of the game model
@@ -35,7 +33,7 @@ public class MockModel {
     /**
      * The current player
      */
-    private Property<MockPlayer> currentPlayer;
+    private final Property<MockPlayer> currentPlayer;
 
     /**
      * A local copy of the game table
@@ -45,7 +43,7 @@ public class MockModel {
     /**
      * The current round
      */
-    private IntegerProperty round;
+    private final IntegerProperty round;
 
     /**
      * A variable that states if the game mode is expert or not
@@ -55,7 +53,7 @@ public class MockModel {
     /**
      * Number of coins available
      */
-    private IntegerProperty coins;
+    private final IntegerProperty coins;
 
     /**
      * A list that contains the character cards drawn for this game
@@ -65,27 +63,27 @@ public class MockModel {
     /**
      * Character card played by the current player
      */
-    private Property<MockCard> currentCharacterCard;
+    private final Property<MockCard> currentCharacterCard;
 
     /**
      * A variable that indicates the current game phase
      */
-    private Property<GamePhase> gamePhase;
+    private final Property<GamePhase> gamePhase;
 
     /**
      * A variable that indicates the current turn phase
      */
-    private Property<TurnPhase> turnPhase;
+    private final Property<TurnPhase> turnPhase;
 
     /**
      * The winner
      */
-    private Property<MockPlayer> winner;
+    private final Property<MockPlayer> winner;
 
     /**
      * The row of the student selected
      */
-    private IntegerProperty position;
+    private final IntegerProperty position;
 
     /**
      * The colour selected
@@ -144,11 +142,9 @@ public class MockModel {
      * @return the player with the given nickname
      */
     public MockPlayer getPlayerByNickname(String nickname) throws IllegalArgumentException {
-        List<String> matches = this.players.entrySet()
+        List<String> matches = this.players.keySet()
                 .stream()
-                .map(player -> player.getKey())
-                .filter(player -> player.equalsIgnoreCase(nickname))
-                .collect(Collectors.toList());
+                .filter(player -> player.equalsIgnoreCase(nickname)).toList();
         if (matches.size() == 1) {
             return players.get(matches.get(0));
         } else {
@@ -169,11 +165,9 @@ public class MockModel {
      * Adds the player in the list
      */
     public void addPlayer(String nickname, Wizard wizard, boolean gameMode, boolean localPlayer) {
-        List<String> matches = this.players.entrySet()
+        List<String> matches = this.players.keySet()
                 .stream()
-                .map(player -> player.getKey())
-                .filter(player -> player.equalsIgnoreCase(nickname))
-                .collect(Collectors.toList());
+                .filter(player -> player.equalsIgnoreCase(nickname)).toList();
         if (matches.size() == 0) {
             MockPlayer newPlayer = new MockPlayer(nickname, wizard, gameMode, localPlayer);
             players.put(nickname, newPlayer);
@@ -281,7 +275,7 @@ public class MockModel {
      * @return the mock card
      */
     public MockCard getCharacterCardByType(CharacterCardEnumeration type) {
-        List<MockCard> card = characterCards.stream().filter(characterCard -> characterCard.getType().equals(type)).collect(Collectors.toList());
+        List<MockCard> card = characterCards.stream().filter(characterCard -> characterCard.getType().equals(type)).toList();
         if (card.size() > 0) {
             return card.get(0);
         } else

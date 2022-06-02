@@ -48,24 +48,52 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
             return;
         }
         if (getView().getModel().getLocalPlayer().getNickname().equalsIgnoreCase(getView().getModel().getCurrentPlayer().getNickname())) {
-            getView().getRenderer().printAll();
             switch (getView().getModel().getTurnPhase()) {
                 case PLAY_ASSISTANT_CARD -> {
+                    getView().getRenderer().printAll();
                     getView().getRenderer().printAvailableAssistantCards();
                     getView().getRenderer().showGameMessage(ViewString.SELECT_ASSISTANT_CARD);
                 }
                 case MOVE_STUDENT -> {
+                    if(getView().getGameMode()){
+                        if(getView().getModel().getCurrentCharacterCard().getType() != CharacterCardEnumeration.BASIC_STATE){
+                            getView().getRenderer().printActiveCharacterCard();
+                        } else{
+                            getView().getRenderer().printCharacterCards();
+                        }
+                        getView().getRenderer().printTableCoins();
+                        getView().getRenderer().printLocalPlayerCoins();
+                    }
+                    getView().getRenderer().printAll();
                     getView().getRenderer().showGameMessage(ViewString.MOVE_STUDENT_FROM_ENTRANCE);
                 }
                 case MOVE_MOTHER_NATURE -> {
+                    if(getView().getGameMode()){
+                        if(getView().getModel().getCurrentCharacterCard().getType() != CharacterCardEnumeration.BASIC_STATE){
+                            getView().getRenderer().printActiveCharacterCard();
+                        } else{
+                            getView().getRenderer().printCharacterCards();
+                        }
+                        getView().getRenderer().printTableCoins();
+                        getView().getRenderer().printLocalPlayerCoins();
+                    }
+                    getView().getRenderer().printAll();
                     getView().getRenderer().showGameMessage(ViewString.MOVE_MOTHER_NATURE);
                 }
                 case CHOOSE_CLOUD_TILE -> {
+                    getView().getRenderer().printAll();
                     getView().getRenderer().printCloudTiles();
                     getView().getRenderer().showGameMessage(ViewString.SELECT_CLOUD_TILE);
                 }
             }
         } else{
+            if(getView().getGameMode()){
+                if(getView().getModel().getCurrentCharacterCard().getType() != CharacterCardEnumeration.BASIC_STATE){
+                    getView().getRenderer().printActiveCharacterCard();
+                } else{
+                    getView().getRenderer().printCharacterCards();
+                }
+            }
             getView().getRenderer().printAll();
         }
     }

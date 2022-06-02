@@ -522,9 +522,9 @@ public class CLIRenderer extends Renderer {
      * Prints the active character card
      */
     public void printActiveCharacterCard() {
-        if (view.getModel().getCurrentCharacterCard() != null) {
+        if (view.getModel().getCurrentCharacterCard().getType() != CharacterCardEnumeration.BASIC_STATE) {
             System.out.println("The active character card is:");
-            renderCharacter(-1, view.getModel().getCurrentCharacterCard());
+            renderActiveCharacter(view.getModel().getCurrentCharacterCard());
         } else {
             showGameMessage(ViewString.NO_ACTIVE_CHARACTER_CARD);
         }
@@ -535,9 +535,23 @@ public class CLIRenderer extends Renderer {
      */
     public void printCharacterCards() {
         System.out.println("The character cards available are:");
+        List<String> row1 = new ArrayList<>();
+        List<String> row2 = new ArrayList<>();
+        List<String> row3 = new ArrayList<>();
+        List<String> row4 = new ArrayList<>();
+        List<String> row5 = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
-            renderCharacter(i, view.getModel().getCharacterCardByIndex(i));
+            renderCharacter(i, view.getModel().getCharacterCardByIndex(i), row1, row2, row3, row4, row5);
         }
+
+        List<String> total = new ArrayList<>();
+        total.addAll(row1);
+        total.addAll(row2);
+        total.addAll(row3);
+        total.addAll(row4);
+        total.addAll(row5);
+
+        System.out.printf((ASCIIArt.CHARACTER_CARD), total.toArray());
     }
 
     /**
@@ -545,38 +559,64 @@ public class CLIRenderer extends Renderer {
      *
      * @param card      the card to print
      */
-    private void renderCharacter(int i, MockCard card) {
-        List<String> total = new ArrayList<>();
-        total.add(card.getType().name());
-        if(i == -1){
-            total.add("");
-        } else{
-            total.add(i + "");
-        }
-        total.add(card.getCost() + "");
+    private void renderCharacter(int i, MockCard card, List<String> row1, List<String> row2, List<String> row3, List<String> row4, List<String> row5) {
+        row1.add(i + "");
+        row2.add(card.getType().name());
+        row3.add(card.getCost() + "");
 
-        if(card.getNumberOfNoEntryTile() > 0){
-            for(int j = 0; j < card.getNumberOfNoEntryTile(); j++){
-                total.add("o");
+        if (card.getNumberOfNoEntryTile() > 0) {
+            for (int j = 0; j < card.getNumberOfNoEntryTile(); j++) {
+                row4.add("o");
             }
         }
-        while(total.size() < 7){
+        while (row4.size() < 4 * (i + 1)) {
+            row4.add(" ");
+        }
+
+        if (card.getNumberOfStudentsOnTheCard() > 0) {
+            for (Colour colour : Colour.values()) {
+                for (int j = 0; j < card.getStudents().get(colour); j++) {
+                    addStudentColour(row5, colour);
+                }
+            }
+        }
+
+        while (row5.size() < 6 * (i + 1)) {
+            row5.add(" ");
+        }
+
+    }
+
+
+    private void renderActiveCharacter(MockCard card) {
+        List<String> total = new ArrayList<>();
+        total.add(card.getType().name());
+        total.add(card.getCost() + "");
+
+        if (card.getNumberOfNoEntryTile() > 0) {
+            for (int j = 0; j < card.getNumberOfNoEntryTile(); j++) {
+                total.add("▬");
+            }
+        }
+        while (total.size() < 6) {
             total.add(" ");
         }
 
-        if(card.getNumberOfStudentsOnTheCard() > 0){
-            for(Colour colour : Colour.values()){
-                for(int j = 0; j < card.getStudents().get(colour); j++){
+        if (card.getNumberOfStudentsOnTheCard() > 0) {
+            for (Colour colour : Colour.values()) {
+                for (int j = 0; j < card.getStudents().get(colour); j++) {
                     addStudentColour(total, colour);
                 }
             }
         }
 
-        while(total.size() < 13){
-            total.add("");
+        while (total.size() < 12) {
+            total.add(" ");
         }
 
-        System.out.printf((ASCIIArt.CHARACTER_CARD), total.toArray());
+        Formatter formatter = new Formatter();
+
+        System.out.println(formatter.format(ASCIIArt.ACTIVE_CHARACTER_CARD, total.toArray()));
     }
 
     /**
@@ -584,7 +624,7 @@ public class CLIRenderer extends Renderer {
      */
     public void printTableCoins() {
         String coins = "";
-        coins = coins.concat("Available coins: " + view.getModel().getCoins() + "\n");
+        coins = coins.concat("Available coins in the bank: " + view.getModel().getCoins());
         System.out.println(coins);
     }
 
@@ -877,7 +917,7 @@ public class CLIRenderer extends Renderer {
      * @param numberCoins the string to print
      */
     private void renderCoins(int coins, String numberCoins) {
-        numberCoins = numberCoins.concat(AnsiColour.GOLD + "Coins: " + coins + AnsiColour.RESET);
+        numberCoins = numberCoins.concat(AnsiColour.GOLD + "Your coins: " + coins + AnsiColour.RESET + "\n");
         System.out.println(numberCoins);
     }
 
@@ -903,10 +943,6 @@ public class CLIRenderer extends Renderer {
                 break;
             }
         }
-        if(view.getGameMode()){
-            printTableCoins();
-        }
-
         renderSchoolBoardHorizontal();
         printIslands();
     }
