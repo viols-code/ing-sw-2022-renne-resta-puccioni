@@ -41,16 +41,31 @@ public class WaitingPlayers {
 
         //Da sistemare, c'è ancora qualche problemino quando si connette un altro giocatore prima che il primo abbia deciso il num di giocatori
 
-        currentPlayers.textProperty().bind(gui.getModel().currentPlayersProperty().asString());
-        playersToStart.textProperty().bind(gui.getModel().playersToStartProperty().asString());
+        currentPlayers.setText(gui.getModel().currentPlayersProperty().getValue().toString());
+        playersToStart.setText(gui.getModel().playersToStartProperty().getValue().toString());
+        playersToStart.setVisible(false);
 
-        if (gui.getModel().playersToStartProperty().get() == -1) {
-            playersToStart.setVisible(false);
+        if(gui.getModel().playersToStartProperty().getValue() != -1) {
+            playersToStart.setVisible(true);
+        }
+
+        else {
             gui.getModel().playersToStartProperty().addListener((change, prev, next) -> {
-                if (next.intValue() != -1)
-                    playersToStart.setVisible(true);
+                if (gui.getModel().playersToStartProperty().getValue() != -1) {
+                    Platform.runLater(() -> {
+                        playersToStart.setVisible(true);
+                    });
+                }
             });
         }
+
+        gui.getModel().currentPlayersProperty().addListener((change, prev, next) -> {
+            if(next.intValue() != prev.intValue()) {
+                Platform.runLater(() -> {
+                    currentPlayers.setText(next.toString());
+                });
+            }
+        });
 
 
         //Questo funziona!
