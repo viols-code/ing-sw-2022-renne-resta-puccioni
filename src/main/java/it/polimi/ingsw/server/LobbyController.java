@@ -105,7 +105,9 @@ public class LobbyController {
         if (currentLobby.getConnections().contains(connection)) {
             currentLobby.setPlayerWizard(connection, wizard);
 
-            System.out.println("Player connected: " + connection.getPlayerName() + ", with wizard: " + connection.getWizard());
+            if(connection.getWizard() != null){
+                System.out.println("Player connected: " + connection.getPlayerName() + ", with wizard: " + connection.getWizard());
+            }
 
             if (currentLobby.canStart())
                 startGame(currentLobby);

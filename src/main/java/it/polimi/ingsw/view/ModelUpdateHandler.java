@@ -42,7 +42,7 @@ public abstract class ModelUpdateHandler {
      */
     public void updateActiveCharacterCard(CharacterCardEnumeration characterCard) {
         if (characterCard == CharacterCardEnumeration.BASIC_STATE) {
-            getView().getModel().setCurrentCharacterCard(null);
+            getView().getModel().setCurrentCharacterCard(getView().getModel().getBasicState());
         } else {
             getView().getModel().setCurrentCharacterCard(getView().getModel().getCharacterCardByType(characterCard));
         }

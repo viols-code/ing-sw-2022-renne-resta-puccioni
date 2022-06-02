@@ -61,6 +61,11 @@ public class MockModel {
     private final ObservableList<MockCard> characterCards;
 
     /**
+     * The basic state
+     */
+    private final MockCard basicState;
+
+    /**
      * Character card played by the current player
      */
     private final Property<MockCard> currentCharacterCard;
@@ -112,6 +117,7 @@ public class MockModel {
         turnPhase = new SimpleObjectProperty<>();
         winner = new SimpleObjectProperty<>();
         position = new SimpleIntegerProperty();
+        basicState = new MockCard(CharacterCardEnumeration.BASIC_STATE);
         position.setValue(-1);
         currentPlayers = new SimpleIntegerProperty();
         playersToStart = new SimpleIntegerProperty();
@@ -416,5 +422,9 @@ public class MockModel {
 
     public void setSelectedColour(Colour selectedColour) {
         this.selectedColour = selectedColour;
+    }
+
+    public MockCard getBasicState() {
+        return basicState;
     }
 }
