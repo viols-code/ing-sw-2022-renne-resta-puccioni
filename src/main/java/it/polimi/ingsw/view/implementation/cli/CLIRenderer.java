@@ -917,7 +917,7 @@ public class CLIRenderer extends Renderer {
      * @param numberCoins the string to print
      */
     private void renderCoins(int coins, String numberCoins) {
-        numberCoins = numberCoins.concat(AnsiColour.GOLD + "Your coins: " + coins + AnsiColour.RESET + "\n");
+        numberCoins = numberCoins.concat(AnsiColour.GOLD + "Coins: " + coins + AnsiColour.RESET + "\n");
         System.out.println(numberCoins);
     }
 

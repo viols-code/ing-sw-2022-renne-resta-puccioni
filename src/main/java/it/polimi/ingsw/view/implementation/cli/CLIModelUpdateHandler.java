@@ -91,7 +91,6 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
             }
         }
         super.updateInfluencePlayerOnGroupIsland(player, groupIsland);
-        getView().getRenderer().printSituation();
         System.out.println(influence);
 
         if (getView().getModel().getLocalPlayer().getNickname().equalsIgnoreCase(player)) {
@@ -110,7 +109,6 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
     @Override
     public void updateUnifyIsland(int groupIsland1, int groupIsland2) {
         super.updateUnifyIsland(groupIsland1, groupIsland2);
-        getView().getRenderer().printSituation();
         getView().getRenderer().showGameMessage(ViewString.UNIFY_ISLANDS.formatted(groupIsland1, groupIsland2));
     }
 

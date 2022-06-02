@@ -70,7 +70,7 @@ public class ASCIIArt {
                   """;
 
     public static final String SCHOOL_BOARD = """
-             __________________
+            ___________________
             | %s   %s   %s   %s   |
             | %s   %s   %s   %s   |
             |_________________|
@@ -337,7 +337,7 @@ public class ASCIIArt {
             |      %s |                  |      %s |                  |      %s |
             | %s %s %s %s|                  | %s %s %s %s|                  | %s %s %s %s|
             |________|                  |________|                  |________|
-            %s %s %s %s %s %s                %s %s %s %s %s %s              %s %s %s %s %s %s
+            %s %s %s %s %s %s                  %s %s %s %s %s %s                 %s %s %s %s %s %s
             """;
 
     public static final String ACTIVE_CHARACTER_CARD = """
