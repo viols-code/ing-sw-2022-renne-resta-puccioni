@@ -948,7 +948,6 @@ public class CLIRenderer extends Renderer {
     }
 
     public void printSituation(){
-
         switch (getView().getModel().getTurnPhase()) {
             case PLAY_ASSISTANT_CARD -> printTable();
             case MOVE_STUDENT, MOVE_MOTHER_NATURE -> {
