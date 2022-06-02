@@ -51,11 +51,12 @@ public class WaitingPlayers {
 
         else {
             gui.getModel().playersToStartProperty().addListener((change, prev, next) -> {
-                if (gui.getModel().playersToStartProperty().getValue() != -1) {
-                    Platform.runLater(() -> {
+
+                Platform.runLater(() -> {
+                    if (gui.getModel().playersToStartProperty().getValue() != -1) {
                         playersToStart.setVisible(true);
-                    });
-                }
+                    }
+                });
             });
         }
 
