@@ -395,6 +395,10 @@ public class MockModel {
         return this.playersToStart;
     }
 
+    public Property<MockPlayer> getWinnerProperty(){
+        return winner;
+    }
+
     public void addPlayerNickname(String name){
         this.nicknames.add(name);
     }

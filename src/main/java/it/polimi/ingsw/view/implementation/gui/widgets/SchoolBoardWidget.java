@@ -2,21 +2,20 @@ package it.polimi.ingsw.view.implementation.gui.widgets;
 
 import it.polimi.ingsw.FXMLUtils;
 import it.polimi.ingsw.model.Colour;
+import it.polimi.ingsw.model.game.TurnPhase;
 import it.polimi.ingsw.model.player.TowerColour;
 import it.polimi.ingsw.model.player.Wizard;
 import it.polimi.ingsw.view.beans.MockPlayer;
 import it.polimi.ingsw.view.implementation.gui.GUI;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
 import javafx.collections.MapChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
@@ -152,7 +151,7 @@ public class SchoolBoardWidget extends StackPane {
         initDiningRoom();
         initProfessorsTable();
         initTowers();
-
+        initWinner();
     }
 
 
@@ -358,6 +357,42 @@ public class SchoolBoardWidget extends StackPane {
                 j = 0;
                 k += 2;
             }
+        }
+    }
+
+    private void initWinner(){
+
+        if(GUI.instance().getModel().getTurnPhase().equals(TurnPhase.MOVE_MOTHER_NATURE)) {
+           setWinnerLabel();
+        }
+
+
+        GUI.instance().getModel().getTurnPhaseProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> {
+
+            if(GUI.instance().getModel().getTurnPhase().equals(TurnPhase.ENDGAME)) {
+                setWinnerLabel();
+            }
+        }));
+    }
+
+    private void setWinnerLabel(){
+        if (!GUI.instance().getModel().getWinner().getNickname().equals(GUI.instance().getPlayerName())) {
+            Label winnerLabel = new Label();
+            winnerLabel.setText("The winner is: " + GUI.instance().getModel().getWinner().getNickname());
+            winnerLabel.setStyle("-fx-font: 48 System; -fx-background-color: white;");
+            winnerLabel.setWrapText(true);
+            anchorPane.getChildren().add(winnerLabel);
+            winnerLabel.setLayoutX(352);
+            winnerLabel.setLayoutY(368);
+        }
+        else{
+            Label winnerLabel = new Label();
+            winnerLabel.setText("You are the winner!");
+            winnerLabel.setStyle("-fx-font: 48 System; -fx-background-color: white;");
+            winnerLabel.setWrapText(true);
+            anchorPane.getChildren().add(winnerLabel);
+            winnerLabel.setLayoutX(352);
+            winnerLabel.setLayoutY(368);
         }
     }
 
