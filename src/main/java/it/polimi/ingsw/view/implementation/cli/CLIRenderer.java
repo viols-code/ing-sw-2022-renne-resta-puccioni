@@ -936,7 +936,7 @@ public class CLIRenderer extends Renderer {
         System.out.printf((ASCIIArt.CURRENT_ASSISTANT_CARD) + "%n", v, steps);
     }
 
-    public void printAll(){
+    private void printTable(){
         for(Colour colour : Colour.values()){
             if(getView().getModel().getTable().getProfessorsAvailable().get(colour)){
                 printTableProfessors();
@@ -946,4 +946,29 @@ public class CLIRenderer extends Renderer {
         renderSchoolBoardHorizontal();
         printIslands();
     }
+
+    public void printSituation(){
+
+        switch (getView().getModel().getTurnPhase()) {
+            case PLAY_ASSISTANT_CARD -> printTable();
+            case MOVE_STUDENT, MOVE_MOTHER_NATURE -> {
+                if(getView().getGameMode()){
+                    if(getView().getModel().getCurrentCharacterCard().getType() != CharacterCardEnumeration.BASIC_STATE){
+                        getView().getRenderer().printActiveCharacterCard();
+                    } else{
+                        getView().getRenderer().printCharacterCards();
+                    }
+                    getView().getRenderer().printTableCoins();
+                    getView().getRenderer().printLocalPlayerCoins();
+                }
+                printTable();
+            }
+            case CHOOSE_CLOUD_TILE -> {
+                printTable();
+                getView().getRenderer().printCloudTiles();
+            }
+        }
+
+    }
+
 }

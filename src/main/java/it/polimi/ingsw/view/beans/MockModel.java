@@ -4,7 +4,6 @@ import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.GamePhase;
 import it.polimi.ingsw.model.game.TurnPhase;
 import it.polimi.ingsw.model.player.Wizard;
-import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -118,6 +117,7 @@ public class MockModel {
         winner = new SimpleObjectProperty<>();
         position = new SimpleIntegerProperty();
         basicState = new MockCard(CharacterCardEnumeration.BASIC_STATE);
+        setCurrentCharacterCard(basicState);
         position.setValue(-1);
         currentPlayers = new SimpleIntegerProperty();
         playersToStart = new SimpleIntegerProperty();

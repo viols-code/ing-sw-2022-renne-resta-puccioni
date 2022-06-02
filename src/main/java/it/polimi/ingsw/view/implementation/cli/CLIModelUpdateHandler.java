@@ -44,57 +44,18 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
     @Override
     public void updateTurnPhase(TurnPhase turnPhase) {
         super.updateTurnPhase(turnPhase);
-        if (turnPhase == TurnPhase.WAITING) {
-            return;
-        }
-        if (getView().getModel().getLocalPlayer().getNickname().equalsIgnoreCase(getView().getModel().getCurrentPlayer().getNickname())) {
+        getView().getRenderer().printSituation();
+
+        if (getView().getModel().getCurrentPlayer() != null && getView().getModel().getLocalPlayer().getNickname().equalsIgnoreCase(getView().getModel().getCurrentPlayer().getNickname())) {
             switch (getView().getModel().getTurnPhase()) {
                 case PLAY_ASSISTANT_CARD -> {
-                    getView().getRenderer().printAll();
                     getView().getRenderer().printAvailableAssistantCards();
                     getView().getRenderer().showGameMessage(ViewString.SELECT_ASSISTANT_CARD);
                 }
-                case MOVE_STUDENT -> {
-                    if(getView().getGameMode()){
-                        if(getView().getModel().getCurrentCharacterCard().getType() != CharacterCardEnumeration.BASIC_STATE){
-                            getView().getRenderer().printActiveCharacterCard();
-                        } else{
-                            getView().getRenderer().printCharacterCards();
-                        }
-                        getView().getRenderer().printTableCoins();
-                        getView().getRenderer().printLocalPlayerCoins();
-                    }
-                    getView().getRenderer().printAll();
-                    getView().getRenderer().showGameMessage(ViewString.MOVE_STUDENT_FROM_ENTRANCE);
-                }
-                case MOVE_MOTHER_NATURE -> {
-                    if(getView().getGameMode()){
-                        if(getView().getModel().getCurrentCharacterCard().getType() != CharacterCardEnumeration.BASIC_STATE){
-                            getView().getRenderer().printActiveCharacterCard();
-                        } else{
-                            getView().getRenderer().printCharacterCards();
-                        }
-                        getView().getRenderer().printTableCoins();
-                        getView().getRenderer().printLocalPlayerCoins();
-                    }
-                    getView().getRenderer().printAll();
-                    getView().getRenderer().showGameMessage(ViewString.MOVE_MOTHER_NATURE);
-                }
-                case CHOOSE_CLOUD_TILE -> {
-                    getView().getRenderer().printAll();
-                    getView().getRenderer().printCloudTiles();
-                    getView().getRenderer().showGameMessage(ViewString.SELECT_CLOUD_TILE);
-                }
+                case MOVE_STUDENT -> getView().getRenderer().showGameMessage(ViewString.MOVE_STUDENT_FROM_ENTRANCE);
+                case MOVE_MOTHER_NATURE -> getView().getRenderer().showGameMessage(ViewString.MOVE_MOTHER_NATURE);
+                case CHOOSE_CLOUD_TILE -> getView().getRenderer().showGameMessage(ViewString.SELECT_CLOUD_TILE);
             }
-        } else{
-            if(getView().getGameMode()){
-                if(getView().getModel().getCurrentCharacterCard().getType() != CharacterCardEnumeration.BASIC_STATE){
-                    getView().getRenderer().printActiveCharacterCard();
-                } else{
-                    getView().getRenderer().printCharacterCards();
-                }
-            }
-            getView().getRenderer().printAll();
         }
     }
 
@@ -121,14 +82,18 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
      */
     @Override
     public void updateInfluencePlayerOnGroupIsland(String player, int groupIsland) {
+        String influence = "";
         if (getView().getModel().getTable().getGroupIslandByIndex(groupIsland).getInfluentPlayer() != null) {
             if (getView().getModel().getLocalPlayer().getNickname().equalsIgnoreCase(getView().getModel().getTable().getGroupIslandByIndex(groupIsland).getInfluentPlayer())) {
-                getView().getRenderer().showGameMessage(ViewString.YOU_LOST_INFLUENCE.formatted(groupIsland));
+                influence = ViewString.YOU_LOST_INFLUENCE.formatted(groupIsland);
             } else {
-                getView().getRenderer().showGameMessage(ViewString.OTHER_LOST_INFLUENCE.formatted(getView().getModel().getTable().getGroupIslandByIndex(groupIsland).getInfluentPlayer(), groupIsland));
+                influence = ViewString.OTHER_LOST_INFLUENCE.formatted(getView().getModel().getTable().getGroupIslandByIndex(groupIsland).getInfluentPlayer(), groupIsland);
             }
         }
         super.updateInfluencePlayerOnGroupIsland(player, groupIsland);
+        getView().getRenderer().printSituation();
+        System.out.println(influence);
+
         if (getView().getModel().getLocalPlayer().getNickname().equalsIgnoreCase(player)) {
             getView().getRenderer().showGameMessage(ViewString.YOU_INFLUENCE_PLAYER.formatted(groupIsland));
         } else {
@@ -145,6 +110,7 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
     @Override
     public void updateUnifyIsland(int groupIsland1, int groupIsland2) {
         super.updateUnifyIsland(groupIsland1, groupIsland2);
+        getView().getRenderer().printSituation();
         getView().getRenderer().showGameMessage(ViewString.UNIFY_ISLANDS.formatted(groupIsland1, groupIsland2));
     }
 
@@ -171,7 +137,7 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
      */
     @Override
     public void updateMotherNaturePosition(int motherNaturePosition) {
-        super.updateMotherNaturePosition(motherNaturePosition);
+        getView().getRenderer().printSituation();
         if (getView().getModel().getGamePhase() != GamePhase.SETTING) {
             if (getView().getModel().getLocalPlayer().getNickname().equalsIgnoreCase(getView().getModel().getCurrentPlayer().getNickname())) {
                 getView().getRenderer().showGameMessage(ViewString.YOU_SELECTED_MOTHER_NATURE_MOVEMENT.formatted(motherNaturePosition));

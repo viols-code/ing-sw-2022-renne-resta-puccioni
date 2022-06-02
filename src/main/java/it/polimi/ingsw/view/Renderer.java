@@ -127,7 +127,5 @@ public abstract class Renderer {
      */
     public abstract void help();
 
-    public void printLocalPlayerSchoolBoardHorizontal(){}
-
-    public void printAll(){}
+    public void printSituation(){}
 }
