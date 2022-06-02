@@ -365,10 +365,8 @@ public class MockModel {
     }
 
     public void updatePlayerCount(int currentPlayers, int playersToStart) {
-        Platform.runLater(() -> {
             this.currentPlayers.setValue(currentPlayers);
             this.playersToStart.setValue(playersToStart);
-        });
     }
 
     public Property<MockPlayer> getCurrentPlayerProperty() {
@@ -388,7 +386,7 @@ public class MockModel {
     }
 
     public IntegerProperty playersToStartProperty() {
-        return playersToStart;
+        return this.playersToStart;
     }
 
     public void addPlayerNickname(String name){
