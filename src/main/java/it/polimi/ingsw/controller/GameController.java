@@ -790,6 +790,15 @@ public class GameController implements Observer<PlayerEvent> {
                 game.setHasPlayedCharacterCard(false);
                 // Set the state to the basic one
                 if (!game.getActiveCharacterCard().equals(game.getBasicState())) {
+                    try{
+                        game.getActiveCharacterCard().setColour(null);
+                        game.getActiveCharacterCard().setColourDiningRoomEntrance(null, null);
+                        game.getActiveCharacterCard().setColourAndIsland(null, null);
+                        game.getActiveCharacterCard().setColourCardEntrance(null, null);
+                        game.getActiveCharacterCard().setGroupIsland(-1);
+                    } catch(IllegalArgumentException e){
+                        // Ignored
+                    }
                     game.setActiveCharacterCard(game.getBasicState());
                 }
             } catch (IllegalAccessError ex) {

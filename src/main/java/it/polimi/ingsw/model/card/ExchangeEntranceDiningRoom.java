@@ -49,6 +49,7 @@ public class ExchangeEntranceDiningRoom extends CharacterCard {
 
         if (times == 1) {
             resetTimes();
+            setColourDiningRoomEntrance(null, null);
             game.setActiveCharacterCard(game.getBasicState());
         } else {
             increaseTimes();

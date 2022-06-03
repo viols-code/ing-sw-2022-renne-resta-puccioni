@@ -71,6 +71,7 @@ public class StudentToDiningRoom extends CharacterCard {
             ex.printStackTrace();
         }
         notify(new StudentToDiningRoomUpdate(students));
+        setColour(null);
         game.setActiveCharacterCard(game.getBasicState());
     }
 

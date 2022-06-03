@@ -67,6 +67,7 @@ public class StudentToEntrance extends CharacterCard {
         students.replace(colourEntrance, students.get(colourEntrance), students.get(colourEntrance) + 1);
         if (times == 2) {
             resetTimes();
+            setColourCardEntrance(null, null);
             game.setActiveCharacterCard(game.getBasicState());
         } else {
             increaseTimes();
