@@ -31,6 +31,8 @@ Software Engineering Project A.A. 2021/2022
 * [Sara Resta](https://github.com/sararesta)
 * [Laura Puccioni](https://github.com/LaP19)
 
+If you want to use the CLI and you are using Windows, make sure to use java -Dfile.encoding="UTF-8" -jar GC04.jar -cli to render colours properly.
+
 ## Software used
 **Draw.io** - UML diagrams
 
