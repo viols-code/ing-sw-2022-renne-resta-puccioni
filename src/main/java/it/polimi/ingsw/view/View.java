@@ -228,7 +228,7 @@ public abstract class View {
 
         if(takenNicknames != null){
             for (String player : takenNicknames) {
-                if(!player.equals(getPlayerName())) {
+                if(!player.equals(getPlayerName()) && !getModel().getNicknames().contains(player)) {
                     getModel().addPlayerNickname(player);
                 }
             }

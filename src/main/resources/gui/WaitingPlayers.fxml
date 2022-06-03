@@ -33,19 +33,4 @@
       </children>
    </GridPane>
    <ProgressIndicator layoutX="698.0" layoutY="445.0" />
-   <Label fx:id="currentPlayers" layoutX="336.0" layoutY="264.0">
-      <font>
-         <Font size="22.0" />
-      </font>
-   </Label>
-   <Label fx:id="playersToStart" layoutX="368.0" layoutY="264.0">
-      <font>
-         <Font size="22.0" />
-      </font>
-   </Label>
-   <Label layoutX="354.0" layoutY="264.0" text="/">
-      <font>
-         <Font size="22.0" />
-      </font>
-   </Label>
 </AnchorPane>
