@@ -6,37 +6,42 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="300.0" styleClass="background" stylesheets="@css/styleWidgets.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="114.0" layoutY="7.0">
+        <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="100.0">
             <image>
                 <Image url="@../images/islands/island2.png" />
             </image>
         </ImageView>
-        <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="100.0" layoutY="100.0">
+        <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="100.0" layoutY="93.0">
             <image>
                 <Image url="@../images/islands/island2.png" />
             </image>
         </ImageView>
-        <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="173.0" layoutY="171.0">
+        <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="100.0" layoutY="193.0">
             <image>
                 <Image url="@../images/islands/island2.png" />
             </image>
         </ImageView>
-        <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="22.0" layoutY="40.0">
+        <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="7.0">
             <image>
                 <Image url="@../images/islands/island2.png" />
             </image>
         </ImageView>
-        <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="187.0" layoutY="71.0">
+        <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="200.0" layoutY="93.0">
             <image>
                 <Image url="@../images/islands/island2.png" />
             </image>
         </ImageView>
-        <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="7.0" layoutY="133.0">
+        <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="7.0" layoutY="93.0">
             <image>
                 <Image url="@../images/islands/island2.png" />
             </image>
         </ImageView>
-      <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="81.0" layoutY="198.0">
+      <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="7.0" layoutY="193.0">
+         <image>
+            <Image url="@../images/islands/island2.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="193.0" layoutY="193.0">
          <image>
             <Image url="@../images/islands/island2.png" />
          </image>

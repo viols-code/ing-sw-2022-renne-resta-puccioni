@@ -25,12 +25,6 @@ import java.util.List;
 public class WaitingPlayers {
 
     @FXML
-    private Label currentPlayers;
-
-    @FXML
-    private Label playersToStart;
-
-    @FXML
     private GridPane playerList;
 
     private List<String> players;
@@ -39,43 +33,25 @@ public class WaitingPlayers {
     private void initialize() {
         GUI gui = GUI.instance();
 
-        //Da sistemare, c'è ancora qualche problemino quando si connette un altro giocatore prima che il primo abbia deciso il num di giocatori
-
-        currentPlayers.setText(gui.getModel().currentPlayersProperty().getValue().toString());
-        playersToStart.setText(gui.getModel().playersToStartProperty().getValue().toString());
-        playersToStart.setVisible(false);
-
-        if(gui.getModel().playersToStartProperty().getValue() != -1) {
-            playersToStart.setVisible(true);
-        }
-
-        else {
-            gui.getModel().playersToStartProperty().addListener((change, prev, next) -> {
-
-                Platform.runLater(() -> {
-                    if (gui.getModel().playersToStartProperty().getValue() != -1) {
-                        playersToStart.setVisible(true);
-                    }
-                });
-            });
-        }
-
-        gui.getModel().currentPlayersProperty().addListener((change, prev, next) -> {
-            if(next.intValue() != prev.intValue()) {
-                Platform.runLater(() -> {
-                    currentPlayers.setText(next.toString());
-                });
-            }
-        });
-
-
         //Questo funziona!
         players = FXCollections.observableList(new ArrayList<>(gui.getModel().getNicknames()));
 
         gui.getModel().getNicknames().addListener((ListChangeListener<? super String>) change -> {
                 if(change.next()) {
+                    List<String> nicknames = new ArrayList<>();
+                    for(int k= 0; k < change.getAddedSize(); k++){
+                        nicknames.add(change.getAddedSubList().get(k));
+                    }
                     Platform.runLater(() -> {
-                        players.addAll(change.getAddedSubList());
+                        for(int j = 0; j < change.getAddedSubList().size(); j++){
+                            for(int i = 0; i < players.size(); i++){
+                                if(change.getAddedSubList().get(j).equals(players.get(i))){
+                                    nicknames.remove(j);
+                                 }
+                            }
+                        }
+
+                        players.addAll(nicknames);
                         initializeGrid();
                     });
                 }

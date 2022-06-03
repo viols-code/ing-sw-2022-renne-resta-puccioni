@@ -74,6 +74,9 @@ public class SchoolBoardWidget extends StackPane {
     @FXML
     private GridPane towers;
 
+    @FXML
+    private ImageView winner;
+
     private final List<Circle> towersImage = new ArrayList<>();
     private final List<ImageView> professorImage = new ArrayList<>();
     private final List<ImageView> diningRoomImage = new ArrayList<>();
@@ -363,21 +366,26 @@ public class SchoolBoardWidget extends StackPane {
     private void initWinner(){
 
         //Da rendere più carino dal punto di vista grafico
-        if(GUI.instance().getModel().getTurnPhase().equals(TurnPhase.MOVE_MOTHER_NATURE)) {
-           setWinnerLabel();
-        }
 
+        winner.setVisible(false);
+
+        if(GUI.instance().getModel().getTurnPhase().equals(TurnPhase.MOVE_MOTHER_NATURE)) {
+            printWinner();
+        }
 
         GUI.instance().getModel().getTurnPhaseProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> {
 
             if(GUI.instance().getModel().getTurnPhase().equals(TurnPhase.ENDGAME)) {
-                setWinnerLabel();
+                printWinner();
             }
         }));
     }
 
-    private void setWinnerLabel(){
-        if (!GUI.instance().getModel().getWinner().getNickname().equals(GUI.instance().getPlayerName())) {
+    private void printWinner(){
+        if (GUI.instance().getModel().getWinner().getNickname().equals(GUI.instance().getPlayerName())) {
+            winner.setVisible(true);
+        }
+        else{
             Label winnerLabel = new Label();
             winnerLabel.setText("The winner is: " + GUI.instance().getModel().getWinner().getNickname());
             winnerLabel.setStyle("-fx-font: 48 System; -fx-background-color: white;");
@@ -386,16 +394,8 @@ public class SchoolBoardWidget extends StackPane {
             winnerLabel.setLayoutX(352);
             winnerLabel.setLayoutY(368);
         }
-        else{
-            Label winnerLabel = new Label();
-            winnerLabel.setText("You are the winner!");
-            winnerLabel.setStyle("-fx-font: 48 System; -fx-background-color: white;");
-            winnerLabel.setWrapText(true);
-            anchorPane.getChildren().add(winnerLabel);
-            winnerLabel.setLayoutX(352);
-            winnerLabel.setLayoutY(368);
-        }
     }
+
 
     @FXML
     public void goToCloudTile() {
