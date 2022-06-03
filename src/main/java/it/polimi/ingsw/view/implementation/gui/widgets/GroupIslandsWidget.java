@@ -366,7 +366,7 @@ public class GroupIslandsWidget extends StackPane {
         int res = 0;
         switch(numberOfSingleIsland){
             case 1 -> res = 100;
-            case 2 -> res = 262;
+            case 2 -> res = 150;
             case 3,4 -> res = 200;
             case 5,6 -> res = 260;
             case 7 -> res = 300;
