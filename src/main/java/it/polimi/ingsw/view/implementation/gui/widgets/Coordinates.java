@@ -1,8 +1,8 @@
 package it.polimi.ingsw.view.implementation.gui.widgets;
 
 public class Coordinates {
-    private final int row;
-    private final int column;
+    private  int row;
+    private  int column;
 
     public Coordinates(int x, int y) {
         row = x;
@@ -15,5 +15,13 @@ public class Coordinates {
 
     public int getColumn() {
         return column;
+    }
+
+    public void setRow(int row) {
+        this.row = row;
+    }
+
+    public void setColumn(int column) {
+        this.column = column;
     }
 }
