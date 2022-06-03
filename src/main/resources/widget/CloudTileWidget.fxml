@@ -5,7 +5,7 @@
 <?import javafx.scene.text.*?>
 
 <fx:root styleClass="background" stylesheets="@css/styleWidgets.css" type="StackPane" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.implementation.gui.widgets.CloudTileWidget">
-    <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" stylesheets="@../gui/css/style.css">
+    <AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" stylesheets="@../gui/css/style.css">
 
 
         <Label layoutX="427.0" layoutY="113.0" text="Cloud Tiles">
@@ -13,15 +13,7 @@
                 <Font name="System Bold Italic" size="48.0" />
             </font>
         </Label>
-        <HBox fx:id="box" alignment="CENTER" layoutY="252.0" prefHeight="292.0" prefWidth="1080.0">
-         <children>
-            <TableView prefHeight="200.0" prefWidth="200.0">
-              <columns>
-                <TableColumn prefWidth="75.0" text="C1" />
-                <TableColumn prefWidth="75.0" text="C2" />
-              </columns>
-            </TableView>
-         </children></HBox>
+
 
         <Button layoutX="48.0" layoutY="55.0" mnemonicParsing="false" onAction="#showSchoolBoard" text="GO BACK TO SCHOOL BOARD">
             <font>

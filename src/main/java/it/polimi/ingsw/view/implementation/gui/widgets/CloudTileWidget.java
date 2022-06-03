@@ -7,22 +7,16 @@ import it.polimi.ingsw.view.implementation.gui.GUI;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Objects;
-
+import java.util.*;
 
 public class CloudTileWidget extends StackPane {
     @FXML
-    private HBox box;
+    private AnchorPane pane;
 
     public CloudTileWidget() {
         FXMLUtils.loadWidgetFXML(this);
@@ -36,14 +30,13 @@ public class CloudTileWidget extends StackPane {
 
         GUI.instance().getModel().getTable().getShownCloudTilesProperty().addListener((ListChangeListener<? super MockCloudTile>) change ->
                 Platform.runLater(() -> {
-                    while (change.next()) {
-                            box.getChildren().clear();
-                            cloudTiles.clear();
-                            initializeCloudTileImages();
-                    }
+                        for(AnchorPane anchorPane: cloudTiles){
+                            anchorPane.getChildren().clear();
+                        }
+                        pane.getChildren().removeAll(cloudTiles);
+                        cloudTiles.clear();
+                        initializeCloudTileImages();
                 }));
-
-
     }
 
     public void initializeCloudTileStudents(AnchorPane anchorPane, int i, List<Integer> x, List<Integer> y) {
@@ -62,14 +55,34 @@ public class CloudTileWidget extends StackPane {
     }
 
     public void initializeCloudTileImages() {
+        List<Coordinates> cloud1 = new ArrayList<>(List.of(new Coordinates(440, 260)));
+        List<Coordinates> cloud2 = new ArrayList<>(Arrays.asList(new Coordinates(240, 260), new Coordinates(540, 260)));
+        List<Coordinates> cloud3 = new ArrayList<>(Arrays.asList(new Coordinates(140, 260), new Coordinates(440, 260), new Coordinates(740, 260)));
+
         for (int i = 0; i < GUI.instance().getModel().getTable().getShownCloudTiles().size(); i++) {
             AnchorPane anchorPane = new AnchorPane();
+            pane.getChildren().add(anchorPane);
             cloudTiles.add(anchorPane);
             ImageView imageView = new ImageView();
             anchorPane.getChildren().add(imageView);
-            box.getChildren().add(anchorPane);
             anchorPane.getStyleClass().add("cloudTile");
-            HBox.setMargin(anchorPane, new Insets(10.0, 10.0, 10.0, 10.0));
+
+            switch(GUI.instance().getModel().getTable().getShownCloudTiles().size()){
+                case(1) -> {
+                    anchorPane.setLayoutX(cloud1.get(i).getRow());
+                    anchorPane.setLayoutY(cloud1.get(i).getColumn());
+                }
+                case(2) -> {
+                    anchorPane.setLayoutX(cloud2.get(i).getRow());
+                    anchorPane.setLayoutY(cloud2.get(i).getColumn());
+                }
+                case(3) -> {
+                    anchorPane.setLayoutX(cloud3.get(i).getRow());
+                    anchorPane.setLayoutY(cloud3.get(i).getColumn());
+                }
+            }
+
+            // HBox.setMargin(anchorPane, new Insets(10.0, 10.0, 10.0, 10.0));
             int a = i;
             anchorPane.setOnMouseClicked(event -> chooseCloudTile(a));
 
@@ -106,9 +119,6 @@ public class CloudTileWidget extends StackPane {
             }
             initializeCloudTileStudents(anchorPane, i, x, y);
         }
-
-        System.out.println("Stampo le cloud tile aggiunte");
-        System.out.println(cloudTiles.toString());
     }
 
 
