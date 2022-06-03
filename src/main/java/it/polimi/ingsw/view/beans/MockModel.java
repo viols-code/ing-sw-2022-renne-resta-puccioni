@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.GamePhase;
 import it.polimi.ingsw.model.game.TurnPhase;
 import it.polimi.ingsw.model.player.Wizard;
+import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -371,8 +372,10 @@ public class MockModel {
     }
 
     public void updatePlayerCount(int currentPlayers, int playersToStart) {
+        Platform.runLater(() -> {
             this.currentPlayers.setValue(currentPlayers);
             this.playersToStart.setValue(playersToStart);
+        });
     }
 
     public Property<MockPlayer> getCurrentPlayerProperty() {
@@ -391,13 +394,13 @@ public class MockModel {
         return currentPlayers;
     }
 
+    public int getCurrentPlayers() { return currentPlayers.getValue();}
+
     public IntegerProperty playersToStartProperty() {
         return this.playersToStart;
     }
 
-    public Property<MockPlayer> getWinnerProperty(){
-        return winner;
-    }
+    public int getPlayersToStart(){ return playersToStart.getValue();}
 
     public void addPlayerNickname(String name){
         this.nicknames.add(name);

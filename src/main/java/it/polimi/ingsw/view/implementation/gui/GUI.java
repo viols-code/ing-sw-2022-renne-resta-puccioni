@@ -136,7 +136,7 @@ public class GUI extends View {
     @Override
     public void handleSetPlayersToStart(int playersToStart) {
         super.handleSetPlayersToStart(playersToStart);
-        getModel().updatePlayerCount(getModel().getNicknames().size(), playersToStart);
+        getModel().updatePlayerCount(getModel().getCurrentPlayers(), playersToStart);
         Platform.runLater(() -> {
             Parent waitingPlayers = FXMLUtils.loadFXML("/gui/WaitingPlayers");
             scene.setRoot(waitingPlayers);
@@ -146,6 +146,7 @@ public class GUI extends View {
     @Override
     public void handlePlayerConnect(String playerName, Wizard wizard, int currentPlayers, Integer playersToStart, List<Wizard> takenWizard) {
         super.handlePlayerConnect(playerName, wizard, currentPlayers, playersToStart, takenWizard);
+
         if (playersToStart != null) {
             getModel().updatePlayerCount(currentPlayers, playersToStart);
         }else{
