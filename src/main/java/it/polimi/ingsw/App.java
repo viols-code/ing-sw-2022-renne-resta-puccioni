@@ -6,11 +6,7 @@ import javafx.stage.Stage;
 
 
 public class App extends Application {
-
-
     private static boolean startCli = false;
-
-
     public static void main(String[] args) {
 
         handleCommand(args[0]);
@@ -20,7 +16,7 @@ public class App extends Application {
 
 
     private static void handleCommand(String command) {
-        if (command.equalsIgnoreCase("cli")) {
+        if (command != null && command.equalsIgnoreCase("cli")) {
             startCli = true;
         }
     }

@@ -269,7 +269,7 @@ public class CLIRenderer extends Renderer {
         switch (colour){
             case WHITE -> towers.add("\u001b[97;1m●\u001b[0m");
             case BLACK -> towers.add("\u001b[30m●\u001b[0m");
-            case GREY -> towers.add("\u001b[37;1m●\u001b[0m");
+            case GREY -> towers.add("\u001b[90;1m●\u001b[0m");
         }
     }
 
@@ -440,7 +440,7 @@ public class CLIRenderer extends Renderer {
             switch (getView().getModel().getPlayerByNickname(groupIsland.getInfluentPlayer()).getTowerColour()){
                 case WHITE -> influence = "\u001b[97;1m●\u001b[0m";
                 case BLACK -> influence = "\u001b[30m●\u001b[0m";
-                case GREY -> influence = "\u001b[37;1m●\u001b[0m";
+                case GREY -> influence = "\u001b[90;1m●\u001b[0m";
             }
         }
         if(count < 6){
