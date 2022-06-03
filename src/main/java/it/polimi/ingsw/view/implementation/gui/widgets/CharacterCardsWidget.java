@@ -2,18 +2,20 @@ package it.polimi.ingsw.view.implementation.gui.widgets;
 
 import it.polimi.ingsw.FXMLUtils;
 import it.polimi.ingsw.model.Colour;
+import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
+import it.polimi.ingsw.view.beans.MockCard;
 import it.polimi.ingsw.view.implementation.gui.GUI;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -42,6 +44,8 @@ public class CharacterCardsWidget extends StackPane {
     @FXML
     private Label costCard2;
 
+    private final List<ImageView> imageViewList = new ArrayList<>();
+
     public CharacterCardsWidget() {
         FXMLUtils.loadWidgetFXML(this);
     }
@@ -62,6 +66,7 @@ public class CharacterCardsWidget extends StackPane {
 
             int a = i;
             imageView.setOnMouseClicked(event -> playCharacterCard(a));
+            imageViewList.add(imageView);
             HBox.setMargin(flowPane, new Insets(5.0, 5.0, 5.0, 5.0));
 
 
@@ -111,6 +116,29 @@ public class CharacterCardsWidget extends StackPane {
 
         numberCoinsTable.setText(String.valueOf(GUI.instance().getModel().getCoins()));
         GUI.instance().getModel().getCoinsProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> numberCoinsTable.setText(String.valueOf(GUI.instance().getModel().getCoins()))));
+
+        GUI.instance().getModel().currentCharacterCardProperty().addListener((ChangeListener<? super MockCard>) (change, oldVal, newVal) -> Platform.runLater(() -> {
+            if(newVal.getType() == CharacterCardEnumeration.BASIC_STATE){
+                for(int i = 0; i < 3; i++){
+                    if(oldVal.getType() == GUI.instance().getModel().getCharacterCardByIndex(i).getType()){
+                        int a = i;
+                        imageViewList.get(i).setOnMouseClicked(event -> playCharacterCard(a));
+                    }
+                }
+            } else {
+                int a = -1;
+                for(int i = 0; i < 3; i++){
+                    if(GUI.instance().getModel().getCharacterCardByIndex(i).getType() == newVal.getType()){
+                        a = i;
+                        break;
+                    }
+                }
+
+                switch(newVal.getType()){
+                    case NO_COLOUR -> imageViewList.get(a).setOnMouseClicked(event ->  Platform.runLater(() -> GUI.instance().showColourDecision()));
+                }
+            }
+        }));
     }
 
     @FXML
