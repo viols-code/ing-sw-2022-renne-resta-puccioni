@@ -434,4 +434,8 @@ public class MockModel {
     public MockCard getBasicState() {
         return basicState;
     }
+
+    public Property<MockCard> currentCharacterCardProperty() {
+        return currentCharacterCard;
+    }
 }

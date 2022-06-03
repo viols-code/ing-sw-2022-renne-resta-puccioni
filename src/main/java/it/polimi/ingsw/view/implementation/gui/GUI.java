@@ -3,14 +3,10 @@ package it.polimi.ingsw.view.implementation.gui;
 import it.polimi.ingsw.FXMLUtils;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.model.player.Wizard;
-import it.polimi.ingsw.observer.Observable;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.beans.MockPlayer;
-import it.polimi.ingsw.view.implementation.cli.utils.ViewString;
 import it.polimi.ingsw.view.implementation.gui.widgets.*;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -18,6 +14,7 @@ import javafx.stage.Stage;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * The singleton class that manages all the functionalities of the GUI.
@@ -66,7 +63,7 @@ public class GUI extends View {
         Parent homePage = FXMLUtils.loadFXML("/gui/Home");
         String javaVersion = System.getProperty("java.version");
         String javafxVersion = System.getProperty("javafx.version");
-        Label l = new Label("Hello, JavaFX " + javafxVersion + ", running on Java " + javaVersion + ".");
+        // Label l = new Label("Hello, JavaFX " + javafxVersion + ", running on Java " + javaVersion + ".");
         scene = new Scene(homePage);
         stage.setScene(scene);
         stage.setTitle("Eriantys");
@@ -147,11 +144,7 @@ public class GUI extends View {
     public void handlePlayerConnect(String playerName, Wizard wizard, int currentPlayers, Integer playersToStart, List<Wizard> takenWizard) {
         super.handlePlayerConnect(playerName, wizard, currentPlayers, playersToStart, takenWizard);
 
-        if (playersToStart != null) {
-            getModel().updatePlayerCount(currentPlayers, playersToStart);
-        }else{
-            getModel().updatePlayerCount(currentPlayers, -1);
-        }
+        getModel().updatePlayerCount(currentPlayers, Objects.requireNonNullElse(playersToStart, -1));
 
         getModel().addPlayerNickname(playerName);
     }
@@ -211,6 +204,13 @@ public class GUI extends View {
                 characterCardsWidget = new CharacterCardsWidget();
             }
             scene.setRoot(characterCardsWidget);
+        });
+    }
+
+    public void showColourDecision() {
+        Platform.runLater(() -> {
+            NoColourWidget noColourWidget = new NoColourWidget();
+            scene.setRoot(noColourWidget);
         });
     }
 
