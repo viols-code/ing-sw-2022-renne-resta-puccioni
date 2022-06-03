@@ -370,38 +370,30 @@ public class SchoolBoardWidget extends StackPane {
         winner.setVisible(false);
 
         if(GUI.instance().getModel().getTurnPhase().equals(TurnPhase.MOVE_MOTHER_NATURE)) {
-            if (GUI.instance().getModel().getWinner().getNickname().equals(GUI.instance().getPlayerName())) {
-                winner.setVisible(true);
-            }
-            else{
-                Label winnerLabel = new Label();
-                winnerLabel.setText("The winner is: " + GUI.instance().getModel().getWinner().getNickname());
-                winnerLabel.setStyle("-fx-font: 48 System; -fx-background-color: white;");
-                winnerLabel.setWrapText(true);
-                anchorPane.getChildren().add(winnerLabel);
-                winnerLabel.setLayoutX(352);
-                winnerLabel.setLayoutY(368);
-            }
+            printWinner();
         }
-
 
         GUI.instance().getModel().getTurnPhaseProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> {
 
             if(GUI.instance().getModel().getTurnPhase().equals(TurnPhase.ENDGAME)) {
-                if (GUI.instance().getModel().getWinner().getNickname().equals(GUI.instance().getPlayerName())) {
-                    winner.setVisible(true);
-                }
-                else{
-                    Label winnerLabel = new Label();
-                    winnerLabel.setText("The winner is: " + GUI.instance().getModel().getWinner().getNickname());
-                    winnerLabel.setStyle("-fx-font: 48 System; -fx-background-color: white;");
-                    winnerLabel.setWrapText(true);
-                    anchorPane.getChildren().add(winnerLabel);
-                    winnerLabel.setLayoutX(352);
-                    winnerLabel.setLayoutY(368);
-                }
+                printWinner();
             }
         }));
+    }
+
+    private void printWinner(){
+        if (GUI.instance().getModel().getWinner().getNickname().equals(GUI.instance().getPlayerName())) {
+            winner.setVisible(true);
+        }
+        else{
+            Label winnerLabel = new Label();
+            winnerLabel.setText("The winner is: " + GUI.instance().getModel().getWinner().getNickname());
+            winnerLabel.setStyle("-fx-font: 48 System; -fx-background-color: white;");
+            winnerLabel.setWrapText(true);
+            anchorPane.getChildren().add(winnerLabel);
+            winnerLabel.setLayoutX(352);
+            winnerLabel.setLayoutY(368);
+        }
     }
 
 
