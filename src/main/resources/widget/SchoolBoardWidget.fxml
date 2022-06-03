@@ -138,11 +138,6 @@
                 </children>
             </GridPane>
             <ImageView fx:id="currentAssistantCard" fitHeight="159.9" fitWidth="109.2" layoutX="276.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" />
-         <ImageView fx:id="winner" disable="true" fitHeight="395.0" fitWidth="547.0" layoutX="263.0" layoutY="153.0">
-            <image>
-               <Image url="@../images/winner.png" />
-            </image>
-         </ImageView>
         </children>
     </AnchorPane>
 </fx:root>
