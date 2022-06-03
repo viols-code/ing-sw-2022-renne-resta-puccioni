@@ -74,9 +74,6 @@ public class SchoolBoardWidget extends StackPane {
     @FXML
     private GridPane towers;
 
-    @FXML
-    private ImageView winner;
-
     private final List<Circle> towersImage = new ArrayList<>();
     private final List<ImageView> professorImage = new ArrayList<>();
     private final List<ImageView> diningRoomImage = new ArrayList<>();
@@ -365,11 +362,7 @@ public class SchoolBoardWidget extends StackPane {
 
     private void initWinner(){
 
-        //Da rendere più carino dal punto di vista grafico
-
-        winner.setVisible(false);
-
-        if(GUI.instance().getModel().getTurnPhase().equals(TurnPhase.MOVE_MOTHER_NATURE)) {
+        if(GUI.instance().getModel().getTurnPhase().equals(TurnPhase.ENDGAME)) {
             printWinner();
         }
 
@@ -383,16 +376,30 @@ public class SchoolBoardWidget extends StackPane {
 
     private void printWinner(){
         if (GUI.instance().getModel().getWinner().getNickname().equals(GUI.instance().getPlayerName())) {
-            winner.setVisible(true);
+            ImageView winner = new ImageView();
+            anchorPane.getChildren().add(winner);
+            winner.setImage(new Image(Objects.requireNonNull(SchoolBoardWidget.class.getResourceAsStream(
+                    "/images/winner.png"))));
+            winner.setLayoutY(153);
+            winner.setLayoutX(263);
+            winner.setFitWidth(547);
+            winner.setFitHeight(395);
         }
         else{
-            Label winnerLabel = new Label();
-            winnerLabel.setText("The winner is: " + GUI.instance().getModel().getWinner().getNickname());
-            winnerLabel.setStyle("-fx-font: 48 System; -fx-background-color: white;");
-            winnerLabel.setWrapText(true);
-            anchorPane.getChildren().add(winnerLabel);
-            winnerLabel.setLayoutX(352);
-            winnerLabel.setLayoutY(368);
+            ImageView loser = new ImageView();
+            anchorPane.getChildren().add(loser);
+            loser.setImage(new Image(Objects.requireNonNull(SchoolBoardWidget.class.getResourceAsStream(
+                    "/images/loser.png"))));
+            loser.setLayoutY(166);
+            loser.setLayoutX(230);
+            loser.setFitWidth(634);
+            loser.setFitHeight(337);
+            Label winnerName = new Label();
+            winnerName.setText(GUI.instance().getModel().getWinner().getNickname());
+            winnerName.setStyle("-fx-font: 35 Stsyem;");
+            winnerName.setLayoutX(596);
+            winnerName.setLayoutY(377);
+            anchorPane.getChildren().add(winnerName);
         }
     }
 
