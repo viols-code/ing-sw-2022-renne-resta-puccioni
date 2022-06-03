@@ -330,6 +330,7 @@ public class GroupIslandsWidget extends StackPane {
             case 5 -> coordinates = getCoordinatesForFiveGroupIslands();
             case 6 -> coordinates = getCoordinatesForSixGroupIslands();
             case 7 -> coordinates = getCoordinatesForSevenGroupIslands();
+            case 8 -> coordinates = getCoordinatesForEightGroupIslands();
         }
         return coordinates;
     }
@@ -362,14 +363,18 @@ public class GroupIslandsWidget extends StackPane {
         return new ArrayList<>(Arrays.asList(new Coordinates(22,40),new Coordinates(114,7),new Coordinates(187,71), new Coordinates(100,100),new Coordinates(7,133),new Coordinates(81,198),new Coordinates(173,171)));
     }
 
+    private List<Coordinates> getCoordinatesForEightGroupIslands(){
+        return new ArrayList<>(Arrays.asList(new Coordinates(7,0),new Coordinates(100,0),new Coordinates(7,93), new Coordinates(100,93),new Coordinates(200,93),new Coordinates(7,193),new Coordinates(100,193),new Coordinates(193,193)));
+    }
+
     private int getIslandPaneDimension(int numberOfSingleIsland){
         int res = 0;
         switch(numberOfSingleIsland){
             case 1 -> res = 100;
-            case 2 -> res = 262;
+            case 2 -> res = 150;
             case 3,4 -> res = 200;
             case 5,6 -> res = 260;
-            case 7 -> res = 300;
+            case 7,8 -> res = 300;
         }
         return res;
     }
