@@ -17,7 +17,9 @@ public class Positions {
     private static final List<Integer> groupIslandPaneDimensions = new ArrayList<>(Arrays.asList(0,100,150,200,200,260,260,300,300));
 
 
-
+    public static double getAngle(int index){
+        return angles.get(index);
+    }
 
     public static List<Coordinates> getIslandsCoordinates(int numberOfSingleIsland){
         return singleIslandCoordinates.get(numberOfSingleIsland - 1);
