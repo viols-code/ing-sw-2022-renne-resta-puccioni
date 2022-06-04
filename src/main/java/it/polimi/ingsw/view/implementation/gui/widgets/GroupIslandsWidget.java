@@ -4,6 +4,7 @@ import it.polimi.ingsw.FXMLUtils;
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.TurnPhase;
 import it.polimi.ingsw.model.player.TowerColour;
+import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
 import it.polimi.ingsw.view.beans.MockGroupIsland;
 import it.polimi.ingsw.view.implementation.gui.GUI;
 import it.polimi.ingsw.view.implementation.gui.widgets.utils.Coordinates;
@@ -49,6 +50,10 @@ public class GroupIslandsWidget extends StackPane {
         addListenerOnMotherNatureProperty();
         addListenerOnGroupIslandInfluentPlayer();
         addListenerOnGroupIslandList();
+        if(GUI.instance().getModel().isGameExpert() && GUI.instance().getModel().isCharacterCardPresent(CharacterCardEnumeration.PROTECT_ISLAND)){
+            addListenerOnNoEntryTile();
+        }
+
         //addListenerOnIslandInfluenceChange();
     }
 
@@ -64,6 +69,9 @@ public class GroupIslandsWidget extends StackPane {
                     singleIslandPanes.clear();
                     initGroupIslands();
                     addListenerOnGroupIslandInfluentPlayer();
+                    if(GUI.instance().getModel().isCharacterCardPresent(CharacterCardEnumeration.PROTECT_ISLAND)){
+                        addListenerOnNoEntryTile();
+                    }
                 }));
     }
 
@@ -167,8 +175,27 @@ public class GroupIslandsWidget extends StackPane {
                 }
                 addListenerOnSingleIslandStudents(i, k, studentsLabels);
 
-
+                //adds the no entry tiles if PROTECT_ISLAND card is present
+                if(GUI.instance().getModel().isGameExpert() && GUI.instance().getModel().isCharacterCardPresent(CharacterCardEnumeration.PROTECT_ISLAND)) {
+                    Label noEntryTileLabel = new Label();
+                    singleIslandPane.getChildren().add(noEntryTileLabel);
+                    noEntryTileLabel.setLayoutX(60);
+                    noEntryTileLabel.setLayoutY(20);
+                    noEntryTileLabel.setStyle("-fx-font-size: 10; -fx-font-weight: bold;");
+                    noEntryTileLabel.setText(" ! : " + GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getNoEntryTile());
+                    noEntryTileLabel.setTextFill(GUIColours.getNoEntryTileMarkColour());
+                    noEntryTileLabel.setBackground(new Background(new BackgroundFill(GUIColours.getGetNoEntryTileBackGroundColour(), CornerRadii.EMPTY, Insets.EMPTY)));
+                    if (GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getNoEntryTile() > 0 && k == 0) {
+                        noEntryTileLabel.setVisible(true);
+                        noEntryTileLabel.toFront();
+                    }
+                    else{
+                        noEntryTileLabel.setVisible(false);
+                    }
+                }
             }
+
+
 
             //init the on mouse click event on the group island if the turn phase is MOVE_MOTHER_NATURE
             if (GUI.instance().getModel().getTurnPhase().equals(TurnPhase.MOVE_MOTHER_NATURE)) {
@@ -182,6 +209,23 @@ public class GroupIslandsWidget extends StackPane {
                 islandPane.setLayoutY(360 - Positions.getIslandPaneDimension(singleIslands) / 2.0 - 220 * Math.sin((Positions.getAngle(j % 12) + Positions.getAngle((j + singleIslands) % 12)) / 2));
             }
             j += singleIslands;
+        }
+    }
+
+    private void addListenerOnNoEntryTile(){
+        for(int i = 0; i < GUI.instance().getModel().getTable().getGroupIslands().size(); i++){
+            int groupIsland = i;
+            GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getNoEntryTileProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> {
+                Label noEntryTileLabel = (Label) singleIslandPanes.get(groupIsland).get(0).getChildren().get(4);
+                if (newVal.intValue() > 0) {
+                    noEntryTileLabel.setText(" ! : " + newVal.intValue());
+                    noEntryTileLabel.setVisible(true);
+                    noEntryTileLabel.toFront();
+                }
+                else{
+                    noEntryTileLabel.setVisible(false);
+                }
+            }));
         }
     }
 
