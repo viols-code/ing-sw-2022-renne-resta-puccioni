@@ -148,6 +148,15 @@ public class MockGroupIsland {
         this.influentPlayer.setValue(influentPlayer);
     }
 
+    public void clearInfluentPlayerProperty(){
+        if(this.influentPlayer.getValue()!=null){
+            this.influentPlayer = new SimpleStringProperty(this.influentPlayer.getValue());
+        }
+        else{
+            this.influentPlayer = new SimpleStringProperty();
+        }
+    }
+
     public BooleanProperty getIsMotherNatureProperty() {
         return motherNature;
     }
