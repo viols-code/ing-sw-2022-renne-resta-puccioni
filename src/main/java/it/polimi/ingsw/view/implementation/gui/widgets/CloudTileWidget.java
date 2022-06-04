@@ -30,12 +30,12 @@ public class CloudTileWidget extends StackPane {
 
         GUI.instance().getModel().getTable().getShownCloudTilesProperty().addListener((ListChangeListener<? super MockCloudTile>) change ->
                 Platform.runLater(() -> {
-                        for(AnchorPane anchorPane: cloudTiles){
-                            anchorPane.getChildren().clear();
-                        }
-                        pane.getChildren().removeAll(cloudTiles);
-                        cloudTiles.clear();
-                        initializeCloudTileImages();
+                    for (AnchorPane anchorPane : cloudTiles) {
+                        anchorPane.getChildren().clear();
+                    }
+                    pane.getChildren().removeAll(cloudTiles);
+                    cloudTiles.clear();
+                    initializeCloudTileImages();
                 }));
     }
 
@@ -67,16 +67,16 @@ public class CloudTileWidget extends StackPane {
             anchorPane.getChildren().add(imageView);
             anchorPane.getStyleClass().add("cloudTile");
 
-            switch(GUI.instance().getModel().getTable().getShownCloudTiles().size()){
-                case(1) -> {
+            switch (GUI.instance().getModel().getTable().getShownCloudTiles().size()) {
+                case (1) -> {
                     anchorPane.setLayoutX(cloud1.get(i).getRow());
                     anchorPane.setLayoutY(cloud1.get(i).getColumn());
                 }
-                case(2) -> {
+                case (2) -> {
                     anchorPane.setLayoutX(cloud2.get(i).getRow());
                     anchorPane.setLayoutY(cloud2.get(i).getColumn());
                 }
-                case(3) -> {
+                case (3) -> {
                     anchorPane.setLayoutX(cloud3.get(i).getRow());
                     anchorPane.setLayoutY(cloud3.get(i).getColumn());
                 }

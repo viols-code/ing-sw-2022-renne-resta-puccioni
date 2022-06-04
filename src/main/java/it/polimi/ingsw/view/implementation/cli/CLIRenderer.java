@@ -10,7 +10,10 @@ import it.polimi.ingsw.view.implementation.cli.utils.ASCIIArt;
 import it.polimi.ingsw.view.implementation.cli.utils.AnsiColour;
 import it.polimi.ingsw.view.implementation.cli.utils.ViewString;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Formatter;
+import java.util.HashMap;
+import java.util.List;
 
 public class CLIRenderer extends Renderer {
 
@@ -69,7 +72,7 @@ public class CLIRenderer extends Renderer {
     }
 
 
-    private void renderSchoolBoardHorizontal(){
+    private void renderSchoolBoardHorizontal() {
         List<String> row0 = new ArrayList<>();
         List<String> row1 = new ArrayList<>();
         List<String> row2 = new ArrayList<>();
@@ -84,12 +87,12 @@ public class CLIRenderer extends Renderer {
         createHorizontalSchoolBoard(getView().getModel().getLocalPlayer(), row0, row1, row2, row3, row4, row5);
 
         int i = 0;
-        for(MockPlayer mockPlayer : getView().getModel().getPlayers().values()){
-            if(! mockPlayer.equals(getView().getModel().getLocalPlayer())){
+        for (MockPlayer mockPlayer : getView().getModel().getPlayers().values()) {
+            if (!mockPlayer.equals(getView().getModel().getLocalPlayer())) {
                 createHorizontalSchoolBoard(mockPlayer, row0, row1, row2, row3, row4, row5);
-                if(i == 0){
+                if (i == 0) {
                     player1 = mockPlayer;
-                } else{
+                } else {
                     player2 = mockPlayer;
                 }
                 i++;
@@ -105,46 +108,46 @@ public class CLIRenderer extends Renderer {
 
         Formatter formatter = new Formatter();
 
-        if(getView().getNumPlayers() == 2){
-                if(getView().getModel().getLocalPlayer().isAssistantCardValue()){
-                    if(player1 != null && player1.isAssistantCardValue()){
-                        System.out.println(formatter.format(ASCIIArt.SCHOOL_BOARD_HORIZONTAL_2_0, total.toArray()));
-                    } else{
-                        System.out.println(formatter.format(ASCIIArt.SCHOOL_BOARD_HORIZONTAL_2_1, total.toArray()));
-                    }
-                } else{
-                if(player1 != null && player1.isAssistantCardValue()){
+        if (getView().getNumPlayers() == 2) {
+            if (getView().getModel().getLocalPlayer().isAssistantCardValue()) {
+                if (player1 != null && player1.isAssistantCardValue()) {
+                    System.out.println(formatter.format(ASCIIArt.SCHOOL_BOARD_HORIZONTAL_2_0, total.toArray()));
+                } else {
+                    System.out.println(formatter.format(ASCIIArt.SCHOOL_BOARD_HORIZONTAL_2_1, total.toArray()));
+                }
+            } else {
+                if (player1 != null && player1.isAssistantCardValue()) {
                     System.out.println(formatter.format(ASCIIArt.SCHOOL_BOARD_HORIZONTAL_2_2, total.toArray()));
-                } else{
+                } else {
                     System.out.println(formatter.format(ASCIIArt.SCHOOL_BOARD_HORIZONTAL_2_3, total.toArray()));
                 }
             }
-        } else{
-            if(getView().getModel().getLocalPlayer().isAssistantCardValue()){
-                if(player1 != null && player1.isAssistantCardValue()){
-                    if(player2 != null && player2.isAssistantCardValue()){
+        } else {
+            if (getView().getModel().getLocalPlayer().isAssistantCardValue()) {
+                if (player1 != null && player1.isAssistantCardValue()) {
+                    if (player2 != null && player2.isAssistantCardValue()) {
                         System.out.println(formatter.format(ASCIIArt.SCHOOL_BOARD_HORIZONTAL_3_0, total.toArray()));
-                    } else{
+                    } else {
                         System.out.println(formatter.format(ASCIIArt.SCHOOL_BOARD_HORIZONTAL_3_1, total.toArray()));
                     }
-                } else{
-                    if(player2 != null && player2.isAssistantCardValue()){
+                } else {
+                    if (player2 != null && player2.isAssistantCardValue()) {
                         System.out.println(formatter.format(ASCIIArt.SCHOOL_BOARD_HORIZONTAL_3_2, total.toArray()));
-                    } else{
+                    } else {
                         System.out.println(formatter.format(ASCIIArt.SCHOOL_BOARD_HORIZONTAL_3_3, total.toArray()));
                     }
                 }
-            } else{
-                if(player1 != null && player1.isAssistantCardValue()){
-                    if(player2 != null && player2.isAssistantCardValue()){
+            } else {
+                if (player1 != null && player1.isAssistantCardValue()) {
+                    if (player2 != null && player2.isAssistantCardValue()) {
                         System.out.println(formatter.format(ASCIIArt.SCHOOL_BOARD_HORIZONTAL_3_4, total.toArray()));
-                    } else{
+                    } else {
                         System.out.println(formatter.format(ASCIIArt.SCHOOL_BOARD_HORIZONTAL_3_5, total.toArray()));
                     }
-                } else{
-                    if(player2 != null && player2.isAssistantCardValue()){
+                } else {
+                    if (player2 != null && player2.isAssistantCardValue()) {
                         System.out.println(formatter.format(ASCIIArt.SCHOOL_BOARD_HORIZONTAL_3_6, total.toArray()));
-                    } else{
+                    } else {
                         System.out.println(formatter.format(ASCIIArt.SCHOOL_BOARD_HORIZONTAL_3_7, total.toArray()));
                     }
                 }
@@ -154,46 +157,46 @@ public class CLIRenderer extends Renderer {
 
     }
 
-    private void createHorizontalSchoolBoard(MockPlayer player, List<String> row0, List<String> row1, List<String> row2, List<String> row3, List<String> row4, List<String> row5){
+    private void createHorizontalSchoolBoard(MockPlayer player, List<String> row0, List<String> row1, List<String> row2, List<String> row3, List<String> row4, List<String> row5) {
         HashMap<Colour, Integer> entrance = player.getSchoolBoard().getEntrance();
         HashMap<Colour, Integer> diningRoom = player.getSchoolBoard().getDiningRoom();
         HashMap<Colour, Boolean> professor = player.getSchoolBoard().getProfessorTable();
 
-        if(getView().getModel().getLocalPlayer().equals(player)){
+        if (getView().getModel().getLocalPlayer().equals(player)) {
             row0.add("You");
-        } else{
+        } else {
             row0.add(player.getNickname());
         }
 
         int count = 0;
-        for(Colour colour: Colour.values()){
-            for(int i = 0; i < entrance.get(colour); i++){
+        for (Colour colour : Colour.values()) {
+            for (int i = 0; i < entrance.get(colour); i++) {
                 count = getCount(row1, row2, row3, row4, row5, count, colour);
             }
         }
-        while(count < 9){
-            switch(count){
+        while (count < 9) {
+            switch (count) {
                 case 0, 1 -> row1.add(" ");
                 case 2, 3 -> row2.add(" ");
                 case 4, 5 -> row3.add(" ");
                 case 6, 7 -> row4.add(" ");
                 case 8 -> row5.add(" ");
             }
-            count ++;
+            count++;
         }
 
-        for(Colour colour: Colour.values()){
-            for(int i = 0; i < 10; i++){
-                if(diningRoom.get(colour) > i){
+        for (Colour colour : Colour.values()) {
+            for (int i = 0; i < 10; i++) {
+                if (diningRoom.get(colour) > i) {
                     colour(row1, row2, row3, row4, row5, colour);
-                } else{
+                } else {
                     addEmptySpace(row1, row2, row3, row4, row5, colour);
                 }
             }
         }
 
-        for(Colour colour : Colour.values()){
-            if(professor.get(colour)){
+        for (Colour colour : Colour.values()) {
+            if (professor.get(colour)) {
                 colour(row1, row2, row3, row4, row5, colour);
             } else {
                 addEmptySpace(row1, row2, row3, row4, row5, colour);
@@ -201,8 +204,8 @@ public class CLIRenderer extends Renderer {
         }
 
         count = 0;
-        for(int i = 0; i < player.getSchoolBoard().getTowers(); i++){
-            switch(count){
+        for (int i = 0; i < player.getSchoolBoard().getTowers(); i++) {
+            switch (count) {
                 case 0, 1 -> selectTowerColour(row1, player.getTowerColour());
                 case 2, 3 -> selectTowerColour(row2, player.getTowerColour());
                 case 4, 5 -> selectTowerColour(row3, player.getTowerColour());
@@ -211,20 +214,20 @@ public class CLIRenderer extends Renderer {
             count++;
         }
 
-        while(count < 8){
-            switch(count){
+        while (count < 8) {
+            switch (count) {
                 case 0, 1 -> row1.add(" ");
                 case 2, 3 -> row2.add(" ");
                 case 4, 5 -> row3.add(" ");
                 case 6, 7 -> row4.add(" ");
             }
-            count ++;
+            count++;
         }
 
-        if(player.isAssistantCardValue()){
-            if(player.getCurrentAssistantCard().getValue() < 9){
+        if (player.isAssistantCardValue()) {
+            if (player.getCurrentAssistantCard().getValue() < 9) {
                 row1.add(player.getCurrentAssistantCard().getValue() + " ");
-            } else{
+            } else {
                 row1.add(player.getCurrentAssistantCard().getValue() + "");
             }
             row1.add(player.getCurrentAssistantCard().getMotherNatureMovement() + "");
@@ -234,7 +237,7 @@ public class CLIRenderer extends Renderer {
 
 
     private void addEmptySpace(List<String> row1, List<String> row2, List<String> row3, List<String> row4, List<String> row5, Colour colour) {
-        switch(colour){
+        switch (colour) {
             case GREEN -> row1.add(" ");
             case RED -> row2.add(" ");
             case BLUE -> row3.add(" ");
@@ -244,7 +247,7 @@ public class CLIRenderer extends Renderer {
     }
 
     private void colour(List<String> row1, List<String> row2, List<String> row3, List<String> row4, List<String> row5, Colour colour) {
-        switch(colour){
+        switch (colour) {
             case GREEN -> selectingColour(row1, colour);
             case RED -> selectingColour(row2, colour);
             case BLUE -> selectingColour(row3, colour);
@@ -254,7 +257,7 @@ public class CLIRenderer extends Renderer {
     }
 
     private int getCount(List<String> row1, List<String> row2, List<String> row3, List<String> row4, List<String> row5, int count, Colour colour) {
-        switch(count){
+        switch (count) {
             case 0, 1 -> selectingColour(row1, colour);
             case 2, 3 -> selectingColour(row2, colour);
             case 4, 5 -> selectingColour(row3, colour);
@@ -265,8 +268,8 @@ public class CLIRenderer extends Renderer {
         return count;
     }
 
-    private void selectTowerColour(List<String> towers, TowerColour colour){
-        switch (colour){
+    private void selectTowerColour(List<String> towers, TowerColour colour) {
+        switch (colour) {
             case WHITE -> towers.add("\u001b[97;1m●\u001b[0m");
             case BLACK -> towers.add("\u001b[30m●\u001b[0m");
             case GREY -> towers.add("\u001b[90;1m●\u001b[0m");
@@ -289,7 +292,7 @@ public class CLIRenderer extends Renderer {
                 view.getModel().getLocalPlayer().getCurrentAssistantCard().getMotherNatureMovement());
     }
 
-    public void printAvailableAssistantCards(){
+    public void printAvailableAssistantCards() {
         System.out.println("Your assistant cards still available");
         printAssistantCards(view.getModel().getLocalPlayer());
     }
@@ -304,18 +307,18 @@ public class CLIRenderer extends Renderer {
         HashMap<Integer, AssistantCard> cards = player.getCards();
         Formatter formatter = new Formatter();
 
-        for(int i = 0; i < 10; i++){
-            if(cards.containsKey(i)){
+        for (int i = 0; i < 10; i++) {
+            if (cards.containsKey(i)) {
                 assistantCardNumber.add(i + "");
-                if(i < 9){
+                if (i < 9) {
                     assistantCardValues.add(cards.get(i).getValue() + " ");
-                } else{
+                } else {
                     assistantCardValues.add(cards.get(i).getValue() + "");
                 }
                 assistantCardValues.add(cards.get(i).getMotherNatureMovement() + "");
             }
 
-            if(assistantCardNumber.size() == 5 && i < 9){
+            if (assistantCardNumber.size() == 5 && i < 9) {
                 total.addAll(assistantCardValues);
                 total.addAll(assistantCardNumber);
                 System.out.println(formatter.format(ASCIIArt.ASSISTANT_CARDS_5, total.toArray()));
@@ -329,12 +332,12 @@ public class CLIRenderer extends Renderer {
         total.addAll(assistantCardValues);
         total.addAll(assistantCardNumber);
 
-        switch (assistantCardNumber.size()){
-            case(1) -> System.out.println(formatter.format(ASCIIArt.ASSISTANT_CARDS_1, total.toArray()));
-            case(2) -> System.out.println(formatter.format(ASCIIArt.ASSISTANT_CARDS_2, total.toArray()));
-            case(3) -> System.out.println(formatter.format(ASCIIArt.ASSISTANT_CARDS_3, total.toArray()));
-            case(4) -> System.out.println(formatter.format(ASCIIArt.ASSISTANT_CARDS_4, total.toArray()));
-            case(5) -> System.out.println(formatter.format(ASCIIArt.ASSISTANT_CARDS_5, total.toArray()));
+        switch (assistantCardNumber.size()) {
+            case (1) -> System.out.println(formatter.format(ASCIIArt.ASSISTANT_CARDS_1, total.toArray()));
+            case (2) -> System.out.println(formatter.format(ASCIIArt.ASSISTANT_CARDS_2, total.toArray()));
+            case (3) -> System.out.println(formatter.format(ASCIIArt.ASSISTANT_CARDS_3, total.toArray()));
+            case (4) -> System.out.println(formatter.format(ASCIIArt.ASSISTANT_CARDS_4, total.toArray()));
+            case (5) -> System.out.println(formatter.format(ASCIIArt.ASSISTANT_CARDS_5, total.toArray()));
         }
     }
 
@@ -361,70 +364,70 @@ public class CLIRenderer extends Renderer {
             influence(count, influenceText1, influenceText2, groupIsland, influence);
 
             String entryTile = " ";
-            if(!groupIsland.getIsBasic()){
-                if(groupIsland.getNoEntryTile() > 0){
-                   entryTile = "%d".formatted(groupIsland.getNoEntryTile());
+            if (!groupIsland.getIsBasic()) {
+                if (groupIsland.getNoEntryTile() > 0) {
+                    entryTile = "%d".formatted(groupIsland.getNoEntryTile());
                 }
             }
-            if(count < 6){
+            if (count < 6) {
                 influenceText1.add(entryTile);
-            } else{
+            } else {
                 influenceText2.add(entryTile);
             }
 
 
             String motherNature = " ";
-            if(groupIsland.isMotherNature()){
+            if (groupIsland.isMotherNature()) {
                 motherNature = "\u001b[31m●\u001b[0m";
             }
-            if(count < 6){
+            if (count < 6) {
                 motherNatureText1.add(motherNature);
-            } else{
+            } else {
                 motherNatureText2.add(motherNature);
             }
 
             int j = 0;
             for (MockSingleIsland singleIsland : groupIsland.getIslands()) {
-                if(count < 6){
+                if (count < 6) {
                     groupIslandText1.add(i + ", " + j);
-                } else{
+                } else {
                     groupIslandText2.add(i + ", " + j);
                 }
 
-                if(j > 0){
+                if (j > 0) {
                     influence = " ";
                     influence(count, influenceText1, influenceText2, groupIsland, influence);
 
                     entryTile = " ";
-                    if(count < 6){
+                    if (count < 6) {
                         influenceText1.add(entryTile);
-                    } else{
+                    } else {
                         influenceText2.add(entryTile);
                     }
 
                     motherNature = " ";
-                    if(count < 6){
+                    if (count < 6) {
                         motherNatureText1.add(motherNature);
-                    } else{
+                    } else {
                         motherNatureText2.add(motherNature);
                     }
                 }
 
-                if(count < 6){
+                if (count < 6) {
                     Colour(colour11, colour21, singleIsland);
-                } else{
+                } else {
                     Colour(colour12, colour22, singleIsland);
                 }
 
                 j++;
-                count ++;
+                count++;
             }
 
             i++;
 
-            if(count == 12){
+            if (count == 12) {
                 List<String> total1 = createTotal(influenceText1, motherNatureText1, colour11, colour21, groupIslandText1);
-                List<String> total2 =createTotal(influenceText2, motherNatureText2, colour12, colour22, groupIslandText2);
+                List<String> total2 = createTotal(influenceText2, motherNatureText2, colour12, colour22, groupIslandText2);
                 List<String> total = new ArrayList<>();
                 total.addAll(total1);
                 total.addAll(total2);
@@ -436,16 +439,16 @@ public class CLIRenderer extends Renderer {
     }
 
     private void influence(int count, List<String> influenceText1, List<String> influenceText2, MockGroupIsland groupIsland, String influence) {
-        if(groupIsland.getInfluentPlayer() != null){
-            switch (getView().getModel().getPlayerByNickname(groupIsland.getInfluentPlayer()).getTowerColour()){
+        if (groupIsland.getInfluentPlayer() != null) {
+            switch (getView().getModel().getPlayerByNickname(groupIsland.getInfluentPlayer()).getTowerColour()) {
                 case WHITE -> influence = "\u001b[97;1m●\u001b[0m";
                 case BLACK -> influence = "\u001b[30m●\u001b[0m";
                 case GREY -> influence = "\u001b[90;1m●\u001b[0m";
             }
         }
-        if(count < 6){
+        if (count < 6) {
             influenceText1.add(influence);
-        } else{
+        } else {
             influenceText2.add(influence);
         }
     }
@@ -481,7 +484,7 @@ public class CLIRenderer extends Renderer {
             cloudTilesNumber.add(i + " ");
 
             for (Colour colour : Colour.values()) {
-                for(int j = 0; j < cloud.getMockCloudTile().get(colour) ; j++){
+                for (int j = 0; j < cloud.getMockCloudTile().get(colour); j++) {
                     addStudentColour(cloudTilesStudents, colour);
                 }
             }
@@ -494,13 +497,13 @@ public class CLIRenderer extends Renderer {
 
         Formatter formatter = new Formatter();
 
-        if(view.getNumPlayers() == 2){
-            switch(view.getModel().getTable().getShownCloudTiles().size()) {
+        if (view.getNumPlayers() == 2) {
+            switch (view.getModel().getTable().getShownCloudTiles().size()) {
                 case (1) -> System.out.println(formatter.format(ASCIIArt.CLOUD_TILE_2_1, total.toArray()));
                 case (2) -> System.out.println(formatter.format(ASCIIArt.CLOUD_TILE_2_2, total.toArray()));
             }
-        } else{
-            switch(view.getModel().getTable().getShownCloudTiles().size()) {
+        } else {
+            switch (view.getModel().getTable().getShownCloudTiles().size()) {
                 case (1) -> System.out.println(formatter.format(ASCIIArt.CLOUD_TILE_3_1, total.toArray()));
                 case (2) -> System.out.println(formatter.format(ASCIIArt.CLOUD_TILE_3_2, total.toArray()));
                 case (3) -> System.out.println(formatter.format(ASCIIArt.CLOUD_TILE_3_3, total.toArray()));
@@ -509,7 +512,7 @@ public class CLIRenderer extends Renderer {
     }
 
     private void addStudentColour(List<String> cloudTilesStudents, Colour colour) {
-        switch (colour){
+        switch (colour) {
             case RED -> cloudTilesStudents.add("\u001b[31;1m●\u001b[0m");
             case GREEN -> cloudTilesStudents.add("\u001b[32;1m●\u001b[0m");
             case YELLOW -> cloudTilesStudents.add("\u001b[33;1m●\u001b[0m");
@@ -557,7 +560,7 @@ public class CLIRenderer extends Renderer {
     /**
      * Prints the selected character card
      *
-     * @param card      the card to print
+     * @param card the card to print
      */
     private void renderCharacter(int i, MockCard card, List<String> row1, List<String> row2, List<String> row3, List<String> row4, List<String> row5) {
         row1.add(i + "");
@@ -638,12 +641,12 @@ public class CLIRenderer extends Renderer {
         List<String> professorsAvailable = new ArrayList<>();
 
         for (Colour colour : Colour.values()) {
-            if(prof.get(colour)){
+            if (prof.get(colour)) {
                 addStudentColour(professorsAvailable, colour);
             }
         }
 
-        while(professorsAvailable.size() < 5){
+        while (professorsAvailable.size() < 5) {
             professorsAvailable.add("");
         }
 
@@ -727,25 +730,25 @@ public class CLIRenderer extends Renderer {
         List<String> entranceText1 = new ArrayList<>();
         List<String> entranceText2 = new ArrayList<>();
         int count = 0;
-        for(Colour colour: Colour.values()){
-            for(int i = 0; i < entrance.get(colour); i++){
-                if(count < 5){
+        for (Colour colour : Colour.values()) {
+            for (int i = 0; i < entrance.get(colour); i++) {
+                if (count < 5) {
                     selectingColour(entranceText1, colour);
-                } else{
+                } else {
                     selectingColour(entranceText2, colour);
                 }
                 count++;
             }
         }
 
-        if(entranceText1.size() < 5){
-            while(entranceText1.size() < 5){
+        if (entranceText1.size() < 5) {
+            while (entranceText1.size() < 5) {
                 entranceText1.add(" ");
             }
         }
 
-        if(entranceText2.size() < 5){
-            while(entranceText2.size() < 5){
+        if (entranceText2.size() < 5) {
+            while (entranceText2.size() < 5) {
                 entranceText2.add(" ");
             }
         }
@@ -760,60 +763,60 @@ public class CLIRenderer extends Renderer {
         List<String> diningRoomText7 = new ArrayList<>();
         List<String> diningRoomText8 = new ArrayList<>();
         List<String> diningRoomText9 = new ArrayList<>();
-        for(int i = 0; i < 10; i++){
-            for(Colour colour : Colour.values()){
-                switch (i){
+        for (int i = 0; i < 10; i++) {
+            for (Colour colour : Colour.values()) {
+                switch (i) {
                     case 0 -> {
-                        if(diningRoom.get(colour) > i){
+                        if (diningRoom.get(colour) > i) {
                             selectingColour(diningRoomText0, colour);
                         } else {
                             diningRoomText0.add(" ");
                         }
                     }
                     case 1 -> {
-                        if(diningRoom.get(colour) > i){
+                        if (diningRoom.get(colour) > i) {
                             selectingColour(diningRoomText1, colour);
                         } else {
                             diningRoomText1.add(" ");
                         }
                     }
                     case 2 -> {
-                        if(diningRoom.get(colour) > i){
+                        if (diningRoom.get(colour) > i) {
                             selectingColour(diningRoomText2, colour);
                         } else {
                             diningRoomText2.add(" ");
                         }
                     }
                     case 3 -> {
-                        if(diningRoom.get(colour) > i){
+                        if (diningRoom.get(colour) > i) {
                             selectingColour(diningRoomText3, colour);
                         } else {
                             diningRoomText3.add(" ");
                         }
                     }
                     case 4 -> {
-                        if(diningRoom.get(colour) > i){
+                        if (diningRoom.get(colour) > i) {
                             selectingColour(diningRoomText4, colour);
                         } else {
                             diningRoomText4.add(" ");
                         }
                     }
                     case 5 -> {
-                        if(diningRoom.get(colour) > i){
+                        if (diningRoom.get(colour) > i) {
                             selectingColour(diningRoomText5, colour);
                         } else {
                             diningRoomText5.add(" ");
                         }
                     }
                     case 6 -> {
-                        if(diningRoom.get(colour) > i){
+                        if (diningRoom.get(colour) > i) {
                             selectingColour(diningRoomText6, colour);
                         } else {
                             diningRoomText6.add(" ");
                         }
                     }
                     case 7 -> {
-                        if(diningRoom.get(colour) > i){
+                        if (diningRoom.get(colour) > i) {
                             selectingColour(diningRoomText7, colour);
                         } else {
                             diningRoomText7.add(" ");
@@ -821,7 +824,7 @@ public class CLIRenderer extends Renderer {
                     }
 
                     case 8 -> {
-                        if(diningRoom.get(colour) > i){
+                        if (diningRoom.get(colour) > i) {
                             selectingColour(diningRoomText8, colour);
                         } else {
                             diningRoomText8.add(" ");
@@ -829,7 +832,7 @@ public class CLIRenderer extends Renderer {
                     }
 
                     case 9 -> {
-                        if(diningRoom.get(colour) > i){
+                        if (diningRoom.get(colour) > i) {
                             selectingColour(diningRoomText9, colour);
                         } else {
                             diningRoomText9.add(" ");
@@ -844,37 +847,37 @@ public class CLIRenderer extends Renderer {
 
         List<String> professorText = new ArrayList<>();
 
-        for(Colour colour : Colour.values()){
-                    if(professor.get(colour)){
-                        selectingColour(professorText, colour);
-                    } else {
-                        professorText.add(" ");
-                    }
+        for (Colour colour : Colour.values()) {
+            if (professor.get(colour)) {
+                selectingColour(professorText, colour);
+            } else {
+                professorText.add(" ");
+            }
         }
 
         List<String> tower1 = new ArrayList<>();
         List<String> tower2 = new ArrayList<>();
         String influence = "";
         count = 0;
-        for(int i = 0; i < player.getSchoolBoard().getTowers(); i++){
-            if(count < 4){
-                switch (player.getTowerColour()){
+        for (int i = 0; i < player.getSchoolBoard().getTowers(); i++) {
+            if (count < 4) {
+                switch (player.getTowerColour()) {
                     case WHITE -> influence = "\u001b[97;1m●\u001b[0m";
                     case BLACK -> influence = "\u001b[30m●\u001b[0m";
                     case GREY -> influence = "\u001b[37;1m●\u001b[0m";
                 }
                 tower1.add(influence);
-            } else{
+            } else {
                 tower2.add(influence);
             }
             count++;
         }
 
-        while(count < 8){
-            if(count < 4){
-                while(count < 4){
+        while (count < 8) {
+            if (count < 4) {
+                while (count < 4) {
                     tower1.add(" ");
-                    count ++;
+                    count++;
                 }
             } else {
                 tower2.add(" ");
@@ -924,21 +927,21 @@ public class CLIRenderer extends Renderer {
     /**
      * Prints the assistant card
      *
-     * @param value         the assistant card value
-     * @param steps         the steps that mother nature can do
+     * @param value the assistant card value
+     * @param steps the steps that mother nature can do
      */
     private void renderAssistantCard(int value, int steps) {
         String v = value + "";
-        if(value < 10){
+        if (value < 10) {
             v = v.concat(" ");
         }
 
         System.out.printf((ASCIIArt.CURRENT_ASSISTANT_CARD) + "%n", v, steps);
     }
 
-    private void printTable(){
-        for(Colour colour : Colour.values()){
-            if(getView().getModel().getTable().getProfessorsAvailable().get(colour)){
+    private void printTable() {
+        for (Colour colour : Colour.values()) {
+            if (getView().getModel().getTable().getProfessorsAvailable().get(colour)) {
                 printTableProfessors();
                 break;
             }
@@ -947,14 +950,14 @@ public class CLIRenderer extends Renderer {
         printIslands();
     }
 
-    public void printSituation(){
+    public void printSituation() {
         switch (getView().getModel().getTurnPhase()) {
             case PLAY_ASSISTANT_CARD -> printTable();
             case MOVE_STUDENT, MOVE_MOTHER_NATURE -> {
-                if(getView().getGameMode()){
-                    if(getView().getModel().getCurrentCharacterCard().getType() != CharacterCardEnumeration.BASIC_STATE){
+                if (getView().getGameMode()) {
+                    if (getView().getModel().getCurrentCharacterCard().getType() != CharacterCardEnumeration.BASIC_STATE) {
                         getView().getRenderer().printActiveCharacterCard();
-                    } else{
+                    } else {
                         getView().getRenderer().printCharacterCards();
                     }
                     getView().getRenderer().printTableCoins();

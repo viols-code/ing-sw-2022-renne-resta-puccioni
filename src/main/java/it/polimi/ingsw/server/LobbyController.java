@@ -105,7 +105,7 @@ public class LobbyController {
         if (currentLobby.getConnections().contains(connection)) {
             currentLobby.setPlayerWizard(connection, wizard);
 
-            if(connection.getWizard() != null){
+            if (connection.getWizard() != null) {
                 System.out.println("Player connected: " + connection.getPlayerName() + ", with wizard: " + connection.getWizard());
             }
 

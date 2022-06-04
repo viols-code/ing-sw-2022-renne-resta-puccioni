@@ -127,5 +127,6 @@ public abstract class Renderer {
      */
     public abstract void help();
 
-    public void printSituation(){}
+    public void printSituation() {
+    }
 }

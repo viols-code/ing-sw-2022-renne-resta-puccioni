@@ -12,7 +12,10 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -118,24 +121,24 @@ public class CharacterCardsWidget extends StackPane {
         GUI.instance().getModel().getCoinsProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> numberCoinsTable.setText(String.valueOf(GUI.instance().getModel().getCoins()))));
 
         GUI.instance().getModel().currentCharacterCardProperty().addListener((ChangeListener<? super MockCard>) (change, oldVal, newVal) -> Platform.runLater(() -> {
-            if(newVal.getType() == CharacterCardEnumeration.BASIC_STATE){
-                for(int i = 0; i < 3; i++){
-                    if(oldVal.getType() == GUI.instance().getModel().getCharacterCardByIndex(i).getType()){
+            if (newVal.getType() == CharacterCardEnumeration.BASIC_STATE) {
+                for (int i = 0; i < 3; i++) {
+                    if (oldVal.getType() == GUI.instance().getModel().getCharacterCardByIndex(i).getType()) {
                         int a = i;
                         imageViewList.get(i).setOnMouseClicked(event -> playCharacterCard(a));
                     }
                 }
             } else {
                 int a = -1;
-                for(int i = 0; i < 3; i++){
-                    if(GUI.instance().getModel().getCharacterCardByIndex(i).getType() == newVal.getType()){
+                for (int i = 0; i < 3; i++) {
+                    if (GUI.instance().getModel().getCharacterCardByIndex(i).getType() == newVal.getType()) {
                         a = i;
                         break;
                     }
                 }
 
-                switch(newVal.getType()){
-                    case NO_COLOUR -> imageViewList.get(a).setOnMouseClicked(event ->  Platform.runLater(() -> GUI.instance().showColourDecision()));
+                switch (newVal.getType()) {
+                    case NO_COLOUR -> imageViewList.get(a).setOnMouseClicked(event -> Platform.runLater(() -> GUI.instance().showColourDecision()));
                 }
             }
         }));

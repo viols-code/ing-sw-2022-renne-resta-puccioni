@@ -67,7 +67,7 @@ public class ProtectIsland extends CharacterCard {
     @Override
     public void setGroupIsland(int groupIsland) {
         this.groupIslandToProtect = groupIsland;
-        if(groupIsland >= 0){
+        if (groupIsland >= 0) {
             this.effect();
         }
     }

@@ -239,8 +239,8 @@ public class ASCIIArt {
             """;
 
     public static final String AVAILABLE_PROFESSOR = """
-             %s %s %s %s %s
-             """;
+            %s %s %s %s %s
+            """;
 
     public static final String CLOUD_TILE_2_1 = """
                _____
@@ -348,7 +348,6 @@ public class ASCIIArt {
             |________|
             %s %s %s %s %s %s
             """;
-
 
 
 }

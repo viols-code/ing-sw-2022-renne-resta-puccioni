@@ -226,9 +226,9 @@ public abstract class View {
     public void handleCorrectNickname(String nickname, List<String> takenNicknames) {
         setGameState(GameState.CHOOSING_WIZARD);
 
-        if(takenNicknames != null){
+        if (takenNicknames != null) {
             for (String player : takenNicknames) {
-                if(!player.equals(getPlayerName()) && !getModel().getNicknames().contains(player)) {
+                if (!player.equals(getPlayerName()) && !getModel().getNicknames().contains(player)) {
                     getModel().addPlayerNickname(player);
                 }
             }

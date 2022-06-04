@@ -394,19 +394,23 @@ public class MockModel {
         return currentPlayers;
     }
 
-    public int getCurrentPlayers() { return currentPlayers.getValue();}
+    public int getCurrentPlayers() {
+        return currentPlayers.getValue();
+    }
 
     public IntegerProperty playersToStartProperty() {
         return this.playersToStart;
     }
 
-    public int getPlayersToStart(){ return playersToStart.getValue();}
+    public int getPlayersToStart() {
+        return playersToStart.getValue();
+    }
 
-    public void addPlayerNickname(String name){
+    public void addPlayerNickname(String name) {
         this.nicknames.add(name);
     }
 
-    public ObservableList<String> getNicknames(){
+    public ObservableList<String> getNicknames() {
         return this.nicknames;
     }
 

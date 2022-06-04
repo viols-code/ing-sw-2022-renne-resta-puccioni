@@ -28,12 +28,12 @@ public class NoColourWidget extends StackPane {
     }
 
     @FXML
-    public void initialize(){
-        blue.setOnMouseClicked(event ->  GUI.instance().getActionSender().setColour(GUI.instance().getPlayerName(), Colour.BLUE));
-        green.setOnMouseClicked(event ->  GUI.instance().getActionSender().setColour(GUI.instance().getPlayerName(), Colour.GREEN));
-        red.setOnMouseClicked(event ->  GUI.instance().getActionSender().setColour(GUI.instance().getPlayerName(), Colour.RED));
-        yellow.setOnMouseClicked(event ->  GUI.instance().getActionSender().setColour(GUI.instance().getPlayerName(), Colour.YELLOW));
-        pink.setOnMouseClicked(event ->  GUI.instance().getActionSender().setColour(GUI.instance().getPlayerName(), Colour.PINK));
+    public void initialize() {
+        blue.setOnMouseClicked(event -> GUI.instance().getActionSender().setColour(GUI.instance().getPlayerName(), Colour.BLUE));
+        green.setOnMouseClicked(event -> GUI.instance().getActionSender().setColour(GUI.instance().getPlayerName(), Colour.GREEN));
+        red.setOnMouseClicked(event -> GUI.instance().getActionSender().setColour(GUI.instance().getPlayerName(), Colour.RED));
+        yellow.setOnMouseClicked(event -> GUI.instance().getActionSender().setColour(GUI.instance().getPlayerName(), Colour.YELLOW));
+        pink.setOnMouseClicked(event -> GUI.instance().getActionSender().setColour(GUI.instance().getPlayerName(), Colour.PINK));
     }
 
     @FXML

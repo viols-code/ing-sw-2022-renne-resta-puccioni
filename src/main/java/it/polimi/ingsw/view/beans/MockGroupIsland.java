@@ -152,5 +152,7 @@ public class MockGroupIsland {
         return motherNature;
     }
 
-    public StringProperty getInfluentPlayerProperty(){return influentPlayer;}
+    public StringProperty getInfluentPlayerProperty() {
+        return influentPlayer;
+    }
 }

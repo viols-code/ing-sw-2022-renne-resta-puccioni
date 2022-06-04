@@ -244,9 +244,11 @@ public class MockTable {
         getGroupIslandByIndex(motherNaturePosition).setMotherNature(true);
     }
 
-    public synchronized ObservableList<MockGroupIsland> getGroupIslandsProperty(){return groupIslands;}
+    public synchronized ObservableList<MockGroupIsland> getGroupIslandsProperty() {
+        return groupIslands;
+    }
 
-    public IntegerProperty getMotherNaturePositionProperty(){
+    public IntegerProperty getMotherNaturePositionProperty() {
         return motherNaturePosition;
     }
 

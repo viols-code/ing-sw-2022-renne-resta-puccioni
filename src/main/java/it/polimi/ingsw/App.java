@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 
 public class App extends Application {
     private static boolean startCli = false;
+
     public static void main(String[] args) {
 
         handleCommand(args[0]);

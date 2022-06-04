@@ -8,14 +8,16 @@ import it.polimi.ingsw.model.player.Wizard;
 import it.polimi.ingsw.view.beans.MockPlayer;
 import it.polimi.ingsw.view.implementation.gui.GUI;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
 import javafx.collections.MapChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
@@ -360,21 +362,21 @@ public class SchoolBoardWidget extends StackPane {
         }
     }
 
-    private void initWinner(){
+    private void initWinner() {
 
-        if(GUI.instance().getModel().getTurnPhase().equals(TurnPhase.ENDGAME)) {
+        if (GUI.instance().getModel().getTurnPhase().equals(TurnPhase.ENDGAME)) {
             printWinner();
         }
 
         GUI.instance().getModel().getTurnPhaseProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> {
 
-            if(GUI.instance().getModel().getTurnPhase().equals(TurnPhase.ENDGAME)) {
+            if (GUI.instance().getModel().getTurnPhase().equals(TurnPhase.ENDGAME)) {
                 printWinner();
             }
         }));
     }
 
-    private void printWinner(){
+    private void printWinner() {
         if (GUI.instance().getModel().getWinner().getNickname().equals(GUI.instance().getPlayerName())) {
             ImageView winner = new ImageView();
             anchorPane.getChildren().add(winner);
@@ -384,8 +386,7 @@ public class SchoolBoardWidget extends StackPane {
             winner.setLayoutX(263);
             winner.setFitWidth(547);
             winner.setFitHeight(395);
-        }
-        else{
+        } else {
             ImageView loser = new ImageView();
             anchorPane.getChildren().add(loser);
             loser.setImage(new Image(Objects.requireNonNull(SchoolBoardWidget.class.getResourceAsStream(

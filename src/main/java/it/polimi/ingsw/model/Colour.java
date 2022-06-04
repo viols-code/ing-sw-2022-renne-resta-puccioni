@@ -1,7 +1,5 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.model.player.Wizard;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
