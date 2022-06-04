@@ -5,14 +5,14 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.TextFlow?>
-<AnchorPane prefHeight="150.0" prefWidth="150.0" styleClass="background" stylesheets="@css/styleWidgets.css"
+<AnchorPane prefHeight="150.0" prefWidth="150.0" styleClass="background" stylesheets="@../css/styleWidgets.css"
             xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <AnchorPane prefHeight="150.0" prefWidth="150.0">
             <children>
                 <ImageView fitHeight="150.0" fitWidth="150.0">
                     <image>
-                        <Image url="@../images/islands/island2.png"/>
+                        <Image url="@../../images/islands/island2.png"/>
                     </image>
                 </ImageView>
                 <GridPane layoutX="62.0" layoutY="58.0" prefHeight="50.0" prefWidth="28.0">
