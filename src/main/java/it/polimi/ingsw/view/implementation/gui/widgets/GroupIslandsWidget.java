@@ -53,8 +53,6 @@ public class GroupIslandsWidget extends StackPane {
         if(GUI.instance().getModel().isGameExpert() && GUI.instance().getModel().isCharacterCardPresent(CharacterCardEnumeration.PROTECT_ISLAND)){
             addListenerOnNoEntryTile();
         }
-
-        //addListenerOnIslandInfluenceChange();
     }
 
     private void addListenerOnGroupIslandList() {
