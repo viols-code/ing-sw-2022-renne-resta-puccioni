@@ -19,31 +19,31 @@
                 <Font name="System Bold Italic" size="22.0"/>
             </font>
         </Label>
-        <FlowPane layoutX="387.0" layoutY="350.0" styleClass="colourSelected" prefWidth="60" prefHeight="60">
+        <FlowPane layoutX="509.0" layoutY="350.0" styleClass="colourSelected" prefWidth="60" prefHeight="60">
             <ImageView fx:id="blue" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true"
                        preserveRatio="true">
                 <Image url="@../images/students/student_blue.png"/>
             </ImageView>
         </FlowPane>
-        <FlowPane styleClass="colourSelected" prefWidth="60" prefHeight="60" layoutX="554.0" layoutY="250.0">
+        <FlowPane styleClass="colourSelected" prefWidth="60" prefHeight="60" layoutX="676.0" layoutY="250.0">
             <ImageView fx:id="green" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true"
                        preserveRatio="true">
                 <Image url="@../images/students/student_green.png"/>
             </ImageView>
         </FlowPane>
-        <FlowPane styleClass="colourSelected" prefWidth="60" prefHeight="60" layoutX="744.0" layoutY="350.0">
+        <FlowPane styleClass="colourSelected" prefWidth="60" prefHeight="60" layoutX="844.0" layoutY="350.0">
             <ImageView fx:id="red" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true"
                        preserveRatio="true">
                 <Image url="@../images/students/student_red.png"/>
             </ImageView>
         </FlowPane>
-        <FlowPane styleClass="colourSelected" prefWidth="60" prefHeight="60" layoutX="465.0" layoutY="500.0">
+        <FlowPane styleClass="colourSelected" prefWidth="60" prefHeight="60" layoutX="565.0" layoutY="500.0">
             <ImageView fx:id="yellow" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true"
                        preserveRatio="true">
                 <Image url="@../images/students/student_yellow.png"/>
             </ImageView>
         </FlowPane>
-        <FlowPane styleClass="colourSelected" prefWidth="60" prefHeight="60" layoutX="688.0" layoutY="500.0">
+        <FlowPane styleClass="colourSelected" prefWidth="60" prefHeight="60" layoutX="788.0" layoutY="500.0">
             <ImageView fx:id="pink" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true"
                        preserveRatio="true">
                 <Image url="@../images/students/student_pink.png"/>

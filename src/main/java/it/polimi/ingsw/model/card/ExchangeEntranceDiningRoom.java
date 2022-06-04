@@ -64,10 +64,10 @@ public class ExchangeEntranceDiningRoom extends CharacterCard {
      */
     @Override
     public void setColourDiningRoomEntrance(Colour colourDiningRoom, Colour colourEntrance) throws IllegalArgumentException {
-        if(colourDiningRoom == null && colourEntrance == null){
+        if (colourDiningRoom == null && colourEntrance == null) {
             this.colourDiningRoom = null;
             this.colourEntrance = null;
-        } else{
+        } else {
             this.colourDiningRoom = colourDiningRoom;
             this.colourEntrance = colourEntrance;
             if (game.getCurrentPlayer().getSchoolBoard().getDiningRoom(colourDiningRoom) > 0) {

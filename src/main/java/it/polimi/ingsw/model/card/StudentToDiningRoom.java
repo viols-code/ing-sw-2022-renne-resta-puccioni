@@ -83,7 +83,7 @@ public class StudentToDiningRoom extends CharacterCard {
     @Override
     public void setColour(Colour colour) throws IllegalArgumentException {
         this.colour = colour;
-        if(colour != null){
+        if (colour != null) {
             if (students.get(colour) > 0) {
                 this.effect();
             } else {

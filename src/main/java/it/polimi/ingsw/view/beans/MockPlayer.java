@@ -107,6 +107,7 @@ public class MockPlayer {
         cards.put(9, card10);
 
         assistantCardValue = new SimpleBooleanProperty();
+        assistantCardValue.set(false);
     }
 
     /**
