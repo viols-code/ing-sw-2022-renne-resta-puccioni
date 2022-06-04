@@ -4,11 +4,14 @@ import it.polimi.ingsw.FXMLUtils;
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.TurnPhase;
 import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
+import it.polimi.ingsw.view.beans.MockGroupIsland;
 import it.polimi.ingsw.view.implementation.gui.GUI;
 import it.polimi.ingsw.view.implementation.gui.widgets.utils.Coordinates;
 import it.polimi.ingsw.view.implementation.gui.widgets.utils.GUIColours;
 import it.polimi.ingsw.view.implementation.gui.widgets.utils.Positions;
 import javafx.application.Platform;
+import javafx.collections.ListChangeListener;
+import javafx.collections.MapChangeListener;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
@@ -53,6 +56,12 @@ public class SelectGroupIslandWidget extends StackPane {
     @FXML
     public void initialize(){
         initGroupIslands();
+        addListenerOnGroupIslandInfluentPlayer();
+        addListenerOnGroupIslandList();
+        if(GUI.instance().getModel().isGameExpert() && GUI.instance().getModel().isCharacterCardPresent(CharacterCardEnumeration.PROTECT_ISLAND)){
+            addListenerOnNoEntryTile();
+        }
+
         characterCard = GUI.instance().getModel().getCurrentCharacterCard().getType();
         if(characterCard.equals(CharacterCardEnumeration.PROTECT_ISLAND) || characterCard.equals(CharacterCardEnumeration.ISLAND_INFLUENCE)){
             addMouseClickEventOnGroupIslands();
@@ -161,6 +170,7 @@ public class SelectGroupIslandWidget extends StackPane {
                     tower.setVisible(false);
                     tower.setFill(Color.rgb(0, 0, 0, 0.0));
                 }
+                addListenerOnSingleIslandStudents(i, k, studentsLabels);
 
                 //adds the no entry tiles if PROTECT_ISLAND card is present
                 if(!GUI.instance().getModel().isGameExpert() && GUI.instance().getModel().isCharacterCardPresent(CharacterCardEnumeration.PROTECT_ISLAND)) {
@@ -237,6 +247,70 @@ public class SelectGroupIslandWidget extends StackPane {
             GUI.instance().getRenderer().showErrorMessage("no student selected: go to character cards and select a student");
         }
 
+    }
+
+    private void addListenerOnNoEntryTile(){
+        for(int i = 0; i < GUI.instance().getModel().getTable().getGroupIslands().size(); i++){
+            int groupIsland = i;
+            GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getNoEntryTileProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> {
+                Label noEntryTileLabel = (Label) singleIslandPanes.get(groupIsland).get(0).getChildren().get(4);
+                if (newVal.intValue() > 0) {
+                    noEntryTileLabel.setText(" ! : " + newVal.intValue());
+                    noEntryTileLabel.setVisible(true);
+                    noEntryTileLabel.toFront();
+                }
+                else{
+                    noEntryTileLabel.setVisible(false);
+                }
+            }));
+        }
+    }
+
+    private void addListenerOnGroupIslandInfluentPlayer(){
+        //adds the listener on mother nature property on a single island
+        for(int i = 0; i < GUI.instance().getModel().getTable().getGroupIslands().size(); i++){
+            int groupIsland = i;
+            GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getInfluentPlayerProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> {
+                if(groupIsland < GUI.instance().getModel().getTable().getGroupIslands().size()){
+                    for(int j = 0; j < GUI.instance().getModel().getTable().getGroupIslandByIndex(groupIsland).getIslands().size(); j++){
+                        if(newVal != null){
+                            Circle tower = (Circle) singleIslandPanes.get(groupIsland).get(j).getChildren().get(3);
+                            tower.setVisible(true);
+                            tower.setFill(GUIColours.getTowerRGBColour(GUI.instance().getModel().getPlayerByNickname(newVal).getTowerColour()));
+                        }
+                    }
+                }
+            }));
+        }
+    }
+
+    private void addListenerOnGroupIslandList() {
+        GUI.instance().getModel().getTable().getGroupIslandsProperty().addListener((ListChangeListener<? super MockGroupIsland>) listener ->
+                Platform.runLater(() -> {
+                    for (int i = 0; i < groupIslandsPanes.size(); i++) {
+                        groupIslandsPanes.get(i).getChildren().removeAll(singleIslandPanes.get(i));
+                    }
+
+                    anchorPane.getChildren().removeAll(groupIslandsPanes);
+                    groupIslandsPanes.clear();
+                    singleIslandPanes.clear();
+                    initGroupIslands();
+                    addListenerOnGroupIslandInfluentPlayer();
+                    if(GUI.instance().getModel().isCharacterCardPresent(CharacterCardEnumeration.PROTECT_ISLAND)){
+                        addListenerOnNoEntryTile();
+                    }
+                }));
+    }
+
+    private void addListenerOnSingleIslandStudents(int groupIslandIndex, int singleIslandIndex, List<Label> studentsLabels) {
+        //adds a listener to all the single islands
+        GUI.instance().getModel().getTable().getGroupIslandByIndex(groupIslandIndex).getSingleIslandByIndex(singleIslandIndex).getStudentsProperty().addListener((MapChangeListener<? super Colour, ? super Integer>) listener ->
+                Platform.runLater(() -> {
+                    //addsStudents
+                    for (Colour colour : Colour.values()) {
+                        studentsLabels.get(Colour.getColourCode(colour)).setText(" " + listener.getMap().get(colour) + " ");
+                    }
+                }));
     }
 
     @FXML
