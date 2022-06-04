@@ -25,6 +25,10 @@ public class GUIColours {
 
     private static final Paint motherNatureColour = Color.rgb(255, 102, 0);
 
+    private static final Paint noEntryTileMarkColour = Color.rgb(255, 50, 0);
+
+    private static final Paint getNoEntryTileBackGroundColour = Color.rgb(0, 100, 255);
+
     public static Paint getStudentRGBColour(Colour colour){
         return studentRGBColours.get(colour);
     }
@@ -35,6 +39,14 @@ public class GUIColours {
 
     public static Paint getMotherNatureColour(){
         return motherNatureColour;
+    }
+
+    public static Paint getNoEntryTileMarkColour(){
+        return noEntryTileMarkColour;
+    }
+
+    public static Paint getGetNoEntryTileBackGroundColour(){
+        return getNoEntryTileBackGroundColour;
     }
 
 }
