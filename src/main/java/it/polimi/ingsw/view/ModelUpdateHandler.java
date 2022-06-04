@@ -287,6 +287,9 @@ public abstract class ModelUpdateHandler {
     public void updateUnifyIsland(int groupIsland1, int groupIsland2) {
         for(MockGroupIsland groupIsland: view.getModel().getTable().getGroupIslands()){
             groupIsland.clearInfluentPlayerProperty();
+            if(view.getModel().isCharacterCardPresent(CharacterCardEnumeration.PROTECT_ISLAND)){
+                groupIsland.clearNoEntryTileProperty();
+            }
         }
         getView().getModel().getTable().unify(groupIsland1, groupIsland2);
     }
