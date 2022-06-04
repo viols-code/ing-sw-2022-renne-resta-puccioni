@@ -89,7 +89,10 @@ public class CharacterCardsWidget extends StackPane {
                         pane.getChildren().add(imageViewStudent);
                         imageViewStudent.setImage(new Image(Objects.requireNonNull(CharacterCardsWidget.class.getResourceAsStream(
                                 "/images/students/student_" + colour.name().toLowerCase(Locale.ROOT) + ".png"))));
-                        imageViewStudent.setOnMouseClicked(event -> setStudent(colour));
+                        imageViewStudent.setOnMouseClicked(event -> {
+                            pane.getStyleClass().add("studentSelected");
+                            setStudent(colour);
+                        });
                         if (i == 0) {
                             studentsOnCard0.add(pane, r, c);
                         } else if (i == 1) {
@@ -137,9 +140,11 @@ public class CharacterCardsWidget extends StackPane {
                     }
                 }
 
-                switch (newVal.getType()) {
-                    case NO_COLOUR -> imageViewList.get(a).setOnMouseClicked(event -> Platform.runLater(() -> GUI.instance().showColourDecision()));
-                    case THREE_STUDENT -> imageViewList.get(a).setOnMouseClicked(event -> Platform.runLater(() -> GUI.instance().showColourDecision()));
+                if(GUI.instance().getPlayerName().equals(GUI.instance().getModel().getCurrentPlayer().getNickname())){
+                    switch (newVal.getType()) {
+                        case NO_COLOUR,THREE_STUDENT-> imageViewList.get(a).setOnMouseClicked(event -> Platform.runLater(() -> GUI.instance().showColourDecision()));
+                        case PROTECT_ISLAND,ISLAND_INFLUENCE,STUDENT_TO_ISLAND -> imageViewList.get(a).setOnMouseClicked(event -> Platform.runLater(() -> GUI.instance().showGroupIslandDecision()));
+                    }
                 }
             }
         }));
@@ -152,7 +157,11 @@ public class CharacterCardsWidget extends StackPane {
 
     @FXML
     private void setStudent(Colour colour) {
-
+        if(GUI.instance().getPlayerName().equals(GUI.instance().getModel().getCurrentPlayer().getNickname())){
+            if(GUI.instance().getModel().getCurrentCharacterCard().getType().equals(CharacterCardEnumeration.STUDENT_TO_ISLAND)){
+                GUI.instance().getModel().setStudentOnCardSelected(colour);
+            }
+        }
     }
 
     @FXML
