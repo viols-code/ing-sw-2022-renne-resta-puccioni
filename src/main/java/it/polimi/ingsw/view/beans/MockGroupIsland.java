@@ -157,6 +157,19 @@ public class MockGroupIsland {
         }
     }
 
+    public void clearNoEntryTileProperty(){
+        if(this.noEntryTile.getValue()!=null){
+            this.noEntryTile = new SimpleIntegerProperty(this.noEntryTile.getValue());
+        }
+        else{
+            this.noEntryTile = new SimpleIntegerProperty();
+        }
+    }
+
+    public IntegerProperty getNoEntryTileProperty() {
+        return noEntryTile;
+    }
+
     public BooleanProperty getIsMotherNatureProperty() {
         return motherNature;
     }
