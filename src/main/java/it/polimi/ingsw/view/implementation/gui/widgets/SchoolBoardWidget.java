@@ -206,10 +206,10 @@ public class SchoolBoardWidget extends StackPane {
                 }));
 
         GUI.instance().getModel().getPosition().addListener((change, oldVal, newVal) -> {
-            if (oldVal.intValue() != -1) {
+            if (oldVal.intValue() != -1 && oldVal.intValue() < entrance.getChildren().size()) {
                 entrance.getChildren().get(oldVal.intValue()).getStyleClass().removeAll("studentSelected");
             }
-            if (newVal.intValue() != -1) {
+            if (newVal.intValue() != -1 && newVal.intValue() < entrance.getChildren().size()) {
                 entrance.getChildren().get(newVal.intValue()).getStyleClass().add("studentSelected");
             }
         });
