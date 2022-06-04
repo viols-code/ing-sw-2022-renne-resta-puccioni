@@ -56,9 +56,9 @@ public class GroupIslandsWidget extends StackPane {
         initGroupIslands();
         addListenerOnTurnPhase();
         addListenerOnMotherNatureProperty();
-        //addListenerOnGroupIslandInfluentPlayer();
+        addListenerOnGroupIslandInfluentPlayer();
         addListenerOnGroupIslandList();
-        addListenerOnIslandInfluenceChange();
+        //addListenerOnIslandInfluenceChange();
     }
 
     private void addListenerOnGroupIslandList() {
@@ -72,7 +72,7 @@ public class GroupIslandsWidget extends StackPane {
                     groupIslandsPanes.clear();
                     singleIslandPanes.clear();
                     initGroupIslands();
-                    //addListenerOnGroupIslandInfluentPlayer();
+                    addListenerOnGroupIslandInfluentPlayer();
                 }));
     }
 
@@ -230,7 +230,7 @@ public class GroupIslandsWidget extends StackPane {
         studentRGBColours.put(Colour.BLUE, Color.rgb(0, 204, 255));
     }
 
-    /*private void addListenerOnGroupIslandInfluentPlayer(){
+    private void addListenerOnGroupIslandInfluentPlayer(){
         //adds the listener on mother nature property on a single island
         for(int i = 0; i < GUI.instance().getModel().getTable().getGroupIslands().size(); i++){
             int groupIsland = i;
@@ -246,7 +246,7 @@ public class GroupIslandsWidget extends StackPane {
                 }
             }));
         }
-    }*/
+    }
 
     private void addListenerOnSingleIslandStudents(int groupIslandIndex, int singleIslandIndex, List<Label> studentsLabels) {
         //adds a listener to all the single islands
