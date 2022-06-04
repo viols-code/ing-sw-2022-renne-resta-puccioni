@@ -201,16 +201,16 @@ public class SchoolBoardWidget extends StackPane {
         GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getEntranceProperty().addListener((MapChangeListener<? super Colour, ? super Integer>) listener ->
                 Platform.runLater(() -> {
                     entrance.getChildren().forEach(node -> node.setVisible(false));
-                    entrance.getChildren().removeAll();
+                    entrance.getChildren().clear();
                     initEntranceArrays();
                 }));
 
-        GUI.instance().getModel().getPosition().addListener((change, oldval, newval) -> {
-            if (oldval.intValue() != -1) {
-                entrance.getChildren().get(oldval.intValue()).getStyleClass().removeAll("studentSelected");
+        GUI.instance().getModel().getPosition().addListener((change, oldVal, newVal) -> {
+            if (oldVal.intValue() != -1) {
+                entrance.getChildren().get(oldVal.intValue()).getStyleClass().removeAll("studentSelected");
             }
-            if (newval.intValue() != -1) {
-                entrance.getChildren().get(newval.intValue()).getStyleClass().add("studentSelected");
+            if (newVal.intValue() != -1) {
+                entrance.getChildren().get(newVal.intValue()).getStyleClass().add("studentSelected");
             }
         });
     }
