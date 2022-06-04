@@ -23,12 +23,18 @@ public class GUIColours {
             Map.entry(TowerColour.GREY, Color.rgb(179, 179, 179))
     ));
 
+    private static final Paint motherNatureColour = Color.rgb(255, 102, 0);
+
     public static Paint getStudentRGBColour(Colour colour){
         return studentRGBColours.get(colour);
     }
 
     public static Paint getTowerRGBColour(TowerColour colour){
         return towerRGBColours.get(colour);
+    }
+
+    public static Paint getMotherNatureColour(){
+        return motherNatureColour;
     }
 
 }
