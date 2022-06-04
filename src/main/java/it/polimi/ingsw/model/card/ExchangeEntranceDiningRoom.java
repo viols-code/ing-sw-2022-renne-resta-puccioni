@@ -64,22 +64,26 @@ public class ExchangeEntranceDiningRoom extends CharacterCard {
      */
     @Override
     public void setColourDiningRoomEntrance(Colour colourDiningRoom, Colour colourEntrance) throws IllegalArgumentException {
-        this.colourDiningRoom = colourDiningRoom;
-        this.colourEntrance = colourEntrance;
-        if (game.getCurrentPlayer().getSchoolBoard().getDiningRoom(colourDiningRoom) > 0) {
-            if (game.getCurrentPlayer().getSchoolBoard().getEntrance(colourEntrance) > 0) {
-                if (game.getCurrentPlayer().getSchoolBoard().getDiningRoom(colourEntrance) < 10) {
-                    this.effect();
+        if(colourDiningRoom == null && colourEntrance == null){
+            this.colourDiningRoom = null;
+            this.colourEntrance = null;
+        } else{
+            this.colourDiningRoom = colourDiningRoom;
+            this.colourEntrance = colourEntrance;
+            if (game.getCurrentPlayer().getSchoolBoard().getDiningRoom(colourDiningRoom) > 0) {
+                if (game.getCurrentPlayer().getSchoolBoard().getEntrance(colourEntrance) > 0) {
+                    if (game.getCurrentPlayer().getSchoolBoard().getDiningRoom(colourEntrance) < 10) {
+                        this.effect();
+                    } else {
+                        throw new IllegalArgumentException("The dining room is full for this colour");
+                    }
                 } else {
-                    throw new IllegalArgumentException("The dining room is full for this colour");
+                    throw new IllegalArgumentException("There is no this colour in the entrance");
                 }
             } else {
-                throw new IllegalArgumentException("There is no this colour in the entrance");
+                throw new IllegalArgumentException("There is no this colour in the dining room");
             }
-        } else {
-            throw new IllegalArgumentException("There is no this colour in the dining room");
         }
-
     }
 
     /**

@@ -68,13 +68,17 @@ public class StudentToIsland extends CharacterCard {
      */
     @Override
     public void setColourAndIsland(Colour colour, SingleIsland singleIsland) throws IllegalArgumentException {
-        if (studentsOnCard.get(colour) == 0) {
-            throw new IllegalArgumentException("There is no such colour on the card");
+        if (colour == null && singleIsland == null) {
+            this.islandChosen = null;
+            this.colour = null;
+        } else {
+            if (studentsOnCard.get(colour) == 0) {
+                throw new IllegalArgumentException("There is no such colour on the card");
+            }
+            this.islandChosen = singleIsland;
+            this.colour = colour;
+            this.effect();
         }
-
-        this.islandChosen = singleIsland;
-        this.colour = colour;
-        this.effect();
     }
 
     /**

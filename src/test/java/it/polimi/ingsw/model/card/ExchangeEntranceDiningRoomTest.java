@@ -52,8 +52,9 @@ class ExchangeEntranceDiningRoomTest {
         assertTrue(gameTest.getPlayerByIndex(1).getSchoolBoard().hasProfessor(Colour.GREEN));
         assertFalse(gameTest.getPlayerByIndex(0).getSchoolBoard().hasProfessor(Colour.GREEN));
         cardTest.setColourDiningRoomEntrance(Colour.YELLOW, Colour.GREEN);
-        assertEquals(Colour.YELLOW, cardTest.getColourDiningRoom());
-        assertEquals(Colour.GREEN, cardTest.getColourEntrance());
+        // After using it two times they became null
+        assertNull(cardTest.getColourDiningRoom());
+        assertNull(cardTest.getColourEntrance());
         assertTrue(gameTest.getPlayerByIndex(0).getSchoolBoard().hasProfessor(Colour.YELLOW));
         assertTrue(gameTest.getPlayerByIndex(0).getSchoolBoard().hasProfessor(Colour.GREEN));
         assertFalse(gameTest.getPlayerByIndex(1).getSchoolBoard().hasProfessor(Colour.GREEN));
