@@ -29,35 +29,94 @@ import java.util.Objects;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+/**
+ * Class responsible for handling the effect of the character cards
+ * STUDENT_TO_ISLAND
+ * PROTECT_ISLAND
+ * ISLAND_INFLUENCE
+ */
 public class SelectGroupIslandWidget extends StackPane {
 
+    /**
+     * The main container of the scene
+     */
     @FXML
     private AnchorPane anchorPane;
 
+    /**
+     * Label displayed if the current character card is ISLAND_INFLUENCE
+     */
     @FXML
     private Label islandInfluence;
 
+    /**
+     * Label displayed if the current character card is PROTECT_ISLAND
+     */
     @FXML
     private Label protectIsland;
 
+    /**
+     * Label displayed if the current character card is STUDENT_TO_ISLAND
+     */
     @FXML
     private Label studentToIsland;
 
+    /**
+     * Represents the current character card
+     */
     private CharacterCardEnumeration characterCard;
 
+    /**
+     * A list representing the group island boxes
+     */
     private List<AnchorPane> groupIslandsPanes = new ArrayList<>();
 
+    /**
+     * A nested list representing the single island boxes for each group island
+     */
     private List<List<AnchorPane>> singleIslandPanes = new ArrayList<>();
 
+    /**
+     * Constructs the group island widget
+     */
     public SelectGroupIslandWidget() {
         FXMLUtils.loadWidgetFXML(this);
     }
 
+    /*
+    Button methods
+     */
+    /**
+     * Shows the school board
+     */
+    @FXML
+    private void showSchoolBoard() {
+        GUI.instance().showPlayerBoard();
+    }
+
+    /**
+     * Shows the character cards
+     */
+    @FXML
+    private void showCharacterCards(){
+        GUI.instance().showCharacterCards();
+    }
+
+
+    /*
+    Init methods
+     */
+
+    /**
+     * Init method called by the FXMLLoader
+     * It calls all the init method of this class
+     */
     @FXML
     public void initialize(){
         initGroupIslands();
         addListenerOnGroupIslandInfluentPlayer();
         addListenerOnGroupIslandList();
+
         if(GUI.instance().getModel().isGameExpert() && GUI.instance().getModel().isCharacterCardPresent(CharacterCardEnumeration.PROTECT_ISLAND)){
             addListenerOnNoEntryTile();
         }
@@ -89,6 +148,9 @@ public class SelectGroupIslandWidget extends StackPane {
 
     }
 
+    /**
+     * Creates and renders the group island with all their properties
+     */
     private void initGroupIslands() {
         int groupIslands = GUI.instance().getModel().getTable().getGroupIslands().size();
         int singleIslands;
@@ -173,7 +235,7 @@ public class SelectGroupIslandWidget extends StackPane {
                 addListenerOnSingleIslandStudents(i, k, studentsLabels);
 
                 //adds the no entry tiles if PROTECT_ISLAND card is present
-                if(!GUI.instance().getModel().isGameExpert() && GUI.instance().getModel().isCharacterCardPresent(CharacterCardEnumeration.PROTECT_ISLAND)) {
+                if(GUI.instance().getModel().isGameExpert() && GUI.instance().getModel().isCharacterCardPresent(CharacterCardEnumeration.PROTECT_ISLAND)) {
                     Label noEntryTileLabel = new Label();
                     singleIslandPane.getChildren().add(noEntryTileLabel);
                     noEntryTileLabel.setLayoutX(60);
@@ -202,7 +264,9 @@ public class SelectGroupIslandWidget extends StackPane {
         }
     }
 
-
+    /**
+     * Adds the on mouse click event to all the group islands panes
+     */
     private void addMouseClickEventOnGroupIslands(){
         for(AnchorPane groupIslandPane : groupIslandsPanes){
             groupIslandPane.getStyleClass().add("groupIsland");
@@ -210,18 +274,9 @@ public class SelectGroupIslandWidget extends StackPane {
         }
     }
 
-    private void selectGroupIsland(int groupIslandIndex){
-        GUI.instance().getActionSender().setGroupIsland(GUI.instance().getPlayerName(),groupIslandIndex);
-        for(AnchorPane groupIslandPane : groupIslandsPanes){
-            groupIslandPane.setOnMouseClicked(event -> Platform.runLater(() -> noAction()));
-            groupIslandPane.getStyleClass().remove("groupIsland");
-        }
-    }
-
-    private void noAction(){
-
-    }
-
+    /**
+     * Adds the on mouse click event to all the single islands panes
+     */
     private void addMouseClickEventOnSingleIslands(){
         for(List<AnchorPane> groupIsland : singleIslandPanes){
             for(AnchorPane singleIslandPane : groupIsland){
@@ -231,6 +286,30 @@ public class SelectGroupIslandWidget extends StackPane {
         }
     }
 
+    /*
+    Actions after mouse click
+     */
+
+    /**
+     * Calls the action sender to select the group island where calculate influence (for character card ISLAND_INFLUENCE)
+     * or the group island where put the no entry tile (for character card protect island)
+     *
+     * @param groupIslandIndex the index of the group island selected
+     */
+    private void selectGroupIsland(int groupIslandIndex){
+        GUI.instance().getActionSender().setGroupIsland(GUI.instance().getPlayerName(),groupIslandIndex);
+        for(AnchorPane groupIslandPane : groupIslandsPanes){
+            groupIslandPane.setOnMouseClicked(event -> Platform.runLater(() -> noAction()));
+            groupIslandPane.getStyleClass().remove("groupIsland");
+        }
+    }
+
+    /**
+     * Calls the action sender to use the effect of the character card STUDENT_TO_ISLAND
+     *
+     * @param groupIslandIndex the index of the group island selected
+     * @param singleIslandIndex the index of the single island selected
+     */
     private void selectSingleIsland(int groupIslandIndex,int singleIslandIndex){
         if(GUI.instance().getModel().getStudentOnCardSelected() != null){
             GUI.instance().getActionSender().setColourAndIsland(GUI.instance().getPlayerName(),GUI.instance().getModel().getStudentOnCardSelected(),groupIslandIndex,singleIslandIndex);
@@ -249,6 +328,21 @@ public class SelectGroupIslandWidget extends StackPane {
 
     }
 
+    /**
+     * No action method to replace previous on click methods
+     */
+    private void noAction(){
+
+    }
+
+    /*
+    Adding listeners
+     */
+
+    /**
+     * Adds a listener on the no entry tile property (located in MockGroupIsland) for each group island
+     * it handles the updates due to add or remove no entry tile from the group island
+     */
     private void addListenerOnNoEntryTile(){
         for(int i = 0; i < GUI.instance().getModel().getTable().getGroupIslands().size(); i++){
             int groupIsland = i;
@@ -266,6 +360,10 @@ public class SelectGroupIslandWidget extends StackPane {
         }
     }
 
+    /**
+     * Adds a listener on the influent player property (located in MockGroupIsland) for each group island,
+     * it handles the updates due to the influence change on a specific group island
+     */
     private void addListenerOnGroupIslandInfluentPlayer(){
         //adds the listener on mother nature property on a single island
         for(int i = 0; i < GUI.instance().getModel().getTable().getGroupIslands().size(); i++){
@@ -284,6 +382,9 @@ public class SelectGroupIslandWidget extends StackPane {
         }
     }
 
+    /**
+     * Adds a listener on the group island property (located in MockTable) which handles the updates due to islands unify
+     */
     private void addListenerOnGroupIslandList() {
         GUI.instance().getModel().getTable().getGroupIslandsProperty().addListener((ListChangeListener<? super MockGroupIsland>) listener ->
                 Platform.runLater(() -> {
@@ -302,6 +403,13 @@ public class SelectGroupIslandWidget extends StackPane {
                 }));
     }
 
+    /**
+     * Adds a listener to the Hash Map representing the students on the single island
+     *
+     * @param groupIslandIndex the index of the group island
+     * @param singleIslandIndex the index of the single island
+     * @param studentsLabels the student labels to bind with the entries of the hash map
+     */
     private void addListenerOnSingleIslandStudents(int groupIslandIndex, int singleIslandIndex, List<Label> studentsLabels) {
         //adds a listener to all the single islands
         GUI.instance().getModel().getTable().getGroupIslandByIndex(groupIslandIndex).getSingleIslandByIndex(singleIslandIndex).getStudentsProperty().addListener((MapChangeListener<? super Colour, ? super Integer>) listener ->
@@ -311,16 +419,6 @@ public class SelectGroupIslandWidget extends StackPane {
                         studentsLabels.get(Colour.getColourCode(colour)).setText(" " + listener.getMap().get(colour) + " ");
                     }
                 }));
-    }
-
-    @FXML
-    private void showSchoolBoard() {
-        GUI.instance().showPlayerBoard();
-    }
-
-    @FXML
-    private void showCharacterCards(){
-        GUI.instance().showCharacterCards();
     }
 
 }
