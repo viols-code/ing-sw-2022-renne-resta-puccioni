@@ -10,41 +10,41 @@
          xmlns:fx="http://javafx.com/fxml"
          fx:controller="it.polimi.ingsw.view.implementation.gui.widgets.NoColourWidget">
     <AnchorPane prefHeight="400.0" prefWidth="600.0">
-        <Button layoutX="48.0" layoutY="55.0" mnemonicParsing="false" onAction="#showCharacterCards"
+        <Button layoutX="200.0" layoutY="55.0" mnemonicParsing="false" onAction="#showCharacterCards"
                 text="Go back to Character Cards"/>
 
-        <Label layoutX="229.0" layoutY="250" prefHeight="122.0" prefWidth="1080.0"
+        <Label layoutX="229.0" layoutY="105" prefHeight="122.0" prefWidth="1080.0"
                text="Choose the colour you don't want to be considered during the influence computation:">
             <font>
                 <Font name="System Bold Italic" size="22.0"/>
             </font>
         </Label>
-        <FlowPane layoutX="287.0" layoutY="317.0" styleClass="colourSelected" prefWidth="110" prefHeight="110">
-            <ImageView fx:id="blue" fitHeight="110.0" fitWidth="110.0" pickOnBounds="true"
+        <FlowPane layoutX="387.0" layoutY="350.0" styleClass="colourSelected" prefWidth="60" prefHeight="60">
+            <ImageView fx:id="blue" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true"
                        preserveRatio="true">
                 <Image url="@../images/students/student_blue.png"/>
             </ImageView>
         </FlowPane>
-        <FlowPane styleClass="colourSelected" prefWidth="110" prefHeight="110" layoutX="454.0" layoutY="235.0">
-            <ImageView fx:id="green" fitHeight="110.0" fitWidth="110.0" pickOnBounds="true"
+        <FlowPane styleClass="colourSelected" prefWidth="60" prefHeight="60" layoutX="554.0" layoutY="250.0">
+            <ImageView fx:id="green" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true"
                        preserveRatio="true">
                 <Image url="@../images/students/student_green.png"/>
             </ImageView>
         </FlowPane>
-        <FlowPane styleClass="colourSelected" prefWidth="110" prefHeight="110" layoutX="644.0" layoutY="337.0">
-            <ImageView fx:id="red" fitHeight="110.0" fitWidth="110.0" pickOnBounds="true"
+        <FlowPane styleClass="colourSelected" prefWidth="60" prefHeight="60" layoutX="744.0" layoutY="350.0">
+            <ImageView fx:id="red" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true"
                        preserveRatio="true">
                 <Image url="@../images/students/student_red.png"/>
             </ImageView>
         </FlowPane>
-        <FlowPane styleClass="colourSelected" prefWidth="110" prefHeight="110" layoutX="365.0" layoutY="480.0">
-            <ImageView fx:id="yellow" fitHeight="110.0" fitWidth="110.0" pickOnBounds="true"
+        <FlowPane styleClass="colourSelected" prefWidth="60" prefHeight="60" layoutX="465.0" layoutY="500.0">
+            <ImageView fx:id="yellow" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true"
                        preserveRatio="true">
                 <Image url="@../images/students/student_yellow.png"/>
             </ImageView>
         </FlowPane>
-        <FlowPane styleClass="colourSelected" prefWidth="110" prefHeight="110" layoutX="588.0" layoutY="487.0">
-            <ImageView fx:id="pink" fitHeight="110.0" fitWidth="110.0" pickOnBounds="true"
+        <FlowPane styleClass="colourSelected" prefWidth="60" prefHeight="60" layoutX="688.0" layoutY="500.0">
+            <ImageView fx:id="pink" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true"
                        preserveRatio="true">
                 <Image url="@../images/students/student_pink.png"/>
             </ImageView>

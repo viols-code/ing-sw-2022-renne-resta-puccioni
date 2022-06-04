@@ -20,7 +20,7 @@ public class MockCard {
     /**
      * The character card cost
      */
-    private IntegerProperty cost;
+    private final IntegerProperty cost;
 
     /**
      * Number of student on the card

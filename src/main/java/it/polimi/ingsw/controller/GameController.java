@@ -796,7 +796,7 @@ public class GameController implements Observer<PlayerEvent> {
                         game.getActiveCharacterCard().setColourAndIsland(null, null);
                         game.getActiveCharacterCard().setColourCardEntrance(null, null);
                         game.getActiveCharacterCard().setGroupIsland(-1);
-                    } catch (IllegalArgumentException e) {
+                    } catch (IllegalArgumentException | IllegalAccessError e ) {
                         // Ignored
                     }
                     game.setActiveCharacterCard(game.getBasicState());
