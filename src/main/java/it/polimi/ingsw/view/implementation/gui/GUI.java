@@ -208,8 +208,8 @@ public class GUI extends View {
 
     public void showColourDecision() {
         Platform.runLater(() -> {
-            NoColourWidget noColourWidget = new NoColourWidget();
-            scene.setRoot(noColourWidget);
+            NoColourThreeStudentWidget noColourThreeStudentWidget = new NoColourThreeStudentWidget();
+            scene.setRoot(noColourThreeStudentWidget);
         });
     }
 

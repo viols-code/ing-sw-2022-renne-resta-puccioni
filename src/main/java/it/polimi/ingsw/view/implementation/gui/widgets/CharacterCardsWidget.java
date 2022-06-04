@@ -139,6 +139,7 @@ public class CharacterCardsWidget extends StackPane {
 
                 switch (newVal.getType()) {
                     case NO_COLOUR -> imageViewList.get(a).setOnMouseClicked(event -> Platform.runLater(() -> GUI.instance().showColourDecision()));
+                    case THREE_STUDENT -> imageViewList.get(a).setOnMouseClicked(event -> Platform.runLater(() -> GUI.instance().showColourDecision()));
                 }
             }
         }));
