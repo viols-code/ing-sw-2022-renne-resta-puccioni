@@ -4,6 +4,7 @@ import it.polimi.ingsw.FXMLUtils;
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.view.beans.MockCloudTile;
 import it.polimi.ingsw.view.implementation.gui.GUI;
+import it.polimi.ingsw.view.implementation.gui.widgets.utils.Coordinates;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;

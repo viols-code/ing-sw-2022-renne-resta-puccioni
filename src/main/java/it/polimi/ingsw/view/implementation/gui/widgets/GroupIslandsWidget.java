@@ -6,6 +6,7 @@ import it.polimi.ingsw.model.game.TurnPhase;
 import it.polimi.ingsw.model.player.TowerColour;
 import it.polimi.ingsw.view.beans.MockGroupIsland;
 import it.polimi.ingsw.view.implementation.gui.GUI;
+import it.polimi.ingsw.view.implementation.gui.widgets.utils.Coordinates;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.collections.MapChangeListener;
@@ -52,7 +53,6 @@ public class GroupIslandsWidget extends StackPane {
         initStudentRGBColour();
         initTowerRGBColour();
         angles = new ArrayList<>(Arrays.asList(Math.PI, Math.PI * 5 / 6, Math.PI * 4 / 6, Math.PI * 3 / 6, Math.PI * 2 / 6, Math.PI * 1 / 6, 0.0, Math.PI * 11 / 6, Math.PI * 10 / 6, Math.PI * 9 / 6, Math.PI * 8 / 6, Math.PI * 7 / 6));
-        groupIslandBoxes = new ArrayList<>(Arrays.asList(new Coordinates(11, 268), new Coordinates(110, 131), new Coordinates(245, 40), new Coordinates(425, -6), new Coordinates(601, 40), new Coordinates(753, 131), new Coordinates(853, 268), new Coordinates(753, 410), new Coordinates(601, 490), new Coordinates(429, 524), new Coordinates(245, 490), new Coordinates(99, 410)));
         initGroupIslands();
         addListenerOnTurnPhase();
         addListenerOnMotherNatureProperty();

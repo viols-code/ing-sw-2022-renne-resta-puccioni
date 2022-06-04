@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.player.TowerColour;
 import it.polimi.ingsw.model.player.Wizard;
 import it.polimi.ingsw.view.beans.MockPlayer;
 import it.polimi.ingsw.view.implementation.gui.GUI;
+import it.polimi.ingsw.view.implementation.gui.widgets.utils.Coordinates;
 import javafx.application.Platform;
 import javafx.collections.MapChangeListener;
 import javafx.fxml.FXML;
