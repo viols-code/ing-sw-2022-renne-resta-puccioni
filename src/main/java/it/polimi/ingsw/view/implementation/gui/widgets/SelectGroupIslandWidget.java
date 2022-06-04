@@ -318,4 +318,9 @@ public class SelectGroupIslandWidget extends StackPane {
         GUI.instance().showPlayerBoard();
     }
 
+    @FXML
+    private void showCharacterCards(){
+        GUI.instance().showCharacterCards();
+    }
+
 }
