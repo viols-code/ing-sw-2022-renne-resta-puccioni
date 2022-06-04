@@ -67,20 +67,6 @@ public class GroupIslandsWidget extends StackPane {
                 }));
     }
 
-    private void addListenerOnIslandInfluenceChange() {
-        GUI.instance().getModel().getTable().islandInfluenceChangedProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> {
-            if (GUI.instance().getModel().getTable().islandInfluenceChangedProperty().getValue() < GUI.instance().getModel().getTable().getGroupIslands().size()) {
-                for (int j = 0; j < GUI.instance().getModel().getTable().getGroupIslandByIndex(GUI.instance().getModel().getTable().islandInfluenceChangedProperty().getValue()).getIslands().size(); j++) {
-                    if (newVal != null) {
-                        Circle tower = (Circle) singleIslandPanes.get(GUI.instance().getModel().getTable().islandInfluenceChangedProperty().getValue()).get(j).getChildren().get(3);
-                        tower.setVisible(true);
-                        tower.setFill(GUIColours.getTowerRGBColour(GUI.instance().getModel().getPlayerByNickname(GUI.instance().getModel().getTable().getGroupIslandByIndex(GUI.instance().getModel().getTable().islandInfluenceChangedProperty().getValue()).getInfluentPlayer()).getTowerColour()));
-                    }
-                }
-            }
-        }));
-    }
-
     private void initGroupIslands() {
         int groupIslands = GUI.instance().getModel().getTable().getGroupIslands().size();
         int singleIslands;
@@ -180,20 +166,14 @@ public class GroupIslandsWidget extends StackPane {
                     tower.setFill(Color.rgb(0, 0, 0, 0.0));
                 }
                 addListenerOnSingleIslandStudents(i, k, studentsLabels);
+
+
             }
 
             //init the on mouse click event on the group island if the turn phase is MOVE_MOTHER_NATURE
             if (GUI.instance().getModel().getTurnPhase().equals(TurnPhase.MOVE_MOTHER_NATURE)) {
                 islandPane.setOnMouseClicked(event -> moveMotherNature(groupIsland));
             }
-
-            //sets the layout
-            /*
-            groupIslandBoxes.get(j).setRow((groupIslandBoxes.get(j).getRow() + groupIslandBoxes.get(j + singleIslands -1).getRow())/2);
-            groupIslandBoxes.get(j).setColumn((groupIslandBoxes.get(j).getColumn() + groupIslandBoxes.get(j +singleIslands -1).getColumn())/2);
-            islandPane.setLayoutX(groupIslandBoxes.get(j).getRow());
-            islandPane.setLayoutY(groupIslandBoxes.get(j).getColumn());*/
-
             if (j <= 6 && j + singleIslands > 6) {
                 islandPane.setLayoutX(540 - Positions.getIslandPaneDimension(singleIslands) / 2.0 + 220 * Math.cos((-2 * Math.PI + Positions.getAngle(j % 12) + Positions.getAngle((j + singleIslands) % 12)) / 2));
                 islandPane.setLayoutY(360 - Positions.getIslandPaneDimension(singleIslands) / 2.0 - 220 * Math.sin((-2 * Math.PI + Positions.getAngle(j % 12) + Positions.getAngle((j + singleIslands) % 12)) / 2));
@@ -202,8 +182,6 @@ public class GroupIslandsWidget extends StackPane {
                 islandPane.setLayoutY(360 - Positions.getIslandPaneDimension(singleIslands) / 2.0 - 220 * Math.sin((Positions.getAngle(j % 12) + Positions.getAngle((j + singleIslands) % 12)) / 2));
             }
             j += singleIslands;
-
-            //System.out.println((j+singleIslands));
         }
     }
 
