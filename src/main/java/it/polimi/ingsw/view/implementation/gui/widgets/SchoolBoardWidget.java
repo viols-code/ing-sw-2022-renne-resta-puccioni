@@ -187,6 +187,7 @@ public class SchoolBoardWidget extends StackPane {
         GUI.instance().getModel().setPosition(i);
         GUI.instance().getModel().setSelectedColour(colour);
         GUI.instance().getActionSender().setColourCardEntrance(GUI.instance().getPlayerName(), GUI.instance().getModel().getStudentOnCardSelected(), GUI.instance().getModel().getSelectedColour());
+        GUI.instance().getModel().setStudentOnCardSelected(null);
     }
 
     @FXML
@@ -301,8 +302,10 @@ public class SchoolBoardWidget extends StackPane {
                 selectStudentFromEntrance(a, colour);
             });
 
+            //Add a listener to the studentOnCardSelected
             GUI.instance().getModel().getStudentOnCardSelectedProperty().addListener((ChangeListener<? super Colour>) (change, oldVal, newVal) ->
                     Platform.runLater(() -> {
+                        //If the card is Student_To_Entrance and the current player has selected a srudent on the card the student will be exchanged with the one selected in the entrance
                         if (newVal != null && GUI.instance().getModel().getCurrentCharacterCard().getType() == CharacterCardEnumeration.STUDENT_TO_ENTRANCE) {
                             imageView.setOnMouseClicked(event -> {
                                 flowPane.getStyleClass().add("studentSelected");
