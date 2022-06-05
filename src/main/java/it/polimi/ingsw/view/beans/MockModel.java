@@ -99,7 +99,7 @@ public class MockModel {
     /**
      * The student on card selected
      */
-    private Colour studentOnCardSelected;
+    private final Property<Colour> studentOnCardSelected;
 
     private final IntegerProperty currentPlayers;
 
@@ -129,6 +129,7 @@ public class MockModel {
         currentPlayers = new SimpleIntegerProperty();
         playersToStart = new SimpleIntegerProperty();
         nicknames = FXCollections.observableArrayList();
+        studentOnCardSelected = new SimpleObjectProperty<>();
     }
 
     /**
@@ -454,10 +455,14 @@ public class MockModel {
     }
 
     public Colour getStudentOnCardSelected() {
-        return studentOnCardSelected;
+        return studentOnCardSelected.getValue();
     }
 
     public void setStudentOnCardSelected(Colour studentOnCardSelected) {
-        this.studentOnCardSelected = studentOnCardSelected;
+        this.studentOnCardSelected.setValue(studentOnCardSelected);
+    }
+
+    public Property<Colour> getStudentOnCardSelectedProperty(){
+        return studentOnCardSelected;
     }
 }

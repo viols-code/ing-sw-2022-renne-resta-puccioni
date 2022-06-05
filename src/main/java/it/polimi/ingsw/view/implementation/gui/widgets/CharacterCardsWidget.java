@@ -90,6 +90,7 @@ public class CharacterCardsWidget extends StackPane {
                 initStudentsOnCard(i);
 
                 int card = i;
+
                 GUI.instance().getModel().getCharacterCardByIndex(i).getStudentsProperty().addListener((MapChangeListener<? super Colour, ? super Integer>) listener ->
 
                         Platform.runLater(() -> {
@@ -155,8 +156,9 @@ public class CharacterCardsWidget extends StackPane {
     private void setStudent(Colour colour) {
         if (GUI.instance().getPlayerName().equals(GUI.instance().getModel().getCurrentPlayer().getNickname())) {
             if (GUI.instance().getModel().getCurrentCharacterCard().getType().equals(CharacterCardEnumeration.STUDENT_TO_ISLAND) ||
-                    GUI.instance().getModel().getCurrentCharacterCard().getType().equals(CharacterCardEnumeration.STUDENT_TO_DINING_ROOM)) {
-                GUI.instance().getModel().setStudentOnCardSelected(colour);
+                GUI.instance().getModel().getCurrentCharacterCard().getType().equals(CharacterCardEnumeration.STUDENT_TO_DINING_ROOM) ||
+                GUI.instance().getModel().getCurrentCharacterCard().getType().equals(CharacterCardEnumeration.STUDENT_TO_ENTRANCE)) {
+                     GUI.instance().getModel().setStudentOnCardSelected(colour);
             }
         }
     }

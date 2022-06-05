@@ -183,6 +183,13 @@ public class SchoolBoardWidget extends StackPane {
     }
 
     @FXML
+    private void selectStudentToExchange(int i, Colour colour){
+        GUI.instance().getModel().setPosition(i);
+        GUI.instance().getModel().setSelectedColour(colour);
+        GUI.instance().getActionSender().setColourCardEntrance(GUI.instance().getPlayerName(), GUI.instance().getModel().getStudentOnCardSelected(), GUI.instance().getModel().getSelectedColour());
+    }
+
+    @FXML
     private void moveStudentToDiningRoom() {
         GUI.instance().getActionSender().moveStudentToDiningRoom(GUI.instance().getPlayerName(), GUI.instance().getModel().getSelectedColour());
         GUI.instance().getModel().setPosition(-1);
@@ -217,6 +224,7 @@ public class SchoolBoardWidget extends StackPane {
                 entrance.getChildren().get(newVal.intValue()).getStyleClass().add("studentSelected");
             }
         });
+
     }
 
     private void initEntranceArrays() {
@@ -285,11 +293,30 @@ public class SchoolBoardWidget extends StackPane {
             imageView.setImage(new Image(Objects.requireNonNull(SchoolBoardWidget.class.getResourceAsStream(
                     "/images/students/student_" + entranceStudents.get(i).name().toLowerCase(Locale.ROOT) + ".png"))));
             Colour colour = entranceStudents.get(i);
+
             int a = i;
+
             imageView.setOnMouseClicked(event -> {
                 flowPane.getStyleClass().add("studentSelected");
                 selectStudentFromEntrance(a, colour);
             });
+
+            GUI.instance().getModel().getStudentOnCardSelectedProperty().addListener((ChangeListener<? super Colour>) (change, oldVal, newVal) ->
+                    Platform.runLater(() -> {
+                        if (newVal != null && GUI.instance().getModel().getCurrentCharacterCard().getType() == CharacterCardEnumeration.STUDENT_TO_ENTRANCE) {
+                            imageView.setOnMouseClicked(event -> {
+                                flowPane.getStyleClass().add("studentSelected");
+                                selectStudentToExchange(a, colour);
+                            });
+                        } else {
+                            imageView.setOnMouseClicked(event -> {
+                                flowPane.getStyleClass().add("studentSelected");
+                                selectStudentFromEntrance(a, colour);
+                            });
+                        }
+                    }
+                ));
+
         }
     }
 
