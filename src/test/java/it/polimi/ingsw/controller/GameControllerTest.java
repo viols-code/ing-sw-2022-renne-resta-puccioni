@@ -3037,4 +3037,20 @@ class GameControllerTest {
         assertEquals(TurnPhase.MOVE_STUDENT, gameControllerTwo.getGame().getTurnPhase());
     }
 
+
+    @Test
+    public void endStudent(){
+        gameControllerTwo.addPlayer("Viola", Wizard.TYPE_2);
+        gameControllerTwo.addPlayer("Laura", Wizard.TYPE_1);
+        assertEquals(2, Wizard.getWizardCode(gameControllerTwo.getGame().getPlayerByIndex(0).getWizard()));
+        assertEquals(1, Wizard.getWizardCode(gameControllerTwo.getGame().getPlayerByIndex(1).getWizard()));
+        gameControllerTwo.setUpTableAndPlayers();
+        for(int i = 0; i < 100; i++){
+            gameControllerTwo.getGame().getTable().getBag().bagDrawStudent();
+        }
+
+        assertThrows(IllegalAccessError.class, () -> gameControllerTwo.getGame().getTable().getBag().bagDrawStudent());
+        assertTrue(gameControllerTwo.getGame().getTable().getBag().getNoStudent());
+    }
+
 }
