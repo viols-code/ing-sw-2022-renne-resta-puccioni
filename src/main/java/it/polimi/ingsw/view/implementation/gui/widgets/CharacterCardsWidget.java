@@ -154,10 +154,8 @@ public class CharacterCardsWidget extends StackPane {
     @FXML
     private void setStudent(Colour colour) {
         if(GUI.instance().getPlayerName().equals(GUI.instance().getModel().getCurrentPlayer().getNickname())){
-            if(GUI.instance().getModel().getCurrentCharacterCard().getType().equals(CharacterCardEnumeration.STUDENT_TO_ISLAND)){
-                GUI.instance().getModel().setStudentOnCardSelected(colour);
-            }
-            else if(GUI.instance().getModel().getCurrentCharacterCard().getType().equals(CharacterCardEnumeration.STUDENT_TO_DINING_ROOM)){
+            if(GUI.instance().getModel().getCurrentCharacterCard().getType().equals(CharacterCardEnumeration.STUDENT_TO_ISLAND) ||
+                GUI.instance().getModel().getCurrentCharacterCard().getType().equals(CharacterCardEnumeration.STUDENT_TO_DINING_ROOM)){
                 GUI.instance().getModel().setStudentOnCardSelected(colour);
             }
         }
