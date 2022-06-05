@@ -176,6 +176,8 @@ public class MockCard {
         return new HashMap<>(students);
     }
 
+    public ObservableMap<Colour, Integer> getStudentsProperty(){return students;}
+
     /**
      * Sets the students on the card
      *
