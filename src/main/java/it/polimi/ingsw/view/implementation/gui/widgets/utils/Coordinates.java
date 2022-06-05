@@ -1,4 +1,4 @@
-package it.polimi.ingsw.view.implementation.gui.widgets;
+package it.polimi.ingsw.view.implementation.gui.widgets.utils;
 
 public class Coordinates {
     private int row;

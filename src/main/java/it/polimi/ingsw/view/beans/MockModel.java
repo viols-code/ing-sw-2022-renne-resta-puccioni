@@ -14,6 +14,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Local copy of the game model
@@ -94,6 +95,11 @@ public class MockModel {
      * The colour selected
      */
     private Colour selectedColour;
+
+    /**
+     * The student on card selected
+     */
+    private Colour studentOnCardSelected;
 
     private final IntegerProperty currentPlayers;
 
@@ -441,5 +447,17 @@ public class MockModel {
 
     public Property<MockCard> currentCharacterCardProperty() {
         return currentCharacterCard;
+    }
+
+    public boolean isCharacterCardPresent(CharacterCardEnumeration type) {
+        return characterCards.stream().filter(card -> card.getType().equals(type)).collect(Collectors.toList()).size() == 1;
+    }
+
+    public Colour getStudentOnCardSelected() {
+        return studentOnCardSelected;
+    }
+
+    public void setStudentOnCardSelected(Colour studentOnCardSelected) {
+        this.studentOnCardSelected = studentOnCardSelected;
     }
 }

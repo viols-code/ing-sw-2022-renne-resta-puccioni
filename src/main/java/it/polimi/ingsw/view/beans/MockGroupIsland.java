@@ -148,6 +148,28 @@ public class MockGroupIsland {
         this.influentPlayer.setValue(influentPlayer);
     }
 
+    public void clearInfluentPlayerProperty(){
+        if(this.influentPlayer.getValue()!=null){
+            this.influentPlayer = new SimpleStringProperty(this.influentPlayer.getValue());
+        }
+        else{
+            this.influentPlayer = new SimpleStringProperty();
+        }
+    }
+
+    public void clearNoEntryTileProperty(){
+        if(this.noEntryTile.getValue()!=null){
+            this.noEntryTile = new SimpleIntegerProperty(this.noEntryTile.getValue());
+        }
+        else{
+            this.noEntryTile = new SimpleIntegerProperty();
+        }
+    }
+
+    public IntegerProperty getNoEntryTileProperty() {
+        return noEntryTile;
+    }
+
     public BooleanProperty getIsMotherNatureProperty() {
         return motherNature;
     }
