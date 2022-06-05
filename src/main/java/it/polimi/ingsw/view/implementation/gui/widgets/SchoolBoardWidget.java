@@ -5,10 +5,13 @@ import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.TurnPhase;
 import it.polimi.ingsw.model.player.TowerColour;
 import it.polimi.ingsw.model.player.Wizard;
+import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
+import it.polimi.ingsw.view.beans.MockCard;
 import it.polimi.ingsw.view.beans.MockPlayer;
 import it.polimi.ingsw.view.implementation.gui.GUI;
 import it.polimi.ingsw.view.implementation.gui.widgets.utils.Coordinates;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
 import javafx.collections.MapChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -251,7 +254,14 @@ public class SchoolBoardWidget extends StackPane {
 
             }
         }
-    }
+
+        GUI.instance().getModel().currentCharacterCardProperty().addListener((ChangeListener<? super MockCard>) (change, oldVal, newVal) ->
+                Platform.runLater(() -> {
+                    if (newVal.getType() == CharacterCardEnumeration.STUDENT_TO_DINING_ROOM) {
+                        diningRoom.setOnMouseClicked(event -> GUI.instance().getActionSender().setColour(GUI.instance().getPlayerName(), GUI.instance().getModel().getStudentOnCardSelected()));
+                    }
+                }));
+        }
 
     private int getDiningRoomTable(Colour colour) {
         int res = -1;
