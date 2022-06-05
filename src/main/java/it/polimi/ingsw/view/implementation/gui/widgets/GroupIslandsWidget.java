@@ -3,7 +3,6 @@ package it.polimi.ingsw.view.implementation.gui.widgets;
 import it.polimi.ingsw.FXMLUtils;
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.TurnPhase;
-import it.polimi.ingsw.model.player.TowerColour;
 import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
 import it.polimi.ingsw.view.beans.MockGroupIsland;
 import it.polimi.ingsw.view.implementation.gui.GUI;
@@ -20,10 +19,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * Shows the group islands and handles students moving and mother nature moving
@@ -39,12 +39,12 @@ public class GroupIslandsWidget extends StackPane {
     /**
      * A list representing the group island boxes
      */
-    private List<AnchorPane> groupIslandsPanes = new ArrayList<>();
+    private final List<AnchorPane> groupIslandsPanes = new ArrayList<>();
 
     /**
      * A nested list representing the single island boxes for each group island
      */
-    private List<List<AnchorPane>> singleIslandPanes = new ArrayList<>();
+    private final List<List<AnchorPane>> singleIslandPanes = new ArrayList<>();
 
     /**
      * Constructs the group island widget
@@ -80,7 +80,7 @@ public class GroupIslandsWidget extends StackPane {
         addListenerOnMotherNatureProperty();
         addListenerOnGroupIslandInfluentPlayer();
         addListenerOnGroupIslandList();
-        if(GUI.instance().getModel().isGameExpert() && GUI.instance().getModel().isCharacterCardPresent(CharacterCardEnumeration.PROTECT_ISLAND)){
+        if (GUI.instance().getModel().isGameExpert() && GUI.instance().getModel().isCharacterCardPresent(CharacterCardEnumeration.PROTECT_ISLAND)) {
             addListenerOnNoEntryTile();
         }
     }
@@ -189,7 +189,7 @@ public class GroupIslandsWidget extends StackPane {
                 addListenerOnSingleIslandStudents(i, k, studentsLabels);
 
                 //adds the no entry tiles if PROTECT_ISLAND card is present
-                if(GUI.instance().getModel().isGameExpert() && GUI.instance().getModel().isCharacterCardPresent(CharacterCardEnumeration.PROTECT_ISLAND)) {
+                if (GUI.instance().getModel().isGameExpert() && GUI.instance().getModel().isCharacterCardPresent(CharacterCardEnumeration.PROTECT_ISLAND)) {
                     Label noEntryTileLabel = new Label();
                     singleIslandPane.getChildren().add(noEntryTileLabel);
                     noEntryTileLabel.setLayoutX(60);
@@ -201,13 +201,11 @@ public class GroupIslandsWidget extends StackPane {
                     if (GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getNoEntryTile() > 0 && k == 0) {
                         noEntryTileLabel.setVisible(true);
                         noEntryTileLabel.toFront();
-                    }
-                    else{
+                    } else {
                         noEntryTileLabel.setVisible(false);
                     }
                 }
             }
-
 
 
             //init the on mouse click event on the group island if the turn phase is MOVE_MOTHER_NATURE
@@ -249,7 +247,7 @@ public class GroupIslandsWidget extends StackPane {
                     singleIslandPanes.clear();
                     initGroupIslands();
                     addListenerOnGroupIslandInfluentPlayer();
-                    if(GUI.instance().getModel().isCharacterCardPresent(CharacterCardEnumeration.PROTECT_ISLAND)){
+                    if (GUI.instance().getModel().isCharacterCardPresent(CharacterCardEnumeration.PROTECT_ISLAND)) {
                         addListenerOnNoEntryTile();
                     }
                 }));
@@ -259,8 +257,8 @@ public class GroupIslandsWidget extends StackPane {
      * Adds a listener on the no entry tile property (located in MockGroupIsland) for each group island
      * it handles the updates due to add or remove no entry tile from the group island
      */
-    private void addListenerOnNoEntryTile(){
-        for(int i = 0; i < GUI.instance().getModel().getTable().getGroupIslands().size(); i++){
+    private void addListenerOnNoEntryTile() {
+        for (int i = 0; i < GUI.instance().getModel().getTable().getGroupIslands().size(); i++) {
             int groupIsland = i;
             GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getNoEntryTileProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> {
                 Label noEntryTileLabel = (Label) singleIslandPanes.get(groupIsland).get(0).getChildren().get(4);
@@ -268,8 +266,7 @@ public class GroupIslandsWidget extends StackPane {
                     noEntryTileLabel.setText(" ! : " + newVal.intValue());
                     noEntryTileLabel.setVisible(true);
                     noEntryTileLabel.toFront();
-                }
-                else{
+                } else {
                     noEntryTileLabel.setVisible(false);
                 }
             }));
@@ -280,14 +277,14 @@ public class GroupIslandsWidget extends StackPane {
      * Adds a listener on the influent player property (located in MockGroupIsland) for each group island,
      * it handles the updates due to the influence change on a specific group island
      */
-    private void addListenerOnGroupIslandInfluentPlayer(){
+    private void addListenerOnGroupIslandInfluentPlayer() {
         //adds the listener on mother nature property on a single island
-        for(int i = 0; i < GUI.instance().getModel().getTable().getGroupIslands().size(); i++){
+        for (int i = 0; i < GUI.instance().getModel().getTable().getGroupIslands().size(); i++) {
             int groupIsland = i;
             GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getInfluentPlayerProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> {
-                if(groupIsland < GUI.instance().getModel().getTable().getGroupIslands().size()){
-                    for(int j = 0; j < GUI.instance().getModel().getTable().getGroupIslandByIndex(groupIsland).getIslands().size(); j++){
-                        if(newVal != null){
+                if (groupIsland < GUI.instance().getModel().getTable().getGroupIslands().size()) {
+                    for (int j = 0; j < GUI.instance().getModel().getTable().getGroupIslandByIndex(groupIsland).getIslands().size(); j++) {
+                        if (newVal != null) {
                             Circle tower = (Circle) singleIslandPanes.get(groupIsland).get(j).getChildren().get(3);
                             tower.setVisible(true);
                             tower.setFill(GUIColours.getTowerRGBColour(GUI.instance().getModel().getPlayerByNickname(newVal).getTowerColour()));
@@ -301,9 +298,9 @@ public class GroupIslandsWidget extends StackPane {
     /**
      * Adds a listener to the Hash Map representing the students on the single island
      *
-     * @param groupIslandIndex the index of the group island
+     * @param groupIslandIndex  the index of the group island
      * @param singleIslandIndex the index of the single island
-     * @param studentsLabels the student labels to bind with the entries of the hash map
+     * @param studentsLabels    the student labels to bind with the entries of the hash map
      */
     private void addListenerOnSingleIslandStudents(int groupIslandIndex, int singleIslandIndex, List<Label> studentsLabels) {
         //adds a listener to all the single islands
@@ -383,7 +380,7 @@ public class GroupIslandsWidget extends StackPane {
     /**
      * Calls the action sender to move a student on a single island when the user clicks on a single island
      *
-     * @param groupIsland the index of the group island
+     * @param groupIsland  the index of the group island
      * @param singleIsland the index of the single island
      */
     private void addStudentToSingleIsland(int groupIsland, int singleIsland) {

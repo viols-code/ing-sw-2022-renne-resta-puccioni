@@ -4,7 +4,6 @@ import it.polimi.ingsw.FXMLUtils;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.model.player.Wizard;
 import it.polimi.ingsw.view.View;
-import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
 import it.polimi.ingsw.view.beans.MockPlayer;
 import it.polimi.ingsw.view.implementation.gui.widgets.*;
 import javafx.application.Platform;

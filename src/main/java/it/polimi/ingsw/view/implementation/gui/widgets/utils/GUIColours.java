@@ -18,7 +18,7 @@ public class GUIColours {
     ));
 
     private static final HashMap<TowerColour, Paint> towerRGBColours = new HashMap<>(Map.ofEntries(
-            Map.entry(TowerColour.WHITE,Color.rgb(255, 255, 255)),
+            Map.entry(TowerColour.WHITE, Color.rgb(255, 255, 255)),
             Map.entry(TowerColour.BLACK, Color.rgb(0, 0, 0)),
             Map.entry(TowerColour.GREY, Color.rgb(179, 179, 179))
     ));
@@ -29,23 +29,23 @@ public class GUIColours {
 
     private static final Paint getNoEntryTileBackGroundColour = Color.rgb(0, 100, 255);
 
-    public static Paint getStudentRGBColour(Colour colour){
+    public static Paint getStudentRGBColour(Colour colour) {
         return studentRGBColours.get(colour);
     }
 
-    public static Paint getTowerRGBColour(TowerColour colour){
+    public static Paint getTowerRGBColour(TowerColour colour) {
         return towerRGBColours.get(colour);
     }
 
-    public static Paint getMotherNatureColour(){
+    public static Paint getMotherNatureColour() {
         return motherNatureColour;
     }
 
-    public static Paint getNoEntryTileMarkColour(){
+    public static Paint getNoEntryTileMarkColour() {
         return noEntryTileMarkColour;
     }
 
-    public static Paint getGetNoEntryTileBackGroundColour(){
+    public static Paint getGetNoEntryTileBackGroundColour() {
         return getNoEntryTileBackGroundColour;
     }
 

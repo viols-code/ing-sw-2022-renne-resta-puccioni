@@ -35,12 +35,12 @@ public class MockCard {
     /**
      * The number of no entry tile
      */
-    private IntegerProperty numberOfNoEntryTile;
+    private final IntegerProperty numberOfNoEntryTile;
 
     /**
      * The students on the card
      */
-    private ObservableMap<Colour, Integer> students;
+    private final ObservableMap<Colour, Integer> students;
 
     /**
      * Constructs the character card
@@ -176,7 +176,9 @@ public class MockCard {
         return new HashMap<>(students);
     }
 
-    public ObservableMap<Colour, Integer> getStudentsProperty(){return students;}
+    public ObservableMap<Colour, Integer> getStudentsProperty() {
+        return students;
+    }
 
     /**
      * Sets the students on the card

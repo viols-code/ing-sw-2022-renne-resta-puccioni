@@ -285,9 +285,9 @@ public abstract class ModelUpdateHandler {
      * @param groupIsland2 the index of the second gorup island
      */
     public void updateUnifyIsland(int groupIsland1, int groupIsland2) {
-        for(MockGroupIsland groupIsland: view.getModel().getTable().getGroupIslands()){
+        for (MockGroupIsland groupIsland : view.getModel().getTable().getGroupIslands()) {
             groupIsland.clearInfluentPlayerProperty();
-            if(view.getModel().isCharacterCardPresent(CharacterCardEnumeration.PROTECT_ISLAND)){
+            if (view.getModel().isCharacterCardPresent(CharacterCardEnumeration.PROTECT_ISLAND)) {
                 groupIsland.clearNoEntryTileProperty();
             }
         }

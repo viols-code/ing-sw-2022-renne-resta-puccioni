@@ -28,7 +28,7 @@ public class MockGroupIsland {
     /**
      * A boolean that states if mother nature is on this island
      */
-    private BooleanProperty motherNature;
+    private final BooleanProperty motherNature;
 
     /**
      * The Player influence
@@ -148,20 +148,18 @@ public class MockGroupIsland {
         this.influentPlayer.setValue(influentPlayer);
     }
 
-    public void clearInfluentPlayerProperty(){
-        if(this.influentPlayer.getValue()!=null){
+    public void clearInfluentPlayerProperty() {
+        if (this.influentPlayer.getValue() != null) {
             this.influentPlayer = new SimpleStringProperty(this.influentPlayer.getValue());
-        }
-        else{
+        } else {
             this.influentPlayer = new SimpleStringProperty();
         }
     }
 
-    public void clearNoEntryTileProperty(){
-        if(this.noEntryTile.getValue()!=null){
+    public void clearNoEntryTileProperty() {
+        if (this.noEntryTile.getValue() != null) {
             this.noEntryTile = new SimpleIntegerProperty(this.noEntryTile.getValue());
-        }
-        else{
+        } else {
             this.noEntryTile = new SimpleIntegerProperty();
         }
     }

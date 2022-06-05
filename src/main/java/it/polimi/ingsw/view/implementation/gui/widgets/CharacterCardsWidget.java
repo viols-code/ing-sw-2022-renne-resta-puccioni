@@ -89,20 +89,20 @@ public class CharacterCardsWidget extends StackPane {
 
                 initStudentsOnCard(i);
 
-            int card = i;
-            GUI.instance().getModel().getCharacterCardByIndex(i).getStudentsProperty().addListener((MapChangeListener<? super Colour, ? super Integer>) listener ->
+                int card = i;
+                GUI.instance().getModel().getCharacterCardByIndex(i).getStudentsProperty().addListener((MapChangeListener<? super Colour, ? super Integer>) listener ->
 
-                    Platform.runLater(() -> {
-                        if (card == 0) {
-                            studentsOnCard0.getChildren().clear();
-                        } else if (card == 1) {
-                            studentsOnCard1.getChildren().clear();
-                        } else {
-                            studentsOnCard2.getChildren().clear();
-                        }
-                        initStudentsOnCard(card);
-                    }
-            ));
+                        Platform.runLater(() -> {
+                                    if (card == 0) {
+                                        studentsOnCard0.getChildren().clear();
+                                    } else if (card == 1) {
+                                        studentsOnCard1.getChildren().clear();
+                                    } else {
+                                        studentsOnCard2.getChildren().clear();
+                                    }
+                                    initStudentsOnCard(card);
+                                }
+                        ));
 
             }
         }
@@ -136,10 +136,10 @@ public class CharacterCardsWidget extends StackPane {
                     }
                 }
 
-                if(GUI.instance().getPlayerName().equals(GUI.instance().getModel().getCurrentPlayer().getNickname())){
+                if (GUI.instance().getPlayerName().equals(GUI.instance().getModel().getCurrentPlayer().getNickname())) {
                     switch (newVal.getType()) {
-                        case NO_COLOUR,THREE_STUDENT-> imageViewList.get(a).setOnMouseClicked(event -> Platform.runLater(() -> GUI.instance().showColourDecision()));
-                        case PROTECT_ISLAND,ISLAND_INFLUENCE,STUDENT_TO_ISLAND -> imageViewList.get(a).setOnMouseClicked(event -> Platform.runLater(() -> GUI.instance().showGroupIslandDecision()));
+                        case NO_COLOUR, THREE_STUDENT -> imageViewList.get(a).setOnMouseClicked(event -> Platform.runLater(() -> GUI.instance().showColourDecision()));
+                        case PROTECT_ISLAND, ISLAND_INFLUENCE, STUDENT_TO_ISLAND -> imageViewList.get(a).setOnMouseClicked(event -> Platform.runLater(() -> GUI.instance().showGroupIslandDecision()));
                     }
                 }
             }
@@ -153,9 +153,9 @@ public class CharacterCardsWidget extends StackPane {
 
     @FXML
     private void setStudent(Colour colour) {
-        if(GUI.instance().getPlayerName().equals(GUI.instance().getModel().getCurrentPlayer().getNickname())){
-            if(GUI.instance().getModel().getCurrentCharacterCard().getType().equals(CharacterCardEnumeration.STUDENT_TO_ISLAND) ||
-                GUI.instance().getModel().getCurrentCharacterCard().getType().equals(CharacterCardEnumeration.STUDENT_TO_DINING_ROOM)){
+        if (GUI.instance().getPlayerName().equals(GUI.instance().getModel().getCurrentPlayer().getNickname())) {
+            if (GUI.instance().getModel().getCurrentCharacterCard().getType().equals(CharacterCardEnumeration.STUDENT_TO_ISLAND) ||
+                    GUI.instance().getModel().getCurrentCharacterCard().getType().equals(CharacterCardEnumeration.STUDENT_TO_DINING_ROOM)) {
                 GUI.instance().getModel().setStudentOnCardSelected(colour);
             }
         }
@@ -167,7 +167,7 @@ public class CharacterCardsWidget extends StackPane {
     }
 
     @FXML
-    private void initStudentsOnCard(int i){
+    private void initStudentsOnCard(int i) {
         int c, r;
         c = 0;
         r = 0;

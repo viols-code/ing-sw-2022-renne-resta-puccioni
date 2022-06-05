@@ -35,9 +35,9 @@ public class NoColourThreeStudentWidget extends StackPane {
     @FXML
     public void initialize() {
 
-        if(GUI.instance().getModel().getCurrentCharacterCard().getType() == CharacterCardEnumeration.NO_COLOUR){
+        if (GUI.instance().getModel().getCurrentCharacterCard().getType() == CharacterCardEnumeration.NO_COLOUR) {
             label.setText("Choose the colour you don't want to be considered during the influence computation:");
-        } else if (GUI.instance().getModel().getCurrentCharacterCard().getType() == CharacterCardEnumeration.THREE_STUDENT){
+        } else if (GUI.instance().getModel().getCurrentCharacterCard().getType() == CharacterCardEnumeration.THREE_STUDENT) {
             label.setText("Choose the colour of the three students you want to remove from everybody's dining room:");
         }
         blue.setOnMouseClicked(event -> GUI.instance().getActionSender().setColour(GUI.instance().getPlayerName(), Colour.BLUE));

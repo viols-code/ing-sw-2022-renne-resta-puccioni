@@ -13,7 +13,7 @@
         <Button layoutX="200.0" layoutY="55.0" mnemonicParsing="false" onAction="#showCharacterCards"
                 text="Go back to Character Cards"/>
 
-        <Label fx:id = "label" layoutX="229.0" layoutY="105" prefHeight="122.0" prefWidth="1080.0"
+        <Label fx:id="label" layoutX="229.0" layoutY="105" prefHeight="122.0" prefWidth="1080.0"
                text="Choose the colour you don't want to be considered during the influence computation:">
             <font>
                 <Font name="System Bold Italic" size="22.0"/>

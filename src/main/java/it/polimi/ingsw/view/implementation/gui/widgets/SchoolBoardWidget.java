@@ -261,7 +261,7 @@ public class SchoolBoardWidget extends StackPane {
                         diningRoom.setOnMouseClicked(event -> GUI.instance().getActionSender().setColour(GUI.instance().getPlayerName(), GUI.instance().getModel().getStudentOnCardSelected()));
                     }
                 }));
-        }
+    }
 
     private int getDiningRoomTable(Colour colour) {
         int res = -1;
