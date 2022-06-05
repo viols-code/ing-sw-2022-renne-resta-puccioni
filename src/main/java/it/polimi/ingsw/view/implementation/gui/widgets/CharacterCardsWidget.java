@@ -7,6 +7,7 @@ import it.polimi.ingsw.view.beans.MockCard;
 import it.polimi.ingsw.view.implementation.gui.GUI;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
+import javafx.collections.MapChangeListener;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
@@ -76,38 +77,33 @@ public class CharacterCardsWidget extends StackPane {
             imageView.setImage(new Image(Objects.requireNonNull(CharacterCardsWidget.class.getResourceAsStream(
                     "/images/characterCards/" + GUI.instance().getModel().getCharacterCardByIndex(i).getType().name() + ".jpg"))));
 
-            int c, r;
-            c = 0;
-            r = 0;
-
             if (GUI.instance().getModel().getCharacterCardByIndex(i).getNumberOfStudentsOnTheCard() > 0) {
-                for (Colour colour : Colour.values()) {
-                    for (int j = 0; j < GUI.instance().getModel().getCharacterCardByIndex(i).getStudents().get(colour); j++) {
-                        FlowPane pane = new FlowPane();
-                        pane.getStyleClass().add("student");
-                        ImageView imageViewStudent = new ImageView();
-                        pane.getChildren().add(imageViewStudent);
-                        imageViewStudent.setImage(new Image(Objects.requireNonNull(CharacterCardsWidget.class.getResourceAsStream(
-                                "/images/students/student_" + colour.name().toLowerCase(Locale.ROOT) + ".png"))));
-                        imageViewStudent.setOnMouseClicked(event -> {
-                            pane.getStyleClass().add("studentSelected");
-                            setStudent(colour);
-                        });
-                        if (i == 0) {
-                            studentsOnCard0.add(pane, r, c);
-                        } else if (i == 1) {
-                            studentsOnCard1.add(pane, r, c);
-                        } else {
-                            studentsOnCard2.add(pane, r, c);
-                        }
-                        if (r == 2) {
-                            c += 2;
-                            r = 0;
-                        } else {
-                            r = 2;
-                        }
-                    }
+
+                if (i == 0) {
+                    studentsOnCard0.getChildren().clear();
+                } else if (i == 1) {
+                    studentsOnCard1.getChildren().clear();
+                } else {
+                    studentsOnCard2.getChildren().clear();
                 }
+
+                initStudentsOnCard(i);
+
+            int card = i;
+            GUI.instance().getModel().getCharacterCardByIndex(i).getStudentsProperty().addListener((MapChangeListener<? super Colour, ? super Integer>) listener ->
+
+                    Platform.runLater(() -> {
+                        if (card == 0) {
+                            studentsOnCard0.getChildren().clear();
+                        } else if (card == 1) {
+                            studentsOnCard1.getChildren().clear();
+                        } else {
+                            studentsOnCard2.getChildren().clear();
+                        }
+                        initStudentsOnCard(card);
+                    }
+            ));
+
             }
         }
 
@@ -161,6 +157,9 @@ public class CharacterCardsWidget extends StackPane {
             if(GUI.instance().getModel().getCurrentCharacterCard().getType().equals(CharacterCardEnumeration.STUDENT_TO_ISLAND)){
                 GUI.instance().getModel().setStudentOnCardSelected(colour);
             }
+            else if(GUI.instance().getModel().getCurrentCharacterCard().getType().equals(CharacterCardEnumeration.STUDENT_TO_DINING_ROOM)){
+                GUI.instance().getModel().setStudentOnCardSelected(colour);
+            }
         }
     }
 
@@ -168,4 +167,41 @@ public class CharacterCardsWidget extends StackPane {
     private void showSchoolBoard() {
         GUI.instance().showPlayerBoard();
     }
+
+    @FXML
+    private void initStudentsOnCard(int i){
+        int c, r;
+        c = 0;
+        r = 0;
+
+        for (Colour colour : Colour.values()) {
+            for (int j = 0; j < GUI.instance().getModel().getCharacterCardByIndex(i).getStudents().get(colour); j++) {
+                FlowPane pane = new FlowPane();
+                pane.getStyleClass().add("student");
+                ImageView imageViewStudent = new ImageView();
+                pane.getChildren().add(imageViewStudent);
+                imageViewStudent.setImage(new Image(Objects.requireNonNull(CharacterCardsWidget.class.getResourceAsStream(
+                        "/images/students/student_" + colour.name().toLowerCase(Locale.ROOT) + ".png"))));
+                imageViewStudent.setOnMouseClicked(event -> {
+                    pane.getStyleClass().add("studentSelected");
+                    setStudent(colour);
+                });
+                if (i == 0) {
+                    studentsOnCard0.add(pane, r, c);
+                } else if (i == 1) {
+                    studentsOnCard1.add(pane, r, c);
+                } else {
+                    studentsOnCard2.add(pane, r, c);
+                }
+                if (r == 2) {
+                    c += 2;
+                    r = 0;
+                } else {
+                    r = 2;
+                }
+            }
+        }
+    }
+
+
 }
