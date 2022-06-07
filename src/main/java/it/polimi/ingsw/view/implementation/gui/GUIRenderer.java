@@ -23,7 +23,15 @@ public class GUIRenderer extends Renderer {
 
     @Override
     public void showGameMessage(String message) {
-
+        Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Game Info");
+            alert.setHeaderText(null);
+            alert.setContentText(message);
+            alert.setHeight(500);
+            alert.setWidth(500);
+            alert.showAndWait();
+        });
     }
 
     @Override
