@@ -182,10 +182,32 @@ public class CharacterCardsWidget extends StackPane {
                 pane.getChildren().add(imageViewStudent);
                 imageViewStudent.setImage(new Image(Objects.requireNonNull(CharacterCardsWidget.class.getResourceAsStream(
                         "/images/students/student_" + colour.name().toLowerCase(Locale.ROOT) + ".png"))));
-                imageViewStudent.setOnMouseClicked(event -> {
-                    pane.getStyleClass().add("studentSelected");
-                    setStudent(colour);
-                });
+
+                if(GUI.instance().getModel().getCurrentCharacterCard().getType() == CharacterCardEnumeration.BASIC_STATE){
+                    imageViewStudent.setOnMouseClicked(event -> {
+                        GUI.instance().getRenderer().showErrorMessage("You must pay the character card first");
+                    });
+                } else {
+                    imageViewStudent.setOnMouseClicked(event -> {
+                        pane.getStyleClass().add("studentSelected");
+                        setStudent(colour);
+                    });
+                }
+
+                GUI.instance().getModel().currentCharacterCardProperty().addListener((ChangeListener<? super MockCard>) (change, oldVal, newVal) ->
+                        Platform.runLater(() -> {
+                            if(newVal.getType() == CharacterCardEnumeration.BASIC_STATE){
+                                imageViewStudent.setOnMouseClicked(event -> {
+                                    GUI.instance().getRenderer().showErrorMessage("You must pay the character card first");
+                                });
+                            } else {
+                                imageViewStudent.setOnMouseClicked(event -> {
+                                    pane.getStyleClass().add("studentSelected");
+                                    setStudent(colour);
+                                });
+                            }
+                }));
+
                 if (i == 0) {
                     studentsOnCard0.add(pane, r, c);
                 } else if (i == 1) {
