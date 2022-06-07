@@ -125,12 +125,14 @@ public class SchoolBoardWidget extends StackPane {
             int a = i;
             button.setOnMouseClicked(event -> Platform.runLater(() -> GUI.instance().showOtherPlayerBoard(players.get(a))));
             gridPane.add(button, 0, row);
+            button.getStyleClass().add("game-button");
             row++;
         }
 
         if (GUI.instance().getGameMode()) {
             Button button = new Button();
             button.setText("Character Cards");
+            button.getStyleClass().add("game-button");
             button.setOnMouseClicked(event -> Platform.runLater(() -> GUI.instance().showCharacterCards()));
             gridPane.add(button, 0, row);
 
@@ -305,7 +307,7 @@ public class SchoolBoardWidget extends StackPane {
             //Add a listener to the studentOnCardSelected
             GUI.instance().getModel().getStudentOnCardSelectedProperty().addListener((ChangeListener<? super Colour>) (change, oldVal, newVal) ->
                     Platform.runLater(() -> {
-                        //If the card is Student_To_Entrance and the current player has selected a srudent on the card the student will be exchanged with the one selected in the entrance
+                        //If the card is Student_To_Entrance and the current player has selected a student on the card the student will be exchanged with the one selected in the entrance
                         if (newVal != null && GUI.instance().getModel().getCurrentCharacterCard().getType() == CharacterCardEnumeration.STUDENT_TO_ENTRANCE) {
                             imageView.setOnMouseClicked(event -> {
                                 flowPane.getStyleClass().add("studentSelected");
