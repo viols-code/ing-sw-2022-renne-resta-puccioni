@@ -2,44 +2,71 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<BorderPane styleClass="background" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/18"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="it.polimi.ingsw.view.implementation.gui.controllers.NicknameSelection">
+
+<BorderPane prefHeight="720.0" prefWidth="1080.0" styleClass="background" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.implementation.gui.controllers.NicknameSelection">
     <center>
         <VBox alignment="CENTER">
             <Label>Enter your username:
                 <font>
-                    <Font name="System Bold Italic" size="48.0"/>
+                    <Font name="System Bold Italic" size="48.0" />
                 </font>
                 <VBox.margin>
-                    <Insets bottom="30.0" left="30.0" right="30.0" top="5.0"/>
+                    <Insets bottom="30.0" left="30.0" right="30.0" top="5.0" />
                 </VBox.margin>
                 <padding>
-                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                 </padding>
             </Label>
             <TextField fx:id="username" maxWidth="200">
                 <font>
-                    <Font size="15.0"/>
+                    <Font size="15.0" />
                 </font>
                 <VBox.margin>
-                    <Insets bottom="20.0"/>
+                    <Insets bottom="20.0" />
                 </VBox.margin>
             </TextField>
-            <Button styleClass="controllerButton" fx:id="choose" text="Choose">
+            <Button fx:id="choose" styleClass="controllerButton" text="Choose">
                 <VBox.margin>
-                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                 </VBox.margin>
             </Button>
             <Label fx:id="wrongNickname" visible="false">
                 <font>
-                    <Font size="20.0"/>
+                    <Font size="20.0" />
                 </font>
             </Label>
         </VBox>
     </center>
+   <bottom>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Is this your first time with this game? ">
+               <font>
+                  <Font name="System Bold Italic" size="18.0" />
+               </font>
+            </Label>
+            <Label text="If you want to be guided during the game click on the check box below! ">
+               <font>
+                  <Font name="System Bold Italic" size="18.0" />
+               </font>
+            </Label>
+            <Label text="You can also enable or disable the guide at any time during the game clicking on the button at top right in your school board.">
+               <font>
+                  <Font name="System Bold Italic" size="18.0" />
+               </font>
+            </Label>
+            <CheckBox fx:id="guideMode" mnemonicParsing="false" onAction="#enableGuideMode" text="Enable Guide">
+               <font>
+                  <Font name="System Bold Italic" size="18.0" />
+               </font>
+            </CheckBox>
+         </children>
+      </VBox>
+   </bottom>
 </BorderPane>

@@ -35,6 +35,8 @@ public class SchoolBoardWidget extends StackPane {
     /*
      *BUTTONS
      */
+    @FXML
+    private Button guidedModeButton;
 
     @FXML
     private GridPane gridPane;
@@ -92,6 +94,13 @@ public class SchoolBoardWidget extends StackPane {
     private void initialize() {
         entranceBoxes = new ArrayList<>(Arrays.asList(new Coordinates(2, 0), new Coordinates(0, 2), new Coordinates(2, 2), new Coordinates(0, 4), new Coordinates(2, 4), new Coordinates(0, 6), new Coordinates(2, 6), new Coordinates(0, 8), new Coordinates(2, 8)));
 
+        //sets the text on the button for the guide
+        if(GUI.instance().isGuidedMode()){
+            guidedModeButton.setText("Disable Guide");
+        }
+        else{
+            guidedModeButton.setText("Enable Guide");
+        }
         //Shows the current Player
         currentPlayerLabel.setText(GUI.instance().isOwnTurn() ? "Yours" :
                 GUI.instance().getModel().getCurrentPlayer().getNickname());
@@ -455,6 +464,18 @@ public class SchoolBoardWidget extends StackPane {
         GUI.instance().getModel().setSelectedColour(null);
 
         GUI.instance().showCloudTile();
+    }
+
+    @FXML
+    public void changeGuideMode(){
+        if(GUI.instance().isGuidedMode()){
+            guidedModeButton.setText("Enable Guide");
+            GUI.instance().setGuidedMode(false);
+        }
+        else{
+            guidedModeButton.setText("Disable Guide");
+            GUI.instance().setGuidedMode(true);
+        }
     }
 
 
