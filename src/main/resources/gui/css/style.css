@@ -72,3 +72,32 @@
 .background {
     -fx-background-color: #DDEFFF;
 }
+
+.controllerButton {
+    -fx-align-items: center;
+    -fx-background-color: rgb(5, 6, 45);
+    -fx-border-style: solid;
+    -fx-border-width: 3px;
+    -fx-border-color: linear-gradient(to left top,#AF40FF, #5B42F3 50%,#00DDEB);
+    -fx-text-fill: #FFFFFF;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-pref-width: 100px;
+    -fx-pref-height: 40px;
+    -fx-font-family: sans-serif;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 12px;
+    }
+
+.controllerButton:hover {
+    -fx-background-color: linear-gradient(to left top,#AF40FF, #5B42F3 50%,#00DDEB);
+    -fx-text-fill: #FFFFFF;
+    -fx-pref-width: 100px;
+    -fx-pref-height: 40px;
+    -fx-font-family: sans-serif;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 12px;
+}
+
