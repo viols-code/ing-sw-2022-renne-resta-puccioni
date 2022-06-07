@@ -26,6 +26,7 @@ public class GUI extends View {
     private static GroupIslandsWidget groupIslandsWidget;
     private static AssistantCardsWidget assistantCardsWidget;
     private static CharacterCardsWidget characterCardsWidget;
+    private boolean guidedMode = false;
 
     /**
      * Constructor of a new GUI.
@@ -244,4 +245,11 @@ public class GUI extends View {
         return getModel().getCurrentPlayer().getNickname().equals(getModel().getLocalPlayer().getNickname());
     }
 
+    public boolean isGuidedMode() {
+        return guidedMode;
+    }
+
+    public void setGuidedMode(boolean guidedMode) {
+        this.guidedMode = guidedMode;
+    }
 }
