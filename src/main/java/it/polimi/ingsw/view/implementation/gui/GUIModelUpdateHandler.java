@@ -30,15 +30,16 @@ public class GUIModelUpdateHandler extends ModelUpdateHandler {
     @Override
     public void updateTurnPhase(TurnPhase turnPhase){
         super.updateTurnPhase(turnPhase);
-        if(turnPhase != TurnPhase.WAITING && turnPhase != TurnPhase.ENDGAME){
-            if(GUI.instance().getModel().getCurrentPlayer().getNickname().equals(GUI.instance().getPlayerName())){
-                GUI.instance().getRenderer().showGameMessage(getYourTurnMessage());
-            }
-            else{
-                GUI.instance().getRenderer().showGameMessage(getOtherTurnMessage());
+        if(GUI.instance().isGuidedMode()){
+            if(turnPhase != TurnPhase.WAITING && turnPhase != TurnPhase.ENDGAME){
+                if(GUI.instance().getModel().getCurrentPlayer().getNickname().equals(GUI.instance().getPlayerName())){
+                    GUI.instance().getRenderer().showGameMessage(getYourTurnMessage());
+                }
+                else{
+                    GUI.instance().getRenderer().showGameMessage(getOtherTurnMessage());
+                }
             }
         }
-
     }
 
     private String getYourTurnMessage(){
@@ -83,13 +84,16 @@ public class GUIModelUpdateHandler extends ModelUpdateHandler {
      */
     @Override
     public void updateActiveCharacterCard(CharacterCardEnumeration characterCard){
-        if (characterCard == CharacterCardEnumeration.BASIC_STATE) {
-            GUI.instance().getRenderer().showGameMessage("The character card played is not active anymore");
-        } else if(GUI.instance().getModel().getCurrentPlayer().getNickname().equals(GUI.instance().getPlayerName())){
-            GUI.instance().getRenderer().showGameMessage("You played the character card " + characterCard + "\n" + getCharacterCardMessage(characterCard));
-        }
-        else{
-            GUI.instance().getRenderer().showGameMessage(GUI.instance().getModel().getCurrentPlayer().getNickname() + " played the character card " + characterCard);
+        super.updateActiveCharacterCard(characterCard);
+        if(GUI.instance().isGuidedMode()){
+            if (characterCard == CharacterCardEnumeration.BASIC_STATE) {
+                GUI.instance().getRenderer().showGameMessage("The character card played is not active anymore");
+            } else if(GUI.instance().getModel().getCurrentPlayer().getNickname().equals(GUI.instance().getPlayerName())){
+                GUI.instance().getRenderer().showGameMessage("You played the character card " + characterCard + "\n" + getCharacterCardMessage(characterCard));
+            }
+            else{
+                GUI.instance().getRenderer().showGameMessage(GUI.instance().getModel().getCurrentPlayer().getNickname() + " played the character card " + characterCard);
+            }
         }
     }
 
