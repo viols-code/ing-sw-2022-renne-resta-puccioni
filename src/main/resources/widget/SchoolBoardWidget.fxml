@@ -132,12 +132,13 @@
                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 </rowConstraints>
                 <children>
-                    <Button fx:id="islandsButton" mnemonicParsing="false" onAction="#goToIsland" styleClass="game-button" text="ISLANDS" GridPane.rowIndex="0" />
-                    <Button fx:id="deckButton" mnemonicParsing="false" onAction="#goToAssistantCards" styleClass="game-button" text="DECK" GridPane.rowIndex="1" />
-                    <Button fx:id="cloudTileButton" mnemonicParsing="false" onAction="#goToCloudTile" styleClass="game-button" text="CLOUD TILES" GridPane.rowIndex="2" />
+                    <Button fx:id="islandsButton" mnemonicParsing="false" onAction="#goToIsland" styleClass="game-button" text="Islands" GridPane.rowIndex="0" />
+                    <Button fx:id="deckButton" mnemonicParsing="false" onAction="#goToAssistantCards" styleClass="game-button" text="Deck" GridPane.rowIndex="1" />
+                    <Button fx:id="cloudTileButton" mnemonicParsing="false" onAction="#goToCloudTile" styleClass="game-button" text="Cloud Tiles" GridPane.rowIndex="2" />
                 </children>
             </GridPane>
             <ImageView fx:id="currentAssistantCard" fitHeight="159.9" fitWidth="109.2" layoutX="276.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" />
+         <Button fx:id="guidedModeButton" layoutX="963.0" layoutY="17.0" mnemonicParsing="false" onAction="#changeGuideMode" styleClass="game-button" text="Enable Guide" />
         </children>
     </AnchorPane>
 </fx:root>
