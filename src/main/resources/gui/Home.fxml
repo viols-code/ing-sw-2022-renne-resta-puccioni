@@ -49,7 +49,7 @@
                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                 </VBox.margin>
             </TextField>
-            <ToggleButton fx:id="connect" mnemonicParsing="false" text="Connect" textFill="#5569b9">
+            <ToggleButton styleClass="controllerButton" fx:id="connect" mnemonicParsing="false" text="Connect" >
                 <VBox.margin>
                     <Insets bottom="10.0" left="5.0" right="5.0" top="15.0"/>
                 </VBox.margin>

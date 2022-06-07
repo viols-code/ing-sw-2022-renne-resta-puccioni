@@ -16,7 +16,7 @@
                 <Font name="Comic Sans MS Bold Italic" size="48.0"/>
             </font>
         </Label>
-        <Button layoutX="53.0" layoutY="70.0" mnemonicParsing="false" onAction="#showSchoolBoard"
+        <Button styleClass="game-button" layoutY="70.0" mnemonicParsing="false" onAction="#showSchoolBoard"
                 text="GO BACK TO SCHOOL BOARD"/>
         <Label layoutX="778.0" layoutY="74.0" text="Table Coins: ">
             <font>
