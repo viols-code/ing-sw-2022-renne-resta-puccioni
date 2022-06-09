@@ -112,7 +112,7 @@ public class OtherSchoolBoardWidget extends StackPane {
                     entrance.getChildren().removeAll();
                     List<Colour> students = new ArrayList<>();
                     for (Colour colour : Colour.values()) {
-                        for (int i = 0; i < GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getEntrance().get(colour); i++) {
+                        for (int i = 0; i < player.getSchoolBoard().getEntrance().get(colour); i++) {
                             students.add(colour);
                         }
                     }
@@ -149,7 +149,7 @@ public class OtherSchoolBoardWidget extends StackPane {
                 diningRoomImages.add(imageView);
                 diningRoom.add(imageView, i, getDiningRoomTable(colour));
                 imageView.setImage(new Image(Objects.requireNonNull(SchoolBoardWidget.class.getResourceAsStream(
-                        "/images/students/student_" + colour + ".png"))));
+                        "/images/students/student_" + colour.name().toLowerCase(Locale.ROOT) + ".png"))));
 
             }
         }
@@ -186,7 +186,7 @@ public class OtherSchoolBoardWidget extends StackPane {
                 professorsImage.add(imageView);
                 professorsTable.add(imageView, 0, getDiningRoomTable(colour));
                 imageView.setImage(new Image(Objects.requireNonNull(SchoolBoardWidget.class.getResourceAsStream(
-                        "/images/professors/teacher_" + colour + ".png")), 40, 40, false, false));
+                        "/images/professors/teacher_" + colour.name().toLowerCase(Locale.ROOT) + ".png")), 40, 40, false, false));
 
             }
         }

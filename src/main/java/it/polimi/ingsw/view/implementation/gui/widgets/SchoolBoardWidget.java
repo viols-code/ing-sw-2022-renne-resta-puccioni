@@ -270,7 +270,7 @@ public class SchoolBoardWidget extends StackPane {
                 diningRoomImage.add(imageView);
                 diningRoom.add(imageView, i, getDiningRoomTable(colour));
                 imageView.setImage(new Image(Objects.requireNonNull(SchoolBoardWidget.class.getResourceAsStream(
-                        "/images/students/student_" + colour + ".png"))));
+                        "/images/students/student_" + colour.name().toLowerCase(Locale.ROOT) + ".png"))));
 
             }
         }
@@ -353,7 +353,7 @@ public class SchoolBoardWidget extends StackPane {
                 professorImage.add(imageView);
                 professorsTable.add(imageView, 0, getDiningRoomTable(colour));
                 imageView.setImage(new Image(Objects.requireNonNull(SchoolBoardWidget.class.getResourceAsStream(
-                        "/images/professors/teacher_" + colour + ".png")), 40, 40, false, false));
+                        "/images/professors/teacher_" + colour.name().toLowerCase(Locale.ROOT) + ".png")), 40, 40, false, false));
 
             }
         }
