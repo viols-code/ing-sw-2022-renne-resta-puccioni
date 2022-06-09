@@ -26,7 +26,7 @@ public class GUI extends View {
     private static GroupIslandsWidget groupIslandsWidget;
     private static AssistantCardsWidget assistantCardsWidget;
     private static CharacterCardsWidget characterCardsWidget;
-    private boolean guidedMode = false;
+    private boolean guidedMode;
 
     /**
      * Constructor of a new GUI.
@@ -46,7 +46,7 @@ public class GUI extends View {
         groupIslandsWidget = null;
         characterCardsWidget = null;
         assistantCardsWidget = null;
-
+        guidedMode = false;
     }
 
     /**
