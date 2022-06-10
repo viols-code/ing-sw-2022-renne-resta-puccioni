@@ -57,7 +57,7 @@ public class CloudTileWidget extends StackPane {
 
     public void initializeCloudTileImages() {
         List<Coordinates> cloud1 = new ArrayList<>(List.of(new Coordinates(440, 260)));
-        List<Coordinates> cloud2 = new ArrayList<>(Arrays.asList(new Coordinates(240, 260), new Coordinates(540, 260)));
+        List<Coordinates> cloud2 = new ArrayList<>(Arrays.asList(new Coordinates(320, 260), new Coordinates(620, 260)));
         List<Coordinates> cloud3 = new ArrayList<>(Arrays.asList(new Coordinates(140, 260), new Coordinates(440, 260), new Coordinates(740, 260)));
 
         for (int i = 0; i < GUI.instance().getModel().getTable().getShownCloudTiles().size(); i++) {
