@@ -23,3 +23,81 @@
     -fx-border-width: 2.0;
     -fx-border-style: solid;
 }
+
+.assistantCards:hover {
+    -fx-border-color: orange;
+    -fx-border-width: 2.0;
+    -fx-border-style: solid;
+}
+
+.student:hover {
+    -fx-border-color: orange;
+    -fx-border-width: 2.0;
+    -fx-border-style: solid;
+    -fx-border-radius: 20;
+}
+
+.cloudTile:hover {
+    -fx-border-color: orange;
+    -fx-border-width: 2.0;
+    -fx-border-style: solid;
+    -fx-border-radius: 20;
+}
+
+.diningRoom:hover {
+    -fx-border-color: orange;
+    -fx-border-width: 2.0;
+    -fx-border-style: solid;
+}
+
+.studentSelected {
+    -fx-border-color: orange;
+    -fx-border-width: 2.0;
+    -fx-border-style: solid;
+    -fx-border-radius: 20;
+}
+
+.singleIsland:hover {
+    -fx-border-color: orange;
+    -fx-border-width: 2.0;
+    -fx-border-style: solid;
+}
+
+.groupIsland:hover {
+    -fx-border-color: red;
+    -fx-border-width: 2.0;
+    -fx-border-style: solid;
+}
+
+.background {
+    -fx-background-color: #DDEFFF;
+}
+
+.controllerButton {
+    -fx-align-items: center;
+    -fx-background-color: rgb(5, 6, 45);
+    -fx-border-style: solid;
+    -fx-border-width: 3px;
+    -fx-border-color: linear-gradient(to left top,#AF40FF, #5B42F3 50%,#00DDEB);
+    -fx-text-fill: #FFFFFF;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-pref-width: 100px;
+    -fx-pref-height: 40px;
+    -fx-font-family: sans-serif;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 12px;
+    }
+
+.controllerButton:hover {
+    -fx-background-color: linear-gradient(to left top,#AF40FF, #5B42F3 50%,#00DDEB);
+    -fx-text-fill: #FFFFFF;
+    -fx-pref-width: 100px;
+    -fx-pref-height: 40px;
+    -fx-font-family: sans-serif;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 12px;
+}
+

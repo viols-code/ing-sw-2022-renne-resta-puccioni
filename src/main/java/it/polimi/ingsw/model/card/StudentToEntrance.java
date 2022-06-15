@@ -67,6 +67,7 @@ public class StudentToEntrance extends CharacterCard {
         students.replace(colourEntrance, students.get(colourEntrance), students.get(colourEntrance) + 1);
         if (times == 2) {
             resetTimes();
+            setColourCardEntrance(null, null);
             game.setActiveCharacterCard(game.getBasicState());
         } else {
             increaseTimes();
@@ -84,10 +85,12 @@ public class StudentToEntrance extends CharacterCard {
     public void setColourCardEntrance(Colour colourCard, Colour colourEntrance) throws IllegalAccessError {
         this.colourCard = colourCard;
         this.colourEntrance = colourEntrance;
-        if (students.get(colourCard) > 0) {
-            this.effect();
-        } else {
-            throw new IllegalArgumentException("There is no student of such colour on the card");
+        if (colourCard != null && colourEntrance != null) {
+            if (students.get(colourCard) > 0) {
+                this.effect();
+            } else {
+                throw new IllegalArgumentException("There is no student of such colour on the card");
+            }
         }
     }
 

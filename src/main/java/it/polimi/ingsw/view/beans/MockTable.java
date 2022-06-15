@@ -1,8 +1,12 @@
 package it.polimi.ingsw.view.beans;
 
 import it.polimi.ingsw.model.Colour;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -13,14 +17,14 @@ public class MockTable {
     /**
      * A list containing the cloud tiles
      */
-    private final List<MockCloudTile> cloudTiles;
+    private final ObservableList<MockCloudTile> cloudTiles;
 
-    private final List<MockCloudTile> shownCloudTiles;
+    private final ObservableList<MockCloudTile> shownCloudTiles;
 
     /**
      * A list containing the group islands
      */
-    private final List<MockGroupIsland> groupIslands;
+    private final ObservableList<MockGroupIsland> groupIslands;
 
     /**
      * A boolean that indicates if the bag is empty
@@ -30,23 +34,26 @@ public class MockTable {
     /**
      * Indicates the position of mother nature (index of the group island)
      */
-    private int motherNaturePosition;
+    private IntegerProperty motherNaturePosition;
 
     /**
      * The professors available on the table
      */
-    private final HashMap<Colour, Boolean> professorsAvailable;
+    private final ObservableMap<Colour, Boolean> professorsAvailable;
+
+    private IntegerProperty islandInfluenceChanged;
 
     /**
      * Constructs the table
      */
     public MockTable() {
-        cloudTiles = new ArrayList<>();
-        shownCloudTiles = new ArrayList<>();
-        groupIslands = new ArrayList<>();
+        cloudTiles = FXCollections.observableArrayList();
+        shownCloudTiles = FXCollections.observableArrayList();
+        groupIslands = FXCollections.observableArrayList();
         isBagEmpty = false;
-        motherNaturePosition = 0;
-        professorsAvailable = new HashMap<>();
+        motherNaturePosition = new SimpleIntegerProperty(0);
+        islandInfluenceChanged = new SimpleIntegerProperty();
+        professorsAvailable = FXCollections.observableHashMap();
         professorsAvailable.put(Colour.GREEN, true);
         professorsAvailable.put(Colour.RED, true);
         professorsAvailable.put(Colour.YELLOW, true);
@@ -64,7 +71,7 @@ public class MockTable {
      * @return professorAvailable the HashMap of professors available on the table
      */
     public HashMap<Colour, Boolean> getProfessorsAvailable() {
-        return professorsAvailable;
+        return new HashMap<>(professorsAvailable);
     }
 
     /**
@@ -93,7 +100,7 @@ public class MockTable {
     }
 
     /**
-     * Adds a cloud tile to the list shownCLoudTIles
+     * Adds a cloud tile to the list shownCLoudTiles
      */
     public void addShownCLoudTile() {
         shownCloudTiles.add(new MockCloudTile());
@@ -119,6 +126,16 @@ public class MockTable {
     }
 
     /**
+     * Gets the cloud tiles shown
+     *
+     * @return the list of the cloud tiles shown
+     */
+    public ObservableList<MockCloudTile> getShownCloudTilesProperty() {
+        return shownCloudTiles;
+    }
+
+
+    /**
      * Gets the cloud tile with a given index
      *
      * @param cloudTile the index of the cloud tile selected
@@ -142,7 +159,7 @@ public class MockTable {
      *
      * @param groupIsland the group island
      */
-    public void addGroupIsland(MockGroupIsland groupIsland) {
+    public synchronized void addGroupIsland(MockGroupIsland groupIsland) {
         groupIslands.add(groupIsland);
     }
 
@@ -151,7 +168,7 @@ public class MockTable {
      *
      * @return the list of groupIslands
      */
-    public List<MockGroupIsland> getGroupIslands() {
+    public synchronized List<MockGroupIsland> getGroupIslands() {
         return groupIslands;
     }
 
@@ -161,7 +178,7 @@ public class MockTable {
      * @param index the given index
      * @return the group island
      */
-    public MockGroupIsland getGroupIslandByIndex(int index) {
+    public synchronized MockGroupIsland getGroupIslandByIndex(int index) {
         return groupIslands.get(index);
     }
 
@@ -180,7 +197,7 @@ public class MockTable {
      * @param groupIsland1 the first group island
      * @param groupIsland2 the second group island (it will be removed after unification)
      */
-    public void unify(int groupIsland1, int groupIsland2) {
+    public synchronized void unify(int groupIsland1, int groupIsland2) {
         for (MockSingleIsland singleIsland : groupIslands.get(groupIsland2).getIslands()) {
             groupIslands.get(groupIsland1).addMockSingleIsland(singleIsland);
         }
@@ -211,7 +228,7 @@ public class MockTable {
      * @return an integer that indicates the current position of mother nature
      */
     public int getMotherNaturePosition() {
-        return motherNaturePosition;
+        return motherNaturePosition.getValue();
     }
 
     /**
@@ -220,10 +237,26 @@ public class MockTable {
      * @param motherNaturePosition the new position
      */
     public void setMotherNaturePosition(int motherNaturePosition) {
-        if (this.motherNaturePosition < getGroupIslands().size()) {
-            getGroupIslandByIndex(this.motherNaturePosition).setMotherNature(false);
+        if (this.motherNaturePosition.getValue() < getGroupIslands().size()) {
+            getGroupIslandByIndex(this.motherNaturePosition.getValue()).setMotherNature(false);
         }
-        this.motherNaturePosition = motherNaturePosition;
+        this.motherNaturePosition.setValue(motherNaturePosition);
         getGroupIslandByIndex(motherNaturePosition).setMotherNature(true);
+    }
+
+    public synchronized ObservableList<MockGroupIsland> getGroupIslandsProperty() {
+        return groupIslands;
+    }
+
+    public IntegerProperty getMotherNaturePositionProperty() {
+        return motherNaturePosition;
+    }
+
+    public IntegerProperty islandInfluenceChangedProperty() {
+        return islandInfluenceChanged;
+    }
+
+    public void setIslandInfluenceChanged(int islandInfluenceChanged) {
+        this.islandInfluenceChanged.set(islandInfluenceChanged);
     }
 }

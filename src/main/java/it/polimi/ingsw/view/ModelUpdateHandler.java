@@ -42,7 +42,7 @@ public abstract class ModelUpdateHandler {
      */
     public void updateActiveCharacterCard(CharacterCardEnumeration characterCard) {
         if (characterCard == CharacterCardEnumeration.BASIC_STATE) {
-            getView().getModel().setCurrentCharacterCard(null);
+            getView().getModel().setCurrentCharacterCard(getView().getModel().getBasicState());
         } else {
             getView().getModel().setCurrentCharacterCard(getView().getModel().getCharacterCardByType(characterCard));
         }
@@ -125,6 +125,7 @@ public abstract class ModelUpdateHandler {
      * @param assistantCard the index of the assistant card played in this turn
      */
     public void updateCurrentAssistantCard(String player, int assistantCard) {
+        getView().getModel().getPlayerByNickname(player).setAssistantCardValue(true);
         getView().getModel().getPlayerByNickname(player).setCurrentAssistantCard(assistantCard);
     }
 
@@ -186,6 +187,7 @@ public abstract class ModelUpdateHandler {
      */
     public void updateInfluencePlayerOnGroupIsland(String player, int groupIsland) {
         getView().getModel().getTable().getGroupIslandByIndex(groupIsland).setInfluentPlayer(player);
+        getView().getModel().getTable().setIslandInfluenceChanged(groupIsland);
     }
 
 
@@ -283,6 +285,12 @@ public abstract class ModelUpdateHandler {
      * @param groupIsland2 the index of the second gorup island
      */
     public void updateUnifyIsland(int groupIsland1, int groupIsland2) {
+        for (MockGroupIsland groupIsland : view.getModel().getTable().getGroupIslands()) {
+            groupIsland.clearInfluentPlayerProperty();
+            if (view.getModel().isCharacterCardPresent(CharacterCardEnumeration.PROTECT_ISLAND)) {
+                groupIsland.clearNoEntryTileProperty();
+            }
+        }
         getView().getModel().getTable().unify(groupIsland1, groupIsland2);
     }
 
@@ -329,6 +337,15 @@ public abstract class ModelUpdateHandler {
      */
     public void updateStudentToEntranceCard(HashMap<Colour, Integer> students) {
         getView().getModel().getCharacterCardByType(CharacterCardEnumeration.STUDENT_TO_ENTRANCE).setStudents(students);
+    }
+
+    /**
+     * Updates the current assistant card to null
+     *
+     * @param player the nickname of the player
+     */
+    public void updateCurrentAssistantCardNull(String player) {
+        getView().getModel().getPlayerByNickname(player).setAssistantCardValue(false);
     }
 
 

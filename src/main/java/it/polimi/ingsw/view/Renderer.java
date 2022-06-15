@@ -126,4 +126,7 @@ public abstract class Renderer {
      * Prints the available commands (useful for the CLI)
      */
     public abstract void help();
+
+    public void printSituation() {
+    }
 }

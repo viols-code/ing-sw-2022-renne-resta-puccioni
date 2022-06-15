@@ -71,6 +71,7 @@ public class StudentToDiningRoom extends CharacterCard {
             ex.printStackTrace();
         }
         notify(new StudentToDiningRoomUpdate(students));
+        setColour(null);
         game.setActiveCharacterCard(game.getBasicState());
     }
 
@@ -82,10 +83,12 @@ public class StudentToDiningRoom extends CharacterCard {
     @Override
     public void setColour(Colour colour) throws IllegalArgumentException {
         this.colour = colour;
-        if (students.get(colour) > 0) {
-            this.effect();
-        } else {
-            throw new IllegalArgumentException("The colour is not on the card");
+        if (colour != null) {
+            if (students.get(colour) > 0) {
+                this.effect();
+            } else {
+                throw new IllegalArgumentException("The colour is not on the card");
+            }
         }
     }
 

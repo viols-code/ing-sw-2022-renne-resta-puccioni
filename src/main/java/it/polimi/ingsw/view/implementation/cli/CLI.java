@@ -33,10 +33,11 @@ public class CLI extends View {
      * Handles the successful connection to a server lobby.
      *
      * @param isFirstConnection true if this client is the first to connect to the lobby, false otherwise
+     * @param takenWizard       the list of wizard already taken
      */
     @Override
-    public void addToLobby(boolean isFirstConnection) {
-        super.addToLobby(isFirstConnection);
+    public void addToLobby(boolean isFirstConnection, List<Wizard> takenWizard) {
+        super.addToLobby(isFirstConnection, takenWizard);
         getRenderer().showLobbyMessage(ViewString.CHOOSE_NAME);
     }
 
@@ -55,12 +56,11 @@ public class CLI extends View {
     /**
      * Handles the successful wizard setting
      *
-     * @param wizard      the wizard chosen by the local player
-     * @param takenWizard the wizard chosen by the players connected to the lobby
+     * @param wizard the wizard chosen by the local player
      */
     @Override
-    public void handleCorrectWizard(Wizard wizard, List<Wizard> takenWizard) {
-        super.handleCorrectWizard(wizard, takenWizard);
+    public void handleCorrectWizard(Wizard wizard) {
+        super.handleCorrectWizard(wizard);
         switch (wizard) {
             case TYPE_1 -> System.out.println(AnsiColour.GOLD + ASCIIArt.WIZARD_ONE + AnsiColour.RESET);
             case TYPE_2 -> System.out.println(AnsiColour.GOLD + ASCIIArt.WIZARD_TWO + AnsiColour.RESET);
@@ -81,9 +81,11 @@ public class CLI extends View {
      * @param wizard         the name of the player that connected
      * @param currentPlayers the amount of players connected to the lobby
      * @param playersToStart the number of players required to start the game
+     * @param otherWizard    the list of wizard already taken
      */
     @Override
-    public void handlePlayerConnect(String playerName, Wizard wizard, int currentPlayers, Integer playersToStart) {
+    public void handlePlayerConnect(String playerName, Wizard wizard, int currentPlayers, Integer playersToStart, List<Wizard> otherWizard) {
+        super.handlePlayerConnect(playerName, wizard, currentPlayers, playersToStart, otherWizard);
         if (playersToStart == null) {
             getRenderer().showLobbyMessage(ViewString.PLAYER_CONNECTED_WITH_COUNT.formatted(playerName, currentPlayers));
         } else {

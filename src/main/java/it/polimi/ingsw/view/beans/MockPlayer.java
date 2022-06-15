@@ -3,9 +3,11 @@ package it.polimi.ingsw.view.beans;
 import it.polimi.ingsw.model.AssistantCard;
 import it.polimi.ingsw.model.player.TowerColour;
 import it.polimi.ingsw.model.player.Wizard;
+import javafx.beans.property.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableMap;
 
 import java.util.HashMap;
-import java.util.stream.Collectors;
 
 /**
  * Class that contains a local copy of the player
@@ -20,7 +22,6 @@ public class MockPlayer {
      * The wizard chosen by the player
      */
     private final Wizard wizard;
-
 
     /**
      * The current assistant card
@@ -40,7 +41,7 @@ public class MockPlayer {
     /**
      * Number of coins
      */
-    private int coins;
+    private IntegerProperty coins;
 
     /**
      * The colour of the tower given to the player
@@ -50,12 +51,17 @@ public class MockPlayer {
     /**
      * A list representing the assistant card deck
      */
-    private final HashMap<Integer, AssistantCard> cards;
+    private final ObservableMap<Integer, AssistantCard> cards;
 
     /**
      * The current assistant card
      */
-    private AssistantCard currentAssistantCard;
+    private Property<AssistantCard> currentAssistantCard;
+
+    /**
+     * True if the assistantCard is set, false otherwise
+     */
+    private BooleanProperty assistantCardValue;
 
 
     /**
@@ -71,14 +77,14 @@ public class MockPlayer {
         this.hasCoins = hasCoins;
         this.towerColour = null;
         schoolBoard = new MockSchoolBoard();
-        cards = new HashMap<>();
-        currentAssistantCard = null;
+        cards = FXCollections.observableHashMap();
+        currentAssistantCard = new SimpleObjectProperty<>();
+        coins = new SimpleIntegerProperty();
         if (hasCoins) {
-            coins = 1;
+            coins.setValue(1);
         } else {
-            coins = 0;
+            coins.setValue(0);
         }
-
         AssistantCard card1 = new AssistantCard(1, 1);
         cards.put(0, card1);
         AssistantCard card2 = new AssistantCard(2, 1);
@@ -99,6 +105,9 @@ public class MockPlayer {
         cards.put(8, card9);
         AssistantCard card10 = new AssistantCard(10, 5);
         cards.put(9, card10);
+
+        assistantCardValue = new SimpleBooleanProperty();
+        assistantCardValue.set(false);
     }
 
     /**
@@ -134,7 +143,7 @@ public class MockPlayer {
      * @param coins the coins
      */
     public void setCoins(int coins) {
-        this.coins = coins;
+        this.coins.setValue(coins);
     }
 
     /**
@@ -143,7 +152,7 @@ public class MockPlayer {
      * @return the coins
      */
     public int getCoins() {
-        return coins;
+        return coins.getValue();
     }
 
     /**
@@ -170,6 +179,10 @@ public class MockPlayer {
      * @return the list of the assistant card
      */
     public HashMap<Integer, AssistantCard> getCards() {
+        return new HashMap<>(cards);
+    }
+
+    public ObservableMap<Integer, AssistantCard> getCardsProperty() {
         return cards;
     }
 
@@ -179,7 +192,7 @@ public class MockPlayer {
      * @param currentAssistantCard the assistant card played
      */
     public void setCurrentAssistantCard(int currentAssistantCard) {
-        this.currentAssistantCard = cards.entrySet().stream().map(card -> card.getValue()).filter(card -> card.getValue() == currentAssistantCard).collect(Collectors.toList()).get(0);
+        this.currentAssistantCard.setValue(cards.get(currentAssistantCard - 1));
         cards.remove(currentAssistantCard - 1);
     }
 
@@ -189,8 +202,31 @@ public class MockPlayer {
      * @return the current assistant card
      */
     public AssistantCard getCurrentAssistantCard() {
-        return currentAssistantCard;
+        return currentAssistantCard.getValue();
     }
 
 
+    public Property<AssistantCard> getCurrentAssistantCardProperty() {
+        return currentAssistantCard;
+    }
+
+    public Wizard getWizard() {
+        return wizard;
+    }
+
+    public IntegerProperty getCoinsProperty() {
+        return coins;
+    }
+
+    public BooleanProperty isAssistantCardValueProperty() {
+        return assistantCardValue;
+    }
+
+    public boolean isAssistantCardValue() {
+        return assistantCardValue.getValue();
+    }
+
+    public void setAssistantCardValue(boolean assistantCardValue) {
+        this.assistantCardValue.setValue(assistantCardValue);
+    }
 }

@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.player;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Enumeration of the wizard in the game
@@ -41,5 +42,14 @@ public enum Wizard {
      */
     public static Wizard valueOf(int wizard) {
         return map.get(wizard);
+    }
+
+    public static int getWizardCode(Wizard wizard) {
+        return map.entrySet()
+                .stream()
+                .filter(entry -> entry.getValue().equals(wizard))
+                .map(entry -> entry.getKey())
+                .collect(Collectors.toList())
+                .get(0);
     }
 }

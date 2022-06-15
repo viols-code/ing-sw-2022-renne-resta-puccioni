@@ -44,12 +44,14 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
     @Override
     public void updateTurnPhase(TurnPhase turnPhase) {
         super.updateTurnPhase(turnPhase);
-        if (turnPhase == TurnPhase.WAITING) {
-            return;
-        }
-        if (getView().getModel().getLocalPlayer().getNickname().equalsIgnoreCase(getView().getModel().getCurrentPlayer().getNickname())) {
+        getView().getRenderer().printSituation();
+
+        if (getView().getModel().getCurrentPlayer() != null && getView().getModel().getLocalPlayer().getNickname().equalsIgnoreCase(getView().getModel().getCurrentPlayer().getNickname())) {
             switch (getView().getModel().getTurnPhase()) {
-                case PLAY_ASSISTANT_CARD -> getView().getRenderer().showGameMessage(ViewString.SELECT_ASSISTANT_CARD);
+                case PLAY_ASSISTANT_CARD -> {
+                    getView().getRenderer().printAvailableAssistantCards();
+                    getView().getRenderer().showGameMessage(ViewString.SELECT_ASSISTANT_CARD);
+                }
                 case MOVE_STUDENT -> getView().getRenderer().showGameMessage(ViewString.MOVE_STUDENT_FROM_ENTRANCE);
                 case MOVE_MOTHER_NATURE -> getView().getRenderer().showGameMessage(ViewString.MOVE_MOTHER_NATURE);
                 case CHOOSE_CLOUD_TILE -> getView().getRenderer().showGameMessage(ViewString.SELECT_CLOUD_TILE);
@@ -80,14 +82,17 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
      */
     @Override
     public void updateInfluencePlayerOnGroupIsland(String player, int groupIsland) {
+        String influence = "";
         if (getView().getModel().getTable().getGroupIslandByIndex(groupIsland).getInfluentPlayer() != null) {
             if (getView().getModel().getLocalPlayer().getNickname().equalsIgnoreCase(getView().getModel().getTable().getGroupIslandByIndex(groupIsland).getInfluentPlayer())) {
-                getView().getRenderer().showGameMessage(ViewString.YOU_LOST_INFLUENCE.formatted(groupIsland));
+                influence = ViewString.YOU_LOST_INFLUENCE.formatted(groupIsland);
             } else {
-                getView().getRenderer().showGameMessage(ViewString.OTHER_LOST_INFLUENCE.formatted(getView().getModel().getTable().getGroupIslandByIndex(groupIsland).getInfluentPlayer(), groupIsland));
+                influence = ViewString.OTHER_LOST_INFLUENCE.formatted(getView().getModel().getTable().getGroupIslandByIndex(groupIsland).getInfluentPlayer(), groupIsland);
             }
         }
         super.updateInfluencePlayerOnGroupIsland(player, groupIsland);
+        System.out.println(influence);
+
         if (getView().getModel().getLocalPlayer().getNickname().equalsIgnoreCase(player)) {
             getView().getRenderer().showGameMessage(ViewString.YOU_INFLUENCE_PLAYER.formatted(groupIsland));
         } else {
@@ -99,7 +104,7 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
      * Updates the ArrayList islands in MockTable according to the merge of the group island selected
      *
      * @param groupIsland1 the index of the first group island
-     * @param groupIsland2 the index of the second gorup island
+     * @param groupIsland2 the index of the second group island
      */
     @Override
     public void updateUnifyIsland(int groupIsland1, int groupIsland2) {
@@ -207,6 +212,7 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
         } else {
             if (getView().getModel().getLocalPlayer().getNickname().equalsIgnoreCase(getView().getModel().getCurrentPlayer().getNickname())) {
                 getView().getRenderer().showGameMessage(ViewString.YOU_SET_ACTIVE_CHARACTER_CARD.formatted(characterCard.name().toLowerCase(Locale.ROOT)));
+                getView().getRenderer().printActiveCharacterCard();
 
                 switch (characterCard) {
                     case EXCHANGE_ENTRANCE_DINING_ROOM -> getView().getRenderer().showGameMessage(ViewString.ADVICE_EXCHANGE_DINING_ROOM_ENTRANCE.formatted(characterCard.name().toLowerCase(Locale.ROOT)));

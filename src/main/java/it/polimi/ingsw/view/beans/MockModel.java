@@ -1,11 +1,18 @@
 package it.polimi.ingsw.view.beans;
 
+import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.GamePhase;
 import it.polimi.ingsw.model.game.TurnPhase;
 import it.polimi.ingsw.model.player.Wizard;
+import javafx.application.Platform;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.Property;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,12 +29,12 @@ public class MockModel {
     /**
      * A list that contains the players in this game
      */
-    private final HashMap<String, MockPlayer> players;
+    private final ObservableMap<String, MockPlayer> players;
 
     /**
      * The current player
      */
-    private MockPlayer currentPlayer;
+    private final Property<MockPlayer> currentPlayer;
 
     /**
      * A local copy of the game table
@@ -37,7 +44,7 @@ public class MockModel {
     /**
      * The current round
      */
-    private int round;
+    private final IntegerProperty round;
 
     /**
      * A variable that states if the game mode is expert or not
@@ -47,47 +54,82 @@ public class MockModel {
     /**
      * Number of coins available
      */
-    private int coins;
+    private final IntegerProperty coins;
 
     /**
      * A list that contains the character cards drawn for this game
      */
-    private final List<MockCard> characterCards;
+    private final ObservableList<MockCard> characterCards;
+
+    /**
+     * The basic state
+     */
+    private final MockCard basicState;
 
     /**
      * Character card played by the current player
      */
-    private MockCard currentCharacterCard;
+    private final Property<MockCard> currentCharacterCard;
 
     /**
      * A variable that indicates the current game phase
      */
-    private GamePhase gamePhase;
+    private final Property<GamePhase> gamePhase;
 
     /**
      * A variable that indicates the current turn phase
      */
-    private TurnPhase turnPhase;
+    private final Property<TurnPhase> turnPhase;
 
     /**
      * The winner
      */
-    private MockPlayer winner;
+    private final Property<MockPlayer> winner;
+
+    /**
+     * The row of the student selected
+     */
+    private final IntegerProperty position;
+
+    /**
+     * The colour selected
+     */
+    private Colour selectedColour;
+
+    /**
+     * The student on card selected
+     */
+    private final Property<Colour> studentOnCardSelected;
+
+    private final IntegerProperty currentPlayers;
+
+    private final IntegerProperty playersToStart;
+
+    private final ObservableList<String> nicknames;
 
     /**
      * Constructs the local copy of the game
      */
     public MockModel() {
         this.localPlayer = null;
-        currentCharacterCard = null;
-        coins = -1;
-        characterCards = new ArrayList<>();
-        players = new HashMap<>();
+        currentPlayer = new SimpleObjectProperty<>();
+        coins = new SimpleIntegerProperty(-1);
+        characterCards = FXCollections.observableArrayList();
+        players = FXCollections.observableHashMap();
         table = new MockTable();
-        currentCharacterCard = null;
-        gamePhase = null;
-        turnPhase = null;
-        winner = null;
+        round = new SimpleIntegerProperty();
+        currentCharacterCard = new SimpleObjectProperty<>();
+        gamePhase = new SimpleObjectProperty<>();
+        turnPhase = new SimpleObjectProperty<>();
+        winner = new SimpleObjectProperty<>();
+        position = new SimpleIntegerProperty();
+        basicState = new MockCard(CharacterCardEnumeration.BASIC_STATE);
+        setCurrentCharacterCard(basicState);
+        position.setValue(-1);
+        currentPlayers = new SimpleIntegerProperty();
+        playersToStart = new SimpleIntegerProperty();
+        nicknames = FXCollections.observableArrayList();
+        studentOnCardSelected = new SimpleObjectProperty<>();
     }
 
     /**
@@ -104,7 +146,7 @@ public class MockModel {
      *
      * @return the players in this game
      */
-    public HashMap<String, MockPlayer> getPlayers() {
+    public ObservableMap<String, MockPlayer> getPlayers() {
         return players;
     }
 
@@ -114,11 +156,9 @@ public class MockModel {
      * @return the player with the given nickname
      */
     public MockPlayer getPlayerByNickname(String nickname) throws IllegalArgumentException {
-        List<String> matches = this.players.entrySet()
+        List<String> matches = this.players.keySet()
                 .stream()
-                .map(player -> player.getKey())
-                .filter(player -> player.equalsIgnoreCase(nickname))
-                .collect(Collectors.toList());
+                .filter(player -> player.equalsIgnoreCase(nickname)).toList();
         if (matches.size() == 1) {
             return players.get(matches.get(0));
         } else {
@@ -139,11 +179,9 @@ public class MockModel {
      * Adds the player in the list
      */
     public void addPlayer(String nickname, Wizard wizard, boolean gameMode, boolean localPlayer) {
-        List<String> matches = this.players.entrySet()
+        List<String> matches = this.players.keySet()
                 .stream()
-                .map(player -> player.getKey())
-                .filter(player -> player.equalsIgnoreCase(nickname))
-                .collect(Collectors.toList());
+                .filter(player -> player.equalsIgnoreCase(nickname)).toList();
         if (matches.size() == 0) {
             MockPlayer newPlayer = new MockPlayer(nickname, wizard, gameMode, localPlayer);
             players.put(nickname, newPlayer);
@@ -159,7 +197,7 @@ public class MockModel {
      * @return the current Player
      */
     public MockPlayer getCurrentPlayer() {
-        return currentPlayer;
+        return currentPlayer.getValue();
     }
 
     /**
@@ -168,7 +206,7 @@ public class MockModel {
      * @param currentPlayer the current Player
      */
     public void setCurrentPlayer(MockPlayer currentPlayer) {
-        this.currentPlayer = currentPlayer;
+        this.currentPlayer.setValue(currentPlayer);
     }
 
     /**
@@ -186,7 +224,7 @@ public class MockModel {
      * @return the current round
      */
     public int getRound() {
-        return round;
+        return round.getValue();
     }
 
     /**
@@ -195,7 +233,7 @@ public class MockModel {
      * @param round the round to set
      */
     public void setRound(int round) {
-        this.round = round;
+        this.round.setValue(round);
     }
 
     /**
@@ -210,7 +248,7 @@ public class MockModel {
     /**
      * Sets the gameMode
      *
-     * @param isGameExpert true if the gameMode is expert, flase if it is basic
+     * @param isGameExpert true if the gameMode is expert, false if it is basic
      */
     public void setGameMode(boolean isGameExpert) {
         this.isGameExpert = isGameExpert;
@@ -222,7 +260,7 @@ public class MockModel {
      * @return the number of coins
      */
     public int getCoins() {
-        return coins;
+        return coins.getValue();
     }
 
     /**
@@ -231,7 +269,7 @@ public class MockModel {
      * @param coins the number of coins available
      */
     public void setCoins(int coins) {
-        this.coins = coins;
+        this.coins.setValue(coins);
     }
 
     /**
@@ -251,7 +289,7 @@ public class MockModel {
      * @return the mock card
      */
     public MockCard getCharacterCardByType(CharacterCardEnumeration type) {
-        List<MockCard> card = characterCards.stream().filter(characterCard -> characterCard.getType().equals(type)).collect(Collectors.toList());
+        List<MockCard> card = characterCards.stream().filter(characterCard -> characterCard.getType().equals(type)).toList();
         if (card.size() > 0) {
             return card.get(0);
         } else
@@ -274,7 +312,7 @@ public class MockModel {
      * @return the current character card
      */
     public MockCard getCurrentCharacterCard() {
-        return currentCharacterCard;
+        return currentCharacterCard.getValue();
     }
 
     /**
@@ -283,7 +321,7 @@ public class MockModel {
      * @param currentCharacterCard the card
      */
     public void setCurrentCharacterCard(MockCard currentCharacterCard) {
-        this.currentCharacterCard = currentCharacterCard;
+        this.currentCharacterCard.setValue(currentCharacterCard);
     }
 
     /**
@@ -292,7 +330,7 @@ public class MockModel {
      * @return the game phase
      */
     public GamePhase getGamePhase() {
-        return gamePhase;
+        return gamePhase.getValue();
     }
 
     /**
@@ -301,7 +339,7 @@ public class MockModel {
      * @param gamePhase the game phase
      */
     public void setGamePhase(GamePhase gamePhase) {
-        this.gamePhase = gamePhase;
+        this.gamePhase.setValue(gamePhase);
     }
 
     /**
@@ -310,7 +348,7 @@ public class MockModel {
      * @return the turn phase
      */
     public TurnPhase getTurnPhase() {
-        return turnPhase;
+        return turnPhase.getValue();
     }
 
     /**
@@ -319,7 +357,7 @@ public class MockModel {
      * @param turnPhase the turn phase
      */
     public void setTurnPhase(TurnPhase turnPhase) {
-        this.turnPhase = turnPhase;
+        this.turnPhase.setValue(turnPhase);
     }
 
     /**
@@ -328,7 +366,7 @@ public class MockModel {
      * @return the winner of the game
      */
     public MockPlayer getWinner() {
-        return winner;
+        return winner.getValue();
     }
 
     /**
@@ -337,6 +375,94 @@ public class MockModel {
      * @param winner the winner of the game
      */
     public void setWinner(MockPlayer winner) {
-        this.winner = winner;
+        this.winner.setValue(winner);
+    }
+
+    public void updatePlayerCount(int currentPlayers, int playersToStart) {
+        Platform.runLater(() -> {
+            this.currentPlayers.setValue(currentPlayers);
+            this.playersToStart.setValue(playersToStart);
+        });
+    }
+
+    public Property<MockPlayer> getCurrentPlayerProperty() {
+        return currentPlayer;
+    }
+
+    public IntegerProperty getRoundProperty() {
+        return round;
+    }
+
+    public Property<TurnPhase> getTurnPhaseProperty() {
+        return this.turnPhase;
+    }
+
+    public IntegerProperty currentPlayersProperty() {
+        return currentPlayers;
+    }
+
+    public int getCurrentPlayers() {
+        return currentPlayers.getValue();
+    }
+
+    public IntegerProperty playersToStartProperty() {
+        return this.playersToStart;
+    }
+
+    public int getPlayersToStart() {
+        return playersToStart.getValue();
+    }
+
+    public void addPlayerNickname(String name) {
+        this.nicknames.add(name);
+    }
+
+    public ObservableList<String> getNicknames() {
+        return this.nicknames;
+    }
+
+    public IntegerProperty getCoinsProperty() {
+        return coins;
+    }
+
+    public IntegerProperty getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position.setValue(position);
+    }
+
+
+    public Colour getSelectedColour() {
+        return selectedColour;
+    }
+
+    public void setSelectedColour(Colour selectedColour) {
+        this.selectedColour = selectedColour;
+    }
+
+    public MockCard getBasicState() {
+        return basicState;
+    }
+
+    public Property<MockCard> currentCharacterCardProperty() {
+        return currentCharacterCard;
+    }
+
+    public boolean isCharacterCardPresent(CharacterCardEnumeration type) {
+        return characterCards.stream().filter(card -> card.getType().equals(type)).collect(Collectors.toList()).size() == 1;
+    }
+
+    public Colour getStudentOnCardSelected() {
+        return studentOnCardSelected.getValue();
+    }
+
+    public void setStudentOnCardSelected(Colour studentOnCardSelected) {
+        this.studentOnCardSelected.setValue(studentOnCardSelected);
+    }
+
+    public Property<Colour> getStudentOnCardSelectedProperty(){
+        return studentOnCardSelected;
     }
 }

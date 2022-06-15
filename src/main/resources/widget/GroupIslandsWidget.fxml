@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+<fx:root styleClass="background" stylesheets="@css/styleWidgets.css" type="StackPane"
+         xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
+         fx:controller="it.polimi.ingsw.view.implementation.gui.widgets.GroupIslandsWidget">
+    <AnchorPane stylesheets="@../gui/css/style.css" fx:id="anchorPane" prefHeight="720.0" prefWidth="1080.0">
+        <children>
+            <Button styleClass="game-button" layoutX="48.0" layoutY="55.0" mnemonicParsing="false" onAction="#showSchoolBoard"
+                    text="GO BACK TO SCHOOL BOARD">
+                <font>
+                    <Font size="11.0"/>
+                </font>
+            </Button>
+        </children>
+    </AnchorPane>
+</fx:root>

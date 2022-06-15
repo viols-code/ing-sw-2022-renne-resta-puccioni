@@ -3,6 +3,7 @@ package it.polimi.ingsw.view.implementation.gui.controllers;
 import it.polimi.ingsw.view.implementation.gui.GUI;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
@@ -14,6 +15,9 @@ public class NicknameSelection {
     private Button choose;
     @FXML
     private Label wrongNickname;
+
+    @FXML
+    private CheckBox guideMode;
 
     @FXML
     private void initialize() {
@@ -33,5 +37,10 @@ public class NicknameSelection {
                 }
             }
         });
+    }
+
+    @FXML
+    public void enableGuideMode(){
+        GUI.instance().setGuidedMode(true);
     }
 }

@@ -142,6 +142,9 @@ public class GameController implements Observer<PlayerEvent> {
                 player.addAssistantCard(game.getAssistantCard(j));
             }
         }
+
+        game.setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
+        game.setTurnPhase(TurnPhase.PLAY_ASSISTANT_CARD);
     }
 
     /**
@@ -673,8 +676,6 @@ public class GameController implements Observer<PlayerEvent> {
             // If the numberOfPlayer is equals to the Players in the Game, start the Game
             if (numberOfPlayer == game.getNumberOfPlayer()) {
                 game.setCurrentPlayer(game.getPlayerByIndex(0));
-                game.setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
-                game.setTurnPhase(TurnPhase.PLAY_ASSISTANT_CARD);
             }
         }
     }
@@ -789,6 +790,15 @@ public class GameController implements Observer<PlayerEvent> {
                 game.setHasPlayedCharacterCard(false);
                 // Set the state to the basic one
                 if (!game.getActiveCharacterCard().equals(game.getBasicState())) {
+                    try {
+                        game.getActiveCharacterCard().setColour(null);
+                        game.getActiveCharacterCard().setColourDiningRoomEntrance(null, null);
+                        game.getActiveCharacterCard().setColourAndIsland(null, null);
+                        game.getActiveCharacterCard().setColourCardEntrance(null, null);
+                        game.getActiveCharacterCard().setGroupIsland(-1);
+                    } catch (IllegalArgumentException | IllegalAccessError e) {
+                        // Ignored
+                    }
                     game.setActiveCharacterCard(game.getBasicState());
                 }
             } catch (IllegalAccessError ex) {
@@ -812,6 +822,9 @@ public class GameController implements Observer<PlayerEvent> {
                     game.setCurrentPlayer(game.getFirstPlayerTurn());
                     game.setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
                     game.setTurnPhase(TurnPhase.PLAY_ASSISTANT_CARD);
+                    for (int i = 0; i < game.getNumberOfPlayer(); i++) {
+                        game.getPlayerByIndex(i).setNullAssistantCard();
+                    }
                 }
                 nobodyPlayed();
 

@@ -1,6 +1,9 @@
 package it.polimi.ingsw.view.beans;
 
-import java.util.ArrayList;
+import javafx.beans.property.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.util.List;
 
 /**
@@ -10,7 +13,7 @@ public class MockGroupIsland {
     /**
      * A list containing the single islands of the group island
      */
-    private final List<MockSingleIsland> islands;
+    private final ObservableList<MockSingleIsland> islands;
 
     /**
      * A boolean that states if the group island is basic or advanced
@@ -20,17 +23,17 @@ public class MockGroupIsland {
     /**
      * An integer that indicates the number of no entry tiles on this group island
      */
-    private int noEntryTile;
+    private IntegerProperty noEntryTile;
 
     /**
      * A boolean that states if mother nature is on this island
      */
-    private boolean motherNature;
+    private final BooleanProperty motherNature;
 
     /**
      * The Player influence
      */
-    private String influentPlayer;
+    private StringProperty influentPlayer;
 
     /**
      * Constructs the group island
@@ -39,10 +42,11 @@ public class MockGroupIsland {
      */
     public MockGroupIsland(boolean isBasic) {
         this.isBasic = isBasic;
-        islands = new ArrayList<>();
+        islands = FXCollections.observableArrayList();
         islands.add(new MockSingleIsland());
-        noEntryTile = 0;
-        influentPlayer = null;
+        noEntryTile = new SimpleIntegerProperty(0);
+        motherNature = new SimpleBooleanProperty(false);
+        influentPlayer = new SimpleStringProperty();
     }
 
     /**
@@ -96,7 +100,7 @@ public class MockGroupIsland {
      * @return the number of no entry tile
      */
     public int getNoEntryTile() {
-        return noEntryTile;
+        return noEntryTile.getValue();
     }
 
     /**
@@ -105,7 +109,7 @@ public class MockGroupIsland {
      * @param noEntryTile the number of no entry tile
      */
     public void setNoEntryTile(int noEntryTile) {
-        this.noEntryTile = noEntryTile;
+        this.noEntryTile.setValue(noEntryTile);
     }
 
     /**
@@ -114,7 +118,7 @@ public class MockGroupIsland {
      * @return true if mother nature is on this island, false if mother nature is not on that island
      */
     public boolean isMotherNature() {
-        return motherNature;
+        return motherNature.getValue();
     }
 
     /**
@@ -123,7 +127,7 @@ public class MockGroupIsland {
      * @param motherNature a boolean that is true if mother nature is on that island, false if mother nature is not on that island
      */
     public void setMotherNature(boolean motherNature) {
-        this.motherNature = motherNature;
+        this.motherNature.setValue(motherNature);
     }
 
     /**
@@ -132,7 +136,7 @@ public class MockGroupIsland {
      * @return the nickname of the influent player on that group island
      */
     public String getInfluentPlayer() {
-        return influentPlayer;
+        return influentPlayer.getValue();
     }
 
     /**
@@ -141,6 +145,34 @@ public class MockGroupIsland {
      * @param influentPlayer the nickname of the influent player on that group island
      */
     public void setInfluentPlayer(String influentPlayer) {
-        this.influentPlayer = influentPlayer;
+        this.influentPlayer.setValue(influentPlayer);
+    }
+
+    public void clearInfluentPlayerProperty() {
+        if (this.influentPlayer.getValue() != null) {
+            this.influentPlayer = new SimpleStringProperty(this.influentPlayer.getValue());
+        } else {
+            this.influentPlayer = new SimpleStringProperty();
+        }
+    }
+
+    public void clearNoEntryTileProperty() {
+        if (this.noEntryTile.getValue() != null) {
+            this.noEntryTile = new SimpleIntegerProperty(this.noEntryTile.getValue());
+        } else {
+            this.noEntryTile = new SimpleIntegerProperty();
+        }
+    }
+
+    public IntegerProperty getNoEntryTileProperty() {
+        return noEntryTile;
+    }
+
+    public BooleanProperty getIsMotherNatureProperty() {
+        return motherNature;
+    }
+
+    public StringProperty getInfluentPlayerProperty() {
+        return influentPlayer;
     }
 }

@@ -97,7 +97,7 @@ public abstract class Game extends Observable<IServerPacket> {
         firstPlayerTurn = null;
         firstPlayerLastTurn = null;
         table = new Table();
-        round = 1;
+        round = 0;
         activeCharacterCard = new BasicState(this);
         basicState = activeCharacterCard;
         assistantCard = new ArrayList<>();
@@ -133,6 +133,7 @@ public abstract class Game extends Observable<IServerPacket> {
         AssistantCard card10 = new AssistantCard(10, 5);
         assistantCard.add(card10);
 
+        incrementRound();
         setGamePhase(GamePhase.SETTING);
         setTurnPhase(TurnPhase.WAITING);
     }

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.player;
 
 import it.polimi.ingsw.model.AssistantCard;
+import it.polimi.ingsw.model.messages.AssistantCardNullUpdate;
 import it.polimi.ingsw.model.messages.CurrentAssistantCardUpdate;
 import it.polimi.ingsw.observer.Observable;
 import it.polimi.ingsw.server.IServerPacket;
@@ -218,6 +219,14 @@ public abstract class Player extends Observable<IServerPacket> {
      */
     public void removeCoins(int num) throws IllegalAccessError {
         throw new IllegalAccessError("This is for the Expert Mode");
+    }
+
+    /**
+     * Sets the current assistant card to null
+     */
+    public void setNullAssistantCard() {
+        currentAssistantCard = null;
+        notify(new AssistantCardNullUpdate(getNickname()));
     }
 
     @Override

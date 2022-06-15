@@ -139,7 +139,7 @@ public abstract class ActionSender {
      *                                  the player hasn't enough money to pay the card
      */
     public void playCharacterCard(String localPlayer, int characterCard) throws IllegalArgumentException {
-        if (getView().getModel().isGameExpert()) {
+        if (!getView().getModel().isGameExpert()) {
             throw new IllegalArgumentException("The game mode is not expert: you can't play character card");
         } else if (!getView().getModel().getCurrentPlayer().getNickname().equalsIgnoreCase(localPlayer)) {
             throw new IllegalArgumentException("It's not your turn");
@@ -162,7 +162,7 @@ public abstract class ActionSender {
     public void setColour(String localPlayer, Colour colour) throws IllegalArgumentException {
         if (!getView().getModel().getCurrentPlayer().getNickname().equalsIgnoreCase(localPlayer)) {
             throw new IllegalArgumentException("It's not your turn");
-        } else if (getView().getModel().isGameExpert()) {
+        } else if (!getView().getModel().isGameExpert()) {
             throw new IllegalArgumentException("The game mode is not expert: you can't play character card");
         } else {
             getView().getClient().send(new SetColour(localPlayer, colour));
@@ -185,7 +185,7 @@ public abstract class ActionSender {
     public void setColourAndIsland(String localPlayer, Colour colour, int groupIsland, int singleIsland) throws IllegalArgumentException {
         if (!getView().getModel().getCurrentPlayer().getNickname().equalsIgnoreCase(localPlayer)) {
             throw new IllegalArgumentException("It's not your turn");
-        } else if (getView().getModel().isGameExpert()) {
+        } else if (!getView().getModel().isGameExpert()) {
             throw new IllegalArgumentException("The game mode is not expert: you can't play character card");
         } else if (groupIsland < 0 || groupIsland >= getView().getModel().getTable().getGroupIslands().size()) {
             throw new IllegalArgumentException("Group island index out of range");
@@ -210,7 +210,7 @@ public abstract class ActionSender {
     public void setColourCardEntrance(String localPlayer, Colour colourCard, Colour colourEntrance) throws IllegalArgumentException {
         if (!getView().getModel().getCurrentPlayer().getNickname().equalsIgnoreCase(localPlayer)) {
             throw new IllegalArgumentException("It's not your turn");
-        } else if (getView().getModel().isGameExpert()) {
+        } else if (!getView().getModel().isGameExpert()) {
             throw new IllegalArgumentException("The game mode is not expert: you can't play character card");
         } else if (getView().getModel().getCurrentCharacterCard().getStudents().get(colourCard) <= 0) {
             throw new IllegalArgumentException("The card doesn't have this student");
@@ -235,7 +235,7 @@ public abstract class ActionSender {
     public void setColourDiningRoomEntrance(String localPlayer, Colour colourDiningRoom, Colour colourEntrance) throws IllegalArgumentException {
         if (!getView().getModel().getCurrentPlayer().getNickname().equalsIgnoreCase(localPlayer)) {
             throw new IllegalArgumentException("It's not your turn");
-        } else if (getView().getModel().isGameExpert()) {
+        } else if (!getView().getModel().isGameExpert()) {
             throw new IllegalArgumentException("The game mode is not expert: you can't play character card");
         } else if (getView().getModel().getPlayerByNickname(localPlayer).getSchoolBoard().getDiningRoom().get(colourDiningRoom) <= 0) {
             throw new IllegalArgumentException("You don't have this student in your dining room");
@@ -258,7 +258,7 @@ public abstract class ActionSender {
     public void setGroupIsland(String localPlayer, int groupIsland) throws IllegalArgumentException {
         if (!getView().getModel().getCurrentPlayer().getNickname().equalsIgnoreCase(localPlayer)) {
             throw new IllegalArgumentException("It's not your turn");
-        } else if (getView().getModel().isGameExpert()) {
+        } else if (!getView().getModel().isGameExpert()) {
             throw new IllegalArgumentException("The game mode is not expert: you can't play character card");
         } else if (groupIsland < 0 || groupIsland >= getView().getModel().getTable().getGroupIslands().size()) {
             throw new IllegalArgumentException("Group island index out of range");

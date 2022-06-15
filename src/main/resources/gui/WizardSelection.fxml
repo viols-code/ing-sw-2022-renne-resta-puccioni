@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<BorderPane stylesheets="@css/style.css" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+<BorderPane styleClass="background" stylesheets="@css/style.css" maxHeight="-Infinity" maxWidth="-Infinity"
+            minHeight="-Infinity"
             minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="it.polimi.ingsw.view.implementation.gui.controllers.WizardSelection">
@@ -19,43 +18,8 @@
         </VBox>
     </top>
     <center>
-        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-            <FlowPane styleClass="wizard" maxHeight="299.6" maxWidth="197.6">
-                <ImageView fx:id="w_1" fitHeight="299.6" fitWidth="197.6" pickOnBounds="true" preserveRatio="true"
-                           onMouseClicked="#type_1">
-                    <Image url="@../images/wizard/wizard1.png"/>
-                </ImageView>
-                <HBox.margin>
-                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
-                </HBox.margin>
-            </FlowPane>
-            <FlowPane styleClass="wizard" maxHeight="299.6" maxWidth="197.6">
-                <ImageView fx:id="w_2" fitHeight="299.6" fitWidth="197.6" pickOnBounds="true" preserveRatio="true"
-                           onMouseClicked="#type_2">
-                    <Image url="@../images/wizard/wizard2.png"/>
-                </ImageView>
-                <HBox.margin>
-                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
-                </HBox.margin>
-            </FlowPane>
-            <FlowPane styleClass="wizard" maxHeight="299.6" maxWidth="197.6">
-                <ImageView fx:id="w_3" fitHeight="299.6" fitWidth="197.6" pickOnBounds="true" preserveRatio="true"
-                           onMouseClicked="#type_3">
-                    <Image url="@../images/wizard/wizard3.png"/>
-                </ImageView>
-                <HBox.margin>
-                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
-                </HBox.margin>
-            </FlowPane>
-            <FlowPane styleClass="wizard" maxHeight="299.6" maxWidth="197.6">
-                <ImageView fx:id="w_4" fitHeight="299.6" fitWidth="197.6" pickOnBounds="true" preserveRatio="true"
-                           onMouseClicked="#type_4">
-                    <Image url="@../images/wizard/wizard4.png"/>
-                </ImageView>
-                <HBox.margin>
-                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
-                </HBox.margin>
-            </FlowPane>
+        <HBox fx:id="box" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+
         </HBox>
     </center>
 </BorderPane>
