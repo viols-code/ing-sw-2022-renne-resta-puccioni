@@ -8,12 +8,16 @@ public class App extends Application {
     private static boolean startCli = false;
 
     public static void main(String[] args) {
-        handleCommand(args[0]);
+        if(1 <= args.length){
+            handleCommand(args[0]);
+        } else{
+            handleCommand("");
+        }
         launch();
     }
 
     private static void handleCommand(String command) {
-        if (command != null && command.equalsIgnoreCase("cli")) {
+        if (command.equalsIgnoreCase("cli")) {
             startCli = true;
         }
     }
