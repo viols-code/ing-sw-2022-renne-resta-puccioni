@@ -184,9 +184,7 @@ public class CharacterCardsWidget extends StackPane {
                         "/images/students/student_" + colour.name().toLowerCase(Locale.ROOT) + ".png"))));
 
                 if(GUI.instance().getModel().getCurrentCharacterCard().getType() == CharacterCardEnumeration.BASIC_STATE){
-                    imageViewStudent.setOnMouseClicked(event -> {
-                        GUI.instance().getRenderer().showErrorMessage("You must pay the character card first");
-                    });
+                    imageViewStudent.setOnMouseClicked(event -> GUI.instance().getRenderer().showErrorMessage("You must pay the character card first"));
                 } else {
                     imageViewStudent.setOnMouseClicked(event -> {
                         pane.getStyleClass().add("studentSelected");
@@ -197,9 +195,7 @@ public class CharacterCardsWidget extends StackPane {
                 GUI.instance().getModel().currentCharacterCardProperty().addListener((ChangeListener<? super MockCard>) (change, oldVal, newVal) ->
                         Platform.runLater(() -> {
                             if(newVal.getType() == CharacterCardEnumeration.BASIC_STATE){
-                                imageViewStudent.setOnMouseClicked(event -> {
-                                    GUI.instance().getRenderer().showErrorMessage("You must pay the character card first");
-                                });
+                                imageViewStudent.setOnMouseClicked(event -> GUI.instance().getRenderer().showErrorMessage("You must pay the character card first"));
                             } else {
                                 imageViewStudent.setOnMouseClicked(event -> {
                                     pane.getStyleClass().add("studentSelected");
