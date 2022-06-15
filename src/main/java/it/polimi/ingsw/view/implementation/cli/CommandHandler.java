@@ -13,7 +13,7 @@ public class CommandHandler {
     private final CLI cli;
 
     /**
-     * Creates a new CommandHandler for the given CLI.
+     * Create a new CommandHandler for the given CLI.
      *
      * @param cli the cli to be associated to this CommandHandler
      */
@@ -33,15 +33,21 @@ public class CommandHandler {
      * @throws IllegalArgumentException if the input does not match with any possible player action
      */
     public void handle(String command) throws IllegalArgumentException {
+        // If the command is null
         if (command == null)
             throw new IllegalArgumentException("Command can't be null");
+        // If the command is empty
         if (command.trim().equals(""))
             throw new IllegalArgumentException("Command can't be empty");
 
+        // Remove the empty spaces at the beginning and end of the String
         command = command.trim();
+        // Split the command based on the empty spaces
         String[] split = command.split(" ");
         String cmd = split[0];
         String[] args = new String[0];
+
+        // Call method "view" when the first word is view
         if (cmd.equals("view")) {
             if (split.length == 1) {
                 System.out.println(ViewString.INCORRECT_COMMAND);
@@ -54,21 +60,26 @@ public class CommandHandler {
             }
             cmd = cmd.concat(split[1]);
             args = null;
-        } else if (cmd.equals("play")) {
+        }
+        // Call one of the play methods when the first word is play
+        else if (cmd.equals("play")) {
             if (split.length < 3) {
                 System.out.println(ViewString.INCORRECT_FORMAT + ViewString.PLAY);
                 return;
             }
-
+            // Concatenate the second and third word to the command play in order to call playAssistantCard or
+            // playCharacterCard method
             split[1] = extractCommand(split[1]);
             split[1] += extractCommand(split[2]);
             cmd = cmd.concat(split[1]);
+            // Get the rest of the words
             args = Arrays.copyOfRange(split, 3, split.length);
         } else if (split.length > 1)
             args = Arrays.copyOfRange(split, 1, split.length);
 
         try {
             Method cmdHandler;
+            // Invoke the correct method
             if (args != null) {
                 cmdHandler = getClass().getMethod(cmd, args.getClass());
                 cmdHandler.invoke(this, (Object) args);
@@ -83,7 +94,7 @@ public class CommandHandler {
     }
 
     /**
-     * Calls the method to make the player see the character cards.
+     * Call the method to let the player see the character cards.
      */
     public void viewCharacterCards() {
         if (cli.getGameMode()) {
@@ -94,14 +105,14 @@ public class CommandHandler {
     }
 
     /**
-     * Calls the method to make the player see their assistant cards.
+     * Call the method to let the player see their assistant cards.
      */
     public void viewAssistantCards() {
         cli.getRenderer().printAvailableAssistantCards();
     }
 
     /**
-     * Calls the method to make the player see their assistant cards.
+     * Call the method to let the player see their current assistant card.
      */
     public void viewCurrentAssistantCard() {
         if (cli.getModel().getLocalPlayer().isAssistantCardValue()) {
@@ -112,7 +123,7 @@ public class CommandHandler {
     }
 
     /**
-     * Calls the method to make the player see their assistant cards.
+     * Call the method to let the player see the active character card.
      */
     public void viewActiveCharacterCard() {
         if (cli.getGameMode()) {
@@ -123,35 +134,35 @@ public class CommandHandler {
     }
 
     /**
-     * Calls the method to make the player see the islands.
+     * Call the method to let the player see the islands.
      */
     public void viewIslands() {
         cli.getRenderer().printIslands();
     }
 
     /**
-     * Calls the method to make the player see their schoolBoard.
+     * Call the method to let the player see their schoolBoard.
      */
     public void viewSchoolBoard() {
         cli.getRenderer().printLocalPlayerSchoolBoard();
     }
 
     /**
-     * Calls the method to make the player see the cloud tiles.
+     * Call the method to let the player see the cloud tiles.
      */
     public void viewCloudTile() {
         cli.getRenderer().printCloudTiles();
     }
 
     /**
-     * Calls the method to make the player see the professors on the table.
+     * Call the method to let the player see the professors on the table.
      */
     public void viewProfessors() {
         cli.getRenderer().printTableProfessors();
     }
 
     /**
-     * Calls the method to make the player see the local player coins.
+     * Call the method to let the player see their coins.
      */
     public void viewCoins() {
         if (cli.getGameMode()) {
@@ -162,7 +173,7 @@ public class CommandHandler {
     }
 
     /**
-     * Calls the method to make the player see coins on the table.
+     * Call the method to let the player see the coins on the table.
      */
     public void viewBank() {
         if (cli.getGameMode()) {
@@ -173,14 +184,15 @@ public class CommandHandler {
     }
 
     /**
-     * Calls the method to make the player see the winner.
+     * Call the method to let the player see the winner.
      */
     public void viewResult() {
         cli.getRenderer().printResult();
     }
 
     /**
-     * Checks if the arguments are correct and then calls for the methods to spy other players' boards.
+     * Check if the arguments are correct and then call for the methods to spy other players' boards, coins and current
+     * assistant card.
      *
      * @param args the decomposed user command
      */
@@ -223,7 +235,7 @@ public class CommandHandler {
 
 
     /**
-     * Checks if the arguments are correct and then calls for the action sender to send a "move" action event.
+     * Check if the arguments are correct and then call for the action sender to send a "move" action event.
      *
      * @param args the decomposed user command
      */
@@ -275,7 +287,7 @@ public class CommandHandler {
     }
 
     /**
-     * Checks if the arguments are correct and then calls for the action sender to send a "move mother nature" action event.
+     * Check if the arguments are correct and then call for the action sender to send a "move mother nature" action event.
      *
      * @param args the decomposed user command
      */
@@ -294,7 +306,7 @@ public class CommandHandler {
     }
 
     /**
-     * Checks if the arguments are correct and then calls for the action sender to send a "move student to single island" action event.
+     * Check if the arguments are correct and then call for the action sender to send a "move student to single island" action event.
      *
      * @param args the decomposed user command
      */
@@ -316,7 +328,7 @@ public class CommandHandler {
     }
 
     /**
-     * Checks if the arguments are correct and then calls for the action sender to send a "move student to dining room" action event.
+     * Check if the arguments are correct and then call for the action sender to send a "move student to dining room" action event.
      *
      * @param args the decomposed user command
      */
@@ -332,7 +344,7 @@ public class CommandHandler {
     }
 
     /**
-     * Checks if the arguments are correct and then calls for the action sender to send a "draw" action event.
+     * Check if the arguments are correct and then call for the action sender to send a "play assistant card" action event.
      *
      * @param args the decomposed user command
      */
@@ -351,7 +363,7 @@ public class CommandHandler {
     }
 
     /**
-     * Checks if the arguments are correct and then calls for the action sender to send a "draw" action event.
+     * Checks if the arguments are correct and then calls for the action sender to send a "play character card" action event.
      *
      * @param args the decomposed user command
      */
@@ -393,7 +405,7 @@ public class CommandHandler {
     }
 
     /**
-     * Checks if the arguments are correct and then calls for the action sender to send a "select" action event.
+     * Check if the arguments are correct and then call for the action sender to send a "select" action event.
      *
      * @param args the decomposed user command
      */
@@ -405,6 +417,7 @@ public class CommandHandler {
         }
 
         switch (args[0]) {
+            // If the second word written is colour, get the colour
             case "colour" -> {
                 if (args.length != 2) {
                     cli.getRenderer().showErrorMessage(ViewString.INCORRECT_FORMAT + ViewString.SELECT_STUDENT_COLOUR);
@@ -429,6 +442,7 @@ public class CommandHandler {
 
             }
 
+            // If the second word written is group, get the group island
             case "group" -> {
                 if (args.length != 3) {
                     cli.getRenderer().showErrorMessage(ViewString.INCORRECT_FORMAT + ViewString.SELECT_GROUP_ISLAND);
@@ -468,7 +482,7 @@ public class CommandHandler {
     }
 
     /**
-     * Checks if the arguments are correct and then calls for the action sender to send a "set colour and island" action event.
+     * Check if the arguments are correct and then call for the action sender to send a "put" action event.
      *
      * @param args the decomposed user command
      */
@@ -507,7 +521,7 @@ public class CommandHandler {
     }
 
     /**
-     * Checks if the arguments are correct and then calls for the action sender to send "exchange" action event.
+     * Check if the arguments are correct and then call for the action sender to send "exchange" action event.
      *
      * @param args the decomposed user command
      */

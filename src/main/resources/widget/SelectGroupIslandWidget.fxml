@@ -9,7 +9,8 @@
          fx:controller="it.polimi.ingsw.view.implementation.gui.widgets.SelectGroupIslandWidget">
     <AnchorPane fx:id="anchorPane" prefHeight="720.0" prefWidth="1080.0" stylesheets="@../gui/css/style.css"
                 xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
-        <Button styleClass="game-button" layoutX="38.0" layoutY="53.0" mnemonicParsing="false" onAction="#showSchoolBoard"
+        <Button styleClass="game-button" layoutX="38.0" layoutY="53.0" mnemonicParsing="false"
+                onAction="#showSchoolBoard"
                 text="GO BACK TO SCHOOL BOARD">
             <font>
                 <Font size="11.0"/>

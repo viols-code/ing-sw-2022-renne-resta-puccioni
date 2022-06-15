@@ -40,7 +40,7 @@ public class NicknameSelection {
     }
 
     @FXML
-    public void enableGuideMode(){
+    public void enableGuideMode() {
         GUI.instance().setGuidedMode(true);
     }
 }

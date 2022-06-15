@@ -15,7 +15,7 @@
     -fx-background-color: rgb(5, 6, 45);
     -fx-border-style: solid;
     -fx-border-width: 2px;
-    -fx-border-color: linear-gradient(to left top,#AF40FF, #5B42F3 50%,#00DDEB);
+    -fx-border-color: linear-gradient(to left top, #AF40FF, #5B42F3 50%, #00DDEB);
     -fx-text-fill: #FFFFFF;
     -fx-font-weight: bold;
     -fx-font-size: 12px;
@@ -25,7 +25,7 @@
 }
 
 .game-button {
-    -fx-background-color: linear-gradient(to left top,#AF40FF, #5B42F3 50%,#00DDEB);
+    -fx-background-color: linear-gradient(to left top, #AF40FF, #5B42F3 50%, #00DDEB);
     -fx-text-fill: #FFFFFF;
     -fx-font-family: sans-serif;
     -fx-font-weight: bold;

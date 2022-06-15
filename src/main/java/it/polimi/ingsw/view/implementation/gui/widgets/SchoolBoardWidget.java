@@ -95,10 +95,9 @@ public class SchoolBoardWidget extends StackPane {
         entranceBoxes = new ArrayList<>(Arrays.asList(new Coordinates(2, 0), new Coordinates(0, 2), new Coordinates(2, 2), new Coordinates(0, 4), new Coordinates(2, 4), new Coordinates(0, 6), new Coordinates(2, 6), new Coordinates(0, 8), new Coordinates(2, 8)));
 
         //sets the text on the button for the guide
-        if(GUI.instance().isGuidedMode()){
+        if (GUI.instance().isGuidedMode()) {
             guidedModeButton.setText("Disable Guide");
-        }
-        else{
+        } else {
             guidedModeButton.setText("Enable Guide");
         }
         //Shows the current Player
@@ -194,7 +193,7 @@ public class SchoolBoardWidget extends StackPane {
     }
 
     @FXML
-    private void selectStudentToExchange(int i, Colour colour){
+    private void selectStudentToExchange(int i, Colour colour) {
         GUI.instance().getModel().setPosition(i);
         GUI.instance().getModel().setSelectedColour(colour);
         GUI.instance().getActionSender().setColourCardEntrance(GUI.instance().getPlayerName(), GUI.instance().getModel().getStudentOnCardSelected(), GUI.instance().getModel().getSelectedColour());
@@ -316,20 +315,20 @@ public class SchoolBoardWidget extends StackPane {
             //Add a listener to the studentOnCardSelected
             GUI.instance().getModel().getStudentOnCardSelectedProperty().addListener((ChangeListener<? super Colour>) (change, oldVal, newVal) ->
                     Platform.runLater(() -> {
-                        //If the card is Student_To_Entrance and the current player has selected a student on the card the student will be exchanged with the one selected in the entrance
-                        if (newVal != null && GUI.instance().getModel().getCurrentCharacterCard().getType() == CharacterCardEnumeration.STUDENT_TO_ENTRANCE) {
-                            imageView.setOnMouseClicked(event -> {
-                                flowPane.getStyleClass().add("studentSelected");
-                                selectStudentToExchange(a, colour);
-                            });
-                        } else {
-                            imageView.setOnMouseClicked(event -> {
-                                flowPane.getStyleClass().add("studentSelected");
-                                selectStudentFromEntrance(a, colour);
-                            });
-                        }
-                    }
-                ));
+                                //If the card is Student_To_Entrance and the current player has selected a student on the card the student will be exchanged with the one selected in the entrance
+                                if (newVal != null && GUI.instance().getModel().getCurrentCharacterCard().getType() == CharacterCardEnumeration.STUDENT_TO_ENTRANCE) {
+                                    imageView.setOnMouseClicked(event -> {
+                                        flowPane.getStyleClass().add("studentSelected");
+                                        selectStudentToExchange(a, colour);
+                                    });
+                                } else {
+                                    imageView.setOnMouseClicked(event -> {
+                                        flowPane.getStyleClass().add("studentSelected");
+                                        selectStudentFromEntrance(a, colour);
+                                    });
+                                }
+                            }
+                    ));
 
         }
     }
@@ -467,12 +466,11 @@ public class SchoolBoardWidget extends StackPane {
     }
 
     @FXML
-    public void changeGuideMode(){
-        if(GUI.instance().isGuidedMode()){
+    public void changeGuideMode() {
+        if (GUI.instance().isGuidedMode()) {
             guidedModeButton.setText("Enable Guide");
             GUI.instance().setGuidedMode(false);
-        }
-        else{
+        } else {
             guidedModeButton.setText("Disable Guide");
             GUI.instance().setGuidedMode(true);
         }

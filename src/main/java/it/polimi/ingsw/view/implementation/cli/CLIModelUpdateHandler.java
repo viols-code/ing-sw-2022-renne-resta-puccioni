@@ -13,7 +13,7 @@ import java.util.Locale;
 
 public class CLIModelUpdateHandler extends ModelUpdateHandler {
     /**
-     * Constructs a new ModelUpdateHandler.
+     * Construct a new ModelUpdateHandler.
      *
      * @param view the view responsible for this model update handler
      */
@@ -22,7 +22,7 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
     }
 
     /**
-     * Updates the current player
+     * Update the current player
      *
      * @param currentPlayer the nickname of the current player
      */
@@ -37,7 +37,7 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
     }
 
     /**
-     * Updates the turn phase
+     * Update the turn phase
      *
      * @param turnPhase the new turn phase
      */
@@ -60,7 +60,7 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
     }
 
     /**
-     * Updates the winner of the game
+     * Update the winner of the game
      *
      * @param player the nickname of the winner
      */
@@ -75,7 +75,7 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
     }
 
     /**
-     * Updates the influence player on the group island
+     * Update the influence player on the group island
      *
      * @param player      the nickname of the new influence player
      * @param groupIsland the index of the group island where influence changed
@@ -101,7 +101,7 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
     }
 
     /**
-     * Updates the ArrayList islands in MockTable according to the merge of the group island selected
+     * Update the ArrayList islands in MockTable according to the merge of the group island selected
      *
      * @param groupIsland1 the index of the first group island
      * @param groupIsland2 the index of the second group island
@@ -113,7 +113,7 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
     }
 
     /**
-     * Updates the current assistant card of the selected player
+     * Update the current assistant card of the selected player
      *
      * @param player        the nickname of the player
      * @param assistantCard the index of the assistant card played in this turn
@@ -129,7 +129,7 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
     }
 
     /**
-     * Updates the position of mother nature
+     * Update the position of mother nature
      *
      * @param motherNaturePosition the integer representing the new position of mother nature
      */
@@ -146,7 +146,7 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
     }
 
     /**
-     * Updates the round
+     * Update the round
      *
      * @param round the number of the current round
      */
@@ -159,7 +159,7 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
     }
 
     /**
-     * Updates the professor table on the school board of the player selected
+     * Update the professor table on the school board of the player selected
      *
      * @param player         the nickname of the player
      * @param professorTable the hash map representing the updated professor table
@@ -189,7 +189,7 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
     }
 
     /**
-     * Updates the position of mother nature after group islands merge
+     * Update the position of mother nature after group islands merge
      *
      * @param motherNaturePosition the updated position of mother nature
      */
@@ -200,7 +200,7 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
     }
 
     /**
-     * Updates the active character card in MockModel
+     * Update the active character card in MockModel
      *
      * @param characterCard the new current character card
      */
@@ -228,7 +228,7 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
     }
 
     /**
-     * Updates the number of no entry tile on a group island
+     * Update the number of no entry tile on a group island
      *
      * @param groupIsland the index of the group island
      * @param num         the updated number of no entry tiles
@@ -249,7 +249,7 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
     }
 
     /**
-     * Shows a message on the CLI to let the players know that students are finished, so they are playing the last round
+     * Show a message on the CLI to let the players know that students are finished, so they are playing the last round
      */
     @Override
     public void updateEmptyBag() {

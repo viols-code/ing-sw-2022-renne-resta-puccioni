@@ -8,9 +8,9 @@ public class App extends Application {
     private static boolean startCli = false;
 
     public static void main(String[] args) {
-        if(1 <= args.length){
+        if (1 <= args.length) {
             handleCommand(args[0]);
-        } else{
+        } else {
             handleCommand("");
         }
         launch();

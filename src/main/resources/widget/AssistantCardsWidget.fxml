@@ -17,13 +17,11 @@
         </center>
         <top>
             <VBox alignment="CENTER" prefHeight="257.0" prefWidth="1080.0" BorderPane.alignment="CENTER">
-                <children>
-                    <Label contentDisplay="CENTER" text="Your Assistant Cards">
-                        <font>
-                            <Font name="Comic Sans MS Bold" size="51.0"/>
-                        </font>
-                    </Label>
-                </children>
+                <Label contentDisplay="CENTER" text="Your Assistant Cards">
+                    <font>
+                        <Font name="Comic Sans MS Bold" size="51.0"/>
+                    </font>
+                </Label>
             </VBox>
         </top>
         <right>
@@ -31,10 +29,9 @@
         </right>
         <left>
             <VBox alignment="CENTER" prefHeight="375.0" prefWidth="178.0" BorderPane.alignment="CENTER">
-                <children>
-                    <Button styleClass="game-button" alignment="CENTER" mnemonicParsing="false" onAction="#showSchoolBoard"
-                            text="BACK TO SCHOOL BOARD"/>
-                </children>
+                <Button styleClass="game-button" alignment="CENTER" mnemonicParsing="false"
+                        onAction="#showSchoolBoard"
+                        text="BACK TO SCHOOL BOARD"/>
             </VBox>
         </left>
         <bottom>

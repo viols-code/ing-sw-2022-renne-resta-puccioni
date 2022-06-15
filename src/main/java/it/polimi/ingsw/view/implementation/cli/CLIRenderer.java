@@ -18,7 +18,7 @@ import java.util.List;
 public class CLIRenderer extends Renderer {
 
     /**
-     * Creates a new CLIRenderer for the given View.
+     * Create a new CLIRenderer for the given View
      *
      * @param view the cli to be associated with this CLIRenderer
      */
@@ -27,7 +27,7 @@ public class CLIRenderer extends Renderer {
     }
 
     /**
-     * Gets the view related to this renderer
+     * Get the view related to this renderer
      *
      * @return the view related to that renderer
      */
@@ -36,7 +36,7 @@ public class CLIRenderer extends Renderer {
     }
 
     /**
-     * Shows a game message
+     * Show a game message
      *
      * @param message the message to show
      */
@@ -45,7 +45,7 @@ public class CLIRenderer extends Renderer {
     }
 
     /**
-     * Shows a lobby message
+     * Show a lobby message
      *
      * @param message the message to show
      */
@@ -55,7 +55,7 @@ public class CLIRenderer extends Renderer {
     }
 
     /**
-     * Shows an error message
+     * Show an error message
      *
      * @param message the message to show
      */
@@ -65,14 +65,18 @@ public class CLIRenderer extends Renderer {
     }
 
     /**
-     * Prints the school board of the local player
+     * Print the local player's school board in a vertical position
      */
     public void printLocalPlayerSchoolBoard() {
         renderSchoolBoard(view.getModel().getLocalPlayer());
     }
 
 
+    /**
+     * Print all the players' school boards with the current assistant card if already played
+     */
     private void renderSchoolBoardHorizontal() {
+        // Rows for the format
         List<String> row0 = new ArrayList<>();
         List<String> row1 = new ArrayList<>();
         List<String> row2 = new ArrayList<>();
@@ -84,8 +88,10 @@ public class CLIRenderer extends Renderer {
         MockPlayer player1 = null;
         MockPlayer player2 = null;
 
+        // Create the horizontal school board of the first player
         createHorizontalSchoolBoard(getView().getModel().getLocalPlayer(), row0, row1, row2, row3, row4, row5);
 
+        // Create the horizontal school board of the other players
         int i = 0;
         for (MockPlayer mockPlayer : getView().getModel().getPlayers().values()) {
             if (!mockPlayer.equals(getView().getModel().getLocalPlayer())) {
@@ -108,6 +114,7 @@ public class CLIRenderer extends Renderer {
 
         Formatter formatter = new Formatter();
 
+        // Get the correct ASCIIArt based on the number of players and the current assistant cards
         if (getView().getNumPlayers() == 2) {
             if (getView().getModel().getLocalPlayer().isAssistantCardValue()) {
                 if (player1 != null && player1.isAssistantCardValue()) {
@@ -157,16 +164,28 @@ public class CLIRenderer extends Renderer {
 
     }
 
+    /**
+     * Concatenate the information of the school board of the given player
+     */
     private void createHorizontalSchoolBoard(MockPlayer player, List<String> row0, List<String> row1, List<String> row2, List<String> row3, List<String> row4, List<String> row5) {
         HashMap<Colour, Integer> entrance = player.getSchoolBoard().getEntrance();
         HashMap<Colour, Integer> diningRoom = player.getSchoolBoard().getDiningRoom();
         HashMap<Colour, Boolean> professor = player.getSchoolBoard().getProfessorTable();
 
         if (getView().getModel().getLocalPlayer().equals(player)) {
-            row0.add("You");
+            row0.add("               You");
         } else {
             row0.add(player.getNickname());
         }
+
+        // Add spaces between names based on their length
+        int len = row0.get(row0.size() - 1).length();
+        String space = "";
+        while (len < 70) {
+            space = space.concat(" ");
+            len++;
+        }
+        row0.add(space);
 
         int count = 0;
         for (Colour colour : Colour.values()) {
@@ -174,6 +193,7 @@ public class CLIRenderer extends Renderer {
                 count = getCount(row1, row2, row3, row4, row5, count, colour);
             }
         }
+        // Add empty spaces instead of students
         while (count < 9) {
             switch (count) {
                 case 0, 1 -> row1.add(" ");
@@ -203,6 +223,7 @@ public class CLIRenderer extends Renderer {
             }
         }
 
+        // Add empty spaces instead of towers
         count = 0;
         for (int i = 0; i < player.getSchoolBoard().getTowers(); i++) {
             switch (count) {
@@ -235,7 +256,16 @@ public class CLIRenderer extends Renderer {
 
     }
 
-
+    /**
+     * Add empty spaces instead of students or professors
+     *
+     * @param row1   row of green colour
+     * @param row2   row of red colour
+     * @param row3   row of blue colour
+     * @param row4   row of yellow colour
+     * @param row5   row of pink colour
+     * @param colour the colour of the student or professor
+     */
     private void addEmptySpace(List<String> row1, List<String> row2, List<String> row3, List<String> row4, List<String> row5, Colour colour) {
         switch (colour) {
             case GREEN -> row1.add(" ");
@@ -246,28 +276,55 @@ public class CLIRenderer extends Renderer {
         }
     }
 
+    /**
+     * Add a student or professor
+     *
+     * @param row1   row of green colour
+     * @param row2   row of red colour
+     * @param row3   row of blue colour
+     * @param row4   row of yellow colour
+     * @param row5   row of pink colour
+     * @param colour the colour of the student or professor
+     */
     private void colour(List<String> row1, List<String> row2, List<String> row3, List<String> row4, List<String> row5, Colour colour) {
         switch (colour) {
-            case GREEN -> selectingColour(row1, colour);
-            case RED -> selectingColour(row2, colour);
-            case BLUE -> selectingColour(row3, colour);
-            case YELLOW -> selectingColour(row4, colour);
-            case PINK -> selectingColour(row5, colour);
+            case GREEN -> addStudentColour(row1, colour);
+            case RED -> addStudentColour(row2, colour);
+            case BLUE -> addStudentColour(row3, colour);
+            case YELLOW -> addStudentColour(row4, colour);
+            case PINK -> addStudentColour(row5, colour);
         }
     }
 
+
+    /**
+     * Add a student to the right row
+     *
+     * @param row1   row of green colour
+     * @param row2   row of red colour
+     * @param row3   row of blue colour
+     * @param row4   row of yellow colour
+     * @param row5   row of pink colour
+     * @param colour the colour of the student or professor
+     */
     private int getCount(List<String> row1, List<String> row2, List<String> row3, List<String> row4, List<String> row5, int count, Colour colour) {
         switch (count) {
-            case 0, 1 -> selectingColour(row1, colour);
-            case 2, 3 -> selectingColour(row2, colour);
-            case 4, 5 -> selectingColour(row3, colour);
-            case 6, 7 -> selectingColour(row4, colour);
-            case 8 -> selectingColour(row5, colour);
+            case 0, 1 -> addStudentColour(row1, colour);
+            case 2, 3 -> addStudentColour(row2, colour);
+            case 4, 5 -> addStudentColour(row3, colour);
+            case 6, 7 -> addStudentColour(row4, colour);
+            case 8 -> addStudentColour(row5, colour);
         }
         count++;
         return count;
     }
 
+    /**
+     * Add a tower of the correct colour
+     *
+     * @param towers tower part of the school board
+     * @param colour tower's colour
+     */
     private void selectTowerColour(List<String> towers, TowerColour colour) {
         switch (colour) {
             case WHITE -> towers.add("\u001b[97;1m●\u001b[0m");
@@ -277,7 +334,7 @@ public class CLIRenderer extends Renderer {
     }
 
     /**
-     * Prints the coins of the local player
+     * Print the local player's coins
      */
     public void printLocalPlayerCoins() {
         String numberCoins = "";
@@ -285,20 +342,23 @@ public class CLIRenderer extends Renderer {
     }
 
     /**
-     * Prints the current assistant card of the local layer
+     * Print the local player's current assistant card
      */
     public void printLocalPlayerCurrentAssistantCard() {
         renderAssistantCard(view.getModel().getLocalPlayer().getCurrentAssistantCard().getValue(),
                 view.getModel().getLocalPlayer().getCurrentAssistantCard().getMotherNatureMovement());
     }
 
+    /**
+     * Print local player's available assistant cards
+     */
     public void printAvailableAssistantCards() {
         System.out.println("Your assistant cards still available");
         printAssistantCards(view.getModel().getLocalPlayer());
     }
 
     /**
-     * Prints the available assistant cards
+     * Print the available assistant cards of the given player
      */
     private void printAssistantCards(MockPlayer player) {
         List<String> assistantCardNumber = new ArrayList<>();
@@ -342,7 +402,7 @@ public class CLIRenderer extends Renderer {
     }
 
     /**
-     * Prints the islands
+     * Print the islands
      */
     public void printIslands() {
         int count = 0;
@@ -438,6 +498,15 @@ public class CLIRenderer extends Renderer {
 
     }
 
+    /**
+     * Add the influence player tower to the single island
+     *
+     * @param count          the current single island
+     * @param influenceText1 the first row of single islands
+     * @param influenceText2 the second row of single islands
+     * @param groupIsland    the mock group island
+     * @param influence      the nickname of the influent player
+     */
     private void influence(int count, List<String> influenceText1, List<String> influenceText2, MockGroupIsland groupIsland, String influence) {
         if (groupIsland.getInfluentPlayer() != null) {
             switch (getView().getModel().getPlayerByNickname(groupIsland.getInfluentPlayer()).getTowerColour()) {
@@ -453,6 +522,16 @@ public class CLIRenderer extends Renderer {
         }
     }
 
+    /**
+     * Concatenate all the list of string
+     *
+     * @param groupIslandText1  row for the groupIsland numbers
+     * @param influenceText1    row for the influent player
+     * @param motherNatureText1 row for the mother nature presence
+     * @param colour11          the first row for the students on the islands
+     * @param colour21          the second row for the students on the islands
+     * @return the concatenation of all the list of string
+     */
     private List<String> createTotal(List<String> groupIslandText1, List<String> influenceText1, List<String> motherNatureText1, List<String> colour11, List<String> colour21) {
         List<String> total1 = new ArrayList<>();
         total1.addAll(groupIslandText1);
@@ -463,6 +542,13 @@ public class CLIRenderer extends Renderer {
         return total1;
     }
 
+    /**
+     * Add the student to the single island
+     *
+     * @param colour11     the first row of colours
+     * @param colour21     the second row of colours
+     * @param singleIsland the mock single island
+     */
     private void Colour(List<String> colour11, List<String> colour21, MockSingleIsland singleIsland) {
         colour11.add("\u001b[41;1m %d \u001b[0m".formatted(singleIsland.getStudents(Colour.RED)));
         colour11.add("\u001b[42;1m %d \u001b[0m".formatted(singleIsland.getStudents(Colour.GREEN)));
@@ -511,18 +597,24 @@ public class CLIRenderer extends Renderer {
         }
     }
 
-    private void addStudentColour(List<String> cloudTilesStudents, Colour colour) {
+    /**
+     * Add the student of the given colour
+     *
+     * @param row    the row where to add the student
+     * @param colour the given colour
+     */
+    private void addStudentColour(List<String> row, Colour colour) {
         switch (colour) {
-            case RED -> cloudTilesStudents.add("\u001b[31;1m●\u001b[0m");
-            case GREEN -> cloudTilesStudents.add("\u001b[32;1m●\u001b[0m");
-            case YELLOW -> cloudTilesStudents.add("\u001b[33;1m●\u001b[0m");
-            case BLUE -> cloudTilesStudents.add("\u001b[34m●\u001b[0m");
-            case PINK -> cloudTilesStudents.add("\u001b[35;1m●\u001b[0m");
+            case RED -> row.add("\u001b[31;1m●\u001b[0m");
+            case GREEN -> row.add("\u001b[32;1m●\u001b[0m");
+            case YELLOW -> row.add("\u001b[33;1m●\u001b[0m");
+            case BLUE -> row.add("\u001b[34m●\u001b[0m");
+            case PINK -> row.add("\u001b[35;1m●\u001b[0m");
         }
     }
 
     /**
-     * Prints the active character card
+     * Print the active character card
      */
     public void printActiveCharacterCard() {
         if (view.getModel().getCurrentCharacterCard().getType() != CharacterCardEnumeration.BASIC_STATE) {
@@ -534,7 +626,7 @@ public class CLIRenderer extends Renderer {
     }
 
     /**
-     * Prints the character cards
+     * Print the character cards
      */
     public void printCharacterCards() {
         System.out.println("The character cards available are:");
@@ -558,13 +650,20 @@ public class CLIRenderer extends Renderer {
     }
 
     /**
-     * Prints the selected character card
+     * Print the selected character card
      *
      * @param card the card to print
      */
     private void renderCharacter(int i, MockCard card, List<String> row1, List<String> row2, List<String> row3, List<String> row4, List<String> row5) {
         row1.add(i + "");
-        row2.add(card.getType().name());
+        String name = card.getType().name();
+        int len = name.length();
+        while (len < 27) {
+            name = name.concat(" ");
+            len++;
+        }
+        row2.add(name);
+
         row3.add(card.getCost() + "");
 
         if (card.getNumberOfNoEntryTile() > 0) {
@@ -590,7 +689,11 @@ public class CLIRenderer extends Renderer {
 
     }
 
-
+    /**
+     * Print the active character cards
+     *
+     * @param card the mock card to print
+     */
     private void renderActiveCharacter(MockCard card) {
         List<String> total = new ArrayList<>();
         total.add(card.getType().name());
@@ -623,7 +726,7 @@ public class CLIRenderer extends Renderer {
     }
 
     /**
-     * Prints the available table coins
+     * Print the available table coins
      */
     public void printTableCoins() {
         String coins = "";
@@ -632,7 +735,7 @@ public class CLIRenderer extends Renderer {
     }
 
     /**
-     * Prints the professors available on the table
+     * Print the professors available on the table
      */
     public void printTableProfessors() {
         System.out.println("Available professors: ");
@@ -655,7 +758,7 @@ public class CLIRenderer extends Renderer {
     }
 
     /**
-     * Prints the coins of another player
+     * Print the coins of another player
      *
      * @param playerName the nickname of the player
      * @throws IllegalArgumentException if the nickname typed is not present in this game
@@ -666,7 +769,7 @@ public class CLIRenderer extends Renderer {
     }
 
     /**
-     * Prints the school board of another player
+     * Print the school board of another player
      *
      * @param playerName the nickname of the player
      * @throws IllegalArgumentException if the nickname typed is not present in this game
@@ -676,7 +779,7 @@ public class CLIRenderer extends Renderer {
     }
 
     /**
-     * Prints the current assistant card of another player
+     * Print the current assistant card of another player
      *
      * @param playerName the nickname of the player
      * @throws IllegalArgumentException if the nickname typed is not present in this game
@@ -687,7 +790,7 @@ public class CLIRenderer extends Renderer {
     }
 
     /**
-     * Prints the results of the game
+     * Print the results of the game
      */
     public void printResult() {
         if (view.getModel().getWinner() == null) {
@@ -699,7 +802,7 @@ public class CLIRenderer extends Renderer {
 
 
     /**
-     * Prints all the possible commands that the player can type in the CLI.
+     * Print all the possible commands that the player can type in the CLI.
      */
     @Override
     public void help() {
@@ -718,7 +821,7 @@ public class CLIRenderer extends Renderer {
     }
 
     /**
-     * Renders the school board given
+     * Render the school board given
      *
      * @param player the player
      */
@@ -733,9 +836,9 @@ public class CLIRenderer extends Renderer {
         for (Colour colour : Colour.values()) {
             for (int i = 0; i < entrance.get(colour); i++) {
                 if (count < 5) {
-                    selectingColour(entranceText1, colour);
+                    addStudentColour(entranceText1, colour);
                 } else {
-                    selectingColour(entranceText2, colour);
+                    addStudentColour(entranceText2, colour);
                 }
                 count++;
             }
@@ -768,56 +871,56 @@ public class CLIRenderer extends Renderer {
                 switch (i) {
                     case 0 -> {
                         if (diningRoom.get(colour) > i) {
-                            selectingColour(diningRoomText0, colour);
+                            addStudentColour(diningRoomText0, colour);
                         } else {
                             diningRoomText0.add(" ");
                         }
                     }
                     case 1 -> {
                         if (diningRoom.get(colour) > i) {
-                            selectingColour(diningRoomText1, colour);
+                            addStudentColour(diningRoomText1, colour);
                         } else {
                             diningRoomText1.add(" ");
                         }
                     }
                     case 2 -> {
                         if (diningRoom.get(colour) > i) {
-                            selectingColour(diningRoomText2, colour);
+                            addStudentColour(diningRoomText2, colour);
                         } else {
                             diningRoomText2.add(" ");
                         }
                     }
                     case 3 -> {
                         if (diningRoom.get(colour) > i) {
-                            selectingColour(diningRoomText3, colour);
+                            addStudentColour(diningRoomText3, colour);
                         } else {
                             diningRoomText3.add(" ");
                         }
                     }
                     case 4 -> {
                         if (diningRoom.get(colour) > i) {
-                            selectingColour(diningRoomText4, colour);
+                            addStudentColour(diningRoomText4, colour);
                         } else {
                             diningRoomText4.add(" ");
                         }
                     }
                     case 5 -> {
                         if (diningRoom.get(colour) > i) {
-                            selectingColour(diningRoomText5, colour);
+                            addStudentColour(diningRoomText5, colour);
                         } else {
                             diningRoomText5.add(" ");
                         }
                     }
                     case 6 -> {
                         if (diningRoom.get(colour) > i) {
-                            selectingColour(diningRoomText6, colour);
+                            addStudentColour(diningRoomText6, colour);
                         } else {
                             diningRoomText6.add(" ");
                         }
                     }
                     case 7 -> {
                         if (diningRoom.get(colour) > i) {
-                            selectingColour(diningRoomText7, colour);
+                            addStudentColour(diningRoomText7, colour);
                         } else {
                             diningRoomText7.add(" ");
                         }
@@ -825,7 +928,7 @@ public class CLIRenderer extends Renderer {
 
                     case 8 -> {
                         if (diningRoom.get(colour) > i) {
-                            selectingColour(diningRoomText8, colour);
+                            addStudentColour(diningRoomText8, colour);
                         } else {
                             diningRoomText8.add(" ");
                         }
@@ -833,7 +936,7 @@ public class CLIRenderer extends Renderer {
 
                     case 9 -> {
                         if (diningRoom.get(colour) > i) {
-                            selectingColour(diningRoomText9, colour);
+                            addStudentColour(diningRoomText9, colour);
                         } else {
                             diningRoomText9.add(" ");
                         }
@@ -849,7 +952,7 @@ public class CLIRenderer extends Renderer {
 
         for (Colour colour : Colour.values()) {
             if (professor.get(colour)) {
-                selectingColour(professorText, colour);
+                addStudentColour(professorText, colour);
             } else {
                 professorText.add(" ");
             }
@@ -909,12 +1012,8 @@ public class CLIRenderer extends Renderer {
 
     }
 
-    private void selectingColour(List<String> entranceText1, Colour colour) {
-        addStudentColour(entranceText1, colour);
-    }
-
     /**
-     * Prints the coins of a player
+     * Print the coins of a player
      *
      * @param coins       the number of coins
      * @param numberCoins the string to print
@@ -939,6 +1038,9 @@ public class CLIRenderer extends Renderer {
         System.out.printf((ASCIIArt.CURRENT_ASSISTANT_CARD) + "%n", v, steps);
     }
 
+    /**
+     * Print the available professors, the school boards and assistant cards and islands
+     */
     private void printTable() {
         for (Colour colour : Colour.values()) {
             if (getView().getModel().getTable().getProfessorsAvailable().get(colour)) {
@@ -950,6 +1052,9 @@ public class CLIRenderer extends Renderer {
         printIslands();
     }
 
+    /**
+     * Print the game information based on the current phase of the game
+     */
     public void printSituation() {
         switch (getView().getModel().getTurnPhase()) {
             case PLAY_ASSISTANT_CARD -> printTable();

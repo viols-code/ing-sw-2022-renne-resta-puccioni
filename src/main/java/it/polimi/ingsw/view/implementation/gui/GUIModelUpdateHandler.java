@@ -28,23 +28,22 @@ public class GUIModelUpdateHandler extends ModelUpdateHandler {
      * @param turnPhase the new turn phase
      */
     @Override
-    public void updateTurnPhase(TurnPhase turnPhase){
+    public void updateTurnPhase(TurnPhase turnPhase) {
         super.updateTurnPhase(turnPhase);
-        if(GUI.instance().isGuidedMode()){
-            if(turnPhase != TurnPhase.WAITING && turnPhase != TurnPhase.ENDGAME){
-                if(GUI.instance().getModel().getCurrentPlayer().getNickname().equals(GUI.instance().getPlayerName())){
+        if (GUI.instance().isGuidedMode()) {
+            if (turnPhase != TurnPhase.WAITING && turnPhase != TurnPhase.ENDGAME) {
+                if (GUI.instance().getModel().getCurrentPlayer().getNickname().equals(GUI.instance().getPlayerName())) {
                     GUI.instance().getRenderer().showGameMessage(getYourTurnMessage());
-                }
-                else{
+                } else {
                     GUI.instance().getRenderer().showGameMessage(getOtherTurnMessage());
                 }
             }
         }
     }
 
-    private String getYourTurnMessage(){
-        String message="";
-        switch (GUI.instance().getModel().getTurnPhase()){
+    private String getYourTurnMessage() {
+        String message = "";
+        switch (GUI.instance().getModel().getTurnPhase()) {
             case PLAY_ASSISTANT_CARD -> message = "It's your turn: select the assistant card you want to play." +
                     "\n CLick on \"Deck\" to open your deck and click on the assistant card you want to play";
             case MOVE_STUDENT -> message = "It's your turn: you have to move " +
@@ -60,17 +59,17 @@ public class GUIModelUpdateHandler extends ModelUpdateHandler {
         return message;
     }
 
-    private String getOtherTurnMessage(){
-        String message="";
-        switch (GUI.instance().getModel().getTurnPhase()){
+    private String getOtherTurnMessage() {
+        String message = "";
+        switch (GUI.instance().getModel().getTurnPhase()) {
             case PLAY_ASSISTANT_CARD -> message = "It's " + GUI.instance().getModel().getCurrentPlayer().getNickname() + "'s turn to choose an assistant card: go to their school board " +
                     "to see the assistant card chosen with the button " + GUI.instance().getModel().getCurrentPlayer().getNickname() + "'s School Board";
-            case MOVE_STUDENT -> message = GUI.instance().getModel().getCurrentPlayer().getNickname()+
+            case MOVE_STUDENT -> message = GUI.instance().getModel().getCurrentPlayer().getNickname() +
                     " is moving students from the entrance: to see the updates go to the school board with the button " + GUI.instance().getModel().getCurrentPlayer().getNickname() + "'s School Board" +
                     "or go to the islands with the button \"Islands\"";
-            case MOVE_MOTHER_NATURE -> message = GUI.instance().getModel().getCurrentPlayer().getNickname()+
+            case MOVE_MOTHER_NATURE -> message = GUI.instance().getModel().getCurrentPlayer().getNickname() +
                     " is moving mother nature: go to the islands with the button \"Islands\" to see the updates ";
-            case CHOOSE_CLOUD_TILE -> message =  GUI.instance().getModel().getCurrentPlayer().getNickname()+
+            case CHOOSE_CLOUD_TILE -> message = GUI.instance().getModel().getCurrentPlayer().getNickname() +
                     " is choosing a cloud tile: " +
                     "go to the cloud tiles with the button \"Cloud Tiles\" to see the updates";
         }
@@ -83,23 +82,22 @@ public class GUIModelUpdateHandler extends ModelUpdateHandler {
      * @param characterCard the new current character card
      */
     @Override
-    public void updateActiveCharacterCard(CharacterCardEnumeration characterCard){
+    public void updateActiveCharacterCard(CharacterCardEnumeration characterCard) {
         super.updateActiveCharacterCard(characterCard);
-        if(GUI.instance().isGuidedMode()){
+        if (GUI.instance().isGuidedMode()) {
             if (characterCard == CharacterCardEnumeration.BASIC_STATE) {
                 GUI.instance().getRenderer().showGameMessage("The character card played is not active anymore");
-            } else if(GUI.instance().getModel().getCurrentPlayer().getNickname().equals(GUI.instance().getPlayerName())){
+            } else if (GUI.instance().getModel().getCurrentPlayer().getNickname().equals(GUI.instance().getPlayerName())) {
                 GUI.instance().getRenderer().showGameMessage("You played the character card " + characterCard + "\n" + getCharacterCardMessage(characterCard));
-            }
-            else{
+            } else {
                 GUI.instance().getRenderer().showGameMessage(GUI.instance().getModel().getCurrentPlayer().getNickname() + " played the character card " + characterCard);
             }
         }
     }
 
-    private String getCharacterCardMessage(CharacterCardEnumeration characterCard){
-        String message ="\n";
-        switch (characterCard){
+    private String getCharacterCardMessage(CharacterCardEnumeration characterCard) {
+        String message = "\n";
+        switch (characterCard) {
             case EXCHANGE_ENTRANCE_DINING_ROOM -> message += "You can swap one student in your entrance with one in your dining room" +
                     " to do that, select a student in your entrance and then select one student in your dining room.\n" +
                     "You can do that two times.";
@@ -117,9 +115,6 @@ public class GUIModelUpdateHandler extends ModelUpdateHandler {
         }
         return message;
     }
-
-
-
 
 
 }

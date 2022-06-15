@@ -156,9 +156,9 @@ public class CharacterCardsWidget extends StackPane {
     private void setStudent(Colour colour) {
         if (GUI.instance().getPlayerName().equals(GUI.instance().getModel().getCurrentPlayer().getNickname())) {
             if (GUI.instance().getModel().getCurrentCharacterCard().getType().equals(CharacterCardEnumeration.STUDENT_TO_ISLAND) ||
-                GUI.instance().getModel().getCurrentCharacterCard().getType().equals(CharacterCardEnumeration.STUDENT_TO_DINING_ROOM) ||
-                GUI.instance().getModel().getCurrentCharacterCard().getType().equals(CharacterCardEnumeration.STUDENT_TO_ENTRANCE)) {
-                     GUI.instance().getModel().setStudentOnCardSelected(colour);
+                    GUI.instance().getModel().getCurrentCharacterCard().getType().equals(CharacterCardEnumeration.STUDENT_TO_DINING_ROOM) ||
+                    GUI.instance().getModel().getCurrentCharacterCard().getType().equals(CharacterCardEnumeration.STUDENT_TO_ENTRANCE)) {
+                GUI.instance().getModel().setStudentOnCardSelected(colour);
             }
         }
     }
@@ -183,7 +183,7 @@ public class CharacterCardsWidget extends StackPane {
                 imageViewStudent.setImage(new Image(Objects.requireNonNull(CharacterCardsWidget.class.getResourceAsStream(
                         "/images/students/student_" + colour.name().toLowerCase(Locale.ROOT) + ".png"))));
 
-                if(GUI.instance().getModel().getCurrentCharacterCard().getType() == CharacterCardEnumeration.BASIC_STATE){
+                if (GUI.instance().getModel().getCurrentCharacterCard().getType() == CharacterCardEnumeration.BASIC_STATE) {
                     imageViewStudent.setOnMouseClicked(event -> GUI.instance().getRenderer().showErrorMessage("You must pay the character card first"));
                 } else {
                     imageViewStudent.setOnMouseClicked(event -> {
@@ -194,7 +194,7 @@ public class CharacterCardsWidget extends StackPane {
 
                 GUI.instance().getModel().currentCharacterCardProperty().addListener((ChangeListener<? super MockCard>) (change, oldVal, newVal) ->
                         Platform.runLater(() -> {
-                            if(newVal.getType() == CharacterCardEnumeration.BASIC_STATE){
+                            if (newVal.getType() == CharacterCardEnumeration.BASIC_STATE) {
                                 imageViewStudent.setOnMouseClicked(event -> GUI.instance().getRenderer().showErrorMessage("You must pay the character card first"));
                             } else {
                                 imageViewStudent.setOnMouseClicked(event -> {
@@ -202,7 +202,7 @@ public class CharacterCardsWidget extends StackPane {
                                     setStudent(colour);
                                 });
                             }
-                }));
+                        }));
 
                 if (i == 0) {
                     studentsOnCard0.add(pane, r, c);

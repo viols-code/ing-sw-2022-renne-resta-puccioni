@@ -186,6 +186,7 @@ public class CLI extends View {
     @Override
     public void run() {
         Scanner scanner = new Scanner(System.in);
+        // Print the logo
         System.out.println(AnsiColour.BLUE + ASCIIArt.ERIANTYS + AnsiColour.RESET);
 
         getRenderer().showLobbyMessage("Enter the server ip and port (leave blank for localhost):");
@@ -198,6 +199,7 @@ public class CLI extends View {
                 break;
 
             switch (getGameState()) {
+                // Handle the connection with the Server
                 case CONNECTING -> {
                     if (command.isBlank()) {
                         if (!getClient().connect())
@@ -228,6 +230,7 @@ public class CLI extends View {
                         getRenderer().showErrorMessage("Unknown host or port, please try again!");
                 }
 
+                // Let the user choose their name
                 case CHOOSING_NAME -> {
                     if (command.length() != command.trim().length()) {
                         getRenderer().showErrorMessage("The nickname must be without empty spaces");
@@ -238,6 +241,7 @@ public class CLI extends View {
                     }
                 }
 
+                // Let the user choose their wizard
                 case CHOOSING_WIZARD -> {
                     int wizardNumber;
                     try {
@@ -249,6 +253,7 @@ public class CLI extends View {
                     setWizard(Wizard.valueOf(wizardNumber));
                 }
 
+                // Let the user select the game mode
                 case CHOOSING_GAME_MODE -> {
                     if (command.equalsIgnoreCase("expert")) {
                         getActionSender().setGameMode(true);
@@ -261,6 +266,7 @@ public class CLI extends View {
                     }
                 }
 
+                // Let the user select the number of players in the game
                 case CHOOSING_PLAYERS -> {
                     int playersToStart;
                     try {
@@ -278,8 +284,10 @@ public class CLI extends View {
                     getActionSender().setPlayersToStart(playersToStart);
                 }
 
+                // Waiting for other players
                 case WAITING_PLAYERS -> getRenderer().showLobbyMessage(ViewString.WAITING_PLAYERS);
 
+                // Playing the game
                 case PLAYING -> {
                     try {
                         commandHandler.handle(command);
