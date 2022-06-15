@@ -225,7 +225,7 @@ public class CLIRenderer extends Renderer {
         }
 
         if (player.isAssistantCardValue()) {
-            if (player.getCurrentAssistantCard().getValue() < 9) {
+            if (player.getCurrentAssistantCard().getValue() < 10) {
                 row1.add(player.getCurrentAssistantCard().getValue() + " ");
             } else {
                 row1.add(player.getCurrentAssistantCard().getValue() + "");
