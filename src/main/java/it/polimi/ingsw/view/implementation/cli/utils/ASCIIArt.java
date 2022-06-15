@@ -331,7 +331,7 @@ public class ASCIIArt {
                 """;
 
     public static final String CHARACTER_CARD = """
-                %s                            %s                            %s
+                %s                            %s                          %s
             %s        %s         %s
             __________                  __________                  __________
             |      %s |                  |      %s |                  |      %s |
