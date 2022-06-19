@@ -441,16 +441,16 @@ public class SchoolBoardWidget extends StackPane {
             ImageView loser = new ImageView();
             anchorPane.getChildren().add(loser);
             loser.setImage(new Image(Objects.requireNonNull(SchoolBoardWidget.class.getResourceAsStream(
-                    "/images/loser.png"))));
-            loser.setLayoutY(166);
-            loser.setLayoutX(230);
-            loser.setFitWidth(634);
-            loser.setFitHeight(337);
+                    "/images/loser2.png"))));
+            loser.setLayoutY(74);
+            loser.setLayoutX(171);
+            loser.setFitWidth(934);
+            loser.setFitHeight(290);
             Label winnerName = new Label();
             winnerName.setText(GUI.instance().getModel().getWinner().getNickname());
-            winnerName.setStyle("-fx-font: 35 Stsyem;");
-            winnerName.setLayoutX(596);
-            winnerName.setLayoutY(377);
+            winnerName.setStyle("-fx-font: 96 Stsyem;");
+            winnerName.setLayoutX(671);
+            winnerName.setLayoutY(257);
             anchorPane.getChildren().add(winnerName);
         }
     }
