@@ -442,8 +442,8 @@ public class SchoolBoardWidget extends StackPane {
             anchorPane.getChildren().add(loser);
             loser.setImage(new Image(Objects.requireNonNull(SchoolBoardWidget.class.getResourceAsStream(
                     "/images/loser2.png"))));
-            loser.setLayoutY(74);
-            loser.setLayoutX(171);
+            loser.setLayoutY(171);
+            loser.setLayoutX(74);
             loser.setFitWidth(934);
             loser.setFitHeight(290);
             Label winnerName = new Label();
