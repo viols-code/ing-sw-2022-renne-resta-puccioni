@@ -214,7 +214,7 @@ public class ASCIIArt {
             """;
 
     public static final String SCHOOL_BOARD_HORIZONTAL_3_6 = """
-            %s %s %s %s %s
+            %s %s %s %s %s %s
                        School Board:                                     School Board:                                        School Board:
             _______________________________________                _______________________________________                _______________________________________      __________
             | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |                | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |                | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |      | %s   %s |
@@ -227,7 +227,7 @@ public class ASCIIArt {
 
 
     public static final String SCHOOL_BOARD_HORIZONTAL_3_7 = """
-            %s %s %s %s %s
+            %s %s %s %s %s %s
                        School Board:                                       School Board:                                       School Board:
             _______________________________________                _______________________________________                _______________________________________
             | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |                | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |                | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |
