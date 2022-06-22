@@ -413,12 +413,16 @@ public class SchoolBoardWidget extends StackPane {
         }
     }
 
+    /**
+     * A method which checks if the game has ended (if the turn phase is ENDGAME) and, if so, calls the method whic shows the winner
+     */
     private void initWinner() {
 
         if (GUI.instance().getModel().getTurnPhase().equals(TurnPhase.ENDGAME)) {
             printWinner();
         }
 
+        //Adds a listener to the turn phase in order to know if the game has ended
         GUI.instance().getModel().getTurnPhaseProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> {
 
             if (GUI.instance().getModel().getTurnPhase().equals(TurnPhase.ENDGAME)) {
@@ -427,6 +431,9 @@ public class SchoolBoardWidget extends StackPane {
         }));
     }
 
+    /**
+     * The layout of the images that appear once the game has ended to show who is the winner
+     */
     private void printWinner() {
         if (GUI.instance().getModel().getWinner().getNickname().equals(GUI.instance().getPlayerName())) {
             ImageView winner = new ImageView();
@@ -441,16 +448,16 @@ public class SchoolBoardWidget extends StackPane {
             ImageView loser = new ImageView();
             anchorPane.getChildren().add(loser);
             loser.setImage(new Image(Objects.requireNonNull(SchoolBoardWidget.class.getResourceAsStream(
-                    "/images/loser.png"))));
-            loser.setLayoutY(166);
-            loser.setLayoutX(230);
-            loser.setFitWidth(634);
-            loser.setFitHeight(337);
+                    "/images/loser2.png"))));
+            loser.setLayoutY(171);
+            loser.setLayoutX(74);
+            loser.setFitWidth(934);
+            loser.setFitHeight(290);
             Label winnerName = new Label();
             winnerName.setText(GUI.instance().getModel().getWinner().getNickname());
-            winnerName.setStyle("-fx-font: 35 Stsyem;");
-            winnerName.setLayoutX(596);
-            winnerName.setLayoutY(377);
+            winnerName.setStyle("-fx-font: 96 Stsyem;");
+            winnerName.setLayoutX(671);
+            winnerName.setLayoutY(257);
             anchorPane.getChildren().add(winnerName);
         }
     }
