@@ -229,8 +229,14 @@ public class GUI extends View {
 
     @Override
     public void handlePlayerCrash(String playerName) {
-
+        getRenderer().showErrorMessage("Player " + playerName + " crashed! The game is over!\nConnect again to start a new game.");
+        reset();
+        Platform.runLater(() -> {
+            Parent homePage = FXMLUtils.loadFXML("/gui/Home");
+            scene.setRoot(homePage);
+        });
     }
+
 
     @Override
     public void handleEndGame() {
