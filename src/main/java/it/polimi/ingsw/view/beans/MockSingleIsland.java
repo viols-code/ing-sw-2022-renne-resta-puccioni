@@ -9,7 +9,7 @@ import javafx.collections.ObservableMap;
  */
 public class MockSingleIsland {
     /**
-     * An HashMap containing the number of students for each colour on the single islands
+     * An HashMap containing the number of students for each colour on the single island
      */
     private final ObservableMap<Colour, Integer> students;
 
@@ -42,6 +42,11 @@ public class MockSingleIsland {
         return students.get(colour);
     }
 
+    /**
+     * Gets the students that are on the single island as an ObservableMap
+     *
+     * @return an ObservableMap representing the students that are on the single island
+     */
     public ObservableMap<Colour, Integer> getStudentsProperty() {
         return students;
     }

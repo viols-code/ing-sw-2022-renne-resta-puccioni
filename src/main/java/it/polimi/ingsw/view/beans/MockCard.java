@@ -23,7 +23,7 @@ public class MockCard {
     private final IntegerProperty cost;
 
     /**
-     * Number of student on the card
+     * Number of students on the card
      */
     private final int numberOfStudentsOnTheCard;
 
@@ -33,7 +33,7 @@ public class MockCard {
     private final int numberOfStudentToChoose;
 
     /**
-     * The number of no entry tile
+     * The number of no entry tiles
      */
     private final IntegerProperty numberOfNoEntryTile;
 
@@ -121,15 +121,6 @@ public class MockCard {
     }
 
     /**
-     * Gets the number of student that can be chosen from the card
-     *
-     * @return the number of student that can be chosen from the card
-     */
-    public int getNumberOfStudentToChoose() {
-        return numberOfStudentToChoose;
-    }
-
-    /**
      * Gets the number of no entry tiles on the card
      *
      * @return number of no entry tiles
@@ -150,7 +141,7 @@ public class MockCard {
     /**
      * Adds a student of the selected colour
      *
-     * @param colour the selected student
+     * @param colour the selected student colour
      */
     public void addStudent(Colour colour) {
         if (type == CharacterCardEnumeration.STUDENT_TO_DINING_ROOM || type == CharacterCardEnumeration.STUDENT_TO_ENTRANCE || type == CharacterCardEnumeration.STUDENT_TO_ISLAND)
@@ -158,24 +149,19 @@ public class MockCard {
     }
 
     /**
-     * Removes a student of the selected colour
-     *
-     * @param colour the student to remove
-     */
-    public void removeStudent(Colour colour) {
-        if (type == CharacterCardEnumeration.STUDENT_TO_DINING_ROOM || type == CharacterCardEnumeration.STUDENT_TO_ENTRANCE || type == CharacterCardEnumeration.STUDENT_TO_ISLAND)
-            students.replace(colour, students.get(colour), students.get(colour) - 1);
-    }
-
-    /**
      * Gets the students on the card
      *
-     * @return the students on the card
+     * @return a hashmap representing the students on the card
      */
     public HashMap<Colour, Integer> getStudents() {
         return new HashMap<>(students);
     }
 
+    /**
+     * Gets the students on the card
+     *
+     * @return an observableMap representing the students on the card
+     */
     public ObservableMap<Colour, Integer> getStudentsProperty() {
         return students;
     }
@@ -191,9 +177,9 @@ public class MockCard {
     }
 
     /**
-     * Get the cost of the CharacterCard as a IntegerProperty
+     * Gets the cost of the CharacterCard as an IntegerProperty
      *
-     * @return the cost of the CharacterCard as a IntegerProperty
+     * @return the cost of the CharacterCard as an IntegerProperty
      */
     public IntegerProperty getCostProperty() {
         return cost;

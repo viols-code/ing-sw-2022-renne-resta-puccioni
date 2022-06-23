@@ -14,11 +14,11 @@ import java.util.List;
  * Class that contains a local copy of the player's school board
  */
 public class MockSchoolBoard {
-    private ObservableMap<Colour, Integer> entrance;
-    private ObservableMap<Colour, Integer> diningRoom;
-    private ObservableMap<Colour, Boolean> professorTable;
-    private IntegerProperty towers;
-    private List<StudentCoordinates> selectedStudents;
+    private final ObservableMap<Colour, Integer> entrance;
+    private final ObservableMap<Colour, Integer> diningRoom;
+    private final ObservableMap<Colour, Boolean> professorTable;
+    private final IntegerProperty towers;
+    private final List<StudentCoordinates> selectedStudents;
 
     public MockSchoolBoard() {
         entrance = FXCollections.observableHashMap();
@@ -36,7 +36,7 @@ public class MockSchoolBoard {
     /**
      * Gets the entrance
      *
-     * @return the entrance
+     * @return the entrance as an HashMap
      */
     public HashMap<Colour, Integer> getEntrance() {
         return new HashMap<>(entrance);
@@ -88,16 +88,16 @@ public class MockSchoolBoard {
     }
 
     /**
-     * Gets the number of towers on that school board
+     * Gets the number of towers on this school board
      *
-     * @return the number of towers on that school board
+     * @return the number of towers on this school board
      */
     public int getTowers() {
         return towers.getValue();
     }
 
     /**
-     * Sets the number of towers on that school board
+     * Sets the number of towers on this school board
      *
      * @param towers the number of towers
      */
@@ -105,26 +105,38 @@ public class MockSchoolBoard {
         this.towers.setValue(towers);
     }
 
+    /**
+     * Gets the entrance as an ObservableMap
+     *
+     * @return an ObservableMap representing the entrance
+     */
     public ObservableMap<Colour, Integer> getEntranceProperty() {
         return entrance;
     }
 
-    public List<StudentCoordinates> getSelectedStudents() {
-        return selectedStudents;
-    }
-
-    public void addSelectedStudent(int row, int col, Colour colour) {
-        selectedStudents.add(new StudentCoordinates(row, col, colour));
-    }
-
+    /**
+     * Gets the dining room as an ObservableMap
+     *
+     * @return an ObservableMap representing the dining room
+     */
     public ObservableMap<Colour, Integer> getDiningRoomProperty() {
         return diningRoom;
     }
 
+    /**
+     * Gets the professor table as an ObservableMap
+     *
+     * @return an ObservableMap representing the professor table
+     */
     public ObservableMap<Colour, Boolean> getProfessorTableProperty() {
         return professorTable;
     }
 
+    /**
+     * Gets the number of towers present on this schoolBoard
+     *
+     * @return the number of towers present on this schoolBoard as an IntegerProperty
+     */
     public IntegerProperty getTowersProperty() {
         return towers;
     }

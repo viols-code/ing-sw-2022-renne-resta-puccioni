@@ -24,7 +24,7 @@ public class MockPlayer {
     private final Wizard wizard;
 
     /**
-     * The current assistant card
+     * A boolean that states if the player is the localPlayer
      */
     private final boolean localPlayer;
 
@@ -34,14 +34,9 @@ public class MockPlayer {
     private final MockSchoolBoard schoolBoard;
 
     /**
-     * An attribute that indicates if the player has coins or not
-     */
-    private final boolean hasCoins;
-
-    /**
      * Number of coins
      */
-    private IntegerProperty coins;
+    private final IntegerProperty coins;
 
     /**
      * The colour of the tower given to the player
@@ -56,25 +51,26 @@ public class MockPlayer {
     /**
      * The current assistant card
      */
-    private Property<AssistantCard> currentAssistantCard;
+    private final Property<AssistantCard> currentAssistantCard;
 
     /**
      * True if the assistantCard is set, false otherwise
      */
-    private BooleanProperty assistantCardValue;
+    private final BooleanProperty assistantCardValue;
 
 
     /**
      * Constructs the mock player
      *
      * @param nickname the string containing the nickname
+     * @param wizard the wizard chosen by the player
      * @param hasCoins true for expert game mode, false for basic game mode
+     * @param localPlayer true if the player is the local player of this view
      */
     public MockPlayer(String nickname, Wizard wizard, boolean hasCoins, boolean localPlayer) {
         this.nickname = nickname;
         this.wizard = wizard;
         this.localPlayer = localPlayer;
-        this.hasCoins = hasCoins;
         this.towerColour = null;
         schoolBoard = new MockSchoolBoard();
         cards = FXCollections.observableHashMap();
@@ -129,15 +125,6 @@ public class MockPlayer {
     }
 
     /**
-     * Gets the variable hasCoins
-     *
-     * @return true for expert game mode, false for basic game mode
-     */
-    public boolean isHasCoins() {
-        return hasCoins;
-    }
-
-    /**
      * Sets the coins of the player
      *
      * @param coins the coins
@@ -156,32 +143,37 @@ public class MockPlayer {
     }
 
     /**
-     * Gets the colour of the tower
+     * Gets the colour of the towers
      *
-     * @return the tower colour
+     * @return the towers' colour
      */
     public TowerColour getTowerColour() {
         return towerColour;
     }
 
     /**
-     * Sets the colour of the tower
+     * Sets the colour of the towers
      *
-     * @param colour the colour of the tower
+     * @param colour the colour of the towers
      */
     public void setTowerColour(TowerColour colour) {
         this.towerColour = colour;
     }
 
     /**
-     * Gets the assistant card in the player's deck
+     * Gets the assistant cards in the player's deck
      *
-     * @return the list of the assistant card
+     * @return the list of the assistant cards
      */
     public HashMap<Integer, AssistantCard> getCards() {
         return new HashMap<>(cards);
     }
 
+    /**
+     * Gets the assistant cards in the player's deck as an ObservableMap
+     *
+     * @return the list of the assistant cards as an ObservableMap
+     */
     public ObservableMap<Integer, AssistantCard> getCardsProperty() {
         return cards;
     }
@@ -189,7 +181,7 @@ public class MockPlayer {
     /**
      * Sets the current assistant card
      *
-     * @param currentAssistantCard the assistant card played
+     * @param currentAssistantCard the assistant card played by the player in the current round
      */
     public void setCurrentAssistantCard(int currentAssistantCard) {
         this.currentAssistantCard.setValue(cards.get(currentAssistantCard - 1));
@@ -205,27 +197,56 @@ public class MockPlayer {
         return currentAssistantCard.getValue();
     }
 
-
+    /**
+     * Gets the current assistant card as a Property
+     *
+     * @return the current assistant card as a Property
+     */
     public Property<AssistantCard> getCurrentAssistantCardProperty() {
         return currentAssistantCard;
     }
 
+    /**
+     * Gets the wizard chosen by the player
+     *
+     * @return the wizard chosen by the player
+     */
     public Wizard getWizard() {
         return wizard;
     }
 
+    /**
+     * Gets the owned by the player
+     *
+     * @return the number of coins owned by the player as an IntegerProperty
+     */
     public IntegerProperty getCoinsProperty() {
         return coins;
     }
 
+    /**
+     * States whether the assistant card value has been set or not as a BooleanProperty
+     *
+     * @return true if the assistant card has been played so that the value has been set, false otherwise
+     */
     public BooleanProperty isAssistantCardValueProperty() {
         return assistantCardValue;
     }
 
+    /**
+     * States whether the assistant card value has been set or not
+     *
+     * @return true if the assistant card has been played so that the value has been set, false otherwise
+     */
     public boolean isAssistantCardValue() {
         return assistantCardValue.getValue();
     }
 
+    /**
+     * Sets assistantCardValue to true if the value of the assistant card has been set, false otherwise
+     *
+     * @param assistantCardValue true if the assistantCard has been played so that the value has been set
+     */
     public void setAssistantCardValue(boolean assistantCardValue) {
         this.assistantCardValue.setValue(assistantCardValue);
     }

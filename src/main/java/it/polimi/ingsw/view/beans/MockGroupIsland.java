@@ -89,6 +89,8 @@ public class MockGroupIsland {
 
     /**
      * Sets the value of the attribute is basic
+     *
+     * @param isBasic true if the groupIsland is basic
      */
     public void setIsBasic(boolean isBasic) {
         this.isBasic = isBasic;
@@ -97,14 +99,14 @@ public class MockGroupIsland {
     /**
      * Gets the number of no entry tile on this group island
      *
-     * @return the number of no entry tile
+     * @return the number of no entry tiles on this GroupIsland
      */
     public int getNoEntryTile() {
         return noEntryTile.getValue();
     }
 
     /**
-     * Sets the number of no entry tile
+     * Sets the number of no entry tiles
      *
      * @param noEntryTile the number of no entry tile
      */
@@ -115,7 +117,7 @@ public class MockGroupIsland {
     /**
      * States if mother nature is on that island
      *
-     * @return true if mother nature is on this island, false if mother nature is not on that island
+     * @return true if mother nature is on this island, false if mother nature is not on this island
      */
     public boolean isMotherNature() {
         return motherNature.getValue();
@@ -124,25 +126,25 @@ public class MockGroupIsland {
     /**
      * Sets the attribute motherNature
      *
-     * @param motherNature a boolean that is true if mother nature is on that island, false if mother nature is not on that island
+     * @param motherNature a boolean that is true if mother nature is on this island, false if mother nature is not on this island
      */
     public void setMotherNature(boolean motherNature) {
         this.motherNature.setValue(motherNature);
     }
 
     /**
-     * Gets the influent player on that group island
+     * Gets the influent player on this group island
      *
-     * @return the nickname of the influent player on that group island
+     * @return the nickname of the influent player on this group island
      */
     public String getInfluentPlayer() {
         return influentPlayer.getValue();
     }
 
     /**
-     * Sets the influent player on that group island
+     * Sets the influent player on this group island
      *
-     * @param influentPlayer the nickname of the influent player on that group island
+     * @param influentPlayer the nickname of the influent player on this group island
      */
     public void setInfluentPlayer(String influentPlayer) {
         this.influentPlayer.setValue(influentPlayer);
@@ -177,15 +179,6 @@ public class MockGroupIsland {
      */
     public IntegerProperty getNoEntryTileProperty() {
         return noEntryTile;
-    }
-
-    /**
-     * Get the motherNature as a BooleanProperty
-     *
-     * @return the motherNature as a BooleanProperty
-     */
-    public BooleanProperty getIsMotherNatureProperty() {
-        return motherNature;
     }
 
     /**

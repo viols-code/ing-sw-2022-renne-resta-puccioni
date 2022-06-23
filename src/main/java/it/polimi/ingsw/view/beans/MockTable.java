@@ -19,6 +19,9 @@ public class MockTable {
      */
     private final ObservableList<MockCloudTile> cloudTiles;
 
+    /**
+     * A list containing the shown cloud tiles
+     */
     private final ObservableList<MockCloudTile> shownCloudTiles;
 
     /**
@@ -34,14 +37,17 @@ public class MockTable {
     /**
      * Indicates the position of mother nature (index of the group island)
      */
-    private IntegerProperty motherNaturePosition;
+    private final IntegerProperty motherNaturePosition;
 
     /**
      * The professors available on the table
      */
     private final ObservableMap<Colour, Boolean> professorsAvailable;
 
-    private IntegerProperty islandInfluenceChanged;
+    /**
+     * The index of the groupIsland on which the influence has changed
+     */
+    private final IntegerProperty islandInfluenceChanged;
 
     /**
      * Constructs the table
@@ -126,9 +132,9 @@ public class MockTable {
     }
 
     /**
-     * Gets the cloud tiles shown
+     * Gets the cloud tiles shown as an ObservableList
      *
-     * @return the list of the cloud tiles shown
+     * @return the list of the cloud tiles shown as an ObservableList
      */
     public ObservableList<MockCloudTile> getShownCloudTilesProperty() {
         return shownCloudTiles;
@@ -146,7 +152,7 @@ public class MockTable {
     }
 
     /**
-     * Gets the list of CloudTiled
+     * Gets the list of CloudTiles
      *
      * @return the list of cloudTiles
      */
@@ -183,16 +189,7 @@ public class MockTable {
     }
 
     /**
-     * Removes a group island from the list
-     *
-     * @param groupIsland the position of the group island to remove
-     */
-    public void removeGroupIslandByIndex(int groupIsland) {
-        groupIslands.remove(groupIsland);
-    }
-
-    /**
-     * Unifies two group island
+     * Unifies two group islands
      *
      * @param groupIsland1 the first group island
      * @param groupIsland2 the second group island (it will be removed after unification)
@@ -202,24 +199,6 @@ public class MockTable {
             groupIslands.get(groupIsland1).addMockSingleIsland(singleIsland);
         }
         groupIslands.remove(groupIsland2);
-    }
-
-    /**
-     * Gets the variable isBagEmpty
-     *
-     * @return true if the bag is empty, false if the bag contains some students
-     */
-    public boolean getIsBagEmpty() {
-        return isBagEmpty;
-    }
-
-    /**
-     * Sets the variable isBagEmpty
-     *
-     * @param bagEmpty the new value of the variable
-     */
-    public void setBagEmpty(boolean bagEmpty) {
-        isBagEmpty = bagEmpty;
     }
 
     /**
@@ -244,18 +223,29 @@ public class MockTable {
         getGroupIslandByIndex(motherNaturePosition).setMotherNature(true);
     }
 
+    /**
+     * Gets the list of group islands
+     *
+     * @return an ObservableList containing the groupIslands
+     */
     public synchronized ObservableList<MockGroupIsland> getGroupIslandsProperty() {
         return groupIslands;
     }
 
+    /**
+     * Gets the current position of mother nature as an IntegerProperty
+     *
+     * @return an IntegerProperty that indicates the current position of mother nature
+     */
     public IntegerProperty getMotherNaturePositionProperty() {
         return motherNaturePosition;
     }
 
-    public IntegerProperty islandInfluenceChangedProperty() {
-        return islandInfluenceChanged;
-    }
-
+    /**
+     * Sets the index of the island on which the influence has changed
+     *
+     * @param islandInfluenceChanged the index of the island on which the influence has changed
+     */
     public void setIslandInfluenceChanged(int islandInfluenceChanged) {
         this.islandInfluenceChanged.set(islandInfluenceChanged);
     }
