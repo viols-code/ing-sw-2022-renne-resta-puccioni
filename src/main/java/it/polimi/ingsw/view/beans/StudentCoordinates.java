@@ -2,8 +2,17 @@ package it.polimi.ingsw.view.beans;
 
 import it.polimi.ingsw.model.Colour;
 
+/**
+ * The coordinate of a student in the GridPane
+ */
 public class StudentCoordinates {
+    /**
+     * The row of the student
+     */
     private final int row;
+    /**
+     * The column of the student
+     */
     private final int column;
     private final Colour studentColour;
 

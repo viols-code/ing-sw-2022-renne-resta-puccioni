@@ -148,6 +148,9 @@ public class MockGroupIsland {
         this.influentPlayer.setValue(influentPlayer);
     }
 
+    /**
+     * Set the influentPlayerProperty
+     */
     public void clearInfluentPlayerProperty() {
         if (this.influentPlayer.getValue() != null) {
             this.influentPlayer = new SimpleStringProperty(this.influentPlayer.getValue());
@@ -156,6 +159,9 @@ public class MockGroupIsland {
         }
     }
 
+    /**
+     * Set the noEntryTileProperty
+     */
     public void clearNoEntryTileProperty() {
         if (this.noEntryTile.getValue() != null) {
             this.noEntryTile = new SimpleIntegerProperty(this.noEntryTile.getValue());
@@ -164,14 +170,29 @@ public class MockGroupIsland {
         }
     }
 
+    /**
+     * Get the noEntryTile as a IntegerProperty
+     *
+     * @return the noEntryTile as a IntegerProperty
+     */
     public IntegerProperty getNoEntryTileProperty() {
         return noEntryTile;
     }
 
+    /**
+     * Get the motherNature as a BooleanProperty
+     *
+     * @return the motherNature as a BooleanProperty
+     */
     public BooleanProperty getIsMotherNatureProperty() {
         return motherNature;
     }
 
+    /**
+     * Get the nickname of the influent player as a StringProperty
+     *
+     * @return the nickname of the influent player as a StringProperty
+     */
     public StringProperty getInfluentPlayerProperty() {
         return influentPlayer;
     }

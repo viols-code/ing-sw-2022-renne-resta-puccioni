@@ -56,7 +56,7 @@ public class SocketClientConnection implements Runnable {
     /**
      * Gets the player name associated with this connection
      *
-     * @return the player name, or <code>null</code> if it has not been set yet
+     * @return the player name, or null if it has not been set yet
      */
     public synchronized String getPlayerName() {
         return playerName;
@@ -72,16 +72,16 @@ public class SocketClientConnection implements Runnable {
     }
 
     /**
-     * Gets the player name associated with this connection
+     * Gets the wizard associated with this connection
      *
-     * @return the player name, or <code>null</code> if it has not been set yet
+     * @return the player name, or null if it has not been set yet
      */
     public synchronized Wizard getWizard() {
         return wizard;
     }
 
     /**
-     * Sets the player name associated with this connection
+     * Sets the wizard associated with this connection
      *
      * @param wizard the player name to associate with this connection
      */
