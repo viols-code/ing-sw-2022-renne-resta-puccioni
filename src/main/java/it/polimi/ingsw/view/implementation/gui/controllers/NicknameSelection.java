@@ -7,17 +7,19 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+/**
+ * The page in which the players decide their nicknames
+ */
 public class NicknameSelection {
 
     @FXML
     private TextField username;
-    @FXML
-    private Button choose;
-    @FXML
-    private Label wrongNickname;
 
     @FXML
-    private CheckBox guideMode;
+    private Button choose;
+
+    @FXML
+    private Label wrongNickname;
 
     @FXML
     private void initialize() {
@@ -39,6 +41,9 @@ public class NicknameSelection {
         });
     }
 
+    /**
+     * Method used to enable the guided mode
+     */
     @FXML
     public void enableGuideMode() {
         GUI.instance().setGuidedMode(true);

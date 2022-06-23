@@ -17,6 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * The page shown when the player has to select the wizard
+ */
 public class WizardSelection extends BorderPane {
     @FXML
     private HBox box;
@@ -53,6 +56,7 @@ public class WizardSelection extends BorderPane {
 
         }
 
+        //Makes the images of the wizard already chosen by other players become blurred
         GUI.instance().getTakenWizardsProperty().addListener((ListChangeListener<? super Wizard>) change -> Platform.runLater(() -> {
             while (change.next()) {
                 if (change.wasAdded()) {
@@ -75,6 +79,11 @@ public class WizardSelection extends BorderPane {
         }));
     }
 
+    /**
+     * Calls the method which sets the wizard chosen by the player
+     *
+     * @param i the index of the wizard chosen
+     */
     @FXML
     private void chooseWizard(int i) {
         GUI.instance().setWizard(Wizard.valueOf(i));

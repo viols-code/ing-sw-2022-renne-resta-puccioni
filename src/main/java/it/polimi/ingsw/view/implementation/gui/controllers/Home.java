@@ -7,6 +7,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.VBox;
 
+/**
+ * The page in which the player connects to the game
+ */
 public class Home {
 
     @FXML
@@ -23,8 +26,7 @@ public class Home {
 
     @FXML
     private void initialize() {
-        //MusicButtonWidget musicButtonWidget = new MusicButtonWidget(true);
-        //leftVBox.getChildren().add(musicButtonWidget);
+
         serverIp.setText("localhost:54321");
         serverIp.setOnMouseClicked(mouseEvent -> serverIp.selectAll());
 
