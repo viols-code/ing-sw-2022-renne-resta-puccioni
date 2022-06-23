@@ -21,36 +21,66 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
+/**
+ * Widget representing the character cards available in the game
+ */
 public class CharacterCardsWidget extends StackPane {
     @FXML
     private HBox box;
 
+    /**
+     * The students on the card with index 0
+     */
     @FXML
     private GridPane studentsOnCard0;
 
+    /**
+     * The students on the card with index 1
+     */
     @FXML
     private GridPane studentsOnCard1;
 
+    /**
+     * The students on the card with index 2
+     */
     @FXML
     private GridPane studentsOnCard2;
 
+    /**
+     * The number of coins on the table
+     */
     @FXML
     private Label numberCoinsTable;
 
+    /**
+     * The updated cost of the card with index 0
+     */
     @FXML
     private Label costCard0;
 
+    /**
+     * The updated cost of the card with index 1
+     */
     @FXML
     private Label costCard1;
 
+    /**
+     * The updated cost of the card with index 2
+     */
     @FXML
     private Label costCard2;
 
     @FXML
     private AnchorPane anchorPane;
 
+    /**
+     * List containing the imageViews of the character cards
+     */
     private final List<ImageView> imageViewList = new ArrayList<>();
 
+    /**
+     * Creates the CharacterCardsWidget
+     */
     public CharacterCardsWidget() {
         FXMLUtils.loadWidgetFXML(this);
     }
@@ -92,6 +122,7 @@ public class CharacterCardsWidget extends StackPane {
 
                 int card = i;
 
+                //adds a listener to the students on the card in order to update them when they change
                 GUI.instance().getModel().getCharacterCardByIndex(i).getStudentsProperty().addListener((MapChangeListener<? super Colour, ? super Integer>) listener ->
 
                         Platform.runLater(() -> {
@@ -110,15 +141,19 @@ public class CharacterCardsWidget extends StackPane {
         }
 
         costCard0.setText(String.valueOf(GUI.instance().getModel().getCharacterCardByIndex(0).getCost()));
+        //adds a listener to the cost of the character card with index 0 in order to update it when the card is played by a player
         GUI.instance().getModel().getCharacterCardByIndex(0).getCostProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> costCard0.setText(String.valueOf(GUI.instance().getModel().getCharacterCardByIndex(0).getCost()))));
 
         costCard1.setText(String.valueOf(GUI.instance().getModel().getCharacterCardByIndex(1).getCost()));
+        //adds a listener to the cost of the character card with index 1 in order to update it when the card is played by a player
         GUI.instance().getModel().getCharacterCardByIndex(1).getCostProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> costCard1.setText(String.valueOf(GUI.instance().getModel().getCharacterCardByIndex(1).getCost()))));
 
         costCard2.setText(String.valueOf(GUI.instance().getModel().getCharacterCardByIndex(2).getCost()));
+        //adds a listener to the cost of the character card with index 2 in order to update it when the card is played by a player
         GUI.instance().getModel().getCharacterCardByIndex(2).getCostProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> costCard2.setText(String.valueOf(GUI.instance().getModel().getCharacterCardByIndex(2).getCost()))));
 
         numberCoinsTable.setText(String.valueOf(GUI.instance().getModel().getCoins()));
+        //adds a listener to the coins on the table in order to update it when they change
         GUI.instance().getModel().getCoinsProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> numberCoinsTable.setText(String.valueOf(GUI.instance().getModel().getCoins()))));
 
         GUI.instance().getModel().currentCharacterCardProperty().addListener((ChangeListener<? super MockCard>) (change, oldVal, newVal) -> Platform.runLater(() -> {
@@ -131,6 +166,7 @@ public class CharacterCardsWidget extends StackPane {
                 }
             } else {
                 int a = -1;
+                //The index of the current character card is saved in the variable a
                 for (int i = 0; i < 3; i++) {
                     if (GUI.instance().getModel().getCharacterCardByIndex(i).getType() == newVal.getType()) {
                         a = i;
@@ -155,6 +191,10 @@ public class CharacterCardsWidget extends StackPane {
         GUI.instance().getActionSender().playCharacterCard(GUI.instance().getPlayerName(), i);
     }
 
+    /**
+     * Saves the colour of the student selected in the mockModel
+     * @param colour the colour of the student selected
+     */
     @FXML
     private void setStudent(Colour colour) {
         if (GUI.instance().getPlayerName().equals(GUI.instance().getModel().getCurrentPlayer().getNickname())) {
@@ -166,11 +206,18 @@ public class CharacterCardsWidget extends StackPane {
         }
     }
 
+    /**
+     * This method is called when the player clicks on the button "GO BACK TO SCHOOL BOARD". It brings the player back to the school board view
+     */
     @FXML
     private void showSchoolBoard() {
         GUI.instance().showPlayerBoard();
     }
 
+    /**
+     * Method that places the students on the cards
+     * @param i the index of the card
+     */
     @FXML
     private void initStudentsOnCard(int i) {
         int c, r;
@@ -188,6 +235,8 @@ public class CharacterCardsWidget extends StackPane {
 
                 if (GUI.instance().getModel().getCurrentCharacterCard().getType() == CharacterCardEnumeration.BASIC_STATE) {
                     imageViewStudent.setOnMouseClicked(event -> GUI.instance().getRenderer().showErrorMessage("You must pay the character card first"));
+                } else if (GUI.instance().getModel().getCurrentCharacterCard().getType() != GUI.instance().getModel().getCharacterCardByIndex(i).getType()){
+                    imageViewStudent.setOnMouseClicked(event -> GUI.instance().getRenderer().showErrorMessage("This is not the current character card"));
                 } else {
                     imageViewStudent.setOnMouseClicked(event -> {
                         pane.getStyleClass().add("studentSelected");
@@ -195,10 +244,13 @@ public class CharacterCardsWidget extends StackPane {
                     });
                 }
 
+                //Adds a listener to the currentCharacterCard in order to notice if the students on the card can be selected or not according to the character card played
                 GUI.instance().getModel().currentCharacterCardProperty().addListener((ChangeListener<? super MockCard>) (change, oldVal, newVal) ->
                         Platform.runLater(() -> {
                             if (newVal.getType() == CharacterCardEnumeration.BASIC_STATE) {
                                 imageViewStudent.setOnMouseClicked(event -> GUI.instance().getRenderer().showErrorMessage("You must pay the character card first"));
+                            } else if (newVal.getType() != GUI.instance().getModel().getCharacterCardByIndex(i).getType()){
+                                imageViewStudent.setOnMouseClicked(event -> GUI.instance().getRenderer().showErrorMessage("This is not the current character card"));
                             } else {
                                 imageViewStudent.setOnMouseClicked(event -> {
                                     pane.getStyleClass().add("studentSelected");
@@ -225,7 +277,7 @@ public class CharacterCardsWidget extends StackPane {
     }
 
     /**
-     * A method which checks if the game has ended (if the turn phase is ENDGAME) and, if so, calls the method whic shows the winner
+     * A method which checks if the game has ended (if the turn phase is ENDGAME) and, if so, calls the method which shows the winner
      */
     private void initWinner() {
 

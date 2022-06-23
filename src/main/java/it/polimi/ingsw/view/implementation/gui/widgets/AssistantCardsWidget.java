@@ -19,12 +19,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Widget that represents the deck of assistant cards
+ */
 public class AssistantCardsWidget extends StackPane {
     @FXML
     private VBox vbox;
 
+    /**
+     * List containing the imageViews of the assistant cards
+     */
     private final List<ImageView> images = new ArrayList<>();
 
+    /**
+     * Creates the AssistantCardWidget
+     */
     public AssistantCardsWidget() {
         FXMLUtils.loadWidgetFXML(this);
     }
@@ -56,6 +65,8 @@ public class AssistantCardsWidget extends StackPane {
             }
 
             HBox.setMargin(flowPane, new Insets(5.0, 5.0, 5.0, 5.0));
+
+            //If the card has already been played by the player the image of that card becomes blurred
             if (!GUI.instance().getModel().getLocalPlayer().getCardsProperty().containsKey(a)) {
                 imageView.setOpacity(0.5);
             }
@@ -70,6 +81,7 @@ public class AssistantCardsWidget extends StackPane {
         hBox2.prefWidth(179.9);
         hBox2.prefHeight(546.0);
 
+        //If the card has already been played by the player the image of that card becomes blurred
         GUI.instance().getModel().getLocalPlayer().getCardsProperty().addListener(((MapChangeListener<? super Integer, ? super AssistantCard>) change -> Platform.runLater(() -> {
             if (change.wasRemoved()) {
                 images.get(change.getKey()).setOpacity(0.5);
@@ -77,6 +89,9 @@ public class AssistantCardsWidget extends StackPane {
         })));
     }
 
+    /**
+     * The method called when the player clicks on the button "BACK TO SCHOOL BOARD"
+     */
     @FXML
     public void showSchoolBoard() {
         GUI.instance().showPlayerBoard();
