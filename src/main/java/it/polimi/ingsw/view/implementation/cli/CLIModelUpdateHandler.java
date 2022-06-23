@@ -13,7 +13,7 @@ import java.util.Locale;
 
 public class CLIModelUpdateHandler extends ModelUpdateHandler {
     /**
-     * Construct a new ModelUpdateHandler.
+     * Construct a new ModelUpdateHandler
      *
      * @param view the view responsible for this model update handler
      */
@@ -184,7 +184,6 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
             }
         }
 
-        //getView().getModel().getPlayerByNickname(player).getSchoolBoard().setProfessorTable(professorTable);
         super.updateProfessorTable(player, professorTable);
     }
 

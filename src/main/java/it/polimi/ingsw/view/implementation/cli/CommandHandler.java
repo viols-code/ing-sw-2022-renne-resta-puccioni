@@ -13,7 +13,7 @@ public class CommandHandler {
     private final CLI cli;
 
     /**
-     * Create a new CommandHandler for the given CLI.
+     * Create a new CommandHandler for the given CLI
      *
      * @param cli the cli to be associated to this CommandHandler
      */
@@ -27,7 +27,7 @@ public class CommandHandler {
 
 
     /**
-     * The main method. It parses the input, checking if it corresponds to a possible move, and in this case it calls it.
+     * The main method. It parses the input, checking if it corresponds to a possible move, and in this case it calls it
      *
      * @param command user input in the CLI
      * @throws IllegalArgumentException if the input does not match with any possible player action
@@ -94,7 +94,7 @@ public class CommandHandler {
     }
 
     /**
-     * Call the method to let the player see the character cards.
+     * Call the method to let the player see the character cards
      */
     public void viewCharacterCards() {
         if (cli.getGameMode()) {
@@ -105,14 +105,14 @@ public class CommandHandler {
     }
 
     /**
-     * Call the method to let the player see their assistant cards.
+     * Call the method to let the player see their assistant cards
      */
     public void viewAssistantCards() {
         cli.getRenderer().printAvailableAssistantCards();
     }
 
     /**
-     * Call the method to let the player see their current assistant card.
+     * Call the method to let the player see their current assistant card
      */
     public void viewCurrentAssistantCard() {
         if (cli.getModel().getLocalPlayer().isAssistantCardValue()) {
@@ -123,7 +123,7 @@ public class CommandHandler {
     }
 
     /**
-     * Call the method to let the player see the active character card.
+     * Call the method to let the player see the active character card
      */
     public void viewActiveCharacterCard() {
         if (cli.getGameMode()) {
@@ -134,35 +134,35 @@ public class CommandHandler {
     }
 
     /**
-     * Call the method to let the player see the islands.
+     * Call the method to let the player see the islands
      */
     public void viewIslands() {
         cli.getRenderer().printIslands();
     }
 
     /**
-     * Call the method to let the player see their schoolBoard.
+     * Call the method to let the player see their schoolBoard
      */
     public void viewSchoolBoard() {
         cli.getRenderer().printLocalPlayerSchoolBoard();
     }
 
     /**
-     * Call the method to let the player see the cloud tiles.
+     * Call the method to let the player see the cloud tiles
      */
     public void viewCloudTile() {
         cli.getRenderer().printCloudTiles();
     }
 
     /**
-     * Call the method to let the player see the professors on the table.
+     * Call the method to let the player see the professors on the table
      */
     public void viewProfessors() {
         cli.getRenderer().printTableProfessors();
     }
 
     /**
-     * Call the method to let the player see their coins.
+     * Call the method to let the player see their coins
      */
     public void viewCoins() {
         if (cli.getGameMode()) {
@@ -173,7 +173,7 @@ public class CommandHandler {
     }
 
     /**
-     * Call the method to let the player see the coins on the table.
+     * Call the method to let the player see the coins on the table
      */
     public void viewBank() {
         if (cli.getGameMode()) {
@@ -184,7 +184,7 @@ public class CommandHandler {
     }
 
     /**
-     * Call the method to let the player see the winner.
+     * Call the method to let the player see the winner
      */
     public void viewResult() {
         cli.getRenderer().printResult();
@@ -192,7 +192,7 @@ public class CommandHandler {
 
     /**
      * Check if the arguments are correct and then call for the methods to spy other players' boards, coins and current
-     * assistant card.
+     * assistant card
      *
      * @param args the decomposed user command
      */
@@ -235,7 +235,7 @@ public class CommandHandler {
 
 
     /**
-     * Check if the arguments are correct and then call for the action sender to send a "move" action event.
+     * Check if the arguments are correct and then call for the action sender to send a "move" action event
      *
      * @param args the decomposed user command
      */
@@ -287,7 +287,7 @@ public class CommandHandler {
     }
 
     /**
-     * Check if the arguments are correct and then call for the action sender to send a "move mother nature" action event.
+     * Check if the arguments are correct and then call for the action sender to send a "move mother nature" action event
      *
      * @param args the decomposed user command
      */
@@ -306,7 +306,7 @@ public class CommandHandler {
     }
 
     /**
-     * Check if the arguments are correct and then call for the action sender to send a "move student to single island" action event.
+     * Check if the arguments are correct and then call for the action sender to send a "move student to single island" action event
      *
      * @param args the decomposed user command
      */
@@ -328,7 +328,7 @@ public class CommandHandler {
     }
 
     /**
-     * Check if the arguments are correct and then call for the action sender to send a "move student to dining room" action event.
+     * Check if the arguments are correct and then call for the action sender to send a "move student to dining room" action event
      *
      * @param args the decomposed user command
      */
@@ -344,7 +344,7 @@ public class CommandHandler {
     }
 
     /**
-     * Check if the arguments are correct and then call for the action sender to send a "play assistant card" action event.
+     * Check if the arguments are correct and then call for the action sender to send a "play assistant card" action event
      *
      * @param args the decomposed user command
      */
@@ -363,7 +363,7 @@ public class CommandHandler {
     }
 
     /**
-     * Checks if the arguments are correct and then calls for the action sender to send a "play character card" action event.
+     * Checks if the arguments are correct and then calls for the action sender to send a "play character card" action event
      *
      * @param args the decomposed user command
      */
@@ -386,7 +386,7 @@ public class CommandHandler {
     }
 
     /**
-     * Checks if the arguments are correct and then calls for the action sender to send a "choose cloud tile" action event.
+     * Checks if the arguments are correct and then calls for the action sender to send a "choose cloud tile" action event
      *
      * @param args the decomposed user command
      */
@@ -405,7 +405,7 @@ public class CommandHandler {
     }
 
     /**
-     * Check if the arguments are correct and then call for the action sender to send a "select" action event.
+     * Check if the arguments are correct and then call for the action sender to send a "select" action event
      *
      * @param args the decomposed user command
      */
@@ -482,7 +482,7 @@ public class CommandHandler {
     }
 
     /**
-     * Check if the arguments are correct and then call for the action sender to send a "put" action event.
+     * Check if the arguments are correct and then call for the action sender to send a "put" action event
      *
      * @param args the decomposed user command
      */
@@ -521,7 +521,7 @@ public class CommandHandler {
     }
 
     /**
-     * Check if the arguments are correct and then call for the action sender to send "exchange" action event.
+     * Check if the arguments are correct and then call for the action sender to send "exchange" action event
      *
      * @param args the decomposed user command
      */
@@ -600,7 +600,7 @@ public class CommandHandler {
     }
 
     /**
-     * Calls the method to make the player see all the possible commands.
+     * Calls the method to make the player see all the possible commands
      */
     public void help(String[] args) {
         if (args.length == 0) {

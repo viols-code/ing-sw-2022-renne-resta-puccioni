@@ -402,7 +402,7 @@ public class CLIRenderer extends Renderer {
     }
 
     /**
-     * Print the islands
+     * Print the islands in two rows
      */
     public void printIslands() {
         int count = 0;

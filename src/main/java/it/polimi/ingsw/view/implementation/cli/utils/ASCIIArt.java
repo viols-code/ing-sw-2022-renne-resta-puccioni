@@ -348,6 +348,4 @@ public class ASCIIArt {
             |________|
             %s %s %s %s %s %s
             """;
-
-
 }
