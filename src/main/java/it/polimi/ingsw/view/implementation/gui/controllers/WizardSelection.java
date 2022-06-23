@@ -26,6 +26,9 @@ public class WizardSelection extends BorderPane {
 
     private final List<ImageView> images = new ArrayList<>();
 
+    /**
+     * Init method called by the FXMLLoader
+     */
     @FXML
     public void initialize() {
         for (int i = 1; i < 5; i++) {

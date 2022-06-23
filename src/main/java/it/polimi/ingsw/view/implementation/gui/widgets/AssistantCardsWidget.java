@@ -38,6 +38,10 @@ public class AssistantCardsWidget extends StackPane {
         FXMLUtils.loadWidgetFXML(this);
     }
 
+    /**
+     * Init method called by the FXMLLoader
+     * It calls all the init method of this class
+     */
     @FXML
     private void initialize() {
         HBox hBox1 = new HBox();

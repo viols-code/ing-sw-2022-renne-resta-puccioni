@@ -27,13 +27,23 @@ import javafx.scene.shape.Circle;
 
 import java.util.*;
 
+/**
+ * Widgets that shows the school board of the local player
+ */
 public class SchoolBoardWidget extends StackPane {
 
+    /**
+     * The main anchor pane
+     */
     @FXML
     private AnchorPane anchorPane;
 
     /*
      *BUTTONS
+     */
+
+    /**
+     * Button that makes the mode of the game guided
      */
     @FXML
     private Button guidedModeButton;
@@ -44,17 +54,30 @@ public class SchoolBoardWidget extends StackPane {
     /*
      * LABELS
      */
+
+    /**
+     * The number of the current round
+     */
     @FXML
     private Label roundNumberLabel;
 
+    /**
+     * The nickname of the current player
+     */
     @FXML
     private Label currentPlayerLabel;
 
+    /**
+     * The current turn phase
+     */
     @FXML
     private Label turnPhaseLabel;
 
     /*
     Entrance
+     */
+    /**
+     * The grid containing the students of the entrance
      */
     @FXML
     private GridPane entrance;
@@ -62,16 +85,30 @@ public class SchoolBoardWidget extends StackPane {
     /*
      * Dining room
      */
+
+    /**
+     * The grid containing the students of the dining room
+     */
     @FXML
     private GridPane diningRoom;
 
+    /**
+     * The image of the assistant card that has been played by the player for this round
+     */
     @FXML
     private ImageView currentAssistantCard;
 
+    /**
+     * The list of coordinates of the students positions in the entrance grid
+     */
     private List<Coordinates> entranceBoxes;
 
     /*
     PROFESSORS TABLE
+     */
+
+    /**
+     * The grid containing the professors
      */
     @FXML
     private GridPane professorsTable;
@@ -79,19 +116,40 @@ public class SchoolBoardWidget extends StackPane {
     /*
     TOWERS
      */
+    /**
+     * The grid containing the images of the towers still present on the school board
+     */
     @FXML
     private GridPane towers;
 
+    /**
+     * The list containing the towers on the school board
+     */
     private final List<Circle> towersImage = new ArrayList<>();
+
+    /**
+     * The list containing the images of the professors owned by the player
+     */
     private final List<ImageView> professorImage = new ArrayList<>();
+
+    /**
+     * The list containing the students of the dining room
+     */
     private final List<ImageView> diningRoomImage = new ArrayList<>();
 
+    /**
+     * Constructs the SchoolBoardWidget
+     */
     public SchoolBoardWidget() {
         FXMLUtils.loadWidgetFXML(this);
     }
 
+    /**
+     * Init method called by the FXMLLoader
+     */
     @FXML
     private void initialize() {
+        //The list containing the coordinates of the entrance grid in which the students must be placed
         entranceBoxes = new ArrayList<>(Arrays.asList(new Coordinates(2, 0), new Coordinates(0, 2), new Coordinates(2, 2), new Coordinates(0, 4), new Coordinates(2, 4), new Coordinates(0, 6), new Coordinates(2, 6), new Coordinates(0, 8), new Coordinates(2, 8)));
 
         //sets the text on the button for the guide
@@ -119,6 +177,7 @@ public class SchoolBoardWidget extends StackPane {
 
         List<MockPlayer> players = new ArrayList<>();
 
+        //adds all the players but the local one to the list of players
         for (MockPlayer player : GUI.instance().getModel().getPlayers().values()) {
             if (player.equals(GUI.instance().getModel().getLocalPlayer()))
                 continue;
@@ -127,6 +186,7 @@ public class SchoolBoardWidget extends StackPane {
 
         int row = 3;
 
+        //creates the buttons used to view the other players' school boards
         for (int i = 0; i < GUI.instance().getNumPlayers() - 1; i++) {
             Button button = new Button();
             button.setText(players.get(i).getNickname() + "'s school board");
@@ -137,6 +197,7 @@ public class SchoolBoardWidget extends StackPane {
             row++;
         }
 
+        //Only if the game mode is expert the buttons "Character Cards" and coin image are created
         if (GUI.instance().getGameMode()) {
             Button button = new Button();
             button.setText("Character Cards");
@@ -159,7 +220,11 @@ public class SchoolBoardWidget extends StackPane {
             anchorPane.getChildren().add(numberCoins);
 
             numberCoins.setText(String.valueOf(GUI.instance().getModel().getLocalPlayer().getCoins()));
-            GUI.instance().getModel().getLocalPlayer().getCoinsProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> numberCoins.setText(String.valueOf(GUI.instance().getModel().getLocalPlayer().getCoins()))));
+
+            //Adds a listener to the number of coins of the player in order to update it
+            GUI.instance().getModel().getLocalPlayer().getCoinsProperty().addListener((change, oldVal, newVal) ->
+                    Platform.runLater(() -> numberCoins.setText(String.valueOf(GUI.instance().getModel().getLocalPlayer().getCoins())))
+            );
         }
 
         initCurrentAssistantCard();
@@ -170,12 +235,17 @@ public class SchoolBoardWidget extends StackPane {
         initWinner();
     }
 
-
+    /**
+     * Shows the group islands
+     */
     @FXML
     private void goToIsland() {
         GUI.instance().showIslands();
     }
 
+    /**
+     * Shows the assistant cards of the deck
+     */
     @FXML
     private void goToAssistantCards() {
 
@@ -185,6 +255,12 @@ public class SchoolBoardWidget extends StackPane {
         GUI.instance().showAssistantCards();
     }
 
+    /**
+     * Saves in the mockModel the position and the colour of the student selected in the entrance
+     *
+     * @param i the position of the student selected in the list
+     * @param colour the colour of the student selected
+     */
     @FXML
     private void selectStudentFromEntrance(int i, Colour colour) {
         GUI.instance().getModel().setPosition(i);
@@ -192,6 +268,12 @@ public class SchoolBoardWidget extends StackPane {
         diningRoom.setOnMouseClicked(event -> moveStudentToDiningRoom());
     }
 
+    /**
+     * Saves in the mockModel the position and the colour of the student of the entrance that the player wants to exchange when the student_to_entrance card is played
+     *
+     *  @param i the position of the student selected in the entrance
+     * @param colour the colour of the student selected in the entrance
+     */
     @FXML
     private void selectStudentToExchange(int i, Colour colour) {
         GUI.instance().getModel().setPosition(i);
@@ -200,6 +282,9 @@ public class SchoolBoardWidget extends StackPane {
         GUI.instance().getModel().setStudentOnCardSelected(null);
     }
 
+    /**
+     * Moves the student selected from the entrance to the dining room. Then resets the position and the colour selected
+     */
     @FXML
     private void moveStudentToDiningRoom() {
         GUI.instance().getActionSender().moveStudentToDiningRoom(GUI.instance().getPlayerName(), GUI.instance().getModel().getSelectedColour());
@@ -212,14 +297,19 @@ public class SchoolBoardWidget extends StackPane {
     private void noAction() {
     }
 
+    /**
+     * Initializes and updates the entrance grid that contains the images of the students
+     */
     private void initEntrance() {
         //init the entrance
         initEntranceArrays();
 
+        //If a student has been selected then it is highlighted
         if (GUI.instance().getModel().getPosition().getValue() != -1) {
             entrance.getChildren().get(GUI.instance().getModel().getPosition().getValue()).getStyleClass().add("studentSelected");
         }
 
+        //Adds a listener to the entrance in order to update it
         GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getEntranceProperty().addListener((MapChangeListener<? super Colour, ? super Integer>) listener ->
                 Platform.runLater(() -> {
                     entrance.getChildren().forEach(node -> node.setVisible(false));
@@ -227,10 +317,14 @@ public class SchoolBoardWidget extends StackPane {
                     initEntranceArrays();
                 }));
 
+        //Adds a listener to the position in order to know if the player has selected a student
         GUI.instance().getModel().getPosition().addListener((change, oldVal, newVal) -> {
+            //If a student was selected by mistake (so the player has selected another one) the old one is not highlighted anymore
             if (oldVal.intValue() != -1 && oldVal.intValue() < entrance.getChildren().size()) {
                 entrance.getChildren().get(oldVal.intValue()).getStyleClass().removeAll("studentSelected");
             }
+
+            //The new selected student is highlighted
             if (newVal.intValue() != -1 && newVal.intValue() < entrance.getChildren().size()) {
                 entrance.getChildren().get(newVal.intValue()).getStyleClass().add("studentSelected");
             }
@@ -238,6 +332,9 @@ public class SchoolBoardWidget extends StackPane {
 
     }
 
+    /**
+     * Creates an array containing all the students of the entrance ordered by colour
+     */
     private void initEntranceArrays() {
         List<Colour> entranceStudents = new ArrayList<>();
         for (Colour colour : Colour.values()) {
@@ -249,11 +346,15 @@ public class SchoolBoardWidget extends StackPane {
         setStudentEntrance(entranceStudents);
     }
 
+    /**
+     * Initializes and updates the dining room
+     */
     private void initDiningRoom() {
         initDiningRoomImage();
 
         diningRoom.getStyleClass().add("diningRoom");
 
+        //Adds a listener to the dining room
         GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getDiningRoomProperty().addListener((MapChangeListener<? super Colour, ? super Integer>) listener ->
                 Platform.runLater(() -> {
                     diningRoom.getChildren().removeAll(diningRoomImage);
@@ -262,6 +363,9 @@ public class SchoolBoardWidget extends StackPane {
                 }));
     }
 
+    /**
+     * Shows the students in the right places on the dining room
+     */
     private void initDiningRoomImage() {
         for (Colour colour : Colour.values()) {
             for (int i = 0; i < GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getDiningRoom().get(colour); i++) {
@@ -274,6 +378,7 @@ public class SchoolBoardWidget extends StackPane {
             }
         }
 
+        //Adds a listener to the current character card so that if the card is student_to_dining_room the dining room is clickable even if no student has been selected in the entrance
         GUI.instance().getModel().currentCharacterCardProperty().addListener((ChangeListener<? super MockCard>) (change, oldVal, newVal) ->
                 Platform.runLater(() -> {
                     if (newVal.getType() == CharacterCardEnumeration.STUDENT_TO_DINING_ROOM) {
@@ -282,6 +387,13 @@ public class SchoolBoardWidget extends StackPane {
                 }));
     }
 
+
+    /**
+     * Gets the position of the given colour on the dining room grid
+     *
+     * @param colour the colour of which the position is requested
+     * @return the row of the dining room grid in which the colour given has to be placed
+     */
     private int getDiningRoomTable(Colour colour) {
         int res = -1;
         switch (colour) {
@@ -294,6 +406,11 @@ public class SchoolBoardWidget extends StackPane {
         return res;
     }
 
+    /**
+     * Places the student images in the entrance grid
+     *
+     * @param entranceStudents the list of students contained in the entrance
+     */
     public void setStudentEntrance(List<Colour> entranceStudents) {
         for (int i = 0; i < entranceStudents.size(); i++) {
             FlowPane flowPane = new FlowPane();
@@ -315,27 +432,31 @@ public class SchoolBoardWidget extends StackPane {
             //Add a listener to the studentOnCardSelected
             GUI.instance().getModel().getStudentOnCardSelectedProperty().addListener((ChangeListener<? super Colour>) (change, oldVal, newVal) ->
                     Platform.runLater(() -> {
-                                //If the card is Student_To_Entrance and the current player has selected a student on the card the student will be exchanged with the one selected in the entrance
-                                if (newVal != null && GUI.instance().getModel().getCurrentCharacterCard().getType() == CharacterCardEnumeration.STUDENT_TO_ENTRANCE) {
-                                    imageView.setOnMouseClicked(event -> {
-                                        flowPane.getStyleClass().add("studentSelected");
-                                        selectStudentToExchange(a, colour);
-                                    });
-                                } else {
-                                    imageView.setOnMouseClicked(event -> {
-                                        flowPane.getStyleClass().add("studentSelected");
-                                        selectStudentFromEntrance(a, colour);
-                                    });
-                                }
-                            }
+                        //If the card is Student_To_Entrance and the current player has selected a student on the card, the student will be exchanged with the one selected in the entrance
+                        if (newVal != null && GUI.instance().getModel().getCurrentCharacterCard().getType() == CharacterCardEnumeration.STUDENT_TO_ENTRANCE) {
+                            imageView.setOnMouseClicked(event -> {
+                                flowPane.getStyleClass().add("studentSelected");
+                                selectStudentToExchange(a, colour);
+                            });
+                        } else {
+                            imageView.setOnMouseClicked(event -> {
+                                flowPane.getStyleClass().add("studentSelected");
+                                selectStudentFromEntrance(a, colour);
+                            });
+                        }
+                    }
                     ));
 
         }
     }
 
+    /**
+     * Initializes and updates the professor table
+     */
     private void initProfessorsTable() {
         initProfessorTableImage();
 
+        //Adds a listener to the professor table
         GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getProfessorTableProperty().addListener((MapChangeListener<? super Colour, ? super Boolean>) listener ->
                 Platform.runLater(() -> {
                     professorsTable.getChildren().removeAll(professorImage);
@@ -344,7 +465,9 @@ public class SchoolBoardWidget extends StackPane {
                 }));
     }
 
-
+    /**
+     * Places the images of the professors in the right places
+     */
     private void initProfessorTableImage() {
         for (Colour colour : Colour.values()) {
             if (GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getProfessorTable().get(colour)) {
@@ -358,14 +481,18 @@ public class SchoolBoardWidget extends StackPane {
         }
     }
 
-
+    /**
+     * Initializes and updates the assistant card that has been played by the player for this round
+     */
     private void initCurrentAssistantCard() {
         setCurrentAssistantCard();
 
         GUI.instance().getModel().getLocalPlayer().isAssistantCardValueProperty().addListener((change, oldVal, newVal) -> Platform.runLater(this::setCurrentAssistantCard));
     }
 
-
+    /**
+     * Sets the image of the assistant card that has been played by the player for this round
+     */
     private void setCurrentAssistantCard() {
         if (GUI.instance().getModel().getLocalPlayer().isAssistantCardValue()) {
             currentAssistantCard.setImage(new Image(Objects.requireNonNull(SchoolBoardWidget.class.getResourceAsStream(
@@ -376,6 +503,9 @@ public class SchoolBoardWidget extends StackPane {
         }
     }
 
+    /**
+     * Initializes and updates the towers that are still on the player's school board
+     */
     private void initTowers() {
         initTowerImage();
 
@@ -386,7 +516,9 @@ public class SchoolBoardWidget extends StackPane {
                     initTowerImage();
                 }));
     }
-
+    /**
+     * Places the tower images on the player's school board
+     */
     private void initTowerImage() {
         int j = 0;
         int k = 0;
@@ -414,7 +546,7 @@ public class SchoolBoardWidget extends StackPane {
     }
 
     /**
-     * A method which checks if the game has ended (if the turn phase is ENDGAME) and, if so, calls the method whic shows the winner
+     * A method which checks if the game has ended (if the turn phase is ENDGAME) and, if so, calls the method that shows the winner
      */
     private void initWinner() {
 
@@ -462,7 +594,9 @@ public class SchoolBoardWidget extends StackPane {
         }
     }
 
-
+    /**
+     * Shows the cloud tiles page
+     */
     @FXML
     public void goToCloudTile() {
 
@@ -472,6 +606,9 @@ public class SchoolBoardWidget extends StackPane {
         GUI.instance().showCloudTile();
     }
 
+    /**
+     * Button used to change the mode from guided to normal and vice versa
+     */
     @FXML
     public void changeGuideMode() {
         if (GUI.instance().isGuidedMode()) {

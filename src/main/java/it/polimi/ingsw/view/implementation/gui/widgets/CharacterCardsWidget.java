@@ -85,6 +85,10 @@ public class CharacterCardsWidget extends StackPane {
         FXMLUtils.loadWidgetFXML(this);
     }
 
+    /**
+     * Init method called by the FXMLLoader
+     * It calls all the init method of this class
+     */
     @FXML
     private void initialize() {
         for (int i = 0; i < 3; i++) {

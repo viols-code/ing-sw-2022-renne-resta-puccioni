@@ -349,7 +349,6 @@ public class GroupIslandsWidget extends StackPane {
                 }
 
             } else if (GUI.instance().getModel().getTurnPhase().equals(TurnPhase.MOVE_STUDENT)) {
-                //GUI.instance().getRenderer().showErrorMessage("sono entrato nel run later -> move student");
                 for (int i = 0; i < GUI.instance().getModel().getTable().getGroupIslands().size(); i++) {
                     int groupIsland = i;
                     groupIslandsPanes.get(i).getStyleClass().removeAll("groupIsland");
@@ -416,7 +415,7 @@ public class GroupIslandsWidget extends StackPane {
     }
 
     /**
-     * A method which checks if the game has ended (if the turn phase is ENDGAME) and, if so, calls the method whic shows the winner
+     * A method which checks if the game has ended (if the turn phase is ENDGAME) and, if so, calls the method that shows the winner
      */
     private void initWinner() {
 

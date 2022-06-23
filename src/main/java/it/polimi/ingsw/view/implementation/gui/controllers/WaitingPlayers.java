@@ -24,6 +24,9 @@ public class WaitingPlayers {
 
     private List<String> players;
 
+    /**
+     * Init method called by the FXMLLoader
+     */
     @FXML
     private void initialize() {
 

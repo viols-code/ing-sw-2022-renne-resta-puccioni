@@ -36,6 +36,10 @@ public class CloudTileWidget extends StackPane {
      */
     private final List<AnchorPane> cloudTiles = new ArrayList<>();
 
+    /**
+     * Init method called by the FXMLLoader
+     * It calls all the init method of this class
+     */
     @FXML
     private void initialize() {
         initializeCloudTileImages();

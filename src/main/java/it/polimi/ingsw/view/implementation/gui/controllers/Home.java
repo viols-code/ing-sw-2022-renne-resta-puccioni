@@ -24,6 +24,9 @@ public class Home {
     @FXML
     private Label errorDisplay;
 
+    /**
+     * Init method called by the FXMLLoader
+     */
     @FXML
     private void initialize() {
 

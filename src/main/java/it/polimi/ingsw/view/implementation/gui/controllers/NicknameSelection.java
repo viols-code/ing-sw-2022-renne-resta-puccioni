@@ -21,6 +21,9 @@ public class NicknameSelection {
     @FXML
     private Label wrongNickname;
 
+    /**
+     * Init method called by the FXMLLoader
+     */
     @FXML
     private void initialize() {
         choose.setOnAction(actionEvent -> {

@@ -21,48 +21,95 @@ import javafx.scene.shape.Circle;
 
 import java.util.*;
 
+/**
+ * Widget that shows the school board of the other players
+ */
 public class OtherSchoolBoardWidget extends StackPane {
 
+    /**
+     * The player of whom the school board belongs
+     */
     @FXML
     private final MockPlayer player;
 
+    /**
+     * The nickname of the player who owns the school board
+     */
     @FXML
     private Label nicknameLabel;
 
+    /**
+     * The grid containing the entrance of the school board
+     */
     @FXML
     private GridPane entrance;
 
+    /**
+     * The grid containing the dining room of the school board
+     */
     @FXML
     private GridPane diningRoom;
 
+    /**
+     * The grid containing the professor table of the school board
+     */
     @FXML
     private GridPane professorsTable;
 
+    /**
+     * The current assistant card played by the player that owns the school board
+     */
     @FXML
     private ImageView currentAssistantCard;
 
+    /**
+     * The grid containing the towers of the player
+     */
     @FXML
     private GridPane towersOtherPlayer;
 
+    /**
+     * The main anchor pane
+     */
     @FXML
     private AnchorPane anchorPane;
 
+    /**
+     * The list containing the towers of the player who owns the school board
+     */
     private final List<Circle> towersImage = new ArrayList<>();
 
+    /**
+     * The list containing the professors images of the player who owns the school board
+     */
     private final List<ImageView> professorsImage = new ArrayList<>();
 
+    /**
+     * The list containing the images of the students on the dining room of the player who owns the school board
+     */
     private final List<ImageView> diningRoomImages = new ArrayList<>();
 
+    /**
+     * The list of coordinates of the students in the entrance
+     */
     private List<Coordinates> entranceBoxes;
 
+    /**
+     * Contructs OtherSchoolBoardWidget
+     * @param player the player that owns the school board
+     */
     public OtherSchoolBoardWidget(MockPlayer player) {
         this.player = player;
         FXMLUtils.loadWidgetFXML(this);
     }
 
+    /**
+     * Init method called by the FXMLLoader
+     */
     @FXML
     private void initialize() {
         nicknameLabel.setText(player.getNickname());
+        //The list containing the coordinates of the entrance grid in which the students must be placed
         entranceBoxes = new ArrayList<>(Arrays.asList(new Coordinates(2, 0), new Coordinates(0, 2), new Coordinates(2, 2), new Coordinates(0, 4), new Coordinates(2, 4), new Coordinates(0, 6), new Coordinates(2, 6), new Coordinates(0, 8), new Coordinates(2, 8)));
         initCurrentAssistantCard();
         initEntrance();
@@ -90,11 +137,17 @@ public class OtherSchoolBoardWidget extends StackPane {
         initTowers();
     }
 
+    /**
+     * This method is called when the button "GO BACK TO YOUR SCHOOL BOARD" is clicked and it brings the player back to his/her own school board
+     */
     @FXML
     public void showSchoolBoard() {
         GUI.instance().showPlayerBoard();
     }
 
+    /**
+     * Initializes and updates the entrance of the other player's school board
+     */
     private void initEntrance() {
         //init the entrance
         List<Colour> entranceStudents = new ArrayList<>();
@@ -106,6 +159,7 @@ public class OtherSchoolBoardWidget extends StackPane {
 
         entranceUpdate(entranceStudents);
 
+        //adds a listener to the other players' entrance
         player.getSchoolBoard().getEntranceProperty().addListener((MapChangeListener<? super Colour, ? super Integer>) listener ->
                 Platform.runLater(() -> {
                     entrance.getChildren().forEach(node -> node.setVisible(false));
@@ -121,6 +175,10 @@ public class OtherSchoolBoardWidget extends StackPane {
                 }));
     }
 
+    /**
+     * Places the images of the students in the entrance grid
+     * @param entranceStudents the list containing the colours of all the students that are in the entrance of the other player
+     */
     private void entranceUpdate(List<Colour> entranceStudents) {
         for (int i = 0; i < entranceStudents.size(); i++) {
             ImageView imageView = new ImageView();
@@ -130,6 +188,9 @@ public class OtherSchoolBoardWidget extends StackPane {
         }
     }
 
+    /**
+     * Initializes and updates the dining room of the other player's school board
+     */
     private void initDiningRoom() {
 
         diningRoomUpdate();
@@ -142,6 +203,9 @@ public class OtherSchoolBoardWidget extends StackPane {
                 }));
     }
 
+    /**
+     * Places the images of the students in the dining room grid
+     */
     private void diningRoomUpdate() {
         for (Colour colour : Colour.values()) {
             for (int i = 0; i < player.getSchoolBoard().getDiningRoom().get(colour); i++) {
@@ -155,7 +219,11 @@ public class OtherSchoolBoardWidget extends StackPane {
         }
     }
 
-
+    /**
+     * Gets the position of the professor of the given colour on the professor table grid
+     * @param colour the colour of the professor of which the position in requested
+     * @return the index of the row of the professor table grid where the professor of the colour given must be placed
+     */
     private int getDiningRoomTable(Colour colour) {
         int res = -1;
         switch (colour) {
@@ -168,9 +236,13 @@ public class OtherSchoolBoardWidget extends StackPane {
         return res;
     }
 
+    /**
+     * Initializes and updates the professor table of the other player's school board
+     */
     private void initProfessorsTable() {
         professorUpdate();
 
+        //adds a listener to the professor table of the other player
         player.getSchoolBoard().getProfessorTableProperty().addListener((MapChangeListener<? super Colour, ? super Boolean>) listener ->
                 Platform.runLater(() -> {
                     professorsTable.getChildren().removeAll(professorsImage);
@@ -179,6 +251,9 @@ public class OtherSchoolBoardWidget extends StackPane {
                 }));
     }
 
+    /**
+     * Places the images of professors in the professor table grid
+     */
     private void professorUpdate() {
         for (Colour colour : Colour.values()) {
             if (player.getSchoolBoard().getProfessorTable().get(colour)) {
@@ -192,12 +267,18 @@ public class OtherSchoolBoardWidget extends StackPane {
         }
     }
 
+    /**
+     * Initializes and updates the assistant card that has been played by the other player for this round
+     */
     private void initCurrentAssistantCard() {
         setCurrentAssistantCard();
 
         player.getCurrentAssistantCardProperty().addListener((change, oldVal, newVal) -> Platform.runLater(this::setCurrentAssistantCard));
     }
 
+    /**
+     * Sets the image of the assistant card that has been played by the other player for this round
+     */
     private void setCurrentAssistantCard() {
         if (player.isAssistantCardValue()) {
             currentAssistantCard.setImage(new Image(Objects.requireNonNull(AssistantCardsWidget.class.getResourceAsStream(
@@ -208,6 +289,9 @@ public class OtherSchoolBoardWidget extends StackPane {
         }
     }
 
+    /**
+     * Initializes and updates the towers that are still on the other player's school board
+     */
     private void initTowers() {
         initTowerImage();
 
@@ -219,6 +303,9 @@ public class OtherSchoolBoardWidget extends StackPane {
                 }));
     }
 
+    /**
+     * Places the tower images on the other player's school board
+     */
     private void initTowerImage() {
         int j = 0;
         int k = 0;
