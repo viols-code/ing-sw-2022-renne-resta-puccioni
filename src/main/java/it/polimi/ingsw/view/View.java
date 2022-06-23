@@ -361,14 +361,29 @@ public abstract class View {
         getClient().reset();
     }
 
+    /**
+     * Get the ObservableList of taken wizard
+     *
+     * @return the ObservableList of taken wizard
+     */
     public ObservableList<Wizard> getTakenWizardsProperty() {
         return takenWizards;
     }
 
+    /**
+     * Get the List of taken wizard
+     *
+     * @return the List of taken wizard
+     */
     public List<Wizard> getTakenWizards() {
         return takenWizards;
     }
 
+    /**
+     * Get the number of players in the game
+     *
+     * @return the number of players in the game
+     */
     public int getNumPlayers() {
         return numPlayers;
     }

@@ -127,6 +127,9 @@ public abstract class Renderer {
      */
     public abstract void help();
 
+    /**
+     * Print the information necessary in the current turn phase
+     */
     public void printSituation() {
     }
 }
