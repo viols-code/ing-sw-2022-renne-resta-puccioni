@@ -18,7 +18,6 @@ public class MockSchoolBoard {
     private final ObservableMap<Colour, Integer> diningRoom;
     private final ObservableMap<Colour, Boolean> professorTable;
     private final IntegerProperty towers;
-    private final List<StudentCoordinates> selectedStudents;
 
     public MockSchoolBoard() {
         entrance = FXCollections.observableHashMap();
@@ -30,7 +29,6 @@ public class MockSchoolBoard {
             diningRoom.put(colour, 0);
             professorTable.put(colour, false);
         }
-        selectedStudents = new ArrayList<>();
     }
 
     /**
