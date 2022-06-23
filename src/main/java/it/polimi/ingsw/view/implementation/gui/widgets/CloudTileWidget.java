@@ -17,14 +17,23 @@ import javafx.scene.layout.StackPane;
 
 import java.util.*;
 
+/**
+ * Widget that models the cloud tiles
+ */
 public class CloudTileWidget extends StackPane {
     @FXML
     private AnchorPane pane;
 
+    /**
+     * Creates a CloudTileWidget
+     */
     public CloudTileWidget() {
         FXMLUtils.loadWidgetFXML(this);
     }
 
+    /**
+     * A List containing the AnchorPane in which the cloud tiles are placed
+     */
     private final List<AnchorPane> cloudTiles = new ArrayList<>();
 
     @FXML
@@ -32,6 +41,7 @@ public class CloudTileWidget extends StackPane {
         initializeCloudTileImages();
         initWinner();
 
+        //adds a listener to the shown cloud tiles
         GUI.instance().getModel().getTable().getShownCloudTilesProperty().addListener((ListChangeListener<? super MockCloudTile>) change ->
                 Platform.runLater(() -> {
                     for (AnchorPane anchorPane : cloudTiles) {
@@ -43,6 +53,13 @@ public class CloudTileWidget extends StackPane {
                 }));
     }
 
+    /**
+     * Places the students images on the cloud tile given
+     * @param anchorPane the anchorPane of the cloud tile
+     * @param i the index of the cloud tile
+     * @param x list of x coordinates
+     * @param y list of y coordinates
+     */
     public void initializeCloudTileStudents(AnchorPane anchorPane, int i, List<Integer> x, List<Integer> y) {
         int c = 0;
         for (Colour colour : Colour.values()) {
@@ -58,6 +75,9 @@ public class CloudTileWidget extends StackPane {
         }
     }
 
+    /**
+     * Places the cloud tiles
+     */
     public void initializeCloudTileImages() {
         List<Coordinates> cloud1 = new ArrayList<>(List.of(new Coordinates(440, 260)));
         List<Coordinates> cloud2 = new ArrayList<>(Arrays.asList(new Coordinates(320, 260), new Coordinates(620, 260)));
@@ -86,7 +106,6 @@ public class CloudTileWidget extends StackPane {
                 }
             }
 
-            // HBox.setMargin(anchorPane, new Insets(10.0, 10.0, 10.0, 10.0));
             int a = i;
             anchorPane.setOnMouseClicked(event -> chooseCloudTile(a));
 
@@ -131,6 +150,9 @@ public class CloudTileWidget extends StackPane {
         GUI.instance().getActionSender().chooseCloudTile(GUI.instance().getPlayerName(), i);
     }
 
+    /**
+     * This method is called when the player clicks on the button "GO BACK TO SCHOOL BOARD". It brings the player back to the school board view
+     */
     @FXML
     private void showSchoolBoard() {
         GUI.instance().showPlayerBoard();
