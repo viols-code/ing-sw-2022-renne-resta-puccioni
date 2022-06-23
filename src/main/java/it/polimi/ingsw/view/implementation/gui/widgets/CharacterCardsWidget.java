@@ -2,6 +2,7 @@ package it.polimi.ingsw.view.implementation.gui.widgets;
 
 import it.polimi.ingsw.FXMLUtils;
 import it.polimi.ingsw.model.Colour;
+import it.polimi.ingsw.model.game.TurnPhase;
 import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
 import it.polimi.ingsw.view.beans.MockCard;
 import it.polimi.ingsw.view.implementation.gui.GUI;
@@ -13,10 +14,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +45,9 @@ public class CharacterCardsWidget extends StackPane {
 
     @FXML
     private Label costCard2;
+
+    @FXML
+    private AnchorPane anchorPane;
 
     private final List<ImageView> imageViewList = new ArrayList<>();
 
@@ -145,6 +146,8 @@ public class CharacterCardsWidget extends StackPane {
                 }
             }
         }));
+
+        initWinner();
     }
 
     @FXML
@@ -218,6 +221,55 @@ public class CharacterCardsWidget extends StackPane {
                     r = 2;
                 }
             }
+        }
+    }
+
+    /**
+     * A method which checks if the game has ended (if the turn phase is ENDGAME) and, if so, calls the method whic shows the winner
+     */
+    private void initWinner() {
+
+        if (GUI.instance().getModel().getTurnPhase().equals(TurnPhase.ENDGAME)) {
+            printWinner();
+        }
+
+        //Adds a listener to the turn phase in order to know if the game has ended
+        GUI.instance().getModel().getTurnPhaseProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> {
+
+            if (GUI.instance().getModel().getTurnPhase().equals(TurnPhase.ENDGAME)) {
+                printWinner();
+            }
+        }));
+    }
+
+    /**
+     * The layout of the images that appear once the game has ended to show who is the winner
+     */
+    private void printWinner() {
+        if (GUI.instance().getModel().getWinner().getNickname().equals(GUI.instance().getPlayerName())) {
+            ImageView winner = new ImageView();
+            anchorPane.getChildren().add(winner);
+            winner.setImage(new Image(Objects.requireNonNull(SchoolBoardWidget.class.getResourceAsStream(
+                    "/images/winner.png"))));
+            winner.setLayoutY(153);
+            winner.setLayoutX(263);
+            winner.setFitWidth(547);
+            winner.setFitHeight(395);
+        } else {
+            ImageView loser = new ImageView();
+            anchorPane.getChildren().add(loser);
+            loser.setImage(new Image(Objects.requireNonNull(SchoolBoardWidget.class.getResourceAsStream(
+                    "/images/loser2.png"))));
+            loser.setLayoutY(171);
+            loser.setLayoutX(74);
+            loser.setFitWidth(934);
+            loser.setFitHeight(290);
+            Label winnerName = new Label();
+            winnerName.setText(GUI.instance().getModel().getWinner().getNickname());
+            winnerName.setStyle("-fx-font: 96 Stsyem;");
+            winnerName.setLayoutX(671);
+            winnerName.setLayoutY(257);
+            anchorPane.getChildren().add(winnerName);
         }
     }
 
