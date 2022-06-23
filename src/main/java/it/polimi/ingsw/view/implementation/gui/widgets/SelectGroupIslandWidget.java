@@ -415,7 +415,7 @@ public class SelectGroupIslandWidget extends StackPane {
     }
 
     /**
-     * A method which checks if the game has ended (if the turn phase is ENDGAME) and, if so, calls the method whic shows the winner
+     * A method which checks if the game has ended (if the turn phase is ENDGAME) and, if so, calls the method that shows the winner
      */
     private void initWinner() {
 
