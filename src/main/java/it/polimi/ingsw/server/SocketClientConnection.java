@@ -155,10 +155,9 @@ public class SocketClientConnection implements Runnable {
                     if (read instanceof String) {
                         if (read.equals("pong")) {
                             timeoutThread.setHasResponded();
-                        } else if(read.equals("ping")){
+                        } else if (read.equals("ping")) {
                             send("pong");
-                        }
-                        else {
+                        } else {
                             System.err.println("Received object of unknown type");
                         }
                     } else {

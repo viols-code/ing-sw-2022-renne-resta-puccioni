@@ -46,32 +46,32 @@ public class SocketClientRead extends Thread {
                     if (packet.equals("ping")) {
                         // Answer the ping from the server
                         client.send("pong");
-                    } else if(packet.equals("pong")){
+                    } else if (packet.equals("pong")) {
                         timeoutThread.setHasResponded();
                     }
-                }else {
-                        if (packet instanceof IProcessablePacket) {
-                            if (packet instanceof IServerPacket serverPacket) {
-                                //System.out.println("Received: " + packet);
+                } else {
+                    if (packet instanceof IProcessablePacket) {
+                        if (packet instanceof IServerPacket serverPacket) {
+                            //System.out.println("Received: " + packet);
 
-                                try {
-                                    // Call the method process in the message
-                                    serverPacket.process(client.getView());
-                                } catch (Exception e) {
-                                    System.err.println("Uncaught exception while processing server packet");
-                                    e.printStackTrace();
-                                }
-                            } else {
-                                System.err.println("Received a packet of the wrong type");
+                            try {
+                                // Call the method process in the message
+                                serverPacket.process(client.getView());
+                            } catch (Exception e) {
+                                System.err.println("Uncaught exception while processing server packet");
+                                e.printStackTrace();
                             }
                         } else {
-                            System.err.println("Received object of unknown type");
+                            System.err.println("Received a packet of the wrong type");
                         }
+                    } else {
+                        System.err.println("Received object of unknown type");
                     }
                 }
-        } catch(SocketException ignored){
+            }
+        } catch (SocketException ignored) {
 
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             client.terminate();
         }
