@@ -3,7 +3,16 @@ package it.polimi.ingsw.view.implementation.gui;
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.view.ActionSender;
 
+/**
+ * Implementation of ActionSender for the GUI
+ */
 public class GUIActionSender extends ActionSender {
+
+    /**
+     * Constructs a new ActionSender.
+     *
+     * @param gui the view responsible for this action sender
+     */
     public GUIActionSender(GUI gui) {
         super(gui);
     }
@@ -116,7 +125,7 @@ public class GUIActionSender extends ActionSender {
     }
 
     /**
-     * Sends a message with the selected student and the selected
+     * Sends a message with the selected student and the selected island
      *
      * @param localPlayer  the nickname of the local player
      * @param colour       the colour of the student selected
@@ -165,7 +174,7 @@ public class GUIActionSender extends ActionSender {
     }
 
     /**
-     * Sends a message with the selected group island -> for character card IslandInfluence
+     * Sends a message with the selected group island -> for the character cards IslandInfluence, ProtectIsland
      *
      * @param localPlayer the nickname of the local player
      * @param groupIsland the index of the group island
