@@ -5,11 +5,25 @@ import it.polimi.ingsw.model.game.TurnPhase;
 import it.polimi.ingsw.view.ModelUpdateHandler;
 import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
 
+/**
+ * Implementation of the model update handler for the GUI
+ */
 public class GUIModelUpdateHandler extends ModelUpdateHandler {
+
+    /**
+     * Constructs a new ModelUpdateHandler
+     *
+     * @param gui the gui responsible for this model update handler
+     */
     public GUIModelUpdateHandler(GUI gui) {
         super(gui);
     }
 
+    /**
+     * Updates the game phase
+     *
+     * @param gamePhase the new game phase
+     */
     @Override
     public void updateGamePhase(GamePhase gamePhase) {
         super.updateGamePhase(gamePhase);
@@ -18,6 +32,12 @@ public class GUIModelUpdateHandler extends ModelUpdateHandler {
         }
     }
 
+    /**
+     * Updates the current assistant card
+     *
+     * @param playerName the player who has played the assistant card
+     * @param assistantCard the index of the assistant card played in this turn
+     */
     public void updateCurrentAssistantCard(String playerName, int assistantCard) {
         super.updateCurrentAssistantCard(playerName, assistantCard);
     }
@@ -41,6 +61,11 @@ public class GUIModelUpdateHandler extends ModelUpdateHandler {
         }
     }
 
+    /**
+     * Gets the messages for the guided mode when it is the local player's turn
+     *
+     * @return the message that has to be displayed in a particular phase of the turn
+     */
     private String getYourTurnMessage() {
         String message = "";
         switch (GUI.instance().getModel().getTurnPhase()) {
@@ -59,6 +84,11 @@ public class GUIModelUpdateHandler extends ModelUpdateHandler {
         return message;
     }
 
+    /**
+     * Gets the messages for the guided mode when it is another player's turn
+     *
+     * @return the message that has to be displayed in a particular phase of the turn
+     */
     private String getOtherTurnMessage() {
         String message = "";
         switch (GUI.instance().getModel().getTurnPhase()) {
@@ -95,6 +125,12 @@ public class GUIModelUpdateHandler extends ModelUpdateHandler {
         }
     }
 
+    /**
+     * Gets the messages to be displayed when a character card is active
+     *
+     * @param characterCard the character card
+     * @return the message that has to be displayed when the given character card is active
+     */
     private String getCharacterCardMessage(CharacterCardEnumeration characterCard) {
         String message = "\n";
         switch (characterCard) {

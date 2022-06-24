@@ -11,7 +11,7 @@ public class GUIActionSender extends ActionSender {
     /**
      * Constructs a new ActionSender.
      *
-     * @param gui the view responsible for this action sender
+     * @param gui the gui responsible for this action sender
      */
     public GUIActionSender(GUI gui) {
         super(gui);
