@@ -260,7 +260,7 @@ public abstract class View {
     /**
      * Handles the successful connection of all players and prepares the mock model for the game
      *
-     * @param players    a hash map that associate each nickname with the wizard chosen by the player
+     * @param players    a hash map that associates each nickname with the wizard chosen by the player
      * @param gameMode   a boolean which is true if the game mode set is expert, false if it's basic
      * @param numPlayers the number of players in the game
      */

@@ -58,12 +58,12 @@ public class GUI extends View {
         return instance;
     }
 
+    /**
+     * Handles the interaction with the user
+     */
     @Override
     public void run() {
         Parent homePage = FXMLUtils.loadFXML("/gui/Home");
-        String javaVersion = System.getProperty("java.version");
-        String javafxVersion = System.getProperty("javafx.version");
-        // Label l = new Label("Hello, JavaFX " + javafxVersion + ", running on Java " + javaVersion + ".");
         scene = new Scene(homePage);
         stage.setScene(scene);
         stage.setTitle("Eriantys");
@@ -72,6 +72,12 @@ public class GUI extends View {
         stage.setOnCloseRequest(windowEvent -> getClient().terminate());
     }
 
+    /**
+     * Handles the successful connection to a server lobby.
+     *
+     * @param isFirstConnection true if this client is the first to connect to the lobby, false otherwise
+     * @param takenWizard       the list of wizard already taken
+     */
     @Override
     public void addToLobby(boolean isFirstConnection, List<Wizard> takenWizard) {
         super.addToLobby(isFirstConnection, takenWizard);
@@ -83,12 +89,15 @@ public class GUI extends View {
 
     }
 
+    /**
+     * Handles the successful nickname setting
+     *
+     * @param nickname       the nickname chosen by the local player
+     * @param takenNicknames the nicknames chosen by the players connected to the lobby
+     */
     @Override
     public void handleCorrectNickname(String nickname, List<String> takenNicknames) {
         super.handleCorrectNickname(nickname, takenNicknames);
-
-        //Devono essere definiti alcuni metodi nel mockModel e degli attributi di tipo IntegerProperty
-        //getModel().updatePlayerCount(currentPlayers, playersToStart);
 
         if (nickname.equals(getPlayerName())) {
             Platform.runLater(() -> {
@@ -98,6 +107,11 @@ public class GUI extends View {
         }
     }
 
+    /**
+     * Handles the successful wizard setting
+     *
+     * @param wizard the wizard chosen by the local player
+     */
     @Override
     public void handleCorrectWizard(Wizard wizard) {
         super.handleCorrectWizard(wizard);
@@ -117,6 +131,11 @@ public class GUI extends View {
         }
     }
 
+    /**
+     * Handles the successful setting of the game mode (basic or expert)
+     *
+     * @param gameMode a boolean which is true if the game mode set is expert, false if it's basic
+     */
     @Override
     public void handleGameMode(boolean gameMode) {
         super.handleGameMode(gameMode);
@@ -130,6 +149,11 @@ public class GUI extends View {
 
     }
 
+    /**
+     * Handles the successful setting of the number of players
+     *
+     * @param playersToStart the number of players set to start the game
+     */
     @Override
     public void handleSetPlayersToStart(int playersToStart) {
         super.handleSetPlayersToStart(playersToStart);
@@ -139,6 +163,15 @@ public class GUI extends View {
         });
     }
 
+    /**
+     * Handles the connection of another player to the lobby.
+     *
+     * @param playerName     the name of the player that connected
+     * @param wizard         the wizard that the player has chosen
+     * @param currentPlayers the amount of players connected to the lobby
+     * @param playersToStart the number of players required to start the game
+     * @param takenWizard    the list of wizard already taken
+     */
     @Override
     public void handlePlayerConnect(String playerName, Wizard wizard, int currentPlayers, Integer playersToStart, List<Wizard> takenWizard) {
         super.handlePlayerConnect(playerName, wizard, currentPlayers, playersToStart, takenWizard);
@@ -146,6 +179,13 @@ public class GUI extends View {
         getModel().addPlayerNickname(playerName);
     }
 
+    /**
+     * Handles the successful connection of all players and prepares the mock model for the game
+     *
+     * @param players    a hash map that associates each nickname with the wizard chosen by the player
+     * @param gameMode   a boolean which is true if the game mode set is expert, false if it's basic
+     * @param numPlayers the number of players in the game
+     */
     @Override
     public void handleAllPlayersConnected(HashMap<String, Wizard> players, boolean gameMode, int numPlayers) {
         super.handleAllPlayersConnected(players, gameMode, numPlayers);
@@ -163,6 +203,11 @@ public class GUI extends View {
         });
     }
 
+    /**
+     * Shows the other player board
+     *
+     * @param player the player that is the owner of the school board
+     */
     public void showOtherPlayerBoard(MockPlayer player) {
         Platform.runLater(() -> {
             OtherSchoolBoardWidget otherSchoolBoard = new OtherSchoolBoardWidget(player);
@@ -170,6 +215,10 @@ public class GUI extends View {
         });
     }
 
+
+    /**
+     * Shows the cloud tiles
+     */
     public void showCloudTile() {
         Platform.runLater(() -> {
             CloudTileWidget cloudTileWidget = new CloudTileWidget();
@@ -177,6 +226,9 @@ public class GUI extends View {
         });
     }
 
+    /**
+     * Shows the islands
+     */
     public void showIslands() {
         Platform.runLater(() -> {
             if (groupIslandsWidget == null) {
@@ -186,6 +238,9 @@ public class GUI extends View {
         });
     }
 
+    /**
+     * Shows the assistant cards
+     */
     public void showAssistantCards() {
         Platform.runLater(() -> {
             if (assistantCardsWidget == null) {
@@ -195,6 +250,9 @@ public class GUI extends View {
         });
     }
 
+    /**
+     * Shows the character cards
+     */
     public void showCharacterCards() {
         Platform.runLater(() -> {
             if (characterCardsWidget == null) {
@@ -204,6 +262,9 @@ public class GUI extends View {
         });
     }
 
+    /**
+     * Shows the colour decision page
+     */
     public void showColourDecision() {
         Platform.runLater(() -> {
             NoColourThreeStudentWidget noColourThreeStudentWidget = new NoColourThreeStudentWidget();
@@ -211,6 +272,9 @@ public class GUI extends View {
         });
     }
 
+    /**
+     * Shows the group island decision page
+     */
     public void showGroupIslandDecision() {
         Platform.runLater(() -> {
             SelectGroupIslandWidget selectGroupIslandWidget = new SelectGroupIslandWidget();
@@ -218,12 +282,21 @@ public class GUI extends View {
         });
     }
 
-
+    /**
+     * Handles the disconnection of a player
+     *
+     * @param playerName the name of the player that disconnected
+     */
     @Override
     public void handlePlayerDisconnect(String playerName) {
 
     }
 
+    /**
+     * Handles the moment in which a player crashes
+     *
+     * @param playerName the name of the player that crashed
+     */
     @Override
     public void handlePlayerCrash(String playerName) {
         getRenderer().showErrorMessage("Player " + playerName + " crashed! The game is over!\nConnect again to start a new game.");
@@ -234,24 +307,45 @@ public class GUI extends View {
         });
     }
 
-
+    /**
+     * Handles the end of the game
+     */
     @Override
     public void handleEndGame() {
 
     }
 
+    /**
+     * Gets the scene
+     * @return the scene
+     */
     public Scene getScene() {
         return scene;
     }
 
+    /**
+     * States if it is the turn of the local player
+     *
+     * @return a boolean that is true if it is the turn of the local player, false otherwise
+     */
     public boolean isOwnTurn() {
         return getModel().getCurrentPlayer().getNickname().equals(getModel().getLocalPlayer().getNickname());
     }
 
+    /**
+     * States if the mode is guided
+     *
+     * @return a boolean that is true if the mode is guided, false otherwise
+     */
     public boolean isGuidedMode() {
         return guidedMode;
     }
 
+    /**
+     * Sets the guided mode
+     *
+     * @param guidedMode a boolean that is true if the mode is guided, false otherwise
+     */
     public void setGuidedMode(boolean guidedMode) {
         this.guidedMode = guidedMode;
     }

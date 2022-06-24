@@ -78,7 +78,7 @@ public class CLI extends View {
      * Handles the connection of another player to the lobby.
      *
      * @param playerName     the name of the player that connected
-     * @param wizard         the name of the player that connected
+     * @param wizard         the wizard that the player has chosen
      * @param currentPlayers the amount of players connected to the lobby
      * @param playersToStart the number of players required to start the game
      * @param otherWizard    the list of wizard already taken
@@ -105,7 +105,7 @@ public class CLI extends View {
     }
 
     /**
-     * Handles the successful setting ot the game mode (basic or expert)
+     * Handles the successful setting of the game mode (basic or expert)
      *
      * @param gameMode a boolean which is true if the game mode set is expert, false if it's basic
      */
