@@ -244,21 +244,19 @@ public class Lobby extends Observable<IServerPacket> {
      *
      * @param crashedConnection the connection that crashed
      */
-    public void disconnectAll(SocketClientConnection crashedConnection) {
-        connections.remove(crashedConnection);
-
+    public synchronized void disconnectAll(SocketClientConnection crashedConnection) {
+        getConnections().remove(crashedConnection);
         notify(new PlayerCrashMessage(crashedConnection.getPlayerName()));
 
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                for (SocketClientConnection conn : connections) {
-                    if (conn != null) {
-                        conn.closeConnection();
-                    }
-                    connections.remove(conn);
-                }
+                connections.stream().filter(conn -> conn != null).forEach((conn) -> {
+                    System.out.println("Closing connection of player " + conn.getPlayerName());
+                    conn.closeConnection();
+                });
+                connections.clear();
             }
         }, 5000);
     }
