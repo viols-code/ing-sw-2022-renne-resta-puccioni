@@ -134,7 +134,7 @@ public class SocketClientConnection implements Runnable {
      */
     private void close() {
         closeConnection();
-        System.out.println("Unregistering client...");
+        System.out.println("Unregistering client of player " + playerName);
         remoteView.getLobbyController().deregisterConnection(this);
     }
 
@@ -171,7 +171,7 @@ public class SocketClientConnection implements Runnable {
             }
 
         } catch (EOFException | SocketException e) {
-            System.out.println("Client disconnected");
+            System.out.println("Player " + playerName + " disconnected");
         } catch (IOException | ClassNotFoundException | NoSuchElementException e) {
             e.printStackTrace();
             System.out.println(e.getMessage());

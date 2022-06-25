@@ -253,8 +253,8 @@ public class Lobby extends Observable<IServerPacket> {
             @Override
             public void run() {
                 connections.stream().filter(conn -> conn != null).forEach((conn) -> {
-                    System.out.println("Closing connection of player " + conn.getPlayerName());
                     conn.closeConnection();
+                    System.out.println("Connection of player " + conn.getPlayerName() + " closed");
                 });
                 connections.clear();
             }
