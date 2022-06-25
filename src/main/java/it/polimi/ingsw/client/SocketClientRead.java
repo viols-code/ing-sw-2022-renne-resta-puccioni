@@ -3,6 +3,7 @@ package it.polimi.ingsw.client;
 import it.polimi.ingsw.IProcessablePacket;
 import it.polimi.ingsw.server.IServerPacket;
 
+import java.io.EOFException;
 import java.io.ObjectInputStream;
 import java.net.SocketException;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -69,7 +70,7 @@ public class SocketClientRead extends Thread {
                     }
                 }
             }
-        } catch (SocketException ignored) {
+        } catch (SocketException | EOFException ignored) {
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -94,7 +95,7 @@ public class SocketClientRead extends Thread {
                     e.printStackTrace();
                 }
                 if (!hasResponded.get()) {
-                    client.terminate();
+                    //client.terminate();
                     break;
                 }
             }

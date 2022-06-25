@@ -1,5 +1,6 @@
 package it.polimi.ingsw.client;
 
+import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.concurrent.ArrayBlockingQueue;
 
@@ -39,7 +40,7 @@ public class SocketClientWrite extends Thread {
                 socketOut.flush();
                 socketOut.reset();
             }
-        } catch (InterruptedException ignored) {
+        } catch (InterruptedException | IOException ignored) {
         } catch (Exception e) {
             client.terminate();
             e.printStackTrace();
