@@ -215,6 +215,13 @@ public class GUI extends View {
         });
     }
 
+    public void showExchangeEntranceDiningRoom() {
+        Platform.runLater(() -> {
+            ExchangeEntranceDiningRoom exchangeEntranceDiningRoom = new ExchangeEntranceDiningRoom();
+            scene.setRoot(exchangeEntranceDiningRoom);
+        });
+    }
+
 
     /**
      * Shows the cloud tiles

@@ -57,7 +57,7 @@
                     <Font name="System Bold Italic" size="18.0"/>
                 </font>
             </Label>
-            <CheckBox fx:id="guideMode" mnemonicParsing="false" onAction="#enableGuideMode" text="Enable Guide">
+            <CheckBox mnemonicParsing="false" onAction="#enableGuideMode" text="Enable Guide">
                 <font>
                     <Font name="System Bold Italic" size="18.0"/>
                 </font>

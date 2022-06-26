@@ -50,7 +50,7 @@ public class ASCIIArt {
                                                                            \s""";
 
     public static final String ISLAND = """
-            mother nature : \u001b[31m●\u001b[0m    influence tower: \u001b[97;1m●\u001b[0m \u001b[30m●\u001b[0m \u001b[37;1m●\u001b[0m
+            mother nature: \u001b[31m●\u001b[0m    influence tower: \u001b[97;1m●\u001b[0m \u001b[30m●\u001b[0m \u001b[37;1m●\u001b[0m
                __________             __________             __________             __________             __________             __________
               /  %s  %s    \\           /  %s   %s   \\           /  %s   %s   \\           /  %s   %s   \\           /  %s   %s   \\           /  %s   %s   \\
              /      %s     \\         /      %s     \\         /      %s     \\         /      %s     \\         /      %s     \\         /      %s     \\

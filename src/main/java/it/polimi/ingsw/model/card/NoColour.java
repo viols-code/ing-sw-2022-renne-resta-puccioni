@@ -32,7 +32,9 @@ public class NoColour extends CharacterCard {
     @Override
     public void setColour(Colour colour) {
         this.colour = colour;
-        notify(new NoColourUpdate(this.colour));
+        if(colour != null){
+            notify(new NoColourUpdate(this.colour));
+        }
     }
 
     /**

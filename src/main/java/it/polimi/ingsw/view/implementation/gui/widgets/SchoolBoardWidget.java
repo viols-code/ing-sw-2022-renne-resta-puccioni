@@ -287,10 +287,14 @@ public class SchoolBoardWidget extends StackPane {
      */
     @FXML
     private void moveStudentToDiningRoom() {
-        GUI.instance().getActionSender().moveStudentToDiningRoom(GUI.instance().getPlayerName(), GUI.instance().getModel().getSelectedColour());
-        GUI.instance().getModel().setPosition(-1);
-        GUI.instance().getModel().setSelectedColour(null);
-        diningRoom.setOnMouseClicked(event -> noAction());
+        if(GUI.instance().getModel().getSelectedColour() != null){
+            GUI.instance().getActionSender().moveStudentToDiningRoom(GUI.instance().getPlayerName(), GUI.instance().getModel().getSelectedColour());
+            GUI.instance().getModel().setPosition(-1);
+            GUI.instance().getModel().setSelectedColour(null);
+            diningRoom.setOnMouseClicked(event -> noAction());
+        } else{
+            GUI.instance().getRenderer().showErrorMessage("Select a student");
+        }
     }
 
     @FXML
