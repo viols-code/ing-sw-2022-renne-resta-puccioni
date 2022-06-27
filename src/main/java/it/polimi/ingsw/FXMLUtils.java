@@ -31,7 +31,7 @@ public class FXMLUtils {
      * Load a widget's FXML file
      *
      * @param component the controller for the widget
-     * @param <T> the type that is the controller for the widget
+     * @param <T>       the type that is the controller for the widget
      */
     public static <T extends Parent> void loadWidgetFXML(T component) {
         String fileName = "/widget/" + component.getClass().getSimpleName() + ".fxml";
@@ -42,8 +42,8 @@ public class FXMLUtils {
      * Load a widget's FXML.
      *
      * @param component the controller for the widget
-     * @param fileName the path to the fxml file
-     * @param <T> the type that is the controller for the widget
+     * @param fileName  the path to the fxml file
+     * @param <T>       the type that is the controller for the widget
      */
     public static <T extends Parent> void loadFXMLComponent(T component, String fileName) {
         FXMLLoader loader = new FXMLLoader(App.class.getResource(fileName));

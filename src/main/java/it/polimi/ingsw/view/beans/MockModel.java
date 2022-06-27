@@ -161,7 +161,6 @@ public class MockModel {
      * Gets the player by the given nickname
      *
      * @param nickname the nickname of the player
-     *
      * @return the player with the given nickname
      */
     public MockPlayer getPlayerByNickname(String nickname) throws IllegalArgumentException {
@@ -178,9 +177,9 @@ public class MockModel {
     /**
      * Adds the player in the list
      *
-     * @param nickname the nickname of the player to add
-     * @param wizard the wizard chosen by the player to add
-     * @param gameMode the game mode
+     * @param nickname    the nickname of the player to add
+     * @param wizard      the wizard chosen by the player to add
+     * @param gameMode    the game mode
      * @param localPlayer true if the player is the local player of this view
      */
     public void addPlayer(String nickname, Wizard wizard, boolean gameMode, boolean localPlayer) {
@@ -531,7 +530,6 @@ public class MockModel {
      * States if the character card given is one of the three cards available in the game
      *
      * @param type the type of the character card
-     *
      * @return true if the character card is present false if it isn't
      */
     public boolean isCharacterCardPresent(CharacterCardEnumeration type) {

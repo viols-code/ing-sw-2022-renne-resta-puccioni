@@ -16,7 +16,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
@@ -153,7 +156,7 @@ public class ExchangeEntranceDiningRoomWidget extends StackPane {
     /**
      * Saves in the mockModel the position and the colour of the student selected in the entrance for the exchange when the exchange_entrance_diningRoom card is played
      *
-     * @param i the position of the student selected in the list
+     * @param i      the position of the student selected in the list
      * @param colour the colour of the student selected
      */
     @FXML
@@ -173,10 +176,10 @@ public class ExchangeEntranceDiningRoomWidget extends StackPane {
      * Set the method called when a dining room's student is clicked to chooseColour
      *
      * @param diningRoomRow the list of ImageView
-     * @param colour the given colour
+     * @param colour        the given colour
      */
-    private void setClickableDiningRoom(List<ImageView> diningRoomRow, Colour colour){
-        for(ImageView image: diningRoomRow){
+    private void setClickableDiningRoom(List<ImageView> diningRoomRow, Colour colour) {
+        for (ImageView image : diningRoomRow) {
             image.setOnMouseClicked(event -> chooseColour(colour));
         }
     }
@@ -186,9 +189,10 @@ public class ExchangeEntranceDiningRoomWidget extends StackPane {
      *
      * @param diningRoomRow the list of ImageView
      */
-    private void setNonClickableDiningRoom(List<ImageView> diningRoomRow){
-        for(ImageView image: diningRoomRow){
-            image.setOnMouseClicked(event -> {});
+    private void setNonClickableDiningRoom(List<ImageView> diningRoomRow) {
+        for (ImageView image : diningRoomRow) {
+            image.setOnMouseClicked(event -> {
+            });
         }
     }
 
@@ -197,8 +201,8 @@ public class ExchangeEntranceDiningRoomWidget extends StackPane {
      *
      * @param colour the colour chosen from the dining room
      */
-    private void chooseColour(Colour colour){
-        if(GUI.instance().getModel().getPositionExchange().getValue() != -1 && GUI.instance().getModel().getSelectedColourExchange() != null){
+    private void chooseColour(Colour colour) {
+        if (GUI.instance().getModel().getPositionExchange().getValue() != -1 && GUI.instance().getModel().getSelectedColourExchange() != null) {
             GUI.instance().getActionSender().setColourDiningRoomEntrance(GUI.instance().getPlayerName(), colour, GUI.instance().getModel().getSelectedColourExchange());
             GUI.instance().getModel().setPositionExchange(-1);
             GUI.instance().getModel().setSelectedColourExchange(null);
@@ -210,6 +214,7 @@ public class ExchangeEntranceDiningRoomWidget extends StackPane {
             setNonClickableDiningRoom(diningRoomPink);
         }
     }
+
     /**
      * Initializes and updates the entrance grid that contains the images of the students
      */
@@ -421,6 +426,7 @@ public class ExchangeEntranceDiningRoomWidget extends StackPane {
                     initTowerImage();
                 }));
     }
+
     /**
      * Places the tower images on the player's school board
      */
@@ -498,7 +504,6 @@ public class ExchangeEntranceDiningRoomWidget extends StackPane {
             anchorPane.getChildren().add(winnerName);
         }
     }
-
 
 
 }

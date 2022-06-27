@@ -4,7 +4,8 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.*?>
-<fx:root styleClass="background" stylesheets="@css/styleWidgets.css" type="StackPane" xmlns="http://javafx.com/javafx/18"
+<fx:root styleClass="background" stylesheets="@css/styleWidgets.css" type="StackPane"
+         xmlns="http://javafx.com/javafx/18"
          xmlns:fx="http://javafx.com/fxml/1"
          fx:controller="it.polimi.ingsw.view.implementation.gui.widgets.SelectGroupIslandWidget">
     <AnchorPane fx:id="anchorPane" prefHeight="720.0" prefWidth="1080.0" stylesheets="@../gui/css/style.css"
@@ -34,7 +35,8 @@
                 <Font name="System Bold Italic" size="22.0"/>
             </font>
         </Label>
-        <Button styleClass="game-button" layoutX="30.0" layoutY="92.0" mnemonicParsing="false" onAction="#showCharacterCards"
+        <Button styleClass="game-button" layoutX="30.0" layoutY="92.0" mnemonicParsing="false"
+                onAction="#showCharacterCards"
                 text="GO BACK TO CHARACTER CARDS">
             <font>
                 <Font size="11.0"/>

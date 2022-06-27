@@ -12,13 +12,13 @@ import java.util.*;
  */
 public class Lobby extends Observable<IServerPacket> {
     private final UUID uuid;
-
     private SocketClientConnection firstConnection;
     private final List<SocketClientConnection> connections;
     private int playersToStart;
     private Boolean gameMode;
     private boolean isGameModeSet;
     private int indexOfFirstConnection = 0;
+    private List<String> nicknames = new ArrayList<>();
 
     /**
      * Constructs a new Lobby with a random UUID, an empty connection list and the players needed to start set to -1
@@ -85,26 +85,17 @@ public class Lobby extends Observable<IServerPacket> {
      * @param playerName the player name to be set, if it's null or empty sends an error message to the client
      */
     public void setPlayerName(SocketClientConnection connection, String playerName) {
-        if (playerName == null || playerName.trim().equalsIgnoreCase("")) {
-            notify(new ErrorMessage(connection, "Your username can't be empty"));
-            return;
-        } else if (playerName.trim().length() != playerName.length()) {
-            notify(new ErrorMessage(connection, "The nickname must be without empty spaces"));
-            return;
-        } else if (playerName.split(" ").length > 1) {
-            notify(new ErrorMessage(connection, "The nickname must be without empty spaces"));
-            return;
-        }
-
-
-        for (SocketClientConnection clientConnection : connections) {
-            if (playerName.equalsIgnoreCase(clientConnection.getPlayerName())) {
-                notify(new ErrorMessage(connection, "This username is already taken"));
-                return;
-            }
+        try{
+            checkPlayerName(playerName);
+        } catch(IllegalArgumentException e){
+            notify(new ErrorMessage(connection, e.getMessage()));
         }
 
         connection.setPlayerName(playerName);
+        if(nicknames.contains(playerName)){
+            nicknames.remove(playerName);
+        }
+
         List<String> otherNames = new ArrayList<>();
         connections.forEach(con -> {
             if (con.getPlayerName() != null)
@@ -113,6 +104,30 @@ public class Lobby extends Observable<IServerPacket> {
 
         notify(new CorrectNicknameMessage(connection, playerName, otherNames));
     }
+
+    /**
+     * Check if the nickname is correct
+     *
+     * @param playerName the player name to be set, if it's null or empty sends an error message to the client
+     * @throws IllegalArgumentException if the name is already taken
+     */
+    public void checkPlayerName(String playerName) throws IllegalArgumentException{
+        if (playerName == null || playerName.trim().equalsIgnoreCase("")) {
+            throw new IllegalArgumentException("Your username can't be empty");
+        } else if (playerName.trim().length() != playerName.length()) {
+            throw new IllegalArgumentException("The nickname must be without empty spaces");
+        } else if (playerName.split(" ").length > 1) {
+            throw new IllegalArgumentException("The nickname must be without empty spaces");
+        }
+
+
+        for (SocketClientConnection clientConnection : connections) {
+            if (playerName.equalsIgnoreCase(clientConnection.getPlayerName())) {
+                throw new IllegalArgumentException("This username is already taken");
+            }
+        }
+    }
+
 
     /**
      * Sets the wizard for the given connection. If there is another player with this wizard already connected sends
@@ -285,6 +300,22 @@ public class Lobby extends Observable<IServerPacket> {
     }
 
     /**
+     * Remove the given connection from the Lobby, notifying all other clients.
+     *
+     * @param connection the connection to be removed from the lobby
+     */
+    public void disconnect(SocketClientConnection connection) {
+        if (connection == firstConnection) {
+            firstConnection = null;
+            playersToStart = -1;
+        }
+
+        notify(new PlayerLeaveMessage(connection.getPlayerName()));
+        nicknames.add(connection.getPlayerName());
+        connections.remove(connection);
+    }
+
+    /**
      * Terminate the Lobby, disconnecting all clients
      */
     public synchronized void terminate() {
@@ -294,5 +325,24 @@ public class Lobby extends Observable<IServerPacket> {
             }
             connections.remove(conn);
         }
+    }
+
+    /**
+     * Notify to the given connection that an error occurred
+     *
+     * @param connection  the connection
+     * @param message the message containing an explanation of the problem
+     */
+    public void notifyError(SocketClientConnection connection, String message){
+        notify(new ErrorMessage(connection, message));
+    }
+
+    /**
+     * Get the list of nicknames
+     *
+     * @return the list of nicknames
+     */
+    public List<String> getNicknames() {
+        return nicknames;
     }
 }

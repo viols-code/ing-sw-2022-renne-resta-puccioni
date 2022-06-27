@@ -39,6 +39,14 @@ public class CLI extends View {
     @Override
     public void addToLobby(boolean isFirstConnection, List<Wizard> takenWizard) {
         super.addToLobby(isFirstConnection, takenWizard);
+    }
+
+    /**
+     * Handles the successful connection to the waiting room.
+     */
+    @Override
+    public void correctConnection() {
+        super.correctConnection();
         getRenderer().showLobbyMessage(ViewString.CHOOSE_NAME);
     }
 
@@ -196,9 +204,9 @@ public class CLI extends View {
 
         String command;
         while (getClient().isActive()) {
-            try{
+            try {
                 command = scanner.nextLine();
-            }catch(NoSuchElementException | IllegalStateException e){
+            } catch (NoSuchElementException | IllegalStateException e) {
                 System.out.println("Error: no line found");
                 break;
             }

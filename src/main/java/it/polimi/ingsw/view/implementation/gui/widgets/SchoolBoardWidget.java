@@ -258,7 +258,7 @@ public class SchoolBoardWidget extends StackPane {
     /**
      * Saves in the mockModel the position and the colour of the student selected in the entrance
      *
-     * @param i the position of the student selected in the list
+     * @param i      the position of the student selected in the list
      * @param colour the colour of the student selected
      */
     @FXML
@@ -271,7 +271,7 @@ public class SchoolBoardWidget extends StackPane {
     /**
      * Saves in the mockModel the position and the colour of the student of the entrance that the player wants to exchange when the student_to_entrance card is played
      *
-     *  @param i the position of the student selected in the entrance
+     * @param i      the position of the student selected in the entrance
      * @param colour the colour of the student selected in the entrance
      */
     @FXML
@@ -287,12 +287,12 @@ public class SchoolBoardWidget extends StackPane {
      */
     @FXML
     private void moveStudentToDiningRoom() {
-        if(GUI.instance().getModel().getSelectedColour() != null){
+        if (GUI.instance().getModel().getSelectedColour() != null) {
             GUI.instance().getActionSender().moveStudentToDiningRoom(GUI.instance().getPlayerName(), GUI.instance().getModel().getSelectedColour());
             GUI.instance().getModel().setPosition(-1);
             GUI.instance().getModel().setSelectedColour(null);
             diningRoom.setOnMouseClicked(event -> noAction());
-        } else{
+        } else {
             GUI.instance().getRenderer().showErrorMessage("Select a student");
         }
     }
@@ -436,19 +436,19 @@ public class SchoolBoardWidget extends StackPane {
             //Add a listener to the studentOnCardSelected
             GUI.instance().getModel().getStudentOnCardSelectedProperty().addListener((ChangeListener<? super Colour>) (change, oldVal, newVal) ->
                     Platform.runLater(() -> {
-                        //If the card is Student_To_Entrance and the current player has selected a student on the card, the student will be exchanged with the one selected in the entrance
-                        if (newVal != null && GUI.instance().getModel().getCurrentCharacterCard().getType() == CharacterCardEnumeration.STUDENT_TO_ENTRANCE) {
-                            imageView.setOnMouseClicked(event -> {
-                                flowPane.getStyleClass().add("studentSelected");
-                                selectStudentToExchange(a, colour);
-                            });
-                        } else {
-                            imageView.setOnMouseClicked(event -> {
-                                flowPane.getStyleClass().add("studentSelected");
-                                selectStudentFromEntrance(a, colour);
-                            });
-                        }
-                    }
+                                //If the card is Student_To_Entrance and the current player has selected a student on the card, the student will be exchanged with the one selected in the entrance
+                                if (newVal != null && GUI.instance().getModel().getCurrentCharacterCard().getType() == CharacterCardEnumeration.STUDENT_TO_ENTRANCE) {
+                                    imageView.setOnMouseClicked(event -> {
+                                        flowPane.getStyleClass().add("studentSelected");
+                                        selectStudentToExchange(a, colour);
+                                    });
+                                } else {
+                                    imageView.setOnMouseClicked(event -> {
+                                        flowPane.getStyleClass().add("studentSelected");
+                                        selectStudentFromEntrance(a, colour);
+                                    });
+                                }
+                            }
                     ));
 
         }
@@ -520,6 +520,7 @@ public class SchoolBoardWidget extends StackPane {
                     initTowerImage();
                 }));
     }
+
     /**
      * Places the tower images on the player's school board
      */

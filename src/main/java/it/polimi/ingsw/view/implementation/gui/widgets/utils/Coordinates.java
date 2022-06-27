@@ -9,6 +9,7 @@ public class Coordinates {
 
     /**
      * Contructor of the coordinates
+     *
      * @param x the x coordinate
      * @param y the y coordinate
      */
@@ -19,6 +20,7 @@ public class Coordinates {
 
     /**
      * Gets the x coordinate
+     *
      * @return the x coordinate
      */
     public int getRow() {
@@ -27,6 +29,7 @@ public class Coordinates {
 
     /**
      * Gets the y coordinate
+     *
      * @return the y coordinate
      */
     public int getColumn() {

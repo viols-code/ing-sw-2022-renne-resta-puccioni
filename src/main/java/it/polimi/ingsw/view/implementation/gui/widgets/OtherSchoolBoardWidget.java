@@ -96,6 +96,7 @@ public class OtherSchoolBoardWidget extends StackPane {
 
     /**
      * Contructs OtherSchoolBoardWidget
+     *
      * @param player the player that owns the school board
      */
     public OtherSchoolBoardWidget(MockPlayer player) {
@@ -177,6 +178,7 @@ public class OtherSchoolBoardWidget extends StackPane {
 
     /**
      * Places the images of the students in the entrance grid
+     *
      * @param entranceStudents the list containing the colours of all the students that are in the entrance of the other player
      */
     private void entranceUpdate(List<Colour> entranceStudents) {
@@ -221,6 +223,7 @@ public class OtherSchoolBoardWidget extends StackPane {
 
     /**
      * Gets the position of the professor of the given colour on the professor table grid
+     *
      * @param colour the colour of the professor of which the position in requested
      * @return the index of the row of the professor table grid where the professor of the colour given must be placed
      */
