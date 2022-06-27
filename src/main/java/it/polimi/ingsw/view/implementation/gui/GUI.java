@@ -67,6 +67,7 @@ public class GUI extends View {
         scene = new Scene(homePage);
         stage.setScene(scene);
         stage.setTitle("Eriantys");
+        stage.setResizable(false);
         stage.show();
 
         stage.setOnCloseRequest(windowEvent -> getClient().terminate());
