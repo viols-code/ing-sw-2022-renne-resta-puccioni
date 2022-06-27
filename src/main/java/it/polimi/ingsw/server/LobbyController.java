@@ -2,8 +2,6 @@ package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.client.messages.ClientMessage;
 import it.polimi.ingsw.model.player.Wizard;
-import it.polimi.ingsw.server.messages.CorrectConnectionMessage;
-import it.polimi.ingsw.server.messages.ErrorMessage;
 
 import java.util.*;
 
@@ -262,6 +260,7 @@ public class LobbyController {
                     waitingLobby.disconnectAll(connection);
                     waitingLobbies.remove(waitingLobby);
                     total.remove(waitingLobby);
+                    deleteLobby(waitingLobby);
                     return;
                 }
             }
@@ -269,9 +268,37 @@ public class LobbyController {
             Lobby lobby = playingLobbies.get(connection.getLobbyUUID());
             if (lobby != null) {
                 lobby.disconnect(connection);
-                disconnectedLobbies.put(connection.getLobbyUUID(), lobby);
                 playingLobbies.remove(connection.getLobbyUUID());
+                disconnectedLobbies.put(connection.getLobbyUUID(), lobby);
+            } else{
+                lobby = disconnectedLobbies.get(connection.getLobbyUUID());
+                if(lobby != null && lobby.getConnections().size() == 1){
+                    disconnectedLobbies.remove(lobby.getUuid());
+                    deleteLobby(lobby);
+                }
             }
+
         }
     }
+
+    /**
+     * Delete the given lobby from all the possible list in the LobbyController
+     *
+     * @param lobby the given lobby to be deleted
+     */
+    public void deleteLobby(Lobby lobby){
+        if(lobby.equals(currentLobby)){
+            currentLobby = new Lobby();
+        }
+
+        for(SocketClientConnection connection : lobby.getConnections()){
+            waitingRoom.removeConnection(connection);
+        }
+
+        waitingLobbies.remove(lobby);
+        playingLobbies.remove(lobby.getUuid());
+        disconnectedLobbies.remove(lobby.getUuid());
+        total.remove(lobby);
+    }
+
 }

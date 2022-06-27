@@ -78,7 +78,6 @@ public class SocketClientRead extends Thread {
         }
     }
 
-
     /**
      * Thread used for the ping to the server
      */
