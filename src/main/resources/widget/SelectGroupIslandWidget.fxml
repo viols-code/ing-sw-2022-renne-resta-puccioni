@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.*?>
-<fx:root stylesheets="@css/styleWidgets.css" type="StackPane" xmlns="http://javafx.com/javafx/18"
+<fx:root styleClass="background" stylesheets="@css/styleWidgets.css" type="StackPane" xmlns="http://javafx.com/javafx/18"
          xmlns:fx="http://javafx.com/fxml/1"
          fx:controller="it.polimi.ingsw.view.implementation.gui.widgets.SelectGroupIslandWidget">
     <AnchorPane fx:id="anchorPane" prefHeight="720.0" prefWidth="1080.0" stylesheets="@../gui/css/style.css"
