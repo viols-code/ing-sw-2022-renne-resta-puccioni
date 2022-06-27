@@ -135,7 +135,7 @@ public abstract class View {
      *
      * @return the mock model
      */
-    public MockModel getModel() {
+    public synchronized MockModel getModel() {
         return model;
     }
 

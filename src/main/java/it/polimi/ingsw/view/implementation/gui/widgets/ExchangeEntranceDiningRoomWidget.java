@@ -5,14 +5,12 @@ import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.TurnPhase;
 import it.polimi.ingsw.model.player.TowerColour;
 import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
-import it.polimi.ingsw.view.beans.MockCard;
 import it.polimi.ingsw.view.implementation.gui.GUI;
 import it.polimi.ingsw.view.implementation.gui.widgets.utils.Coordinates;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.MapChangeListener;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -28,14 +26,6 @@ public class ExchangeEntranceDiningRoomWidget extends StackPane {
      */
     @FXML
     private AnchorPane anchorPane;
-
-    @FXML
-    private GridPane gridPane;
-
-    /*
-     *BUTTONS
-     */
-
 
     /*
     Entrance
@@ -119,7 +109,7 @@ public class ExchangeEntranceDiningRoomWidget extends StackPane {
     /**
      * The list containing the students of the dining room
      */
-    private final List<ImageView> diningRoomImage = new ArrayList<>();
+    private final List<FlowPane> diningRoomImage = new ArrayList<>();
 
 
     /**
@@ -136,12 +126,6 @@ public class ExchangeEntranceDiningRoomWidget extends StackPane {
     private void initialize() {
         //The list containing the coordinates of the entrance grid in which the students must be placed
         entranceBoxes = new ArrayList<>(Arrays.asList(new Coordinates(2, 0), new Coordinates(0, 2), new Coordinates(2, 2), new Coordinates(0, 4), new Coordinates(2, 4), new Coordinates(0, 6), new Coordinates(2, 6), new Coordinates(0, 8), new Coordinates(2, 8)));
-
-        Button button = new Button();
-        button.setText("Character Cards");
-        button.getStyleClass().add("game-button");
-        button.setOnMouseClicked(event -> Platform.runLater(() -> GUI.instance().showCharacterCards()));
-        gridPane.add(button, 0, 0);
 
         initEntrance();
         initDiningRoom();
@@ -265,8 +249,6 @@ public class ExchangeEntranceDiningRoomWidget extends StackPane {
     private void initDiningRoom() {
         initDiningRoomImage();
 
-        diningRoom.getStyleClass().add("diningRoom");
-
         //Adds a listener to the dining room
         GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getDiningRoomProperty().addListener((MapChangeListener<? super Colour, ? super Integer>) listener ->
                 Platform.runLater(() -> {
@@ -289,8 +271,11 @@ public class ExchangeEntranceDiningRoomWidget extends StackPane {
         for (Colour colour : Colour.values()) {
             for (int i = 0; i < GUI.instance().getModel().getLocalPlayer().getSchoolBoard().getDiningRoom().get(colour); i++) {
                 ImageView imageView = new ImageView();
-                diningRoomImage.add(imageView);
-                diningRoom.add(imageView, i, getDiningRoomTable(colour));
+                FlowPane flowPane = new FlowPane();
+                flowPane.getChildren().add(imageView);
+                flowPane.getStyleClass().add("student");
+                diningRoomImage.add(flowPane);
+                diningRoom.add(flowPane, i, getDiningRoomTable(colour));
                 imageView.setImage(new Image(Objects.requireNonNull(SchoolBoardWidget.class.getResourceAsStream(
                         "/images/students/student_" + colour.name().toLowerCase(Locale.ROOT) + ".png"))));
 
@@ -305,13 +290,6 @@ public class ExchangeEntranceDiningRoomWidget extends StackPane {
             }
         }
 
-        //Adds a listener to the current character card so that if the card is student_to_dining_room the dining room is clickable even if no student has been selected in the entrance
-        GUI.instance().getModel().currentCharacterCardProperty().addListener((ChangeListener<? super MockCard>) (change, oldVal, newVal) ->
-                Platform.runLater(() -> {
-                    if (newVal.getType() == CharacterCardEnumeration.STUDENT_TO_DINING_ROOM) {
-                        diningRoom.setOnMouseClicked(event -> GUI.instance().getActionSender().setColour(GUI.instance().getPlayerName(), GUI.instance().getModel().getStudentOnCardSelected()));
-                    }
-                }));
     }
 
 
@@ -499,6 +477,11 @@ public class ExchangeEntranceDiningRoomWidget extends StackPane {
         }
     }
 
-
+    /**
+     * Returns to the CharacterCard page.
+     */
+    public void goToCharacterCard(){
+        GUI.instance().showCharacterCards();
+    }
 
 }
