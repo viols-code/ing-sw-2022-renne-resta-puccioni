@@ -3,7 +3,9 @@ package it.polimi.ingsw.view.implementation.gui;
 import it.polimi.ingsw.FXMLUtils;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.model.player.Wizard;
+import it.polimi.ingsw.view.GameState;
 import it.polimi.ingsw.view.View;
+import it.polimi.ingsw.view.beans.MockModel;
 import it.polimi.ingsw.view.beans.MockPlayer;
 import it.polimi.ingsw.view.implementation.gui.widgets.*;
 import javafx.application.Platform;
@@ -358,5 +360,17 @@ public class GUI extends View {
      */
     public void setGuidedMode(boolean guidedMode) {
         this.guidedMode = guidedMode;
+    }
+
+    /**
+     * Resets the View to the pre game state.
+     */
+    protected void reset() {
+        super.reset();
+        schoolBoardWidget = null;
+        groupIslandsWidget = null;
+        characterCardsWidget = null;
+        assistantCardsWidget = null;
+        guidedMode = false;
     }
 }
