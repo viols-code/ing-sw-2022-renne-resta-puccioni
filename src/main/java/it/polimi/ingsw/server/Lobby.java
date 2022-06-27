@@ -18,7 +18,7 @@ public class Lobby extends Observable<IServerPacket> {
     private Boolean gameMode;
     private boolean isGameModeSet;
     private int indexOfFirstConnection = 0;
-    private List<String> nicknames = new ArrayList<>();
+    private final List<String> nicknames = new ArrayList<>();
 
     /**
      * Constructs a new Lobby with a random UUID, an empty connection list and the players needed to start set to -1
@@ -92,9 +92,7 @@ public class Lobby extends Observable<IServerPacket> {
         }
 
         connection.setPlayerName(playerName);
-        if(nicknames.contains(playerName)){
-            nicknames.remove(playerName);
-        }
+        nicknames.remove(playerName);
 
         List<String> otherNames = new ArrayList<>();
         connections.forEach(con -> {
@@ -267,7 +265,7 @@ public class Lobby extends Observable<IServerPacket> {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                connections.stream().filter(conn -> conn != null).forEach((conn) -> {
+                connections.stream().filter(Objects::nonNull).forEach((conn) -> {
                     conn.closeConnection();
                     System.out.println("Connection of player " + conn.getPlayerName() + " closed");
                 });
@@ -313,6 +311,7 @@ public class Lobby extends Observable<IServerPacket> {
         notify(new PlayerLeaveMessage(connection.getPlayerName()));
         nicknames.add(connection.getPlayerName());
         connections.remove(connection);
+        connection.getRemoteView().getGameController().removePlayer(connection.getPlayerName());
     }
 
     /**
@@ -325,16 +324,6 @@ public class Lobby extends Observable<IServerPacket> {
             }
             connections.remove(conn);
         }
-    }
-
-    /**
-     * Notify to the given connection that an error occurred
-     *
-     * @param connection  the connection
-     * @param message the message containing an explanation of the problem
-     */
-    public void notifyError(SocketClientConnection connection, String message){
-        notify(new ErrorMessage(connection, message));
     }
 
     /**

@@ -26,6 +26,10 @@ public abstract class Game extends Observable<IServerPacket> {
      */
     protected final List<Player> players;
     /**
+     * A List containing the connectedPlayers in the game
+     */
+    protected final List<Player> connectedPlayers;
+    /**
      * Identifies the player who's playing his turn
      */
     protected Player currentPlayer;
@@ -93,6 +97,7 @@ public abstract class Game extends Observable<IServerPacket> {
      */
     public Game() {
         players = new ArrayList<>();
+        connectedPlayers = new ArrayList<>();
         currentPlayer = null;
         firstPlayerTurn = null;
         firstPlayerLastTurn = null;
@@ -153,6 +158,16 @@ public abstract class Game extends Observable<IServerPacket> {
     }
 
     /**
+     * Get the player connected at the given index
+     *
+     * @param index the index of the player to return
+     * @return the player at the given index
+     */
+    public Player getPlayerConnectedByIndex(int index) {
+        return connectedPlayers.get(index);
+    }
+
+    /**
      * Gets the index of the given player in the list of players
      *
      * @param player of whom the index is wanted
@@ -199,6 +214,7 @@ public abstract class Game extends Observable<IServerPacket> {
      */
     public void addPlayer(Player player) {
         this.players.add(player);
+        this.connectedPlayers.add(player);
         notify(new TowerColourUpdate(player.getNickname(), player.getTowerColour()));
     }
 
@@ -209,10 +225,10 @@ public abstract class Game extends Observable<IServerPacket> {
      * @throws IllegalArgumentException if the player is not in the game
      */
     public void removePlayer(Player player) throws IllegalArgumentException {
-        if (!players.contains(player)) {
+        if (!connectedPlayers.contains(player)) {
             throw new IllegalArgumentException("This player is not in the game");
         }
-        this.players.remove(player);
+        this.connectedPlayers.remove(player);
     }
 
     /**
@@ -221,7 +237,7 @@ public abstract class Game extends Observable<IServerPacket> {
      * @return the next player clockwise
      */
     public Player nextPlayerClockwise() {
-        return players.get((players.indexOf(currentPlayer) + 1) % players.size());
+        return connectedPlayers.get((connectedPlayers.indexOf(currentPlayer) + 1) % connectedPlayers.size());
     }
 
 
@@ -235,9 +251,9 @@ public abstract class Game extends Observable<IServerPacket> {
         HashMap<Player, Integer> values = new HashMap<>();
         List<Player> res;
 
-        for (int i = 0; i < getNumberOfPlayer(); i++) {
-            if (!getPlayerByIndex(i).getHasAlreadyPlayed()) {
-                values.put(getPlayerByIndex(i), getPlayerByIndex(i).getCurrentAssistantCard().getValue());
+        for (int i = 0; i < getNumberOfConnectedPlayers(); i++) {
+            if (!getPlayerConnectedByIndex(i).getHasAlreadyPlayed()) {
+                values.put(getPlayerConnectedByIndex(i), getPlayerConnectedByIndex(i).getCurrentAssistantCard().getValue());
             }
         }
 
@@ -268,16 +284,16 @@ public abstract class Game extends Observable<IServerPacket> {
             }
             // Get the first Player who firstly chose the AssistantCard
             int i = 0;
-            while (i < getNumberOfPlayer()) {
-                if (res.contains(getPlayerByIndex(j))) {
-                    return getPlayerByIndex(j);
+            while (i < getNumberOfConnectedPlayers()) {
+                if (res.contains(getPlayerConnectedByIndex(j))) {
+                    return getPlayerConnectedByIndex(j);
                 }
-                j = (j + 1) % getNumberOfPlayer();
+                j = (j + 1) % getNumberOfConnectedPlayers();
                 i++;
             }
         }
 
-        return getPlayerByIndex(0);
+        return getPlayerConnectedByIndex(0);
     }
 
     /**
@@ -648,6 +664,15 @@ public abstract class Game extends Observable<IServerPacket> {
      */
     public void setCoins(int coins) throws IllegalAccessError {
         throw new IllegalAccessError("This is for the Expert Mode");
+    }
+
+    /**
+     * Returns the number of connected players
+     *
+     * @return the number of connected players
+     */
+    public int getNumberOfConnectedPlayers(){
+        return connectedPlayers.size();
     }
 
 

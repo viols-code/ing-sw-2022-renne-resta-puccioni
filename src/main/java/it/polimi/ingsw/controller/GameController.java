@@ -251,6 +251,11 @@ public class GameController implements Observer<PlayerEvent> {
             return;
         }
 
+        if(controlConnectedPlayers()){
+            game.notifyInvalidAction(nickname, "Wait for the other players to reconnect");
+            return;
+        }
+
         if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
             if (isGameExpert && player >= 0 && player < numberOfPlayer && characterCard >= 0 && characterCard < 3) {
                 if (game.getGamePhase() == GamePhase.PLAYING) {
@@ -302,6 +307,11 @@ public class GameController implements Observer<PlayerEvent> {
             player = game.getIndexOfPlayer(game.getPlayerByNickname(nickname));
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
+            return;
+        }
+
+        if(controlConnectedPlayers()){
+            game.notifyInvalidAction(nickname, "Wait for the other players to reconnect");
             return;
         }
 
@@ -421,6 +431,11 @@ public class GameController implements Observer<PlayerEvent> {
             return;
         }
 
+        if(controlConnectedPlayers()){
+            game.notifyInvalidAction(nickname, "Wait for the other players to reconnect");
+            return;
+        }
+
         if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
             if (player >= 0 && player < numberOfPlayer && groupIsland >= 0 && groupIsland < game.getTable().getNumberOfGroupIsland() && singleIsland >= 0 && singleIsland < game.getTable().getGroupIslandByIndex(groupIsland).getNumberOfSingleIsland()) {
                 if (game.getGamePhase() == GamePhase.PLAYING && game.getTurnPhase() == TurnPhase.MOVE_STUDENT) {
@@ -463,6 +478,11 @@ public class GameController implements Observer<PlayerEvent> {
             player = game.getIndexOfPlayer(game.getPlayerByNickname(nickname));
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
+            return;
+        }
+
+        if(controlConnectedPlayers()){
+            game.notifyInvalidAction(nickname, "Wait for the other players to reconnect");
             return;
         }
 
@@ -548,6 +568,11 @@ public class GameController implements Observer<PlayerEvent> {
             player = game.getIndexOfPlayer(game.getPlayerByNickname(nickname));
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
+            return;
+        }
+
+        if(controlConnectedPlayers()){
+            game.notifyInvalidAction(nickname, "Wait for the other players to reconnect");
             return;
         }
 
@@ -681,6 +706,15 @@ public class GameController implements Observer<PlayerEvent> {
     }
 
     /**
+     * Removes a player with the nickname
+     *
+     * @param nickname the nickname chosen by the player
+     */
+    public synchronized void removePlayer(String nickname){
+        game.removePlayer(game.getPlayerByNickname(nickname));
+    }
+
+    /**
      * Checks if the nickname has already been taken
      *
      * @param nickname the nickname of the player
@@ -752,6 +786,11 @@ public class GameController implements Observer<PlayerEvent> {
             player = game.getIndexOfPlayer(game.getPlayerByNickname(nickname));
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
+            return;
+        }
+
+        if(controlConnectedPlayers()){
+            game.notifyInvalidAction(nickname, "Wait for the other players to reconnect");
             return;
         }
 
@@ -851,6 +890,11 @@ public class GameController implements Observer<PlayerEvent> {
             return;
         }
 
+        if(controlConnectedPlayers()){
+            game.notifyInvalidAction(nickname, "Wait for the other players to reconnect");
+            return;
+        }
+
         if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
             try {
                 game.getActiveCharacterCard().setColour(colour);
@@ -876,6 +920,11 @@ public class GameController implements Observer<PlayerEvent> {
             player = game.getIndexOfPlayer(game.getPlayerByNickname(nickname));
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
+            return;
+        }
+
+        if(controlConnectedPlayers()){
+            game.notifyInvalidAction(nickname, "Wait for the other players to reconnect");
             return;
         }
 
@@ -907,6 +956,11 @@ public class GameController implements Observer<PlayerEvent> {
             return;
         }
 
+        if(controlConnectedPlayers()){
+            game.notifyInvalidAction(nickname, "Wait for the other players to reconnect");
+            return;
+        }
+
         if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
             try {
                 if (groupIsland >= 0 && groupIsland < game.getTable().getNumberOfGroupIsland())
@@ -935,6 +989,11 @@ public class GameController implements Observer<PlayerEvent> {
             return;
         }
 
+        if(controlConnectedPlayers()){
+            game.notifyInvalidAction(nickname, "Wait for the other players to reconnect");
+            return;
+        }
+
         if (game.isCurrentPlayer(game.getPlayerByIndex(player))) {
             try {
                 game.getActiveCharacterCard().setColourDiningRoomEntrance(colourDiningRoom, colourEntrance);
@@ -959,6 +1018,11 @@ public class GameController implements Observer<PlayerEvent> {
             player = game.getIndexOfPlayer(game.getPlayerByNickname(nickname));
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
+            return;
+        }
+
+        if(controlConnectedPlayers()){
+            game.notifyInvalidAction(nickname, "Wait for the other players to reconnect");
             return;
         }
 
@@ -1017,6 +1081,15 @@ public class GameController implements Observer<PlayerEvent> {
                 return;
             }
         }
+    }
+
+    /**
+     * Checks the number of connected players, return true if the connected players are more than one, false otherwise
+     *
+     * @return true if the connected players are more than one, false otherwise
+     */
+    private boolean controlConnectedPlayers(){
+        return game.getNumberOfConnectedPlayers() <= 1;
     }
 
     /**
