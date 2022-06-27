@@ -13,7 +13,6 @@ import javafx.stage.Stage;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * The singleton class that manages all the functionalities of the GUI.
@@ -216,9 +215,12 @@ public class GUI extends View {
         });
     }
 
+    /**
+     * Shows the exchangeEntranceDiningRoom page
+     */
     public void showExchangeEntranceDiningRoom() {
         Platform.runLater(() -> {
-            ExchangeEntranceDiningRoom exchangeEntranceDiningRoom = new ExchangeEntranceDiningRoom();
+            ExchangeEntranceDiningRoomWidget exchangeEntranceDiningRoom = new ExchangeEntranceDiningRoomWidget();
             scene.setRoot(exchangeEntranceDiningRoom);
         });
     }
