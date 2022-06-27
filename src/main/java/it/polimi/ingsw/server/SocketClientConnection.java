@@ -8,6 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.NoSuchElementException;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -125,7 +126,7 @@ public class SocketClientConnection implements Runnable {
         } catch (IOException e) {
             System.err.println("Error when closing socket!");
         }
-        active = false;
+        setInactive();
     }
 
     /**
@@ -133,7 +134,7 @@ public class SocketClientConnection implements Runnable {
      */
     private void close() {
         closeConnection();
-        System.out.println("Unregistering client...");
+        System.out.println("Unregistering client of player " + playerName);
         remoteView.getLobbyController().deregisterConnection(this);
     }
 
@@ -169,19 +170,20 @@ public class SocketClientConnection implements Runnable {
                 }
             }
 
-        } catch (EOFException e) {
-            System.out.println("Client disconnected");
-        } catch (IOException | ClassNotFoundException e) {
+        } catch (EOFException | SocketException e) {
+            System.out.println("Player " + playerName + " disconnected");
+        } catch (IOException | ClassNotFoundException | NoSuchElementException e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+            System.out.println("Connection with player : " + playerName + " lost");
+        } catch(Exception e){
+            System.out.println("Error: " + e.getMessage());
             e.printStackTrace();
         } finally {
-            try {
-                socket.close();
-            } catch (IOException e) {
-                System.err.println("Error when closing socket!");
+            if(isActive()){
+                setInactive();
+                close();
             }
-            active = false;
-            close();
-
         }
     }
 
@@ -220,7 +222,7 @@ public class SocketClientConnection implements Runnable {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                if (!hasResponded.get()) {
+                if (!hasResponded.get() && isActive()) {
                     close();
                     break;
                 }

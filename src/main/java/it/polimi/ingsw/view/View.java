@@ -208,8 +208,7 @@ public abstract class View {
      */
     public void addToLobby(boolean isFirstConnection, List<Wizard> takenWizard) {
         setGameState(GameState.CHOOSING_NAME);
-        if (isFirstConnection)
-            lobbyMaster = true;
+        this.lobbyMaster = isFirstConnection;
 
         if (takenWizard != null) {
             this.takenWizards.clear();
@@ -357,6 +356,11 @@ public abstract class View {
     protected void reset() {
         this.gameState = GameState.CONNECTING;
         this.model = new MockModel();
+        this.lobbyMaster = false;
+        this.playerName = null;
+        this.wizard = null;
+        this.otherNicks.clear();
+        this.takenWizards.clear();
 
         getClient().reset();
     }

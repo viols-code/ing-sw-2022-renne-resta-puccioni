@@ -8,6 +8,7 @@ import it.polimi.ingsw.view.implementation.cli.utils.AnsiColour;
 import it.polimi.ingsw.view.implementation.cli.utils.ViewString;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 /**
@@ -168,7 +169,8 @@ public class CLI extends View {
     public void handlePlayerCrash(String playerName) {
         getRenderer().showLobbyMessage(playerName == null ? ViewString.PLAYER_CRASH :
                 ViewString.PLAYER_CRASH_WITH_NAME.formatted(playerName));
-        getClient().terminate();
+        reset();
+        getRenderer().showLobbyMessage("Enter the server ip and port (leave blank for localhost):");
     }
 
     /**
@@ -177,7 +179,8 @@ public class CLI extends View {
     @Override
     public void handleEndGame() {
         getRenderer().printResult();
-        getClient().terminate();
+        reset();
+        getRenderer().showLobbyMessage("Enter the server ip and port (leave blank for localhost):");
     }
 
     /**
@@ -193,7 +196,13 @@ public class CLI extends View {
 
         String command;
         while (getClient().isActive()) {
-            command = scanner.nextLine();
+            try{
+                command = scanner.nextLine();
+            }catch(NoSuchElementException | IllegalStateException e){
+                System.out.println("Error: no line found");
+                break;
+            }
+
 
             if (!getClient().isActive())
                 break;

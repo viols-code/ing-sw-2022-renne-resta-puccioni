@@ -161,7 +161,7 @@ public class Client {
      */
     public void reset() {
         ip = "localhost";
-        port = 12345;
+        port = 54321;
 
         if (writeThread != null) writeThread.interrupt();
         if (readThread != null) readThread.interrupt();
