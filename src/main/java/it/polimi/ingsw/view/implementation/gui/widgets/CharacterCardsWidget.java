@@ -207,18 +207,19 @@ public class CharacterCardsWidget extends StackPane {
                         case PROTECT_ISLAND, ISLAND_INFLUENCE, STUDENT_TO_ISLAND -> imageViewList.get(a).setOnMouseClicked(event -> Platform.runLater(() -> GUI.instance().showGroupIslandDecision()));
                         case EXCHANGE_ENTRANCE_DINING_ROOM -> imageViewList.get(a).setOnMouseClicked(event -> Platform.runLater(() -> GUI.instance().showExchangeEntranceDiningRoom()));
                     }
+
+                    if(a == 0){
+                        setImageEvent(student0, pane0, studentColour0, student1, student2);
+                    } else if(a == 1){
+                        setImageEvent(student1, pane1, studentColour1, student0, student2);
+                    } else{
+                        setImageEvent(student2, pane2, studentColour2, student0, student1);
+                    }
                 }
 
                 flowPaneList.get(a).getStyleClass().remove("assistantCards");
                 flowPaneList.get(a).getStyleClass().add("characterCardSelected");
 
-                if(a == 0){
-                    setImageEvent(student0, pane0, studentColour0, student1, student2);
-                } else if(a == 1){
-                    setImageEvent(student1, pane1, studentColour1, student0, student2);
-                } else{
-                    setImageEvent(student2, pane2, studentColour2, student0, student1);
-                }
 
             }
         }));
@@ -294,15 +295,7 @@ public class CharacterCardsWidget extends StackPane {
      */
     @FXML
     private void initStudentsOnCard(int i) {
-        student0.clear();
-        student1.clear();
-        student2.clear();
-        studentColour0.clear();
-        studentColour1.clear();
-        studentColour2.clear();
-        pane0.clear();
-        pane1.clear();
-        pane2.clear();
+        cleanImages(i);
         int c, r;
         c = 0;
         r = 0;
@@ -355,6 +348,28 @@ public class CharacterCardsWidget extends StackPane {
                     r = 2;
                 }
             }
+        }
+    }
+
+
+    /**
+     * Resets the List of the given character card
+     *
+     * @param i the position of the given character card
+     */
+    private void cleanImages(int i){
+        if(i == 0){
+            student0.clear();
+            studentColour0.clear();
+            pane0.clear();
+        } else if(i == 1){
+            student1.clear();
+            studentColour1.clear();
+            pane1.clear();
+        } else{
+            student2.clear();
+            studentColour2.clear();
+            pane2.clear();
         }
     }
 
