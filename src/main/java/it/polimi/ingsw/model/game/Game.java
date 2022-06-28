@@ -243,6 +243,18 @@ public abstract class Game extends Observable<IServerPacket> {
     }
 
     /**
+     * Adds all the reconnected Players to the actual Game
+     */
+    public void addAllReconnectedPlayers(){
+        for(Player player : disconnectedPlayers){
+            if(player.getReconnected()){
+                disconnectedPlayers.remove(player);
+                connectedPlayers.add(player);
+            }
+        }
+    }
+
+    /**
      * Remove a player from the match
      *
      * @param player the player to be removed from the game

@@ -882,6 +882,7 @@ public class GameController implements Observer<PlayerEvent> {
                 game.getTable().removeCLoudTile(game.getTable().getCloudTilesByIndex(0));
                 settingCloudTile();
                 game.incrementRound();
+                game.addAllReconnectedPlayers();
                 if (game.getRound() >= 11) {
                     calculateWinner();
                     endGame();
