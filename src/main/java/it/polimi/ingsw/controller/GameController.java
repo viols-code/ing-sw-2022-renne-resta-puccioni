@@ -1117,4 +1117,13 @@ public class GameController implements Observer<PlayerEvent> {
         }
 
     }
+
+    /**
+     * Gets the game mode, true if the game is expert, false otherwise
+     *
+     * @return true if the game is expert, false otherwise
+     */
+    public boolean isGameExpert(){
+        return isGameExpert;
+    }
 }
