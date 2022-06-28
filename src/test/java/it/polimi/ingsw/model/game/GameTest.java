@@ -55,8 +55,7 @@ class GameTest {
         gameController.getGame().addPlayer(player2);
         gameController.getGame().removePlayer(player1);
         assertEquals(gameController.getGame().getActiveCharacterCard(), gameController.getGame().getBasicState());
-        assertEquals(1, gameController.getGame().getNumberOfPlayer());
-        assertEquals(player2, gameController.getGame().getPlayerByIndex(0));
+        assertEquals(2, gameController.getGame().getNumberOfPlayer());
 
         Exception exception = assertThrows(IllegalArgumentException.class, () -> gameController.getGame().removePlayer(player1));
 

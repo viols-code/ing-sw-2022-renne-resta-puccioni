@@ -239,6 +239,7 @@ public abstract class Game extends Observable<IServerPacket> {
      * @param player the player to be added to the game
      */
     public void addReconnectedPlayer(Player player){
+
         player.setReconnected(true);
     }
 

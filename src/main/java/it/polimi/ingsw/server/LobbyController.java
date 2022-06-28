@@ -283,12 +283,14 @@ public class LobbyController {
                 lobby.disconnect(connection);
                 playingLobbies.remove(connection.getLobbyUUID());
                 disconnectedLobbies.put(connection.getLobbyUUID(), lobby);
-            } else {
-                lobby = disconnectedLobbies.get(connection.getLobbyUUID());
-                if (lobby != null && lobby.getConnections().size() == 1) {
-                    disconnectedLobbies.remove(lobby.getUuid());
-                    deleteLobby(lobby);
-                }
+                return;
+            }
+
+            lobby = disconnectedLobbies.get(connection.getLobbyUUID());
+            if (lobby != null && lobby.getConnections().size() == 1) {
+                lobby.disconnect(connection);
+                disconnectedLobbies.remove(lobby.getUuid());
+                deleteLobby(lobby);
             }
 
         }
