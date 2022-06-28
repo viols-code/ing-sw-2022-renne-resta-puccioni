@@ -43,8 +43,6 @@ Otherwise, if you want to run a new CLI client you can use:
 * [Sara Resta](https://github.com/sararesta)
 * [Laura Puccioni](https://github.com/LaP19)
 
-If you want to use the CLI and you are using Windows, make sure to use java -Dfile.encoding="UTF-8" -jar softeng-GC16.jar cli to render colours properly.
-
 ## Software used
 **Draw.io** - UML diagrams
 
