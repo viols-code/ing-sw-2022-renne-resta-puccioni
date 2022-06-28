@@ -318,7 +318,8 @@ public class Lobby extends Observable<IServerPacket> {
      * Add the client to the already started game
      */
     public void addToGame(SocketClientConnection connection){
-        connection.getRemoteView().getGameController().reconnectPlayer(connection.getPlayerName());
+        Thread t = new Thread(new ReconnectionInstance(this, connection.getRemoteView().getGameController(), connection));
+        t.start();
     }
 
     /**
@@ -340,5 +341,14 @@ public class Lobby extends Observable<IServerPacket> {
      */
     public List<String> getNicknames() {
         return nicknames;
+    }
+
+    /**
+     * Notifies the correct reconnection of a player
+     *
+     * @param connection the connection of the player
+     */
+    public void notifyCorrectReconnection(SocketClientConnection connection){
+        notify(new CorrectReconnection(connection));
     }
 }

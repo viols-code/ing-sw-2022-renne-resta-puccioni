@@ -51,6 +51,15 @@ public class CLI extends View {
     }
 
     /**
+     * Handles the successful connection to the waiting room.
+     */
+    @Override
+    public void correctReconnection() {
+        super.correctReconnection();
+        getRenderer().showLobbyMessage(ViewString.RECONNECTED);
+    }
+
+    /**
      * Handles the successful nickname setting
      *
      * @param nickname       the nickname chosen by the local player

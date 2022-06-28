@@ -1,6 +1,7 @@
 package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.controller.GameController;
+import it.polimi.ingsw.server.messages.CorrectReconnection;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,5 +58,9 @@ public class ReconnectionInstance implements Runnable{
             controller.getGame().getPlayerByIndex(i).addObserver(remoteView);
             controller.getGame().getPlayerByIndex(i).getSchoolBoard().addObserver(remoteView);
         }
+
+        conn.getRemoteView().getGameController().reconnectPlayer(conn.getPlayerName());
+
+        lobby.notifyCorrectReconnection(conn);
     }
 }
