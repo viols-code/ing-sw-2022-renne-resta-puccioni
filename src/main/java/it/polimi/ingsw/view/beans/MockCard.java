@@ -98,7 +98,7 @@ public class MockCard {
      *
      * @return the cost
      */
-    public int getCost() {
+    public synchronized int getCost() {
         return cost.getValue();
     }
 
@@ -107,7 +107,7 @@ public class MockCard {
      *
      * @param cost the updated cost
      */
-    public void setCost(int cost) {
+    public synchronized void setCost(int cost) {
         this.cost.setValue(cost);
     }
 
@@ -125,7 +125,7 @@ public class MockCard {
      *
      * @return number of no entry tiles
      */
-    public int getNumberOfNoEntryTile() {
+    public synchronized int getNumberOfNoEntryTile() {
         return numberOfNoEntryTile.getValue();
     }
 
@@ -134,7 +134,7 @@ public class MockCard {
      *
      * @param numberOfNoEntryTile the updated number of no entry tiles
      */
-    public void setNumberOfNoEntryTile(int numberOfNoEntryTile) {
+    public synchronized void setNumberOfNoEntryTile(int numberOfNoEntryTile) {
         this.numberOfNoEntryTile.setValue(numberOfNoEntryTile);
     }
 
@@ -143,7 +143,7 @@ public class MockCard {
      *
      * @param colour the selected student colour
      */
-    public void addStudent(Colour colour) {
+    public synchronized void addStudent(Colour colour) {
         if (type == CharacterCardEnumeration.STUDENT_TO_DINING_ROOM || type == CharacterCardEnumeration.STUDENT_TO_ENTRANCE || type == CharacterCardEnumeration.STUDENT_TO_ISLAND)
             students.replace(colour, students.get(colour), students.get(colour) + 1);
     }
@@ -153,7 +153,7 @@ public class MockCard {
      *
      * @return a hashmap representing the students on the card
      */
-    public HashMap<Colour, Integer> getStudents() {
+    public synchronized HashMap<Colour, Integer> getStudents() {
         return new HashMap<>(students);
     }
 
@@ -171,7 +171,7 @@ public class MockCard {
      *
      * @param students the students on the card
      */
-    public void setStudents(HashMap<Colour, Integer> students) {
+    public synchronized void setStudents(HashMap<Colour, Integer> students) {
         if (type == CharacterCardEnumeration.STUDENT_TO_DINING_ROOM || type == CharacterCardEnumeration.STUDENT_TO_ENTRANCE || type == CharacterCardEnumeration.STUDENT_TO_ISLAND)
             this.students.entrySet().forEach(entry -> entry.setValue(students.get(entry.getKey())));
     }

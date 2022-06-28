@@ -32,7 +32,7 @@ public class MockCloudTile {
      *
      * @return the students on the cloud tile
      */
-    public HashMap<Colour, Integer> getMockCloudTile() {
+    public synchronized HashMap<Colour, Integer> getMockCloudTile() {
         return new HashMap<>(tileStudents);
     }
 
@@ -41,7 +41,7 @@ public class MockCloudTile {
      *
      * @param tileStudents hashmap with the students
      */
-    public void setCloudTile(HashMap<Colour, Integer> tileStudents) {
+    public synchronized void setCloudTile(HashMap<Colour, Integer> tileStudents) {
         this.tileStudents.entrySet().forEach(entry -> entry.setValue(tileStudents.get(entry.getKey())));
     }
 }

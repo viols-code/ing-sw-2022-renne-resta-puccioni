@@ -34,7 +34,7 @@ public class MockSchoolBoard {
      *
      * @return the entrance as an HashMap
      */
-    public HashMap<Colour, Integer> getEntrance() {
+    public synchronized HashMap<Colour, Integer> getEntrance() {
         return new HashMap<>(entrance);
     }
 
@@ -43,7 +43,7 @@ public class MockSchoolBoard {
      *
      * @param entrance the entrance updated
      */
-    public void setEntrance(HashMap<Colour, Integer> entrance) {
+    public synchronized void setEntrance(HashMap<Colour, Integer> entrance) {
         this.entrance.entrySet().forEach(entry -> entry.setValue(entrance.get(entry.getKey())));
     }
 
@@ -52,7 +52,7 @@ public class MockSchoolBoard {
      *
      * @return the dining room
      */
-    public HashMap<Colour, Integer> getDiningRoom() {
+    public synchronized HashMap<Colour, Integer> getDiningRoom() {
         return new HashMap<>(diningRoom);
     }
 
@@ -61,7 +61,7 @@ public class MockSchoolBoard {
      *
      * @param diningRoom the dining room updated
      */
-    public void setDiningRoom(HashMap<Colour, Integer> diningRoom) {
+    public synchronized void setDiningRoom(HashMap<Colour, Integer> diningRoom) {
         this.diningRoom.entrySet().forEach(entry -> entry.setValue(diningRoom.get(entry.getKey())));
     }
 
@@ -70,7 +70,7 @@ public class MockSchoolBoard {
      *
      * @return the professor table
      */
-    public HashMap<Colour, Boolean> getProfessorTable() {
+    public synchronized HashMap<Colour, Boolean> getProfessorTable() {
         return new HashMap<>(professorTable);
     }
 
@@ -79,7 +79,7 @@ public class MockSchoolBoard {
      *
      * @param professorTable the professor table updated
      */
-    public void setProfessorTable(HashMap<Colour, Boolean> professorTable) {
+    public synchronized void setProfessorTable(HashMap<Colour, Boolean> professorTable) {
         this.professorTable.entrySet().forEach(entry -> entry.setValue(professorTable.get(entry.getKey())));
     }
 
@@ -88,7 +88,7 @@ public class MockSchoolBoard {
      *
      * @return the number of towers on this school board
      */
-    public int getTowers() {
+    public synchronized int getTowers() {
         return towers.getValue();
     }
 
@@ -97,7 +97,7 @@ public class MockSchoolBoard {
      *
      * @param towers the number of towers
      */
-    public void setTowers(int towers) {
+    public synchronized void setTowers(int towers) {
         this.towers.setValue(towers);
     }
 

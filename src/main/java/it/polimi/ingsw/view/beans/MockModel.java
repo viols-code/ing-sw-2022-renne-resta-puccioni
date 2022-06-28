@@ -200,7 +200,7 @@ public class MockModel {
      *
      * @return the current Player
      */
-    public MockPlayer getCurrentPlayer() {
+    public synchronized MockPlayer getCurrentPlayer() {
         return currentPlayer.getValue();
     }
 
@@ -209,7 +209,7 @@ public class MockModel {
      *
      * @param currentPlayer the current Player
      */
-    public void setCurrentPlayer(MockPlayer currentPlayer) {
+    public synchronized void setCurrentPlayer(MockPlayer currentPlayer) {
         this.currentPlayer.setValue(currentPlayer);
     }
 
@@ -227,7 +227,7 @@ public class MockModel {
      *
      * @return the current round
      */
-    public int getRound() {
+    public synchronized int getRound() {
         return round.getValue();
     }
 
@@ -236,7 +236,7 @@ public class MockModel {
      *
      * @param round the round to set
      */
-    public void setRound(int round) {
+    public synchronized void setRound(int round) {
         this.round.setValue(round);
     }
 
@@ -245,7 +245,7 @@ public class MockModel {
      *
      * @return true if the game mode is expert, false if the game mode is basic
      */
-    public boolean isGameExpert() {
+    public synchronized boolean isGameExpert() {
         return isGameExpert;
     }
 
@@ -254,7 +254,7 @@ public class MockModel {
      *
      * @param isGameExpert true if the gameMode is expert, false if it is basic
      */
-    public void setGameMode(boolean isGameExpert) {
+    public synchronized void setGameMode(boolean isGameExpert) {
         this.isGameExpert = isGameExpert;
     }
 
@@ -263,7 +263,7 @@ public class MockModel {
      *
      * @return the number of coins on the table
      */
-    public int getCoins() {
+    public synchronized int getCoins() {
         return coins.getValue();
     }
 
@@ -272,7 +272,7 @@ public class MockModel {
      *
      * @param coins the number of coins available
      */
-    public void setCoins(int coins) {
+    public synchronized void setCoins(int coins) {
         this.coins.setValue(coins);
     }
 
@@ -315,7 +315,7 @@ public class MockModel {
      *
      * @return the current character card
      */
-    public MockCard getCurrentCharacterCard() {
+    public synchronized MockCard getCurrentCharacterCard() {
         return currentCharacterCard.getValue();
     }
 
@@ -324,7 +324,7 @@ public class MockModel {
      *
      * @param currentCharacterCard the card
      */
-    public void setCurrentCharacterCard(MockCard currentCharacterCard) {
+    public synchronized void setCurrentCharacterCard(MockCard currentCharacterCard) {
         this.currentCharacterCard.setValue(currentCharacterCard);
     }
 
@@ -333,7 +333,7 @@ public class MockModel {
      *
      * @return the game phase
      */
-    public GamePhase getGamePhase() {
+    public synchronized GamePhase getGamePhase() {
         return gamePhase.getValue();
     }
 
@@ -342,7 +342,7 @@ public class MockModel {
      *
      * @param gamePhase the game phase
      */
-    public void setGamePhase(GamePhase gamePhase) {
+    public synchronized void setGamePhase(GamePhase gamePhase) {
         this.gamePhase.setValue(gamePhase);
     }
 
@@ -351,7 +351,7 @@ public class MockModel {
      *
      * @return the turn phase
      */
-    public TurnPhase getTurnPhase() {
+    public synchronized TurnPhase getTurnPhase() {
         return turnPhase.getValue();
     }
 
@@ -360,7 +360,7 @@ public class MockModel {
      *
      * @param turnPhase the turn phase
      */
-    public void setTurnPhase(TurnPhase turnPhase) {
+    public synchronized void setTurnPhase(TurnPhase turnPhase) {
         this.turnPhase.setValue(turnPhase);
     }
 
@@ -369,7 +369,7 @@ public class MockModel {
      *
      * @return the winner of the game
      */
-    public MockPlayer getWinner() {
+    public synchronized MockPlayer getWinner() {
         return winner.getValue();
     }
 
@@ -378,7 +378,7 @@ public class MockModel {
      *
      * @param winner the winner of the game
      */
-    public void setWinner(MockPlayer winner) {
+    public synchronized void setWinner(MockPlayer winner) {
         this.winner.setValue(winner);
     }
 
@@ -441,7 +441,7 @@ public class MockModel {
      *
      * @return the position of the student selected as an IntegerProperty
      */
-    public IntegerProperty getPosition() {
+    public synchronized IntegerProperty getPosition() {
         return position;
     }
 
@@ -450,7 +450,7 @@ public class MockModel {
      *
      * @param position the position of the student selected as an IntegerProperty
      */
-    public void setPosition(int position) {
+    public synchronized void setPosition(int position) {
         this.position.setValue(position);
     }
 
@@ -459,7 +459,7 @@ public class MockModel {
      *
      * @return the colour selected
      */
-    public Colour getSelectedColour() {
+    public synchronized Colour getSelectedColour() {
         return selectedColour;
     }
 
@@ -468,7 +468,7 @@ public class MockModel {
      *
      * @param selectedColour the colour selected
      */
-    public void setSelectedColour(Colour selectedColour) {
+    public synchronized void setSelectedColour(Colour selectedColour) {
         this.selectedColour = selectedColour;
     }
 
@@ -477,7 +477,7 @@ public class MockModel {
      *
      * @return the colour selected
      */
-    public Colour getSelectedColourExchange() {
+    public synchronized Colour getSelectedColourExchange() {
         return selectedColourExchange;
     }
 
@@ -486,7 +486,7 @@ public class MockModel {
      *
      * @param selectedColour the colour selected
      */
-    public void setSelectedColourExchange(Colour selectedColour) {
+    public synchronized void setSelectedColourExchange(Colour selectedColour) {
         this.selectedColourExchange = selectedColour;
     }
 
@@ -495,7 +495,7 @@ public class MockModel {
      *
      * @return the position of the student selected as an IntegerProperty
      */
-    public IntegerProperty getPositionExchange() {
+    public synchronized IntegerProperty getPositionExchange() {
         return positionExchange;
     }
 
@@ -504,7 +504,7 @@ public class MockModel {
      *
      * @param position the position of the student selected as an IntegerProperty
      */
-    public void setPositionExchange(int position) {
+    public synchronized void setPositionExchange(int position) {
         this.positionExchange.setValue(position);
     }
 
@@ -513,7 +513,7 @@ public class MockModel {
      *
      * @return the basic state
      */
-    public MockCard getBasicState() {
+    public synchronized MockCard getBasicState() {
         return basicState;
     }
 
@@ -541,7 +541,7 @@ public class MockModel {
      *
      * @return the colour of the student that has been selected
      */
-    public Colour getStudentOnCardSelected() {
+    public synchronized Colour getStudentOnCardSelected() {
         return studentOnCardSelected.getValue();
     }
 
@@ -550,7 +550,7 @@ public class MockModel {
      *
      * @param studentOnCardSelected the student that has been selected
      */
-    public void setStudentOnCardSelected(Colour studentOnCardSelected) {
+    public synchronized void setStudentOnCardSelected(Colour studentOnCardSelected) {
         this.studentOnCardSelected.setValue(studentOnCardSelected);
     }
 

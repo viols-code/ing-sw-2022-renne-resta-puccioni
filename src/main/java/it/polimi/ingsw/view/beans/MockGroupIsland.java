@@ -54,7 +54,7 @@ public class MockGroupIsland {
      *
      * @return the ArrayList of single islands of this group island
      */
-    public List<MockSingleIsland> getIslands() {
+    public synchronized List<MockSingleIsland> getIslands() {
         return islands;
     }
 
@@ -64,7 +64,7 @@ public class MockGroupIsland {
      * @param index the position of the single island in the list
      * @return the single island
      */
-    public MockSingleIsland getSingleIslandByIndex(int index) {
+    public synchronized MockSingleIsland getSingleIslandByIndex(int index) {
         return islands.get(index);
     }
 
@@ -73,7 +73,7 @@ public class MockGroupIsland {
      *
      * @param singleIsland the single island
      */
-    public void addMockSingleIsland(MockSingleIsland singleIsland) {
+    public synchronized void addMockSingleIsland(MockSingleIsland singleIsland) {
         islands.add(singleIsland);
     }
 
@@ -82,7 +82,7 @@ public class MockGroupIsland {
      *
      * @return true if the group island is basic, false if the group island is advanced
      */
-    public boolean getIsBasic() {
+    public synchronized boolean getIsBasic() {
         return isBasic;
     }
 
@@ -92,7 +92,7 @@ public class MockGroupIsland {
      *
      * @param isBasic true if the groupIsland is basic
      */
-    public void setIsBasic(boolean isBasic) {
+    public synchronized void setIsBasic(boolean isBasic) {
         this.isBasic = isBasic;
     }
 
@@ -101,7 +101,7 @@ public class MockGroupIsland {
      *
      * @return the number of no entry tiles on this GroupIsland
      */
-    public int getNoEntryTile() {
+    public synchronized int getNoEntryTile() {
         return noEntryTile.getValue();
     }
 
@@ -110,7 +110,7 @@ public class MockGroupIsland {
      *
      * @param noEntryTile the number of no entry tile
      */
-    public void setNoEntryTile(int noEntryTile) {
+    public synchronized void setNoEntryTile(int noEntryTile) {
         this.noEntryTile.setValue(noEntryTile);
     }
 
@@ -119,7 +119,7 @@ public class MockGroupIsland {
      *
      * @return true if mother nature is on this island, false if mother nature is not on this island
      */
-    public boolean isMotherNature() {
+    public synchronized boolean isMotherNature() {
         return motherNature.getValue();
     }
 
@@ -128,7 +128,7 @@ public class MockGroupIsland {
      *
      * @param motherNature a boolean that is true if mother nature is on this island, false if mother nature is not on this island
      */
-    public void setMotherNature(boolean motherNature) {
+    public synchronized void setMotherNature(boolean motherNature) {
         this.motherNature.setValue(motherNature);
     }
 
@@ -137,7 +137,7 @@ public class MockGroupIsland {
      *
      * @return the nickname of the influent player on this group island
      */
-    public String getInfluentPlayer() {
+    public synchronized String getInfluentPlayer() {
         return influentPlayer.getValue();
     }
 
@@ -146,7 +146,7 @@ public class MockGroupIsland {
      *
      * @param influentPlayer the nickname of the influent player on this group island
      */
-    public void setInfluentPlayer(String influentPlayer) {
+    public synchronized void setInfluentPlayer(String influentPlayer) {
         this.influentPlayer.setValue(influentPlayer);
     }
 

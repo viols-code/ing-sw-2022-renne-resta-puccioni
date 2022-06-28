@@ -76,7 +76,7 @@ public class MockTable {
      *
      * @return professorAvailable the HashMap of professors available on the table
      */
-    public HashMap<Colour, Boolean> getProfessorsAvailable() {
+    public synchronized HashMap<Colour, Boolean> getProfessorsAvailable() {
         return new HashMap<>(professorsAvailable);
     }
 
@@ -85,14 +85,14 @@ public class MockTable {
      *
      * @param colour the colour of the professor to remove
      */
-    public void removeProfessorFromTable(Colour colour) {
+    public synchronized void removeProfessorFromTable(Colour colour) {
         professorsAvailable.replace(colour, professorsAvailable.get(colour), false);
     }
 
     /**
      * Adds a cloud tile to the list
      */
-    public void addCloudTile() {
+    public synchronized void addCloudTile() {
         cloudTiles.add(new MockCloudTile());
     }
 
@@ -101,14 +101,14 @@ public class MockTable {
      *
      * @param cloudTile the index of the cloud tile in the list
      */
-    public void removeShownCloudTileByIndex(int cloudTile) {
+    public synchronized void removeShownCloudTileByIndex(int cloudTile) {
         shownCloudTiles.remove(cloudTile);
     }
 
     /**
      * Adds a cloud tile to the list shownCLoudTiles
      */
-    public void addShownCLoudTile() {
+    public synchronized void addShownCLoudTile() {
         shownCloudTiles.add(new MockCloudTile());
     }
 
@@ -118,7 +118,7 @@ public class MockTable {
      * @param cloudTile the index of the cloud tile
      * @param students  the students on the cloud tile
      */
-    public void setShownCloudTile(int cloudTile, HashMap<Colour, Integer> students) {
+    public synchronized void setShownCloudTile(int cloudTile, HashMap<Colour, Integer> students) {
         shownCloudTiles.get(cloudTile).setCloudTile(students);
     }
 
@@ -127,7 +127,7 @@ public class MockTable {
      *
      * @return the list of the cloud tiles shown
      */
-    public List<MockCloudTile> getShownCloudTiles() {
+    public synchronized List<MockCloudTile> getShownCloudTiles() {
         return shownCloudTiles;
     }
 
@@ -147,7 +147,7 @@ public class MockTable {
      * @param cloudTile the index of the cloud tile selected
      * @return the cloud tile
      */
-    public MockCloudTile getCloudTileByIndex(int cloudTile) {
+    public synchronized MockCloudTile getCloudTileByIndex(int cloudTile) {
         return cloudTiles.get(cloudTile);
     }
 
@@ -156,7 +156,7 @@ public class MockTable {
      *
      * @return the list of cloudTiles
      */
-    public List<MockCloudTile> getCloudTile() {
+    public synchronized List<MockCloudTile> getCloudTile() {
         return cloudTiles;
     }
 
@@ -206,7 +206,7 @@ public class MockTable {
      *
      * @return an integer that indicates the current position of mother nature
      */
-    public int getMotherNaturePosition() {
+    public synchronized int getMotherNaturePosition() {
         return motherNaturePosition.getValue();
     }
 
@@ -215,7 +215,7 @@ public class MockTable {
      *
      * @param motherNaturePosition the new position
      */
-    public void setMotherNaturePosition(int motherNaturePosition) {
+    public synchronized void setMotherNaturePosition(int motherNaturePosition) {
         if (this.motherNaturePosition.getValue() < getGroupIslands().size()) {
             getGroupIslandByIndex(this.motherNaturePosition.getValue()).setMotherNature(false);
         }

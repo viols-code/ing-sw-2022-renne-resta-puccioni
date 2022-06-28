@@ -129,7 +129,7 @@ public class MockPlayer {
      *
      * @param coins the coins
      */
-    public void setCoins(int coins) {
+    public synchronized void setCoins(int coins) {
         this.coins.setValue(coins);
     }
 
@@ -138,7 +138,7 @@ public class MockPlayer {
      *
      * @return the coins
      */
-    public int getCoins() {
+    public synchronized int getCoins() {
         return coins.getValue();
     }
 
@@ -147,7 +147,7 @@ public class MockPlayer {
      *
      * @return the towers' colour
      */
-    public TowerColour getTowerColour() {
+    public synchronized TowerColour getTowerColour() {
         return towerColour;
     }
 
@@ -156,7 +156,7 @@ public class MockPlayer {
      *
      * @param colour the colour of the towers
      */
-    public void setTowerColour(TowerColour colour) {
+    public synchronized void setTowerColour(TowerColour colour) {
         this.towerColour = colour;
     }
 
@@ -183,7 +183,7 @@ public class MockPlayer {
      *
      * @param currentAssistantCard the assistant card played by the player in the current round
      */
-    public void setCurrentAssistantCard(int currentAssistantCard) {
+    public synchronized void setCurrentAssistantCard(int currentAssistantCard) {
         this.currentAssistantCard.setValue(cards.get(currentAssistantCard - 1));
         cards.remove(currentAssistantCard - 1);
     }
@@ -193,7 +193,7 @@ public class MockPlayer {
      *
      * @return the current assistant card
      */
-    public AssistantCard getCurrentAssistantCard() {
+    public synchronized AssistantCard getCurrentAssistantCard() {
         return currentAssistantCard.getValue();
     }
 
@@ -238,7 +238,7 @@ public class MockPlayer {
      *
      * @return true if the assistant card has been played so that the value has been set, false otherwise
      */
-    public boolean isAssistantCardValue() {
+    public synchronized boolean isAssistantCardValue() {
         return assistantCardValue.getValue();
     }
 
@@ -247,7 +247,7 @@ public class MockPlayer {
      *
      * @param assistantCardValue true if the assistantCard has been played so that the value has been set
      */
-    public void setAssistantCardValue(boolean assistantCardValue) {
+    public synchronized void setAssistantCardValue(boolean assistantCardValue) {
         this.assistantCardValue.setValue(assistantCardValue);
     }
 }

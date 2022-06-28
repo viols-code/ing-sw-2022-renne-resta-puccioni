@@ -28,7 +28,7 @@ public class MockSingleIsland {
      *
      * @param colour the colour of the student to add
      */
-    public void setStudent(Colour colour) {
+    public synchronized void setStudent(Colour colour) {
         students.replace(colour, students.get(colour), students.get(colour) + 1);
     }
 
@@ -38,7 +38,7 @@ public class MockSingleIsland {
      * @param colour the colour
      * @return the number of students of the colour selected
      */
-    public int getStudents(Colour colour) {
+    public synchronized int getStudents(Colour colour) {
         return students.get(colour);
     }
 
