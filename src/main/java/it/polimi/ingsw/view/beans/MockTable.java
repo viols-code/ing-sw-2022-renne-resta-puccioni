@@ -249,4 +249,11 @@ public class MockTable {
     public void setIslandInfluenceChanged(int islandInfluenceChanged) {
         this.islandInfluenceChanged.set(islandInfluenceChanged);
     }
+
+    /**
+     * Sets the isBagEmpty boolean to true
+     */
+    public synchronized void setBagEmpty(){
+        this.isBagEmpty = true;
+    }
 }

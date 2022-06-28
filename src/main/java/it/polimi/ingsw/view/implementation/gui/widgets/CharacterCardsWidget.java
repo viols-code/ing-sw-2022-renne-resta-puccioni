@@ -128,7 +128,6 @@ public class CharacterCardsWidget extends StackPane {
 
                 //adds a listener to the students on the card in order to update them when they change
                 GUI.instance().getModel().getCharacterCardByIndex(i).getStudentsProperty().addListener((MapChangeListener<? super Colour, ? super Integer>) listener ->
-
                         Platform.runLater(() -> {
                                     if (card == 0) {
                                         studentsOnCard0.getChildren().clear();
@@ -185,6 +184,8 @@ public class CharacterCardsWidget extends StackPane {
                         case EXCHANGE_ENTRANCE_DINING_ROOM -> imageViewList.get(a).setOnMouseClicked(event -> Platform.runLater(() -> GUI.instance().showExchangeEntranceDiningRoom()));
                     }
                 }
+
+
             }
         }));
 

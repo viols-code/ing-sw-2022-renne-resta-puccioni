@@ -244,11 +244,11 @@ public class GameController implements Observer<PlayerEvent> {
      */
     public synchronized void playCharacterCard(String nickname, int characterCard) {
         int player;
-        try {
-            player = game.getIndexOfPlayer(game.getPlayerByNickname(nickname));
+        try{
+            player = getPlayerByNickname(nickname);
         } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-            return;
+        e.printStackTrace();
+        return;
         }
 
         if(controlConnectedPlayers()){
@@ -303,8 +303,8 @@ public class GameController implements Observer<PlayerEvent> {
      */
     public synchronized void playAssistantCard(String nickname, int assistantCard) {
         int player;
-        try {
-            player = game.getIndexOfPlayer(game.getPlayerByNickname(nickname));
+        try{
+            player = getPlayerByNickname(nickname);
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
             return;
@@ -424,8 +424,8 @@ public class GameController implements Observer<PlayerEvent> {
      */
     public synchronized void moveStudentToIsland(String nickname, Colour colour, int groupIsland, int singleIsland) {
         int player;
-        try {
-            player = game.getIndexOfPlayer(game.getPlayerByNickname(nickname));
+        try{
+            player = getPlayerByNickname(nickname);
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
             return;
@@ -474,8 +474,8 @@ public class GameController implements Observer<PlayerEvent> {
      */
     public synchronized void moveStudentToDiningRoom(String nickname, Colour colour) {
         int player;
-        try {
-            player = game.getIndexOfPlayer(game.getPlayerByNickname(nickname));
+        try{
+            player = getPlayerByNickname(nickname);
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
             return;
@@ -564,8 +564,8 @@ public class GameController implements Observer<PlayerEvent> {
      */
     public synchronized void moveMotherNature(String nickname, int movement) {
         int player;
-        try {
-            player = game.getIndexOfPlayer(game.getPlayerByNickname(nickname));
+        try{
+            player = getPlayerByNickname(nickname);
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
             return;
@@ -782,8 +782,8 @@ public class GameController implements Observer<PlayerEvent> {
      */
     public synchronized void chooseCloudTile(String nickname, int cloudTile) {
         int player;
-        try {
-            player = game.getIndexOfPlayer(game.getPlayerByNickname(nickname));
+        try{
+            player = getPlayerByNickname(nickname);
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
             return;
@@ -883,8 +883,8 @@ public class GameController implements Observer<PlayerEvent> {
      */
     public synchronized void setColour(String nickname, Colour colour) {
         int player;
-        try {
-            player = game.getIndexOfPlayer(game.getPlayerByNickname(nickname));
+        try{
+            player = getPlayerByNickname(nickname);
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
             return;
@@ -916,8 +916,8 @@ public class GameController implements Observer<PlayerEvent> {
      */
     public synchronized void setColourAndIsland(String nickname, Colour colour, int groupIsland, int singleIsland) {
         int player;
-        try {
-            player = game.getIndexOfPlayer(game.getPlayerByNickname(nickname));
+        try{
+            player = getPlayerByNickname(nickname);
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
             return;
@@ -949,8 +949,8 @@ public class GameController implements Observer<PlayerEvent> {
      */
     public synchronized void setGroupIsland(String nickname, int groupIsland) {
         int player;
-        try {
-            player = game.getIndexOfPlayer(game.getPlayerByNickname(nickname));
+        try{
+            player = getPlayerByNickname(nickname);
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
             return;
@@ -982,8 +982,8 @@ public class GameController implements Observer<PlayerEvent> {
      */
     public synchronized void setColourDiningRoomEntrance(String nickname, Colour colourDiningRoom, Colour colourEntrance) {
         int player;
-        try {
-            player = game.getIndexOfPlayer(game.getPlayerByNickname(nickname));
+        try{
+            player = getPlayerByNickname(nickname);
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
             return;
@@ -1014,8 +1014,8 @@ public class GameController implements Observer<PlayerEvent> {
      */
     public synchronized void setColourCardEntrance(String nickname, Colour colourCard, Colour colourEntrance) {
         int player;
-        try {
-            player = game.getIndexOfPlayer(game.getPlayerByNickname(nickname));
+        try{
+            player = getPlayerByNickname(nickname);
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
             return;
@@ -1090,6 +1090,17 @@ public class GameController implements Observer<PlayerEvent> {
      */
     private boolean controlConnectedPlayers(){
         return game.getNumberOfConnectedPlayers() <= 1;
+    }
+
+    /**
+     * Gets the position of the player in the list of players
+     *
+     * @param nickname the nickname of the player
+     * @return the position of the player in the list of players
+     * @throws IllegalArgumentException if the nickname is not present
+     */
+    private int getPlayerByNickname(String nickname) throws IllegalArgumentException{
+        return game.getIndexOfPlayer(game.getPlayerByNickname(nickname));
     }
 
     /**
