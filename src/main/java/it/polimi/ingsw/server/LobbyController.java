@@ -290,6 +290,7 @@ public class LobbyController {
             lobby.disconnect(connection);
             if (lobby.getConnections().size() == 1) {
                 disconnectedLobbies.remove(lobby.getUuid());
+                total.remove(lobby.getUuid());
                 deleteLobby(lobby);
             }
 
