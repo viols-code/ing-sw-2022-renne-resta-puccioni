@@ -8,6 +8,7 @@ import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.table.Table;
 import it.polimi.ingsw.observer.Observable;
 import it.polimi.ingsw.server.IServerPacket;
+import it.polimi.ingsw.server.messages.CorrectReconnection;
 
 import java.util.ArrayList;
 import java.util.HashMap;

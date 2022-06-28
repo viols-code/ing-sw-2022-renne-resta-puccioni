@@ -95,6 +95,17 @@ public class GUI extends View {
     }
 
     /**
+     * Handles the successful reconnection of the player
+     */
+    @Override
+    public void correctReconnection(){
+        Platform.runLater(() -> {
+            Parent nameSelectionPage = FXMLUtils.loadFXML("/gui/SchoolBoardWidget");
+            scene.setRoot(nameSelectionPage);
+        });
+    }
+
+    /**
      * Handles the successful nickname setting
      *
      * @param nickname       the nickname chosen by the local player
