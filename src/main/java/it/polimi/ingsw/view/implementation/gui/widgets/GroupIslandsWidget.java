@@ -172,7 +172,6 @@ public class GroupIslandsWidget extends StackPane {
 
                 //sets the visibility of mother nature according to its position on the game table
                 motherNature.setVisible(GUI.instance().getModel().getTable().getGroupIslandByIndex(i).isMotherNature() && k == 0);
-                addListenerOnSingleIslandStudents(i, k, studentsLabels);
 
                 //adds the tower
                 Circle tower = new Circle();
@@ -188,6 +187,7 @@ public class GroupIslandsWidget extends StackPane {
                     tower.setVisible(false);
                     tower.setFill(Color.rgb(0, 0, 0, 0.0));
                 }
+
                 addListenerOnSingleIslandStudents(i, k, studentsLabels);
 
                 //adds the no entry tiles if PROTECT_ISLAND card is present
@@ -371,6 +371,8 @@ public class GroupIslandsWidget extends StackPane {
 
                 }
             }
+
+            initWinner();
         }));
     }
 
@@ -422,14 +424,6 @@ public class GroupIslandsWidget extends StackPane {
         if (GUI.instance().getModel().getTurnPhase().equals(TurnPhase.ENDGAME)) {
             printWinner();
         }
-
-        //Adds a listener to the turn phase in order to know if the game has ended
-        GUI.instance().getModel().getTurnPhaseProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> {
-
-            if (GUI.instance().getModel().getTurnPhase().equals(TurnPhase.ENDGAME)) {
-                printWinner();
-            }
-        }));
     }
 
     /**
