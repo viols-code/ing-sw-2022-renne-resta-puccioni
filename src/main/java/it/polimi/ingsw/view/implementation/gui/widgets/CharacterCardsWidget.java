@@ -16,10 +16,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * Widget representing the character cards available in the game
@@ -78,7 +75,17 @@ public class CharacterCardsWidget extends StackPane {
      */
     private final List<ImageView> imageViewList = new ArrayList<>();
 
-    private List<FlowPane> flowPaneList = new ArrayList<>();
+    private final List<FlowPane> flowPaneList = new ArrayList<>();
+
+    private final List<ImageView> student0 = new ArrayList<>();
+    private final List<ImageView> student1 = new ArrayList<>();
+    private final List<ImageView> student2 = new ArrayList<>();
+    private final List<FlowPane> pane0 = new ArrayList<>();
+    private final List<FlowPane> pane1 = new ArrayList<>();
+    private final List<FlowPane> pane2 = new ArrayList<>();
+    private final HashMap<ImageView, Colour> studentColour0 = new HashMap<>();
+    private final HashMap<ImageView, Colour> studentColour1 = new HashMap<>();
+    private final HashMap<ImageView, Colour> studentColour2 = new HashMap<>();
 
     /**
      * Creates the CharacterCardsWidget
@@ -173,6 +180,17 @@ public class CharacterCardsWidget extends StackPane {
                         flowPaneList.get(a).getStyleClass().add("assistantCards");
                     }
                 }
+
+                for(ImageView image : student0){
+                    image.setOnMouseClicked(event -> GUI.instance().getRenderer().showErrorMessage("You must pay the character card first"));
+                }
+                for(ImageView image : student1){
+                    image.setOnMouseClicked(event -> GUI.instance().getRenderer().showErrorMessage("You must pay the character card first"));
+                }
+                for(ImageView image : student2){
+                    image.setOnMouseClicked(event -> GUI.instance().getRenderer().showErrorMessage("You must pay the character card first"));
+                }
+
             } else {
                 int a = -1;
                 //The index of the current character card is saved in the variable a
@@ -193,12 +211,53 @@ public class CharacterCardsWidget extends StackPane {
 
                 flowPaneList.get(a).getStyleClass().remove("assistantCards");
                 flowPaneList.get(a).getStyleClass().add("characterCardSelected");
+
+                if(a == 0){
+                    setImageEvent(student0, pane0, studentColour0, student1, student2);
+                } else if(a == 1){
+                    setImageEvent(student1, pane1, studentColour1, student0, student2);
+                } else{
+                    setImageEvent(student2, pane2, studentColour2, student0, student1);
+                }
+
             }
         }));
+
 
         initWinner();
     }
 
+    /**
+     * Set the image event
+     *
+     * @param student0 the List of image view containing the students of the first card
+     * @param pane0 the List of Pane Flow containing the images of the students of the first card
+     * @param studentColour0 the HashMap containing the ImageView and the Colour of the student
+     * @param student1 the List of image view containing the students of the second card
+     * @param student2 the List of image view containing the students of the third card
+     */
+    private void setImageEvent(List<ImageView> student0, List<FlowPane> pane0, HashMap<ImageView, Colour> studentColour0, List<ImageView> student1, List<ImageView> student2) {
+        for(ImageView image : student0){
+            image.setOnMouseClicked(event -> {
+                pane0.get(student0.indexOf(image)).getStyleClass().add("studentSelected");
+                setStudent(studentColour0.get(image));
+            });
+        }
+
+        for(ImageView image : student1){
+            image.setOnMouseClicked(event -> GUI.instance().getRenderer().showErrorMessage("This is not the current character card"));
+        }
+
+        for(ImageView image : student2){
+            image.setOnMouseClicked(event -> GUI.instance().getRenderer().showErrorMessage("This is not the current character card"));
+        }
+    }
+
+    /**
+     * Plays the character card at the position i
+     *
+     * @param i the position of the character card
+     */
     @FXML
     private void playCharacterCard(int i) {
         GUI.instance().getActionSender().playCharacterCard(GUI.instance().getPlayerName(), i);
@@ -235,6 +294,15 @@ public class CharacterCardsWidget extends StackPane {
      */
     @FXML
     private void initStudentsOnCard(int i) {
+        student0.clear();
+        student1.clear();
+        student2.clear();
+        studentColour0.clear();
+        studentColour1.clear();
+        studentColour2.clear();
+        pane0.clear();
+        pane1.clear();
+        pane2.clear();
         int c, r;
         c = 0;
         r = 0;
@@ -245,6 +313,19 @@ public class CharacterCardsWidget extends StackPane {
                 pane.getStyleClass().add("student");
                 ImageView imageViewStudent = new ImageView();
                 pane.getChildren().add(imageViewStudent);
+                if(i == 0){
+                    student0.add(imageViewStudent);
+                    studentColour0.put(imageViewStudent, colour);
+                    pane0.add(pane);
+                } else if(i == 1){
+                    student1.add(imageViewStudent);
+                    studentColour1.put(imageViewStudent, colour);
+                    pane1.add(pane);
+                } else{
+                    student2.add(imageViewStudent);
+                    studentColour2.put(imageViewStudent, colour);
+                    pane2.add(pane);
+                }
                 imageViewStudent.setImage(new Image(Objects.requireNonNull(CharacterCardsWidget.class.getResourceAsStream(
                         "/images/students/student_" + colour.name().toLowerCase(Locale.ROOT) + ".png"))));
 
@@ -259,20 +340,6 @@ public class CharacterCardsWidget extends StackPane {
                     });
                 }
 
-                //Adds a listener to the currentCharacterCard in order to notice if the students on the card can be selected or not according to the character card played
-                GUI.instance().getModel().currentCharacterCardProperty().addListener((ChangeListener<? super MockCard>) (change, oldVal, newVal) ->
-                        Platform.runLater(() -> {
-                            if (newVal.getType() == CharacterCardEnumeration.BASIC_STATE) {
-                                imageViewStudent.setOnMouseClicked(event -> GUI.instance().getRenderer().showErrorMessage("You must pay the character card first"));
-                            } else if (newVal.getType() != GUI.instance().getModel().getCharacterCardByIndex(i).getType()) {
-                                imageViewStudent.setOnMouseClicked(event -> GUI.instance().getRenderer().showErrorMessage("This is not the current character card"));
-                            } else {
-                                imageViewStudent.setOnMouseClicked(event -> {
-                                    pane.getStyleClass().add("studentSelected");
-                                    setStudent(colour);
-                                });
-                            }
-                        }));
 
                 if (i == 0) {
                     studentsOnCard0.add(pane, r, c);
