@@ -78,6 +78,8 @@ public class CharacterCardsWidget extends StackPane {
      */
     private final List<ImageView> imageViewList = new ArrayList<>();
 
+    private List<FlowPane> flowPaneList = new ArrayList<>();
+
     /**
      * Creates the CharacterCardsWidget
      */
@@ -99,6 +101,7 @@ public class CharacterCardsWidget extends StackPane {
             flowPane.setMaxWidth(196.5);
             ImageView imageView = new ImageView();
             flowPane.getChildren().add(imageView);
+            flowPaneList.add(flowPane);
 
             imageView.setFitHeight(300.0);
             imageView.setFitWidth(196.5);
@@ -166,6 +169,8 @@ public class CharacterCardsWidget extends StackPane {
                     if (oldVal.getType() == GUI.instance().getModel().getCharacterCardByIndex(i).getType()) {
                         int a = i;
                         imageViewList.get(i).setOnMouseClicked(event -> playCharacterCard(a));
+                        flowPaneList.get(a).getStyleClass().remove("characterCardSelected");
+                        flowPaneList.get(a).getStyleClass().add("assistantCards");
                     }
                 }
             } else {
@@ -185,6 +190,9 @@ public class CharacterCardsWidget extends StackPane {
                         case EXCHANGE_ENTRANCE_DINING_ROOM -> imageViewList.get(a).setOnMouseClicked(event -> Platform.runLater(() -> GUI.instance().showExchangeEntranceDiningRoom()));
                     }
                 }
+
+                flowPaneList.get(a).getStyleClass().remove("assistantCards");
+                flowPaneList.get(a).getStyleClass().add("characterCardSelected");
             }
         }));
 
