@@ -864,6 +864,8 @@ public class GameController implements Observer<PlayerEvent> {
         } else {
             if (!game.getTable().getBag().getNoStudent()) {
                 // If the PLAYING phase is ended, sets the CloudTile, increments the Round and sets the next current Player
+
+                // If there is only one player disconnected and the total number of player is three, then delete the last cloud tile
                 if(game.getNumberOfConnectedPlayers() != game.getNumberOfPlayer() && game.getNumberOfConnectedPlayers() > 1){
                     Player player = game.getPlayerDisconnectedByIndex(0);
                     if(player.getSchoolBoard().getNumberStudentsEntrance() < game.getNumberStudentsEntrance()){
@@ -877,9 +879,9 @@ public class GameController implements Observer<PlayerEvent> {
                             }
                         }
                     }
+                    game.getTable().removeCLoudTile(game.getTable().getCloudTilesByIndex(0));
                 }
 
-                game.getTable().removeCLoudTile(game.getTable().getCloudTilesByIndex(0));
                 settingCloudTile();
                 game.incrementRound();
                 game.addAllReconnectedPlayers();
