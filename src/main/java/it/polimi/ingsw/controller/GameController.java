@@ -181,7 +181,7 @@ public class GameController implements Observer<PlayerEvent> {
      * Setting the cloudTiles
      */
     private void settingCloudTile() {
-        for (int i = 0; i < numberOfPlayer; i++) {
+        for (int i = 0; i < game.getNumberOfConnectedPlayers(); i++) {
             createCloudTile();
         }
     }
@@ -244,14 +244,14 @@ public class GameController implements Observer<PlayerEvent> {
      */
     public synchronized void playCharacterCard(String nickname, int characterCard) {
         int player;
-        try{
+        try {
             player = getPlayerByNickname(nickname);
         } catch (IllegalArgumentException e) {
-        e.printStackTrace();
-        return;
+            e.printStackTrace();
+            return;
         }
 
-        if(controlConnectedPlayers()){
+        if (controlConnectedPlayers()) {
             game.notifyInvalidAction(nickname, "Wait for the other players to reconnect");
             return;
         }
@@ -303,14 +303,14 @@ public class GameController implements Observer<PlayerEvent> {
      */
     public synchronized void playAssistantCard(String nickname, int assistantCard) {
         int player;
-        try{
+        try {
             player = getPlayerByNickname(nickname);
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
             return;
         }
 
-        if(controlConnectedPlayers()){
+        if (controlConnectedPlayers()) {
             game.notifyInvalidAction(nickname, "Wait for the other players to reconnect");
             return;
         }
@@ -424,14 +424,14 @@ public class GameController implements Observer<PlayerEvent> {
      */
     public synchronized void moveStudentToIsland(String nickname, Colour colour, int groupIsland, int singleIsland) {
         int player;
-        try{
+        try {
             player = getPlayerByNickname(nickname);
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
             return;
         }
 
-        if(controlConnectedPlayers()){
+        if (controlConnectedPlayers()) {
             game.notifyInvalidAction(nickname, "Wait for the other players to reconnect");
             return;
         }
@@ -474,14 +474,14 @@ public class GameController implements Observer<PlayerEvent> {
      */
     public synchronized void moveStudentToDiningRoom(String nickname, Colour colour) {
         int player;
-        try{
+        try {
             player = getPlayerByNickname(nickname);
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
             return;
         }
 
-        if(controlConnectedPlayers()){
+        if (controlConnectedPlayers()) {
             game.notifyInvalidAction(nickname, "Wait for the other players to reconnect");
             return;
         }
@@ -564,14 +564,14 @@ public class GameController implements Observer<PlayerEvent> {
      */
     public synchronized void moveMotherNature(String nickname, int movement) {
         int player;
-        try{
+        try {
             player = getPlayerByNickname(nickname);
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
             return;
         }
 
-        if(controlConnectedPlayers()){
+        if (controlConnectedPlayers()) {
             game.notifyInvalidAction(nickname, "Wait for the other players to reconnect");
             return;
         }
@@ -638,8 +638,8 @@ public class GameController implements Observer<PlayerEvent> {
     private boolean endPhasePlay() {
         boolean endPhase = true;
 
-        for (int i = 0; i < numberOfPlayer; i++) {
-            if (!game.getPlayerByIndex(i).getHasAlreadyPlayed()) {
+        for (int i = 0; i < game.getNumberOfConnectedPlayers(); i++) {
+            if (!game.getPlayerConnectedByIndex(i).getHasAlreadyPlayed()) {
                 endPhase = false;
             }
         }
@@ -710,8 +710,11 @@ public class GameController implements Observer<PlayerEvent> {
      *
      * @param nickname the nickname chosen by the player
      */
-    public synchronized void removePlayer(String nickname){
+    public synchronized void removePlayer(String nickname) {
         game.removePlayer(game.getPlayerByNickname(nickname));
+        if(game.getCurrentPlayer().getNickname().equals(nickname)){
+            endTurn();
+        }
     }
 
     /**
@@ -782,14 +785,14 @@ public class GameController implements Observer<PlayerEvent> {
      */
     public synchronized void chooseCloudTile(String nickname, int cloudTile) {
         int player;
-        try{
+        try {
             player = getPlayerByNickname(nickname);
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
             return;
         }
 
-        if(controlConnectedPlayers()){
+        if (controlConnectedPlayers()) {
             game.notifyInvalidAction(nickname, "Wait for the other players to reconnect");
             return;
         }
@@ -852,6 +855,22 @@ public class GameController implements Observer<PlayerEvent> {
         } else {
             if (!game.getTable().getBag().getNoStudent()) {
                 // If the PLAYING phase is ended, sets the CloudTile, increments the Round and sets the next current Player
+                if(game.getNumberOfConnectedPlayers() != game.getNumberOfPlayer() && game.getNumberOfConnectedPlayers() > 1){
+                    Player player = game.getPlayerDisconnectedByIndex(0);
+                    if(player.getSchoolBoard().getNumberStudentsEntrance() < game.getNumberStudentsEntrance()){
+                        for(Colour colour : Colour.values()){
+                            for(int i = 0; i < game.getTable().getCloudTilesByIndex(0).getTileStudents(colour); i++){
+                                if(player.getSchoolBoard().getNumberStudentsEntrance() < game.getNumberStudentsEntrance()){
+                                    player.getSchoolBoard().addStudentToEntrance(colour);
+                                } else{
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                game.getTable().removeCLoudTile(game.getTable().getCloudTilesByIndex(0));
                 settingCloudTile();
                 game.incrementRound();
                 if (game.getRound() >= 11) {
@@ -883,14 +902,14 @@ public class GameController implements Observer<PlayerEvent> {
      */
     public synchronized void setColour(String nickname, Colour colour) {
         int player;
-        try{
+        try {
             player = getPlayerByNickname(nickname);
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
             return;
         }
 
-        if(controlConnectedPlayers()){
+        if (controlConnectedPlayers()) {
             game.notifyInvalidAction(nickname, "Wait for the other players to reconnect");
             return;
         }
@@ -916,14 +935,14 @@ public class GameController implements Observer<PlayerEvent> {
      */
     public synchronized void setColourAndIsland(String nickname, Colour colour, int groupIsland, int singleIsland) {
         int player;
-        try{
+        try {
             player = getPlayerByNickname(nickname);
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
             return;
         }
 
-        if(controlConnectedPlayers()){
+        if (controlConnectedPlayers()) {
             game.notifyInvalidAction(nickname, "Wait for the other players to reconnect");
             return;
         }
@@ -949,14 +968,14 @@ public class GameController implements Observer<PlayerEvent> {
      */
     public synchronized void setGroupIsland(String nickname, int groupIsland) {
         int player;
-        try{
+        try {
             player = getPlayerByNickname(nickname);
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
             return;
         }
 
-        if(controlConnectedPlayers()){
+        if (controlConnectedPlayers()) {
             game.notifyInvalidAction(nickname, "Wait for the other players to reconnect");
             return;
         }
@@ -982,14 +1001,14 @@ public class GameController implements Observer<PlayerEvent> {
      */
     public synchronized void setColourDiningRoomEntrance(String nickname, Colour colourDiningRoom, Colour colourEntrance) {
         int player;
-        try{
+        try {
             player = getPlayerByNickname(nickname);
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
             return;
         }
 
-        if(controlConnectedPlayers()){
+        if (controlConnectedPlayers()) {
             game.notifyInvalidAction(nickname, "Wait for the other players to reconnect");
             return;
         }
@@ -1014,14 +1033,14 @@ public class GameController implements Observer<PlayerEvent> {
      */
     public synchronized void setColourCardEntrance(String nickname, Colour colourCard, Colour colourEntrance) {
         int player;
-        try{
+        try {
             player = getPlayerByNickname(nickname);
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
             return;
         }
 
-        if(controlConnectedPlayers()){
+        if (controlConnectedPlayers()) {
             game.notifyInvalidAction(nickname, "Wait for the other players to reconnect");
             return;
         }
@@ -1088,7 +1107,7 @@ public class GameController implements Observer<PlayerEvent> {
      *
      * @return true if the connected players are more than one, false otherwise
      */
-    private boolean controlConnectedPlayers(){
+    private boolean controlConnectedPlayers() {
         return game.getNumberOfConnectedPlayers() <= 1;
     }
 
@@ -1099,7 +1118,7 @@ public class GameController implements Observer<PlayerEvent> {
      * @return the position of the player in the list of players
      * @throws IllegalArgumentException if the nickname is not present
      */
-    private int getPlayerByNickname(String nickname) throws IllegalArgumentException{
+    private int getPlayerByNickname(String nickname) throws IllegalArgumentException {
         return game.getIndexOfPlayer(game.getPlayerByNickname(nickname));
     }
 

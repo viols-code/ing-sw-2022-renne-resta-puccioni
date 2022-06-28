@@ -122,9 +122,8 @@ public class SchoolBoard extends Observable<IServerPacket> {
      * Add a student of the given colour to the entrance
      *
      * @param colour the colour of the student to add to the entrance
-     * @throws IllegalArgumentException if the entrance is full
      */
-    public void addStudentToEntrance(Colour colour) throws IllegalArgumentException {
+    public void addStudentToEntrance(Colour colour) {
         entrance.replace(colour, entrance.get(colour), entrance.get(colour) + 1);
         notify(new EntranceUpdate(nickname, entrance));
     }

@@ -26,9 +26,13 @@ public abstract class Game extends Observable<IServerPacket> {
      */
     protected final List<Player> players;
     /**
-     * A List containing the connectedPlayers in the game
+     * A List containing the connected players in the game
      */
     protected final List<Player> connectedPlayers;
+    /**
+     * A List containing the disconnected players in the game
+     */
+    protected final List<Player> disconnectedPlayers;
     /**
      * Identifies the player who's playing his turn
      */
@@ -106,6 +110,7 @@ public abstract class Game extends Observable<IServerPacket> {
         activeCharacterCard = new BasicState(this);
         basicState = activeCharacterCard;
         assistantCard = new ArrayList<>();
+        disconnectedPlayers = new ArrayList<>();
 
         studentNumberMovement = 0;
         numberOfTowersPerPlayer = 0;
@@ -158,13 +163,23 @@ public abstract class Game extends Observable<IServerPacket> {
     }
 
     /**
-     * Get the player connected at the given index
+     * Get the connected player at the given index
      *
      * @param index the index of the player to return
      * @return the player at the given index
      */
     public Player getPlayerConnectedByIndex(int index) {
         return connectedPlayers.get(index);
+    }
+
+    /**
+     * Get the disconnected player at the given index
+     *
+     * @param index the index of the player to return
+     * @return the player at the given index
+     */
+    public Player getPlayerDisconnectedByIndex(int index) {
+        return disconnectedPlayers.get(index);
     }
 
     /**
@@ -229,6 +244,7 @@ public abstract class Game extends Observable<IServerPacket> {
             throw new IllegalArgumentException("This player is not in the game");
         }
         this.connectedPlayers.remove(player);
+        this.disconnectedPlayers.add(player);
     }
 
     /**
@@ -671,7 +687,7 @@ public abstract class Game extends Observable<IServerPacket> {
      *
      * @return the number of connected players
      */
-    public int getNumberOfConnectedPlayers(){
+    public int getNumberOfConnectedPlayers() {
         return connectedPlayers.size();
     }
 

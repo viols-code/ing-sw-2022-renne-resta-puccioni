@@ -87,18 +87,18 @@ public class LobbyController {
         }
 
         // Check if the nickname is unique in the all LobbyController
-        try{
-            for(Lobby lobby: total){
+        try {
+            for (Lobby lobby : total) {
                 lobby.checkPlayerName(playerName);
             }
-        }   catch(IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             waitingRoom.notifyError(connection, e.getMessage());
             return;
         }
 
         // Check if the nickname corresponds to a disconnected player, if so connect the player to the correct lobby
         for (Lobby lobby : disconnectedLobbies.values()) {
-            if(lobby.getNicknames().contains(playerName)){
+            if (lobby.getNicknames().contains(playerName)) {
                 lobby.addConnection(connection);
                 waitingRoom.removeConnection(connection);
                 lobby.addObserver(connection.getRemoteView());
@@ -270,9 +270,9 @@ public class LobbyController {
                 lobby.disconnect(connection);
                 playingLobbies.remove(connection.getLobbyUUID());
                 disconnectedLobbies.put(connection.getLobbyUUID(), lobby);
-            } else{
+            } else {
                 lobby = disconnectedLobbies.get(connection.getLobbyUUID());
-                if(lobby != null && lobby.getConnections().size() == 1){
+                if (lobby != null && lobby.getConnections().size() == 1) {
                     disconnectedLobbies.remove(lobby.getUuid());
                     deleteLobby(lobby);
                 }
@@ -286,12 +286,12 @@ public class LobbyController {
      *
      * @param lobby the given lobby to be deleted
      */
-    public void deleteLobby(Lobby lobby){
-        if(lobby.equals(currentLobby)){
+    public void deleteLobby(Lobby lobby) {
+        if (lobby.equals(currentLobby)) {
             currentLobby = new Lobby();
         }
 
-        for(SocketClientConnection connection : lobby.getConnections()){
+        for (SocketClientConnection connection : lobby.getConnections()) {
             waitingRoom.removeConnection(connection);
         }
 

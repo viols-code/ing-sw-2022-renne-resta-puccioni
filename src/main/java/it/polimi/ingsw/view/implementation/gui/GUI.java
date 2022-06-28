@@ -3,9 +3,7 @@ package it.polimi.ingsw.view.implementation.gui;
 import it.polimi.ingsw.FXMLUtils;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.model.player.Wizard;
-import it.polimi.ingsw.view.GameState;
 import it.polimi.ingsw.view.View;
-import it.polimi.ingsw.view.beans.MockModel;
 import it.polimi.ingsw.view.beans.MockPlayer;
 import it.polimi.ingsw.view.implementation.gui.widgets.*;
 import javafx.application.Platform;
@@ -89,7 +87,7 @@ public class GUI extends View {
      * Handles the successful connection to the waiting room.
      */
     @Override
-    public void correctConnection(){
+    public void correctConnection() {
         Platform.runLater(() -> {
             Parent nameSelectionPage = FXMLUtils.loadFXML("/gui/NicknameSelection");
             scene.setRoot(nameSelectionPage);

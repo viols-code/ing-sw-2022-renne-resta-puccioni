@@ -253,7 +253,7 @@ public class MockTable {
     /**
      * Sets the isBagEmpty boolean to true
      */
-    public synchronized void setBagEmpty(){
+    public synchronized void setBagEmpty() {
         this.isBagEmpty = true;
     }
 }

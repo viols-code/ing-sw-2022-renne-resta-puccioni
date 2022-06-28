@@ -19,7 +19,7 @@ public class WaitingRoom extends Observable<IServerPacket> {
     /**
      * Constructor: create a new WaitingRoom
      */
-    public WaitingRoom(){
+    public WaitingRoom() {
         connectionList = new ArrayList<>();
     }
 
@@ -47,12 +47,11 @@ public class WaitingRoom extends Observable<IServerPacket> {
      * Notify an error to the given connection
      *
      * @param connection the given connection
-     * @param error a String containing the error message
+     * @param error      a String containing the error message
      */
-    public void notifyError(SocketClientConnection connection, String error){
+    public void notifyError(SocketClientConnection connection, String error) {
         notify(new ErrorMessage(connection, error));
     }
-
 
 
 }

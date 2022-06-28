@@ -85,9 +85,9 @@ public class Lobby extends Observable<IServerPacket> {
      * @param playerName the player name to be set, if it's null or empty sends an error message to the client
      */
     public void setPlayerName(SocketClientConnection connection, String playerName) {
-        try{
+        try {
             checkPlayerName(playerName);
-        } catch(IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             notify(new ErrorMessage(connection, e.getMessage()));
         }
 
@@ -109,7 +109,7 @@ public class Lobby extends Observable<IServerPacket> {
      * @param playerName the player name to be set, if it's null or empty sends an error message to the client
      * @throws IllegalArgumentException if the name is already taken
      */
-    public void checkPlayerName(String playerName) throws IllegalArgumentException{
+    public void checkPlayerName(String playerName) throws IllegalArgumentException {
         if (playerName == null || playerName.trim().equalsIgnoreCase("")) {
             throw new IllegalArgumentException("Your username can't be empty");
         } else if (playerName.trim().length() != playerName.length()) {
