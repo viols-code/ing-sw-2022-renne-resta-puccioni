@@ -196,9 +196,9 @@ public class CLI extends View {
 
         String command;
         while (getClient().isActive()) {
-            try{
+            try {
                 command = scanner.nextLine();
-            }catch(NoSuchElementException | IllegalStateException e){
+            } catch (NoSuchElementException | IllegalStateException e) {
                 System.out.println("Error: no line found");
                 break;
             }

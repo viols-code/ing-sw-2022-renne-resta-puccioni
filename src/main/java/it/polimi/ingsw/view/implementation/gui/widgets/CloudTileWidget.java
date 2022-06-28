@@ -59,10 +59,11 @@ public class CloudTileWidget extends StackPane {
 
     /**
      * Places the students images on the cloud tile given
+     *
      * @param anchorPane the anchorPane of the cloud tile
-     * @param i the index of the cloud tile
-     * @param x list of x coordinates
-     * @param y list of y coordinates
+     * @param i          the index of the cloud tile
+     * @param x          list of x coordinates
+     * @param y          list of y coordinates
      */
     public void initializeCloudTileStudents(AnchorPane anchorPane, int i, List<Integer> x, List<Integer> y) {
         int c = 0;

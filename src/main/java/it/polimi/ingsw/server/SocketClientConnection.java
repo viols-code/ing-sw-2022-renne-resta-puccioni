@@ -176,11 +176,11 @@ public class SocketClientConnection implements Runnable {
             e.printStackTrace();
             System.out.println(e.getMessage());
             System.out.println("Connection with player : " + playerName + " lost");
-        } catch(Exception e){
+        } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
             e.printStackTrace();
         } finally {
-            if(isActive()){
+            if (isActive()) {
                 setInactive();
                 close();
             }

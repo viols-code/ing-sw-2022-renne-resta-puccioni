@@ -62,9 +62,9 @@ public class MockPlayer {
     /**
      * Constructs the mock player
      *
-     * @param nickname the string containing the nickname
-     * @param wizard the wizard chosen by the player
-     * @param hasCoins true for expert game mode, false for basic game mode
+     * @param nickname    the string containing the nickname
+     * @param wizard      the wizard chosen by the player
+     * @param hasCoins    true for expert game mode, false for basic game mode
      * @param localPlayer true if the player is the local player of this view
      */
     public MockPlayer(String nickname, Wizard wizard, boolean hasCoins, boolean localPlayer) {

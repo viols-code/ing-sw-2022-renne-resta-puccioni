@@ -35,7 +35,7 @@ public class GUIModelUpdateHandler extends ModelUpdateHandler {
     /**
      * Updates the current assistant card
      *
-     * @param playerName the player who has played the assistant card
+     * @param playerName    the player who has played the assistant card
      * @param assistantCard the index of the assistant card played in this turn
      */
     public void updateCurrentAssistantCard(String playerName, int assistantCard) {

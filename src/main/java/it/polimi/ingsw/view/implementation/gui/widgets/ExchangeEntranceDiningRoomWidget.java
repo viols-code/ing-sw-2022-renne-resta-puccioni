@@ -4,17 +4,18 @@ import it.polimi.ingsw.FXMLUtils;
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.TurnPhase;
 import it.polimi.ingsw.model.player.TowerColour;
-import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
 import it.polimi.ingsw.view.implementation.gui.GUI;
 import it.polimi.ingsw.view.implementation.gui.widgets.utils.Coordinates;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
 import javafx.collections.MapChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
@@ -137,7 +138,7 @@ public class ExchangeEntranceDiningRoomWidget extends StackPane {
     /**
      * Saves in the mockModel the position and the colour of the student selected in the entrance for the exchange when the exchange_entrance_diningRoom card is played
      *
-     * @param i the position of the student selected in the list
+     * @param i      the position of the student selected in the list
      * @param colour the colour of the student selected
      */
     @FXML
@@ -150,17 +151,16 @@ public class ExchangeEntranceDiningRoomWidget extends StackPane {
         setClickableDiningRoom(diningRoomYellow, Colour.YELLOW);
         setClickableDiningRoom(diningRoomRed, Colour.RED);
         setClickableDiningRoom(diningRoomPink, Colour.PINK);
-
     }
 
     /**
      * Set the method called when a dining room's student is clicked to chooseColour
      *
      * @param diningRoomRow the list of ImageView
-     * @param colour the given colour
+     * @param colour        the given colour
      */
-    private void setClickableDiningRoom(List<ImageView> diningRoomRow, Colour colour){
-        for(ImageView image: diningRoomRow){
+    private void setClickableDiningRoom(List<ImageView> diningRoomRow, Colour colour) {
+        for (ImageView image : diningRoomRow) {
             image.setOnMouseClicked(event -> chooseColour(colour));
         }
     }
@@ -170,9 +170,10 @@ public class ExchangeEntranceDiningRoomWidget extends StackPane {
      *
      * @param diningRoomRow the list of ImageView
      */
-    private void setNonClickableDiningRoom(List<ImageView> diningRoomRow){
-        for(ImageView image: diningRoomRow){
-            image.setOnMouseClicked(event -> {});
+    private void setNonClickableDiningRoom(List<ImageView> diningRoomRow) {
+        for (ImageView image : diningRoomRow) {
+            image.setOnMouseClicked(event -> {
+            });
         }
     }
 
@@ -181,8 +182,8 @@ public class ExchangeEntranceDiningRoomWidget extends StackPane {
      *
      * @param colour the colour chosen from the dining room
      */
-    private void chooseColour(Colour colour){
-        if(GUI.instance().getModel().getPositionExchange().getValue() != -1 && GUI.instance().getModel().getSelectedColourExchange() != null){
+    private void chooseColour(Colour colour) {
+        if (GUI.instance().getModel().getPositionExchange().getValue() != -1 && GUI.instance().getModel().getSelectedColourExchange() != null) {
             GUI.instance().getActionSender().setColourDiningRoomEntrance(GUI.instance().getPlayerName(), colour, GUI.instance().getModel().getSelectedColourExchange());
             GUI.instance().getModel().setPositionExchange(-1);
             GUI.instance().getModel().setSelectedColourExchange(null);
@@ -194,6 +195,7 @@ public class ExchangeEntranceDiningRoomWidget extends StackPane {
             setNonClickableDiningRoom(diningRoomPink);
         }
     }
+
     /**
      * Initializes and updates the entrance grid that contains the images of the students
      */
@@ -202,8 +204,8 @@ public class ExchangeEntranceDiningRoomWidget extends StackPane {
         initEntranceArrays();
 
         //If a student has been selected then it is highlighted
-        if (GUI.instance().getModel().getPosition().getValue() != -1) {
-            entrance.getChildren().get(GUI.instance().getModel().getPosition().getValue()).getStyleClass().add("studentSelected");
+        if (GUI.instance().getModel().getPositionExchange().getValue() != -1) {
+            entrance.getChildren().get(GUI.instance().getModel().getPositionExchange().getValue()).getStyleClass().add("studentSelected");
         }
 
         //Adds a listener to the entrance in order to update it
@@ -215,7 +217,7 @@ public class ExchangeEntranceDiningRoomWidget extends StackPane {
                 }));
 
         //Adds a listener to the position in order to know if the player has selected a student
-        GUI.instance().getModel().getPosition().addListener((change, oldVal, newVal) -> {
+        GUI.instance().getModel().getPositionExchange().addListener((change, oldVal, newVal) -> {
             //If a student was selected by mistake (so the player has selected another one) the old one is not highlighted anymore
             if (oldVal.intValue() != -1 && oldVal.intValue() < entrance.getChildren().size()) {
                 entrance.getChildren().get(oldVal.intValue()).getStyleClass().removeAll("studentSelected");
@@ -334,24 +336,6 @@ public class ExchangeEntranceDiningRoomWidget extends StackPane {
                 selectStudentFromEntrance(a, colour);
             });
 
-            //Add a listener to the studentOnCardSelected
-            GUI.instance().getModel().getStudentOnCardSelectedProperty().addListener((ChangeListener<? super Colour>) (change, oldVal, newVal) ->
-                    Platform.runLater(() -> {
-                                //If the card is Student_To_Entrance and the current player has selected a student on the card, the student will be exchanged with the one selected in the entrance
-                                if (newVal != null && GUI.instance().getModel().getCurrentCharacterCard().getType() == CharacterCardEnumeration.STUDENT_TO_ENTRANCE) {
-                                    imageView.setOnMouseClicked(event -> {
-                                        flowPane.getStyleClass().add("studentSelected");
-                                        selectStudentFromEntrance(a, colour);
-                                    });
-                                } else {
-                                    imageView.setOnMouseClicked(event -> {
-                                        flowPane.getStyleClass().add("studentSelected");
-                                        selectStudentFromEntrance(a, colour);
-                                    });
-                                }
-                            }
-                    ));
-
         }
     }
 
@@ -399,6 +383,7 @@ public class ExchangeEntranceDiningRoomWidget extends StackPane {
                     initTowerImage();
                 }));
     }
+
     /**
      * Places the tower images on the player's school board
      */
@@ -480,7 +465,9 @@ public class ExchangeEntranceDiningRoomWidget extends StackPane {
     /**
      * Returns to the CharacterCard page.
      */
-    public void goToCharacterCard(){
+    public void goToCharacterCard() {
+        GUI.instance().getModel().setPositionExchange(-1);
+        GUI.instance().getModel().setSelectedColourExchange(null);
         GUI.instance().showCharacterCards();
     }
 

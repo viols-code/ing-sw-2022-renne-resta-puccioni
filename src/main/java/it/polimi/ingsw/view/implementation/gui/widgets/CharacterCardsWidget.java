@@ -198,6 +198,7 @@ public class CharacterCardsWidget extends StackPane {
 
     /**
      * Saves the colour of the student selected in the mockModel
+     *
      * @param colour the colour of the student selected
      */
     @FXML
@@ -221,6 +222,7 @@ public class CharacterCardsWidget extends StackPane {
 
     /**
      * Method that places the students on the cards
+     *
      * @param i the index of the card
      */
     @FXML
@@ -240,7 +242,7 @@ public class CharacterCardsWidget extends StackPane {
 
                 if (GUI.instance().getModel().getCurrentCharacterCard().getType() == CharacterCardEnumeration.BASIC_STATE) {
                     imageViewStudent.setOnMouseClicked(event -> GUI.instance().getRenderer().showErrorMessage("You must pay the character card first"));
-                } else if (GUI.instance().getModel().getCurrentCharacterCard().getType() != GUI.instance().getModel().getCharacterCardByIndex(i).getType()){
+                } else if (GUI.instance().getModel().getCurrentCharacterCard().getType() != GUI.instance().getModel().getCharacterCardByIndex(i).getType()) {
                     imageViewStudent.setOnMouseClicked(event -> GUI.instance().getRenderer().showErrorMessage("This is not the current character card"));
                 } else {
                     imageViewStudent.setOnMouseClicked(event -> {
@@ -254,7 +256,7 @@ public class CharacterCardsWidget extends StackPane {
                         Platform.runLater(() -> {
                             if (newVal.getType() == CharacterCardEnumeration.BASIC_STATE) {
                                 imageViewStudent.setOnMouseClicked(event -> GUI.instance().getRenderer().showErrorMessage("You must pay the character card first"));
-                            } else if (newVal.getType() != GUI.instance().getModel().getCharacterCardByIndex(i).getType()){
+                            } else if (newVal.getType() != GUI.instance().getModel().getCharacterCardByIndex(i).getType()) {
                                 imageViewStudent.setOnMouseClicked(event -> GUI.instance().getRenderer().showErrorMessage("This is not the current character card"));
                             } else {
                                 imageViewStudent.setOnMouseClicked(event -> {
