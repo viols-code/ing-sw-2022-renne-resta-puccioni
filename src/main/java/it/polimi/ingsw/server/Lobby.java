@@ -315,6 +315,13 @@ public class Lobby extends Observable<IServerPacket> {
     }
 
     /**
+     * Add the client to the already started game
+     */
+    public void addToGame(SocketClientConnection connection){
+        connection.getRemoteView().getGameController().reconnectPlayer(connection.getPlayerName());
+    }
+
+    /**
      * Terminate the Lobby, disconnecting all clients
      */
     public synchronized void terminate() {

@@ -105,6 +105,7 @@ public class LobbyController {
                 lobby.setPlayerName(connection, playerName);
                 if (connection.getPlayerName() != null) {
                     System.out.println("Player " + connection.getPlayerName() + " connected in Lobby " + lobby.getUuid());
+                    connection.setReconnected();
                 } else {
                     System.out.println("Duplicated username, waiting for a new one");
                 }
@@ -170,6 +171,18 @@ public class LobbyController {
 
                     if (lobby.canStart())
                         startGame(lobby);
+                    return;
+                }
+            }
+
+            for (Lobby lobby : disconnectedLobbies.values()) {
+                if (lobby.getConnections().contains(connection)) {
+                    lobby.setPlayerWizard(connection, wizard);
+
+                    System.out.println("Player connected: " + connection.getPlayerName() + ", with wizard: " + connection.getWizard());
+
+                    lobby.addToGame(connection);
+                    return;
                 }
             }
         }

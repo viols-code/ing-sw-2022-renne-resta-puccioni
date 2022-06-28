@@ -718,6 +718,15 @@ public class GameController implements Observer<PlayerEvent> {
     }
 
     /**
+     * Reconnects a player with the nickname
+     *
+     * @param nickname the nickname chosen by the player
+     */
+    public synchronized void reconnectPlayer(String nickname) {
+        game.addReconnectedPlayer(game.getPlayerByNickname(nickname));
+    }
+
+    /**
      * Checks if the nickname has already been taken
      *
      * @param nickname the nickname of the player

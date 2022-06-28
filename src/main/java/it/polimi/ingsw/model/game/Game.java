@@ -234,6 +234,15 @@ public abstract class Game extends Observable<IServerPacket> {
     }
 
     /**
+     * Adds a Player disconnected before to the match
+     *
+     * @param player the player to be added to the game
+     */
+    public void addReconnectedPlayer(Player player){
+        player.setReconnected(true);
+    }
+
+    /**
      * Remove a player from the match
      *
      * @param player the player to be removed from the game
@@ -243,6 +252,7 @@ public abstract class Game extends Observable<IServerPacket> {
         if (!connectedPlayers.contains(player)) {
             throw new IllegalArgumentException("This player is not in the game");
         }
+        player.setReconnected(false);
         this.connectedPlayers.remove(player);
         this.disconnectedPlayers.add(player);
     }
