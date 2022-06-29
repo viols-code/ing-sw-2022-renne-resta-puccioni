@@ -98,11 +98,8 @@ public class GUI extends View {
      * Handles the successful reconnection of the player
      */
     @Override
-    public void correctReconnection() {
-        Platform.runLater(() -> {
-            Parent nameSelectionPage = FXMLUtils.loadFXML("/gui/SchoolBoardWidget");
-            scene.setRoot(nameSelectionPage);
-        });
+    public void correctReconnection(){
+        showPlayerBoard();
     }
 
     /**
