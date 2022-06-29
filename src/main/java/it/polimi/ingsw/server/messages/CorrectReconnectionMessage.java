@@ -8,7 +8,7 @@ import java.io.Serial;
 /**
  * DirectServerMessage notifying a client of its successful connection
  */
-public class CorrectReconnection extends DirectServerMessage {
+public class CorrectReconnectionMessage extends DirectServerMessage {
     /**
      * The serial version UID
      */
@@ -20,7 +20,7 @@ public class CorrectReconnection extends DirectServerMessage {
      *
      * @param recipient the client connection to send this message to
      */
-    public CorrectReconnection(SocketClientConnection recipient) {
+    public CorrectReconnectionMessage(SocketClientConnection recipient) {
         super(recipient);
     }
 

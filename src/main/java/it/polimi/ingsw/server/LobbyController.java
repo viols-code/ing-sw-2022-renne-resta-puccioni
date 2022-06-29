@@ -174,17 +174,6 @@ public class LobbyController {
                     return;
                 }
             }
-
-            for (Lobby lobby : disconnectedLobbies.values()) {
-                if (lobby.getConnections().contains(connection)) {
-                    lobby.setPlayerWizard(connection, wizard);
-
-                    System.out.println("Player connected: " + connection.getPlayerName() + ", with wizard: " + connection.getWizard());
-
-                    lobby.addToGame(connection);
-                    return;
-                }
-            }
         }
     }
 
@@ -246,8 +235,10 @@ public class LobbyController {
         waitingLobbies.remove(lobby);
 
         lobby.startGame();
-        currentLobby = new Lobby();
-        total.add(currentLobby);
+        if (lobby.equals(currentLobby)) {
+            currentLobby = new Lobby();
+            total.add(currentLobby);
+        }
 
         Thread t = new Thread(new GameInstance(lobby, lobby.getGameMode(), lobby.getPlayersToStart()));
         t.start();
@@ -287,11 +278,11 @@ public class LobbyController {
             }
 
             lobby = disconnectedLobbies.get(connection.getLobbyUUID());
-            if(lobby != null){
+            if (lobby != null) {
                 lobby.disconnect(connection);
                 if (lobby.getConnections().size() == 1) {
                     disconnectedLobbies.remove(lobby.getUuid());
-                    total.remove(lobby.getUuid());
+                    total.remove(lobby);
                     deleteLobby(lobby);
                 }
             }

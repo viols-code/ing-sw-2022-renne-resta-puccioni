@@ -48,6 +48,10 @@ public abstract class Player extends Observable<IServerPacket> {
      * true if the Player reconnected
      */
     protected boolean reconnected = true;
+    /**
+     * true if the player has played the assistant card in this turn
+     */
+    protected boolean hasPlayedAssistantCard = false;
 
     /**
      * Constructor: creates a new Player with the given nick and the given wizard
@@ -238,7 +242,7 @@ public abstract class Player extends Observable<IServerPacket> {
      *
      * @param reconnected the new value of reconnected
      */
-    public void setReconnected(boolean reconnected){
+    public void setReconnected(boolean reconnected) {
         this.reconnected = reconnected;
     }
 
@@ -247,8 +251,26 @@ public abstract class Player extends Observable<IServerPacket> {
      *
      * @return the value of reconnected
      */
-    public boolean getReconnected(){
+    public boolean getReconnected() {
         return reconnected;
+    }
+
+    /**
+     * Returns true if the player has played an assistant card in this turn, false otherwise
+     *
+     * @return true if the player has played an assistant card in this turn, false otherwise
+     */
+    public boolean hasPlayedAssistantCard() {
+        return hasPlayedAssistantCard;
+    }
+
+    /**
+     * Sets the value of hasPlayedAssistantCard to true if if the player has played an assistant card in this turn, false otherwise
+     *
+     * @param hasPlayedAssistantCard the value of hasPlayedAssistantCard
+     */
+    public void setHasPlayedAssistantCard(boolean hasPlayedAssistantCard) {
+        this.hasPlayedAssistantCard = hasPlayedAssistantCard;
     }
 
     @Override

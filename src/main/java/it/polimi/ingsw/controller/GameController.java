@@ -181,7 +181,7 @@ public class GameController implements Observer<PlayerEvent> {
      * Setting the cloudTiles
      */
     private void settingCloudTile() {
-        for (int i = 0; i < game.getNumberOfConnectedPlayers(); i++) {
+        for (int i = 0; i < game.getNumberOfPlayer(); i++) {
             createCloudTile();
         }
     }
@@ -327,6 +327,7 @@ public class GameController implements Observer<PlayerEvent> {
                                 game.getPlayerByIndex(player).removeAssistantCard(game.getAssistantCard(assistantCard));
                                 // Set hasAlreadyPlayer to true for the current Player
                                 game.getPlayerByIndex(player).setHasAlreadyPlayed(true);
+                                game.getPlayerByIndex(player).setHasPlayedAssistantCard(true);
 
                                 // If not all the Players have already played an AssistantCard
                                 if (!endPhasePlay()) {
@@ -371,7 +372,7 @@ public class GameController implements Observer<PlayerEvent> {
         for (int i = 0; i < game.getNumberOfPlayer(); i++) {
             if (game.getPlayerByIndex(i).getHasAlreadyPlayed() && !game.getCurrentPlayer().equals(game.getPlayerByIndex(i))) {
                 try {
-                    if (game.getPlayerByIndex(i).getCurrentAssistantCard().equals(game.getAssistantCard(assistantCard))) {
+                    if (game.getPlayerByIndex(i).getCurrentAssistantCard() != null && game.getPlayerByIndex(i).getCurrentAssistantCard().equals(game.getAssistantCard(assistantCard))) {
                         check = false;
                     }
                 } catch (IllegalArgumentException ex) {
@@ -651,7 +652,7 @@ public class GameController implements Observer<PlayerEvent> {
      * Sets the end of the playAssistantCardPhase
      */
     private void endPlayAssistantCard() {
-        nobodyPlayed();
+        nobodyConnectedPlayed();
         game.setFirstPlayerLastTurn(game.getFirstPlayerTurn());
         game.setFirstPlayerTurn(game.nextPlayerTurn());
         game.setCurrentPlayer(game.nextPlayerTurn());
@@ -665,6 +666,18 @@ public class GameController implements Observer<PlayerEvent> {
     private void nobodyPlayed() {
         for (int i = 0; i < numberOfPlayer; i++) {
             game.getPlayerByIndex(i).setHasAlreadyPlayed(false);
+            game.getPlayerByIndex(i).setHasPlayedAssistantCard(false);
+        }
+    }
+
+    /**
+     * Set hasAlreadyPlayed false for all the connected players
+     */
+    private void nobodyConnectedPlayed() {
+        for (int i = 0; i < game.getNumberOfConnectedPlayers(); i++) {
+            if (game.getPlayerConnectedByIndex(i).hasPlayedAssistantCard()) {
+                game.getPlayerConnectedByIndex(i).setHasAlreadyPlayed(false);
+            }
         }
     }
 
@@ -711,9 +724,33 @@ public class GameController implements Observer<PlayerEvent> {
      * @param nickname the nickname chosen by the player
      */
     public synchronized void removePlayer(String nickname) {
+        int player;
+        try {
+            player = getPlayerByNickname(nickname);
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+            return;
+        }
+
         game.removePlayer(game.getPlayerByNickname(nickname));
-        if(game.getCurrentPlayer().getNickname().equals(nickname)){
-            endTurn();
+        if (game.getNumberOfConnectedPlayers() > 1) {
+            if (game.getCurrentPlayer().getNickname().equals(nickname)) {
+                if (game.getTurnPhase() == TurnPhase.PLAY_ASSISTANT_CARD) {
+                    game.getPlayerByIndex(player).setHasAlreadyPlayed(true);
+                    if (!endPhasePlay()) {
+                        // Set the current Player to the nextPlayerClockwise
+                        game.setCurrentPlayer(game.nextPlayerClockwise());
+                        // Set the TurnPhase to PLAY_ASSISTANT_CARD
+                        game.setTurnPhase(TurnPhase.PLAY_ASSISTANT_CARD);
+                        // If all the Players have played an AssistantCard
+                    } else {
+                        // End the PLAY_ASSISTANT_CARD phase
+                        endPlayAssistantCard();
+                    }
+                } else {
+                    endTurn();
+                }
+            }
         }
     }
 
@@ -723,7 +760,29 @@ public class GameController implements Observer<PlayerEvent> {
      * @param nickname the nickname chosen by the player
      */
     public synchronized void reconnectPlayer(String nickname) {
-        game.addReconnectedPlayer(game.getPlayerByNickname(nickname));
+        try {
+            game.addReconnectedPlayer(game.getPlayerByNickname(nickname));
+            if (game.getNumberOfPlayer() == 3 && game.getNumberOfConnectedPlayers() == 2) {
+                if (!game.getCurrentPlayer().getReconnected()) {
+                    if (game.getTurnPhase() == TurnPhase.PLAY_ASSISTANT_CARD) {
+                        if (!endPhasePlay()) {
+                            // Set the current Player to the nextPlayerClockwise
+                            game.setCurrentPlayer(game.nextPlayerClockwise());
+                            // Set the TurnPhase to PLAY_ASSISTANT_CARD
+                            game.setTurnPhase(TurnPhase.PLAY_ASSISTANT_CARD);
+                            // If all the Players have played an AssistantCard
+                        } else {
+                            // End the PLAY_ASSISTANT_CARD phase
+                            endPlayAssistantCard();
+                        }
+                    } else if (game.getTurnPhase() != TurnPhase.ENDGAME) {
+                        endTurn();
+                    }
+                }
+            }
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -865,22 +924,26 @@ public class GameController implements Observer<PlayerEvent> {
             if (!game.getTable().getBag().getNoStudent()) {
                 // If the PLAYING phase is ended, sets the CloudTile, increments the Round and sets the next current Player
 
-                // If there is only one player disconnected and the total number of player is three, then delete the last cloud tile
-                if(game.getNumberOfConnectedPlayers() != game.getNumberOfPlayer() && game.getNumberOfConnectedPlayers() > 1){
-                    Player player = game.getPlayerDisconnectedByIndex(0);
-                    if(player.getSchoolBoard().getNumberStudentsEntrance() < game.getNumberStudentsEntrance()){
-                        for(Colour colour : Colour.values()){
-                            for(int i = 0; i < game.getTable().getCloudTilesByIndex(0).getTileStudents(colour); i++){
-                                if(player.getSchoolBoard().getNumberStudentsEntrance() < game.getNumberStudentsEntrance()){
+                for (int j = 0; j < game.getNumberOfPlayer(); j++) {
+                    Player player = game.getPlayerByIndex(j);
+                    if (player.getSchoolBoard().getNumberStudentsEntrance() < game.getNumberStudentsEntrance()) {
+                        for (Colour colour : Colour.values()) {
+                            for (int i = 0; i < game.getTable().getCloudTilesByIndex(0).getTileStudents(colour); i++) {
+                                if (player.getSchoolBoard().getNumberStudentsEntrance() < game.getNumberStudentsEntrance()) {
                                     player.getSchoolBoard().addStudentToEntrance(colour);
-                                } else{
+                                } else {
                                     break;
                                 }
                             }
                         }
+                        game.getTable().removeCLoudTile(game.getTable().getCloudTilesByIndex(0));
                     }
+                }
+
+                while (game.getTable().getNumberOfCloudTile() > 0) {
                     game.getTable().removeCLoudTile(game.getTable().getCloudTilesByIndex(0));
                 }
+
 
                 settingCloudTile();
                 game.incrementRound();
@@ -890,6 +953,10 @@ public class GameController implements Observer<PlayerEvent> {
                     endGame();
                 } else {
                     game.setCurrentPlayer(game.getFirstPlayerTurn());
+                    if (!game.getCurrentPlayer().getReconnected()) {
+                        game.getCurrentPlayer().setHasAlreadyPlayed(true);
+                        game.setCurrentPlayer(game.nextPlayerClockwise());
+                    }
                     game.setGamePhase(GamePhase.PLAY_ASSISTANT_CARD);
                     game.setTurnPhase(TurnPhase.PLAY_ASSISTANT_CARD);
                     for (int i = 0; i < game.getNumberOfPlayer(); i++) {
@@ -1154,7 +1221,7 @@ public class GameController implements Observer<PlayerEvent> {
      *
      * @return true if the game is expert, false otherwise
      */
-    public boolean isGameExpert(){
+    public boolean isGameExpert() {
         return isGameExpert;
     }
 }

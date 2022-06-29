@@ -92,15 +92,21 @@ public class Lobby extends Observable<IServerPacket> {
         }
 
         connection.setPlayerName(playerName);
+        if (nicknames.contains(playerName)) {
+            notify(new CorrectReconnectionMessage(connection));
+            addToGame(connection);
+        } else {
+            List<String> otherNames = new ArrayList<>();
+            connections.forEach(con -> {
+                if (con.getPlayerName() != null)
+                    otherNames.add(con.getPlayerName());
+            });
+
+            notify(new CorrectNicknameMessage(connection, playerName, otherNames));
+        }
+
         nicknames.remove(playerName);
 
-        List<String> otherNames = new ArrayList<>();
-        connections.forEach(con -> {
-            if (con.getPlayerName() != null)
-                otherNames.add(con.getPlayerName());
-        });
-
-        notify(new CorrectNicknameMessage(connection, playerName, otherNames));
     }
 
     /**
@@ -317,8 +323,8 @@ public class Lobby extends Observable<IServerPacket> {
     /**
      * Add the client to the already started game
      */
-    public void addToGame(SocketClientConnection connection){
-        Thread t = new Thread(new ReconnectionInstance(this, connection.getRemoteView().getGameController(), connection));
+    public void addToGame(SocketClientConnection connection) {
+        Thread t = new Thread(new ReconnectionInstance(this, connections.get(0).getRemoteView().getGameController(), connection));
         t.start();
     }
 
@@ -348,7 +354,7 @@ public class Lobby extends Observable<IServerPacket> {
      *
      * @param connection the connection of the player
      */
-    public void notifyCorrectReconnection(SocketClientConnection connection){
-        notify(new CorrectReconnection(connection));
+    public void notifyCorrectReconnection(SocketClientConnection connection) {
+        notify(new CorrectReconnectionMessage(connection));
     }
 }

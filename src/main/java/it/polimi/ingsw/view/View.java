@@ -1,15 +1,12 @@
 package it.polimi.ingsw.view;
 
-import it.polimi.ingsw.FXMLUtils;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.messages.PlayerNameMessage;
 import it.polimi.ingsw.client.messages.PlayerWizardMessage;
 import it.polimi.ingsw.model.player.Wizard;
 import it.polimi.ingsw.view.beans.MockModel;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.Parent;
 
 import java.util.HashMap;
 import java.util.List;
@@ -229,7 +226,8 @@ public abstract class View {
     /**
      * Handles the correct reconnection of a player
      */
-    public void correctReconnection(){
+    public void correctReconnection() {
+        setGameState(GameState.PLAYING);
     }
 
     /**

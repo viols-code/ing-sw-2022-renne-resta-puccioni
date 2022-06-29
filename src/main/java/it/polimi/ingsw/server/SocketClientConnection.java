@@ -213,15 +213,15 @@ public class SocketClientConnection implements Runnable {
      *
      * @return true if the connected client is a client disconnected before, false otherwise
      */
-    public synchronized boolean getIsReconnected(){
+    public synchronized boolean getIsReconnected() {
         return isReconnected;
     }
 
     /**
      * Sets the isReconnected to true
      */
-    public synchronized void setReconnected(){
-         this.isReconnected = true;
+    public synchronized void setReconnected() {
+        this.isReconnected = true;
     }
 
     /**

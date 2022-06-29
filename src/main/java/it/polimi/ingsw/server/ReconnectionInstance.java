@@ -1,12 +1,8 @@
 package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.controller.GameController;
-import it.polimi.ingsw.server.messages.CorrectReconnection;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class ReconnectionInstance implements Runnable{
+public class ReconnectionInstance implements Runnable {
 
     private final GameController controller;
     private final Lobby lobby;
@@ -15,7 +11,7 @@ public class ReconnectionInstance implements Runnable{
     /**
      * Creates an instance of the game with the updated information when a player reconnects
      *
-     * @param lobby           the lobby where the reconnected player belongs
+     * @param lobby      the lobby where the reconnected player belongs
      * @param controller the gameController
      */
     ReconnectionInstance(Lobby lobby, GameController controller, SocketClientConnection connection) {
@@ -60,7 +56,6 @@ public class ReconnectionInstance implements Runnable{
         }
 
         conn.getRemoteView().getGameController().reconnectPlayer(conn.getPlayerName());
-
         lobby.notifyCorrectReconnection(conn);
     }
 }

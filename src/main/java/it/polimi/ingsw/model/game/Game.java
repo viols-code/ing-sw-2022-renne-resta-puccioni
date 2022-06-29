@@ -8,7 +8,6 @@ import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.table.Table;
 import it.polimi.ingsw.observer.Observable;
 import it.polimi.ingsw.server.IServerPacket;
-import it.polimi.ingsw.server.messages.CorrectReconnection;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -239,20 +238,27 @@ public abstract class Game extends Observable<IServerPacket> {
      *
      * @param player the player to be added to the game
      */
-    public void addReconnectedPlayer(Player player){
-
+    public void addReconnectedPlayer(Player player) {
         player.setReconnected(true);
+
+        if (getNumberOfConnectedPlayers() == 1) {
+            connectedPlayers.add(player);
+            disconnectedPlayers.remove(player);
+        }
     }
 
     /**
      * Adds all the reconnected Players to the actual Game
      */
-    public void addAllReconnectedPlayers(){
-        for(Player player : disconnectedPlayers){
-            if(player.getReconnected()){
-                disconnectedPlayers.remove(player);
+    public void addAllReconnectedPlayers() {
+        for (Player player : disconnectedPlayers) {
+            if (player.getReconnected()) {
                 connectedPlayers.add(player);
             }
+        }
+
+        for (Player player : connectedPlayers) {
+            disconnectedPlayers.remove(player);
         }
     }
 
@@ -291,9 +297,9 @@ public abstract class Game extends Observable<IServerPacket> {
         HashMap<Player, Integer> values = new HashMap<>();
         List<Player> res;
 
-        for (int i = 0; i < getNumberOfConnectedPlayers(); i++) {
-            if (!getPlayerConnectedByIndex(i).getHasAlreadyPlayed()) {
-                values.put(getPlayerConnectedByIndex(i), getPlayerConnectedByIndex(i).getCurrentAssistantCard().getValue());
+        for (int i = 0; i < getNumberOfPlayer(); i++) {
+            if (!getPlayerByIndex(i).getHasAlreadyPlayed() && getPlayerByIndex(i).hasPlayedAssistantCard()) {
+                values.put(getPlayerByIndex(i), getPlayerByIndex(i).getCurrentAssistantCard().getValue());
             }
         }
 
@@ -324,16 +330,16 @@ public abstract class Game extends Observable<IServerPacket> {
             }
             // Get the first Player who firstly chose the AssistantCard
             int i = 0;
-            while (i < getNumberOfConnectedPlayers()) {
-                if (res.contains(getPlayerConnectedByIndex(j))) {
-                    return getPlayerConnectedByIndex(j);
+            while (i < getNumberOfPlayer()) {
+                if (res.contains(getPlayerByIndex(j)) && connectedPlayers.contains(getPlayerByIndex(j))) {
+                    return getPlayerByIndex(j);
                 }
-                j = (j + 1) % getNumberOfConnectedPlayers();
+                j = (j + 1) % getNumberOfPlayer();
                 i++;
             }
         }
 
-        return getPlayerConnectedByIndex(0);
+        return getPlayerByIndex(0);
     }
 
     /**
