@@ -26,6 +26,14 @@ public abstract class Game extends Observable<IServerPacket> {
      */
     protected final List<Player> players;
     /**
+     * A List containing the connected players in the game
+     */
+    protected final List<Player> connectedPlayers;
+    /**
+     * A List containing the disconnected players in the game
+     */
+    protected final List<Player> disconnectedPlayers;
+    /**
      * Identifies the player who's playing his turn
      */
     protected Player currentPlayer;
@@ -93,6 +101,7 @@ public abstract class Game extends Observable<IServerPacket> {
      */
     public Game() {
         players = new ArrayList<>();
+        connectedPlayers = new ArrayList<>();
         currentPlayer = null;
         firstPlayerTurn = null;
         firstPlayerLastTurn = null;
@@ -101,6 +110,7 @@ public abstract class Game extends Observable<IServerPacket> {
         activeCharacterCard = new BasicState(this);
         basicState = activeCharacterCard;
         assistantCard = new ArrayList<>();
+        disconnectedPlayers = new ArrayList<>();
 
         studentNumberMovement = 0;
         numberOfTowersPerPlayer = 0;
@@ -153,6 +163,26 @@ public abstract class Game extends Observable<IServerPacket> {
     }
 
     /**
+     * Get the connected player at the given index
+     *
+     * @param index the index of the player to return
+     * @return the player at the given index
+     */
+    public Player getPlayerConnectedByIndex(int index) {
+        return connectedPlayers.get(index);
+    }
+
+    /**
+     * Get the disconnected player at the given index
+     *
+     * @param index the index of the player to return
+     * @return the player at the given index
+     */
+    public Player getPlayerDisconnectedByIndex(int index) {
+        return disconnectedPlayers.get(index);
+    }
+
+    /**
      * Gets the index of the given player in the list of players
      *
      * @param player of whom the index is wanted
@@ -199,7 +229,37 @@ public abstract class Game extends Observable<IServerPacket> {
      */
     public void addPlayer(Player player) {
         this.players.add(player);
+        this.connectedPlayers.add(player);
         notify(new TowerColourUpdate(player.getNickname(), player.getTowerColour()));
+    }
+
+    /**
+     * Adds a Player disconnected before to the match
+     *
+     * @param player the player to be added to the game
+     */
+    public void addReconnectedPlayer(Player player) {
+        player.setReconnected(true);
+
+        if (getNumberOfConnectedPlayers() == 1) {
+            connectedPlayers.add(player);
+            disconnectedPlayers.remove(player);
+        }
+    }
+
+    /**
+     * Adds all the reconnected Players to the actual Game
+     */
+    public void addAllReconnectedPlayers() {
+        for (Player player : disconnectedPlayers) {
+            if (player.getReconnected()) {
+                connectedPlayers.add(player);
+            }
+        }
+
+        for (Player player : connectedPlayers) {
+            disconnectedPlayers.remove(player);
+        }
     }
 
     /**
@@ -209,10 +269,12 @@ public abstract class Game extends Observable<IServerPacket> {
      * @throws IllegalArgumentException if the player is not in the game
      */
     public void removePlayer(Player player) throws IllegalArgumentException {
-        if (!players.contains(player)) {
+        if (!connectedPlayers.contains(player)) {
             throw new IllegalArgumentException("This player is not in the game");
         }
-        this.players.remove(player);
+        player.setReconnected(false);
+        this.connectedPlayers.remove(player);
+        this.disconnectedPlayers.add(player);
     }
 
     /**
@@ -221,7 +283,7 @@ public abstract class Game extends Observable<IServerPacket> {
      * @return the next player clockwise
      */
     public Player nextPlayerClockwise() {
-        return players.get((players.indexOf(currentPlayer) + 1) % players.size());
+        return connectedPlayers.get((connectedPlayers.indexOf(currentPlayer) + 1) % connectedPlayers.size());
     }
 
 
@@ -236,7 +298,7 @@ public abstract class Game extends Observable<IServerPacket> {
         List<Player> res;
 
         for (int i = 0; i < getNumberOfPlayer(); i++) {
-            if (!getPlayerByIndex(i).getHasAlreadyPlayed()) {
+            if (!getPlayerByIndex(i).getHasAlreadyPlayed() && getPlayerByIndex(i).hasPlayedAssistantCard()) {
                 values.put(getPlayerByIndex(i), getPlayerByIndex(i).getCurrentAssistantCard().getValue());
             }
         }
@@ -269,7 +331,7 @@ public abstract class Game extends Observable<IServerPacket> {
             // Get the first Player who firstly chose the AssistantCard
             int i = 0;
             while (i < getNumberOfPlayer()) {
-                if (res.contains(getPlayerByIndex(j))) {
+                if (res.contains(getPlayerByIndex(j)) && connectedPlayers.contains(getPlayerByIndex(j))) {
                     return getPlayerByIndex(j);
                 }
                 j = (j + 1) % getNumberOfPlayer();
@@ -648,6 +710,15 @@ public abstract class Game extends Observable<IServerPacket> {
      */
     public void setCoins(int coins) throws IllegalAccessError {
         throw new IllegalAccessError("This is for the Expert Mode");
+    }
+
+    /**
+     * Returns the number of connected players
+     *
+     * @return the number of connected players
+     */
+    public int getNumberOfConnectedPlayers() {
+        return connectedPlayers.size();
     }
 
 

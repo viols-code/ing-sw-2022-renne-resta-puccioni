@@ -53,7 +53,7 @@ public class SocketClientRead extends Thread {
                 } else {
                     if (packet instanceof IProcessablePacket) {
                         if (packet instanceof IServerPacket serverPacket) {
-                            //System.out.println("Received: " + packet);
+                            System.out.println("Received: " + packet);
 
                             try {
                                 // Call the method process in the message
@@ -77,7 +77,6 @@ public class SocketClientRead extends Thread {
             client.terminate();
         }
     }
-
 
     /**
      * Thread used for the ping to the server

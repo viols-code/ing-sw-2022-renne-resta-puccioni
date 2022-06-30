@@ -138,7 +138,6 @@ public class CharacterCardsWidget extends StackPane {
 
                 //adds a listener to the students on the card in order to update them when they change
                 GUI.instance().getModel().getCharacterCardByIndex(i).getStudentsProperty().addListener((MapChangeListener<? super Colour, ? super Integer>) listener ->
-
                         Platform.runLater(() -> {
                                     if (card == 0) {
                                         studentsOnCard0.getChildren().clear();
@@ -219,6 +218,8 @@ public class CharacterCardsWidget extends StackPane {
 
                 flowPaneList.get(a).getStyleClass().remove("assistantCards");
                 flowPaneList.get(a).getStyleClass().add("characterCardSelected");
+
+
 
 
             }
@@ -333,6 +334,20 @@ public class CharacterCardsWidget extends StackPane {
                     });
                 }
 
+                //Adds a listener to the currentCharacterCard in order to notice if the students on the card can be selected or not according to the character card played
+                GUI.instance().getModel().currentCharacterCardProperty().addListener((ChangeListener<? super MockCard>) (change, oldVal, newVal) ->
+                        Platform.runLater(() -> {
+                            if (newVal.getType() == CharacterCardEnumeration.BASIC_STATE) {
+                                imageViewStudent.setOnMouseClicked(event -> GUI.instance().getRenderer().showErrorMessage("You must pay the character card first"));
+                            } else if (newVal.getType() != GUI.instance().getModel().getCharacterCardByIndex(i).getType()) {
+                                imageViewStudent.setOnMouseClicked(event -> GUI.instance().getRenderer().showErrorMessage("This is not the current character card"));
+                            } else {
+                                imageViewStudent.setOnMouseClicked(event -> {
+                                    pane.getStyleClass().add("studentSelected");
+                                    setStudent(colour);
+                                });
+                            }
+                        }));
 
                 if (i == 0) {
                     studentsOnCard0.add(pane, r, c);

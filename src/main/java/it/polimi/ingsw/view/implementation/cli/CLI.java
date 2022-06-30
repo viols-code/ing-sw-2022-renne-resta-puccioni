@@ -39,7 +39,24 @@ public class CLI extends View {
     @Override
     public void addToLobby(boolean isFirstConnection, List<Wizard> takenWizard) {
         super.addToLobby(isFirstConnection, takenWizard);
+    }
+
+    /**
+     * Handles the successful connection to the waiting room.
+     */
+    @Override
+    public void correctConnection() {
+        super.correctConnection();
         getRenderer().showLobbyMessage(ViewString.CHOOSE_NAME);
+    }
+
+    /**
+     * Handles the successful connection to the waiting room.
+     */
+    @Override
+    public void correctReconnection() {
+        super.correctReconnection();
+        getRenderer().showLobbyMessage(ViewString.RECONNECTED);
     }
 
     /**

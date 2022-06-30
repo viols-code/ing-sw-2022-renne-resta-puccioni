@@ -252,6 +252,7 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
      */
     @Override
     public void updateEmptyBag() {
+        super.updateEmptyBag();
         getView().getRenderer().showGameMessage("The students are finished. This is the last round");
     }
 }

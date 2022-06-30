@@ -207,13 +207,27 @@ public abstract class View {
      * @param takenWizard       the list of wizard already taken
      */
     public void addToLobby(boolean isFirstConnection, List<Wizard> takenWizard) {
-        setGameState(GameState.CHOOSING_NAME);
         this.lobbyMaster = isFirstConnection;
 
         if (takenWizard != null) {
             this.takenWizards.clear();
             this.takenWizards.addAll(takenWizard);
         }
+    }
+
+
+    /**
+     * Handles the successful connection to the waiting room.
+     */
+    public void correctConnection() {
+        setGameState(GameState.CHOOSING_NAME);
+    }
+
+    /**
+     * Handles the correct reconnection of a player
+     */
+    public void correctReconnection() {
+        setGameState(GameState.PLAYING);
     }
 
     /**

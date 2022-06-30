@@ -81,12 +81,25 @@ public class GUI extends View {
     @Override
     public void addToLobby(boolean isFirstConnection, List<Wizard> takenWizard) {
         super.addToLobby(isFirstConnection, takenWizard);
+    }
 
+    /**
+     * Handles the successful connection to the waiting room.
+     */
+    @Override
+    public void correctConnection() {
         Platform.runLater(() -> {
             Parent nameSelectionPage = FXMLUtils.loadFXML("/gui/NicknameSelection");
             scene.setRoot(nameSelectionPage);
         });
+    }
 
+    /**
+     * Handles the successful reconnection of the player
+     */
+    @Override
+    public void correctReconnection(){
+        showPlayerBoard();
     }
 
     /**

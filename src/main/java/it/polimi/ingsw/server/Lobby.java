@@ -12,13 +12,13 @@ import java.util.*;
  */
 public class Lobby extends Observable<IServerPacket> {
     private final UUID uuid;
-
     private SocketClientConnection firstConnection;
     private final List<SocketClientConnection> connections;
     private int playersToStart;
     private Boolean gameMode;
     private boolean isGameModeSet;
     private int indexOfFirstConnection = 0;
+    private final List<String> nicknames = new ArrayList<>();
 
     /**
      * Constructs a new Lobby with a random UUID, an empty connection list and the players needed to start set to -1
@@ -85,34 +85,53 @@ public class Lobby extends Observable<IServerPacket> {
      * @param playerName the player name to be set, if it's null or empty sends an error message to the client
      */
     public void setPlayerName(SocketClientConnection connection, String playerName) {
+        try {
+            checkPlayerName(playerName);
+        } catch (IllegalArgumentException e) {
+            notify(new ErrorMessage(connection, e.getMessage()));
+        }
+
+        connection.setPlayerName(playerName);
+        if (nicknames.contains(playerName)) {
+            notify(new CorrectReconnectionMessage(connection));
+            addToGame(connection);
+        } else {
+            List<String> otherNames = new ArrayList<>();
+            connections.forEach(con -> {
+                if (con.getPlayerName() != null)
+                    otherNames.add(con.getPlayerName());
+            });
+
+            notify(new CorrectNicknameMessage(connection, playerName, otherNames));
+        }
+
+        nicknames.remove(playerName);
+
+    }
+
+    /**
+     * Check if the nickname is correct
+     *
+     * @param playerName the player name to be set, if it's null or empty sends an error message to the client
+     * @throws IllegalArgumentException if the name is already taken
+     */
+    public void checkPlayerName(String playerName) throws IllegalArgumentException {
         if (playerName == null || playerName.trim().equalsIgnoreCase("")) {
-            notify(new ErrorMessage(connection, "Your username can't be empty"));
-            return;
+            throw new IllegalArgumentException("Your username can't be empty");
         } else if (playerName.trim().length() != playerName.length()) {
-            notify(new ErrorMessage(connection, "The nickname must be without empty spaces"));
-            return;
+            throw new IllegalArgumentException("The nickname must be without empty spaces");
         } else if (playerName.split(" ").length > 1) {
-            notify(new ErrorMessage(connection, "The nickname must be without empty spaces"));
-            return;
+            throw new IllegalArgumentException("The nickname must be without empty spaces");
         }
 
 
         for (SocketClientConnection clientConnection : connections) {
             if (playerName.equalsIgnoreCase(clientConnection.getPlayerName())) {
-                notify(new ErrorMessage(connection, "This username is already taken"));
-                return;
+                throw new IllegalArgumentException("This username is already taken");
             }
         }
-
-        connection.setPlayerName(playerName);
-        List<String> otherNames = new ArrayList<>();
-        connections.forEach(con -> {
-            if (con.getPlayerName() != null)
-                otherNames.add(con.getPlayerName());
-        });
-
-        notify(new CorrectNicknameMessage(connection, playerName, otherNames));
     }
+
 
     /**
      * Sets the wizard for the given connection. If there is another player with this wizard already connected sends
@@ -252,7 +271,7 @@ public class Lobby extends Observable<IServerPacket> {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                connections.stream().filter(conn -> conn != null).forEach((conn) -> {
+                connections.stream().filter(Objects::nonNull).forEach((conn) -> {
                     conn.closeConnection();
                     System.out.println("Connection of player " + conn.getPlayerName() + " closed");
                 });
@@ -285,6 +304,31 @@ public class Lobby extends Observable<IServerPacket> {
     }
 
     /**
+     * Remove the given connection from the Lobby, notifying all other clients.
+     *
+     * @param connection the connection to be removed from the lobby
+     */
+    public void disconnect(SocketClientConnection connection) {
+        if (connection == firstConnection) {
+            firstConnection = null;
+            playersToStart = -1;
+        }
+
+        notify(new PlayerLeaveMessage(connection.getPlayerName()));
+        nicknames.add(connection.getPlayerName());
+        connections.remove(connection);
+        connection.getRemoteView().getGameController().removePlayer(connection.getPlayerName());
+    }
+
+    /**
+     * Add the client to the already started game
+     */
+    public void addToGame(SocketClientConnection connection) {
+        Thread t = new Thread(new ReconnectionInstance(this, connections.get(0).getRemoteView().getGameController(), connection));
+        t.start();
+    }
+
+    /**
      * Terminate the Lobby, disconnecting all clients
      */
     public synchronized void terminate() {
@@ -292,5 +336,23 @@ public class Lobby extends Observable<IServerPacket> {
             conn.closeConnection();
         });
         connections.clear();
+    }
+
+    /**
+     * Get the list of nicknames
+     *
+     * @return the list of nicknames
+     */
+    public List<String> getNicknames() {
+        return nicknames;
+    }
+
+    /**
+     * Notifies the correct reconnection of a player
+     *
+     * @param connection the connection of the player
+     */
+    public void notifyCorrectReconnection(SocketClientConnection connection) {
+        notify(new CorrectReconnectionMessage(connection));
     }
 }
