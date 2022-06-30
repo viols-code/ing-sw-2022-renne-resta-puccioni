@@ -386,7 +386,9 @@ public class Lobby extends Observable<IServerPacket> {
             Player player1 = controller.getGame().getPlayerByIndex(i);
             int coins = -1;
 
-            coins = player1.getCoins();
+            if(controller.isGameExpert()){
+                coins = player1.getCoins();
+            }
             HashMap<Colour, Integer> entrance = new HashMap<>();
             for(Colour colour : Colour.values()){
                 entrance.put(colour, player1.getSchoolBoard().getEntrance(colour));
@@ -416,7 +418,7 @@ public class Lobby extends Observable<IServerPacket> {
 
         int count = 0;
 
-        CharacterCardEnumeration charactercard = controller.getGame().getActiveCharacterCard().getCharacterCardType();
+        CharacterCardEnumeration characterCard = controller.getGame().getActiveCharacterCard().getCharacterCardType();
 
         HashMap<Colour, Boolean> professors = new HashMap<>();
 
@@ -463,7 +465,7 @@ public class Lobby extends Observable<IServerPacket> {
         }
 
         notify(new TableReconnectUpdate(connection, controller.getGame().getTable().getNumberOfGroupIsland(), controller.getGame().hasProtectIslandCard(), influentPlayers,
-                noEntryTiles, singleIslands, students, motherNaturePosition, studentsOnCloudTiles, charactercard, professors));
+                noEntryTiles, singleIslands, students, motherNaturePosition, studentsOnCloudTiles, characterCard, professors));
 
 
         if(gameMode){

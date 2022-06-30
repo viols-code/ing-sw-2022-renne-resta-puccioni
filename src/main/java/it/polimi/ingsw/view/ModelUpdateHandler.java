@@ -475,12 +475,25 @@ public abstract class ModelUpdateHandler {
         }
     }
 
+    /**
+     * Updates the professors available in the MockModel when a player reconnects
+     *
+     * @param professors the available professors
+     */
     public void updateProfessorsReconnection(HashMap<Colour, Boolean> professors){
-
         for(Colour colour : Colour.values()){
             if(!professors.get(colour)){
                 getView().getModel().getTable().removeProfessorFromTable(colour);
             }
         }
+    }
+
+    /**
+     * Updates the position of mother nature in the MockModel when a player reconnects
+     *
+     * @param motherNaturePosition the position of mother nature
+     */
+    public void updateMotherNature(int motherNaturePosition){
+        getView().getModel().getTable().setMotherNaturePosition(motherNaturePosition);
     }
 }
