@@ -412,6 +412,8 @@ public class Lobby extends Observable<IServerPacket> {
         List<Integer> noEntryTiles = new ArrayList<>();
         List<Integer> singleIslands = new ArrayList<>();
         HashMap<Integer, HashMap<Colour, Integer>> students = new HashMap<>();
+        HashMap<Integer, HashMap<Colour, Integer>> studentsOnCloudTiles = new HashMap<>();
+
         int count = 0;
 
         for(int i = 0; i < controller.getGame().getTable().getNumberOfGroupIsland(); i++){
@@ -442,7 +444,18 @@ public class Lobby extends Observable<IServerPacket> {
 
         int motherNaturePosition = controller.getGame().getTable().getMotherNaturePosition();
 
-        notify(new TableReconnectUpdate(connection, controller.getGame().getTable().getNumberOfGroupIsland(), controller.getGame().hasProtectIslandCard(), influentPlayers, noEntryTiles, singleIslands, students, motherNaturePosition));
+        for(int i = 0; i < controller.getGame().getTable().getNumberOfCloudTile(); i++){
+            HashMap<Colour, Integer> cloudStudents = new HashMap<>();
+
+            for(Colour colour : Colour.values()){
+                cloudStudents.put(colour, controller.getGame().getTable().getCloudTilesByIndex(i).getTileStudents(colour));
+            }
+
+            studentsOnCloudTiles.put(i, cloudStudents);
+        }
+
+        notify(new TableReconnectUpdate(connection, controller.getGame().getTable().getNumberOfGroupIsland(), controller.getGame().hasProtectIslandCard(), influentPlayers,
+                noEntryTiles, singleIslands, students, motherNaturePosition, studentsOnCloudTiles));
 
 
         if(gameMode){

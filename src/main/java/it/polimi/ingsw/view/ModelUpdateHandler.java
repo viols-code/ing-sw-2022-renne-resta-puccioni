@@ -449,4 +449,17 @@ public abstract class ModelUpdateHandler {
         }
     }
 
+    /**
+     * Update the students on the cloudTiles
+     *
+     * @param studentsOnCloudTiles a hashMap containing the students for every cloudTile
+     */
+    public void updateStudentsOnShownCloudTiles(HashMap<Integer, HashMap<Colour, Integer>> studentsOnCloudTiles){
+
+        for(int i = 0; i < studentsOnCloudTiles.size(); i++){
+            getView().getModel().getTable().addShownCLoudTile();
+            getView().getModel().getTable().getShownCloudTiles().get(i).setCloudTile(studentsOnCloudTiles.get(i));
+        }
+    }
+
 }

@@ -53,11 +53,18 @@ public class TableReconnectUpdate extends DirectReconnectionMessage{
     private final int motherNaturePosition;
 
     /**
+     * A HashMap containing the students for every cloud tile
+     */
+    private final HashMap<Integer, HashMap<Colour, Integer>> studentsOnCloudTiles;
+
+    /**
      * Constructs a new TableReconnectUpdate for the given recipient
      *
      * @param recipient the client connection that this message will be sent to
      */
-    public TableReconnectUpdate(SocketClientConnection recipient, int groupIsland, boolean expert, List<String> influentPlayers, List<Integer> noEntryTiles, List<Integer> numberOfSingleIslands, HashMap<Integer, HashMap<Colour, Integer>> students, int motherNaturePosition) {
+    public TableReconnectUpdate(SocketClientConnection recipient, int groupIsland, boolean expert, List<String> influentPlayers, List<Integer> noEntryTiles,
+                                List<Integer> numberOfSingleIslands, HashMap<Integer, HashMap<Colour, Integer>> students, int motherNaturePosition,
+                                HashMap<Integer, HashMap<Colour, Integer>> studentsOnCloudTiles) {
         super(recipient);
         this.recipient = recipient;
         this.groupIsland = groupIsland;
@@ -67,6 +74,7 @@ public class TableReconnectUpdate extends DirectReconnectionMessage{
         this.numberOfSingleIslands = numberOfSingleIslands;
         this.students = students;
         this.motherNaturePosition = motherNaturePosition;
+        this.studentsOnCloudTiles = studentsOnCloudTiles;
     }
 
     /**
@@ -91,5 +99,6 @@ public class TableReconnectUpdate extends DirectReconnectionMessage{
         view.getModelUpdateHandler().updateSingleIslands(numberOfSingleIslands);
         view.getModelUpdateHandler().updateStudents(students);
         view.getModelUpdateHandler().updateMotherNaturePosition(motherNaturePosition);
+        view.getModelUpdateHandler().updateStudentsOnShownCloudTiles(studentsOnCloudTiles);
     }
 }
