@@ -476,7 +476,12 @@ public class Lobby extends Observable<IServerPacket> {
             studentsOnCloudTiles.put(i, cloudStudents);
         }
 
-        notify(new TableReconnectUpdate(connection, controller.getGame().getTable().getNumberOfGroupIsland(), controller.getGame().hasProtectIslandCard(), influentPlayers,
+        boolean hasProtectedCard = false;
+        if(controller.isGameExpert()){
+            hasProtectedCard = controller.getGame().hasProtectIslandCard();
+        }
+
+        notify(new TableReconnectUpdate(connection, controller.getGame().getTable().getNumberOfGroupIsland(), hasProtectedCard, influentPlayers,
                 noEntryTiles, singleIslands, students, motherNaturePosition, studentsOnCloudTiles, characterCard, professors));
 
 
