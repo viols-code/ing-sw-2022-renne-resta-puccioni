@@ -14,11 +14,11 @@ Software Engineering Project A.A. 2021/2022
 | Basic rules | 🟩 |
 | Complete rules | 🟩 |
 | CLI | 🟩 |
-| GUI | 🟨 |
+| GUI | 🟩 |
 | Socket | 🟩 |
 | Character Cards | 🟩 |
 | Multiple games | 🟩|
-| Third | 🟥|
+| Disconnections | 🟩|
 <!--
 [![RED](https://via.placeholder.com//15/f03c15/f03c15)](#)
 [![YELLOW](https://via.placeholder.com//15/ffdd00/ffdd00)](#)
