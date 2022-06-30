@@ -383,7 +383,7 @@ public class Lobby extends Observable<IServerPacket> {
      */
     public void sendGameInformation(SocketClientConnection connection){
 
-        notify(new ModelInfoReconnectedUpdate(connection,controller.getGame().getTurnPhase(),controller.getGame().getGamePhase()));
+        notify(new ModelInfoReconnectedUpdate(connection,controller.getGame().getTurnPhase(),controller.getGame().getGamePhase(),controller.getGame().getRound()));
 
         for(int i = 0; i < controller.getGame().getNumberOfPlayer(); i++){
             Player player1 = controller.getGame().getPlayerByIndex(i);

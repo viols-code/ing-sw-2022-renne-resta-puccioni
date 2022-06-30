@@ -29,16 +29,23 @@ public class ModelInfoReconnectedUpdate extends DirectReconnectionMessage{
     private final GamePhase gamePhase;
 
     /**
+     * The current round
+     */
+    private final int round;
+
+    /**
      * Constructor
      *
      * @param recipient the recipient client
      * @param turnPhase the turn phase
-     * @param gamePhase the game pahse
+     * @param gamePhase the game phase
+     * @param round the current round
      */
-    public ModelInfoReconnectedUpdate(SocketClientConnection recipient, TurnPhase turnPhase, GamePhase gamePhase) {
+    public ModelInfoReconnectedUpdate(SocketClientConnection recipient, TurnPhase turnPhase, GamePhase gamePhase, int round) {
         super(recipient);
         this.turnPhase = turnPhase;
         this.gamePhase = gamePhase;
+        this.round = round;
     }
 
     /**
@@ -50,5 +57,6 @@ public class ModelInfoReconnectedUpdate extends DirectReconnectionMessage{
     public void process(View view) {
         view.getModelUpdateHandler().updateTurnPhase(turnPhase);
         view.getModelUpdateHandler().updateGamePhase(gamePhase);
+        view.getModelUpdateHandler().updateRound(round);
     }
 }
