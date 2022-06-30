@@ -229,6 +229,7 @@ public abstract class View {
      * @param players    a hash map that associates each nickname with the wizard chosen by the player
      */
     public void correctReconnection(HashMap<String, Wizard> players) {
+        getModel().setReconnected(true);
         setGameState(GameState.PLAYING);
         players.forEach((key, value) -> getModel().addPlayer(key, value, gameMode, key.equalsIgnoreCase(this.playerName)));
         for (int i = 0; i < numPlayers; i++) {

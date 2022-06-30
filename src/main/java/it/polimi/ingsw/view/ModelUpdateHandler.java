@@ -359,14 +359,16 @@ public abstract class ModelUpdateHandler {
      * @param student2 students on card 2
      */
     public void updateCardStudents(HashMap<Colour, Integer> student0, HashMap<Colour, Integer> student1, HashMap<Colour, Integer> student2) {
-        if(!student0.isEmpty()){
-            getView().getModel().getCharacterCardByIndex(0).setStudents(student0);
-        }
-        if(!student1.isEmpty()){
-            getView().getModel().getCharacterCardByIndex(1).setStudents(student1);
-        }
-        if(!student2.isEmpty()){
-            getView().getModel().getCharacterCardByIndex(2).setStudents(student2);
+        if(getView().getModel().getReconnected()){
+            if(!student0.isEmpty()){
+                getView().getModel().getCharacterCardByIndex(0).setStudents(student0);
+            }
+            if(!student1.isEmpty()){
+                getView().getModel().getCharacterCardByIndex(1).setStudents(student1);
+            }
+            if(!student2.isEmpty()){
+                getView().getModel().getCharacterCardByIndex(2).setStudents(student2);
+            }
         }
     }
 
@@ -374,7 +376,9 @@ public abstract class ModelUpdateHandler {
      * Update the number of islands
      */
     public void updateIslands(int groupIslands, boolean expert){
-        getView().getModel().getTable().setGroupIslands(groupIslands, expert);
+        if(getView().getModel().getReconnected()){
+            getView().getModel().getTable().setGroupIslands(groupIslands, expert);
+        }
     }
 
     /**
@@ -383,11 +387,13 @@ public abstract class ModelUpdateHandler {
      * @param influentPlayers a list containing the influent players for every groupIsland
      */
     public void updateInfluentPlayers(List<String> influentPlayers){
-        for(int i = 0; i < getView().getModel().getTable().getNumberOfGroupIslands(); i++){
-            if(influentPlayers.get(i).equals("")){
-                getView().getModel().getTable().getGroupIslandByIndex(i).setInfluentPlayer(null);
-            }else{
-                getView().getModel().getTable().getGroupIslandByIndex(i).setInfluentPlayer(influentPlayers.get(i));
+        if(getView().getModel().getReconnected()){
+            for(int i = 0; i < getView().getModel().getTable().getNumberOfGroupIslands(); i++){
+                if(influentPlayers.get(i).equals("")){
+                    getView().getModel().getTable().getGroupIslandByIndex(i).setInfluentPlayer(null);
+                }else{
+                    getView().getModel().getTable().getGroupIslandByIndex(i).setInfluentPlayer(influentPlayers.get(i));
+                }
             }
         }
     }
@@ -398,8 +404,10 @@ public abstract class ModelUpdateHandler {
      * @param noEntryTiles a list containing the noEntryTiles for every groupIsland
      */
     public void updateNoEntryTiles(List<Integer> noEntryTiles){
-        for(int i = 0; i < getView().getModel().getTable().getNumberOfGroupIslands(); i++){
-            getView().getModel().getTable().getGroupIslandByIndex(i).setNoEntryTile(noEntryTiles.get(i));
+        if(getView().getModel().getReconnected()){
+            for(int i = 0; i < getView().getModel().getTable().getNumberOfGroupIslands(); i++){
+                getView().getModel().getTable().getGroupIslandByIndex(i).setNoEntryTile(noEntryTiles.get(i));
+            }
         }
     }
 
@@ -409,9 +417,11 @@ public abstract class ModelUpdateHandler {
      * @param singleIslands a list containing the singleIslands for every groupIsland
      */
     public void updateSingleIslands(List<Integer> singleIslands){
-        for(int i = 0; i < getView().getModel().getTable().getNumberOfGroupIslands(); i++){
-            for(int j = 1; j < singleIslands.get(i); j++){
-                getView().getModel().getTable().getGroupIslandByIndex(i).addMockSingleIsland(new MockSingleIsland());
+        if(getView().getModel().getReconnected()){
+            for(int i = 0; i < getView().getModel().getTable().getNumberOfGroupIslands(); i++){
+                for(int j = 1; j < singleIslands.get(i); j++){
+                    getView().getModel().getTable().getGroupIslandByIndex(i).addMockSingleIsland(new MockSingleIsland());
+                }
             }
         }
     }
@@ -422,18 +432,19 @@ public abstract class ModelUpdateHandler {
      * @param students a hashMap containing the students for every singleIslands
      */
     public void updateStudents(HashMap<Integer, HashMap<Colour, Integer>> students){
+        if(getView().getModel().getReconnected()){
+            int count = 0;
 
-        int count = 0;
-
-        for(int i = 0; i < getView().getModel().getTable().getNumberOfGroupIslands(); i++){
-            for(int j = 0; j < getView().getModel().getTable().getGroupIslandByIndex(i).getNumberOfSingleIslands(); j++){
-                for(Colour colour: Colour.values()){
-                    for(int k = 0; k < students.get(count).get(colour); k++){
-                        getView().getModel().getTable().getGroupIslandByIndex(i).getSingleIslandByIndex(j).setStudent(colour);
+            for(int i = 0; i < getView().getModel().getTable().getNumberOfGroupIslands(); i++){
+                for(int j = 0; j < getView().getModel().getTable().getGroupIslandByIndex(i).getNumberOfSingleIslands(); j++){
+                    for(Colour colour: Colour.values()){
+                        for(int k = 0; k < students.get(count).get(colour); k++){
+                            getView().getModel().getTable().getGroupIslandByIndex(i).getSingleIslandByIndex(j).setStudent(colour);
+                        }
                     }
-                }
 
-                count++;
+                    count++;
+                }
             }
         }
     }

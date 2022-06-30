@@ -115,6 +115,11 @@ public class MockModel {
     private final ObservableList<String> nicknames;
 
     /**
+     * True if the client is reconnected, false otherwise
+     */
+    private boolean reconnected;
+
+    /**
      * Constructs the local copy of the game
      */
     public MockModel() {
@@ -137,6 +142,7 @@ public class MockModel {
         studentOnCardSelected = new SimpleObjectProperty<>();
         positionExchange = new SimpleIntegerProperty();
         positionExchange.setValue(-1);
+        this.reconnected = false;
     }
 
     /**
@@ -561,5 +567,23 @@ public class MockModel {
      */
     public Property<Colour> getStudentOnCardSelectedProperty() {
         return studentOnCardSelected;
+    }
+
+    /**
+     * Sets the reconnected value
+     *
+     * @param reconnected true if the player is reconnected, false otherwise
+     */
+    public void setReconnected(boolean reconnected){
+        this.reconnected = reconnected;
+    }
+
+    /**
+     * Gets the reconnected value
+     *
+     * @return true if the player is reconnected, false otherwise
+     */
+    public boolean getReconnected(){
+        return reconnected;
     }
 }

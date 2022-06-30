@@ -7,13 +7,10 @@ import it.polimi.ingsw.model.game.TurnPhase;
 import it.polimi.ingsw.model.player.TowerColour;
 import it.polimi.ingsw.model.player.Wizard;
 import it.polimi.ingsw.server.Lobby;
-import it.polimi.ingsw.server.LobbyController;
 import it.polimi.ingsw.view.messages.MoveMotherNature;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
-
-import java.net.Socket;
 
 import static org.junit.jupiter.api.Assertions.*;
 
