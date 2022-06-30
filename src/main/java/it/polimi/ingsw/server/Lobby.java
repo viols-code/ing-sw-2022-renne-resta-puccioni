@@ -1,8 +1,15 @@
 package it.polimi.ingsw.server;
 
+import it.polimi.ingsw.controller.GameController;
+import it.polimi.ingsw.model.Colour;
+import it.polimi.ingsw.model.messages.CharacterCardUpdate;
+import it.polimi.ingsw.model.messages.SchoolBoardUpdate;
+import it.polimi.ingsw.model.messages.TableReconnectUpdate;
+import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.Wizard;
 import it.polimi.ingsw.observer.Observable;
 import it.polimi.ingsw.server.messages.*;
+import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
 
 import java.util.*;
 
@@ -19,6 +26,8 @@ public class Lobby extends Observable<IServerPacket> {
     private boolean isGameModeSet;
     private int indexOfFirstConnection = 0;
     private final List<String> nicknames = new ArrayList<>();
+    private final HashMap<String, Wizard> players = new HashMap<>();
+    private GameController controller;
 
     /**
      * Constructs a new Lobby with a random UUID, an empty connection list and the players needed to start set to -1
@@ -93,7 +102,8 @@ public class Lobby extends Observable<IServerPacket> {
 
         connection.setPlayerName(playerName);
         if (nicknames.contains(playerName)) {
-            notify(new CorrectReconnectionMessage(connection));
+            notify(new CorrectReconnectionMessage(connection, players));
+            sendGameInformation(connection);
             addToGame(connection);
         } else {
             List<String> otherNames = new ArrayList<>();
@@ -170,6 +180,8 @@ public class Lobby extends Observable<IServerPacket> {
             notify(new PlayerConnectMessage(connection.getPlayerName(), wizard, connections.indexOf(connection) + 1, players, otherWizard));
             notify(new CorrectWizardMessage(connection, wizard));
         }
+
+        players.put(connection.getPlayerName(), connection.getWizard());
     }
 
     /**
@@ -324,7 +336,7 @@ public class Lobby extends Observable<IServerPacket> {
      * Add the client to the already started game
      */
     public void addToGame(SocketClientConnection connection) {
-        Thread t = new Thread(new ReconnectionInstance(this, connections.get(0).getRemoteView().getGameController(), connection));
+        Thread t = new Thread(new ReconnectionInstance(this, controller, connection));
         t.start();
     }
 
@@ -332,9 +344,7 @@ public class Lobby extends Observable<IServerPacket> {
      * Terminate the Lobby, disconnecting all clients
      */
     public synchronized void terminate() {
-        connections.stream().filter(conn -> conn != null).forEach((conn) -> {
-            conn.closeConnection();
-        });
+        connections.stream().filter(Objects::nonNull).forEach(SocketClientConnection::closeConnection);
         connections.clear();
     }
 
@@ -348,11 +358,92 @@ public class Lobby extends Observable<IServerPacket> {
     }
 
     /**
+     * Sets the game controller of the Lobby
+     *
+     * @param gameController the game controller of the Lobby
+     */
+    public void setController(GameController gameController){
+        this.controller = gameController;
+    }
+
+    /**
      * Notifies the correct reconnection of a player
      *
      * @param connection the connection of the player
      */
     public void notifyCorrectReconnection(SocketClientConnection connection) {
-        notify(new CorrectReconnectionMessage(connection));
+        notify(new CorrectReconnectionMessage(connection, players));
+    }
+
+
+    /**
+     * Sends the information of the game to the reconnected client
+     *
+     * @param connection the connection of the player
+     */
+    public void sendGameInformation(SocketClientConnection connection){
+        for(int i = 0; i < controller.getGame().getNumberOfPlayer(); i++){
+            Player player1 = controller.getGame().getPlayerByIndex(i);
+            HashMap<Colour, Integer> entrance = new HashMap<>();
+            for(Colour colour : Colour.values()){
+                entrance.put(colour, player1.getSchoolBoard().getEntrance(colour));
+            }
+
+            HashMap<Colour, Integer> diningRoom = new HashMap<>();
+            for(Colour colour : Colour.values()){
+                diningRoom.put(colour, player1.getSchoolBoard().getDiningRoom(colour));
+            }
+
+            HashMap<Colour, Boolean> professors = new HashMap<>();
+            for(Colour colour : Colour.values()){
+                professors.put(colour, player1.getSchoolBoard().hasProfessor(colour));
+            }
+
+            notify(new SchoolBoardUpdate(connection, player1.getNickname(), entrance, diningRoom,
+                    player1.getSchoolBoard().getTowers(), player1.getTowerColour(), professors));
+        }
+
+        notify(new TableReconnectUpdate(connection, controller.getGame().getTable().getNumberOfGroupIsland(), controller.getGame().hasProtectIslandCard()));
+
+
+        if(gameMode){
+            List<CharacterCardEnumeration> cards = new ArrayList<>();
+            HashMap<CharacterCardEnumeration, Integer> cost = new HashMap<>();
+            HashMap<Colour, Integer> student0 = new HashMap<>();
+            HashMap<Colour, Integer> student1= new HashMap<>();
+            HashMap<Colour, Integer> student2 = new HashMap<>();
+
+
+            for(int i = 0; i < 3; i++){
+                cards.add(controller.getGame().getCharacterCardByIndex(i).getCharacterCardType());
+                cost.put(controller.getGame().getCharacterCardByIndex(i).getCharacterCardType(), controller.getGame().getCharacterCardByIndex(i).getCost());
+
+                for(Colour colour : Colour.values()){
+                    if(i == 0){
+                        try{
+                            student0.put(colour, controller.getGame().getCharacterCardByIndex(i).getStudent(colour));
+                        } catch(IllegalAccessError e){
+
+                        }
+                    } else if(i == 1){
+                        try{
+                            student1.put(colour, controller.getGame().getCharacterCardByIndex(i).getStudent(colour));
+                        } catch(IllegalAccessError e){
+
+                        }
+                    } else{
+                        try{
+                            student2.put(colour, controller.getGame().getCharacterCardByIndex(i).getStudent(colour));
+                        } catch(IllegalAccessError e){
+
+                        }
+                    }
+                }
+            }
+
+            notify(new CharacterCardUpdate(connection, cards, cost, student0, student1, student2, controller.getGame().getCoins()));
+        }
+
+
     }
 }

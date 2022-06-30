@@ -32,7 +32,7 @@ public class SocketClientConnection implements Runnable {
      *
      * @param socket the client socket
      */
-    SocketClientConnection(Socket socket, LobbyController lobbyController) throws IOException {
+    public SocketClientConnection(Socket socket, LobbyController lobbyController) throws IOException {
         this.socket = socket;
         this.out = new ObjectOutputStream(socket.getOutputStream());
         this.in = new ObjectInputStream(socket.getInputStream());

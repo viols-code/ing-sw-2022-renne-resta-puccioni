@@ -442,7 +442,7 @@ public abstract class CharacterCard extends Observable<IServerPacket> {
      * @return the number of students of the given colour
      * @throws IllegalAccessError if the CharacterCard doesn't have this method
      */
-    protected int getStudent(Colour colour) throws IllegalAccessError {
+    public int getStudent(Colour colour) throws IllegalAccessError {
         throw new IllegalAccessError("The card doesn't have this method");
     }
 

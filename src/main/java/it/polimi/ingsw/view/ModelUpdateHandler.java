@@ -350,4 +350,31 @@ public abstract class ModelUpdateHandler {
     }
 
 
+    /**
+     * Updates the students on a card
+     *
+     * @param student0 students on card 0
+     * @param student1 students on card 1
+     * @param student2 students on card 2
+     */
+    public void updateCardStudents(HashMap<Colour, Integer> student0, HashMap<Colour, Integer> student1, HashMap<Colour, Integer> student2) {
+        if(!student0.isEmpty()){
+            getView().getModel().getCharacterCardByIndex(0).setStudents(student0);
+        }
+        if(!student1.isEmpty()){
+            getView().getModel().getCharacterCardByIndex(1).setStudents(student1);
+        }
+        if(!student2.isEmpty()){
+            getView().getModel().getCharacterCardByIndex(2).setStudents(student2);
+        }
+    }
+
+    /**
+     * Update the number of islands
+     */
+    public void updateIslands(int groupIslands, boolean expert){
+        getView().getModel().getTable().setGroupIslands(groupIslands, expert);
+    }
+
+
 }

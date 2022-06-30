@@ -179,6 +179,19 @@ public class MockTable {
     }
 
     /**
+     * Sets the correct number of GroupIslands
+     *
+     * @param groupIsland the number of groupIslands
+     * @param expert true if the groupIsland is expert, false otherwise
+     */
+    public synchronized void setGroupIslands(int groupIsland, boolean expert){
+        groupIslands.clear();
+        for(int i = 0; i < groupIsland; i++){
+            groupIslands.add(new MockGroupIsland(expert));
+        }
+    }
+
+    /**
      * Gets the group island with the given index
      *
      * @param index the given index

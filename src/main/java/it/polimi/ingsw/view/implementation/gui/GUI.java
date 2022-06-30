@@ -98,8 +98,8 @@ public class GUI extends View {
      * Handles the successful reconnection of the player
      */
     @Override
-    public void correctReconnection(){
-        showPlayerBoard();
+    public void correctReconnection(HashMap<String, Wizard> players){
+        super.correctReconnection(players);
     }
 
     /**
@@ -152,7 +152,6 @@ public class GUI extends View {
     @Override
     public void handleGameMode(boolean gameMode) {
         super.handleGameMode(gameMode);
-
         if (isLobbyMaster()) {
             Platform.runLater(() -> {
                 Parent playersToStartSelection = FXMLUtils.loadFXML("/gui/PlayersToStartSelection");
@@ -312,7 +311,7 @@ public class GUI extends View {
      */
     @Override
     public void handlePlayerDisconnect(String playerName) {
-
+        getRenderer().showGameMessage("Player " + playerName + " disconnected");
     }
 
     /**

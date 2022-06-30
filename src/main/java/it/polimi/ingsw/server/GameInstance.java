@@ -35,6 +35,7 @@ public class GameInstance implements Runnable {
 
         // Creates a gameController
         GameController controller = new GameController(isExpertGame, numberOfPlayers, lobby);
+        lobby.setController(controller);
 
         // Add observers
         List<RemoteView> registeredViews = new ArrayList<>();

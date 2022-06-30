@@ -1,6 +1,11 @@
 package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.controller.GameController;
+import it.polimi.ingsw.model.Colour;
+import it.polimi.ingsw.model.messages.SchoolBoardUpdate;
+import it.polimi.ingsw.model.player.Player;
+
+import java.util.HashMap;
 
 public class ReconnectionInstance implements Runnable {
 
@@ -55,7 +60,6 @@ public class ReconnectionInstance implements Runnable {
             controller.getGame().getPlayerByIndex(i).getSchoolBoard().addObserver(remoteView);
         }
 
-        conn.getRemoteView().getGameController().reconnectPlayer(conn.getPlayerName());
-        lobby.notifyCorrectReconnection(conn);
+        controller.reconnectPlayer(conn.getPlayerName());
     }
 }

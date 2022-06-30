@@ -7,6 +7,7 @@ import it.polimi.ingsw.view.implementation.cli.utils.ASCIIArt;
 import it.polimi.ingsw.view.implementation.cli.utils.AnsiColour;
 import it.polimi.ingsw.view.implementation.cli.utils.ViewString;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -54,8 +55,8 @@ public class CLI extends View {
      * Handles the successful connection to the waiting room.
      */
     @Override
-    public void correctReconnection() {
-        super.correctReconnection();
+    public void correctReconnection(HashMap<String, Wizard> players) {
+        super.correctReconnection(players);
         getRenderer().showLobbyMessage(ViewString.RECONNECTED);
     }
 
@@ -129,6 +130,7 @@ public class CLI extends View {
      */
     @Override
     public void handleGameMode(boolean gameMode) {
+        super.handleGameMode(gameMode);
         if (!isLobbyMaster()) {
             if (gameMode) {
                 getRenderer().showLobbyMessage(ViewString.GAME_MODE_MESSAGE_EXPERT);

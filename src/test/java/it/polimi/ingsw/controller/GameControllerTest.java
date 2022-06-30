@@ -7,10 +7,13 @@ import it.polimi.ingsw.model.game.TurnPhase;
 import it.polimi.ingsw.model.player.TowerColour;
 import it.polimi.ingsw.model.player.Wizard;
 import it.polimi.ingsw.server.Lobby;
+import it.polimi.ingsw.server.LobbyController;
 import it.polimi.ingsw.view.messages.MoveMotherNature;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
+
+import java.net.Socket;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -671,6 +674,7 @@ class GameControllerTest {
         gameControllerTwo.playAssistantCard("Sara", 2);
         gameControllerTwo.moveMotherNature("Sara", 1);
         // try to reconnect a player not in the game
+
         gameControllerTwo.reconnectPlayer("Laura");
         assertEquals(2, gameControllerTwo.getGame().getNumberOfPlayer());
         assertEquals(1, gameControllerTwo.getGame().getNumberOfConnectedPlayers());
