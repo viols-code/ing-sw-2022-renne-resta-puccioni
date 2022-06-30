@@ -230,7 +230,6 @@ public abstract class View {
      */
     public void correctReconnection(HashMap<String, Wizard> players) {
         getModel().setReconnected(true);
-        System.out.println(gameMode);
         setGameState(GameState.PLAYING);
         numPlayers = players.size();
         players.forEach((key, value) -> getModel().addPlayer(key, value, gameMode, key.equalsIgnoreCase(this.playerName)));
