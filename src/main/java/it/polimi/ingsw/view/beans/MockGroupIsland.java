@@ -78,6 +78,15 @@ public class MockGroupIsland {
     }
 
     /**
+     * Gets the number of single islands of that group island
+     *
+     * @return the number of single islands
+     */
+    public synchronized int getNumberOfSingleIslands(){
+        return islands.size();
+    }
+
+    /**
      * Gets the value of the attribute is basic
      *
      * @return true if the group island is basic, false if the group island is advanced
@@ -149,6 +158,7 @@ public class MockGroupIsland {
     public synchronized void setInfluentPlayer(String influentPlayer) {
         this.influentPlayer.setValue(influentPlayer);
     }
+
 
     /**
      * Set the influentPlayerProperty

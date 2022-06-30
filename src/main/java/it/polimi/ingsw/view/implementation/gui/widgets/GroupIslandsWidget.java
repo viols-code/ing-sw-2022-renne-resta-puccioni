@@ -91,18 +91,17 @@ public class GroupIslandsWidget extends StackPane {
      * Creates and renders the group island with all their properties
      */
     private void initGroupIslands() {
-        int groupIslands = GUI.instance().getModel().getTable().getGroupIslands().size();
         int singleIslands;
         List<Coordinates> singleIslandsCoordinates;
-        for (int i = 0, j = 0; i < groupIslands; i++) {
+        for (int i = 0, j = 0; i < GUI.instance().getModel().getTable().getNumberOfGroupIslands(); i++) {
             int groupIsland = i;
             singleIslands = GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getIslands().size();
             List<AnchorPane> singleIslandBoxes = new ArrayList<>();
             singleIslandPanes.add(singleIslandBoxes);
             //creates the flow pane for the group island
             AnchorPane islandPane = new AnchorPane();
-            islandPane.setPrefWidth(Positions.getIslandPaneDimension(singleIslands));
-            islandPane.setPrefHeight(Positions.getIslandPaneDimension(singleIslands));
+            islandPane.setPrefWidth(Positions.getIslandPaneDimension(GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getNumberOfSingleIslands()));
+            islandPane.setPrefHeight(Positions.getIslandPaneDimension(GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getNumberOfSingleIslands()));
             anchorPane.getChildren().add(islandPane);
             groupIslandsPanes.add(islandPane);
 
@@ -111,8 +110,8 @@ public class GroupIslandsWidget extends StackPane {
                 islandPane.setOnMouseClicked(event -> moveMotherNature(groupIsland));
             }
 
-            singleIslandsCoordinates = Positions.getIslandsCoordinates(singleIslands);
-            for (int k = 0; k < singleIslands; k++) {
+            singleIslandsCoordinates = Positions.getIslandsCoordinates(GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getNumberOfSingleIslands());
+            for (int k = 0; k < GUI.instance().getModel().getTable().getGroupIslandByIndex(groupIsland).getNumberOfSingleIslands(); k++) {
                 int singleIsland = k;
                 //creates the anchor pane for the single island and sets the position in the groupIslandPane
                 AnchorPane singleIslandPane = new AnchorPane();
@@ -219,14 +218,14 @@ public class GroupIslandsWidget extends StackPane {
             Group island positioning: ring configuration obtained with circumference properties
             It uses also static methods form class Positions which contains all the information about island positioning
              */
-            if (j <= 6 && j + singleIslands > 6) {
-                islandPane.setLayoutX(540 - Positions.getIslandPaneDimension(singleIslands) / 2.0 + 220 * Math.cos((-2 * Math.PI + Positions.getAngle(j % 12) + Positions.getAngle((j + singleIslands) % 12)) / 2));
-                islandPane.setLayoutY(360 - Positions.getIslandPaneDimension(singleIslands) / 2.0 - 220 * Math.sin((-2 * Math.PI + Positions.getAngle(j % 12) + Positions.getAngle((j + singleIslands) % 12)) / 2));
+            if (j <= 6 && j + GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getNumberOfSingleIslands() > 6) {
+                islandPane.setLayoutX(540 - Positions.getIslandPaneDimension(GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getNumberOfSingleIslands()) / 2.0 + 220 * Math.cos((-2 * Math.PI + Positions.getAngle(j % 12) + Positions.getAngle((j + singleIslands) % 12)) / 2));
+                islandPane.setLayoutY(360 - Positions.getIslandPaneDimension(GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getNumberOfSingleIslands()) / 2.0 - 220 * Math.sin((-2 * Math.PI + Positions.getAngle(j % 12) + Positions.getAngle((j + singleIslands) % 12)) / 2));
             } else {
-                islandPane.setLayoutX(540 - Positions.getIslandPaneDimension(singleIslands) / 2.0 + 220 * Math.cos((Positions.getAngle(j % 12) + Positions.getAngle((j + singleIslands) % 12)) / 2));
-                islandPane.setLayoutY(360 - Positions.getIslandPaneDimension(singleIslands) / 2.0 - 220 * Math.sin((Positions.getAngle(j % 12) + Positions.getAngle((j + singleIslands) % 12)) / 2));
+                islandPane.setLayoutX(540 - Positions.getIslandPaneDimension(GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getNumberOfSingleIslands()) / 2.0 + 220 * Math.cos((Positions.getAngle(j % 12) + Positions.getAngle((j + singleIslands) % 12)) / 2));
+                islandPane.setLayoutY(360 - Positions.getIslandPaneDimension(GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getNumberOfSingleIslands()) / 2.0 - 220 * Math.sin((Positions.getAngle(j % 12) + Positions.getAngle((j + singleIslands) % 12)) / 2));
             }
-            j += singleIslands;
+            j += GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getNumberOfSingleIslands();
         }
     }
 
@@ -280,21 +279,20 @@ public class GroupIslandsWidget extends StackPane {
      * it handles the updates due to the influence change on a specific group island
      */
     private void addListenerOnGroupIslandInfluentPlayer() {
-        //adds the listener on mother nature property on a single island
-        for (int i = 0; i < GUI.instance().getModel().getTable().getGroupIslands().size(); i++) {
-            int groupIsland = i;
-            GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getInfluentPlayerProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> {
-                if (groupIsland < GUI.instance().getModel().getTable().getGroupIslands().size()) {
-                    for (int j = 0; j < GUI.instance().getModel().getTable().getGroupIslandByIndex(groupIsland).getIslands().size(); j++) {
-                        if (newVal != null) {
-                            Circle tower = (Circle) singleIslandPanes.get(groupIsland).get(j).getChildren().get(3);
-                            tower.setVisible(true);
-                            tower.setFill(GUIColours.getTowerRGBColour(GUI.instance().getModel().getPlayerByNickname(newVal).getTowerColour()));
-                        }
+        //adds the listener on influent player property on a single island
+        GUI.instance().getModel().getTable().getGroupIslands().forEach(groupIsland -> {
+            groupIsland.getInfluentPlayerProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> {
+                singleIslandPanes.get(GUI.instance().getModel().getTable().getIndexOfGroupIsland(groupIsland)).forEach(pane -> {
+                    if (newVal != null) {
+                        Circle tower = (Circle) pane.getChildren().get(3);
+                        tower.setVisible(true);
+                        tower.setFill(GUIColours.getTowerRGBColour(GUI.instance().getModel().getPlayerByNickname(newVal).getTowerColour()));
                     }
-                }
+                });
+
             }));
-        }
+        });
+
     }
 
     /**
@@ -321,7 +319,7 @@ public class GroupIslandsWidget extends StackPane {
     private void addListenerOnMotherNatureProperty() {
         //adds the listener on mother nature property on a single island
         GUI.instance().getModel().getTable().getMotherNaturePositionProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> {
-            if (oldVal.intValue() < GUI.instance().getModel().getTable().getGroupIslands().size()) {
+            if (oldVal.intValue() < GUI.instance().getModel().getTable().getNumberOfGroupIslands()) {
                 singleIslandPanes.get(oldVal.intValue()).get(0).getChildren().get(2).setVisible(false);
             }
             singleIslandPanes.get(newVal.intValue()).get(0).getChildren().get(2).setVisible(true);
@@ -349,7 +347,7 @@ public class GroupIslandsWidget extends StackPane {
                 }
 
             } else if (GUI.instance().getModel().getTurnPhase().equals(TurnPhase.MOVE_STUDENT)) {
-                for (int i = 0; i < GUI.instance().getModel().getTable().getGroupIslands().size(); i++) {
+                for (int i = 0; i < GUI.instance().getModel().getTable().getNumberOfGroupIslands(); i++) {
                     int groupIsland = i;
                     groupIslandsPanes.get(i).getStyleClass().removeAll("groupIsland");
                     groupIslandsPanes.get(i).setOnMouseClicked(event -> noAction());
@@ -361,7 +359,7 @@ public class GroupIslandsWidget extends StackPane {
 
                 }
             } else {
-                for (int i = 0; i < GUI.instance().getModel().getTable().getGroupIslands().size(); i++) {
+                for (int i = 0; i < GUI.instance().getModel().getTable().getNumberOfGroupIslands(); i++) {
                     groupIslandsPanes.get(i).getStyleClass().removeAll("groupIsland");
                     groupIslandsPanes.get(i).setOnMouseClicked(event -> noAction());
                     for (int j = 0; j < GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getIslands().size(); j++) {

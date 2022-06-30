@@ -189,6 +189,25 @@ public class MockTable {
     }
 
     /**
+     * Gets the number of group islands on the table
+     *
+     * @return the number of group islands
+     */
+    public synchronized int getNumberOfGroupIslands(){
+        return groupIslands.size();
+    }
+
+    /**
+     * Gets the index of the group island given
+     *
+     * @param groupIsland the group island chosen
+     * @return the index of the group island in the list
+     */
+    public synchronized int getIndexOfGroupIsland(MockGroupIsland groupIsland){
+        return groupIslands.indexOf(groupIsland);
+    }
+
+    /**
      * Unifies two group islands
      *
      * @param groupIsland1 the first group island
