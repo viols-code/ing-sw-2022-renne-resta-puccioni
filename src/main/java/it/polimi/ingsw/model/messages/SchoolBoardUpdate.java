@@ -44,6 +44,11 @@ public class SchoolBoardUpdate extends DirectReconnectionMessage{
     private final HashMap<Colour, Boolean> professors;
 
     /**
+     * The number of coins of the player
+     */
+    private final int coins;
+
+    /**
      * Constructs a new SchoolBoardUpdate for the given recipient
      *
      * @param recipient the client connection that this message will be sent to
@@ -54,7 +59,7 @@ public class SchoolBoardUpdate extends DirectReconnectionMessage{
      * @param towerColour the colour of the tower of the player
      * @param professors the professors of the player
      */
-    public SchoolBoardUpdate(SocketClientConnection recipient, String playerName, HashMap<Colour, Integer> entrance, HashMap<Colour, Integer> diningRoom, int towers, TowerColour towerColour, HashMap<Colour, Boolean> professors) {
+    public SchoolBoardUpdate(SocketClientConnection recipient, String playerName, HashMap<Colour, Integer> entrance, HashMap<Colour, Integer> diningRoom, int towers, TowerColour towerColour, HashMap<Colour, Boolean> professors, int coins) {
         super(recipient);
         this.recipient = recipient;
         this.playerName = playerName;
@@ -63,6 +68,7 @@ public class SchoolBoardUpdate extends DirectReconnectionMessage{
         this.towers = towers;
         this.towerColour = towerColour;
         this.professors = professors;
+        this.coins = coins;
     }
 
     /**
@@ -86,5 +92,6 @@ public class SchoolBoardUpdate extends DirectReconnectionMessage{
         view.getModelUpdateHandler().updateTowers(playerName, towers);
         view.getModelUpdateHandler().updateTowerColour(playerName, towerColour);
         view.getModelUpdateHandler().updateProfessorTable(playerName, professors);
+        view.getModelUpdateHandler().updatePlayerCoins(playerName, coins);
     }
 }

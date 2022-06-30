@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.player.TowerColour;
 import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
 import it.polimi.ingsw.view.beans.MockCard;
 import it.polimi.ingsw.view.beans.MockGroupIsland;
+import it.polimi.ingsw.view.beans.MockSingleIsland;
 
 import java.util.HashMap;
 import java.util.List;
@@ -376,5 +377,65 @@ public abstract class ModelUpdateHandler {
         getView().getModel().getTable().setGroupIslands(groupIslands, expert);
     }
 
+    /**
+     * Update the influent players
+     *
+     * @param influentPlayers a list containing the influent players for every groupIsland
+     */
+    public void updateInfluentPlayers(List<String> influentPlayers){
+        for(int i = 0; i < getView().getModel().getTable().getNumberOfGroupIslands(); i++){
+            if(influentPlayers.get(i).equals("")){
+                getView().getModel().getTable().getGroupIslandByIndex(i).setInfluentPlayer(null);
+            }else{
+                getView().getModel().getTable().getGroupIslandByIndex(i).setInfluentPlayer(influentPlayers.get(i));
+            }
+        }
+    }
+
+    /**
+     * Update the noEntryTiles
+     *
+     * @param noEntryTiles a list containing the noEntryTiles for every groupIsland
+     */
+    public void updateNoEntryTiles(List<Integer> noEntryTiles){
+        for(int i = 0; i < getView().getModel().getTable().getNumberOfGroupIslands(); i++){
+            getView().getModel().getTable().getGroupIslandByIndex(i).setNoEntryTile(noEntryTiles.get(i));
+        }
+    }
+
+    /**
+     * Update the singleIslands
+     *
+     * @param singleIslands a list containing the singleIslands for every groupIsland
+     */
+    public void updateSingleIslands(List<Integer> singleIslands){
+        for(int i = 0; i < getView().getModel().getTable().getNumberOfGroupIslands(); i++){
+            for(int j = 1; j < singleIslands.get(i); j++){
+                getView().getModel().getTable().getGroupIslandByIndex(i).addMockSingleIsland(new MockSingleIsland());
+            }
+        }
+    }
+
+    /**
+     * Update the students on the singleIslands
+     *
+     * @param students a hashMap containing the students for every singleIslands
+     */
+    public void updateStudents(HashMap<Integer, HashMap<Colour, Integer>> students){
+
+        int count = 0;
+
+        for(int i = 0; i < getView().getModel().getTable().getNumberOfGroupIslands(); i++){
+            for(int j = 0; j < getView().getModel().getTable().getGroupIslandByIndex(i).getNumberOfSingleIslands(); j++){
+                for(Colour colour: Colour.values()){
+                    for(int k = 0; k < students.get(count).get(colour); k++){
+                        getView().getModel().getTable().getGroupIslandByIndex(i).getSingleIslandByIndex(j).setStudent(colour);
+                    }
+                }
+
+                count++;
+            }
+        }
+    }
 
 }

@@ -1,9 +1,12 @@
 package it.polimi.ingsw.model.messages;
 
+import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.server.SocketClientConnection;
 import it.polimi.ingsw.view.View;
 
 import java.io.Serial;
+import java.util.HashMap;
+import java.util.List;
 
 public class TableReconnectUpdate extends DirectReconnectionMessage{
     /**
@@ -25,15 +28,45 @@ public class TableReconnectUpdate extends DirectReconnectionMessage{
     private final boolean expert;
 
     /**
+     * List containing the influent players in every group island
+     */
+    private final List<String> influentPlayers;
+
+    /**
+     * List containing the number of noEntryTiles for every groupIsland
+     */
+    private final List<Integer> noEntryTiles;
+
+    /**
+     * List containing the number of singleIslands for every groupIsland
+     */
+    private final List<Integer> numberOfSingleIslands;
+
+    /**
+     * A HashMap containing the students for every singleIsland
+     */
+    private final HashMap<Integer, HashMap<Colour, Integer>> students;
+
+    /**
+     * The position of mother nature
+     */
+    private final int motherNaturePosition;
+
+    /**
      * Constructs a new TableReconnectUpdate for the given recipient
      *
      * @param recipient the client connection that this message will be sent to
      */
-    public TableReconnectUpdate(SocketClientConnection recipient, int groupIsland, boolean expert) {
+    public TableReconnectUpdate(SocketClientConnection recipient, int groupIsland, boolean expert, List<String> influentPlayers, List<Integer> noEntryTiles, List<Integer> numberOfSingleIslands, HashMap<Integer, HashMap<Colour, Integer>> students, int motherNaturePosition) {
         super(recipient);
         this.recipient = recipient;
         this.groupIsland = groupIsland;
         this.expert = expert;
+        this.influentPlayers = influentPlayers;
+        this.noEntryTiles = noEntryTiles;
+        this.numberOfSingleIslands = numberOfSingleIslands;
+        this.students = students;
+        this.motherNaturePosition = motherNaturePosition;
     }
 
     /**
@@ -53,5 +86,10 @@ public class TableReconnectUpdate extends DirectReconnectionMessage{
     @Override
     public void process(View view) {
         view.getModelUpdateHandler().updateIslands(groupIsland, expert);
+        view.getModelUpdateHandler().updateInfluentPlayers(influentPlayers);
+        view.getModelUpdateHandler().updateNoEntryTiles(noEntryTiles);
+        view.getModelUpdateHandler().updateSingleIslands(numberOfSingleIslands);
+        view.getModelUpdateHandler().updateStudents(students);
+        view.getModelUpdateHandler().updateMotherNaturePosition(motherNaturePosition);
     }
 }

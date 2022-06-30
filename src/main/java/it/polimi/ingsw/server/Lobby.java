@@ -384,6 +384,9 @@ public class Lobby extends Observable<IServerPacket> {
     public void sendGameInformation(SocketClientConnection connection){
         for(int i = 0; i < controller.getGame().getNumberOfPlayer(); i++){
             Player player1 = controller.getGame().getPlayerByIndex(i);
+            int coins = -1;
+
+            coins = player1.getCoins();
             HashMap<Colour, Integer> entrance = new HashMap<>();
             for(Colour colour : Colour.values()){
                 entrance.put(colour, player1.getSchoolBoard().getEntrance(colour));
@@ -399,11 +402,47 @@ public class Lobby extends Observable<IServerPacket> {
                 professors.put(colour, player1.getSchoolBoard().hasProfessor(colour));
             }
 
+
+
             notify(new SchoolBoardUpdate(connection, player1.getNickname(), entrance, diningRoom,
-                    player1.getSchoolBoard().getTowers(), player1.getTowerColour(), professors));
+                    player1.getSchoolBoard().getTowers(), player1.getTowerColour(), professors, coins));
         }
 
-        notify(new TableReconnectUpdate(connection, controller.getGame().getTable().getNumberOfGroupIsland(), controller.getGame().hasProtectIslandCard()));
+        List<String> influentPlayers = new ArrayList<>();
+        List<Integer> noEntryTiles = new ArrayList<>();
+        List<Integer> singleIslands = new ArrayList<>();
+        HashMap<Integer, HashMap<Colour, Integer>> students = new HashMap<>();
+        int count = 0;
+
+        for(int i = 0; i < controller.getGame().getTable().getNumberOfGroupIsland(); i++){
+            if(controller.getGame().getTable().getGroupIslandByIndex(i).getInfluence() != null){
+                influentPlayers.add(controller.getGame().getTable().getGroupIslandByIndex(i).getInfluence().getNickname());
+            }else{
+                influentPlayers.add("");
+            }
+
+            if(controller.getGame().hasProtectIslandCard()){
+                noEntryTiles.add(controller.getGame().getTable().getGroupIslandByIndex(i).getNumberOfNoEntryTile());
+            }else{
+                noEntryTiles.add(0);
+            }
+
+            singleIslands.add(controller.getGame().getTable().getGroupIslandByIndex(i).getNumberOfSingleIsland());
+            for(int j = 0; j < controller.getGame().getTable().getGroupIslandByIndex(i).getNumberOfSingleIsland(); j++){
+
+                HashMap<Colour, Integer> studentsOnSingleIsland = new HashMap<>();
+                for(Colour colour : Colour.values()){
+                    studentsOnSingleIsland.put(colour, controller.getGame().getTable().getGroupIslandByIndex(i).getIslandByIndex(j).getStudents(colour));
+                }
+
+                students.put(count, studentsOnSingleIsland);
+                count++;
+            }
+        }
+
+        int motherNaturePosition = controller.getGame().getTable().getMotherNaturePosition();
+
+        notify(new TableReconnectUpdate(connection, controller.getGame().getTable().getNumberOfGroupIsland(), controller.getGame().hasProtectIslandCard(), influentPlayers, noEntryTiles, singleIslands, students, motherNaturePosition));
 
 
         if(gameMode){
