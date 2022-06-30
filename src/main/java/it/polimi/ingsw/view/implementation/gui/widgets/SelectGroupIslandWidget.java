@@ -358,17 +358,20 @@ public class SelectGroupIslandWidget extends StackPane {
         //adds the listener on influent player property on a single island
         GUI.instance().getModel().getTable().getGroupIslands().forEach(groupIsland -> {
             groupIsland.getInfluentPlayerProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> {
-                singleIslandPanes.get(GUI.instance().getModel().getTable().getIndexOfGroupIsland(groupIsland)).forEach(pane -> {
-                    if (newVal != null) {
-                        Circle tower = (Circle) pane.getChildren().get(3);
-                        tower.setVisible(true);
-                        tower.setFill(GUIColours.getTowerRGBColour(GUI.instance().getModel().getPlayerByNickname(newVal).getTowerColour()));
-                    }
-                });
-
+                int index = GUI.instance().getModel().getTable().getIndexOfGroupIsland(groupIsland);
+                if (index >= 0) {
+                    singleIslandPanes.get(index).forEach(pane -> {
+                        if (newVal != null) {
+                            Circle tower = (Circle) pane.getChildren().get(3);
+                            tower.setVisible(true);
+                            tower.setFill(GUIColours.getTowerRGBColour(GUI.instance().getModel().getPlayerByNickname(newVal).getTowerColour()));
+                        }
+                    });
+                }
             }));
         });
     }
+
 
     /**
      * Adds a listener on the group island property (located in MockTable) which handles the updates due to islands unify
