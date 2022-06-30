@@ -15,10 +15,6 @@ public class TableReconnectUpdate extends DirectReconnectionMessage{
     @Serial
     private static final long serialVersionUID = -5351934793905157931L;
     /**
-     * The recipient
-     */
-    protected final transient SocketClientConnection recipient;
-    /**
      * The number of groupIslands
      */
     private final int groupIsland;
@@ -66,7 +62,6 @@ public class TableReconnectUpdate extends DirectReconnectionMessage{
                                 List<Integer> numberOfSingleIslands, HashMap<Integer, HashMap<Colour, Integer>> students, int motherNaturePosition,
                                 HashMap<Integer, HashMap<Colour, Integer>> studentsOnCloudTiles) {
         super(recipient);
-        this.recipient = recipient;
         this.groupIsland = groupIsland;
         this.expert = expert;
         this.influentPlayers = influentPlayers;
@@ -77,14 +72,6 @@ public class TableReconnectUpdate extends DirectReconnectionMessage{
         this.studentsOnCloudTiles = studentsOnCloudTiles;
     }
 
-    /**
-     * Gets the recipient of this message
-     *
-     * @return the client connection that is the recipient of this message
-     */
-    public SocketClientConnection getRecipient() {
-        return recipient;
-    }
 
     /**
      * Update the view with the islands information

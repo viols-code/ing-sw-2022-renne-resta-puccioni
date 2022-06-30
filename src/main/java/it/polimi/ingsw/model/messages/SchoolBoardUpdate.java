@@ -15,10 +15,6 @@ public class SchoolBoardUpdate extends DirectReconnectionMessage{
     @Serial
     private static final long serialVersionUID = -5634156904905157931L;
     /**
-     * The recipient
-     */
-    private final transient SocketClientConnection recipient;
-    /**
      * The nickname of the player
      */
     private final String playerName;
@@ -61,7 +57,6 @@ public class SchoolBoardUpdate extends DirectReconnectionMessage{
      */
     public SchoolBoardUpdate(SocketClientConnection recipient, String playerName, HashMap<Colour, Integer> entrance, HashMap<Colour, Integer> diningRoom, int towers, TowerColour towerColour, HashMap<Colour, Boolean> professors, int coins) {
         super(recipient);
-        this.recipient = recipient;
         this.playerName = playerName;
         this.entrance = entrance;
         this.diningRoom = diningRoom;
@@ -69,15 +64,6 @@ public class SchoolBoardUpdate extends DirectReconnectionMessage{
         this.towerColour = towerColour;
         this.professors = professors;
         this.coins = coins;
-    }
-
-    /**
-     * Gets the recipient of this message
-     *
-     * @return the client connection that is the recipient of this message
-     */
-    public SocketClientConnection getRecipient() {
-        return recipient;
     }
 
     /**

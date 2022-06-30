@@ -16,10 +16,6 @@ public class CharacterCardUpdate extends DirectReconnectionMessage{
     @Serial
     private static final long serialVersionUID = -4626056893016277931L;
     /**
-     * The recipient
-     */
-    protected final transient SocketClientConnection recipient;
-    /**
      * List of the available character cards
      */
     private final List<CharacterCardEnumeration> characterCards;
@@ -53,22 +49,12 @@ public class CharacterCardUpdate extends DirectReconnectionMessage{
      */
     public CharacterCardUpdate(SocketClientConnection recipient, List<CharacterCardEnumeration> characterCards, HashMap<CharacterCardEnumeration, Integer> cost, HashMap<Colour, Integer> student0, HashMap<Colour, Integer> student1, HashMap<Colour, Integer> student2, int coins) {
         super(recipient);
-        this.recipient = recipient;
         this.characterCards = characterCards;
         this.cost = cost;
         this.student0 = student0;
         this.student1 = student1;
         this.student2 = student2;
         this.coins = coins;
-    }
-
-    /**
-     * Gets the recipient of this message
-     *
-     * @return the client connection that is the recipient of this message
-     */
-    public SocketClientConnection getRecipient() {
-        return recipient;
     }
 
 
