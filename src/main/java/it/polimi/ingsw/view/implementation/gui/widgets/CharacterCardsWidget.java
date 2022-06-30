@@ -354,12 +354,13 @@ public class CharacterCardsWidget extends StackPane {
                 } else if (GUI.instance().getModel().getCurrentCharacterCard().getType() != GUI.instance().getModel().getCharacterCardByIndex(i).getType()) {
                     imageViewStudent.setOnMouseClicked(event -> GUI.instance().getRenderer().showErrorMessage("This is not the current character card"));
                 } else {
-                    imageViewStudent.setOnMouseClicked(event -> {
-                        pane.getStyleClass().add("studentSelected");
-                        setStudent(colour);
-                    });
+                    if(GUI.instance().getPlayerName().equals(GUI.instance().getModel().getCurrentPlayer().getNickname())){
+                        imageViewStudent.setOnMouseClicked(event -> {
+                            pane.getStyleClass().add("studentSelected");
+                            setStudent(colour);
+                        });
+                    }
                 }
-
 
                 if (i == 0) {
                     studentsOnCard0.add(pane, r, c);
