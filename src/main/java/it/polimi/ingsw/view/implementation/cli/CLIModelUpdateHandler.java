@@ -136,11 +136,13 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
     @Override
     public void updateMotherNaturePosition(int motherNaturePosition) {
         super.updateMotherNaturePosition(motherNaturePosition);
-        if (getView().getModel().getGamePhase() != GamePhase.SETTING) {
-            if (getView().getModel().getLocalPlayer().getNickname().equalsIgnoreCase(getView().getModel().getCurrentPlayer().getNickname())) {
-                getView().getRenderer().showGameMessage(ViewString.YOU_SELECTED_MOTHER_NATURE_MOVEMENT.formatted(motherNaturePosition));
-            } else {
-                getView().getRenderer().showGameMessage(ViewString.OTHER_SELECTED_MOTHER_NATURE_MOVEMENT.formatted(getView().getModel().getCurrentPlayer().getNickname(), motherNaturePosition));
+        if(getView().getModel().getReconnected()){
+            if (getView().getModel().getGamePhase() != GamePhase.SETTING) {
+                if (getView().getModel().getLocalPlayer().getNickname().equalsIgnoreCase(getView().getModel().getCurrentPlayer().getNickname())) {
+                    getView().getRenderer().showGameMessage(ViewString.YOU_SELECTED_MOTHER_NATURE_MOVEMENT.formatted(motherNaturePosition));
+                } else {
+                    getView().getRenderer().showGameMessage(ViewString.OTHER_SELECTED_MOTHER_NATURE_MOVEMENT.formatted(getView().getModel().getCurrentPlayer().getNickname(), motherNaturePosition));
+                }
             }
         }
     }
