@@ -407,7 +407,10 @@ public class Lobby extends Observable<IServerPacket> {
                 professors.put(colour, player1.getSchoolBoard().hasProfessor(colour));
             }
 
-            int currentAssistantCard = player1.getCurrentAssistantCard().getValue();
+            int currentAssistantCard = -1;
+            if(player1.getCurrentAssistantCard() != null){
+                currentAssistantCard = player1.getCurrentAssistantCard().getValue();
+            }
 
             notify(new SchoolBoardUpdate(connection, player1.getNickname(), entrance, diningRoom,
                     player1.getSchoolBoard().getTowers(), player1.getTowerColour(), professors, coins, currentAssistantCard));
