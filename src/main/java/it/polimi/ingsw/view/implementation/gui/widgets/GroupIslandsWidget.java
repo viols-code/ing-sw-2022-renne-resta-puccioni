@@ -194,7 +194,7 @@ public class GroupIslandsWidget extends StackPane {
                     singleIslandPane.getChildren().add(noEntryTileLabel);
                     noEntryTileLabel.setLayoutX(60);
                     noEntryTileLabel.setLayoutY(20);
-                    noEntryTileLabel.setStyle("-fx-font-size: 10; -fx-font-weight: bold;");
+                    noEntryTileLabel.setStyle("-fx-font-size: 12; -fx-font-weight: bold;");
                     noEntryTileLabel.setText(" ! : " + GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getNoEntryTile());
                     noEntryTileLabel.setTextFill(GUIColours.getNoEntryTileMarkColour());
                     noEntryTileLabel.setBackground(new Background(new BackgroundFill(GUIColours.getGetNoEntryTileBackGroundColour(), CornerRadii.EMPTY, Insets.EMPTY)));
