@@ -99,7 +99,7 @@ public class TableReconnectUpdate extends DirectReconnectionMessage{
         view.getModelUpdateHandler().updateNoEntryTiles(noEntryTiles);
         view.getModelUpdateHandler().updateSingleIslands(numberOfSingleIslands);
         view.getModelUpdateHandler().updateStudents(students);
-        view.getModelUpdateHandler().updateMotherNaturePosition(motherNaturePosition);
+        view.getModelUpdateHandler().updateMotherNature(motherNaturePosition);
         view.getModelUpdateHandler().updateStudentsOnShownCloudTiles(studentsOnCloudTiles);
         view.getModelUpdateHandler().updateReconnectedActiveCharacterCard(characterCard);
         view.getModelUpdateHandler().updateProfessorsReconnection(professors);

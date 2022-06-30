@@ -431,7 +431,7 @@ public abstract class CharacterCard extends Observable<IServerPacket> {
      * @return the number of no entry tiles on the card
      * @throws IllegalAccessError if the CharacterCard doesn't have this method
      */
-    protected int getNumberOfNoEntryTiles() throws IllegalAccessError {
+    public int getNumberOfNoEntryTiles() throws IllegalAccessError {
         throw new IllegalAccessError("The card doesn't have this method");
     }
 

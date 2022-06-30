@@ -475,8 +475,12 @@ public abstract class ModelUpdateHandler {
         }
     }
 
+    /**
+     * Updates the professors available in the MockModel when a player reconnects
+     *
+     * @param professors the available professors
+     */
     public void updateProfessorsReconnection(HashMap<Colour, Boolean> professors){
-
         for(Colour colour : Colour.values()){
             if(!professors.get(colour)){
                 getView().getModel().getTable().removeProfessorFromTable(colour);
@@ -497,5 +501,36 @@ public abstract class ModelUpdateHandler {
         getView().getModel().getTable().setShownCloudTile(cloudTile, students);
         getView().getModel().getTable().getShownCloudTiles().forEach(cloudTile1 -> System.out.println(cloudTile1.getMockCloudTile()));
 
+    }
+
+    /**
+     * Updates the position of mother nature in the MockModel when a player reconnects
+     *
+     * @param motherNaturePosition the position of mother nature
+     */
+    public void updateMotherNature(int motherNaturePosition){
+        getView().getModel().getTable().setMotherNaturePosition(motherNaturePosition);
+    }
+
+    /**
+     * Updates the current player in the MockModel when a player reconnects
+     *
+     * @param currentPlayer the current player
+     */
+    public void updateCurrentPlayerReconnection(String currentPlayer){
+        getView().getModel().setCurrentPlayer(getView().getModel().getPlayerByNickname(currentPlayer));
+    }
+
+    /**
+     * Updates the number of noEntryTile when a player reconnects
+     *
+     * @param noEntryTile
+     */
+    public void noEntryTile(int noEntryTile){
+        for(int i = 0; i < 3; i++){
+            if(getView().getModel().getCharacterCardByIndex(i).getType() == CharacterCardEnumeration.PROTECT_ISLAND){
+                getView().getModel().getCharacterCardByIndex(i).setNumberOfNoEntryTile(noEntryTile);
+            }
+        }
     }
 }

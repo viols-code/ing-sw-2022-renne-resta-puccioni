@@ -3,6 +3,7 @@ package it.polimi.ingsw.server;
 import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.messages.CharacterCardUpdate;
+import it.polimi.ingsw.model.messages.CurrentPlayerReconnectUpdate;
 import it.polimi.ingsw.model.messages.SchoolBoardUpdate;
 import it.polimi.ingsw.model.messages.TableReconnectUpdate;
 import it.polimi.ingsw.model.player.Player;
@@ -386,7 +387,9 @@ public class Lobby extends Observable<IServerPacket> {
             Player player1 = controller.getGame().getPlayerByIndex(i);
             int coins = -1;
 
-            coins = player1.getCoins();
+            if(controller.isGameExpert()){
+                coins = player1.getCoins();
+            }
             HashMap<Colour, Integer> entrance = new HashMap<>();
             for(Colour colour : Colour.values()){
                 entrance.put(colour, player1.getSchoolBoard().getEntrance(colour));
@@ -408,6 +411,8 @@ public class Lobby extends Observable<IServerPacket> {
                     player1.getSchoolBoard().getTowers(), player1.getTowerColour(), professors, coins));
         }
 
+        notify(new CurrentPlayerReconnectUpdate(connection, controller.getGame().getCurrentPlayer().getNickname()));
+
         List<String> influentPlayers = new ArrayList<>();
         List<Integer> noEntryTiles = new ArrayList<>();
         List<Integer> singleIslands = new ArrayList<>();
@@ -416,7 +421,7 @@ public class Lobby extends Observable<IServerPacket> {
 
         int count = 0;
 
-        CharacterCardEnumeration charactercard = controller.getGame().getActiveCharacterCard().getCharacterCardType();
+        CharacterCardEnumeration characterCard = controller.getGame().getActiveCharacterCard().getCharacterCardType();
 
         HashMap<Colour, Boolean> professors = new HashMap<>();
 
@@ -463,7 +468,7 @@ public class Lobby extends Observable<IServerPacket> {
         }
 
         notify(new TableReconnectUpdate(connection, controller.getGame().getTable().getNumberOfGroupIsland(), controller.getGame().hasProtectIslandCard(), influentPlayers,
-                noEntryTiles, singleIslands, students, motherNaturePosition, studentsOnCloudTiles, charactercard, professors));
+                noEntryTiles, singleIslands, students, motherNaturePosition, studentsOnCloudTiles, characterCard, professors));
 
 
         if(gameMode){
@@ -472,7 +477,7 @@ public class Lobby extends Observable<IServerPacket> {
             HashMap<Colour, Integer> student0 = new HashMap<>();
             HashMap<Colour, Integer> student1= new HashMap<>();
             HashMap<Colour, Integer> student2 = new HashMap<>();
-
+            int noEntryTile = 0;
 
             for(int i = 0; i < 3; i++){
                 cards.add(controller.getGame().getCharacterCardByIndex(i).getCharacterCardType());
@@ -482,18 +487,21 @@ public class Lobby extends Observable<IServerPacket> {
                     if(i == 0){
                         try{
                             student0.put(colour, controller.getGame().getCharacterCardByIndex(i).getStudent(colour));
+                            noEntryTile = controller.getGame().getCharacterCardByIndex(i).getNumberOfNoEntryTiles();
                         } catch(IllegalAccessError e){
 
                         }
                     } else if(i == 1){
                         try{
                             student1.put(colour, controller.getGame().getCharacterCardByIndex(i).getStudent(colour));
+                            noEntryTile = controller.getGame().getCharacterCardByIndex(i).getNumberOfNoEntryTiles();
                         } catch(IllegalAccessError e){
 
                         }
                     } else{
                         try{
                             student2.put(colour, controller.getGame().getCharacterCardByIndex(i).getStudent(colour));
+                            noEntryTile = controller.getGame().getCharacterCardByIndex(i).getNumberOfNoEntryTiles();
                         } catch(IllegalAccessError e){
 
                         }
@@ -501,7 +509,7 @@ public class Lobby extends Observable<IServerPacket> {
                 }
             }
 
-            notify(new CharacterCardUpdate(connection, cards, cost, student0, student1, student2, controller.getGame().getCoins()));
+            notify(new CharacterCardUpdate(connection, cards, cost, student0, student1, student2, controller.getGame().getCoins(), noEntryTile));
         }
 
 
