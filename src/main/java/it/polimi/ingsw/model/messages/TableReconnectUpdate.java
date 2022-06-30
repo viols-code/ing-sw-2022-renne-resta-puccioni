@@ -93,7 +93,7 @@ public class TableReconnectUpdate extends DirectReconnectionMessage{
      */
     @Override
     public void process(View view) {
-        studentsOnCloudTiles.entrySet().forEach(entry -> view.getModelUpdateHandler().updateCloudTileAddedReconnection(entry.getKey(), entry.getValue()));
+        //studentsOnCloudTiles.entrySet().forEach(entry -> view.getModelUpdateHandler().updateCloudTileAddedReconnection(entry.getKey(), entry.getValue()));
         view.getModelUpdateHandler().updateIslands(groupIsland, expert);
         view.getModelUpdateHandler().updateInfluentPlayers(influentPlayers);
         view.getModelUpdateHandler().updateNoEntryTiles(noEntryTiles);

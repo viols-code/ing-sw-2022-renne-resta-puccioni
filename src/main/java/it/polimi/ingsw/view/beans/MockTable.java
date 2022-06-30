@@ -120,6 +120,9 @@ public class MockTable {
      */
     public synchronized void setShownCloudTile(int cloudTile, HashMap<Colour, Integer> students) {
         shownCloudTiles.get(cloudTile).setCloudTile(students);
+        //TODO remove this debug print
+        System.out.println(shownCloudTiles.get(cloudTile).getMockCloudTile());
+
     }
 
     /**

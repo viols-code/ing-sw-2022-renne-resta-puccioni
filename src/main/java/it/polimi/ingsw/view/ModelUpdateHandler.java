@@ -460,6 +460,7 @@ public abstract class ModelUpdateHandler {
             getView().getModel().getTable().addShownCLoudTile();
             getView().getModel().getTable().getShownCloudTiles().get(i).setCloudTile(studentsOnCloudTiles.get(i));
         }
+
     }
 
     /**
@@ -495,12 +496,10 @@ public abstract class ModelUpdateHandler {
      * @param students  the hash map containing the students on the cloud tile
      */
     public void updateCloudTileAddedReconnection(int cloudTile, HashMap<Colour, Integer> students) {
-        getView().getModel().getTable().addCloudTile();
         getView().getModel().getTable().getCloudTileByIndex(cloudTile).setCloudTile(students);
         getView().getModel().getTable().addShownCLoudTile();
         getView().getModel().getTable().setShownCloudTile(cloudTile, students);
         getView().getModel().getTable().getShownCloudTiles().forEach(cloudTile1 -> System.out.println(cloudTile1.getMockCloudTile()));
-
     }
 
     /**
