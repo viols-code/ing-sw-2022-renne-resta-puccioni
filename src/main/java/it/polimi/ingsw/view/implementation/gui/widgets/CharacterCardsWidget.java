@@ -138,6 +138,7 @@ public class CharacterCardsWidget extends StackPane {
 
                 //adds a listener to the students on the card in order to update them when they change
                 GUI.instance().getModel().getCharacterCardByIndex(i).getStudentsProperty().addListener((MapChangeListener<? super Colour, ? super Integer>) listener ->
+
                         Platform.runLater(() -> {
                                     if (card == 0) {
                                         studentsOnCard0.getChildren().clear();
@@ -218,8 +219,6 @@ public class CharacterCardsWidget extends StackPane {
 
                 flowPaneList.get(a).getStyleClass().remove("assistantCards");
                 flowPaneList.get(a).getStyleClass().add("characterCardSelected");
-
-
 
 
             }
@@ -333,6 +332,7 @@ public class CharacterCardsWidget extends StackPane {
                         setStudent(colour);
                     });
                 }
+
 
                 if (i == 0) {
                     studentsOnCard0.add(pane, r, c);
