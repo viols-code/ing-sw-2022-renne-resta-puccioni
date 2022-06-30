@@ -496,4 +496,13 @@ public abstract class ModelUpdateHandler {
     public void updateMotherNature(int motherNaturePosition){
         getView().getModel().getTable().setMotherNaturePosition(motherNaturePosition);
     }
+
+    /**
+     * Updates the current player in the MockModel when a player reconnects
+     *
+     * @param currentPlayer the current player
+     */
+    public void updateCurrentPlayerReconnection(String currentPlayer){
+        getView().getModel().setCurrentPlayer(getView().getModel().getPlayerByNickname(currentPlayer));
+    }
 }

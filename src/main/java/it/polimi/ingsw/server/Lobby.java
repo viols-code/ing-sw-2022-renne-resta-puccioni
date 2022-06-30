@@ -3,6 +3,7 @@ package it.polimi.ingsw.server;
 import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.messages.CharacterCardUpdate;
+import it.polimi.ingsw.model.messages.CurrentPlayerReconnectUpdate;
 import it.polimi.ingsw.model.messages.SchoolBoardUpdate;
 import it.polimi.ingsw.model.messages.TableReconnectUpdate;
 import it.polimi.ingsw.model.player.Player;
@@ -409,6 +410,8 @@ public class Lobby extends Observable<IServerPacket> {
             notify(new SchoolBoardUpdate(connection, player1.getNickname(), entrance, diningRoom,
                     player1.getSchoolBoard().getTowers(), player1.getTowerColour(), professors, coins));
         }
+
+        notify(new CurrentPlayerReconnectUpdate(connection, controller.getGame().getCurrentPlayer().getNickname()));
 
         List<String> influentPlayers = new ArrayList<>();
         List<Integer> noEntryTiles = new ArrayList<>();
