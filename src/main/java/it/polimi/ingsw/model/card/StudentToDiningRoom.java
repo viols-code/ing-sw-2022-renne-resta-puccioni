@@ -98,7 +98,8 @@ public class StudentToDiningRoom extends CharacterCard {
      * @param colour the given colour
      * @return the number of students of the given colour
      */
-    protected int getStudents(Colour colour) {
+    @Override
+    public int getStudent(Colour colour) {
         return students.get(colour);
     }
 
