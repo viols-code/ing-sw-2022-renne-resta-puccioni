@@ -602,7 +602,7 @@ public class GameController implements Observer<PlayerEvent> {
             public void run() {
                 lobby.terminate();
             }
-        }, 100_000L); //Wait for 100 seconds before closing all connections to give time to all clients to terminate properly
+        }, 10000); //Wait for 100 seconds before closing all connections to give time to all clients to terminate properly
     }
 
     /**

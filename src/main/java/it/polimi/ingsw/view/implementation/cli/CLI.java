@@ -169,8 +169,6 @@ public class CLI extends View {
     public void handlePlayerCrash(String playerName) {
         getRenderer().showLobbyMessage(playerName == null ? ViewString.PLAYER_CRASH :
                 ViewString.PLAYER_CRASH_WITH_NAME.formatted(playerName));
-        reset();
-        getRenderer().showLobbyMessage("Enter the server ip and port (leave blank for localhost):");
     }
 
     /**
@@ -179,8 +177,6 @@ public class CLI extends View {
     @Override
     public void handleEndGame() {
         getRenderer().printResult();
-        reset();
-        getRenderer().showLobbyMessage("Enter the server ip and port (leave blank for localhost):");
     }
 
     /**

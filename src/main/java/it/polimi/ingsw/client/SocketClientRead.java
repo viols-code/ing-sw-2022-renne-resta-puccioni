@@ -95,7 +95,10 @@ public class SocketClientRead extends Thread {
                     e.printStackTrace();
                 }
                 if (!hasResponded.get()) {
-                    //client.terminate();
+                    System.out.println("You have disconnected from the server");
+                    if(client.isActive()){
+                        client.terminate();
+                    }
                     break;
                 }
             }

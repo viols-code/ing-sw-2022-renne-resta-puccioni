@@ -309,12 +309,7 @@ public class GUI extends View {
      */
     @Override
     public void handlePlayerCrash(String playerName) {
-        getRenderer().showErrorMessage("Player " + playerName + " crashed! The game is over!\nConnect again to start a new game.");
-        reset();
-        Platform.runLater(() -> {
-            Parent homePage = FXMLUtils.loadFXML("/gui/Home");
-            scene.setRoot(homePage);
-        });
+        getRenderer().showErrorMessage("Player " + playerName + " crashed! The game is over!");
     }
 
     /**
@@ -359,17 +354,5 @@ public class GUI extends View {
      */
     public void setGuidedMode(boolean guidedMode) {
         this.guidedMode = guidedMode;
-    }
-
-    /**
-     * Resets the View to the pre game state.
-     */
-    protected void reset() {
-        super.reset();
-        schoolBoardWidget = null;
-        groupIslandsWidget = null;
-        characterCardsWidget = null;
-        assistantCardsWidget = null;
-        guidedMode = false;
     }
 }

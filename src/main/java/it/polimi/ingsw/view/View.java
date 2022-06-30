@@ -19,7 +19,7 @@ public abstract class View {
     private ModelUpdateHandler modelUpdateHandler;
     private Renderer renderer;
     private ActionSender actionSender;
-    private MockModel model;
+    private final MockModel model;
     private GameState gameState;
 
     private String playerName;
@@ -349,21 +349,6 @@ public abstract class View {
      * Handles the ending of the game.
      */
     public abstract void handleEndGame();
-
-    /**
-     * Resets the View to the pre game state.
-     */
-    protected void reset() {
-        this.gameState = GameState.CONNECTING;
-        this.model = new MockModel();
-        this.lobbyMaster = false;
-        this.playerName = null;
-        this.wizard = null;
-        this.otherNicks.clear();
-        this.takenWizards.clear();
-
-        getClient().reset();
-    }
 
     /**
      * Get the ObservableList of taken wizard
