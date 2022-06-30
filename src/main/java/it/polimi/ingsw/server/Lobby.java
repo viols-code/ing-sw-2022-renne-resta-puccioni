@@ -477,7 +477,7 @@ public class Lobby extends Observable<IServerPacket> {
             HashMap<Colour, Integer> student0 = new HashMap<>();
             HashMap<Colour, Integer> student1= new HashMap<>();
             HashMap<Colour, Integer> student2 = new HashMap<>();
-
+            int noEntryTile = 0;
 
             for(int i = 0; i < 3; i++){
                 cards.add(controller.getGame().getCharacterCardByIndex(i).getCharacterCardType());
@@ -487,18 +487,21 @@ public class Lobby extends Observable<IServerPacket> {
                     if(i == 0){
                         try{
                             student0.put(colour, controller.getGame().getCharacterCardByIndex(i).getStudent(colour));
+                            noEntryTile = controller.getGame().getCharacterCardByIndex(i).getNumberOfNoEntryTiles();
                         } catch(IllegalAccessError e){
 
                         }
                     } else if(i == 1){
                         try{
                             student1.put(colour, controller.getGame().getCharacterCardByIndex(i).getStudent(colour));
+                            noEntryTile = controller.getGame().getCharacterCardByIndex(i).getNumberOfNoEntryTiles();
                         } catch(IllegalAccessError e){
 
                         }
                     } else{
                         try{
                             student2.put(colour, controller.getGame().getCharacterCardByIndex(i).getStudent(colour));
+                            noEntryTile = controller.getGame().getCharacterCardByIndex(i).getNumberOfNoEntryTiles();
                         } catch(IllegalAccessError e){
 
                         }
@@ -506,7 +509,7 @@ public class Lobby extends Observable<IServerPacket> {
                 }
             }
 
-            notify(new CharacterCardUpdate(connection, cards, cost, student0, student1, student2, controller.getGame().getCoins()));
+            notify(new CharacterCardUpdate(connection, cards, cost, student0, student1, student2, controller.getGame().getCoins(), noEntryTile));
         }
 
 

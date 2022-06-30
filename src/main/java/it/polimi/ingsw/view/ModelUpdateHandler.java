@@ -505,4 +505,17 @@ public abstract class ModelUpdateHandler {
     public void updateCurrentPlayerReconnection(String currentPlayer){
         getView().getModel().setCurrentPlayer(getView().getModel().getPlayerByNickname(currentPlayer));
     }
+
+    /**
+     * Updates the number of noEntryTile when a player reconnects
+     *
+     * @param noEntryTile
+     */
+    public void noEntryTile(int noEntryTile){
+        for(int i = 0; i < 3; i++){
+            if(getView().getModel().getCharacterCardByIndex(i).getType() == CharacterCardEnumeration.PROTECT_ISLAND){
+                getView().getModel().getCharacterCardByIndex(i).setNumberOfNoEntryTile(noEntryTile);
+            }
+        }
+    }
 }

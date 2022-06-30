@@ -46,7 +46,7 @@ public class ProtectIsland extends CharacterCard {
      *
      * @return the number of no entry tiles available
      */
-    protected int getNumberOfNoEntryTiles() {
+    public int getNumberOfNoEntryTiles() {
         return numberOfNoEntryTiles;
     }
 

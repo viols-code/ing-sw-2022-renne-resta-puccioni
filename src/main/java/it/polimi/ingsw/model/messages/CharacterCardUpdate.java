@@ -39,6 +39,10 @@ public class CharacterCardUpdate extends DirectReconnectionMessage{
      * coins in the bank
      */
     private final int coins;
+    /**
+     * Number of no entry tiles
+     */
+    private final int noEntryTile;
 
     /**
      * Constructs a new CharacterCardUpdate for the given recipient
@@ -47,7 +51,7 @@ public class CharacterCardUpdate extends DirectReconnectionMessage{
      * @param characterCards the character cards available
      * @param cost the cost of the character cards
      */
-    public CharacterCardUpdate(SocketClientConnection recipient, List<CharacterCardEnumeration> characterCards, HashMap<CharacterCardEnumeration, Integer> cost, HashMap<Colour, Integer> student0, HashMap<Colour, Integer> student1, HashMap<Colour, Integer> student2, int coins) {
+    public CharacterCardUpdate(SocketClientConnection recipient, List<CharacterCardEnumeration> characterCards, HashMap<CharacterCardEnumeration, Integer> cost, HashMap<Colour, Integer> student0, HashMap<Colour, Integer> student1, HashMap<Colour, Integer> student2, int coins, int noEntryTile) {
         super(recipient);
         this.characterCards = characterCards;
         this.cost = cost;
@@ -55,6 +59,7 @@ public class CharacterCardUpdate extends DirectReconnectionMessage{
         this.student1 = student1;
         this.student2 = student2;
         this.coins = coins;
+        this.noEntryTile = noEntryTile;
     }
 
 
@@ -73,5 +78,6 @@ public class CharacterCardUpdate extends DirectReconnectionMessage{
         }
         view.getModelUpdateHandler().updateCardStudents(student0, student1, student2);
         view.getModelUpdateHandler().updateTableCoins(coins);
+        view.getModelUpdateHandler().noEntryTile(noEntryTile);
     }
 }
