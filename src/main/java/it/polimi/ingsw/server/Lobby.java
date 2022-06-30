@@ -416,6 +416,14 @@ public class Lobby extends Observable<IServerPacket> {
 
         int count = 0;
 
+        CharacterCardEnumeration charactercard = controller.getGame().getActiveCharacterCard().getCharacterCardType();
+
+        HashMap<Colour, Boolean> professors = new HashMap<>();
+
+        for(Colour colour : Colour.values()){
+            professors.put(colour, controller.getGame().getTable().isProfessorOnTable(colour));
+        }
+
         for(int i = 0; i < controller.getGame().getTable().getNumberOfGroupIsland(); i++){
             if(controller.getGame().getTable().getGroupIslandByIndex(i).getInfluence() != null){
                 influentPlayers.add(controller.getGame().getTable().getGroupIslandByIndex(i).getInfluence().getNickname());
@@ -455,7 +463,7 @@ public class Lobby extends Observable<IServerPacket> {
         }
 
         notify(new TableReconnectUpdate(connection, controller.getGame().getTable().getNumberOfGroupIsland(), controller.getGame().hasProtectIslandCard(), influentPlayers,
-                noEntryTiles, singleIslands, students, motherNaturePosition, studentsOnCloudTiles));
+                noEntryTiles, singleIslands, students, motherNaturePosition, studentsOnCloudTiles, charactercard, professors));
 
 
         if(gameMode){

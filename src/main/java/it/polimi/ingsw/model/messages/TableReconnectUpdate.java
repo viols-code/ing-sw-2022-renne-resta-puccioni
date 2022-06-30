@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.messages;
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.server.SocketClientConnection;
 import it.polimi.ingsw.view.View;
+import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
 
 import java.io.Serial;
 import java.util.HashMap;
@@ -58,13 +59,23 @@ public class TableReconnectUpdate extends DirectReconnectionMessage{
     private final HashMap<Integer, HashMap<Colour, Integer>> studentsOnCloudTiles;
 
     /**
+     * The type of character card activated
+     */
+    private final CharacterCardEnumeration characterCard;
+
+    /**
+     * A hashmap which states for every colour if the professor of that colour is on the table
+     */
+    private final HashMap<Colour, Boolean> professors;
+
+    /**
      * Constructs a new TableReconnectUpdate for the given recipient
      *
      * @param recipient the client connection that this message will be sent to
      */
     public TableReconnectUpdate(SocketClientConnection recipient, int groupIsland, boolean expert, List<String> influentPlayers, List<Integer> noEntryTiles,
                                 List<Integer> numberOfSingleIslands, HashMap<Integer, HashMap<Colour, Integer>> students, int motherNaturePosition,
-                                HashMap<Integer, HashMap<Colour, Integer>> studentsOnCloudTiles) {
+                                HashMap<Integer, HashMap<Colour, Integer>> studentsOnCloudTiles, CharacterCardEnumeration characterCard, HashMap<Colour, Boolean> professors) {
         super(recipient);
         this.recipient = recipient;
         this.groupIsland = groupIsland;
@@ -75,6 +86,8 @@ public class TableReconnectUpdate extends DirectReconnectionMessage{
         this.students = students;
         this.motherNaturePosition = motherNaturePosition;
         this.studentsOnCloudTiles = studentsOnCloudTiles;
+        this.characterCard = characterCard;
+        this.professors = professors;
     }
 
     /**
@@ -100,5 +113,7 @@ public class TableReconnectUpdate extends DirectReconnectionMessage{
         view.getModelUpdateHandler().updateStudents(students);
         view.getModelUpdateHandler().updateMotherNaturePosition(motherNaturePosition);
         view.getModelUpdateHandler().updateStudentsOnShownCloudTiles(studentsOnCloudTiles);
+        view.getModelUpdateHandler().updateReconnectedActiveCharacterCard(characterCard);
+        view.getModelUpdateHandler().updateProfessorsReconnection(professors);
     }
 }
