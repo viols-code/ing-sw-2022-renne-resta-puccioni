@@ -39,7 +39,7 @@ public class ExchangeEntranceDiningRoom extends CharacterCard {
         game.getCurrentPlayer().getSchoolBoard().addStudentToEntrance(colourDiningRoom);
         game.getCurrentPlayer().getSchoolBoard().addStudentToDiningRoom(colourEntrance);
 
-
+        //If the player has the right to have a coin after the exchange, it is given
         if (((game.getCurrentPlayer().getSchoolBoard().getDiningRoom(colourEntrance)) % 3) == 0) {
             game.getCurrentPlayer().addCoins(1);
             game.setCoins(game.getCoins() - 1);

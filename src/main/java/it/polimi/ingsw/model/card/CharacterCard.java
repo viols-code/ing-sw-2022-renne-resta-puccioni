@@ -181,7 +181,9 @@ public abstract class CharacterCard extends Observable<IServerPacket> {
         if (game.getTable().getGroupIslandByIndex(groupIsland).getInfluence() == null) {
             setNewInfluencePlayer(influencePlayer, groupIsland);
         } else if (!(game.getTable().getGroupIslandByIndex(groupIsland).getInfluence().equals(influencePlayer))) {
+            //Adds to the old influence player's schoolBoard as many tower as the number of single islands contained in the group island
             game.getTable().getGroupIslandByIndex(groupIsland).getInfluence().getSchoolBoard().addTower(game.getTable().getGroupIslandByIndex(groupIsland).getNumberOfSingleIsland());
+            //Sets the new influence player
             setNewInfluencePlayer(influencePlayer, groupIsland);
         }
         checkUnifyIsland(groupIsland);
@@ -216,8 +218,8 @@ public abstract class CharacterCard extends Observable<IServerPacket> {
      */
     public void checkProfessor(Colour colour) {
         boolean control = true;
-        // If one Player already has the professor of the given colour, removes the professor from their school board
-        // and add it to the current Player
+        // If one Player already has the professor of the given colour and the currentPlayer has the right to steal the professor,
+        // removes the professor from their school board and adds it to the current Player
         for (int i = 0; i < game.getNumberOfPlayer(); i++) {
             if (game.getPlayerByIndex(i).getSchoolBoard().hasProfessor(colour) && !game.getPlayerByIndex(i).equals(game.getCurrentPlayer())) {
                 control = false;
@@ -245,7 +247,7 @@ public abstract class CharacterCard extends Observable<IServerPacket> {
     }
 
     /**
-     * Checks if the current player can take the control of the professors
+     * Checks if the current player can take the control of the professors. Method implemented by the character card TakeProfessor
      */
     public void professor() {
     }
@@ -334,6 +336,7 @@ public abstract class CharacterCard extends Observable<IServerPacket> {
      * @param groupIsland2 the second GroupIsland to be unified
      */
     protected void unifyGroupIsland(GroupIsland groupIsland1, GroupIsland groupIsland2) {
+        //Adds all the single islands of the second group island to the first one
         for (int i = 0; i < groupIsland2.getNumberOfSingleIsland(); i++) {
             groupIsland1.addSingleIsland(groupIsland2.getIslandByIndex(i));
             if (groupIsland2.isNoEntryTile()) {
