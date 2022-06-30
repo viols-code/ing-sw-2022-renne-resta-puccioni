@@ -445,7 +445,7 @@ public class Lobby extends Observable<IServerPacket> {
                 influentPlayers.add("");
             }
 
-            if(controller.getGame().hasProtectIslandCard()){
+            if(controller.isGameExpert() && controller.getGame().hasProtectIslandCard()){
                 noEntryTiles.add(controller.getGame().getTable().getGroupIslandByIndex(i).getNumberOfNoEntryTile());
             }else{
                 noEntryTiles.add(0);
