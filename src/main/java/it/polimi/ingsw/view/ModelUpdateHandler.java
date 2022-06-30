@@ -539,8 +539,12 @@ public abstract class ModelUpdateHandler {
      * @param currentAssistantCard the value of the current assistant card
      */
     public void updateCurrentAssistantCardReconnected(String playerName, int currentAssistantCard){
-        getView().getModel().getPlayerByNickname(playerName).setCurrentAssistantCard(currentAssistantCard);
-        getView().getModel().getPlayerByNickname(playerName).setAssistantCardValue(true);
+        if(currentAssistantCard == -1){
+            getView().getModel().getPlayerByNickname(playerName).setAssistantCardValue(false);
+        } else{
+            getView().getModel().getPlayerByNickname(playerName).setCurrentAssistantCard(currentAssistantCard);
+            getView().getModel().getPlayerByNickname(playerName).setAssistantCardValue(true);
+        }
     }
 
     /**
