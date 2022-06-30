@@ -462,4 +462,25 @@ public abstract class ModelUpdateHandler {
         }
     }
 
+    /**
+     * Updates the active character card in MockModel when a player reconnects
+     *
+     * @param characterCard the new current character card
+     */
+    public void updateReconnectedActiveCharacterCard(CharacterCardEnumeration characterCard) {
+        if (characterCard == CharacterCardEnumeration.BASIC_STATE) {
+            getView().getModel().setCurrentCharacterCard(getView().getModel().getBasicState());
+        } else {
+            getView().getModel().setCurrentCharacterCard(getView().getModel().getCharacterCardByType(characterCard));
+        }
+    }
+
+    public void updateProfessorsReconnection(HashMap<Colour, Boolean> professors){
+
+        for(Colour colour : Colour.values()){
+            if(!professors.get(colour)){
+                getView().getModel().getTable().removeProfessorFromTable(colour);
+            }
+        }
+    }
 }
