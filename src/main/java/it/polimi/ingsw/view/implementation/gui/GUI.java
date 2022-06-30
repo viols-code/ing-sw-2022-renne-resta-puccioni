@@ -333,6 +333,21 @@ public class GUI extends View {
     }
 
     /**
+     * Notify that a player reconnected to the game
+     *
+     * @param playerName the nickname of the player reconnected
+     */
+    public void handlePlayerReconnect(String playerName){
+        if(!playerName.equals(getPlayerName())){
+            getRenderer().showLobbyMessage("Player " + playerName + " reconnected");
+        }
+        else{
+            showPlayerBoard();
+            getRenderer().showLobbyMessage("Successfully reconnected");
+        }
+    }
+
+    /**
      * Gets the scene
      *
      * @return the scene

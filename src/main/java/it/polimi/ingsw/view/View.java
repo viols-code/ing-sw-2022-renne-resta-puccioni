@@ -240,6 +240,15 @@ public abstract class View {
     }
 
     /**
+     * Notify that a player reconnected to the game
+     *
+     * @param playerName the nickname of the player reconnected
+     */
+    public void handlePlayerReconnect(String playerName){
+
+    }
+
+    /**
      * Handles the successful nickname setting
      *
      * @param nickname       the nickname chosen by the local player

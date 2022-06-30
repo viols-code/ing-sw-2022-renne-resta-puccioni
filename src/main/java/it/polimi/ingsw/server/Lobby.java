@@ -104,6 +104,7 @@ public class Lobby extends Observable<IServerPacket> {
             notify(new CorrectReconnectionMessage(connection, players));
             sendGameInformation(connection);
             addToGame(connection);
+            notify(new PlayerReconnectedMessage(connection.getPlayerName()));
         } else {
             List<String> otherNames = new ArrayList<>();
             connections.forEach(con -> {
@@ -381,6 +382,8 @@ public class Lobby extends Observable<IServerPacket> {
      * @param connection the connection of the player
      */
     public void sendGameInformation(SocketClientConnection connection){
+
+        notify(new ModelInfoReconnectedUpdate(connection,controller.getGame().getTurnPhase(),controller.getGame().getGamePhase()));
 
         for(int i = 0; i < controller.getGame().getNumberOfPlayer(); i++){
             Player player1 = controller.getGame().getPlayerByIndex(i);
