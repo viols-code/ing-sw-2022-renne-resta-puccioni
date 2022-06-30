@@ -288,11 +288,9 @@ public class Lobby extends Observable<IServerPacket> {
      * Terminate the Lobby, disconnecting all clients
      */
     public synchronized void terminate() {
-        for (SocketClientConnection conn : connections) {
-            if (conn != null) {
-                conn.closeConnection();
-            }
-            connections.remove(conn);
-        }
+        connections.stream().filter(conn -> conn != null).forEach((conn) -> {
+            conn.closeConnection();
+        });
+        connections.clear();
     }
 }
