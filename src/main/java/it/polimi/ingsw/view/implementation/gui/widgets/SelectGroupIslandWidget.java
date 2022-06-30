@@ -234,6 +234,7 @@ public class SelectGroupIslandWidget extends StackPane {
                     noEntryTileLabel.setLayoutX(60);
                     noEntryTileLabel.setLayoutY(20);
                     noEntryTileLabel.setText(" ! : " + GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getNoEntryTile());
+                    noEntryTileLabel.setStyle("-fx-font-size: 12; -fx-font-weight: bold;");
                     noEntryTileLabel.setTextFill(GUIColours.getNoEntryTileMarkColour());
                     noEntryTileLabel.setBackground(new Background(new BackgroundFill(GUIColours.getGetNoEntryTileBackGroundColour(), CornerRadii.EMPTY, Insets.EMPTY)));
                     if (GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getNoEntryTile() > 0 && k == 0) {
