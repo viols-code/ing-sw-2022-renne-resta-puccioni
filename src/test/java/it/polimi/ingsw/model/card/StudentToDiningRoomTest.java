@@ -42,7 +42,7 @@ class StudentToDiningRoomTest {
     void setColour() {
         int coins = 1;
         for (Colour colour : Colour.values()) {
-            if (cardTest.getStudents(colour) >= 3) {
+            if (cardTest.getStudent(colour) >= 3) {
                 cardTest.setColour(colour);
                 assertEquals(2, gameTest.getPlayerByIndex(0).getSchoolBoard().getDiningRoom(colour));
                 assertEquals(coins, gameTest.getPlayerByIndex(0).getCoins());
@@ -60,7 +60,7 @@ class StudentToDiningRoomTest {
 
 
         for (Colour colour : Colour.values()) {
-            if (cardTest.getStudents(colour) == 0) {
+            if (cardTest.getStudent(colour) == 0) {
                 assertThrows(IllegalArgumentException.class, () -> cardTest.setColour(colour));
             }
         }
