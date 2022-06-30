@@ -110,15 +110,14 @@ public class GroupIslandsWidget extends StackPane {
                 islandPane.setOnMouseClicked(event -> moveMotherNature(groupIsland));
             }
 
-            singleIslandsCoordinates = Positions.getIslandsCoordinates(GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getNumberOfSingleIslands());
             for (int k = 0; k < GUI.instance().getModel().getTable().getGroupIslandByIndex(groupIsland).getNumberOfSingleIslands(); k++) {
                 int singleIsland = k;
                 //creates the anchor pane for the single island and sets the position in the groupIslandPane
                 AnchorPane singleIslandPane = new AnchorPane();
                 singleIslandBoxes.add(singleIslandPane);
                 islandPane.getChildren().add(singleIslandPane);
-                singleIslandPane.setLayoutX(singleIslandsCoordinates.get(k).getRow());
-                singleIslandPane.setLayoutY(singleIslandsCoordinates.get(k).getColumn());
+                singleIslandPane.setLayoutX(Positions.getIslandsCoordinates(GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getNumberOfSingleIslands()).get(k).getRow());
+                singleIslandPane.setLayoutY(Positions.getIslandsCoordinates(GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getNumberOfSingleIslands()).get(k).getColumn());
 
                 //create the pane and image view to for the single island
                 ImageView imageView = new ImageView();
