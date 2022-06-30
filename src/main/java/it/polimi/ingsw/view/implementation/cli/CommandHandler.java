@@ -89,7 +89,9 @@ public class CommandHandler {
             }
         } catch (NoSuchMethodException | SecurityException |
                 IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+            e.printStackTrace();
             throw new IllegalArgumentException("This command doesn't exist");
+
         }
     }
 

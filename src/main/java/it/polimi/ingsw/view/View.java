@@ -232,9 +232,6 @@ public abstract class View {
         getModel().setReconnected(true);
         setGameState(GameState.PLAYING);
         players.forEach((key, value) -> getModel().addPlayer(key, value, gameMode, key.equalsIgnoreCase(this.playerName)));
-        for (int i = 0; i < numPlayers; i++) {
-            getModel().getTable().addCloudTile();
-        }
     }
 
     /**

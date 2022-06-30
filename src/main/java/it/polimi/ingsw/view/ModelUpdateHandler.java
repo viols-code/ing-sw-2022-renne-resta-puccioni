@@ -483,4 +483,19 @@ public abstract class ModelUpdateHandler {
             }
         }
     }
+
+    /**
+     * Updates a specific cloud tile when it is filled
+     *
+     * @param cloudTile the index of the cloud tile selected
+     * @param students  the hash map containing the students on the cloud tile
+     */
+    public void updateCloudTileAddedReconnection(int cloudTile, HashMap<Colour, Integer> students) {
+        getView().getModel().getTable().addCloudTile();
+        getView().getModel().getTable().getCloudTileByIndex(cloudTile).setCloudTile(students);
+        getView().getModel().getTable().addShownCLoudTile();
+        getView().getModel().getTable().setShownCloudTile(cloudTile, students);
+        getView().getModel().getTable().getShownCloudTiles().forEach(cloudTile1 -> System.out.println(cloudTile1.getMockCloudTile()));
+
+    }
 }
