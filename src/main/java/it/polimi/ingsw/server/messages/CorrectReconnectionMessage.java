@@ -20,7 +20,6 @@ public class CorrectReconnectionMessage extends DirectServerMessage {
      * A HashMap containing the nicknames and the wizards of all players
      */
     private final HashMap<String, Wizard> players;
-
     /**
      * Constructs a new CorrectConnectionMessage for the given client connection
      *
