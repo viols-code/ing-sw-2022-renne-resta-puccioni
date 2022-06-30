@@ -418,6 +418,48 @@ public class Lobby extends Observable<IServerPacket> {
 
         notify(new CurrentPlayerReconnectUpdate(connection, controller.getGame().getCurrentPlayer().getNickname()));
 
+
+        if(gameMode){
+            List<CharacterCardEnumeration> cards = new ArrayList<>();
+            HashMap<CharacterCardEnumeration, Integer> cost = new HashMap<>();
+            HashMap<Colour, Integer> student0 = new HashMap<>();
+            HashMap<Colour, Integer> student1= new HashMap<>();
+            HashMap<Colour, Integer> student2 = new HashMap<>();
+            int noEntryTile = 0;
+
+            for(int i = 0; i < 3; i++){
+                cards.add(controller.getGame().getCharacterCardByIndex(i).getCharacterCardType());
+                cost.put(controller.getGame().getCharacterCardByIndex(i).getCharacterCardType(), controller.getGame().getCharacterCardByIndex(i).getCost());
+
+                for(Colour colour : Colour.values()){
+                    if(i == 0){
+                        try{
+                            student0.put(colour, controller.getGame().getCharacterCardByIndex(i).getStudent(colour));
+                            noEntryTile = controller.getGame().getCharacterCardByIndex(i).getNumberOfNoEntryTiles();
+                        } catch(IllegalAccessError e){
+
+                        }
+                    } else if(i == 1){
+                        try{
+                            student1.put(colour, controller.getGame().getCharacterCardByIndex(i).getStudent(colour));
+                            noEntryTile = controller.getGame().getCharacterCardByIndex(i).getNumberOfNoEntryTiles();
+                        } catch(IllegalAccessError e){
+
+                        }
+                    } else{
+                        try{
+                            student2.put(colour, controller.getGame().getCharacterCardByIndex(i).getStudent(colour));
+                            noEntryTile = controller.getGame().getCharacterCardByIndex(i).getNumberOfNoEntryTiles();
+                        } catch(IllegalAccessError e){
+
+                        }
+                    }
+                }
+            }
+
+            notify(new CharacterCardUpdate(connection, cards, cost, student0, student1, student2, controller.getGame().getCoins(), noEntryTile));
+        }
+
         List<Integer> assistantCardsUsed = new ArrayList<>();
 
         for(int i = 0; i < 10; i++){
@@ -490,47 +532,6 @@ public class Lobby extends Observable<IServerPacket> {
         notify(new TableReconnectUpdate(connection, controller.getGame().getTable().getNumberOfGroupIsland(), hasProtectedCard, influentPlayers,
                 noEntryTiles, singleIslands, students, motherNaturePosition, studentsOnCloudTiles, characterCard, professors));
 
-
-        if(gameMode){
-            List<CharacterCardEnumeration> cards = new ArrayList<>();
-            HashMap<CharacterCardEnumeration, Integer> cost = new HashMap<>();
-            HashMap<Colour, Integer> student0 = new HashMap<>();
-            HashMap<Colour, Integer> student1= new HashMap<>();
-            HashMap<Colour, Integer> student2 = new HashMap<>();
-            int noEntryTile = 0;
-
-            for(int i = 0; i < 3; i++){
-                cards.add(controller.getGame().getCharacterCardByIndex(i).getCharacterCardType());
-                cost.put(controller.getGame().getCharacterCardByIndex(i).getCharacterCardType(), controller.getGame().getCharacterCardByIndex(i).getCost());
-
-                for(Colour colour : Colour.values()){
-                    if(i == 0){
-                        try{
-                            student0.put(colour, controller.getGame().getCharacterCardByIndex(i).getStudent(colour));
-                            noEntryTile = controller.getGame().getCharacterCardByIndex(i).getNumberOfNoEntryTiles();
-                        } catch(IllegalAccessError e){
-
-                        }
-                    } else if(i == 1){
-                        try{
-                            student1.put(colour, controller.getGame().getCharacterCardByIndex(i).getStudent(colour));
-                            noEntryTile = controller.getGame().getCharacterCardByIndex(i).getNumberOfNoEntryTiles();
-                        } catch(IllegalAccessError e){
-
-                        }
-                    } else{
-                        try{
-                            student2.put(colour, controller.getGame().getCharacterCardByIndex(i).getStudent(colour));
-                            noEntryTile = controller.getGame().getCharacterCardByIndex(i).getNumberOfNoEntryTiles();
-                        } catch(IllegalAccessError e){
-
-                        }
-                    }
-                }
-            }
-
-            notify(new CharacterCardUpdate(connection, cards, cost, student0, student1, student2, controller.getGame().getCoins(), noEntryTile));
-        }
 
 
     }

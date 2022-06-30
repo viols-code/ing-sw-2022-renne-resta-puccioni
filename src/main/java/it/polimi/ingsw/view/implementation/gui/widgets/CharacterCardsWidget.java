@@ -170,6 +170,35 @@ public class CharacterCardsWidget extends StackPane {
         //adds a listener to the coins on the table in order to update it when they change
         GUI.instance().getModel().getCoinsProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> numberCoinsTable.setText(String.valueOf(GUI.instance().getModel().getCoins()))));
 
+        if(GUI.instance().getModel().getCurrentCharacterCard().getType() != CharacterCardEnumeration.BASIC_STATE){
+            int a = -1;
+            for (int i = 0; i < 3; i++) {
+                if (GUI.instance().getModel().getCharacterCardByIndex(i).getType() == GUI.instance().getModel().getCurrentCharacterCard().getType()) {
+                    a = i;
+                    break;
+                }
+            }
+
+            if (GUI.instance().getPlayerName().equals(GUI.instance().getModel().getCurrentPlayer().getNickname())) {
+                switch (GUI.instance().getModel().getCurrentCharacterCard().getType()) {
+                    case NO_COLOUR, THREE_STUDENT -> imageViewList.get(a).setOnMouseClicked(event -> Platform.runLater(() -> GUI.instance().showColourDecision()));
+                    case PROTECT_ISLAND, ISLAND_INFLUENCE, STUDENT_TO_ISLAND -> imageViewList.get(a).setOnMouseClicked(event -> Platform.runLater(() -> GUI.instance().showGroupIslandDecision()));
+                    case EXCHANGE_ENTRANCE_DINING_ROOM -> imageViewList.get(a).setOnMouseClicked(event -> Platform.runLater(() -> GUI.instance().showExchangeEntranceDiningRoom()));
+                }
+
+                if(a == 0){
+                    setImageEvent(student0, pane0, studentColour0, student1, student2);
+                } else if(a == 1){
+                    setImageEvent(student1, pane1, studentColour1, student0, student2);
+                } else{
+                    setImageEvent(student2, pane2, studentColour2, student0, student1);
+                }
+            }
+
+            flowPaneList.get(a).getStyleClass().remove("assistantCards");
+            flowPaneList.get(a).getStyleClass().add("characterCardSelected");
+        }
+
         GUI.instance().getModel().currentCharacterCardProperty().addListener((ChangeListener<? super MockCard>) (change, oldVal, newVal) -> Platform.runLater(() -> {
             if (newVal.getType() == CharacterCardEnumeration.BASIC_STATE) {
                 for (int i = 0; i < 3; i++) {
@@ -219,8 +248,6 @@ public class CharacterCardsWidget extends StackPane {
 
                 flowPaneList.get(a).getStyleClass().remove("assistantCards");
                 flowPaneList.get(a).getStyleClass().add("characterCardSelected");
-
-
             }
         }));
 
