@@ -1,11 +1,9 @@
 package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.controller.GameController;
+import it.polimi.ingsw.model.AssistantCard;
 import it.polimi.ingsw.model.Colour;
-import it.polimi.ingsw.model.messages.CharacterCardUpdate;
-import it.polimi.ingsw.model.messages.CurrentPlayerReconnectUpdate;
-import it.polimi.ingsw.model.messages.SchoolBoardUpdate;
-import it.polimi.ingsw.model.messages.TableReconnectUpdate;
+import it.polimi.ingsw.model.messages.*;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.Wizard;
 import it.polimi.ingsw.observer.Observable;
@@ -383,6 +381,7 @@ public class Lobby extends Observable<IServerPacket> {
      * @param connection the connection of the player
      */
     public void sendGameInformation(SocketClientConnection connection){
+
         for(int i = 0; i < controller.getGame().getNumberOfPlayer(); i++){
             Player player1 = controller.getGame().getPlayerByIndex(i);
             int coins = -1;
@@ -405,13 +404,23 @@ public class Lobby extends Observable<IServerPacket> {
                 professors.put(colour, player1.getSchoolBoard().hasProfessor(colour));
             }
 
-
+            int currentAssistantCard = player1.getCurrentAssistantCard().getValue();
 
             notify(new SchoolBoardUpdate(connection, player1.getNickname(), entrance, diningRoom,
-                    player1.getSchoolBoard().getTowers(), player1.getTowerColour(), professors, coins));
+                    player1.getSchoolBoard().getTowers(), player1.getTowerColour(), professors, coins, currentAssistantCard));
         }
 
         notify(new CurrentPlayerReconnectUpdate(connection, controller.getGame().getCurrentPlayer().getNickname()));
+
+        List<Integer> assistantCardsUsed = new ArrayList<>();
+
+        for(int i = 0; i < 10; i++){
+            if(!controller.getGame().getPlayerByNickname(connection.getPlayerName()).isAssistantCardPresent(controller.getGame().getAssistantCard(i))){
+                assistantCardsUsed.add(i);
+            }
+        }
+
+        notify(new assistantCardsUpdate(connection, assistantCardsUsed));
 
         List<String> influentPlayers = new ArrayList<>();
         List<Integer> noEntryTiles = new ArrayList<>();

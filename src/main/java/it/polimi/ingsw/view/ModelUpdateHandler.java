@@ -1,5 +1,6 @@
 package it.polimi.ingsw.view;
 
+import it.polimi.ingsw.model.AssistantCard;
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.GamePhase;
 import it.polimi.ingsw.model.game.TurnPhase;
@@ -530,6 +531,28 @@ public abstract class ModelUpdateHandler {
             if(getView().getModel().getCharacterCardByIndex(i).getType() == CharacterCardEnumeration.PROTECT_ISLAND){
                 getView().getModel().getCharacterCardByIndex(i).setNumberOfNoEntryTile(noEntryTile);
             }
+        }
+    }
+
+    /**
+     * Updates the current assistant card
+     *
+     * @param currentAssistantCard the value of the current assistant card
+     */
+    public void updateCurrentAssistantCardReconnected(String playerName, int currentAssistantCard){
+        getView().getModel().getPlayerByNickname(playerName).setCurrentAssistantCard(currentAssistantCard);
+        getView().getModel().getPlayerByNickname(playerName).setAssistantCardValue(true);
+    }
+
+    /**
+     * Updates the list of available assistant cards
+     *
+     * @param assistantCards the assistant cards available
+     */
+    public void updateListOfAssistantCards(List<Integer> assistantCards){
+
+        for(int i = 0; i< assistantCards.size(); i++){
+            getView().getModel().getLocalPlayer().removeAssistantCard(assistantCards.get(i));
         }
     }
 }
