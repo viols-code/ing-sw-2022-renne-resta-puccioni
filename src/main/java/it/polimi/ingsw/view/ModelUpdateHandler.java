@@ -125,8 +125,8 @@ public abstract class ModelUpdateHandler {
      * @param assistantCard the index of the assistant card played in this turn
      */
     public void updateCurrentAssistantCard(String player, int assistantCard) {
-        getView().getModel().getPlayerByNickname(player).setAssistantCardValue(true);
         getView().getModel().getPlayerByNickname(player).setCurrentAssistantCard(assistantCard);
+        getView().getModel().getPlayerByNickname(player).setAssistantCardValue(true);
     }
 
     /**
