@@ -17,7 +17,7 @@ Software Engineering Project A.A. 2021/2022
 | Socket | 🟩 |
 | Character Cards | 🟩 |
 | Multiple games | 🟩|
-| Disconnextions | 🟩|
+| Disconnections | 🟩|
 
 ## Starting the server
 
@@ -30,7 +30,7 @@ Both GUI and CLI are supported and can be used to play the game.
 If you want to run a new GUI client you can run:  
 `java -jar softeng-GC16.jar`  
 Otherwise, if you want to run a new CLI client you can use:  
-`java -jar softeng-GC16.jar -cli`
+`java -jar softeng-GC16.jar cli`
 
 
 ## Tests coverage
