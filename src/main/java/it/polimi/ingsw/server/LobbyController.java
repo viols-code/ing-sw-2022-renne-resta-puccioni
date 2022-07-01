@@ -109,7 +109,7 @@ public class LobbyController {
                 } else {
                     System.out.println("Duplicated username, waiting for a new one");
                 }
-                if(lobby.getNicknames().size() == 0){
+                if (lobby.getNicknames().size() == 0) {
                     playingLobbies.put(lobby.getUuid(), lobby);
                     disconnectedLobbies.remove(lobby.getUuid());
                 }

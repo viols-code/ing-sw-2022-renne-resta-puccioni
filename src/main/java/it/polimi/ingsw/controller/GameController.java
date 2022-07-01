@@ -754,7 +754,7 @@ public class GameController implements Observer<PlayerEvent> {
                     endTurn();
                 }
             }
-        } else if(game.getNumberOfConnectedPlayers() == 1){
+        } else if (game.getNumberOfConnectedPlayers() == 1) {
             timer = new Timer();
             timer.schedule(new TimerTask() {
                 @Override
@@ -763,7 +763,7 @@ public class GameController implements Observer<PlayerEvent> {
                     endGame();
                 }
             }, 300000);
-        } else{
+        } else {
             timer.cancel();
         }
     }
@@ -776,7 +776,7 @@ public class GameController implements Observer<PlayerEvent> {
     public synchronized void reconnectPlayer(String nickname) {
         try {
             game.addReconnectedPlayer(game.getPlayerByNickname(nickname));
-            if(timer != null){
+            if (timer != null) {
                 timer.cancel();
             }
 
