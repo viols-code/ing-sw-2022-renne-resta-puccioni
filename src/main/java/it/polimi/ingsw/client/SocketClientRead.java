@@ -53,8 +53,6 @@ public class SocketClientRead extends Thread {
                 } else {
                     if (packet instanceof IProcessablePacket) {
                         if (packet instanceof IServerPacket serverPacket) {
-                            System.out.println("Received: " + packet);
-
                             try {
                                 // Call the method process in the message
                                 serverPacket.process(client.getView());
