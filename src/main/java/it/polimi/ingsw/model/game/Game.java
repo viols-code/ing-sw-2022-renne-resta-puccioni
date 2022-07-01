@@ -173,16 +173,6 @@ public abstract class Game extends Observable<IServerPacket> {
     }
 
     /**
-     * Get the disconnected player at the given index
-     *
-     * @param index the index of the player to return
-     * @return the player at the given index
-     */
-    public Player getPlayerDisconnectedByIndex(int index) {
-        return disconnectedPlayers.get(index);
-    }
-
-    /**
      * Gets the index of the given player in the list of players
      *
      * @param player of whom the index is wanted

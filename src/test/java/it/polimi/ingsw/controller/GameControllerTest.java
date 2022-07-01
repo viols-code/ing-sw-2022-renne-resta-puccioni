@@ -269,6 +269,28 @@ class GameControllerTest {
         assertEquals(gameControllerThree.getGame().getPlayerByNickname("Laura"), gameControllerThree.getGame().getCurrentPlayer());
         assertEquals(3, gameControllerThree.getGame().getNumberOfPlayer());
         assertEquals(1, gameControllerThree.getGame().getNumberOfConnectedPlayers());
+
+        // Laura reconnects
+        gameControllerThree.reconnectPlayer("Laura");
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
+        assertEquals(gameControllerThree.getGame().getPlayerByNickname("Laura"), gameControllerThree.getGame().getCurrentPlayer());
+        gameControllerThree.playAssistantCard("Laura", 0);
+
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
+        assertEquals(gameControllerThree.getGame().getPlayerByNickname("Sara"), gameControllerThree.getGame().getCurrentPlayer());
+
+        // Viola reconnects
+        gameControllerThree.reconnectPlayer("Viola");
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
+        assertEquals(gameControllerThree.getGame().getPlayerByNickname("Sara"), gameControllerThree.getGame().getCurrentPlayer());
+        gameControllerThree.playAssistantCard("Sara", 1);
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
+        assertEquals(gameControllerThree.getGame().getPlayerByNickname("Viola"), gameControllerThree.getGame().getCurrentPlayer());
+        gameControllerThree.playAssistantCard("Viola", 2);
+
+        // Playing phase
+        assertEquals(TurnPhase.MOVE_STUDENT, gameControllerThree.getGame().getTurnPhase());
+        assertEquals(gameControllerThree.getGame().getPlayerByNickname("Laura"), gameControllerThree.getGame().getCurrentPlayer());
     }
 
     @Test
