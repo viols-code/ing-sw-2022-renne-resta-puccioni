@@ -34,7 +34,10 @@ public class GameController implements Observer<PlayerEvent> {
      * The lobby connected to this GameController
      */
     private final Lobby lobby;
-
+    /**
+     * Timer for the disconnection
+     */
+    private Timer timer;
 
     /**
      * Constructor: creates a GameController
@@ -751,6 +754,15 @@ public class GameController implements Observer<PlayerEvent> {
                     endTurn();
                 }
             }
+        } else{
+            timer = new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    game.setWinner(game.getPlayerConnectedByIndex(0));
+                    endGame();
+                }
+            }, 300000);
         }
     }
 
@@ -762,6 +774,10 @@ public class GameController implements Observer<PlayerEvent> {
     public synchronized void reconnectPlayer(String nickname) {
         try {
             game.addReconnectedPlayer(game.getPlayerByNickname(nickname));
+            if(timer != null){
+                timer.cancel();
+            }
+
             if (game.getNumberOfPlayer() == 3 && game.getNumberOfConnectedPlayers() == 2) {
                 if (!game.getCurrentPlayer().getReconnected()) {
                     if (game.getTurnPhase() == TurnPhase.PLAY_ASSISTANT_CARD) {
