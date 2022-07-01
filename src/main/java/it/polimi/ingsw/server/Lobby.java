@@ -532,7 +532,5 @@ public class Lobby extends Observable<IServerPacket> {
         notify(new TableReconnectUpdate(connection, controller.getGame().getTable().getNumberOfGroupIsland(), hasProtectedCard, influentPlayers,
                 noEntryTiles, singleIslands, students, motherNaturePosition, studentsOnCloudTiles, characterCard, professors));
 
-
-
     }
 }

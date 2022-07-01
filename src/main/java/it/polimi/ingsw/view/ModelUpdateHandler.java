@@ -487,6 +487,7 @@ public abstract class ModelUpdateHandler {
                 getView().getModel().getTable().removeProfessorFromTable(colour);
             }
         }
+        getView().getModel().setReconnected(false);
     }
 
     /**

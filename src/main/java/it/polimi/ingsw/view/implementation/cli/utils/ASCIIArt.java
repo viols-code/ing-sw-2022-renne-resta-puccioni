@@ -303,7 +303,7 @@ public class ASCIIArt {
             | %s   %s |        | %s   %s |
             |        |        |        |
             |________|        |________|
-                %s                %s
+                %s                 %s
                 """;
 
     public static final String ASSISTANT_CARDS_3 = """
