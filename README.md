@@ -17,7 +17,7 @@ Software Engineering Project A.A. 2021/2022
 | Socket | 🟩 |
 | Character Cards | 🟩 |
 | Multiple games | 🟩|
-| Third | 🟥|
+| Disconnextions | 🟩|
 
 ## Starting the server
 
