@@ -291,8 +291,11 @@ public abstract class Game extends Observable<IServerPacket> {
     public Player nextPlayerClockwise() {
         int i = 1;
         Player player = players.get((players.indexOf(currentPlayer) + i) % players.size());
-        while(! connectedPlayers.contains(player)){
+        while(!connectedPlayers.contains(player) || player.hasPlayedAssistantCard()){
             i++;
+            if(i > players.size()){
+                return players.get((players.indexOf(currentPlayer) + 1) % players.size());
+            }
             player = players.get((players.indexOf(currentPlayer) + i) % players.size());
         }
 

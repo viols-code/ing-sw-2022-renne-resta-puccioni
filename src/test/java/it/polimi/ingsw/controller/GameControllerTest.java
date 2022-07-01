@@ -3889,7 +3889,7 @@ class GameControllerTest {
 
 
     @Test
-    public void reconnectDuringPlayingAssistantCardPhase(){
+    public void reconnectDuringPlayingAssistantCardPhase1(){
         gameControllerThree.addPlayer("Viola", Wizard.TYPE_1);
         gameControllerThree.addPlayer("Laura", Wizard.TYPE_2);
         gameControllerThree.addPlayer("Sara", Wizard.TYPE_3);
@@ -3908,11 +3908,45 @@ class GameControllerTest {
         assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
         assertEquals("Sara", gameControllerThree.getGame().getCurrentPlayer().getNickname());
 
+        // Adds Viola
         gameControllerThree.reconnectPlayer("Viola");
         gameControllerThree.playAssistantCard("Sara", 1);
 
         assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
         assertEquals("Viola", gameControllerThree.getGame().getCurrentPlayer().getNickname());
+        gameControllerThree.playAssistantCard("Viola", 2);
+
+        assertEquals(TurnPhase.MOVE_STUDENT, gameControllerThree.getGame().getTurnPhase());
+        assertEquals("Laura", gameControllerThree.getGame().getCurrentPlayer().getNickname());
+    }
+
+    @Test
+    public void reconnectDuringPlayingAssistantCardPhase2(){
+        gameControllerThree.addPlayer("Viola", Wizard.TYPE_1);
+        gameControllerThree.addPlayer("Laura", Wizard.TYPE_2);
+        gameControllerThree.addPlayer("Sara", Wizard.TYPE_3);
+        gameControllerThree.setUpTableAndPlayers();
+
+        // Viola's turn
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
+        assertEquals("Viola", gameControllerThree.getGame().getCurrentPlayer().getNickname());
+        gameControllerThree.playAssistantCard("Viola", 0);
+
+        // laura's turn, but Laura disconnect
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
+        assertEquals("Laura", gameControllerThree.getGame().getCurrentPlayer().getNickname());
+        gameControllerThree.removePlayer("Laura");
+        // Sara's turn
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
+        assertEquals("Sara", gameControllerThree.getGame().getCurrentPlayer().getNickname());
+
+        // Laura reconnect
+        gameControllerThree.reconnectPlayer("Laura");
+        gameControllerThree.playAssistantCard("Sara", 1);
+
+        // Laura can play the assistant card
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
+        assertEquals("Laura", gameControllerThree.getGame().getCurrentPlayer().getNickname());
     }
 
 }
