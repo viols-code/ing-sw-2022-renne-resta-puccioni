@@ -105,6 +105,11 @@ public class MockModel {
     private Colour selectedColourExchange;
 
     /**
+     * The row of the student selected
+     */
+    private final IntegerProperty positionStudentOnCardSelected;
+
+    /**
      * The student on card selected
      */
     private final Property<Colour> studentOnCardSelected;
@@ -140,6 +145,7 @@ public class MockModel {
         position.setValue(-1);
         nicknames = FXCollections.observableArrayList();
         studentOnCardSelected = new SimpleObjectProperty<>();
+        positionStudentOnCardSelected = new SimpleIntegerProperty();
         positionExchange = new SimpleIntegerProperty();
         positionExchange.setValue(-1);
         this.reconnected = false;
@@ -512,6 +518,24 @@ public class MockModel {
      */
     public synchronized void setPositionExchange(int position) {
         this.positionExchange.setValue(position);
+    }
+
+    /**
+     * Gets the position of the student selected for the "select colour" cards
+     *
+     * @return the position of the student selected as an IntegerProperty
+     */
+    public synchronized IntegerProperty getPositionStudentOnCardSelected() {
+        return positionStudentOnCardSelected;
+    }
+
+    /**
+     * Sets the position of the student selected for the "select colour" cards
+     *
+     * @param position the position of the student selected as an IntegerProperty
+     */
+    public synchronized void setPositionStudentOnCardSelected(int position) {
+        this.positionStudentOnCardSelected.setValue(position);
     }
 
     /**

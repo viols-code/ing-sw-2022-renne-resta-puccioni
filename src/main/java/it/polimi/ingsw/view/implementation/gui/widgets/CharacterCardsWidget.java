@@ -252,6 +252,39 @@ public class CharacterCardsWidget extends StackPane {
         }));
 
 
+        GUI.instance().getModel().getPositionStudentOnCardSelected().addListener((change, oldVal, newVal) -> {
+            //If a student was selected by mistake (so the player has selected another one) the old one is not highlighted anymore
+            int a = -1;
+            if(GUI.instance().getModel().getCurrentCharacterCard().getType() == GUI.instance().getModel().getCharacterCardByIndex(0).getType()){
+                a = 0;
+            } else if(GUI.instance().getModel().getCurrentCharacterCard().getType() == GUI.instance().getModel().getCharacterCardByIndex(1).getType()){
+                a = 1;
+            } else if(GUI.instance().getModel().getCurrentCharacterCard().getType() == GUI.instance().getModel().getCharacterCardByIndex(2).getType()){
+                a = 2;
+            }
+
+            if(a >= 0){
+                List<FlowPane> images;
+                if(a == 0){
+                    images = pane0;
+                } else if(a == 1){
+                    images = pane1;
+                } else{
+                    images = pane2;
+                }
+
+                if (oldVal.intValue() != -1 && oldVal.intValue() < images.size()) {
+                    images.get(oldVal.intValue()).getStyleClass().removeAll("studentSelected");
+                }
+
+                //The new selected student is highlighted
+                if (newVal.intValue() != -1 && newVal.intValue() < images.size()) {
+                    images.get(newVal.intValue()).getStyleClass().add("studentSelected");
+                }
+            }
+        });
+
+
         initWinner();
     }
 
@@ -268,7 +301,7 @@ public class CharacterCardsWidget extends StackPane {
         for (ImageView image : student0) {
             image.setOnMouseClicked(event -> {
                 pane0.get(student0.indexOf(image)).getStyleClass().add("studentSelected");
-                setStudent(studentColour0.get(image));
+                setStudent(studentColour0.get(image), student0.indexOf(image));
             });
         }
 
@@ -297,12 +330,13 @@ public class CharacterCardsWidget extends StackPane {
      * @param colour the colour of the student selected
      */
     @FXML
-    private void setStudent(Colour colour) {
+    private void setStudent(Colour colour, int i) {
         if (GUI.instance().getPlayerName().equals(GUI.instance().getModel().getCurrentPlayer().getNickname())) {
             if (GUI.instance().getModel().getCurrentCharacterCard().getType().equals(CharacterCardEnumeration.STUDENT_TO_ISLAND) ||
                     GUI.instance().getModel().getCurrentCharacterCard().getType().equals(CharacterCardEnumeration.STUDENT_TO_DINING_ROOM) ||
                     GUI.instance().getModel().getCurrentCharacterCard().getType().equals(CharacterCardEnumeration.STUDENT_TO_ENTRANCE)) {
                 GUI.instance().getModel().setStudentOnCardSelected(colour);
+                GUI.instance().getModel().setPositionStudentOnCardSelected(i);
             }
         }
     }
@@ -357,7 +391,13 @@ public class CharacterCardsWidget extends StackPane {
                     if (GUI.instance().getPlayerName().equals(GUI.instance().getModel().getCurrentPlayer().getNickname())) {
                         imageViewStudent.setOnMouseClicked(event -> {
                             pane.getStyleClass().add("studentSelected");
-                            setStudent(colour);
+                            if(i == 0){
+                                setStudent(colour, student0.indexOf(imageViewStudent));
+                            } else if(i == 1){
+                                setStudent(colour, student1.indexOf(imageViewStudent));
+                            } else{
+                                setStudent(colour, student2.indexOf(imageViewStudent));
+                            }
                         });
                     }
                 }
