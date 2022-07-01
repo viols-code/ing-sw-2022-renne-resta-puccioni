@@ -7,7 +7,6 @@ Software Engineering Project A.A. 2021/2022
 **Group**: GC16
 
 ## Project Status
-🟥🟧🟨🟩
 
 | Functionality | State |
 |:-----------------------|:------------------------------------:|
