@@ -343,6 +343,7 @@ public class Lobby extends Observable<IServerPacket> {
      * Terminate the Lobby, disconnecting all clients
      */
     public synchronized void terminate() {
+        nicknames.clear();
         connections.stream().filter(Objects::nonNull).forEach(SocketClientConnection::closeConnection);
         connections.clear();
     }
