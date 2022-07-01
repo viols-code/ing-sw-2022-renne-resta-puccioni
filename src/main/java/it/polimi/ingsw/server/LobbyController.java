@@ -104,11 +104,16 @@ public class LobbyController {
                 lobby.addObserver(connection.getRemoteView());
                 lobby.setPlayerName(connection, playerName);
                 if (connection.getPlayerName() != null) {
-                    System.out.println("Player " + connection.getPlayerName() + " connected in Lobby " + lobby.getUuid());
+                    System.out.println("Player " + connection.getPlayerName() + " reconnected in Lobby " + lobby.getUuid());
                     connection.setReconnected();
                 } else {
                     System.out.println("Duplicated username, waiting for a new one");
                 }
+                if(lobby.getNicknames().size() == 0){
+                    playingLobbies.put(lobby.getUuid(), lobby);
+                    disconnectedLobbies.remove(lobby.getUuid());
+                }
+
                 return;
             }
         }
