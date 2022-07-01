@@ -328,6 +328,7 @@ public class CharacterCardsWidget extends StackPane {
      * Saves the colour of the student selected in the mockModel
      *
      * @param colour the colour of the student selected
+     * @param i the position in the list
      */
     @FXML
     private void setStudent(Colour colour, int i) {
