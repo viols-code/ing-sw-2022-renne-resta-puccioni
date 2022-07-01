@@ -255,21 +255,21 @@ public class CharacterCardsWidget extends StackPane {
         GUI.instance().getModel().getPositionStudentOnCardSelected().addListener((change, oldVal, newVal) -> {
             //If a student was selected by mistake (so the player has selected another one) the old one is not highlighted anymore
             int a = -1;
-            if(GUI.instance().getModel().getCurrentCharacterCard().getType() == GUI.instance().getModel().getCharacterCardByIndex(0).getType()){
+            if (GUI.instance().getModel().getCurrentCharacterCard().getType() == GUI.instance().getModel().getCharacterCardByIndex(0).getType()) {
                 a = 0;
-            } else if(GUI.instance().getModel().getCurrentCharacterCard().getType() == GUI.instance().getModel().getCharacterCardByIndex(1).getType()){
+            } else if (GUI.instance().getModel().getCurrentCharacterCard().getType() == GUI.instance().getModel().getCharacterCardByIndex(1).getType()) {
                 a = 1;
-            } else if(GUI.instance().getModel().getCurrentCharacterCard().getType() == GUI.instance().getModel().getCharacterCardByIndex(2).getType()){
+            } else if (GUI.instance().getModel().getCurrentCharacterCard().getType() == GUI.instance().getModel().getCharacterCardByIndex(2).getType()) {
                 a = 2;
             }
 
-            if(a >= 0){
+            if (a >= 0) {
                 List<FlowPane> images;
-                if(a == 0){
+                if (a == 0) {
                     images = pane0;
-                } else if(a == 1){
+                } else if (a == 1) {
                     images = pane1;
-                } else{
+                } else {
                     images = pane2;
                 }
 
@@ -328,7 +328,7 @@ public class CharacterCardsWidget extends StackPane {
      * Saves the colour of the student selected in the mockModel
      *
      * @param colour the colour of the student selected
-     * @param i the position in the list
+     * @param i      the position in the list
      */
     @FXML
     private void setStudent(Colour colour, int i) {
@@ -392,11 +392,11 @@ public class CharacterCardsWidget extends StackPane {
                     if (GUI.instance().getPlayerName().equals(GUI.instance().getModel().getCurrentPlayer().getNickname())) {
                         imageViewStudent.setOnMouseClicked(event -> {
                             pane.getStyleClass().add("studentSelected");
-                            if(i == 0){
+                            if (i == 0) {
                                 setStudent(colour, student0.indexOf(imageViewStudent));
-                            } else if(i == 1){
+                            } else if (i == 1) {
                                 setStudent(colour, student1.indexOf(imageViewStudent));
-                            } else{
+                            } else {
                                 setStudent(colour, student2.indexOf(imageViewStudent));
                             }
                         });

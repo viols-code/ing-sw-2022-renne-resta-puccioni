@@ -3911,7 +3911,7 @@ class GameControllerTest {
 
 
     @Test
-    public void reconnectDuringPlayingAssistantCardPhase1(){
+    public void reconnectDuringPlayingAssistantCardPhase1() {
         gameControllerThree.addPlayer("Viola", Wizard.TYPE_1);
         gameControllerThree.addPlayer("Laura", Wizard.TYPE_2);
         gameControllerThree.addPlayer("Sara", Wizard.TYPE_3);
@@ -3943,7 +3943,7 @@ class GameControllerTest {
     }
 
     @Test
-    public void reconnectDuringPlayingAssistantCardPhase2(){
+    public void reconnectDuringPlayingAssistantCardPhase2() {
         gameControllerThree.addPlayer("Viola", Wizard.TYPE_1);
         gameControllerThree.addPlayer("Laura", Wizard.TYPE_2);
         gameControllerThree.addPlayer("Sara", Wizard.TYPE_3);
