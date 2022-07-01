@@ -28,6 +28,7 @@ Software Engineering Project A.A. 2021/2022
 ## Tests coverage
 <img src="https://github.com/viols-code/ing-sw-2022-renne-resta-puccioni/blob/thirdmodified/deliverables/Coverage/Controller.png"/>
 <img src="https://github.com/viols-code/ing-sw-2022-renne-resta-puccioni/blob/thirdmodified/deliverables/Coverage/Model.png"/>
+
 ## Starting the server
 
 First you need to create a server instance with:  
