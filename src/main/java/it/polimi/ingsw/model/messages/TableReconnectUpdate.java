@@ -23,7 +23,6 @@ public class TableReconnectUpdate extends DirectReconnectionMessage {
      * True if the groupIslands are expert, false otherwise
      */
     private final boolean expert;
-
     /**
      * List containing the influent players in every group island
      */

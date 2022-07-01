@@ -523,7 +523,7 @@ public abstract class ModelUpdateHandler {
     /**
      * Updates the number of noEntryTile when a player reconnects
      *
-     * @param noEntryTile
+     * @param noEntryTile the number of no entry tile
      */
     public void noEntryTile(int noEntryTile) {
         for (int i = 0; i < 3; i++) {
@@ -553,7 +553,6 @@ public abstract class ModelUpdateHandler {
      * @param assistantCards the assistant cards available
      */
     public void updateListOfAssistantCards(List<Integer> assistantCards) {
-
         for (int i = 0; i < assistantCards.size(); i++) {
             getView().getModel().getLocalPlayer().removeAssistantCard(assistantCards.get(i));
         }

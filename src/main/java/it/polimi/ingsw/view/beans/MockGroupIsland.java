@@ -95,7 +95,6 @@ public class MockGroupIsland {
         return isBasic;
     }
 
-
     /**
      * Sets the value of the attribute is basic
      *

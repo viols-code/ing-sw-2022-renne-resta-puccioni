@@ -435,6 +435,10 @@ public class Lobby extends Observable<IServerPacket> {
                     if (i == 0) {
                         try {
                             student0.put(colour, controller.getGame().getCharacterCardByIndex(i).getStudent(colour));
+                        } catch (IllegalAccessError e) {
+
+                        }
+                        try {
                             noEntryTile = controller.getGame().getCharacterCardByIndex(i).getNumberOfNoEntryTiles();
                         } catch (IllegalAccessError e) {
 
@@ -442,6 +446,10 @@ public class Lobby extends Observable<IServerPacket> {
                     } else if (i == 1) {
                         try {
                             student1.put(colour, controller.getGame().getCharacterCardByIndex(i).getStudent(colour));
+                        } catch (IllegalAccessError e) {
+
+                        }
+                        try {
                             noEntryTile = controller.getGame().getCharacterCardByIndex(i).getNumberOfNoEntryTiles();
                         } catch (IllegalAccessError e) {
 
@@ -449,6 +457,10 @@ public class Lobby extends Observable<IServerPacket> {
                     } else {
                         try {
                             student2.put(colour, controller.getGame().getCharacterCardByIndex(i).getStudent(colour));
+                        } catch (IllegalAccessError e) {
+
+                        }
+                        try {
                             noEntryTile = controller.getGame().getCharacterCardByIndex(i).getNumberOfNoEntryTiles();
                         } catch (IllegalAccessError e) {
 
@@ -524,10 +536,11 @@ public class Lobby extends Observable<IServerPacket> {
             studentsOnCloudTiles.put(i, cloudStudents);
         }
 
-        boolean hasProtectedCard = false;
+        boolean hasProtectedCard = true;
         if (controller.isGameExpert()) {
-            hasProtectedCard = controller.getGame().hasProtectIslandCard();
+            hasProtectedCard = !controller.getGame().hasProtectIslandCard();
         }
+
 
         notify(new TableReconnectUpdate(connection, controller.getGame().getTable().getNumberOfGroupIsland(), hasProtectedCard, influentPlayers,
                 noEntryTiles, singleIslands, students, motherNaturePosition, studentsOnCloudTiles, characterCard, professors));
