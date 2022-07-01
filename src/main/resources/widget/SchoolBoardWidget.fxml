@@ -4,7 +4,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.*?>
 <fx:root styleClass="background" stylesheets="@css/styleWidgets.css" type="StackPane"
          xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
          fx:controller="it.polimi.ingsw.view.implementation.gui.widgets.SchoolBoardWidget">
@@ -79,41 +79,64 @@
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="40.0"/>
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints fx:id="diningRoomGreen" maxHeight="91.79999389648438" minHeight="40.0"
-                                prefHeight="40.0" vgrow="SOMETIMES"/>
+                <RowConstraints fx:id="diningRoomGreen" maxHeight="91.79999389648438" minHeight="40.0" prefHeight="40.0"
+                                vgrow="SOMETIMES"/>
                 <RowConstraints maxHeight="91.79999389648438" minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES"/>
-                <RowConstraints fx:id="diningRoomRed" maxHeight="91.79999389648438" minHeight="40.0"
-                                prefHeight="40.0" vgrow="SOMETIMES"/>
+                <RowConstraints fx:id="diningRoomRed" maxHeight="91.79999389648438" minHeight="40.0" prefHeight="40.0"
+                                vgrow="SOMETIMES"/>
                 <RowConstraints maxHeight="91.79999389648438" minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES"/>
                 <RowConstraints fx:id="diningRoomYellow" maxHeight="91.79999389648438" minHeight="10.0"
                                 prefHeight="40.0" vgrow="SOMETIMES"/>
                 <RowConstraints maxHeight="91.79999389648438" minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES"/>
-                <RowConstraints fx:id="diningRoomPink" maxHeight="91.79999389648438" minHeight="10.0"
-                                prefHeight="40.0" vgrow="SOMETIMES"/>
+                <RowConstraints fx:id="diningRoomPink" maxHeight="91.79999389648438" minHeight="10.0" prefHeight="40.0"
+                                vgrow="SOMETIMES"/>
                 <RowConstraints maxHeight="95.8000244140625" minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES"/>
-                <RowConstraints fx:id="diningRoomBlue" maxHeight="60.0000061035156" minHeight="10.0"
-                                prefHeight="40.0" vgrow="SOMETIMES"/>
+                <RowConstraints fx:id="diningRoomBlue" maxHeight="60.0000061035156" minHeight="10.0" prefHeight="40.0"
+                                vgrow="SOMETIMES"/>
             </rowConstraints>
         </GridPane>
         <GridPane layoutX="742.0" layoutY="55.0" prefHeight="114.0" prefWidth="308.0">
             <columnConstraints>
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="119.2000732421875"
-                                   minWidth="10.0" prefWidth="69.60003662109375"/>
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="178.39996337890625"
-                                   minWidth="10.0" prefWidth="178.39996337890625"/>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="119.2000732421875" minWidth="10.0"
+                                   prefWidth="69.60003662109375"/>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="178.39996337890625" minWidth="10.0"
+                                   prefWidth="178.39996337890625"/>
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
             </rowConstraints>
-            <Label text="ROUND:"/>
-            <Label fx:id="roundNumberLabel" text="1" GridPane.columnIndex="1"/>
-            <Label text="TURN:" GridPane.rowIndex="1"/>
-            <Label fx:id="currentPlayerLabel" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-            <Label text="PHASE:" GridPane.rowIndex="2"/>
-            <Label fx:id="turnPhaseLabel" text="PLAY ASSISTANT CARD" GridPane.columnIndex="1"
-                   GridPane.rowIndex="2"/>
+            <Label text="ROUND:">
+                <font>
+                    <Font name="System Bold Italic" size="14.0"/>
+                </font>
+            </Label>
+            <Label fx:id="roundNumberLabel" text="1" GridPane.columnIndex="1">
+                <font>
+                    <Font name="System Bold Italic" size="14.0"/>
+                </font>
+            </Label>
+            <Label text="TURN:" GridPane.rowIndex="1">
+                <font>
+                    <Font name="System Bold Italic" size="14.0"/>
+                </font>
+            </Label>
+            <Label fx:id="currentPlayerLabel" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                <font>
+                    <Font name="System Bold Italic" size="14.0"/>
+                </font>
+            </Label>
+            <Label text="PHASE:" GridPane.rowIndex="2">
+                <font>
+                    <Font name="System Bold Italic" size="14.0"/>
+                </font>
+            </Label>
+            <Label fx:id="turnPhaseLabel" text="PLAY ASSISTANT CARD" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                <font>
+                    <Font name="System Bold Italic" size="14.0"/>
+                </font>
+            </Label>
         </GridPane>
         <Label layoutX="516.0" layoutY="151.0" text="YOU">
             <font>
@@ -131,12 +154,12 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
             </rowConstraints>
-            <Button mnemonicParsing="false" onAction="#goToIsland"
-                    styleClass="game-button" text="Islands" GridPane.rowIndex="0"/>
-            <Button mnemonicParsing="false" onAction="#goToAssistantCards"
-                    styleClass="game-button" text="Deck" GridPane.rowIndex="1"/>
-            <Button mnemonicParsing="false" onAction="#goToCloudTile"
-                    styleClass="game-button" text="Cloud Tiles" GridPane.rowIndex="2"/>
+            <Button mnemonicParsing="false" onAction="#goToIsland" styleClass="game-button" text="Islands"
+                    GridPane.rowIndex="0"/>
+            <Button mnemonicParsing="false" onAction="#goToAssistantCards" styleClass="game-button" text="Deck"
+                    GridPane.rowIndex="1"/>
+            <Button mnemonicParsing="false" onAction="#goToCloudTile" styleClass="game-button" text="Cloud Tiles"
+                    GridPane.rowIndex="2"/>
         </GridPane>
         <ImageView fx:id="currentAssistantCard" fitHeight="159.9" fitWidth="109.2" layoutX="276.0" layoutY="55.0"
                    pickOnBounds="true" preserveRatio="true"/>

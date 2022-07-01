@@ -40,7 +40,7 @@ public class GUIColours {
     /**
      * Sets the colour of the no entry tile mark
      */
-    private static final Paint noEntryTileMarkColour = Color.rgb(255, 50, 0);
+    private static final Paint noEntryTileMarkColour = Color.rgb(255, 255, 255);
 
     /**
      * Sets the colour of the no entry tiles' background

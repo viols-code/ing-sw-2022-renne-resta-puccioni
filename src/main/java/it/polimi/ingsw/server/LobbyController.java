@@ -9,14 +9,21 @@ import java.util.*;
  * Controller for the lobbies waiting to start a game
  */
 public class LobbyController {
+    private final List<Lobby> total;
+    private final Map<UUID, Lobby> disconnectedLobbies;
     private final Map<UUID, Lobby> playingLobbies;
     private final List<Lobby> waitingLobbies;
+    private final WaitingRoom waitingRoom;
     private Lobby currentLobby;
 
     public LobbyController() {
+        disconnectedLobbies = new HashMap<>();
         playingLobbies = new HashMap<>();
         waitingLobbies = new ArrayList<>();
         currentLobby = new Lobby();
+        waitingRoom = new WaitingRoom();
+        total = new ArrayList<>();
+        total.add(currentLobby);
     }
 
     /**
@@ -33,7 +40,18 @@ public class LobbyController {
      *
      * @param connection the connection that will be added to the lobby
      */
-    public synchronized void addToLobby(SocketClientConnection connection) {
+    public synchronized void correctConnection(SocketClientConnection connection) {
+        waitingRoom.addObserver(connection.getRemoteView());
+        waitingRoom.addConnection(connection);
+    }
+
+
+    /**
+     * Adds the given ClientConnection to the current lobby
+     *
+     * @param connection the connection that will be added to the lobby
+     */
+    private void addToLobby(SocketClientConnection connection) {
         if ((!currentLobby.isPlayersToStartSet() && currentLobby.getConnections().size() < 3) || (currentLobby.isPlayersToStartSet() && currentLobby.getConnections().size() < currentLobby.getPlayersToStart())) {
             currentLobby.addObserver(connection.getRemoteView());
             try {
@@ -47,6 +65,7 @@ public class LobbyController {
 
         waitingLobbies.add(currentLobby);
         currentLobby = new Lobby();
+        total.add(currentLobby);
         currentLobby.addObserver(connection.getRemoteView());
         try {
             currentLobby.addConnection(connection);
@@ -66,6 +85,37 @@ public class LobbyController {
         if (connection.getPlayerName() != null) {
             return;
         }
+
+        // Check if the nickname is unique in the all LobbyController
+        try {
+            for (Lobby lobby : total) {
+                lobby.checkPlayerName(playerName);
+            }
+        } catch (IllegalArgumentException e) {
+            waitingRoom.notifyError(connection, e.getMessage());
+            return;
+        }
+
+        // Check if the nickname corresponds to a disconnected player, if so connect the player to the correct lobby
+        for (Lobby lobby : disconnectedLobbies.values()) {
+            if (lobby.getNicknames().contains(playerName)) {
+                lobby.addConnection(connection);
+                waitingRoom.removeConnection(connection);
+                lobby.addObserver(connection.getRemoteView());
+                lobby.setPlayerName(connection, playerName);
+                if (connection.getPlayerName() != null) {
+                    System.out.println("Player " + connection.getPlayerName() + " connected in Lobby " + lobby.getUuid());
+                    connection.setReconnected();
+                } else {
+                    System.out.println("Duplicated username, waiting for a new one");
+                }
+                return;
+            }
+        }
+
+        // Connect the player to a new lobby
+        addToLobby(connection);
+        waitingRoom.removeConnection(connection);
 
         if (currentLobby.getConnections().contains(connection)) {
             currentLobby.setPlayerName(connection, playerName);
@@ -88,6 +138,7 @@ public class LobbyController {
                 }
             }
         }
+
 
     }
 
@@ -120,6 +171,7 @@ public class LobbyController {
 
                     if (lobby.canStart())
                         startGame(lobby);
+                    return;
                 }
             }
         }
@@ -183,7 +235,10 @@ public class LobbyController {
         waitingLobbies.remove(lobby);
 
         lobby.startGame();
-        currentLobby = new Lobby();
+        if (lobby.equals(currentLobby)) {
+            currentLobby = new Lobby();
+            total.add(currentLobby);
+        }
 
         Thread t = new Thread(new GameInstance(lobby, lobby.getGameMode(), lobby.getPlayersToStart()));
         t.start();
@@ -200,6 +255,7 @@ public class LobbyController {
             if (currentLobby.getConnections().contains(connection)) {
                 currentLobby.disconnectAll(connection);
                 currentLobby = new Lobby();
+                total.add(currentLobby);
                 return;
             }
 
@@ -207,15 +263,50 @@ public class LobbyController {
                 if (waitingLobby.getConnections().contains(connection)) {
                     waitingLobby.disconnectAll(connection);
                     waitingLobbies.remove(waitingLobby);
+                    total.remove(waitingLobby);
+                    deleteLobby(waitingLobby);
                     return;
                 }
             }
         } else {
             Lobby lobby = playingLobbies.get(connection.getLobbyUUID());
             if (lobby != null) {
-                lobby.disconnectAll(connection);
+                lobby.disconnect(connection);
                 playingLobbies.remove(connection.getLobbyUUID());
+                disconnectedLobbies.put(connection.getLobbyUUID(), lobby);
+                return;
+            }
+
+            lobby = disconnectedLobbies.get(connection.getLobbyUUID());
+            if (lobby != null) {
+                if (lobby.getConnections().size() == 1) {
+                    disconnectedLobbies.remove(lobby.getUuid());
+                    total.remove(lobby);
+                    deleteLobby(lobby);
+                }
+                lobby.disconnect(connection);
             }
         }
     }
+
+    /**
+     * Delete the given lobby from all the possible list in the LobbyController
+     *
+     * @param lobby the given lobby to be deleted
+     */
+    public void deleteLobby(Lobby lobby) {
+        if (lobby.equals(currentLobby)) {
+            currentLobby = new Lobby();
+        }
+
+        for (SocketClientConnection connection : lobby.getConnections()) {
+            waitingRoom.removeConnection(connection);
+        }
+
+        waitingLobbies.remove(lobby);
+        playingLobbies.remove(lobby.getUuid());
+        disconnectedLobbies.remove(lobby.getUuid());
+        total.remove(lobby);
+    }
+
 }

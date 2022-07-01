@@ -55,8 +55,7 @@ class GameTest {
         gameController.getGame().addPlayer(player2);
         gameController.getGame().removePlayer(player1);
         assertEquals(gameController.getGame().getActiveCharacterCard(), gameController.getGame().getBasicState());
-        assertEquals(1, gameController.getGame().getNumberOfPlayer());
-        assertEquals(player2, gameController.getGame().getPlayerByIndex(0));
+        assertEquals(2, gameController.getGame().getNumberOfPlayer());
 
         Exception exception = assertThrows(IllegalArgumentException.class, () -> gameController.getGame().removePlayer(player1));
 
@@ -83,8 +82,7 @@ class GameTest {
     }
 
     @Test
-    void nextPlayerTurn() {
-
+    void nextPlayerTurnBasic() {
         Player player1 = new BasicPlayer("Viola", Wizard.TYPE_2, TowerColour.WHITE);
         Player player2 = new BasicPlayer("Laura", Wizard.TYPE_3, TowerColour.BLACK);
         Player player3 = new BasicPlayer("Sara", Wizard.TYPE_4, TowerColour.GREY);
@@ -100,6 +98,10 @@ class GameTest {
         gameController.getGame().getPlayerByIndex(0).setCurrentAssistantCard(card1);
         gameController.getGame().getPlayerByIndex(1).setCurrentAssistantCard(card2);
         gameController.getGame().getPlayerByIndex(2).setCurrentAssistantCard(card3);
+        gameController.getGame().getPlayerByIndex(0).setHasPlayedAssistantCard(true);
+        gameController.getGame().getPlayerByIndex(1).setHasPlayedAssistantCard(true);
+        gameController.getGame().getPlayerByIndex(2).setHasPlayedAssistantCard(true);
+
 
         gameController.getGame().getPlayerByIndex(0).setHasAlreadyPlayed(true);
 
@@ -108,7 +110,6 @@ class GameTest {
         gameController.getGame().getPlayerByIndex(2).setHasAlreadyPlayed(true);
 
         assertEquals(player2, gameController.getGame().nextPlayerTurn());
-
     }
 
     @Test

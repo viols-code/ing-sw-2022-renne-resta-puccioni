@@ -1,8 +1,13 @@
 package it.polimi.ingsw.server;
 
+import it.polimi.ingsw.controller.GameController;
+import it.polimi.ingsw.model.Colour;
+import it.polimi.ingsw.model.messages.*;
+import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.Wizard;
 import it.polimi.ingsw.observer.Observable;
 import it.polimi.ingsw.server.messages.*;
+import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
 
 import java.util.*;
 
@@ -12,13 +17,15 @@ import java.util.*;
  */
 public class Lobby extends Observable<IServerPacket> {
     private final UUID uuid;
-
     private SocketClientConnection firstConnection;
     private final List<SocketClientConnection> connections;
     private int playersToStart;
     private Boolean gameMode;
     private boolean isGameModeSet;
     private int indexOfFirstConnection = 0;
+    private final List<String> nicknames = new ArrayList<>();
+    private final HashMap<String, Wizard> players = new HashMap<>();
+    private GameController controller;
 
     /**
      * Constructs a new Lobby with a random UUID, an empty connection list and the players needed to start set to -1
@@ -85,34 +92,55 @@ public class Lobby extends Observable<IServerPacket> {
      * @param playerName the player name to be set, if it's null or empty sends an error message to the client
      */
     public void setPlayerName(SocketClientConnection connection, String playerName) {
+        try {
+            checkPlayerName(playerName);
+        } catch (IllegalArgumentException e) {
+            notify(new ErrorMessage(connection, e.getMessage()));
+        }
+
+        connection.setPlayerName(playerName);
+        if (nicknames.contains(playerName)) {
+            notify(new CorrectReconnectionMessage(connection, players));
+            sendGameInformation(connection);
+            addToGame(connection);
+            notify(new PlayerReconnectedMessage(connection.getPlayerName()));
+        } else {
+            List<String> otherNames = new ArrayList<>();
+            connections.forEach(con -> {
+                if (con.getPlayerName() != null)
+                    otherNames.add(con.getPlayerName());
+            });
+
+            notify(new CorrectNicknameMessage(connection, playerName, otherNames));
+        }
+
+        nicknames.remove(playerName);
+
+    }
+
+    /**
+     * Check if the nickname is correct
+     *
+     * @param playerName the player name to be set, if it's null or empty sends an error message to the client
+     * @throws IllegalArgumentException if the name is already taken
+     */
+    public void checkPlayerName(String playerName) throws IllegalArgumentException {
         if (playerName == null || playerName.trim().equalsIgnoreCase("")) {
-            notify(new ErrorMessage(connection, "Your username can't be empty"));
-            return;
+            throw new IllegalArgumentException("Your username can't be empty");
         } else if (playerName.trim().length() != playerName.length()) {
-            notify(new ErrorMessage(connection, "The nickname must be without empty spaces"));
-            return;
+            throw new IllegalArgumentException("The nickname must be without empty spaces");
         } else if (playerName.split(" ").length > 1) {
-            notify(new ErrorMessage(connection, "The nickname must be without empty spaces"));
-            return;
+            throw new IllegalArgumentException("The nickname must be without empty spaces");
         }
 
 
         for (SocketClientConnection clientConnection : connections) {
             if (playerName.equalsIgnoreCase(clientConnection.getPlayerName())) {
-                notify(new ErrorMessage(connection, "This username is already taken"));
-                return;
+                throw new IllegalArgumentException("This username is already taken");
             }
         }
-
-        connection.setPlayerName(playerName);
-        List<String> otherNames = new ArrayList<>();
-        connections.forEach(con -> {
-            if (con.getPlayerName() != null)
-                otherNames.add(con.getPlayerName());
-        });
-
-        notify(new CorrectNicknameMessage(connection, playerName, otherNames));
     }
+
 
     /**
      * Sets the wizard for the given connection. If there is another player with this wizard already connected sends
@@ -151,6 +179,8 @@ public class Lobby extends Observable<IServerPacket> {
             notify(new PlayerConnectMessage(connection.getPlayerName(), wizard, connections.indexOf(connection) + 1, players, otherWizard));
             notify(new CorrectWizardMessage(connection, wizard));
         }
+
+        players.put(connection.getPlayerName(), connection.getWizard());
     }
 
     /**
@@ -252,7 +282,7 @@ public class Lobby extends Observable<IServerPacket> {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                connections.stream().filter(conn -> conn != null).forEach((conn) -> {
+                connections.stream().filter(Objects::nonNull).forEach((conn) -> {
                     conn.closeConnection();
                     System.out.println("Connection of player " + conn.getPlayerName() + " closed");
                 });
@@ -285,12 +315,221 @@ public class Lobby extends Observable<IServerPacket> {
     }
 
     /**
+     * Remove the given connection from the Lobby, notifying all other clients.
+     *
+     * @param connection the connection to be removed from the lobby
+     */
+    public void disconnect(SocketClientConnection connection) {
+        if (connection == firstConnection) {
+            firstConnection = null;
+            playersToStart = -1;
+        }
+
+        notify(new PlayerLeaveMessage(connection.getPlayerName()));
+        nicknames.add(connection.getPlayerName());
+        connections.remove(connection);
+        connection.getRemoteView().getGameController().removePlayer(connection.getPlayerName());
+    }
+
+    /**
+     * Add the client to the already started game
+     */
+    public void addToGame(SocketClientConnection connection) {
+        Thread t = new Thread(new ReconnectionInstance(this, controller, connection));
+        t.start();
+    }
+
+    /**
      * Terminate the Lobby, disconnecting all clients
      */
     public synchronized void terminate() {
-        connections.stream().filter(conn -> conn != null).forEach((conn) -> {
-            conn.closeConnection();
-        });
+        connections.stream().filter(Objects::nonNull).forEach(SocketClientConnection::closeConnection);
         connections.clear();
+    }
+
+    /**
+     * Get the list of nicknames
+     *
+     * @return the list of nicknames
+     */
+    public List<String> getNicknames() {
+        return nicknames;
+    }
+
+    /**
+     * Sets the game controller of the Lobby
+     *
+     * @param gameController the game controller of the Lobby
+     */
+    public void setController(GameController gameController) {
+        this.controller = gameController;
+    }
+
+    /**
+     * Notifies the correct reconnection of a player
+     *
+     * @param connection the connection of the player
+     */
+    public void notifyCorrectReconnection(SocketClientConnection connection) {
+        notify(new CorrectReconnectionMessage(connection, players));
+    }
+
+
+    /**
+     * Sends the information of the game to the reconnected client
+     *
+     * @param connection the connection of the player
+     */
+    public void sendGameInformation(SocketClientConnection connection) {
+
+        notify(new ModelInfoReconnectedUpdate(connection, controller.getGame().getTurnPhase(), controller.getGame().getGamePhase(), controller.getGame().getRound()));
+
+        for (int i = 0; i < controller.getGame().getNumberOfPlayer(); i++) {
+            Player player1 = controller.getGame().getPlayerByIndex(i);
+            int coins = -1;
+
+            if (controller.isGameExpert()) {
+                coins = player1.getCoins();
+            }
+            HashMap<Colour, Integer> entrance = new HashMap<>();
+            for (Colour colour : Colour.values()) {
+                entrance.put(colour, player1.getSchoolBoard().getEntrance(colour));
+            }
+
+            HashMap<Colour, Integer> diningRoom = new HashMap<>();
+            for (Colour colour : Colour.values()) {
+                diningRoom.put(colour, player1.getSchoolBoard().getDiningRoom(colour));
+            }
+
+            HashMap<Colour, Boolean> professors = new HashMap<>();
+            for (Colour colour : Colour.values()) {
+                professors.put(colour, player1.getSchoolBoard().hasProfessor(colour));
+            }
+
+            int currentAssistantCard = -1;
+            if (player1.getCurrentAssistantCard() != null) {
+                currentAssistantCard = player1.getCurrentAssistantCard().getValue();
+            }
+
+            notify(new SchoolBoardUpdate(connection, player1.getNickname(), entrance, diningRoom,
+                    player1.getSchoolBoard().getTowers(), player1.getTowerColour(), professors, coins, currentAssistantCard));
+        }
+
+        notify(new CurrentPlayerReconnectUpdate(connection, controller.getGame().getCurrentPlayer().getNickname()));
+
+
+        if (gameMode) {
+            List<CharacterCardEnumeration> cards = new ArrayList<>();
+            HashMap<CharacterCardEnumeration, Integer> cost = new HashMap<>();
+            HashMap<Colour, Integer> student0 = new HashMap<>();
+            HashMap<Colour, Integer> student1 = new HashMap<>();
+            HashMap<Colour, Integer> student2 = new HashMap<>();
+            int noEntryTile = 0;
+
+            for (int i = 0; i < 3; i++) {
+                cards.add(controller.getGame().getCharacterCardByIndex(i).getCharacterCardType());
+                cost.put(controller.getGame().getCharacterCardByIndex(i).getCharacterCardType(), controller.getGame().getCharacterCardByIndex(i).getCost());
+
+                for (Colour colour : Colour.values()) {
+                    if (i == 0) {
+                        try {
+                            student0.put(colour, controller.getGame().getCharacterCardByIndex(i).getStudent(colour));
+                            noEntryTile = controller.getGame().getCharacterCardByIndex(i).getNumberOfNoEntryTiles();
+                        } catch (IllegalAccessError e) {
+
+                        }
+                    } else if (i == 1) {
+                        try {
+                            student1.put(colour, controller.getGame().getCharacterCardByIndex(i).getStudent(colour));
+                            noEntryTile = controller.getGame().getCharacterCardByIndex(i).getNumberOfNoEntryTiles();
+                        } catch (IllegalAccessError e) {
+
+                        }
+                    } else {
+                        try {
+                            student2.put(colour, controller.getGame().getCharacterCardByIndex(i).getStudent(colour));
+                            noEntryTile = controller.getGame().getCharacterCardByIndex(i).getNumberOfNoEntryTiles();
+                        } catch (IllegalAccessError e) {
+
+                        }
+                    }
+                }
+            }
+
+            notify(new CharacterCardUpdate(connection, cards, cost, student0, student1, student2, controller.getGame().getCoins(), noEntryTile));
+        }
+
+        List<Integer> assistantCardsUsed = new ArrayList<>();
+
+        for (int i = 0; i < 10; i++) {
+            if (!controller.getGame().getPlayerByNickname(connection.getPlayerName()).isAssistantCardPresent(controller.getGame().getAssistantCard(i))) {
+                assistantCardsUsed.add(i);
+            }
+        }
+
+        notify(new assistantCardsUpdate(connection, assistantCardsUsed));
+
+        List<String> influentPlayers = new ArrayList<>();
+        List<Integer> noEntryTiles = new ArrayList<>();
+        List<Integer> singleIslands = new ArrayList<>();
+        HashMap<Integer, HashMap<Colour, Integer>> students = new HashMap<>();
+        HashMap<Integer, HashMap<Colour, Integer>> studentsOnCloudTiles = new HashMap<>();
+
+        int count = 0;
+
+        CharacterCardEnumeration characterCard = controller.getGame().getActiveCharacterCard().getCharacterCardType();
+
+        HashMap<Colour, Boolean> professors = new HashMap<>();
+
+        for (Colour colour : Colour.values()) {
+            professors.put(colour, controller.getGame().getTable().isProfessorOnTable(colour));
+        }
+
+        for (int i = 0; i < controller.getGame().getTable().getNumberOfGroupIsland(); i++) {
+            if (controller.getGame().getTable().getGroupIslandByIndex(i).getInfluence() != null) {
+                influentPlayers.add(controller.getGame().getTable().getGroupIslandByIndex(i).getInfluence().getNickname());
+            } else {
+                influentPlayers.add("");
+            }
+
+            if (controller.isGameExpert() && controller.getGame().hasProtectIslandCard()) {
+                noEntryTiles.add(controller.getGame().getTable().getGroupIslandByIndex(i).getNumberOfNoEntryTile());
+            } else {
+                noEntryTiles.add(0);
+            }
+
+            singleIslands.add(controller.getGame().getTable().getGroupIslandByIndex(i).getNumberOfSingleIsland());
+            for (int j = 0; j < controller.getGame().getTable().getGroupIslandByIndex(i).getNumberOfSingleIsland(); j++) {
+
+                HashMap<Colour, Integer> studentsOnSingleIsland = new HashMap<>();
+                for (Colour colour : Colour.values()) {
+                    studentsOnSingleIsland.put(colour, controller.getGame().getTable().getGroupIslandByIndex(i).getIslandByIndex(j).getStudents(colour));
+                }
+
+                students.put(count, studentsOnSingleIsland);
+                count++;
+            }
+        }
+
+        int motherNaturePosition = controller.getGame().getTable().getMotherNaturePosition();
+
+        for (int i = 0; i < controller.getGame().getTable().getNumberOfCloudTile(); i++) {
+            HashMap<Colour, Integer> cloudStudents = new HashMap<>();
+
+            for (Colour colour : Colour.values()) {
+                cloudStudents.put(colour, controller.getGame().getTable().getCloudTilesByIndex(i).getTileStudents(colour));
+            }
+
+            studentsOnCloudTiles.put(i, cloudStudents);
+        }
+
+        boolean hasProtectedCard = false;
+        if (controller.isGameExpert()) {
+            hasProtectedCard = controller.getGame().hasProtectIslandCard();
+        }
+
+        notify(new TableReconnectUpdate(connection, controller.getGame().getTable().getNumberOfGroupIsland(), hasProtectedCard, influentPlayers,
+                noEntryTiles, singleIslands, students, motherNaturePosition, studentsOnCloudTiles, characterCard, professors));
+
     }
 }

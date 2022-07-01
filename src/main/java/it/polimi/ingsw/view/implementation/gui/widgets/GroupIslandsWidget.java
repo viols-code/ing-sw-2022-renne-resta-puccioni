@@ -110,15 +110,14 @@ public class GroupIslandsWidget extends StackPane {
                 islandPane.setOnMouseClicked(event -> moveMotherNature(groupIsland));
             }
 
-            singleIslandsCoordinates = Positions.getIslandsCoordinates(GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getNumberOfSingleIslands());
             for (int k = 0; k < GUI.instance().getModel().getTable().getGroupIslandByIndex(groupIsland).getNumberOfSingleIslands(); k++) {
                 int singleIsland = k;
                 //creates the anchor pane for the single island and sets the position in the groupIslandPane
                 AnchorPane singleIslandPane = new AnchorPane();
                 singleIslandBoxes.add(singleIslandPane);
                 islandPane.getChildren().add(singleIslandPane);
-                singleIslandPane.setLayoutX(singleIslandsCoordinates.get(k).getRow());
-                singleIslandPane.setLayoutY(singleIslandsCoordinates.get(k).getColumn());
+                singleIslandPane.setLayoutX(Positions.getIslandsCoordinates(GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getNumberOfSingleIslands()).get(k).getRow());
+                singleIslandPane.setLayoutY(Positions.getIslandsCoordinates(GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getNumberOfSingleIslands()).get(k).getColumn());
 
                 //create the pane and image view to for the single island
                 ImageView imageView = new ImageView();
@@ -195,7 +194,7 @@ public class GroupIslandsWidget extends StackPane {
                     singleIslandPane.getChildren().add(noEntryTileLabel);
                     noEntryTileLabel.setLayoutX(60);
                     noEntryTileLabel.setLayoutY(20);
-                    noEntryTileLabel.setStyle("-fx-font-size: 10; -fx-font-weight: bold;");
+                    noEntryTileLabel.setStyle("-fx-font-size: 12; -fx-font-weight: bold;");
                     noEntryTileLabel.setText(" ! : " + GUI.instance().getModel().getTable().getGroupIslandByIndex(i).getNoEntryTile());
                     noEntryTileLabel.setTextFill(GUIColours.getNoEntryTileMarkColour());
                     noEntryTileLabel.setBackground(new Background(new BackgroundFill(GUIColours.getGetNoEntryTileBackGroundColour(), CornerRadii.EMPTY, Insets.EMPTY)));
@@ -283,7 +282,7 @@ public class GroupIslandsWidget extends StackPane {
         GUI.instance().getModel().getTable().getGroupIslands().forEach(groupIsland -> {
             groupIsland.getInfluentPlayerProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> {
                 int index = GUI.instance().getModel().getTable().getIndexOfGroupIsland(groupIsland);
-                if(index >= 0){
+                if (index >= 0) {
                     singleIslandPanes.get(index).forEach(pane -> {
                         if (newVal != null) {
                             Circle tower = (Circle) pane.getChildren().get(3);

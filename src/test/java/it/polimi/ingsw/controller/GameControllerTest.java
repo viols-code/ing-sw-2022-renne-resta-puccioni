@@ -30,7 +30,7 @@ class GameControllerTest {
     void setting() {
         gameControllerTwo.addPlayer("Viola", Wizard.TYPE_4);
         gameControllerTwo.addPlayer("Laura", Wizard.TYPE_3);
-
+        assertFalse(gameControllerTwo.isGameExpert());
         gameControllerTwo.setUpTableAndPlayers();
 
         assertEquals(8, gameControllerTwo.getGame().getNumberOfTowersPerPlayer());
@@ -230,6 +230,553 @@ class GameControllerTest {
         assertEquals(1, gameControllerTwo.getGame().getNumberOfPlayer());
         gameControllerTwo.addPlayer("Viola", Wizard.TYPE_2);
         assertEquals(1, gameControllerTwo.getGame().getNumberOfPlayer());
+    }
+
+    @Test
+    void removePlayerDuringThePlayAssistantCardPhase() {
+        // Test with a game of two players
+        gameControllerTwo.addPlayer("Viola", Wizard.TYPE_1);
+        gameControllerTwo.addPlayer("Laura", Wizard.TYPE_2);
+        gameControllerTwo.setUpTableAndPlayers();
+
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerTwo.getGame().getTurnPhase());
+        assertEquals(gameControllerTwo.getGame().getPlayerByNickname("Viola"), gameControllerTwo.getGame().getCurrentPlayer());
+        gameControllerTwo.removePlayer("Viola");
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerTwo.getGame().getTurnPhase());
+        assertEquals(gameControllerTwo.getGame().getPlayerByNickname("Viola"), gameControllerTwo.getGame().getCurrentPlayer());
+        assertEquals(2, gameControllerTwo.getGame().getNumberOfPlayer());
+        assertEquals(1, gameControllerTwo.getGame().getNumberOfConnectedPlayers());
+
+        // Test with a game of three players
+        gameControllerThree.addPlayer("Viola", Wizard.TYPE_1);
+        gameControllerThree.addPlayer("Laura", Wizard.TYPE_2);
+        gameControllerThree.addPlayer("Sara", Wizard.TYPE_3);
+        gameControllerThree.setUpTableAndPlayers();
+
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
+        assertEquals(gameControllerThree.getGame().getPlayerByNickname("Viola"), gameControllerThree.getGame().getCurrentPlayer());
+
+        gameControllerThree.removePlayer("Viola");
+
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
+        assertEquals(gameControllerThree.getGame().getPlayerByNickname("Laura"), gameControllerThree.getGame().getCurrentPlayer());
+        assertEquals(3, gameControllerThree.getGame().getNumberOfPlayer());
+        assertEquals(2, gameControllerThree.getGame().getNumberOfConnectedPlayers());
+
+        gameControllerThree.removePlayer("Laura");
+
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
+        assertEquals(gameControllerThree.getGame().getPlayerByNickname("Laura"), gameControllerThree.getGame().getCurrentPlayer());
+        assertEquals(3, gameControllerThree.getGame().getNumberOfPlayer());
+        assertEquals(1, gameControllerThree.getGame().getNumberOfConnectedPlayers());
+
+        // Laura reconnects
+        gameControllerThree.reconnectPlayer("Laura");
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
+        assertEquals(gameControllerThree.getGame().getPlayerByNickname("Laura"), gameControllerThree.getGame().getCurrentPlayer());
+        gameControllerThree.playAssistantCard("Laura", 0);
+
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
+        assertEquals(gameControllerThree.getGame().getPlayerByNickname("Sara"), gameControllerThree.getGame().getCurrentPlayer());
+
+        // Viola reconnects
+        gameControllerThree.reconnectPlayer("Viola");
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
+        assertEquals(gameControllerThree.getGame().getPlayerByNickname("Sara"), gameControllerThree.getGame().getCurrentPlayer());
+        gameControllerThree.playAssistantCard("Sara", 1);
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
+        assertEquals(gameControllerThree.getGame().getPlayerByNickname("Viola"), gameControllerThree.getGame().getCurrentPlayer());
+        gameControllerThree.playAssistantCard("Viola", 2);
+
+        // Playing phase
+        assertEquals(TurnPhase.MOVE_STUDENT, gameControllerThree.getGame().getTurnPhase());
+        assertEquals(gameControllerThree.getGame().getPlayerByNickname("Laura"), gameControllerThree.getGame().getCurrentPlayer());
+    }
+
+    @Test
+    void removePlayerDuringThePlayingAssistantCardPhase() {
+        // Test with a game of three players
+        gameControllerThree.addPlayer("Viola", Wizard.TYPE_1);
+        gameControllerThree.addPlayer("Laura", Wizard.TYPE_2);
+        gameControllerThree.addPlayer("Sara", Wizard.TYPE_3);
+        gameControllerThree.setUpTableAndPlayers();
+
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
+        assertEquals(gameControllerThree.getGame().getPlayerByNickname("Viola"), gameControllerThree.getGame().getCurrentPlayer());
+
+        gameControllerThree.playAssistantCard("Viola", 0);
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
+        assertEquals(gameControllerThree.getGame().getPlayerByNickname("Laura"), gameControllerThree.getGame().getCurrentPlayer());
+        gameControllerThree.removePlayer("Viola");
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
+        assertEquals(gameControllerThree.getGame().getPlayerByNickname("Laura"), gameControllerThree.getGame().getCurrentPlayer());
+        gameControllerThree.playAssistantCard("Laura", 1);
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
+        assertEquals(gameControllerThree.getGame().getPlayerByNickname("Sara"), gameControllerThree.getGame().getCurrentPlayer());
+        gameControllerThree.playAssistantCard("Sara", 2);
+        assertEquals(TurnPhase.MOVE_STUDENT, gameControllerThree.getGame().getTurnPhase());
+        assertEquals(gameControllerThree.getGame().getPlayerByNickname("Laura"), gameControllerThree.getGame().getCurrentPlayer());
+    }
+
+    @Test
+    void removePlayerDuringTheMoveStudentPhaseTwoPlayers() {
+        // Test with a game of two players
+        gameControllerTwo.addPlayer("Viola", Wizard.TYPE_1);
+        gameControllerTwo.addPlayer("Laura", Wizard.TYPE_2);
+        gameControllerTwo.setUpTableAndPlayers();
+
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerTwo.getGame().getTurnPhase());
+        assertEquals(gameControllerTwo.getGame().getPlayerByNickname("Viola"), gameControllerTwo.getGame().getCurrentPlayer());
+
+        gameControllerTwo.playAssistantCard("Viola", 0);
+        gameControllerTwo.playAssistantCard("Laura", 1);
+
+        assertEquals(TurnPhase.MOVE_STUDENT, gameControllerTwo.getGame().getTurnPhase());
+        assertEquals(gameControllerTwo.getGame().getPlayerByNickname("Viola"), gameControllerTwo.getGame().getCurrentPlayer());
+
+        if (gameControllerTwo.getGame().getPlayerByNickname("Viola").getSchoolBoard().getEntrance(Colour.BLUE) > 0) {
+            gameControllerTwo.moveStudentToIsland("Viola", Colour.BLUE, 0, 0);
+        }
+
+        assertEquals(TurnPhase.MOVE_STUDENT, gameControllerTwo.getGame().getTurnPhase());
+        gameControllerTwo.removePlayer("Viola");
+
+        assertEquals(TurnPhase.MOVE_STUDENT, gameControllerTwo.getGame().getTurnPhase());
+        assertEquals(gameControllerTwo.getGame().getPlayerByNickname("Viola"), gameControllerTwo.getGame().getCurrentPlayer());
+        assertEquals(2, gameControllerTwo.getGame().getNumberOfPlayer());
+        assertEquals(1, gameControllerTwo.getGame().getNumberOfConnectedPlayers());
+
+        // Test with a game of three players
+        gameControllerThree.addPlayer("Viola", Wizard.TYPE_1);
+        gameControllerThree.addPlayer("Laura", Wizard.TYPE_2);
+        gameControllerThree.addPlayer("Sara", Wizard.TYPE_3);
+        gameControllerThree.setUpTableAndPlayers();
+
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
+        assertEquals(gameControllerThree.getGame().getPlayerByNickname("Viola"), gameControllerThree.getGame().getCurrentPlayer());
+
+        gameControllerThree.playAssistantCard("Viola", 0);
+        gameControllerThree.playAssistantCard("Laura", 1);
+        gameControllerThree.playAssistantCard("Sara", 2);
+
+        assertEquals(TurnPhase.MOVE_STUDENT, gameControllerThree.getGame().getTurnPhase());
+        assertEquals(gameControllerThree.getGame().getPlayerByNickname("Viola"), gameControllerThree.getGame().getCurrentPlayer());
+
+        gameControllerThree.removePlayer("Viola");
+
+        assertEquals(TurnPhase.MOVE_STUDENT, gameControllerThree.getGame().getTurnPhase());
+        assertEquals(gameControllerThree.getGame().getPlayerByNickname("Laura"), gameControllerThree.getGame().getCurrentPlayer());
+        assertEquals(3, gameControllerThree.getGame().getNumberOfPlayer());
+        assertEquals(2, gameControllerThree.getGame().getNumberOfConnectedPlayers());
+
+        gameControllerThree.removePlayer("Laura");
+
+        assertEquals(TurnPhase.MOVE_STUDENT, gameControllerThree.getGame().getTurnPhase());
+        assertEquals(gameControllerThree.getGame().getPlayerByNickname("Laura"), gameControllerThree.getGame().getCurrentPlayer());
+        assertEquals(3, gameControllerThree.getGame().getNumberOfPlayer());
+        assertEquals(1, gameControllerThree.getGame().getNumberOfConnectedPlayers());
+    }
+
+    @Test
+    void removePlayerDuringTheMoveStudentPhaseOnlyOnePlayer() {
+        // Test with a game of two players
+        gameControllerTwo.addPlayer("Viola", Wizard.TYPE_1);
+        gameControllerTwo.addPlayer("Laura", Wizard.TYPE_2);
+        gameControllerTwo.setUpTableAndPlayers();
+
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerTwo.getGame().getTurnPhase());
+        assertEquals(gameControllerTwo.getGame().getPlayerByNickname("Viola"), gameControllerTwo.getGame().getCurrentPlayer());
+
+        gameControllerTwo.playAssistantCard("Viola", 0);
+        gameControllerTwo.playAssistantCard("Laura", 1);
+
+        assertEquals(TurnPhase.MOVE_STUDENT, gameControllerTwo.getGame().getTurnPhase());
+        assertEquals(gameControllerTwo.getGame().getPlayerByNickname("Viola"), gameControllerTwo.getGame().getCurrentPlayer());
+
+        if (gameControllerTwo.getGame().getPlayerByNickname("Viola").getSchoolBoard().getEntrance(Colour.BLUE) > 0) {
+            gameControllerTwo.moveStudentToIsland("Viola", Colour.BLUE, 0, 0);
+        }
+
+        assertEquals(TurnPhase.MOVE_STUDENT, gameControllerTwo.getGame().getTurnPhase());
+        gameControllerTwo.removePlayer("Viola");
+
+        assertEquals(TurnPhase.MOVE_STUDENT, gameControllerTwo.getGame().getTurnPhase());
+        assertEquals(gameControllerTwo.getGame().getPlayerByNickname("Viola"), gameControllerTwo.getGame().getCurrentPlayer());
+        assertEquals(2, gameControllerTwo.getGame().getNumberOfPlayer());
+        assertEquals(1, gameControllerTwo.getGame().getNumberOfConnectedPlayers());
+
+        // Test with a game of three players
+        // In this test we remove only one player in order to understand if the game continues correctly
+        // then we add again this player to understand if the game handles the reconnection correctly
+        gameControllerThree.addPlayer("Viola", Wizard.TYPE_1);
+        gameControllerThree.addPlayer("Laura", Wizard.TYPE_2);
+        gameControllerThree.addPlayer("Sara", Wizard.TYPE_3);
+        gameControllerThree.setUpTableAndPlayers();
+
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
+        assertEquals(gameControllerThree.getGame().getPlayerByNickname("Viola"), gameControllerThree.getGame().getCurrentPlayer());
+
+        // Select the assistant cards
+        gameControllerThree.playAssistantCard("Viola", 0);
+        gameControllerThree.playAssistantCard("Laura", 1);
+        gameControllerThree.playAssistantCard("Sara", 2);
+
+        assertEquals(TurnPhase.MOVE_STUDENT, gameControllerThree.getGame().getTurnPhase());
+        assertEquals(gameControllerThree.getGame().getPlayerByNickname("Viola"), gameControllerThree.getGame().getCurrentPlayer());
+
+        // Remove one player and check that the turn go on without this player
+        gameControllerThree.removePlayer("Viola");
+
+        // Laura's turn
+        assertEquals(TurnPhase.MOVE_STUDENT, gameControllerThree.getGame().getTurnPhase());
+        assertEquals(gameControllerThree.getGame().getPlayerByNickname("Laura"), gameControllerThree.getGame().getCurrentPlayer());
+        assertEquals(3, gameControllerThree.getGame().getNumberOfPlayer());
+        assertEquals(2, gameControllerThree.getGame().getNumberOfConnectedPlayers());
+
+        int i = 0;
+        while (i < 4) {
+            for (Colour colour : Colour.values()) {
+                if (gameControllerThree.getGame().getPlayerByIndex(1).getSchoolBoard().getEntrance(colour) > 0) {
+                    gameControllerThree.moveStudentToIsland("Laura", colour, 7, 0);
+                    i++;
+                }
+            }
+        }
+
+        assertEquals(5, gameControllerThree.getGame().getPlayerByNickname("Laura").getSchoolBoard().getNumberStudentsEntrance());
+
+        assertEquals(TurnPhase.MOVE_MOTHER_NATURE, gameControllerThree.getGame().getTurnPhase());
+        assertEquals(gameControllerThree.getGame().getPlayerByNickname("Laura"), gameControllerThree.getGame().getCurrentPlayer());
+
+        gameControllerThree.moveMotherNature("Laura", 1);
+
+        assertEquals(TurnPhase.CHOOSE_CLOUD_TILE, gameControllerThree.getGame().getTurnPhase());
+        assertEquals(gameControllerThree.getGame().getPlayerByNickname("Laura"), gameControllerThree.getGame().getCurrentPlayer());
+
+        gameControllerThree.chooseCloudTile("Laura", 0);
+
+        // Sara's turn
+        assertEquals(TurnPhase.MOVE_STUDENT, gameControllerThree.getGame().getTurnPhase());
+        assertEquals(gameControllerThree.getGame().getPlayerByNickname("Sara"), gameControllerThree.getGame().getCurrentPlayer());
+        assertEquals(3, gameControllerThree.getGame().getNumberOfPlayer());
+        assertEquals(2, gameControllerThree.getGame().getNumberOfConnectedPlayers());
+
+        i = 0;
+        while (i < 4) {
+            for (Colour colour : Colour.values()) {
+                if (gameControllerThree.getGame().getPlayerByIndex(2).getSchoolBoard().getEntrance(colour) > 0) {
+                    gameControllerThree.moveStudentToIsland("Sara", colour, 7, 0);
+                    i++;
+                }
+            }
+        }
+
+        assertEquals(5, gameControllerThree.getGame().getPlayerByNickname("Sara").getSchoolBoard().getNumberStudentsEntrance());
+        assertEquals(TurnPhase.MOVE_MOTHER_NATURE, gameControllerThree.getGame().getTurnPhase());
+        assertEquals(gameControllerThree.getGame().getPlayerByNickname("Sara"), gameControllerThree.getGame().getCurrentPlayer());
+
+        gameControllerThree.moveMotherNature("Sara", 1);
+
+        assertEquals(TurnPhase.CHOOSE_CLOUD_TILE, gameControllerThree.getGame().getTurnPhase());
+        assertEquals(gameControllerThree.getGame().getPlayerByNickname("Sara"), gameControllerThree.getGame().getCurrentPlayer());
+
+        gameControllerThree.chooseCloudTile("Sara", 0);
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
+        assertEquals(gameControllerThree.getGame().getPlayerByNickname("Laura"), gameControllerThree.getGame().getCurrentPlayer());
+
+        // Second turn
+        gameControllerThree.playAssistantCard("Laura", 0);
+        gameControllerThree.playAssistantCard("Sara", 1);
+        assertEquals(3, gameControllerThree.getGame().getNumberOfPlayer());
+        assertEquals(2, gameControllerThree.getGame().getNumberOfConnectedPlayers());
+
+        // Laura's turn
+        assertEquals(TurnPhase.MOVE_STUDENT, gameControllerThree.getGame().getTurnPhase());
+        assertEquals(gameControllerThree.getGame().getPlayerByNickname("Laura"), gameControllerThree.getGame().getCurrentPlayer());
+
+        i = 0;
+        while (i < 4) {
+            for (Colour colour : Colour.values()) {
+                if (gameControllerThree.getGame().getPlayerByIndex(1).getSchoolBoard().getEntrance(colour) > 0) {
+                    gameControllerThree.moveStudentToIsland("Laura", colour, 7, 0);
+                    i++;
+                }
+            }
+        }
+
+        assertEquals(TurnPhase.MOVE_MOTHER_NATURE, gameControllerThree.getGame().getTurnPhase());
+        assertEquals(gameControllerThree.getGame().getPlayerByNickname("Laura"), gameControllerThree.getGame().getCurrentPlayer());
+        gameControllerThree.moveMotherNature("Laura", 1);
+
+        assertEquals(TurnPhase.CHOOSE_CLOUD_TILE, gameControllerThree.getGame().getTurnPhase());
+        assertEquals(gameControllerThree.getGame().getPlayerByNickname("Laura"), gameControllerThree.getGame().getCurrentPlayer());
+        gameControllerThree.chooseCloudTile("Laura", 0);
+
+        // Sara's turn
+        assertEquals(TurnPhase.MOVE_STUDENT, gameControllerThree.getGame().getTurnPhase());
+        assertEquals(gameControllerThree.getGame().getPlayerByNickname("Sara"), gameControllerThree.getGame().getCurrentPlayer());
+
+        i = 0;
+        while (i < 4) {
+            for (Colour colour : Colour.values()) {
+                if (gameControllerThree.getGame().getPlayerByIndex(2).getSchoolBoard().getEntrance(colour) > 0) {
+                    gameControllerThree.moveStudentToIsland("Sara", colour, 7, 0);
+                    i++;
+                }
+            }
+        }
+
+        assertEquals(TurnPhase.MOVE_MOTHER_NATURE, gameControllerThree.getGame().getTurnPhase());
+        assertEquals(gameControllerThree.getGame().getPlayerByNickname("Sara"), gameControllerThree.getGame().getCurrentPlayer());
+        gameControllerThree.moveMotherNature("Sara", 1);
+
+        assertEquals(TurnPhase.CHOOSE_CLOUD_TILE, gameControllerThree.getGame().getTurnPhase());
+        assertEquals(gameControllerThree.getGame().getPlayerByNickname("Sara"), gameControllerThree.getGame().getCurrentPlayer());
+        gameControllerThree.chooseCloudTile("Sara", 0);
+
+        // Third round
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
+        assertEquals(gameControllerThree.getGame().getPlayerByNickname("Laura"), gameControllerThree.getGame().getCurrentPlayer());
+        assertEquals(3, gameControllerThree.getGame().getNumberOfPlayer());
+        assertEquals(2, gameControllerThree.getGame().getNumberOfConnectedPlayers());
+        gameControllerThree.playAssistantCard("Laura", 9);
+        gameControllerThree.playAssistantCard("Sara", 8);
+
+        // Sara's turn
+        assertEquals(TurnPhase.MOVE_STUDENT, gameControllerThree.getGame().getTurnPhase());
+        assertEquals(gameControllerThree.getGame().getPlayerByNickname("Sara"), gameControllerThree.getGame().getCurrentPlayer());
+
+        i = 0;
+        while (i < 4) {
+            for (Colour colour : Colour.values()) {
+                if (gameControllerThree.getGame().getPlayerByIndex(2).getSchoolBoard().getEntrance(colour) > 0) {
+                    gameControllerThree.moveStudentToIsland("Sara", colour, 7, 0);
+                    i++;
+                }
+            }
+        }
+
+        assertEquals(TurnPhase.MOVE_MOTHER_NATURE, gameControllerThree.getGame().getTurnPhase());
+        assertEquals(gameControllerThree.getGame().getPlayerByNickname("Sara"), gameControllerThree.getGame().getCurrentPlayer());
+        gameControllerThree.moveMotherNature("Sara", 5);
+
+        assertEquals(TurnPhase.CHOOSE_CLOUD_TILE, gameControllerThree.getGame().getTurnPhase());
+        assertEquals(gameControllerThree.getGame().getPlayerByNickname("Sara"), gameControllerThree.getGame().getCurrentPlayer());
+        gameControllerThree.chooseCloudTile("Sara", 1);
+
+        // Laura's turn
+        assertEquals(TurnPhase.MOVE_STUDENT, gameControllerThree.getGame().getTurnPhase());
+        assertEquals(gameControllerThree.getGame().getPlayerByNickname("Laura"), gameControllerThree.getGame().getCurrentPlayer());
+
+        i = 0;
+        while (i < 4) {
+            for (Colour colour : Colour.values()) {
+                if (gameControllerThree.getGame().getPlayerByIndex(1).getSchoolBoard().getEntrance(colour) > 0) {
+                    gameControllerThree.moveStudentToIsland("Laura", colour, 7, 0);
+                    i++;
+                }
+            }
+        }
+
+        assertEquals(TurnPhase.MOVE_MOTHER_NATURE, gameControllerThree.getGame().getTurnPhase());
+        assertEquals(gameControllerThree.getGame().getPlayerByNickname("Laura"), gameControllerThree.getGame().getCurrentPlayer());
+        gameControllerThree.moveMotherNature("Laura", 3);
+
+        assertEquals(TurnPhase.CHOOSE_CLOUD_TILE, gameControllerThree.getGame().getTurnPhase());
+        assertEquals(gameControllerThree.getGame().getPlayerByNickname("Laura"), gameControllerThree.getGame().getCurrentPlayer());
+        gameControllerThree.chooseCloudTile("Laura", 0);
+
+        // Fourth turn
+        assertEquals(3, gameControllerThree.getGame().getNumberOfPlayer());
+        assertEquals(2, gameControllerThree.getGame().getNumberOfConnectedPlayers());
+        gameControllerThree.playAssistantCard("Sara", 7);
+        gameControllerThree.playAssistantCard("Laura", 8);
+
+        assertEquals(TurnPhase.MOVE_STUDENT, gameControllerThree.getGame().getTurnPhase());
+        assertEquals(gameControllerThree.getGame().getPlayerByNickname("Sara"), gameControllerThree.getGame().getCurrentPlayer());
+
+        gameControllerThree.reconnectPlayer("Viola");
+        assertEquals(3, gameControllerThree.getGame().getNumberOfPlayer());
+        assertEquals(2, gameControllerThree.getGame().getNumberOfConnectedPlayers());
+
+        // Sara's turn
+        assertEquals(TurnPhase.MOVE_STUDENT, gameControllerThree.getGame().getTurnPhase());
+        assertEquals(gameControllerThree.getGame().getPlayerByNickname("Sara"), gameControllerThree.getGame().getCurrentPlayer());
+
+        assertEquals(TurnPhase.MOVE_STUDENT, gameControllerThree.getGame().getTurnPhase());
+        assertEquals(gameControllerThree.getGame().getPlayerByNickname("Sara"), gameControllerThree.getGame().getCurrentPlayer());
+
+        i = 0;
+        while (i < 4) {
+            for (Colour colour : Colour.values()) {
+                if (gameControllerThree.getGame().getPlayerByIndex(2).getSchoolBoard().getEntrance(colour) > 0) {
+                    gameControllerThree.moveStudentToIsland("Sara", colour, 7, 0);
+                    i++;
+                }
+            }
+        }
+
+        assertEquals(TurnPhase.MOVE_MOTHER_NATURE, gameControllerThree.getGame().getTurnPhase());
+        assertEquals(gameControllerThree.getGame().getPlayerByNickname("Sara"), gameControllerThree.getGame().getCurrentPlayer());
+        gameControllerThree.moveMotherNature("Sara", 4);
+
+        assertEquals(TurnPhase.CHOOSE_CLOUD_TILE, gameControllerThree.getGame().getTurnPhase());
+        assertEquals(gameControllerThree.getGame().getPlayerByNickname("Sara"), gameControllerThree.getGame().getCurrentPlayer());
+        gameControllerThree.chooseCloudTile("Sara", 1);
+
+        // Laura's turn
+        assertEquals(TurnPhase.MOVE_STUDENT, gameControllerThree.getGame().getTurnPhase());
+        assertEquals(gameControllerThree.getGame().getPlayerByNickname("Laura"), gameControllerThree.getGame().getCurrentPlayer());
+
+        i = 0;
+        while (i < 4) {
+            for (Colour colour : Colour.values()) {
+                if (gameControllerThree.getGame().getPlayerByIndex(1).getSchoolBoard().getEntrance(colour) > 0) {
+                    gameControllerThree.moveStudentToIsland("Laura", colour, 7, 0);
+                    i++;
+                }
+            }
+        }
+
+        assertEquals(TurnPhase.MOVE_MOTHER_NATURE, gameControllerThree.getGame().getTurnPhase());
+        assertEquals(gameControllerThree.getGame().getPlayerByNickname("Laura"), gameControllerThree.getGame().getCurrentPlayer());
+        gameControllerThree.moveMotherNature("Laura", 3);
+
+        assertEquals(TurnPhase.CHOOSE_CLOUD_TILE, gameControllerThree.getGame().getTurnPhase());
+        assertEquals(gameControllerThree.getGame().getPlayerByNickname("Laura"), gameControllerThree.getGame().getCurrentPlayer());
+        assertEquals(3, gameControllerThree.getGame().getNumberOfPlayer());
+        assertEquals(2, gameControllerThree.getGame().getNumberOfConnectedPlayers());
+        gameControllerThree.chooseCloudTile("Laura", 0);
+
+        // Fifth turn
+        assertEquals(3, gameControllerThree.getGame().getNumberOfPlayer());
+        assertEquals(3, gameControllerThree.getGame().getNumberOfConnectedPlayers());
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
+        assertEquals(gameControllerThree.getGame().getPlayerByNickname("Sara"), gameControllerThree.getGame().getCurrentPlayer());
+        gameControllerThree.playAssistantCard("Sara", 5);
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
+        assertEquals(gameControllerThree.getGame().getPlayerByNickname("Viola"), gameControllerThree.getGame().getCurrentPlayer());
+        gameControllerThree.playAssistantCard("Viola", 6);
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
+        assertEquals(gameControllerThree.getGame().getPlayerByNickname("Laura"), gameControllerThree.getGame().getCurrentPlayer());
+        gameControllerThree.playAssistantCard("Laura", 4);
+
+        assertEquals(TurnPhase.MOVE_STUDENT, gameControllerThree.getGame().getTurnPhase());
+        assertEquals(gameControllerThree.getGame().getPlayerByNickname("Laura"), gameControllerThree.getGame().getCurrentPlayer());
+    }
+
+    @Test
+    void disconnectionOfOnePlayerInAGameOfTwo() {
+        // In this test we try to disconnect only one player and check that the game wait for they
+        gameControllerTwo.addPlayer("Viola", Wizard.TYPE_3);
+        gameControllerTwo.addPlayer("Sara", Wizard.TYPE_2);
+        gameControllerTwo.setUpTableAndPlayers();
+
+        gameControllerTwo.playAssistantCard("Viola", 0);
+        gameControllerTwo.playAssistantCard("Sara", 1);
+        assertEquals(2, gameControllerTwo.getGame().getNumberOfPlayer());
+        assertEquals(2, gameControllerTwo.getGame().getNumberOfConnectedPlayers());
+        assertEquals("Viola", gameControllerTwo.getGame().getCurrentPlayer().getNickname());
+        assertEquals(TurnPhase.MOVE_STUDENT, gameControllerTwo.getGame().getTurnPhase());
+        // Disconnect the first player
+        gameControllerTwo.removePlayer("Viola");
+        assertEquals(2, gameControllerTwo.getGame().getNumberOfPlayer());
+        assertEquals(1, gameControllerTwo.getGame().getNumberOfConnectedPlayers());
+
+        // try to disconnect a player not in the game
+        gameControllerTwo.removePlayer("Laura");
+        assertEquals(2, gameControllerTwo.getGame().getNumberOfPlayer());
+        assertEquals(1, gameControllerTwo.getGame().getNumberOfConnectedPlayers());
+        assertEquals("Viola", gameControllerTwo.getGame().getCurrentPlayer().getNickname());
+        assertEquals(TurnPhase.MOVE_STUDENT, gameControllerTwo.getGame().getTurnPhase());
+
+        gameControllerTwo.playAssistantCard("Sara", 2);
+        gameControllerTwo.moveMotherNature("Sara", 1);
+        // try to reconnect a player not in the game
+
+        gameControllerTwo.reconnectPlayer("Laura");
+        assertEquals(2, gameControllerTwo.getGame().getNumberOfPlayer());
+        assertEquals(1, gameControllerTwo.getGame().getNumberOfConnectedPlayers());
+
+        // Reconnect the first player
+        gameControllerTwo.reconnectPlayer("Viola");
+        assertEquals(2, gameControllerTwo.getGame().getNumberOfPlayer());
+        assertEquals(2, gameControllerTwo.getGame().getNumberOfConnectedPlayers());
+        assertEquals("Viola", gameControllerTwo.getGame().getCurrentPlayer().getNickname());
+        assertEquals(TurnPhase.MOVE_STUDENT, gameControllerTwo.getGame().getTurnPhase());
+
+        // Viola's turn
+        int i = 0;
+        while (i < 3) {
+            for (Colour colour : Colour.values()) {
+                if (gameControllerTwo.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
+                    gameControllerTwo.moveStudentToIsland("Viola", colour, 7, 0);
+                    i++;
+                }
+            }
+        }
+
+        assertEquals("Viola", gameControllerTwo.getGame().getCurrentPlayer().getNickname());
+        assertEquals(TurnPhase.MOVE_MOTHER_NATURE, gameControllerTwo.getGame().getTurnPhase());
+
+        // Disconnect the second player
+        gameControllerTwo.removePlayer("Sara");
+        assertEquals("Viola", gameControllerTwo.getGame().getCurrentPlayer().getNickname());
+        assertEquals(TurnPhase.MOVE_MOTHER_NATURE, gameControllerTwo.getGame().getTurnPhase());
+        assertEquals(2, gameControllerTwo.getGame().getNumberOfPlayer());
+        assertEquals(1, gameControllerTwo.getGame().getNumberOfConnectedPlayers());
+
+        gameControllerTwo.moveMotherNature("Viola", 1);
+        assertEquals("Viola", gameControllerTwo.getGame().getCurrentPlayer().getNickname());
+        assertEquals(TurnPhase.MOVE_MOTHER_NATURE, gameControllerTwo.getGame().getTurnPhase());
+        assertEquals(2, gameControllerTwo.getGame().getNumberOfPlayer());
+        assertEquals(1, gameControllerTwo.getGame().getNumberOfConnectedPlayers());
+
+        // Reconnect the second player
+        gameControllerTwo.reconnectPlayer("Sara");
+        assertEquals(2, gameControllerTwo.getGame().getNumberOfPlayer());
+        assertEquals(2, gameControllerTwo.getGame().getNumberOfConnectedPlayers());
+
+        gameControllerTwo.moveMotherNature("Viola", 1);
+        assertEquals("Viola", gameControllerTwo.getGame().getCurrentPlayer().getNickname());
+        assertEquals(TurnPhase.CHOOSE_CLOUD_TILE, gameControllerTwo.getGame().getTurnPhase());
+        assertEquals(2, gameControllerTwo.getGame().getNumberOfPlayer());
+        assertEquals(2, gameControllerTwo.getGame().getNumberOfConnectedPlayers());
+
+        gameControllerTwo.chooseCloudTile("Viola", 1);
+        assertEquals("Sara", gameControllerTwo.getGame().getCurrentPlayer().getNickname());
+        assertEquals(TurnPhase.MOVE_STUDENT, gameControllerTwo.getGame().getTurnPhase());
+
+        // Sara's turn
+        i = 0;
+        while (i < 3) {
+            for (Colour colour : Colour.values()) {
+                if (gameControllerTwo.getGame().getPlayerByIndex(1).getSchoolBoard().getEntrance(colour) > 0) {
+                    gameControllerTwo.moveStudentToIsland("Sara", colour, 7, 0);
+                    i++;
+                }
+            }
+        }
+
+        assertEquals("Sara", gameControllerTwo.getGame().getCurrentPlayer().getNickname());
+        assertEquals(TurnPhase.MOVE_MOTHER_NATURE, gameControllerTwo.getGame().getTurnPhase());
+        gameControllerTwo.moveMotherNature("Sara", 1);
+
+        assertEquals("Sara", gameControllerTwo.getGame().getCurrentPlayer().getNickname());
+        assertEquals(TurnPhase.CHOOSE_CLOUD_TILE, gameControllerTwo.getGame().getTurnPhase());
+        gameControllerTwo.chooseCloudTile("Sara", 0);
+
+        // Second turn
+        assertEquals("Viola", gameControllerTwo.getGame().getCurrentPlayer().getNickname());
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerTwo.getGame().getTurnPhase());
+        gameControllerTwo.playAssistantCard("Viola", 9);
+
+        assertEquals("Sara", gameControllerTwo.getGame().getCurrentPlayer().getNickname());
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerTwo.getGame().getTurnPhase());
+        gameControllerTwo.playAssistantCard("Sara", 8);
+
+        assertEquals("Sara", gameControllerTwo.getGame().getCurrentPlayer().getNickname());
+        assertEquals(TurnPhase.MOVE_STUDENT, gameControllerTwo.getGame().getTurnPhase());
     }
 
     @Test
@@ -1090,6 +1637,7 @@ class GameControllerTest {
 
     @RepeatedTest(100)
     void gameTest2Players() {
+        // A simple game of two players to test if the basic operations work
         gameControllerTwo.addPlayer("Laura", Wizard.TYPE_2);
         gameControllerTwo.addPlayer("Viola", Wizard.TYPE_2);
 
@@ -1729,6 +2277,7 @@ class GameControllerTest {
 
     @RepeatedTest(100)
     void checkIsBagEmpty() {
+        // A test in order to end the students in the bag and check that the game ends
         gameControllerThree.addPlayer("Viola", Wizard.TYPE_3);
         gameControllerThree.addPlayer("Laura", Wizard.TYPE_4);
         gameControllerThree.addPlayer("Sara", Wizard.TYPE_2);
@@ -2162,6 +2711,7 @@ class GameControllerTest {
 
     @RepeatedTest(100)
     void exceptionSetting() {
+        // A test to check the exceptions
         gameControllerTwo.addPlayer("Viola", Wizard.TYPE_2);
         assertEquals(1, gameControllerTwo.getGame().getNumberOfPlayer());
         gameControllerTwo.addPlayer("Viola", Wizard.TYPE_1);
@@ -2449,6 +2999,7 @@ class GameControllerTest {
 
     @RepeatedTest(1000)
     void testCanPlayAssistantCard() {
+        // In this game we test if the check of the assistant card is correct
         // adding player to the game
         gameControllerTwo.addPlayer("Laura", Wizard.TYPE_2);
         gameControllerTwo.addPlayer("Viola", Wizard.TYPE_3);
@@ -2763,6 +3314,8 @@ class GameControllerTest {
 
     @Test
     void assistantCard() {
+        // Checks that the assistant cards can be selected correctly
+        // For doing so, one game is completed, in order to test also other part of the game
         gameControllerTwo.addPlayer("Laura", Wizard.TYPE_1);
         gameControllerTwo.addPlayer("Viola", Wizard.TYPE_4);
         gameControllerTwo.setUpTableAndPlayers();
@@ -3040,6 +3593,7 @@ class GameControllerTest {
 
     @Test
     public void endStudent() {
+        // Checks that the students end correctly
         gameControllerTwo.addPlayer("Viola", Wizard.TYPE_2);
         gameControllerTwo.addPlayer("Laura", Wizard.TYPE_1);
         assertEquals(2, Wizard.getWizardCode(gameControllerTwo.getGame().getPlayerByIndex(0).getWizard()));
@@ -3051,6 +3605,370 @@ class GameControllerTest {
 
         assertThrows(IllegalAccessError.class, () -> gameControllerTwo.getGame().getTable().getBag().bagDrawStudent());
         assertTrue(gameControllerTwo.getGame().getTable().getBag().getNoStudent());
+    }
+
+    @Test
+    public void disconnectionInGameOfThreePlayingAssistantCard() {
+        // A test to check that the disconnection are correctly handled in the game with three players
+        gameControllerThree.addPlayer("Viola", Wizard.TYPE_1);
+        gameControllerThree.addPlayer("Laura", Wizard.TYPE_2);
+        gameControllerThree.addPlayer("Sara", Wizard.TYPE_3);
+        gameControllerThree.setUpTableAndPlayers();
+
+        assertNull(gameControllerThree.getGame().getFirstPlayerTurn());
+        // Controls that the first player is the current
+        assertEquals("Viola", gameControllerThree.getGame().getCurrentPlayer().getNickname());
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
+        gameControllerThree.removePlayer("Viola");
+
+        assertEquals("Laura", gameControllerThree.getGame().getCurrentPlayer().getNickname());
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
+        gameControllerThree.removePlayer("Laura");
+        assertEquals("Laura", gameControllerThree.getGame().getCurrentPlayer().getNickname());
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
+
+        gameControllerThree.playAssistantCard("Laura", 0);
+        assertEquals("Laura", gameControllerThree.getGame().getCurrentPlayer().getNickname());
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
+        assertNull(gameControllerThree.getGame().getFirstPlayerTurn());
+        gameControllerThree.reconnectPlayer("Viola");
+        assertTrue(gameControllerThree.getGame().getPlayerByNickname("Viola").getHasAlreadyPlayed());
+
+        assertEquals("Sara", gameControllerThree.getGame().getCurrentPlayer().getNickname());
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
+        gameControllerThree.playAssistantCard("Sara", 0);
+        assertTrue(gameControllerThree.getGame().getPlayerByNickname("Viola").getHasAlreadyPlayed());
+        assertEquals("Sara", gameControllerThree.getGame().getFirstPlayerTurn().getNickname());
+
+        assertEquals("Sara", gameControllerThree.getGame().getCurrentPlayer().getNickname());
+        assertEquals(TurnPhase.MOVE_STUDENT, gameControllerThree.getGame().getTurnPhase());
+
+        int i = 0;
+        while (i < 4) {
+            for (Colour colour : Colour.values()) {
+                if (gameControllerThree.getGame().getPlayerByIndex(2).getSchoolBoard().getEntrance(colour) > 0) {
+                    gameControllerThree.moveStudentToIsland("Sara", colour, 0, 0);
+                    i++;
+                    break;
+                }
+            }
+        }
+
+        assertEquals("Sara", gameControllerThree.getGame().getCurrentPlayer().getNickname());
+        assertEquals(TurnPhase.MOVE_MOTHER_NATURE, gameControllerThree.getGame().getTurnPhase());
+
+        gameControllerThree.moveMotherNature("Sara", 1);
+        assertEquals("Sara", gameControllerThree.getGame().getCurrentPlayer().getNickname());
+        assertEquals(TurnPhase.CHOOSE_CLOUD_TILE, gameControllerThree.getGame().getTurnPhase());
+
+        gameControllerThree.chooseCloudTile("Sara", 1);
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
+        assertEquals("Sara", gameControllerThree.getGame().getCurrentPlayer().getNickname());
+    }
+
+    @Test
+    public void disconnectionInGameOfThreeDuringPlayingPhase() {
+        // A test to check that the disconnection are correctly handled in the game with three players
+        gameControllerThree.addPlayer("Viola", Wizard.TYPE_1);
+        gameControllerThree.addPlayer("Laura", Wizard.TYPE_2);
+        gameControllerThree.addPlayer("Sara", Wizard.TYPE_3);
+        gameControllerThree.setUpTableAndPlayers();
+
+        // First round
+        // Play assistant cards
+        assertEquals("Viola", gameControllerThree.getGame().getCurrentPlayer().getNickname());
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
+        gameControllerThree.playAssistantCard("Viola", 1);
+
+        assertEquals("Laura", gameControllerThree.getGame().getCurrentPlayer().getNickname());
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
+        gameControllerThree.playAssistantCard("Laura", 2);
+
+        assertEquals("Sara", gameControllerThree.getGame().getCurrentPlayer().getNickname());
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
+        gameControllerThree.playAssistantCard("Sara", 0);
+        // Sara's turn
+        assertEquals("Sara", gameControllerThree.getGame().getCurrentPlayer().getNickname());
+        assertEquals(TurnPhase.MOVE_STUDENT, gameControllerThree.getGame().getTurnPhase());
+
+        //Playing phase
+
+        // Sara's removed
+        gameControllerThree.removePlayer("Sara");
+        // Viola is now the current player
+        assertEquals("Viola", gameControllerThree.getGame().getCurrentPlayer().getNickname());
+        assertEquals(TurnPhase.MOVE_STUDENT, gameControllerThree.getGame().getTurnPhase());
+
+        int i = 0;
+        while (i < 1) {
+            for (Colour colour : Colour.values()) {
+                if (gameControllerThree.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
+                    gameControllerThree.moveStudentToIsland("Viola", colour, 0, 0);
+                    i++;
+                    break;
+                }
+            }
+        }
+
+        assertEquals("Viola", gameControllerThree.getGame().getCurrentPlayer().getNickname());
+        assertEquals(TurnPhase.MOVE_STUDENT, gameControllerThree.getGame().getTurnPhase());
+        assertEquals(8, gameControllerThree.getGame().getPlayerByNickname("Viola").getSchoolBoard().getNumberStudentsEntrance());
+        // Laura is removed
+        gameControllerThree.removePlayer("Laura");
+        // Only Viola is left, so the game stops
+        assertEquals("Viola", gameControllerThree.getGame().getCurrentPlayer().getNickname());
+        assertEquals(TurnPhase.MOVE_STUDENT, gameControllerThree.getGame().getTurnPhase());
+
+        i = 0;
+        while (i < 3) {
+            for (Colour colour : Colour.values()) {
+                if (gameControllerThree.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
+                    gameControllerThree.moveStudentToIsland("Viola", colour, 0, 0);
+                    i++;
+                }
+            }
+        }
+        assertEquals("Viola", gameControllerThree.getGame().getCurrentPlayer().getNickname());
+        assertEquals(TurnPhase.MOVE_STUDENT, gameControllerThree.getGame().getTurnPhase());
+        // Laura reconnect, so now there are two players in the game and Viola can continue the turn
+        gameControllerThree.reconnectPlayer("Laura");
+
+        i = 0;
+        while (i < 3) {
+            for (Colour colour : Colour.values()) {
+                if (gameControllerThree.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
+                    gameControllerThree.moveStudentToIsland("Viola", colour, 0, 0);
+                    i++;
+                }
+            }
+        }
+        assertEquals("Viola", gameControllerThree.getGame().getCurrentPlayer().getNickname());
+        assertEquals(TurnPhase.MOVE_MOTHER_NATURE, gameControllerThree.getGame().getTurnPhase());
+
+        gameControllerThree.moveMotherNature("Viola", 1);
+        assertEquals("Viola", gameControllerThree.getGame().getCurrentPlayer().getNickname());
+        assertEquals(TurnPhase.CHOOSE_CLOUD_TILE, gameControllerThree.getGame().getTurnPhase());
+        gameControllerThree.chooseCloudTile("Viola", 2);
+
+        assertEquals("Laura", gameControllerThree.getGame().getCurrentPlayer().getNickname());
+        assertEquals(TurnPhase.MOVE_STUDENT, gameControllerThree.getGame().getTurnPhase());
+        // Laura is removed, so now the game stops because there is only one player
+        gameControllerThree.removePlayer("Laura");
+        assertEquals("Laura", gameControllerThree.getGame().getCurrentPlayer().getNickname());
+        assertEquals(TurnPhase.MOVE_STUDENT, gameControllerThree.getGame().getTurnPhase());
+
+        // Sara comes back and so there are two players and the game goes on
+        // Laura loses her turn
+        gameControllerThree.reconnectPlayer("Sara");
+        assertEquals("Sara", gameControllerThree.getGame().getCurrentPlayer().getNickname());
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
+        assertEquals(3, gameControllerThree.getGame().getTable().getNumberOfCloudTile());
+        gameControllerThree.playAssistantCard("Sara", 9);
+        assertEquals("Viola", gameControllerThree.getGame().getCurrentPlayer().getNickname());
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
+        gameControllerThree.playAssistantCard("Viola", 8);
+        assertEquals("Viola", gameControllerThree.getGame().getCurrentPlayer().getNickname());
+        assertEquals(TurnPhase.MOVE_STUDENT, gameControllerThree.getGame().getTurnPhase());
+
+        // Laura reconnects, so now there are three players, but she never played the assistant card, so she is losing also this turn
+        gameControllerThree.reconnectPlayer("Laura");
+        assertEquals("Viola", gameControllerThree.getGame().getCurrentPlayer().getNickname());
+        assertEquals(TurnPhase.MOVE_STUDENT, gameControllerThree.getGame().getTurnPhase());
+
+        i = 0;
+        while (i < 4) {
+            for (Colour colour : Colour.values()) {
+                if (gameControllerThree.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
+                    gameControllerThree.moveStudentToIsland("Viola", colour, 0, 0);
+                    i++;
+                }
+            }
+        }
+        assertEquals("Viola", gameControllerThree.getGame().getCurrentPlayer().getNickname());
+        assertEquals(TurnPhase.MOVE_MOTHER_NATURE, gameControllerThree.getGame().getTurnPhase());
+
+        gameControllerThree.moveMotherNature("Viola", 1);
+        assertEquals("Viola", gameControllerThree.getGame().getCurrentPlayer().getNickname());
+        assertEquals(TurnPhase.CHOOSE_CLOUD_TILE, gameControllerThree.getGame().getTurnPhase());
+        gameControllerThree.chooseCloudTile("Viola", 1);
+
+        // Sara's turn
+        assertEquals("Sara", gameControllerThree.getGame().getCurrentPlayer().getNickname());
+        assertEquals(TurnPhase.MOVE_STUDENT, gameControllerThree.getGame().getTurnPhase());
+
+        i = 0;
+        while (i < 4) {
+            for (Colour colour : Colour.values()) {
+                if (gameControllerThree.getGame().getPlayerByIndex(2).getSchoolBoard().getEntrance(colour) > 0) {
+                    gameControllerThree.moveStudentToIsland("Sara", colour, 0, 0);
+                    i++;
+                }
+            }
+        }
+        assertEquals("Sara", gameControllerThree.getGame().getCurrentPlayer().getNickname());
+        assertEquals(TurnPhase.MOVE_MOTHER_NATURE, gameControllerThree.getGame().getTurnPhase());
+
+        gameControllerThree.moveMotherNature("Sara", 1);
+        assertEquals("Sara", gameControllerThree.getGame().getCurrentPlayer().getNickname());
+        assertEquals(TurnPhase.CHOOSE_CLOUD_TILE, gameControllerThree.getGame().getTurnPhase());
+        gameControllerThree.chooseCloudTile("Sara", 0);
+
+
+        // Playing assistant cards
+        assertEquals("Viola", gameControllerThree.getGame().getCurrentPlayer().getNickname());
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
+        gameControllerThree.playAssistantCard("Viola", 4);
+
+        assertEquals("Laura", gameControllerThree.getGame().getCurrentPlayer().getNickname());
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
+        gameControllerThree.playAssistantCard("Laura", 6);
+
+        assertEquals("Sara", gameControllerThree.getGame().getCurrentPlayer().getNickname());
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
+        gameControllerThree.playAssistantCard("Sara", 3);
+
+
+        // It is Sara's turn
+        assertEquals("Sara", gameControllerThree.getGame().getCurrentPlayer().getNickname());
+        assertEquals(TurnPhase.MOVE_STUDENT, gameControllerThree.getGame().getTurnPhase());
+        i = 0;
+        while (i < 4) {
+            for (Colour colour : Colour.values()) {
+                if (gameControllerThree.getGame().getPlayerByIndex(2).getSchoolBoard().getEntrance(colour) > 0) {
+                    gameControllerThree.moveStudentToIsland("Sara", colour, 0, 0);
+                    i++;
+                }
+            }
+        }
+
+        assertEquals("Sara", gameControllerThree.getGame().getCurrentPlayer().getNickname());
+        assertEquals(TurnPhase.MOVE_MOTHER_NATURE, gameControllerThree.getGame().getTurnPhase());
+        // Sara disconnects before moving mother nature so the turn goes to Viola
+        gameControllerThree.removePlayer("Sara");
+
+        assertEquals("Viola", gameControllerThree.getGame().getCurrentPlayer().getNickname());
+        assertEquals(TurnPhase.MOVE_STUDENT, gameControllerThree.getGame().getTurnPhase());
+
+        i = 0;
+        while (i < 4) {
+            for (Colour colour : Colour.values()) {
+                if (gameControllerThree.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
+                    gameControllerThree.moveStudentToIsland("Viola", colour, 0, 0);
+                    i++;
+                }
+            }
+        }
+        assertEquals("Viola", gameControllerThree.getGame().getCurrentPlayer().getNickname());
+        assertEquals(TurnPhase.MOVE_MOTHER_NATURE, gameControllerThree.getGame().getTurnPhase());
+        // Viola disconnects before moving mother nature so the game stops
+        gameControllerThree.removePlayer("Viola");
+
+        // Some player action to check that the game stopped
+        i = 0;
+        while (i < 4) {
+            for (Colour colour : Colour.values()) {
+                if (gameControllerThree.getGame().getPlayerByIndex(0).getSchoolBoard().getEntrance(colour) > 0) {
+                    gameControllerThree.moveStudentToIsland("Viola", colour, 0, 0);
+                    i++;
+                }
+            }
+        }
+        gameControllerThree.moveMotherNature("Viola", 1);
+        assertEquals("Viola", gameControllerThree.getGame().getCurrentPlayer().getNickname());
+        assertEquals(TurnPhase.MOVE_MOTHER_NATURE, gameControllerThree.getGame().getTurnPhase());
+
+        // Sara reconnect, so Viola loses her turn
+        gameControllerThree.reconnectPlayer("Sara");
+
+        assertEquals("Laura", gameControllerThree.getGame().getCurrentPlayer().getNickname());
+        assertEquals(TurnPhase.MOVE_STUDENT, gameControllerThree.getGame().getTurnPhase());
+
+        i = 0;
+        while (i < 4) {
+            for (Colour colour : Colour.values()) {
+                if (gameControllerThree.getGame().getPlayerByIndex(1).getSchoolBoard().getEntrance(colour) > 0) {
+                    gameControllerThree.moveStudentToIsland("Laura", colour, 0, 0);
+                    i++;
+                }
+            }
+        }
+
+        // Laura disconnects, the game stops because there is only one player
+        gameControllerThree.removePlayer("Laura");
+        // Viola reconnects, so Laura loses her turn
+        gameControllerThree.reconnectPlayer("Viola");
+
+        assertEquals(3, gameControllerThree.getGame().getTable().getNumberOfCloudTile());
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
+        assertEquals("Sara", gameControllerThree.getGame().getCurrentPlayer().getNickname());
+
+        // Checks if all the players have the correct number of students in their entrance
+        assertEquals(9, gameControllerThree.getGame().getPlayerByNickname("Viola").getSchoolBoard().getNumberStudentsEntrance());
+        assertEquals(9, gameControllerThree.getGame().getPlayerByNickname("Laura").getSchoolBoard().getNumberStudentsEntrance());
+        assertEquals(9, gameControllerThree.getGame().getPlayerByNickname("Sara").getSchoolBoard().getNumberStudentsEntrance());
+
+    }
+
+
+    @Test
+    public void reconnectDuringPlayingAssistantCardPhase1(){
+        gameControllerThree.addPlayer("Viola", Wizard.TYPE_1);
+        gameControllerThree.addPlayer("Laura", Wizard.TYPE_2);
+        gameControllerThree.addPlayer("Sara", Wizard.TYPE_3);
+        gameControllerThree.setUpTableAndPlayers();
+
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
+        assertEquals("Viola", gameControllerThree.getGame().getCurrentPlayer().getNickname());
+
+        // Removes Viola
+        gameControllerThree.removePlayer("Viola");
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
+        assertEquals("Laura", gameControllerThree.getGame().getCurrentPlayer().getNickname());
+
+        gameControllerThree.playAssistantCard("Laura", 0);
+
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
+        assertEquals("Sara", gameControllerThree.getGame().getCurrentPlayer().getNickname());
+
+        // Adds Viola
+        gameControllerThree.reconnectPlayer("Viola");
+        gameControllerThree.playAssistantCard("Sara", 1);
+
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
+        assertEquals("Viola", gameControllerThree.getGame().getCurrentPlayer().getNickname());
+        gameControllerThree.playAssistantCard("Viola", 2);
+
+        assertEquals(TurnPhase.MOVE_STUDENT, gameControllerThree.getGame().getTurnPhase());
+        assertEquals("Laura", gameControllerThree.getGame().getCurrentPlayer().getNickname());
+    }
+
+    @Test
+    public void reconnectDuringPlayingAssistantCardPhase2(){
+        gameControllerThree.addPlayer("Viola", Wizard.TYPE_1);
+        gameControllerThree.addPlayer("Laura", Wizard.TYPE_2);
+        gameControllerThree.addPlayer("Sara", Wizard.TYPE_3);
+        gameControllerThree.setUpTableAndPlayers();
+
+        // Viola's turn
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
+        assertEquals("Viola", gameControllerThree.getGame().getCurrentPlayer().getNickname());
+        gameControllerThree.playAssistantCard("Viola", 0);
+
+        // laura's turn, but Laura disconnect
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
+        assertEquals("Laura", gameControllerThree.getGame().getCurrentPlayer().getNickname());
+        gameControllerThree.removePlayer("Laura");
+        // Sara's turn
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
+        assertEquals("Sara", gameControllerThree.getGame().getCurrentPlayer().getNickname());
+
+        // Laura reconnect
+        gameControllerThree.reconnectPlayer("Laura");
+        gameControllerThree.playAssistantCard("Sara", 1);
+
+        // Laura can play the assistant card
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
+        assertEquals("Laura", gameControllerThree.getGame().getCurrentPlayer().getNickname());
     }
 
 }

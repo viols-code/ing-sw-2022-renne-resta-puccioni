@@ -14,7 +14,6 @@ import java.util.List;
  * @version 1.0
  */
 public abstract class GroupIsland extends Observable<IServerPacket> {
-
     /**
      * A list containing all the islands that form a GroupIsland
      */

@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.player.TowerColour;
 import it.polimi.ingsw.view.beans.CharacterCardEnumeration;
 import it.polimi.ingsw.view.beans.MockCard;
 import it.polimi.ingsw.view.beans.MockGroupIsland;
+import it.polimi.ingsw.view.beans.MockSingleIsland;
 
 import java.util.HashMap;
 import java.util.List;
@@ -140,6 +141,7 @@ public abstract class ModelUpdateHandler {
     }
 
     public void updateEmptyBag() {
+        getView().getModel().getTable().setBagEmpty();
     }
 
     /**
@@ -282,7 +284,7 @@ public abstract class ModelUpdateHandler {
      * Updates the ArrayList islands in MockTable according to the merge of the group island selected
      *
      * @param groupIsland1 the index of the first group island
-     * @param groupIsland2 the index of the second gorup island
+     * @param groupIsland2 the index of the second group island
      */
     public void updateUnifyIsland(int groupIsland1, int groupIsland2) {
         for (MockGroupIsland groupIsland : view.getModel().getTable().getGroupIslands()) {
@@ -349,4 +351,211 @@ public abstract class ModelUpdateHandler {
     }
 
 
+    /**
+     * Updates the students on a card
+     *
+     * @param student0 students on card 0
+     * @param student1 students on card 1
+     * @param student2 students on card 2
+     */
+    public void updateCardStudents(HashMap<Colour, Integer> student0, HashMap<Colour, Integer> student1, HashMap<Colour, Integer> student2) {
+        if (getView().getModel().getReconnected()) {
+            if (!student0.isEmpty()) {
+                getView().getModel().getCharacterCardByIndex(0).setStudents(student0);
+            }
+            if (!student1.isEmpty()) {
+                getView().getModel().getCharacterCardByIndex(1).setStudents(student1);
+            }
+            if (!student2.isEmpty()) {
+                getView().getModel().getCharacterCardByIndex(2).setStudents(student2);
+            }
+        }
+    }
+
+    /**
+     * Update the number of islands
+     */
+    public void updateIslands(int groupIslands, boolean expert) {
+        if (getView().getModel().getReconnected()) {
+            getView().getModel().getTable().setGroupIslands(groupIslands, expert);
+        }
+    }
+
+    /**
+     * Update the influent players
+     *
+     * @param influentPlayers a list containing the influent players for every groupIsland
+     */
+    public void updateInfluentPlayers(List<String> influentPlayers) {
+        if (getView().getModel().getReconnected()) {
+            for (int i = 0; i < getView().getModel().getTable().getNumberOfGroupIslands(); i++) {
+                if (influentPlayers.get(i).equals("")) {
+                    getView().getModel().getTable().getGroupIslandByIndex(i).setInfluentPlayer(null);
+                } else {
+                    getView().getModel().getTable().getGroupIslandByIndex(i).setInfluentPlayer(influentPlayers.get(i));
+                }
+            }
+        }
+    }
+
+    /**
+     * Update the noEntryTiles
+     *
+     * @param noEntryTiles a list containing the noEntryTiles for every groupIsland
+     */
+    public void updateNoEntryTiles(List<Integer> noEntryTiles) {
+        if (getView().getModel().getReconnected()) {
+            for (int i = 0; i < getView().getModel().getTable().getNumberOfGroupIslands(); i++) {
+                getView().getModel().getTable().getGroupIslandByIndex(i).setNoEntryTile(noEntryTiles.get(i));
+            }
+        }
+    }
+
+    /**
+     * Update the singleIslands
+     *
+     * @param singleIslands a list containing the singleIslands for every groupIsland
+     */
+    public void updateSingleIslands(List<Integer> singleIslands) {
+        if (getView().getModel().getReconnected()) {
+            for (int i = 0; i < getView().getModel().getTable().getNumberOfGroupIslands(); i++) {
+                for (int j = 1; j < singleIslands.get(i); j++) {
+                    getView().getModel().getTable().getGroupIslandByIndex(i).addMockSingleIsland(new MockSingleIsland());
+                }
+            }
+        }
+    }
+
+    /**
+     * Update the students on the singleIslands
+     *
+     * @param students a hashMap containing the students for every singleIslands
+     */
+    public void updateStudents(HashMap<Integer, HashMap<Colour, Integer>> students) {
+        if (getView().getModel().getReconnected()) {
+            int count = 0;
+
+            for (int i = 0; i < getView().getModel().getTable().getNumberOfGroupIslands(); i++) {
+                for (int j = 0; j < getView().getModel().getTable().getGroupIslandByIndex(i).getNumberOfSingleIslands(); j++) {
+                    for (Colour colour : Colour.values()) {
+                        for (int k = 0; k < students.get(count).get(colour); k++) {
+                            getView().getModel().getTable().getGroupIslandByIndex(i).getSingleIslandByIndex(j).setStudent(colour);
+                        }
+                    }
+
+                    count++;
+                }
+            }
+        }
+    }
+
+    /**
+     * Update the students on the cloudTiles
+     *
+     * @param studentsOnCloudTiles a hashMap containing the students for every cloudTile
+     */
+    public void updateStudentsOnShownCloudTiles(HashMap<Integer, HashMap<Colour, Integer>> studentsOnCloudTiles) {
+        for (int i = 0; i < studentsOnCloudTiles.size(); i++) {
+            getView().getModel().getTable().addShownCLoudTile();
+            getView().getModel().getTable().getShownCloudTiles().get(i).setCloudTile(studentsOnCloudTiles.get(i));
+        }
+
+    }
+
+    /**
+     * Updates the active character card in MockModel when a player reconnects
+     *
+     * @param characterCard the new current character card
+     */
+    public void updateReconnectedActiveCharacterCard(CharacterCardEnumeration characterCard) {
+        if (characterCard == CharacterCardEnumeration.BASIC_STATE) {
+            getView().getModel().setCurrentCharacterCard(getView().getModel().getBasicState());
+        } else {
+            getView().getModel().setCurrentCharacterCard(getView().getModel().getCharacterCardByType(characterCard));
+        }
+    }
+
+    /**
+     * Updates the professors available in the MockModel when a player reconnects
+     *
+     * @param professors the available professors
+     */
+    public void updateProfessorsReconnection(HashMap<Colour, Boolean> professors) {
+        for (Colour colour : Colour.values()) {
+            if (!professors.get(colour)) {
+                getView().getModel().getTable().removeProfessorFromTable(colour);
+            }
+        }
+        getView().getModel().setReconnected(false);
+    }
+
+    /**
+     * Updates a specific cloud tile when it is filled
+     *
+     * @param cloudTile the index of the cloud tile selected
+     * @param students  the hash map containing the students on the cloud tile
+     */
+    public void updateCloudTileAddedReconnection(int cloudTile, HashMap<Colour, Integer> students) {
+        getView().getModel().getTable().getCloudTileByIndex(cloudTile).setCloudTile(students);
+        getView().getModel().getTable().addShownCLoudTile();
+        getView().getModel().getTable().setShownCloudTile(cloudTile, students);
+        getView().getModel().getTable().getShownCloudTiles().forEach(cloudTile1 -> System.out.println(cloudTile1.getMockCloudTile()));
+    }
+
+    /**
+     * Updates the position of mother nature in the MockModel when a player reconnects
+     *
+     * @param motherNaturePosition the position of mother nature
+     */
+    public void updateMotherNature(int motherNaturePosition) {
+        getView().getModel().getTable().setMotherNaturePosition(motherNaturePosition);
+    }
+
+    /**
+     * Updates the current player in the MockModel when a player reconnects
+     *
+     * @param currentPlayer the current player
+     */
+    public void updateCurrentPlayerReconnection(String currentPlayer) {
+        getView().getModel().setCurrentPlayer(getView().getModel().getPlayerByNickname(currentPlayer));
+    }
+
+    /**
+     * Updates the number of noEntryTile when a player reconnects
+     *
+     * @param noEntryTile
+     */
+    public void noEntryTile(int noEntryTile) {
+        for (int i = 0; i < 3; i++) {
+            if (getView().getModel().getCharacterCardByIndex(i).getType() == CharacterCardEnumeration.PROTECT_ISLAND) {
+                getView().getModel().getCharacterCardByIndex(i).setNumberOfNoEntryTile(noEntryTile);
+            }
+        }
+    }
+
+    /**
+     * Updates the current assistant card
+     *
+     * @param currentAssistantCard the value of the current assistant card
+     */
+    public void updateCurrentAssistantCardReconnected(String playerName, int currentAssistantCard) {
+        if (currentAssistantCard == -1) {
+            getView().getModel().getPlayerByNickname(playerName).setAssistantCardValue(false);
+        } else {
+            getView().getModel().getPlayerByNickname(playerName).setCurrentAssistantCard(currentAssistantCard);
+            getView().getModel().getPlayerByNickname(playerName).setAssistantCardValue(true);
+        }
+    }
+
+    /**
+     * Updates the list of available assistant cards
+     *
+     * @param assistantCards the assistant cards available
+     */
+    public void updateListOfAssistantCards(List<Integer> assistantCards) {
+
+        for (int i = 0; i < assistantCards.size(); i++) {
+            getView().getModel().getLocalPlayer().removeAssistantCard(assistantCards.get(i));
+        }
+    }
 }

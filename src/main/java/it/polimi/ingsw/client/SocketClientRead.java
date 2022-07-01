@@ -53,7 +53,7 @@ public class SocketClientRead extends Thread {
                 } else {
                     if (packet instanceof IProcessablePacket) {
                         if (packet instanceof IServerPacket serverPacket) {
-                            //System.out.println("Received: " + packet);
+                            System.out.println("Received: " + packet);
 
                             try {
                                 // Call the method process in the message
@@ -70,14 +70,15 @@ public class SocketClientRead extends Thread {
                     }
                 }
             }
-        } catch (SocketException | EOFException ignored) {
+        } catch (SocketException ignored) {
 
+        } catch (EOFException e) {
+            client.terminate();
         } catch (Exception e) {
             e.printStackTrace();
             client.terminate();
         }
     }
-
 
     /**
      * Thread used for the ping to the server
@@ -96,7 +97,7 @@ public class SocketClientRead extends Thread {
                 }
                 if (!hasResponded.get()) {
                     System.out.println("You have disconnected from the server");
-                    if(client.isActive()){
+                    if (client.isActive()) {
                         client.terminate();
                     }
                     break;

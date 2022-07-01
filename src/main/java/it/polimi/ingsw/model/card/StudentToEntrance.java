@@ -114,7 +114,7 @@ public class StudentToEntrance extends CharacterCard {
      * @param colour colour
      * @return number of student of the given colour
      */
-    protected int getStudent(Colour colour) {
+    public int getStudent(Colour colour) {
         return students.get(colour);
     }
 }

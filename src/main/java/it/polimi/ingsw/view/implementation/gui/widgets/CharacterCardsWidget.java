@@ -170,6 +170,35 @@ public class CharacterCardsWidget extends StackPane {
         //adds a listener to the coins on the table in order to update it when they change
         GUI.instance().getModel().getCoinsProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> numberCoinsTable.setText(String.valueOf(GUI.instance().getModel().getCoins()))));
 
+        if (GUI.instance().getModel().getCurrentCharacterCard().getType() != CharacterCardEnumeration.BASIC_STATE) {
+            int a = -1;
+            for (int i = 0; i < 3; i++) {
+                if (GUI.instance().getModel().getCharacterCardByIndex(i).getType() == GUI.instance().getModel().getCurrentCharacterCard().getType()) {
+                    a = i;
+                    break;
+                }
+            }
+
+            if (GUI.instance().getPlayerName().equals(GUI.instance().getModel().getCurrentPlayer().getNickname())) {
+                switch (GUI.instance().getModel().getCurrentCharacterCard().getType()) {
+                    case NO_COLOUR, THREE_STUDENT -> imageViewList.get(a).setOnMouseClicked(event -> Platform.runLater(() -> GUI.instance().showColourDecision()));
+                    case PROTECT_ISLAND, ISLAND_INFLUENCE, STUDENT_TO_ISLAND -> imageViewList.get(a).setOnMouseClicked(event -> Platform.runLater(() -> GUI.instance().showGroupIslandDecision()));
+                    case EXCHANGE_ENTRANCE_DINING_ROOM -> imageViewList.get(a).setOnMouseClicked(event -> Platform.runLater(() -> GUI.instance().showExchangeEntranceDiningRoom()));
+                }
+
+                if (a == 0) {
+                    setImageEvent(student0, pane0, studentColour0, student1, student2);
+                } else if (a == 1) {
+                    setImageEvent(student1, pane1, studentColour1, student0, student2);
+                } else {
+                    setImageEvent(student2, pane2, studentColour2, student0, student1);
+                }
+            }
+
+            flowPaneList.get(a).getStyleClass().remove("assistantCards");
+            flowPaneList.get(a).getStyleClass().add("characterCardSelected");
+        }
+
         GUI.instance().getModel().currentCharacterCardProperty().addListener((ChangeListener<? super MockCard>) (change, oldVal, newVal) -> Platform.runLater(() -> {
             if (newVal.getType() == CharacterCardEnumeration.BASIC_STATE) {
                 for (int i = 0; i < 3; i++) {
@@ -181,13 +210,13 @@ public class CharacterCardsWidget extends StackPane {
                     }
                 }
 
-                for(ImageView image : student0){
+                for (ImageView image : student0) {
                     image.setOnMouseClicked(event -> GUI.instance().getRenderer().showErrorMessage("You must pay the character card first"));
                 }
-                for(ImageView image : student1){
+                for (ImageView image : student1) {
                     image.setOnMouseClicked(event -> GUI.instance().getRenderer().showErrorMessage("You must pay the character card first"));
                 }
-                for(ImageView image : student2){
+                for (ImageView image : student2) {
                     image.setOnMouseClicked(event -> GUI.instance().getRenderer().showErrorMessage("You must pay the character card first"));
                 }
 
@@ -208,19 +237,17 @@ public class CharacterCardsWidget extends StackPane {
                         case EXCHANGE_ENTRANCE_DINING_ROOM -> imageViewList.get(a).setOnMouseClicked(event -> Platform.runLater(() -> GUI.instance().showExchangeEntranceDiningRoom()));
                     }
 
-                    if(a == 0){
+                    if (a == 0) {
                         setImageEvent(student0, pane0, studentColour0, student1, student2);
-                    } else if(a == 1){
+                    } else if (a == 1) {
                         setImageEvent(student1, pane1, studentColour1, student0, student2);
-                    } else{
+                    } else {
                         setImageEvent(student2, pane2, studentColour2, student0, student1);
                     }
                 }
 
                 flowPaneList.get(a).getStyleClass().remove("assistantCards");
                 flowPaneList.get(a).getStyleClass().add("characterCardSelected");
-
-
             }
         }));
 
@@ -231,25 +258,25 @@ public class CharacterCardsWidget extends StackPane {
     /**
      * Set the image event
      *
-     * @param student0 the List of image view containing the students of the first card
-     * @param pane0 the List of Pane Flow containing the images of the students of the first card
+     * @param student0       the List of image view containing the students of the first card
+     * @param pane0          the List of Pane Flow containing the images of the students of the first card
      * @param studentColour0 the HashMap containing the ImageView and the Colour of the student
-     * @param student1 the List of image view containing the students of the second card
-     * @param student2 the List of image view containing the students of the third card
+     * @param student1       the List of image view containing the students of the second card
+     * @param student2       the List of image view containing the students of the third card
      */
     private void setImageEvent(List<ImageView> student0, List<FlowPane> pane0, HashMap<ImageView, Colour> studentColour0, List<ImageView> student1, List<ImageView> student2) {
-        for(ImageView image : student0){
+        for (ImageView image : student0) {
             image.setOnMouseClicked(event -> {
                 pane0.get(student0.indexOf(image)).getStyleClass().add("studentSelected");
                 setStudent(studentColour0.get(image));
             });
         }
 
-        for(ImageView image : student1){
+        for (ImageView image : student1) {
             image.setOnMouseClicked(event -> GUI.instance().getRenderer().showErrorMessage("This is not the current character card"));
         }
 
-        for(ImageView image : student2){
+        for (ImageView image : student2) {
             image.setOnMouseClicked(event -> GUI.instance().getRenderer().showErrorMessage("This is not the current character card"));
         }
     }
@@ -306,15 +333,15 @@ public class CharacterCardsWidget extends StackPane {
                 pane.getStyleClass().add("student");
                 ImageView imageViewStudent = new ImageView();
                 pane.getChildren().add(imageViewStudent);
-                if(i == 0){
+                if (i == 0) {
                     student0.add(imageViewStudent);
                     studentColour0.put(imageViewStudent, colour);
                     pane0.add(pane);
-                } else if(i == 1){
+                } else if (i == 1) {
                     student1.add(imageViewStudent);
                     studentColour1.put(imageViewStudent, colour);
                     pane1.add(pane);
-                } else{
+                } else {
                     student2.add(imageViewStudent);
                     studentColour2.put(imageViewStudent, colour);
                     pane2.add(pane);
@@ -327,12 +354,13 @@ public class CharacterCardsWidget extends StackPane {
                 } else if (GUI.instance().getModel().getCurrentCharacterCard().getType() != GUI.instance().getModel().getCharacterCardByIndex(i).getType()) {
                     imageViewStudent.setOnMouseClicked(event -> GUI.instance().getRenderer().showErrorMessage("This is not the current character card"));
                 } else {
-                    imageViewStudent.setOnMouseClicked(event -> {
-                        pane.getStyleClass().add("studentSelected");
-                        setStudent(colour);
-                    });
+                    if (GUI.instance().getPlayerName().equals(GUI.instance().getModel().getCurrentPlayer().getNickname())) {
+                        imageViewStudent.setOnMouseClicked(event -> {
+                            pane.getStyleClass().add("studentSelected");
+                            setStudent(colour);
+                        });
+                    }
                 }
-
 
                 if (i == 0) {
                     studentsOnCard0.add(pane, r, c);
@@ -357,16 +385,16 @@ public class CharacterCardsWidget extends StackPane {
      *
      * @param i the position of the given character card
      */
-    private void cleanImages(int i){
-        if(i == 0){
+    private void cleanImages(int i) {
+        if (i == 0) {
             student0.clear();
             studentColour0.clear();
             pane0.clear();
-        } else if(i == 1){
+        } else if (i == 1) {
             student1.clear();
             studentColour1.clear();
             pane1.clear();
-        } else{
+        } else {
             student2.clear();
             studentColour2.clear();
             pane2.clear();

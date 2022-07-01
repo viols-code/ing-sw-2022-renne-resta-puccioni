@@ -250,4 +250,13 @@ public class MockPlayer {
     public synchronized void setAssistantCardValue(boolean assistantCardValue) {
         this.assistantCardValue.setValue(assistantCardValue);
     }
+
+    /**
+     * Removes the assistants cards from the list of assistant cards available
+     *
+     * @param i the value of the assistant card to be removed
+     */
+    public synchronized void removeAssistantCard(int i) {
+        cards.remove(i);
+    }
 }

@@ -22,6 +22,7 @@ public class ViewString {
     public static final String PLAYER_CONNECTED_WITH_COUNT_ON_TOTAL = "Player %s connected with count (%d/%d)";
     public static final String WAITING_PLAYERS = "Waiting for other players to join";
     public static final String GAME_STARTING = "The game is starting";
+    public static final String RECONNECTED = "You successfully reconnected to the lobby";
 
     /*
     Error messages

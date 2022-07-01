@@ -21,6 +21,7 @@ public class SocketClientConnection implements Runnable {
     private String playerName = null;
     private Wizard wizard = null;
     private UUID lobbyUUID = null;
+    private boolean isReconnected = false;
 
     private final ObjectOutputStream out;
     private final ObjectInputStream in;
@@ -31,7 +32,7 @@ public class SocketClientConnection implements Runnable {
      *
      * @param socket the client socket
      */
-    SocketClientConnection(Socket socket, LobbyController lobbyController) throws IOException {
+    public SocketClientConnection(Socket socket, LobbyController lobbyController) throws IOException {
         this.socket = socket;
         this.out = new ObjectOutputStream(socket.getOutputStream());
         this.in = new ObjectInputStream(socket.getInputStream());
@@ -147,7 +148,7 @@ public class SocketClientConnection implements Runnable {
         timeoutThread.start();
 
         try {
-            remoteView.getLobbyController().addToLobby(this);
+            remoteView.getLobbyController().correctConnection(this);
             Object read;
             while (isActive()) {
                 read = in.readObject();
@@ -205,6 +206,22 @@ public class SocketClientConnection implements Runnable {
             System.err.println("Error in SocketClientConnection WriteThread");
             this.setInactive();
         }
+    }
+
+    /**
+     * Returns true if the connected client is a client disconnected before, false otherwise
+     *
+     * @return true if the connected client is a client disconnected before, false otherwise
+     */
+    public synchronized boolean getIsReconnected() {
+        return isReconnected;
+    }
+
+    /**
+     * Sets the isReconnected to true
+     */
+    public synchronized void setReconnected() {
+        this.isReconnected = true;
     }
 
     /**

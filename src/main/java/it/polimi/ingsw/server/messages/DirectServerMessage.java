@@ -23,7 +23,7 @@ public abstract class DirectServerMessage extends ServerMessage {
      *
      * @param recipient the client connection that this message will be sent to
      */
-    DirectServerMessage(SocketClientConnection recipient) {
+    public DirectServerMessage(SocketClientConnection recipient) {
         this.recipient = recipient;
     }
 

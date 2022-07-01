@@ -2,7 +2,6 @@ package it.polimi.ingsw.model;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * Enumeration of the colour in the game
@@ -43,8 +42,7 @@ public enum Colour {
         return map.entrySet()
                 .stream()
                 .filter(entry -> entry.getValue().equals(colour))
-                .map(entry -> entry.getKey())
-                .collect(Collectors.toList())
+                .map(Map.Entry::getKey).toList()
                 .get(0);
     }
 }

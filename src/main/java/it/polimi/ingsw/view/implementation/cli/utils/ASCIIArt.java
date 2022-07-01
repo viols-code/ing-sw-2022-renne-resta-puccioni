@@ -208,7 +208,7 @@ public class ASCIIArt {
             | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |           | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |      | %s   %s |          | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |
             | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |           | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |      |        |          | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |
             | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |           | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |      |________|          | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |
-            | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |          | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |                          | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |
+            | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |           | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |                          | %s %s | %s %s %s %s %s %s %s %s %s %s | %s | %s %s |
             | %s   | %s %s %s %s %s %s %s %s %s %s | %s |     |           | %s   | %s %s %s %s %s %s %s %s %s %s | %s |     |                          | %s   | %s %s %s %s %s %s %s %s %s %s | %s |     |
             |_____|_____________________|___|_____|           |_____|_____________________|___|_____|                          |_____|_____________________|___|_____|
             """;
@@ -303,7 +303,7 @@ public class ASCIIArt {
             | %s   %s |        | %s   %s |
             |        |        |        |
             |________|        |________|
-                %s                %s
+                %s                 %s
                 """;
 
     public static final String ASSISTANT_CARDS_3 = """

@@ -7,6 +7,7 @@ import it.polimi.ingsw.view.implementation.cli.utils.ASCIIArt;
 import it.polimi.ingsw.view.implementation.cli.utils.AnsiColour;
 import it.polimi.ingsw.view.implementation.cli.utils.ViewString;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -39,7 +40,38 @@ public class CLI extends View {
     @Override
     public void addToLobby(boolean isFirstConnection, List<Wizard> takenWizard) {
         super.addToLobby(isFirstConnection, takenWizard);
+    }
+
+    /**
+     * Handles the successful connection to the waiting room.
+     */
+    @Override
+    public void correctConnection() {
+        super.correctConnection();
         getRenderer().showLobbyMessage(ViewString.CHOOSE_NAME);
+    }
+
+    /**
+     * Handles the successful connection to the waiting room.
+     */
+    @Override
+    public void correctReconnection(HashMap<String, Wizard> players) {
+        super.correctReconnection(players);
+        getRenderer().showLobbyMessage(ViewString.RECONNECTED);
+    }
+
+    /**
+     * Notify that a player reconnected to the game
+     *
+     * @param playerName the nickname of the player reconnected
+     */
+    public void handlePlayerReconnect(String playerName) {
+        getRenderer().printSituation();
+        if (!playerName.equals(getPlayerName())) {
+            getRenderer().showLobbyMessage("Player " + playerName + " reconnected");
+        } else {
+            getRenderer().showLobbyMessage("Successfully reconnected");
+        }
     }
 
     /**
@@ -112,6 +144,7 @@ public class CLI extends View {
      */
     @Override
     public void handleGameMode(boolean gameMode) {
+        super.handleGameMode(gameMode);
         if (!isLobbyMaster()) {
             if (gameMode) {
                 getRenderer().showLobbyMessage(ViewString.GAME_MODE_MESSAGE_EXPERT);

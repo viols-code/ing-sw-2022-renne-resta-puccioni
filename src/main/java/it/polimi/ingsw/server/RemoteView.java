@@ -59,6 +59,15 @@ public class RemoteView implements Observer<IServerPacket> {
     }
 
     /**
+     * Gets the GameController that controls the game
+     *
+     * @return the gameController
+     */
+    public GameController getGameController() {
+        return gameController;
+    }
+
+    /**
      * Sets the GameController that handles this RemoteView
      *
      * @param gameController the game controller to be set

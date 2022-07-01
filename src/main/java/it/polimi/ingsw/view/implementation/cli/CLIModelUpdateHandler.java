@@ -44,7 +44,9 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
     @Override
     public void updateTurnPhase(TurnPhase turnPhase) {
         super.updateTurnPhase(turnPhase);
-        getView().getRenderer().printSituation();
+        if (!getView().getModel().getReconnected()) {
+            getView().getRenderer().printSituation();
+        }
 
         if (getView().getModel().getCurrentPlayer() != null && getView().getModel().getLocalPlayer().getNickname().equalsIgnoreCase(getView().getModel().getCurrentPlayer().getNickname())) {
             switch (getView().getModel().getTurnPhase()) {
@@ -252,6 +254,7 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
      */
     @Override
     public void updateEmptyBag() {
+        super.updateEmptyBag();
         getView().getRenderer().showGameMessage("The students are finished. This is the last round");
     }
 }

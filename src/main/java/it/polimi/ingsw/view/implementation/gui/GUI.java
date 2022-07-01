@@ -81,12 +81,25 @@ public class GUI extends View {
     @Override
     public void addToLobby(boolean isFirstConnection, List<Wizard> takenWizard) {
         super.addToLobby(isFirstConnection, takenWizard);
+    }
 
+    /**
+     * Handles the successful connection to the waiting room.
+     */
+    @Override
+    public void correctConnection() {
         Platform.runLater(() -> {
             Parent nameSelectionPage = FXMLUtils.loadFXML("/gui/NicknameSelection");
             scene.setRoot(nameSelectionPage);
         });
+    }
 
+    /**
+     * Handles the successful reconnection of the player
+     */
+    @Override
+    public void correctReconnection(HashMap<String, Wizard> players) {
+        super.correctReconnection(players);
     }
 
     /**
@@ -139,7 +152,6 @@ public class GUI extends View {
     @Override
     public void handleGameMode(boolean gameMode) {
         super.handleGameMode(gameMode);
-
         if (isLobbyMaster()) {
             Platform.runLater(() -> {
                 Parent playersToStartSelection = FXMLUtils.loadFXML("/gui/PlayersToStartSelection");
@@ -299,7 +311,7 @@ public class GUI extends View {
      */
     @Override
     public void handlePlayerDisconnect(String playerName) {
-
+        getRenderer().showGameMessage("Player " + playerName + " disconnected");
     }
 
     /**
@@ -318,6 +330,20 @@ public class GUI extends View {
     @Override
     public void handleEndGame() {
 
+    }
+
+    /**
+     * Notify that a player reconnected to the game
+     *
+     * @param playerName the nickname of the player reconnected
+     */
+    public void handlePlayerReconnect(String playerName) {
+        if (!playerName.equals(getPlayerName())) {
+            getRenderer().showLobbyMessage("Player " + playerName + " reconnected");
+        } else {
+            showPlayerBoard();
+            getRenderer().showLobbyMessage("Successfully reconnected");
+        }
     }
 
     /**

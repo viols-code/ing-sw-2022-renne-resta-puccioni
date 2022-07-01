@@ -207,13 +207,44 @@ public abstract class View {
      * @param takenWizard       the list of wizard already taken
      */
     public void addToLobby(boolean isFirstConnection, List<Wizard> takenWizard) {
-        setGameState(GameState.CHOOSING_NAME);
         this.lobbyMaster = isFirstConnection;
 
         if (takenWizard != null) {
             this.takenWizards.clear();
             this.takenWizards.addAll(takenWizard);
         }
+    }
+
+
+    /**
+     * Handles the successful connection to the waiting room.
+     */
+    public void correctConnection() {
+        setGameState(GameState.CHOOSING_NAME);
+    }
+
+    /**
+     * Handles the correct reconnection of a player
+     *
+     * @param players a hash map that associates each nickname with the wizard chosen by the player
+     */
+    public void correctReconnection(HashMap<String, Wizard> players) {
+        getModel().setReconnected(true);
+        setGameState(GameState.PLAYING);
+        numPlayers = players.size();
+        players.forEach((key, value) -> getModel().addPlayer(key, value, gameMode, key.equalsIgnoreCase(this.playerName)));
+        for (int i = 0; i < numPlayers; i++) {
+            getModel().getTable().addCloudTile();
+        }
+    }
+
+    /**
+     * Notify that a player reconnected to the game
+     *
+     * @param playerName the nickname of the player reconnected
+     */
+    public void handlePlayerReconnect(String playerName) {
+
     }
 
     /**
@@ -253,7 +284,7 @@ public abstract class View {
      * @param gameMode a boolean which is true if the game mode set is expert, false if it's basic
      */
     public void handleGameMode(boolean gameMode) {
-
+        this.gameMode = gameMode;
     }
 
     /**
