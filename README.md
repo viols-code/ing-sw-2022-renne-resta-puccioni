@@ -35,7 +35,7 @@ Otherwise, if you want to run a new CLI client you can use:
 
 ## Tests coverage
 <img src="https://github.com/viols-code/ing-sw-2022-renne-resta-puccioni/blob/master/deliverables/Coverage/Controller.png"/>
-<img src="https://github.com/viols-code/ing-sw-2022-renne-resta-puccioni/blob/thirdmodified/deliverables/Coverage/Model.png"/>
+<img src="https://github.com/viols-code/ing-sw-2022-renne-resta-puccioni/blob/master/deliverables/Coverage/Model.png"/>
 
 ## Team Members
 * [Viola Renne](https://github.com/viols-code)
