@@ -10,7 +10,7 @@ import java.io.Serial;
 /**
  * Sends to the client the updates about the turn phase
  */
-public class ModelInfoReconnectedUpdate extends DirectReconnectionMessage{
+public class ModelInfoReconnectedUpdate extends DirectReconnectionMessage {
 
     /**
      * The serial version UID
@@ -39,7 +39,7 @@ public class ModelInfoReconnectedUpdate extends DirectReconnectionMessage{
      * @param recipient the recipient client
      * @param turnPhase the turn phase
      * @param gamePhase the game phase
-     * @param round the current round
+     * @param round     the current round
      */
     public ModelInfoReconnectedUpdate(SocketClientConnection recipient, TurnPhase turnPhase, GamePhase gamePhase, int round) {
         super(recipient);

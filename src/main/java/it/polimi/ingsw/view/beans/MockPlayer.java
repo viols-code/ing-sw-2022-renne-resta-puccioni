@@ -256,7 +256,7 @@ public class MockPlayer {
      *
      * @param i the value of the assistant card to be removed
      */
-    public synchronized void removeAssistantCard(int i){
+    public synchronized void removeAssistantCard(int i) {
         cards.remove(i);
     }
 }

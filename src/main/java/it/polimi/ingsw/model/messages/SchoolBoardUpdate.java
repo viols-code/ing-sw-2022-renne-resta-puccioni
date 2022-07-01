@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model.messages;
 
-import it.polimi.ingsw.model.AssistantCard;
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.player.TowerColour;
 import it.polimi.ingsw.server.SocketClientConnection;
@@ -8,9 +7,8 @@ import it.polimi.ingsw.view.View;
 
 import java.io.Serial;
 import java.util.HashMap;
-import java.util.List;
 
-public class SchoolBoardUpdate extends DirectReconnectionMessage{
+public class SchoolBoardUpdate extends DirectReconnectionMessage {
     /**
      * The serial version UID
      */
@@ -54,13 +52,13 @@ public class SchoolBoardUpdate extends DirectReconnectionMessage{
     /**
      * Constructs a new SchoolBoardUpdate for the given recipient
      *
-     * @param recipient the client connection that this message will be sent to
-     * @param playerName the name of the player
-     * @param entrance the entrance of the player
-     * @param diningRoom the diningRoom of the player
-     * @param towers the number of towers of the player
-     * @param towerColour the colour of the tower of the player
-     * @param professors the professors of the player
+     * @param recipient            the client connection that this message will be sent to
+     * @param playerName           the name of the player
+     * @param entrance             the entrance of the player
+     * @param diningRoom           the diningRoom of the player
+     * @param towers               the number of towers of the player
+     * @param towerColour          the colour of the tower of the player
+     * @param professors           the professors of the player
      * @param currentAssistantCard the value of the current assistant card of the player
      */
     public SchoolBoardUpdate(SocketClientConnection recipient, String playerName, HashMap<Colour, Integer> entrance, HashMap<Colour, Integer> diningRoom,

@@ -9,7 +9,7 @@ import java.io.Serial;
 import java.util.HashMap;
 import java.util.List;
 
-public class CharacterCardUpdate extends DirectReconnectionMessage{
+public class CharacterCardUpdate extends DirectReconnectionMessage {
     /**
      * The serial version UID
      */
@@ -47,9 +47,9 @@ public class CharacterCardUpdate extends DirectReconnectionMessage{
     /**
      * Constructs a new CharacterCardUpdate for the given recipient
      *
-     * @param recipient the client connection that this message will be sent to
+     * @param recipient      the client connection that this message will be sent to
      * @param characterCards the character cards available
-     * @param cost the cost of the character cards
+     * @param cost           the cost of the character cards
      */
     public CharacterCardUpdate(SocketClientConnection recipient, List<CharacterCardEnumeration> characterCards, HashMap<CharacterCardEnumeration, Integer> cost, HashMap<Colour, Integer> student0, HashMap<Colour, Integer> student1, HashMap<Colour, Integer> student2, int coins, int noEntryTile) {
         super(recipient);
@@ -73,7 +73,7 @@ public class CharacterCardUpdate extends DirectReconnectionMessage{
         view.getModel().setGameMode(true);
         view.handleGameMode(true);
         view.getModelUpdateHandler().updateCharacterCardsAvailable(characterCards);
-        for (CharacterCardEnumeration card: characterCards) {
+        for (CharacterCardEnumeration card : characterCards) {
             view.getModelUpdateHandler().updateCardCoins(characterCards.indexOf(card), cost.get(card));
         }
         view.getModelUpdateHandler().updateCardStudents(student0, student1, student2);

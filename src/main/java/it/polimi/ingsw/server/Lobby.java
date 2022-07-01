@@ -1,7 +1,6 @@
 package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.controller.GameController;
-import it.polimi.ingsw.model.AssistantCard;
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.messages.*;
 import it.polimi.ingsw.model.player.Player;
@@ -362,7 +361,7 @@ public class Lobby extends Observable<IServerPacket> {
      *
      * @param gameController the game controller of the Lobby
      */
-    public void setController(GameController gameController){
+    public void setController(GameController gameController) {
         this.controller = gameController;
     }
 
@@ -381,34 +380,34 @@ public class Lobby extends Observable<IServerPacket> {
      *
      * @param connection the connection of the player
      */
-    public void sendGameInformation(SocketClientConnection connection){
+    public void sendGameInformation(SocketClientConnection connection) {
 
-        notify(new ModelInfoReconnectedUpdate(connection,controller.getGame().getTurnPhase(),controller.getGame().getGamePhase(),controller.getGame().getRound()));
+        notify(new ModelInfoReconnectedUpdate(connection, controller.getGame().getTurnPhase(), controller.getGame().getGamePhase(), controller.getGame().getRound()));
 
-        for(int i = 0; i < controller.getGame().getNumberOfPlayer(); i++){
+        for (int i = 0; i < controller.getGame().getNumberOfPlayer(); i++) {
             Player player1 = controller.getGame().getPlayerByIndex(i);
             int coins = -1;
 
-            if(controller.isGameExpert()){
+            if (controller.isGameExpert()) {
                 coins = player1.getCoins();
             }
             HashMap<Colour, Integer> entrance = new HashMap<>();
-            for(Colour colour : Colour.values()){
+            for (Colour colour : Colour.values()) {
                 entrance.put(colour, player1.getSchoolBoard().getEntrance(colour));
             }
 
             HashMap<Colour, Integer> diningRoom = new HashMap<>();
-            for(Colour colour : Colour.values()){
+            for (Colour colour : Colour.values()) {
                 diningRoom.put(colour, player1.getSchoolBoard().getDiningRoom(colour));
             }
 
             HashMap<Colour, Boolean> professors = new HashMap<>();
-            for(Colour colour : Colour.values()){
+            for (Colour colour : Colour.values()) {
                 professors.put(colour, player1.getSchoolBoard().hasProfessor(colour));
             }
 
             int currentAssistantCard = -1;
-            if(player1.getCurrentAssistantCard() != null){
+            if (player1.getCurrentAssistantCard() != null) {
                 currentAssistantCard = player1.getCurrentAssistantCard().getValue();
             }
 
@@ -419,38 +418,38 @@ public class Lobby extends Observable<IServerPacket> {
         notify(new CurrentPlayerReconnectUpdate(connection, controller.getGame().getCurrentPlayer().getNickname()));
 
 
-        if(gameMode){
+        if (gameMode) {
             List<CharacterCardEnumeration> cards = new ArrayList<>();
             HashMap<CharacterCardEnumeration, Integer> cost = new HashMap<>();
             HashMap<Colour, Integer> student0 = new HashMap<>();
-            HashMap<Colour, Integer> student1= new HashMap<>();
+            HashMap<Colour, Integer> student1 = new HashMap<>();
             HashMap<Colour, Integer> student2 = new HashMap<>();
             int noEntryTile = 0;
 
-            for(int i = 0; i < 3; i++){
+            for (int i = 0; i < 3; i++) {
                 cards.add(controller.getGame().getCharacterCardByIndex(i).getCharacterCardType());
                 cost.put(controller.getGame().getCharacterCardByIndex(i).getCharacterCardType(), controller.getGame().getCharacterCardByIndex(i).getCost());
 
-                for(Colour colour : Colour.values()){
-                    if(i == 0){
-                        try{
+                for (Colour colour : Colour.values()) {
+                    if (i == 0) {
+                        try {
                             student0.put(colour, controller.getGame().getCharacterCardByIndex(i).getStudent(colour));
                             noEntryTile = controller.getGame().getCharacterCardByIndex(i).getNumberOfNoEntryTiles();
-                        } catch(IllegalAccessError e){
+                        } catch (IllegalAccessError e) {
 
                         }
-                    } else if(i == 1){
-                        try{
+                    } else if (i == 1) {
+                        try {
                             student1.put(colour, controller.getGame().getCharacterCardByIndex(i).getStudent(colour));
                             noEntryTile = controller.getGame().getCharacterCardByIndex(i).getNumberOfNoEntryTiles();
-                        } catch(IllegalAccessError e){
+                        } catch (IllegalAccessError e) {
 
                         }
-                    } else{
-                        try{
+                    } else {
+                        try {
                             student2.put(colour, controller.getGame().getCharacterCardByIndex(i).getStudent(colour));
                             noEntryTile = controller.getGame().getCharacterCardByIndex(i).getNumberOfNoEntryTiles();
-                        } catch(IllegalAccessError e){
+                        } catch (IllegalAccessError e) {
 
                         }
                     }
@@ -462,8 +461,8 @@ public class Lobby extends Observable<IServerPacket> {
 
         List<Integer> assistantCardsUsed = new ArrayList<>();
 
-        for(int i = 0; i < 10; i++){
-            if(!controller.getGame().getPlayerByNickname(connection.getPlayerName()).isAssistantCardPresent(controller.getGame().getAssistantCard(i))){
+        for (int i = 0; i < 10; i++) {
+            if (!controller.getGame().getPlayerByNickname(connection.getPlayerName()).isAssistantCardPresent(controller.getGame().getAssistantCard(i))) {
                 assistantCardsUsed.add(i);
             }
         }
@@ -482,28 +481,28 @@ public class Lobby extends Observable<IServerPacket> {
 
         HashMap<Colour, Boolean> professors = new HashMap<>();
 
-        for(Colour colour : Colour.values()){
+        for (Colour colour : Colour.values()) {
             professors.put(colour, controller.getGame().getTable().isProfessorOnTable(colour));
         }
 
-        for(int i = 0; i < controller.getGame().getTable().getNumberOfGroupIsland(); i++){
-            if(controller.getGame().getTable().getGroupIslandByIndex(i).getInfluence() != null){
+        for (int i = 0; i < controller.getGame().getTable().getNumberOfGroupIsland(); i++) {
+            if (controller.getGame().getTable().getGroupIslandByIndex(i).getInfluence() != null) {
                 influentPlayers.add(controller.getGame().getTable().getGroupIslandByIndex(i).getInfluence().getNickname());
-            }else{
+            } else {
                 influentPlayers.add("");
             }
 
-            if(controller.isGameExpert() && controller.getGame().hasProtectIslandCard()){
+            if (controller.isGameExpert() && controller.getGame().hasProtectIslandCard()) {
                 noEntryTiles.add(controller.getGame().getTable().getGroupIslandByIndex(i).getNumberOfNoEntryTile());
-            }else{
+            } else {
                 noEntryTiles.add(0);
             }
 
             singleIslands.add(controller.getGame().getTable().getGroupIslandByIndex(i).getNumberOfSingleIsland());
-            for(int j = 0; j < controller.getGame().getTable().getGroupIslandByIndex(i).getNumberOfSingleIsland(); j++){
+            for (int j = 0; j < controller.getGame().getTable().getGroupIslandByIndex(i).getNumberOfSingleIsland(); j++) {
 
                 HashMap<Colour, Integer> studentsOnSingleIsland = new HashMap<>();
-                for(Colour colour : Colour.values()){
+                for (Colour colour : Colour.values()) {
                     studentsOnSingleIsland.put(colour, controller.getGame().getTable().getGroupIslandByIndex(i).getIslandByIndex(j).getStudents(colour));
                 }
 
@@ -514,10 +513,10 @@ public class Lobby extends Observable<IServerPacket> {
 
         int motherNaturePosition = controller.getGame().getTable().getMotherNaturePosition();
 
-        for(int i = 0; i < controller.getGame().getTable().getNumberOfCloudTile(); i++){
+        for (int i = 0; i < controller.getGame().getTable().getNumberOfCloudTile(); i++) {
             HashMap<Colour, Integer> cloudStudents = new HashMap<>();
 
-            for(Colour colour : Colour.values()){
+            for (Colour colour : Colour.values()) {
                 cloudStudents.put(colour, controller.getGame().getTable().getCloudTilesByIndex(i).getTileStudents(colour));
             }
 
@@ -525,7 +524,7 @@ public class Lobby extends Observable<IServerPacket> {
         }
 
         boolean hasProtectedCard = false;
-        if(controller.isGameExpert()){
+        if (controller.isGameExpert()) {
             hasProtectedCard = controller.getGame().hasProtectIslandCard();
         }
 

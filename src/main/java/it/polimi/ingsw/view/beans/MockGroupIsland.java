@@ -82,7 +82,7 @@ public class MockGroupIsland {
      *
      * @return the number of single islands
      */
-    public synchronized int getNumberOfSingleIslands(){
+    public synchronized int getNumberOfSingleIslands() {
         return islands.size();
     }
 

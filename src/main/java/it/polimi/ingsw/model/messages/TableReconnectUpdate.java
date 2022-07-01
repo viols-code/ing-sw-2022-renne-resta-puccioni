@@ -9,7 +9,7 @@ import java.io.Serial;
 import java.util.HashMap;
 import java.util.List;
 
-public class TableReconnectUpdate extends DirectReconnectionMessage{
+public class TableReconnectUpdate extends DirectReconnectionMessage {
     /**
      * The serial version UID
      */

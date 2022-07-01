@@ -182,11 +182,11 @@ public class MockTable {
      * Sets the correct number of GroupIslands
      *
      * @param groupIsland the number of groupIslands
-     * @param expert true if the groupIsland is expert, false otherwise
+     * @param expert      true if the groupIsland is expert, false otherwise
      */
-    public synchronized void setGroupIslands(int groupIsland, boolean expert){
+    public synchronized void setGroupIslands(int groupIsland, boolean expert) {
         groupIslands.clear();
-        for(int i = 0; i < groupIsland; i++){
+        for (int i = 0; i < groupIsland; i++) {
             groupIslands.add(new MockGroupIsland(expert));
         }
     }
@@ -206,7 +206,7 @@ public class MockTable {
      *
      * @return the number of group islands
      */
-    public synchronized int getNumberOfGroupIslands(){
+    public synchronized int getNumberOfGroupIslands() {
         return groupIslands.size();
     }
 
@@ -216,7 +216,7 @@ public class MockTable {
      * @param groupIsland the group island chosen
      * @return the index of the group island in the list
      */
-    public synchronized int getIndexOfGroupIsland(MockGroupIsland groupIsland){
+    public synchronized int getIndexOfGroupIsland(MockGroupIsland groupIsland) {
         return groupIslands.indexOf(groupIsland);
     }
 

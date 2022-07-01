@@ -3651,6 +3651,7 @@ class GameControllerTest {
         gameControllerThree.addPlayer("Laura", Wizard.TYPE_2);
         gameControllerThree.addPlayer("Sara", Wizard.TYPE_3);
         gameControllerThree.setUpTableAndPlayers();
+
         // First round
         // Play assistant cards
         assertEquals("Viola", gameControllerThree.getGame().getCurrentPlayer().getNickname());
@@ -3664,7 +3665,7 @@ class GameControllerTest {
         assertEquals("Sara", gameControllerThree.getGame().getCurrentPlayer().getNickname());
         assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
         gameControllerThree.playAssistantCard("Sara", 0);
-
+        // Sara's turn
         assertEquals("Sara", gameControllerThree.getGame().getCurrentPlayer().getNickname());
         assertEquals(TurnPhase.MOVE_STUDENT, gameControllerThree.getGame().getTurnPhase());
 
@@ -3790,17 +3791,19 @@ class GameControllerTest {
         assertEquals(TurnPhase.CHOOSE_CLOUD_TILE, gameControllerThree.getGame().getTurnPhase());
         gameControllerThree.chooseCloudTile("Sara", 0);
 
+
+        // Playing assistant cards
         assertEquals("Viola", gameControllerThree.getGame().getCurrentPlayer().getNickname());
         assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
         gameControllerThree.playAssistantCard("Viola", 4);
 
-        assertEquals("Sara", gameControllerThree.getGame().getCurrentPlayer().getNickname());
-        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
-        gameControllerThree.playAssistantCard("Sara", 3);
-
         assertEquals("Laura", gameControllerThree.getGame().getCurrentPlayer().getNickname());
         assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
         gameControllerThree.playAssistantCard("Laura", 6);
+
+        assertEquals("Sara", gameControllerThree.getGame().getCurrentPlayer().getNickname());
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
+        gameControllerThree.playAssistantCard("Sara", 3);
 
 
         // It is Sara's turn
@@ -3882,6 +3885,34 @@ class GameControllerTest {
         assertEquals(9, gameControllerThree.getGame().getPlayerByNickname("Laura").getSchoolBoard().getNumberStudentsEntrance());
         assertEquals(9, gameControllerThree.getGame().getPlayerByNickname("Sara").getSchoolBoard().getNumberStudentsEntrance());
 
+    }
+
+
+    @Test
+    public void reconnectDuringPlayingAssistantCardPhase(){
+        gameControllerThree.addPlayer("Viola", Wizard.TYPE_1);
+        gameControllerThree.addPlayer("Laura", Wizard.TYPE_2);
+        gameControllerThree.addPlayer("Sara", Wizard.TYPE_3);
+        gameControllerThree.setUpTableAndPlayers();
+
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
+        assertEquals("Viola", gameControllerThree.getGame().getCurrentPlayer().getNickname());
+
+        // Removes Viola
+        gameControllerThree.removePlayer("Viola");
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
+        assertEquals("Laura", gameControllerThree.getGame().getCurrentPlayer().getNickname());
+
+        gameControllerThree.playAssistantCard("Laura", 0);
+
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
+        assertEquals("Sara", gameControllerThree.getGame().getCurrentPlayer().getNickname());
+
+        gameControllerThree.reconnectPlayer("Viola");
+        gameControllerThree.playAssistantCard("Sara", 1);
+
+        assertEquals(TurnPhase.PLAY_ASSISTANT_CARD, gameControllerThree.getGame().getTurnPhase());
+        assertEquals("Viola", gameControllerThree.getGame().getCurrentPlayer().getNickname());
     }
 
 }

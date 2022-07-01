@@ -98,7 +98,7 @@ public class GUI extends View {
      * Handles the successful reconnection of the player
      */
     @Override
-    public void correctReconnection(HashMap<String, Wizard> players){
+    public void correctReconnection(HashMap<String, Wizard> players) {
         super.correctReconnection(players);
     }
 
@@ -337,11 +337,10 @@ public class GUI extends View {
      *
      * @param playerName the nickname of the player reconnected
      */
-    public void handlePlayerReconnect(String playerName){
-        if(!playerName.equals(getPlayerName())){
+    public void handlePlayerReconnect(String playerName) {
+        if (!playerName.equals(getPlayerName())) {
             getRenderer().showLobbyMessage("Player " + playerName + " reconnected");
-        }
-        else{
+        } else {
             showPlayerBoard();
             getRenderer().showLobbyMessage("Successfully reconnected");
         }

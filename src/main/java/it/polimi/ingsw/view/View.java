@@ -226,7 +226,7 @@ public abstract class View {
     /**
      * Handles the correct reconnection of a player
      *
-     * @param players    a hash map that associates each nickname with the wizard chosen by the player
+     * @param players a hash map that associates each nickname with the wizard chosen by the player
      */
     public void correctReconnection(HashMap<String, Wizard> players) {
         getModel().setReconnected(true);
@@ -243,7 +243,7 @@ public abstract class View {
      *
      * @param playerName the nickname of the player reconnected
      */
-    public void handlePlayerReconnect(String playerName){
+    public void handlePlayerReconnect(String playerName) {
 
     }
 

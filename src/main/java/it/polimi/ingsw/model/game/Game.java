@@ -244,6 +244,12 @@ public abstract class Game extends Observable<IServerPacket> {
         if (getNumberOfConnectedPlayers() == 1) {
             connectedPlayers.add(player);
             disconnectedPlayers.remove(player);
+        } else{
+            if(gamePhase == GamePhase.PLAY_ASSISTANT_CARD && ! player.hasPlayedAssistantCard()){
+                connectedPlayers.add(player);
+                disconnectedPlayers.remove(player);
+                player.setHasAlreadyPlayed(false);
+            }
         }
     }
 
@@ -283,7 +289,14 @@ public abstract class Game extends Observable<IServerPacket> {
      * @return the next player clockwise
      */
     public Player nextPlayerClockwise() {
-        return connectedPlayers.get((connectedPlayers.indexOf(currentPlayer) + 1) % connectedPlayers.size());
+        int i = 1;
+        Player player = players.get((players.indexOf(currentPlayer) + i) % players.size());
+        while(! connectedPlayers.contains(player)){
+            i++;
+            player = players.get((players.indexOf(currentPlayer) + i) % players.size());
+        }
+
+        return player;
     }
 
 

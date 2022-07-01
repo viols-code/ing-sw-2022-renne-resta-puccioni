@@ -1,6 +1,5 @@
 package it.polimi.ingsw.view;
 
-import it.polimi.ingsw.model.AssistantCard;
 import it.polimi.ingsw.model.Colour;
 import it.polimi.ingsw.model.game.GamePhase;
 import it.polimi.ingsw.model.game.TurnPhase;
@@ -360,14 +359,14 @@ public abstract class ModelUpdateHandler {
      * @param student2 students on card 2
      */
     public void updateCardStudents(HashMap<Colour, Integer> student0, HashMap<Colour, Integer> student1, HashMap<Colour, Integer> student2) {
-        if(getView().getModel().getReconnected()){
-            if(!student0.isEmpty()){
+        if (getView().getModel().getReconnected()) {
+            if (!student0.isEmpty()) {
                 getView().getModel().getCharacterCardByIndex(0).setStudents(student0);
             }
-            if(!student1.isEmpty()){
+            if (!student1.isEmpty()) {
                 getView().getModel().getCharacterCardByIndex(1).setStudents(student1);
             }
-            if(!student2.isEmpty()){
+            if (!student2.isEmpty()) {
                 getView().getModel().getCharacterCardByIndex(2).setStudents(student2);
             }
         }
@@ -376,8 +375,8 @@ public abstract class ModelUpdateHandler {
     /**
      * Update the number of islands
      */
-    public void updateIslands(int groupIslands, boolean expert){
-        if(getView().getModel().getReconnected()){
+    public void updateIslands(int groupIslands, boolean expert) {
+        if (getView().getModel().getReconnected()) {
             getView().getModel().getTable().setGroupIslands(groupIslands, expert);
         }
     }
@@ -387,12 +386,12 @@ public abstract class ModelUpdateHandler {
      *
      * @param influentPlayers a list containing the influent players for every groupIsland
      */
-    public void updateInfluentPlayers(List<String> influentPlayers){
-        if(getView().getModel().getReconnected()){
-            for(int i = 0; i < getView().getModel().getTable().getNumberOfGroupIslands(); i++){
-                if(influentPlayers.get(i).equals("")){
+    public void updateInfluentPlayers(List<String> influentPlayers) {
+        if (getView().getModel().getReconnected()) {
+            for (int i = 0; i < getView().getModel().getTable().getNumberOfGroupIslands(); i++) {
+                if (influentPlayers.get(i).equals("")) {
                     getView().getModel().getTable().getGroupIslandByIndex(i).setInfluentPlayer(null);
-                }else{
+                } else {
                     getView().getModel().getTable().getGroupIslandByIndex(i).setInfluentPlayer(influentPlayers.get(i));
                 }
             }
@@ -404,9 +403,9 @@ public abstract class ModelUpdateHandler {
      *
      * @param noEntryTiles a list containing the noEntryTiles for every groupIsland
      */
-    public void updateNoEntryTiles(List<Integer> noEntryTiles){
-        if(getView().getModel().getReconnected()){
-            for(int i = 0; i < getView().getModel().getTable().getNumberOfGroupIslands(); i++){
+    public void updateNoEntryTiles(List<Integer> noEntryTiles) {
+        if (getView().getModel().getReconnected()) {
+            for (int i = 0; i < getView().getModel().getTable().getNumberOfGroupIslands(); i++) {
                 getView().getModel().getTable().getGroupIslandByIndex(i).setNoEntryTile(noEntryTiles.get(i));
             }
         }
@@ -417,10 +416,10 @@ public abstract class ModelUpdateHandler {
      *
      * @param singleIslands a list containing the singleIslands for every groupIsland
      */
-    public void updateSingleIslands(List<Integer> singleIslands){
-        if(getView().getModel().getReconnected()){
-            for(int i = 0; i < getView().getModel().getTable().getNumberOfGroupIslands(); i++){
-                for(int j = 1; j < singleIslands.get(i); j++){
+    public void updateSingleIslands(List<Integer> singleIslands) {
+        if (getView().getModel().getReconnected()) {
+            for (int i = 0; i < getView().getModel().getTable().getNumberOfGroupIslands(); i++) {
+                for (int j = 1; j < singleIslands.get(i); j++) {
                     getView().getModel().getTable().getGroupIslandByIndex(i).addMockSingleIsland(new MockSingleIsland());
                 }
             }
@@ -432,14 +431,14 @@ public abstract class ModelUpdateHandler {
      *
      * @param students a hashMap containing the students for every singleIslands
      */
-    public void updateStudents(HashMap<Integer, HashMap<Colour, Integer>> students){
-        if(getView().getModel().getReconnected()){
+    public void updateStudents(HashMap<Integer, HashMap<Colour, Integer>> students) {
+        if (getView().getModel().getReconnected()) {
             int count = 0;
 
-            for(int i = 0; i < getView().getModel().getTable().getNumberOfGroupIslands(); i++){
-                for(int j = 0; j < getView().getModel().getTable().getGroupIslandByIndex(i).getNumberOfSingleIslands(); j++){
-                    for(Colour colour: Colour.values()){
-                        for(int k = 0; k < students.get(count).get(colour); k++){
+            for (int i = 0; i < getView().getModel().getTable().getNumberOfGroupIslands(); i++) {
+                for (int j = 0; j < getView().getModel().getTable().getGroupIslandByIndex(i).getNumberOfSingleIslands(); j++) {
+                    for (Colour colour : Colour.values()) {
+                        for (int k = 0; k < students.get(count).get(colour); k++) {
                             getView().getModel().getTable().getGroupIslandByIndex(i).getSingleIslandByIndex(j).setStudent(colour);
                         }
                     }
@@ -455,8 +454,8 @@ public abstract class ModelUpdateHandler {
      *
      * @param studentsOnCloudTiles a hashMap containing the students for every cloudTile
      */
-    public void updateStudentsOnShownCloudTiles(HashMap<Integer, HashMap<Colour, Integer>> studentsOnCloudTiles){
-        for(int i = 0; i < studentsOnCloudTiles.size(); i++){
+    public void updateStudentsOnShownCloudTiles(HashMap<Integer, HashMap<Colour, Integer>> studentsOnCloudTiles) {
+        for (int i = 0; i < studentsOnCloudTiles.size(); i++) {
             getView().getModel().getTable().addShownCLoudTile();
             getView().getModel().getTable().getShownCloudTiles().get(i).setCloudTile(studentsOnCloudTiles.get(i));
         }
@@ -481,9 +480,9 @@ public abstract class ModelUpdateHandler {
      *
      * @param professors the available professors
      */
-    public void updateProfessorsReconnection(HashMap<Colour, Boolean> professors){
-        for(Colour colour : Colour.values()){
-            if(!professors.get(colour)){
+    public void updateProfessorsReconnection(HashMap<Colour, Boolean> professors) {
+        for (Colour colour : Colour.values()) {
+            if (!professors.get(colour)) {
                 getView().getModel().getTable().removeProfessorFromTable(colour);
             }
         }
@@ -508,7 +507,7 @@ public abstract class ModelUpdateHandler {
      *
      * @param motherNaturePosition the position of mother nature
      */
-    public void updateMotherNature(int motherNaturePosition){
+    public void updateMotherNature(int motherNaturePosition) {
         getView().getModel().getTable().setMotherNaturePosition(motherNaturePosition);
     }
 
@@ -517,7 +516,7 @@ public abstract class ModelUpdateHandler {
      *
      * @param currentPlayer the current player
      */
-    public void updateCurrentPlayerReconnection(String currentPlayer){
+    public void updateCurrentPlayerReconnection(String currentPlayer) {
         getView().getModel().setCurrentPlayer(getView().getModel().getPlayerByNickname(currentPlayer));
     }
 
@@ -526,9 +525,9 @@ public abstract class ModelUpdateHandler {
      *
      * @param noEntryTile
      */
-    public void noEntryTile(int noEntryTile){
-        for(int i = 0; i < 3; i++){
-            if(getView().getModel().getCharacterCardByIndex(i).getType() == CharacterCardEnumeration.PROTECT_ISLAND){
+    public void noEntryTile(int noEntryTile) {
+        for (int i = 0; i < 3; i++) {
+            if (getView().getModel().getCharacterCardByIndex(i).getType() == CharacterCardEnumeration.PROTECT_ISLAND) {
                 getView().getModel().getCharacterCardByIndex(i).setNumberOfNoEntryTile(noEntryTile);
             }
         }
@@ -539,10 +538,10 @@ public abstract class ModelUpdateHandler {
      *
      * @param currentAssistantCard the value of the current assistant card
      */
-    public void updateCurrentAssistantCardReconnected(String playerName, int currentAssistantCard){
-        if(currentAssistantCard == -1){
+    public void updateCurrentAssistantCardReconnected(String playerName, int currentAssistantCard) {
+        if (currentAssistantCard == -1) {
             getView().getModel().getPlayerByNickname(playerName).setAssistantCardValue(false);
-        } else{
+        } else {
             getView().getModel().getPlayerByNickname(playerName).setCurrentAssistantCard(currentAssistantCard);
             getView().getModel().getPlayerByNickname(playerName).setAssistantCardValue(true);
         }
@@ -553,9 +552,9 @@ public abstract class ModelUpdateHandler {
      *
      * @param assistantCards the assistant cards available
      */
-    public void updateListOfAssistantCards(List<Integer> assistantCards){
+    public void updateListOfAssistantCards(List<Integer> assistantCards) {
 
-        for(int i = 0; i< assistantCards.size(); i++){
+        for (int i = 0; i < assistantCards.size(); i++) {
             getView().getModel().getLocalPlayer().removeAssistantCard(assistantCards.get(i));
         }
     }

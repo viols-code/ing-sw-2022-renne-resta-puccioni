@@ -7,7 +7,7 @@ import java.io.Serial;
 /**
  * ServerMessage that notify the client that a player reconnected
  */
-public class PlayerReconnectedMessage extends ServerMessage{
+public class PlayerReconnectedMessage extends ServerMessage {
     /**
      * The serial version UID
      */
@@ -33,7 +33,7 @@ public class PlayerReconnectedMessage extends ServerMessage{
      *
      * @param view the view that has to process the command
      */
-    public void process(View view){
+    public void process(View view) {
         view.handlePlayerReconnect(playerName);
     }
 }

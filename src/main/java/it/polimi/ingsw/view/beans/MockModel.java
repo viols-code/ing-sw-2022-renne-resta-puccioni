@@ -574,7 +574,7 @@ public class MockModel {
      *
      * @param reconnected true if the player is reconnected, false otherwise
      */
-    public void setReconnected(boolean reconnected){
+    public void setReconnected(boolean reconnected) {
         this.reconnected = reconnected;
     }
 
@@ -583,7 +583,7 @@ public class MockModel {
      *
      * @return true if the player is reconnected, false otherwise
      */
-    public boolean getReconnected(){
+    public boolean getReconnected() {
         return reconnected;
     }
 }

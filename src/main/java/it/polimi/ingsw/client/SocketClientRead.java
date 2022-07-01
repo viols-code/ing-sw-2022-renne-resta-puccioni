@@ -70,8 +70,10 @@ public class SocketClientRead extends Thread {
                     }
                 }
             }
-        } catch (SocketException | EOFException ignored) {
+        } catch (SocketException ignored) {
 
+        } catch (EOFException e) {
+            client.terminate();
         } catch (Exception e) {
             e.printStackTrace();
             client.terminate();
@@ -95,7 +97,7 @@ public class SocketClientRead extends Thread {
                 }
                 if (!hasResponded.get()) {
                     System.out.println("You have disconnected from the server");
-                    if(client.isActive()){
+                    if (client.isActive()) {
                         client.terminate();
                     }
                     break;

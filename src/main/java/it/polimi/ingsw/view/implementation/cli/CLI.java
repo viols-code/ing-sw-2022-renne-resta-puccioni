@@ -65,12 +65,11 @@ public class CLI extends View {
      *
      * @param playerName the nickname of the player reconnected
      */
-    public void handlePlayerReconnect(String playerName){
+    public void handlePlayerReconnect(String playerName) {
         getRenderer().printSituation();
-        if(!playerName.equals(getPlayerName())){
+        if (!playerName.equals(getPlayerName())) {
             getRenderer().showLobbyMessage("Player " + playerName + " reconnected");
-        }
-        else{
+        } else {
             getRenderer().showLobbyMessage("Successfully reconnected");
         }
     }

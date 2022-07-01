@@ -6,7 +6,7 @@ import it.polimi.ingsw.view.View;
 import java.io.Serial;
 import java.util.List;
 
-public class assistantCardsUpdate extends DirectReconnectionMessage{
+public class assistantCardsUpdate extends DirectReconnectionMessage {
 
     /**
      * The serial version UID
@@ -20,7 +20,7 @@ public class assistantCardsUpdate extends DirectReconnectionMessage{
      */
     private final List<Integer> assistantCardsUsed;
 
-    public assistantCardsUpdate(SocketClientConnection recipient, List<Integer> assistantCardsUsed){
+    public assistantCardsUpdate(SocketClientConnection recipient, List<Integer> assistantCardsUsed) {
         super(recipient);
         this.assistantCardsUsed = assistantCardsUsed;
     }

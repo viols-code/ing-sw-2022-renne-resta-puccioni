@@ -44,7 +44,7 @@ public class CLIModelUpdateHandler extends ModelUpdateHandler {
     @Override
     public void updateTurnPhase(TurnPhase turnPhase) {
         super.updateTurnPhase(turnPhase);
-        if(!getView().getModel().getReconnected()){
+        if (!getView().getModel().getReconnected()) {
             getView().getRenderer().printSituation();
         }
 

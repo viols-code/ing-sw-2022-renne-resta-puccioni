@@ -5,7 +5,7 @@ import it.polimi.ingsw.view.View;
 
 import java.io.Serial;
 
-public class CurrentPlayerReconnectUpdate extends DirectReconnectionMessage{
+public class CurrentPlayerReconnectUpdate extends DirectReconnectionMessage {
     /**
      * The serial version UID
      */

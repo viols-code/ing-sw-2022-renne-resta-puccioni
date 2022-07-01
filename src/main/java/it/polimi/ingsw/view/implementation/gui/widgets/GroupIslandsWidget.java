@@ -282,7 +282,7 @@ public class GroupIslandsWidget extends StackPane {
         GUI.instance().getModel().getTable().getGroupIslands().forEach(groupIsland -> {
             groupIsland.getInfluentPlayerProperty().addListener((change, oldVal, newVal) -> Platform.runLater(() -> {
                 int index = GUI.instance().getModel().getTable().getIndexOfGroupIsland(groupIsland);
-                if(index >= 0){
+                if (index >= 0) {
                     singleIslandPanes.get(index).forEach(pane -> {
                         if (newVal != null) {
                             Circle tower = (Circle) pane.getChildren().get(3);

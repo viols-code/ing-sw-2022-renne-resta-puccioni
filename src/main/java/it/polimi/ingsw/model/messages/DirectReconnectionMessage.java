@@ -1,11 +1,9 @@
 package it.polimi.ingsw.model.messages;
 
-import it.polimi.ingsw.server.IServerPacket;
 import it.polimi.ingsw.server.SocketClientConnection;
 import it.polimi.ingsw.server.messages.DirectServerMessage;
 
 import java.io.Serial;
-import java.io.Serializable;
 
 public abstract class DirectReconnectionMessage extends DirectServerMessage {
     /**
