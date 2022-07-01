@@ -25,6 +25,10 @@ Software Engineering Project A.A. 2021/2022
 [![GREEN](https://via.placeholder.com//15/44bb44/44bb44)](#)
 -->
 
+## Tests coverage
+
+<img src="https://github.com/viols-code/ing-sw-2022-renne-resta-puccioni/blob/thirdmodified/deliverables/Coverage/Controller.png"/>
+
 ## Starting the server
 
 First you need to create a server instance with:  
