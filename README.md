@@ -19,15 +19,6 @@ Software Engineering Project A.A. 2021/2022
 | Character Cards | 🟩 |
 | Multiple games | 🟩|
 | Third | 🟥|
-<!--
-[![RED](https://via.placeholder.com//15/f03c15/f03c15)](#)
-[![YELLOW](https://via.placeholder.com//15/ffdd00/ffdd00)](#)
-[![GREEN](https://via.placeholder.com//15/44bb44/44bb44)](#)
--->
-
-## Tests coverage
-<img src="https://github.com/viols-code/ing-sw-2022-renne-resta-puccioni/blob/thirdmodified/deliverables/Coverage/Controller.png"/>
-<img src="https://github.com/viols-code/ing-sw-2022-renne-resta-puccioni/blob/thirdmodified/deliverables/Coverage/Model.png"/>
 
 ## Starting the server
 
@@ -41,6 +32,11 @@ If you want to run a new GUI client you can run:
 `java -jar softeng-GC16.jar`  
 Otherwise, if you want to run a new CLI client you can use:  
 `java -jar softeng-GC16.jar -cli`
+
+
+## Tests coverage
+<img src="https://github.com/viols-code/ing-sw-2022-renne-resta-puccioni/blob/thirdmodified/deliverables/Coverage/Controller.png"/>
+<img src="https://github.com/viols-code/ing-sw-2022-renne-resta-puccioni/blob/thirdmodified/deliverables/Coverage/Model.png"/>
 
 ## Team Members
 * [Viola Renne](https://github.com/viols-code)
