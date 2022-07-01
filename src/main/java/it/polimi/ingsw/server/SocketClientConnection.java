@@ -191,7 +191,7 @@ public class SocketClientConnection implements Runnable {
     /**
      * Sends a message to the client
      *
-     * @param message the message to be sent, should be a
+     * @param message the message to be sent
      */
     public synchronized void send(Object message) {
         try {
