@@ -6,6 +6,8 @@ Software Engineering Project A.A. 2021/2022
 
 **Group**: GC16
 
+Grade: 30L/30
+
 ## Project Status
 
 | Functionality | State |
