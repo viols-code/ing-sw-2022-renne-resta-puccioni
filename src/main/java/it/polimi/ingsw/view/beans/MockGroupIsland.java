@@ -14,22 +14,18 @@ public class MockGroupIsland {
      * A list containing the single islands of the group island
      */
     private final ObservableList<MockSingleIsland> islands;
-
     /**
      * A boolean that states if the group island is basic or advanced
      */
     private boolean isBasic;
-
     /**
      * An integer that indicates the number of no entry tiles on this group island
      */
     private IntegerProperty noEntryTile;
-
     /**
      * A boolean that states if mother nature is on this island
      */
     private final BooleanProperty motherNature;
-
     /**
      * The Player influence
      */

@@ -490,19 +490,6 @@ public abstract class ModelUpdateHandler {
     }
 
     /**
-     * Updates a specific cloud tile when it is filled
-     *
-     * @param cloudTile the index of the cloud tile selected
-     * @param students  the hash map containing the students on the cloud tile
-     */
-    public void updateCloudTileAddedReconnection(int cloudTile, HashMap<Colour, Integer> students) {
-        getView().getModel().getTable().getCloudTileByIndex(cloudTile).setCloudTile(students);
-        getView().getModel().getTable().addShownCLoudTile();
-        getView().getModel().getTable().setShownCloudTile(cloudTile, students);
-        getView().getModel().getTable().getShownCloudTiles().forEach(cloudTile1 -> System.out.println(cloudTile1.getMockCloudTile()));
-    }
-
-    /**
      * Updates the position of mother nature in the MockModel when a player reconnects
      *
      * @param motherNaturePosition the position of mother nature
@@ -553,8 +540,8 @@ public abstract class ModelUpdateHandler {
      * @param assistantCards the assistant cards available
      */
     public void updateListOfAssistantCards(List<Integer> assistantCards) {
-        for (int i = 0; i < assistantCards.size(); i++) {
-            getView().getModel().getLocalPlayer().removeAssistantCard(assistantCards.get(i));
+        for (Integer assistantCard : assistantCards) {
+            getView().getModel().getLocalPlayer().removeAssistantCard(assistantCard);
         }
     }
 }

@@ -57,7 +57,6 @@ public class Lobby extends Observable<IServerPacket> {
         return connections;
     }
 
-
     /**
      * Adds the given connection to this lobby
      *
@@ -115,7 +114,6 @@ public class Lobby extends Observable<IServerPacket> {
         }
 
         nicknames.remove(playerName);
-
     }
 
     /**
