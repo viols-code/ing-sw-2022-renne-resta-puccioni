@@ -10,16 +10,16 @@ Grade: 30L/30
 
 ## Project Status
 
-| Functionality | State |
-|:-----------------------|:------------------------------------:|
-| Basic rules | 🟩 |
-| Complete rules | 🟩 |
-| CLI | 🟩 |
-| GUI | 🟩 |
-| Socket | 🟩 |
-| Character Cards | 🟩 |
-| Multiple games | 🟩|
-| Disconnections | 🟩|
+| Functionality   | State |
+|:----------------|:-----:|
+| Basic rules     |  🟩   |
+| Complete rules  |  🟩   |
+| CLI             |  🟩   |
+| GUI             |  🟩   |
+| Socket          |  🟩   |
+| Character Cards |  🟩   |
+| Multiple games  |  🟩   |
+| Disconnections  |  🟩   |
 
 ## Starting the server
 
@@ -35,9 +35,9 @@ If you want to run a new GUI client you can run:
 Otherwise, if you want to run a new CLI client you can use:  
 `java -jar softeng-GC16.jar cli`
 
-## CLI configuration on windows
+## CLI configuration on Windows
 
-* Download Winsows terminal (it supports all necessary unicode
+* Download Windows terminal (it supports all necessary unicode
   characters) https://docs.microsoft.com/en-us/windows/terminal/install
 * From WINDOWS 10/11, go to SETTINGS -> Date/Time and language administration -> Administration options -> Change system
   locale. Add the check to "use UTF-8 unicode for high language support"
@@ -53,8 +53,8 @@ Choose the cloud tile:
 
 ## Tests coverage
 
-<img src="https://github.com/viols-code/ing-sw-2022-renne-resta-puccioni/blob/master/deliverables/Coverage/Controller.png"/>
-<img src="https://github.com/viols-code/ing-sw-2022-renne-resta-puccioni/blob/master/deliverables/Coverage/Model.png"/>
+<img src="https://github.com/viols-code/ing-sw-2022-renne-resta-puccioni/blob/master/deliverables/Coverage/Controller.png" alt=""/>
+<img src="https://github.com/viols-code/ing-sw-2022-renne-resta-puccioni/blob/master/deliverables/Coverage/Model.png" alt=""/>
 
 ## Team Members
 
