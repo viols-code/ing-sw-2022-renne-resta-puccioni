@@ -38,6 +38,15 @@ Otherwise, if you want to run a new CLI client you can use:
 * Download Winsows terminal (it supports all necessary unicode characters) https://docs.microsoft.com/en-us/windows/terminal/install
 * From WINDOWS 10/11, go to SETTINGS -> Date/Time and language administration -> Administration options -> Change system locale. Add the check to "use UTF-8 unicode for high language support"
 
+## CLI:  
+Select the assistant card:
+<img src="https://github.com/viols-code/ing-sw-2022-renne-resta-puccioni/blob/master/deliverables/CLI/Select.png"/>
+Move the students from the dining room:
+<img src="https://github.com/viols-code/ing-sw-2022-renne-resta-puccioni/blob/master/deliverables/CLI/Move.png"/>
+Choose the cloud tile:
+<img src="https://github.com/viols-code/ing-sw-2022-renne-resta-puccioni/blob/master/deliverables/CLI/Choose.png"/>
+
+
 
 ## Tests coverage
 <img src="https://github.com/viols-code/ing-sw-2022-renne-resta-puccioni/blob/master/deliverables/Coverage/Controller.png"/>
