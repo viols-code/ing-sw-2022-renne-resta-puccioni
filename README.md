@@ -59,5 +59,4 @@ Choose the cloud tile:
 **Draw.io** - UML diagrams
 **Intellij IDEA Ultimate** - main IDE
 
-Programming Language
 ![Java](https://img.shields.io/badge/Java-purple?logo=OpenJDK&logoColor=white&style=for-the-badge)
