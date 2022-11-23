@@ -1,4 +1,5 @@
 # Eriantys
+![Java](https://img.shields.io/badge/Java-purple?logo=OpenJDK&logoColor=white&style=for-the-badge)
 
 Software Engineering Project A.A. 2021/2022  
 **Professor:** Gianpaolo Cugola  
@@ -58,5 +59,3 @@ Choose the cloud tile:
 ## Software used
 **Draw.io** - UML diagrams
 **Intellij IDEA Ultimate** - main IDE
-
-![Java](https://img.shields.io/badge/Java-purple?logo=OpenJDK&logoColor=white&style=for-the-badge)
