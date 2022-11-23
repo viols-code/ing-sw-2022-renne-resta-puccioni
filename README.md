@@ -38,11 +38,11 @@ Otherwise, if you want to run a new CLI client you can use:
 
 ## CLI examples:
 Select the assistant card:  
-<img src="https://github.com/viols-code/ing-sw-2022-renne-resta-puccioni/blob/master/deliverables/CLI/Select.png" width="600"/>
+<img src="https://github.com/viols-code/ing-sw-2022-renne-resta-puccioni/blob/master/deliverables/CLI/Select.png" width="600"/>  
 Move the students from the dining room:  
-<img src="https://github.com/viols-code/ing-sw-2022-renne-resta-puccioni/blob/master/deliverables/CLI/Move.png" width="600"/>
+<img src="https://github.com/viols-code/ing-sw-2022-renne-resta-puccioni/blob/master/deliverables/CLI/Move.png" width="600"/>  
 Choose the cloud tile:  
-<img src="https://github.com/viols-code/ing-sw-2022-renne-resta-puccioni/blob/master/deliverables/CLI/Choose.png" width="600"/>
+<img src="https://github.com/viols-code/ing-sw-2022-renne-resta-puccioni/blob/master/deliverables/CLI/Choose.png" width="600"/>  
 
 ## Tests coverage
 <img src="https://github.com/viols-code/ing-sw-2022-renne-resta-puccioni/blob/master/deliverables/Coverage/Controller.png" alt=""/>
