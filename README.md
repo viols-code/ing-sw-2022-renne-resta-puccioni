@@ -5,6 +5,11 @@ Software Engineering Project A.A. 2021/2022
 **Group**: GC16  
 Grade: 30L/30  
 
+## Team Members
+* [Viola Renne](https://github.com/viols-code)
+* [Sara Resta](https://github.com/sararesta)
+* [Laura Puccioni](https://github.com/LaP19)
+
 ## Project Status
 
 | Functionality   | State |
@@ -45,13 +50,8 @@ Choose the cloud tile:
 <img src="https://github.com/viols-code/ing-sw-2022-renne-resta-puccioni/blob/master/deliverables/CLI/Choose.png" width="600"/>  
 
 ## Tests coverage
-<img src="https://github.com/viols-code/ing-sw-2022-renne-resta-puccioni/blob/master/deliverables/Coverage/Controller.png" alt=""/>
-<img src="https://github.com/viols-code/ing-sw-2022-renne-resta-puccioni/blob/master/deliverables/Coverage/Model.png" alt=""/>
-
-## Team Members
-* [Viola Renne](https://github.com/viols-code)
-* [Sara Resta](https://github.com/sararesta)
-* [Laura Puccioni](https://github.com/LaP19)
+<img src="https://github.com/viols-code/ing-sw-2022-renne-resta-puccioni/blob/master/deliverables/Coverage/Controller.png" alt="" width="600"/>
+<img src="https://github.com/viols-code/ing-sw-2022-renne-resta-puccioni/blob/master/deliverables/Coverage/Model.png" alt="" width="600"/>
 
 ## Software used
 **Draw.io** - UML diagrams
