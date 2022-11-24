@@ -57,5 +57,5 @@ Choose the cloud tile:
 <img src="https://github.com/viols-code/ing-sw-2022-renne-resta-puccioni/blob/master/deliverables/Coverage/Model.png" alt="" width="600"/>
 
 ## Software used
-**Draw.io** - UML diagrams
+**Draw.io** - UML diagrams  
 **Intellij IDEA Ultimate** - main IDE
